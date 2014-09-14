@@ -81,10 +81,16 @@ public class CommentResourceTest {
     public void testCRUDComment() throws Exception {
 
         // Create Comment
-        restCommentMockMvc.perform(put("/app/rest/comments")
+        restCommentMockMvc.perform(post("/app/rest/comments")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(comment)))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
+
+        // Try create a empty Comment
+        restCommentMockMvc.perform(post("/app/rest/comments")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(new CommentDTO())))
+                .andExpect(status().isBadRequest());
 
         // Read Comment
         restCommentMockMvc.perform(get("/app/rest/comments/{id}", DEFAULT_ID))
@@ -100,7 +106,7 @@ public class CommentResourceTest {
         comment.setTitle(UPD_SAMPLE_TITLE_ATTR);
         comment.setText(UPD_SAMPLE_TEXT_ATTR);
 //
-        restCommentMockMvc.perform(post("/app/rest/comments/{id}", DEFAULT_ID)
+        restCommentMockMvc.perform(put("/app/rest/comments/{id}", DEFAULT_ID)
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(comment)))
                 .andExpect(status().isOk());

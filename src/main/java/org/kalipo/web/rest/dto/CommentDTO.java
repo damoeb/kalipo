@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.fasterxml.jackson.datatype.joda.deser.LocalDateDeserializer;
+import com.wordnik.swagger.annotations.ApiModel;
+import com.wordnik.swagger.annotations.ApiModelProperty;
+import com.wordnik.swagger.annotations.ApiParam;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.kalipo.domain.Comment;
@@ -21,13 +24,13 @@ import java.util.Optional;
 /**
  * A CommentDTO.
  */
-
+@ApiModel(value = "A Comment")
 public class CommentDTO implements Serializable {
 
-    @NotNull
     private String id;
 
     @NotNull
+    @ApiModelProperty(required = true)
     private Long threadId;
 
     private Long parentId;
@@ -41,9 +44,11 @@ public class CommentDTO implements Serializable {
     private DateTime createdDate;
 
     @Size(min = 1, max = Comment.LEN_TEXT)
+    @ApiModelProperty(required = true)
     private String text;
 
     @Size(min = 1, max = Comment.LEN_TITLE)
+    @ApiModelProperty(required = true)
     private String title;
 
     private String authorId;
