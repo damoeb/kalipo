@@ -16,50 +16,51 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
- * A Comment.
+ * A Thread.
  */
 
-@Document(collection = "T_COMMENT")
-public class Comment implements Serializable {
-
-    public static final int LEN_TITLE = 256;
-    public static final int LEN_TEXT = 2048;
+@Document(collection = "T_THREAD")
+public class Thread implements Serializable {
 
     @Id
     private String id;
 
-    @NotNull
-    private Long threadId;
+    @Size(min = 1, max = 512)
+    private String uri;
 
-    private Long parentId;
-
-    private Integer level;
-
-    @NotNull
-    private Integer reputation = 0;
+    @Size(min = 0, max = 128)
+    private String title;
 
 //    @NotNull
     @Field("created_date")
     private DateTime createdDate = DateTime.now();
 
-    @NotNull
-    @Size(min = 1, max = LEN_TEXT)
-    private String text;
+    @Field("last_modified_date")
+    private DateTime lastModifiedDate = DateTime.now();
+
+    @Field("comment_count")
+    private Integer commentCount = 0;
 
     @NotNull
-    @Size(min = 1, max = LEN_TITLE)
-    private String title;
-
-    @NotNull
+    @Field("author_id")
     private String authorId;
 
+    /**
+     * Sum of all comment likes plus thread likes
+     */
     private Integer likes = 0;
 
+    /**
+     * Sum of all comment dislikes plus thread dislikes
+     */
     private Integer dislikes = 0;
 
-    private Boolean deleted;
+    /**
+     * Disable comments
+     */
+    @Field("read_only")
+    private Boolean readOnly = false; // todo implement readonly
 
-    @NotNull
     private Status status;
 
     public String getId() {
@@ -70,36 +71,20 @@ public class Comment implements Serializable {
         this.id = id;
     }
 
-    public Long getThreadId() {
-        return threadId;
+    public String getUri() {
+        return uri;
     }
 
-    public void setThreadId(Long threadId) {
-        this.threadId = threadId;
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
-    public Long getParentId() {
-        return parentId;
+    public String getTitle() {
+        return title;
     }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-    public Integer getReputation() {
-        return reputation;
-    }
-
-    public void setReputation(Integer reputation) {
-        this.reputation = reputation;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public DateTime getCreatedDate() {
@@ -110,20 +95,20 @@ public class Comment implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public String getText() {
-        return text;
+    public DateTime getLastModifiedDate() {
+        return lastModifiedDate;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setLastModifiedDate(DateTime lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
-    public String getTitle() {
-        return title;
+    public Integer getCommentCount() {
+        return commentCount;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
     }
 
     public String getAuthorId() {
@@ -150,12 +135,12 @@ public class Comment implements Serializable {
         this.dislikes = dislikes;
     }
 
-    public Boolean getDeleted() {
-        return deleted;
+    public Boolean getReadOnly() {
+        return readOnly;
     }
 
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
+    public void setReadOnly(Boolean readOnly) {
+        this.readOnly = readOnly;
     }
 
     public Status getStatus() {
@@ -170,6 +155,6 @@ public class Comment implements Serializable {
      * Created by damoeb on 7/28/14.
      */
     public static enum Status {
-        APPROVED, PENDING, REJECTED, SPAM, DELETED
+        OPEN, CLOSED
     }
 }

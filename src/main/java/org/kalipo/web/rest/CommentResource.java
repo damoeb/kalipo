@@ -28,7 +28,6 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/app")
-@Api(value = "/app", description = "Operations about comments")
 public class CommentResource {
 
     private final Logger log = LoggerFactory.getLogger(CommentResource.class);
@@ -62,6 +61,10 @@ public class CommentResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Update existing comment")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Invalid ID supplied"),
+            @ApiResponse(code = 404, message = "Comment not found")
+    })
     public void update(@PathVariable String id, @Valid @RequestBody CommentDTO commentDTO) throws KalipoRequestException {
         log.debug("REST request to update Comment : {}", commentDTO);
 
