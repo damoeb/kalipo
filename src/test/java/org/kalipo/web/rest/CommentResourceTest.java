@@ -1,8 +1,6 @@
 package org.kalipo.web.rest;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -49,7 +47,9 @@ public class CommentResourceTest {
     
     private static final String DEFAULT_ID = "1";
 
-    private static final LocalDate UPD_SAMPLE_DATE_ATTR = new LocalDate();
+    private static final String UPD_SAMPLE_TITLE_ATTR = "updSampleTitle";
+    private static final String UPD_SAMPLE_TEXT_ATTR = "updSampleText";
+//    private static final LocalDate UPD_SAMPLE_TEXT_ATTR = new LocalDate();
 
     private static final Long DEFAULT_THREAD_ID = 1l;
     private static final String DEFAULT_TEXT = "sampleText";
@@ -81,45 +81,48 @@ public class CommentResourceTest {
     public void testCRUDComment() throws Exception {
 
         // Create Comment
-        restCommentMockMvc.perform(post("/app/rest/comments")
+        restCommentMockMvc.perform(put("/app/rest/comments")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(comment)))
                 .andExpect(status().isOk());
 
         // Read Comment
-//        restCommentMockMvc.perform(get("/app/rest/comments/{id}", DEFAULT_ID))
-//                .andExpect(status().isOk())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$.id").value(DEFAULT_ID))
-//                .andExpect(jsonPath("$.sampleDateAttribute").value(DEFAULT_SAMPLE_DATE_ATTR.toString()))
-//                .andExpect(jsonPath("$.sampleTextAttribute").value(DEFAULT_SAMPLE_TEXT_ATTR));
+        restCommentMockMvc.perform(get("/app/rest/comments/{id}", DEFAULT_ID))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(DEFAULT_ID))
+                .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
+                .andExpect(jsonPath("$.text").value(DEFAULT_TEXT))
+//                .andExpect(jsonPath("$.threadId").value(DEFAULT_THREAD_ID))
+        ;
 //
 //        // Update Comment
-//        comment.setSampleDateAttribute(UPD_SAMPLE_DATE_ATTR);
-//        comment.setSampleTextAttribute(UPD_SAMPLE_TEXT_ATTR);
+        comment.setTitle(UPD_SAMPLE_TITLE_ATTR);
+        comment.setText(UPD_SAMPLE_TEXT_ATTR);
 //
-//        restCommentMockMvc.perform(post("/app/rest/comments")
-//                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-//                .content(TestUtil.convertObjectToJsonBytes(comment)))
-//                .andExpect(status().isOk());
-//
-//        // Read updated Comment
-//        restCommentMockMvc.perform(get("/app/rest/comments/{id}", DEFAULT_ID))
-//                .andExpect(status().isOk())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$.id").value(DEFAULT_ID))
-//                .andExpect(jsonPath("$.sampleDateAttribute").value(UPD_SAMPLE_DATE_ATTR.toString()))
-//                .andExpect(jsonPath("$.sampleTextAttribute").value(UPD_SAMPLE_TEXT_ATTR));
-//
-//        // Delete Comment
-//        restCommentMockMvc.perform(delete("/app/rest/comments/{id}", DEFAULT_ID)
-//                .accept(TestUtil.APPLICATION_JSON_UTF8))
-//                .andExpect(status().isOk());
-//
-//        // Read nonexisting Comment
-//        restCommentMockMvc.perform(get("/app/rest/comments/{id}", DEFAULT_ID)
-//                .accept(TestUtil.APPLICATION_JSON_UTF8))
-//                .andExpect(status().isNotFound());
+        restCommentMockMvc.perform(post("/app/rest/comments/{id}", DEFAULT_ID)
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(comment)))
+                .andExpect(status().isOk());
+
+        // Read updated Comment
+        restCommentMockMvc.perform(get("/app/rest/comments/{id}", DEFAULT_ID))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(DEFAULT_ID))
+                .andExpect(jsonPath("$.title").value(UPD_SAMPLE_TITLE_ATTR))
+                .andExpect(jsonPath("$.text").value(UPD_SAMPLE_TEXT_ATTR))
+        ;
+
+        // Delete Comment
+        restCommentMockMvc.perform(delete("/app/rest/comments/{id}", DEFAULT_ID)
+                .accept(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk());
+
+        // Read nonexisting Comment
+        restCommentMockMvc.perform(get("/app/rest/comments/{id}", DEFAULT_ID)
+                .accept(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(status().isNotFound());
 
     }
 }

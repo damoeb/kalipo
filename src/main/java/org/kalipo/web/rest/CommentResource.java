@@ -33,10 +33,10 @@ public class CommentResource {
     private CommentRepository commentRepository;
 
     /**
-     * POST  /rest/comments -> Create a new comment.
+     * PUT  /rest/comments -> Create a new comment.
      */
     @RequestMapping(value = "/rest/comments",
-            method = RequestMethod.POST,
+            method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public void create(@RequestBody CommentDTO commentDTO) {
@@ -49,15 +49,19 @@ public class CommentResource {
     }
 
     /**
-     * PUT  /rest/comments -> Update existing comment.
+     * POST  /rest/comments -> Update existing comment.
      */
-    @RequestMapping(value = "/rest/comments",
-            method = RequestMethod.PUT,
+    @RequestMapping(value = "/rest/comments/{id}",
+            method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void update(@Valid @RequestBody CommentDTO commentDTO) {
+    public void update(@PathVariable String id, @Valid @RequestBody CommentDTO commentDTO) {
         log.debug("REST request to update Comment : {}", commentDTO);
-        commentRepository.save(CommentDTO.convert(commentDTO));
+        Comment comment = CommentDTO.convert(commentDTO);
+        comment.setId(id);
+        comment.setAuthorId("d");
+        comment.setStatus(Comment.Status.APPROVED);
+        commentRepository.save(comment);
     }
 
     /**
