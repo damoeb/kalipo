@@ -1,15 +1,8 @@
 package org.kalipo.web.rest.dto;
 
 import org.joda.time.DateTime;
-import org.kalipo.domain.*;
-import org.kalipo.domain.Thread;
-import org.springframework.beans.BeanUtils;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -127,18 +120,6 @@ public class ThreadDTO implements Serializable {
 
     public void setStatus(Status status) {
         this.status = status;
-    }
-
-    public static Thread convert(ThreadDTO dto) {
-        if(dto == null) {
-            return null;
-        } else {
-
-            Thread c = new Thread();
-            BeanUtils.copyProperties(dto, c);
-
-            return c;
-        }
     }
 
     /**

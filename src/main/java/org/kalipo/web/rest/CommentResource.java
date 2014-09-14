@@ -1,16 +1,16 @@
 package org.kalipo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.wordnik.swagger.annotations.*;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiResponse;
+import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Comment;
 import org.kalipo.repository.CommentRepository;
-import org.kalipo.security.SecurityUtils;
 import org.kalipo.web.rest.dto.CommentDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-import javax.ws.rs.QueryParam;
-import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +45,9 @@ public class CommentResource {
     public void create(@Valid @RequestBody CommentDTO commentDTO) {
         log.debug("REST request to save Comment : {}", commentDTO);
 
-        Comment comment = CommentDTO.convert(commentDTO);
+        Comment comment = new Comment();
+        BeanUtils.copyProperties(commentDTO, comment);
+
         comment.setAuthorId("d"); // todo SecurityUtils.getCurrentLogin() is null during tests
         comment.setStatus(Comment.Status.APPROVED);
         commentRepository.save(comment);
@@ -72,7 +72,9 @@ public class CommentResource {
             throw new IllegalParameterException();
         }
 
-        Comment comment = CommentDTO.convert(commentDTO);
+        Comment comment = new Comment();
+        BeanUtils.copyProperties(commentDTO, comment);
+
         comment.setId(id);
         comment.setAuthorId("d"); // todo SecurityUtils.getCurrentLogin() is null during tests
         comment.setStatus(Comment.Status.APPROVED);
@@ -112,10 +114,10 @@ public class CommentResource {
         }
 
         return Optional.ofNullable(commentRepository.findOne(id))
-            .map(comment -> new ResponseEntity<>(
-                comment,
-                HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .map(comment -> new ResponseEntity<>(
+                        comment,
+                        HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**

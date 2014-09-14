@@ -2,24 +2,16 @@ package org.kalipo.web.rest.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.fasterxml.jackson.datatype.joda.deser.LocalDateDeserializer;
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-import com.wordnik.swagger.annotations.ApiParam;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.util.CustomLocalDateSerializer;
-import org.springframework.beans.BeanUtils;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Optional;
 
 /**
  * A CommentDTO.
@@ -163,17 +155,5 @@ public class CommentDTO implements Serializable {
 
     public void setStatus(Comment.Status status) {
         this.status = status;
-    }
-
-    public static Comment convert(CommentDTO dto) {
-        if(dto == null) {
-            return null;
-        } else {
-
-            Comment c = new Comment();
-            BeanUtils.copyProperties(dto, c);
-
-            return c;
-        }
     }
 }

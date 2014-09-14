@@ -5,12 +5,12 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
-import org.kalipo.config.Constants;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.ThreadRepository;
 import org.kalipo.web.rest.dto.ThreadDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +45,9 @@ public class ThreadResource {
     public void create(@Valid @RequestBody ThreadDTO threadDTO) {
         log.debug("REST request to save Thread : {}", threadDTO);
 
-        Thread thread = ThreadDTO.convert(threadDTO);
+        Thread thread = new Thread();
+        BeanUtils.copyProperties(threadDTO, thread);
+
         thread.setAuthorId("d"); // todo SecurityUtils.getCurrentLogin() is null during tests
         thread.setStatus(Thread.Status.OPEN);
 
@@ -53,7 +55,7 @@ public class ThreadResource {
     }
 
     /**
-     * PUT  /rest/comments -> Update existing comment.
+     * PUT  /rest/threads -> Update existing thread.
      */
     @RequestMapping(value = "/threads/{id}",
             method = RequestMethod.PUT,
@@ -62,7 +64,7 @@ public class ThreadResource {
     @ApiOperation(value = "Update existing thread")
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
-            @ApiResponse(code = 404, message = "Comment not found")
+            @ApiResponse(code = 404, message = "Thread not found")
     })
     public void update(@PathVariable String id, @Valid @RequestBody ThreadDTO threadDTO) throws KalipoRequestException {
         log.debug("REST request to update Thread : {}", threadDTO);
@@ -71,7 +73,9 @@ public class ThreadResource {
             throw new IllegalParameterException();
         }
 
-        Thread thread = ThreadDTO.convert(threadDTO);
+        Thread thread = new Thread();
+        BeanUtils.copyProperties(threadDTO, thread);
+
         thread.setId(id);
         thread.setAuthorId("d"); // todo SecurityUtils.getCurrentLogin() is null during tests
 //        thread.setStatus(Thread.Status.OPEN);
@@ -98,10 +102,10 @@ public class ThreadResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @ApiOperation(value = "Get the \"id\" comment.")
+    @ApiOperation(value = "Get the \"id\" thread.")
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
-            @ApiResponse(code = 404, message = "Comment not found")
+            @ApiResponse(code = 404, message = "Thread not found")
     })
     public ResponseEntity<Thread> get(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to get Thread : {}", id);
@@ -110,10 +114,10 @@ public class ThreadResource {
         }
 
         return Optional.ofNullable(threadRepository.findOne(id))
-            .map(thread -> new ResponseEntity<>(
-                thread,
-                HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .map(thread -> new ResponseEntity<>(
+                        thread,
+                        HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**
@@ -124,7 +128,7 @@ public class ThreadResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Delete the \"id\" comment")
+    @ApiOperation(value = "Delete the \"id\" thread")
     public void delete(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to delete Thread : {}", id);
         if (StringUtils.isBlank(id)) {
