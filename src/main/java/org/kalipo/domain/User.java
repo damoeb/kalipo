@@ -50,6 +50,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Field("activation_key")
     private String activationKey;
 
+    @Field("reputation")
+    private int reputation;
+
     @JsonIgnore
     private Set<Authority> authorities = new HashSet<>();
 
@@ -127,7 +130,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
     }
-    
+
+    public int getReputation() {
+        return reputation;
+    }
+
+    public void setReputation(int reputation) {
+        this.reputation = reputation;
+    }
 
     @Override
     public boolean equals(Object o) {
