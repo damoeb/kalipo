@@ -6,7 +6,7 @@ import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Thread;
-import org.kalipo.repository.ThreadRepository;
+import org.kalipo.service.ThreadService;
 import org.kalipo.web.rest.dto.ThreadDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +31,7 @@ public class ThreadResource {
     private final Logger log = LoggerFactory.getLogger(ThreadResource.class);
 
     @Inject
-    private ThreadRepository threadRepository;
+    private ThreadService threadService;
 
     /**
      * POST  /rest/threads -> Create a new thread.
@@ -48,10 +48,7 @@ public class ThreadResource {
         Thread thread = new Thread();
         BeanUtils.copyProperties(threadDTO, thread);
 
-        thread.setAuthorId("d"); // todo SecurityUtils.getCurrentLogin() is null during tests
-        thread.setStatus(Thread.Status.OPEN);
-
-        threadRepository.save(thread);
+        threadService.create(thread);
     }
 
     /**
@@ -77,9 +74,7 @@ public class ThreadResource {
         BeanUtils.copyProperties(threadDTO, thread);
 
         thread.setId(id);
-        thread.setAuthorId("d"); // todo SecurityUtils.getCurrentLogin() is null during tests
-//        thread.setStatus(Thread.Status.OPEN);
-        threadRepository.save(thread);
+        threadService.update(thread);
     }
 
     /**
@@ -92,7 +87,7 @@ public class ThreadResource {
     @ApiOperation(value = "Get all the threads")
     public List<Thread> getAll() {
         log.debug("REST request to get all Threads");
-        return threadRepository.findAll();
+        return threadService.getAll();
     }
 
     /**
@@ -113,7 +108,7 @@ public class ThreadResource {
             throw new IllegalParameterException();
         }
 
-        return Optional.ofNullable(threadRepository.findOne(id))
+        return Optional.ofNullable(threadService.get(id))
                 .map(thread -> new ResponseEntity<>(
                         thread,
                         HttpStatus.OK))
@@ -135,6 +130,6 @@ public class ThreadResource {
             throw new IllegalParameterException();
         }
 
-        threadRepository.delete(id);
+        threadService.delete(id);
     }
 }

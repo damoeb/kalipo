@@ -1,15 +1,10 @@
 package org.kalipo.web.rest;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import javax.inject.Inject;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kalipo.Application;
+import org.kalipo.service.ThreadService;
 import org.kalipo.web.rest.dto.ThreadDTO;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -25,8 +20,10 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import org.kalipo.Application;
-import org.kalipo.repository.ThreadRepository;
+import javax.inject.Inject;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 /**
@@ -45,16 +42,12 @@ public class ThreadResourceTest {
     
     private static final String DEFAULT_ID = "1";
 
-//    private static final LocalDate DEFAULT_SAMPLE_DATE_ATTR = new LocalDate(0L);
-//
-//    private static final LocalDate UPD_SAMPLE_DATE_ATTR = new LocalDate();
-
     private static final String DEFAULT_SAMPLE_TITLE_ATTR = "sampleTitleAttribute";
 
     private static final String UPD_SAMPLE_TITLE_ATTR = "sampleTitleAttributeUpt";
 
     @Inject
-    private ThreadRepository threadRepository;
+    private ThreadService threadService;
 
     private MockMvc restThreadMockMvc;
 
@@ -64,13 +57,12 @@ public class ThreadResourceTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         ThreadResource threadResource = new ThreadResource();
-        ReflectionTestUtils.setField(threadResource, "threadRepository", threadRepository);
+        ReflectionTestUtils.setField(threadResource, "threadService", threadService);
 
         this.restThreadMockMvc = MockMvcBuilders.standaloneSetup(threadResource).build();
 
         thread = new ThreadDTO();
         thread.setId(DEFAULT_ID);
-//        thread.setTitle(DEFAULT_SAMPLE_DATE_ATTR);
         thread.setTitle(DEFAULT_SAMPLE_TITLE_ATTR);
     }
 
