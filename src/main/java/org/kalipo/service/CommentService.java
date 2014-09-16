@@ -2,6 +2,7 @@ package org.kalipo.service;
 
 import org.kalipo.domain.Comment;
 import org.kalipo.repository.CommentRepository;
+import org.kalipo.security.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -19,13 +20,13 @@ public class CommentService {
 
     public void create(Comment comment) {
         // todo remove id
-        comment.setAuthorId("d");
+        comment.setAuthorId(SecurityUtils.getCurrentLogin());
         comment.setStatus(Comment.Status.APPROVED);
         commentRepository.save(comment);
     }
 
-    public void save(Comment comment) {
-        comment.setAuthorId("d");
+    public void update(Comment comment) {
+        comment.setAuthorId(SecurityUtils.getCurrentLogin());
         comment.setStatus(Comment.Status.APPROVED);
         commentRepository.save(comment);
     }
@@ -34,7 +35,7 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-    public Comment findOne(String id) {
+    public Comment get(String id) {
         return commentRepository.findOne(id);
     }
 

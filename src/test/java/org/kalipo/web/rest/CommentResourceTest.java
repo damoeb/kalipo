@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
-import org.kalipo.repository.CommentRepository;
+import org.kalipo.service.CommentService;
 import org.kalipo.web.rest.dto.CommentDTO;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -51,7 +51,7 @@ public class CommentResourceTest {
     private static final String DEFAULT_TITLE = "sampleTitle";
 
     @Inject
-    private CommentRepository commentRepository;
+    private CommentService commentService;
 
     private MockMvc restCommentMockMvc;
 
@@ -61,7 +61,7 @@ public class CommentResourceTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         CommentResource commentResource = new CommentResource();
-        ReflectionTestUtils.setField(commentResource, "commentRepository", commentRepository);
+        ReflectionTestUtils.setField(commentResource, "commentService", commentService);
 
         this.restCommentMockMvc = MockMvcBuilders.standaloneSetup(commentResource).build();
 

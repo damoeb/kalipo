@@ -6,8 +6,7 @@ import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Comment;
-import org.kalipo.repository.CommentRepository;
-import org.kalipo.security.SecurityUtils;
+import org.kalipo.service.CommentService;
 import org.kalipo.web.rest.dto.CommentDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +31,7 @@ public class CommentResource {
     private final Logger log = LoggerFactory.getLogger(CommentResource.class);
 
     @Inject
-    private CommentRepository commentRepository;
+    private CommentService commentService;
 
     /**
      * POST  /rest/comments -> Create a new comment.
@@ -49,9 +48,7 @@ public class CommentResource {
         Comment comment = new Comment();
         BeanUtils.copyProperties(commentDTO, comment);
 
-        comment.setAuthorId(SecurityUtils.getCurrentLogin());
-        comment.setStatus(Comment.Status.APPROVED);
-        commentRepository.save(comment);
+        commentService.create(comment);
     }
 
     /**
@@ -77,9 +74,7 @@ public class CommentResource {
         BeanUtils.copyProperties(commentDTO, comment);
 
         comment.setId(id);
-        comment.setAuthorId(SecurityUtils.getCurrentLogin());
-        comment.setStatus(Comment.Status.APPROVED);
-        commentRepository.save(comment);
+        commentService.update(comment);
     }
 
     /**
@@ -93,7 +88,7 @@ public class CommentResource {
     public List<Comment> getAll() {
 //      todo impl pagination  @QueryParam("offset") int offset, @QueryParam("size") int size
         log.debug("REST request to get all Comments");
-        return commentRepository.findAll();
+        return commentService.findAll();
     }
 
     /**
@@ -114,7 +109,7 @@ public class CommentResource {
             throw new IllegalParameterException();
         }
 
-        return Optional.ofNullable(commentRepository.findOne(id))
+        return Optional.ofNullable(commentService.get(id))
                 .map(comment -> new ResponseEntity<>(
                         comment,
                         HttpStatus.OK))
@@ -137,6 +132,6 @@ public class CommentResource {
             throw new IllegalParameterException();
         }
 
-        commentRepository.delete(id);
+        commentService.delete(id);
     }
 }
