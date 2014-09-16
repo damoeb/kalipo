@@ -46,6 +46,8 @@ public class UserDetailsService implements org.springframework.security.core.use
             grantedAuthorities.add(grantedAuthority);
         }
 
+        // todo add authorities based on reputation
+
         return new org.springframework.security.core.userdetails.User(lowercaseLogin, userFromDatabase.getPassword(),
                 grantedAuthorities);
     }

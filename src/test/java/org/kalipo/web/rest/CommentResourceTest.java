@@ -1,16 +1,10 @@
 package org.kalipo.web.rest;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import javax.inject.Inject;
-
-import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kalipo.Application;
+import org.kalipo.repository.CommentRepository;
 import org.kalipo.web.rest.dto.CommentDTO;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -26,9 +20,10 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import org.kalipo.Application;
-import org.kalipo.domain.Comment;
-import org.kalipo.repository.CommentRepository;
+import javax.inject.Inject;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 /**
@@ -39,12 +34,12 @@ import org.kalipo.repository.CommentRepository;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    DirtiesContextTestExecutionListener.class,
-    TransactionalTestExecutionListener.class })
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class})
 @ActiveProfiles("dev")
 public class CommentResourceTest {
-    
+
     private static final String DEFAULT_ID = "1";
 
     private static final String UPD_SAMPLE_TITLE_ATTR = "updSampleTitle";
@@ -69,6 +64,8 @@ public class CommentResourceTest {
         ReflectionTestUtils.setField(commentResource, "commentRepository", commentRepository);
 
         this.restCommentMockMvc = MockMvcBuilders.standaloneSetup(commentResource).build();
+
+        TestUtil.mockSecurityContext("admin");
 
         comment = new CommentDTO();
         comment.setId(DEFAULT_ID);

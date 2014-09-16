@@ -61,6 +61,8 @@ public class VoteResourceTest {
 
         this.restVoteMockMvc = MockMvcBuilders.standaloneSetup(voteResource).build();
 
+        TestUtil.mockSecurityContext("admin");
+
         vote = new VoteDTO();
         vote.setId(DEFAULT_ID);
         vote.setCommentId(DEFAULT_COMMENT_ID);

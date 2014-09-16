@@ -7,6 +7,7 @@ import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Vote;
 import org.kalipo.repository.VoteRepository;
+import org.kalipo.security.SecurityUtils;
 import org.kalipo.web.rest.dto.VoteDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +48,7 @@ public class VoteResource {
         Vote vote = new Vote();
         BeanUtils.copyProperties(voteDTO, vote);
 
-        vote.setAuthorId("d"); // todo SecurityUtils.getCurrentLogin() is null during tests
+        vote.setAuthorId(SecurityUtils.getCurrentLogin());
         voteRepository.save(vote);
     }
 
@@ -73,7 +74,7 @@ public class VoteResource {
         Vote vote = new Vote();
         BeanUtils.copyProperties(voteDTO, vote);
         vote.setId(id);
-        vote.setAuthorId("d"); // todo SecurityUtils.getCurrentLogin() is null during tests
+        vote.setAuthorId(SecurityUtils.getCurrentLogin());
         voteRepository.save(vote);
     }
 

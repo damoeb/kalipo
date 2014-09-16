@@ -4,8 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
-import org.kalipo.service.ThreadService;
-import org.kalipo.web.rest.dto.ThreadDTO;
+import org.kalipo.domain.Tag;
+import org.kalipo.repository.TagRepository;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
@@ -27,9 +27,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 /**
- * Test class for the ThreadResource REST controller.
+ * Test class for the TagResource REST controller.
  *
- * @see ThreadResource
+ * @see TagResource
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -38,83 +38,83 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class})
 @ActiveProfiles("dev")
-public class ThreadResourceTest {
+public class TagResourceTest {
 
     private static final String DEFAULT_ID = "1";
 
-    private static final String DEFAULT_SAMPLE_TITLE_ATTR = "sampleTitleAttribute";
+    private static final String DEFAULT_SAMPLE_NAME_ATTR = "sampleTitleAttribute";
 
-    private static final String UPD_SAMPLE_TITLE_ATTR = "sampleTitleAttributeUpt";
+    private static final String UPD_SAMPLE_NAME_ATTR = "sampleTitleAttributeUpt";
 
     @Inject
-    private ThreadService threadService;
+    private TagRepository tagRepository;
 
-    private MockMvc restThreadMockMvc;
+    private MockMvc restTagMockMvc;
 
-    private ThreadDTO thread;
+    private Tag tag;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ThreadResource threadResource = new ThreadResource();
-        ReflectionTestUtils.setField(threadResource, "threadService", threadService);
+        TagResource tagResource = new TagResource();
+        ReflectionTestUtils.setField(tagResource, "tagRepository", tagRepository);
 
-        this.restThreadMockMvc = MockMvcBuilders.standaloneSetup(threadResource).build();
+        this.restTagMockMvc = MockMvcBuilders.standaloneSetup(tagResource).build();
 
         TestUtil.mockSecurityContext("admin");
 
-        thread = new ThreadDTO();
-        thread.setId(DEFAULT_ID);
-        thread.setTitle(DEFAULT_SAMPLE_TITLE_ATTR);
+        tag = new Tag();
+        tag.setId(DEFAULT_ID);
+        tag.setName(DEFAULT_SAMPLE_NAME_ATTR);
     }
 
     @Test
-    public void testCRUDThread() throws Exception {
+    public void testCRUDTag() throws Exception {
 
-        // Create Thread
-        restThreadMockMvc.perform(post("/app/rest/threads")
+        // Create Tag
+        restTagMockMvc.perform(post("/app/rest/tags")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(thread)))
+                .content(TestUtil.convertObjectToJsonBytes(tag)))
                 .andExpect(status().isCreated());
 
         // Try create a empty Comment
-        restThreadMockMvc.perform(post("/app/rest/threads")
+        restTagMockMvc.perform(post("/app/rest/tags")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(new ThreadDTO())))
+                .content(TestUtil.convertObjectToJsonBytes(new Tag())))
                 .andExpect(status().isBadRequest());
 
-        // Read Thread
-        restThreadMockMvc.perform(get("/app/rest/threads/{id}", DEFAULT_ID))
+        // Read Tag
+        restTagMockMvc.perform(get("/app/rest/tags/{id}", DEFAULT_ID))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(DEFAULT_ID))
 //                .andExpect(jsonPath("$.sampleDateAttribute").value(DEFAULT_SAMPLE_DATE_ATTR.toString()))
-                .andExpect(jsonPath("$.title").value(DEFAULT_SAMPLE_TITLE_ATTR));
+                .andExpect(jsonPath("$.name").value(DEFAULT_SAMPLE_NAME_ATTR));
 
-        // Update Thread
-//        thread.setSampleDateAttribute(UPD_SAMPLE_DATE_ATTR);
-        thread.setTitle(UPD_SAMPLE_TITLE_ATTR);
+        // Update Tag
+//        tag.setSampleDateAttribute(UPD_SAMPLE_DATE_ATTR);
+        tag.setName(UPD_SAMPLE_NAME_ATTR);
 
-        restThreadMockMvc.perform(put("/app/rest/threads/{id}", DEFAULT_ID)
+        restTagMockMvc.perform(put("/app/rest/tags/{id}", DEFAULT_ID)
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(thread)))
+                .content(TestUtil.convertObjectToJsonBytes(tag)))
                 .andExpect(status().isOk());
 
-        // Read updated Thread
-        restThreadMockMvc.perform(get("/app/rest/threads/{id}", DEFAULT_ID))
+        // Read updated Tag
+        restTagMockMvc.perform(get("/app/rest/tags/{id}", DEFAULT_ID))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(DEFAULT_ID))
 //                .andExpect(jsonPath("$.sampleDateAttribute").value(UPD_SAMPLE_DATE_ATTR.toString()))
-                .andExpect(jsonPath("$.title").value(UPD_SAMPLE_TITLE_ATTR));
+                .andExpect(jsonPath("$.name").value(UPD_SAMPLE_NAME_ATTR));
 
-        // Delete Thread
-        restThreadMockMvc.perform(delete("/app/rest/threads/{id}", DEFAULT_ID)
+        // Delete Tag
+        restTagMockMvc.perform(delete("/app/rest/tags/{id}", DEFAULT_ID)
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 
-        // Read nonexisting Thread
-        restThreadMockMvc.perform(get("/app/rest/threads/{id}", DEFAULT_ID)
+        // Read nonexisting Tag
+        restTagMockMvc.perform(get("/app/rest/tags/{id}", DEFAULT_ID)
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
 

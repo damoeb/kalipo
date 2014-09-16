@@ -7,6 +7,7 @@ import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Comment;
 import org.kalipo.repository.CommentRepository;
+import org.kalipo.security.SecurityUtils;
 import org.kalipo.web.rest.dto.CommentDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +49,7 @@ public class CommentResource {
         Comment comment = new Comment();
         BeanUtils.copyProperties(commentDTO, comment);
 
-        comment.setAuthorId("d"); // todo SecurityUtils.getCurrentLogin() is null during tests
+        comment.setAuthorId(SecurityUtils.getCurrentLogin());
         comment.setStatus(Comment.Status.APPROVED);
         commentRepository.save(comment);
     }
@@ -76,7 +77,7 @@ public class CommentResource {
         BeanUtils.copyProperties(commentDTO, comment);
 
         comment.setId(id);
-        comment.setAuthorId("d"); // todo SecurityUtils.getCurrentLogin() is null during tests
+        comment.setAuthorId(SecurityUtils.getCurrentLogin());
         comment.setStatus(Comment.Status.APPROVED);
         commentRepository.save(comment);
     }

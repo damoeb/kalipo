@@ -3,6 +3,7 @@ package org.kalipo.service;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.ThreadRepository;
+import org.kalipo.security.SecurityUtils;
 import org.kalipo.web.rest.IllegalParameterException;
 import org.kalipo.web.rest.KalipoRequestException;
 import org.slf4j.Logger;
@@ -20,21 +21,23 @@ public class ThreadService {
     @Inject
     private ThreadRepository threadRepository;
 
+    //    @RolesAllowed(Roles.EDIT_THREAD)
     public void create(Thread thread) {
 
-        thread.setAuthorId("d"); // todo SecurityUtils.getCurrentLogin() is null during tests
+        thread.setAuthorId(SecurityUtils.getCurrentLogin());
         thread.setStatus(Thread.Status.OPEN);
 
         threadRepository.save(thread);
     }
 
+    //    @RolesAllowed(Roles.EDIT_THREAD)
     public void update(Thread thread) throws KalipoRequestException {
 
         if (StringUtils.isBlank(thread.getId())) {
             throw new IllegalParameterException();
         }
 
-        thread.setAuthorId("d"); // todo SecurityUtils.getCurrentLogin() is null during tests
+        thread.setAuthorId(SecurityUtils.getCurrentLogin());
         thread.setStatus(Thread.Status.OPEN);
 
         threadRepository.save(thread);
@@ -52,6 +55,7 @@ public class ThreadService {
         return threadRepository.findOne(id);
     }
 
+    //    @RolesAllowed(Roles.EDIT_THREAD)
     public void delete(String id) throws KalipoRequestException {
         if (StringUtils.isBlank(id)) {
             throw new IllegalParameterException();

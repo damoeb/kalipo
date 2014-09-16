@@ -65,6 +65,8 @@ public class ReportResourceTest {
 
         this.restReportMockMvc = MockMvcBuilders.standaloneSetup(reportResource).build();
 
+        TestUtil.mockSecurityContext("admin");
+
         report = new ReportDTO();
         report.setId(DEFAULT_ID);
         report.setReason(DEFAULT_SAMPLE_REASON_ATTR);

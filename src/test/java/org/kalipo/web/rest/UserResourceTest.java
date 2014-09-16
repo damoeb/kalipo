@@ -1,16 +1,16 @@
 package org.kalipo.web.rest;
 
-import org.kalipo.Application;
-import org.kalipo.config.MongoConfiguration;
-import org.kalipo.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kalipo.Application;
+import org.kalipo.config.MongoConfiguration;
+import org.kalipo.repository.UserRepository;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
-@DirtiesContext(classMode= DirtiesContext.ClassMode.AFTER_CLASS)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 @ActiveProfiles("dev")
 @Import(MongoConfiguration.class)
 public class UserResourceTest {
@@ -45,6 +45,8 @@ public class UserResourceTest {
         UserResource userResource = new UserResource();
         ReflectionTestUtils.setField(userResource, "userRepository", userRepository);
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource).build();
+
+        TestUtil.mockSecurityContext("admin");
     }
 
     @Test

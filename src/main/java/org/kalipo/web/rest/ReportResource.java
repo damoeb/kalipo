@@ -7,6 +7,7 @@ import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Report;
 import org.kalipo.repository.ReportRepository;
+import org.kalipo.security.SecurityUtils;
 import org.kalipo.web.rest.dto.ReportDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +49,7 @@ public class ReportResource {
         Report report = new Report();
         BeanUtils.copyProperties(reportDTO, report);
 
-        report.setAuthorId("d"); // todo SecurityUtils.getCurrentLogin() is null during tests
+        report.setAuthorId(SecurityUtils.getCurrentLogin());
         report.setStatus(Report.Status.PENDING);
         report.setThreadId(1l);
 
@@ -78,7 +79,7 @@ public class ReportResource {
         BeanUtils.copyProperties(reportDTO, report);
 
         report.setId(id);
-        report.setAuthorId("d"); // todo SecurityUtils.getCurrentLogin() is null during tests
+        report.setAuthorId(SecurityUtils.getCurrentLogin());
         report.setStatus(Report.Status.PENDING);
         report.setThreadId(1l);
 
