@@ -1,6 +1,6 @@
 package org.kalipo.service;
 
-import org.kalipo.aop.ArgumentValidationEnabled;
+import org.kalipo.aop.EnableArgumentValidation;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.ThreadRepository;
 import org.kalipo.security.SecurityUtils;
@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-@ArgumentValidationEnabled
+@EnableArgumentValidation
 public class ThreadService {
 
     private final Logger log = LoggerFactory.getLogger(ThreadService.class);

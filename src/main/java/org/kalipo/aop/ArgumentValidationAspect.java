@@ -18,7 +18,7 @@ public class ArgumentValidationAspect {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Around("@within(org.migor.entropy.ArgumentValidationEnabled) || @annotation(org.migor.entropy.ArgumentValidationEnabled)")
+    @Around("@within(org.kalipo.aop.EnableArgumentValidation) || @annotation(org.kalipo.aop.EnableArgumentValidation)")
     public Object validate(ProceedingJoinPoint joinPoint) throws Throwable {
 
         try {
