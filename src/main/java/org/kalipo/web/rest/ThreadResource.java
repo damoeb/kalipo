@@ -42,7 +42,7 @@ public class ThreadResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new thread")
-    public void create(@Valid @RequestBody ThreadDTO threadDTO) {
+    public void create(@Valid @RequestBody ThreadDTO threadDTO) throws KalipoRequestException {
         log.debug("REST request to save Thread : {}", threadDTO);
 
         Thread thread = new Thread();
@@ -67,7 +67,7 @@ public class ThreadResource {
         log.debug("REST request to update Thread : {}", threadDTO);
 
         if (StringUtils.isBlank(id)) {
-            throw new IllegalParameterException();
+            throw new InvalidParameterException("id");
         }
 
         Thread thread = new Thread();
@@ -105,7 +105,7 @@ public class ThreadResource {
     public ResponseEntity<Thread> get(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to get Thread : {}", id);
         if (StringUtils.isBlank(id)) {
-            throw new IllegalParameterException();
+            throw new InvalidParameterException("id");
         }
 
         return Optional.ofNullable(threadService.get(id))
@@ -127,7 +127,7 @@ public class ThreadResource {
     public void delete(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to delete Thread : {}", id);
         if (StringUtils.isBlank(id)) {
-            throw new IllegalParameterException();
+            throw new InvalidParameterException("id");
         }
 
         threadService.delete(id);

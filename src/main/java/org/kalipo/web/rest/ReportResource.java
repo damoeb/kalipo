@@ -72,7 +72,7 @@ public class ReportResource {
         log.debug("REST request to update Report : {}", reportDTO);
 
         if (StringUtils.isBlank(id)) {
-            throw new IllegalParameterException();
+            throw new InvalidParameterException("id");
         }
 
         Report report = new Report();
@@ -114,7 +114,7 @@ public class ReportResource {
     public ResponseEntity<Report> get(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to get Report : {}", id);
         if (StringUtils.isBlank(id)) {
-            throw new IllegalParameterException();
+            throw new InvalidParameterException("id");
         }
 
         return Optional.ofNullable(reportRepository.findOne(id))
@@ -133,10 +133,10 @@ public class ReportResource {
     @Timed
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Delete the \"id\" report")
-    public void delete(@PathVariable String id) throws IllegalParameterException {
+    public void delete(@PathVariable String id) throws InvalidParameterException {
         log.debug("REST request to delete Report : {}", id);
         if (StringUtils.isBlank(id)) {
-            throw new IllegalParameterException();
+            throw new InvalidParameterException("id");
         }
 
         reportRepository.delete(id);

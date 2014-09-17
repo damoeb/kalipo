@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +43,7 @@ public class CommentResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new comment")
-    public void create(@Valid @RequestBody CommentDTO commentDTO) {
+    public void create(@Valid @RequestBody CommentDTO commentDTO) throws KalipoRequestException {
         log.debug("REST request to save Comment : {}", commentDTO);
 
         Comment comment = new Comment();
@@ -67,7 +68,7 @@ public class CommentResource {
         log.debug("REST request to update Comment : {}", commentDTO);
 
         if (StringUtils.isBlank(id)) {
-            throw new IllegalParameterException();
+            throw new InvalidParameterException("id");
         }
 
         Comment comment = new Comment();
@@ -106,7 +107,7 @@ public class CommentResource {
     public ResponseEntity<Comment> get(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to get Comment : {}", id);
         if (StringUtils.isBlank(id)) {
-            throw new IllegalParameterException();
+            throw new InvalidParameterException("id");
         }
 
         return Optional.ofNullable(commentService.get(id))
@@ -129,7 +130,7 @@ public class CommentResource {
         log.debug("REST request to delete Comment : {}", id);
 
         if (StringUtils.isBlank(id)) {
-            throw new IllegalParameterException();
+            throw new InvalidParameterException("id");
         }
 
         commentService.delete(id);

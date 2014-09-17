@@ -1,10 +1,9 @@
 package org.kalipo.service;
 
-import org.apache.commons.lang3.StringUtils;
+import org.kalipo.aop.ArgumentValidationEnabled;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.ThreadRepository;
 import org.kalipo.security.SecurityUtils;
-import org.kalipo.web.rest.IllegalParameterException;
 import org.kalipo.web.rest.KalipoRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +13,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
+@ArgumentValidationEnabled
 public class ThreadService {
 
     private final Logger log = LoggerFactory.getLogger(ThreadService.class);
@@ -22,7 +22,7 @@ public class ThreadService {
     private ThreadRepository threadRepository;
 
     //    @RolesAllowed(Roles.EDIT_THREAD)
-    public void create(Thread thread) {
+    public void create(Thread thread) throws KalipoRequestException {
 
         thread.setAuthorId(SecurityUtils.getCurrentLogin());
         thread.setStatus(Thread.Status.OPEN);
@@ -30,12 +30,8 @@ public class ThreadService {
         threadRepository.save(thread);
     }
 
-    //    @RolesAllowed(Roles.EDIT_THREAD)
+    //    @RolesAllowed(Privileges.EDIT_THREAD)
     public void update(Thread thread) throws KalipoRequestException {
-
-        if (StringUtils.isBlank(thread.getId())) {
-            throw new IllegalParameterException();
-        }
 
         thread.setAuthorId(SecurityUtils.getCurrentLogin());
         thread.setStatus(Thread.Status.OPEN);
@@ -48,19 +44,11 @@ public class ThreadService {
     }
 
     public Thread get(String id) throws KalipoRequestException {
-        if (StringUtils.isBlank(id)) {
-            throw new IllegalParameterException();
-        }
-
         return threadRepository.findOne(id);
     }
 
     //    @RolesAllowed(Roles.EDIT_THREAD)
     public void delete(String id) throws KalipoRequestException {
-        if (StringUtils.isBlank(id)) {
-            throw new IllegalParameterException();
-        }
-
         threadRepository.delete(id);
     }
 

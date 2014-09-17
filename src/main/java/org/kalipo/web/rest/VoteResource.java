@@ -68,7 +68,7 @@ public class VoteResource {
         log.debug("REST request to update Vote : {}", voteDTO);
 
         if (StringUtils.isBlank(id)) {
-            throw new IllegalParameterException();
+            throw new InvalidParameterException("id");
         }
 
         Vote vote = new Vote();
@@ -106,7 +106,7 @@ public class VoteResource {
     public ResponseEntity<Vote> get(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to get Vote : {}", id);
         if (StringUtils.isBlank(id)) {
-            throw new IllegalParameterException();
+            throw new InvalidParameterException("id");
         }
 
         return Optional.ofNullable(voteRepository.findOne(id))
@@ -129,7 +129,7 @@ public class VoteResource {
         log.debug("REST request to delete Vote : {}", id);
 
         if (StringUtils.isBlank(id)) {
-            throw new IllegalParameterException();
+            throw new InvalidParameterException("id");
         }
 
         voteRepository.delete(id);

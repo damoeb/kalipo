@@ -1,8 +1,10 @@
 package org.kalipo.service;
 
+import org.kalipo.aop.ArgumentValidationEnabled;
 import org.kalipo.domain.Comment;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.security.SecurityUtils;
+import org.kalipo.web.rest.KalipoRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
+@ArgumentValidationEnabled
 public class CommentService {
 
     private final Logger log = LoggerFactory.getLogger(CommentService.class);
@@ -18,14 +21,16 @@ public class CommentService {
     @Inject
     private CommentRepository commentRepository;
 
-    public void create(Comment comment) {
+    public void create(Comment comment) throws KalipoRequestException {
+
         // todo remove id
         comment.setAuthorId(SecurityUtils.getCurrentLogin());
         comment.setStatus(Comment.Status.APPROVED);
         commentRepository.save(comment);
     }
 
-    public void update(Comment comment) {
+    public void update(Comment comment) throws KalipoRequestException {
+
         comment.setAuthorId(SecurityUtils.getCurrentLogin());
         comment.setStatus(Comment.Status.APPROVED);
         commentRepository.save(comment);
@@ -35,7 +40,7 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-    public Comment get(String id) {
+    public Comment get(String id) throws KalipoRequestException {
         return commentRepository.findOne(id);
     }
 

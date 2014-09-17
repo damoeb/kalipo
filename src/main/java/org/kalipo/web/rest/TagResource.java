@@ -61,7 +61,7 @@ public class TagResource {
         log.debug("REST request to update Tag : {}", tag);
 
         if (StringUtils.isBlank(id)) {
-            throw new IllegalParameterException();
+            throw new InvalidParameterException("id");
         }
 
         tagRepository.save(tag);
@@ -95,7 +95,7 @@ public class TagResource {
     public ResponseEntity<Tag> get(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to get Tag : {}", id);
         if (StringUtils.isBlank(id)) {
-            throw new IllegalParameterException();
+            throw new InvalidParameterException("id");
         }
 
         return Optional.ofNullable(tagRepository.findOne(id))
@@ -117,7 +117,7 @@ public class TagResource {
     public void delete(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to delete Tag : {}", id);
         if (StringUtils.isBlank(id)) {
-            throw new IllegalParameterException();
+            throw new InvalidParameterException("id");
         }
 
         tagRepository.delete(id);
