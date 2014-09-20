@@ -7,9 +7,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.MetricRepositoryAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
+import org.springframework.web.context.support.StaticWebApplicationContext;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -47,6 +49,12 @@ public class Application {
      * "-javaagent:spring_loaded/springloaded-jhipster.jar -noverify -Dspringloaded=plugins=io.github.jhipster.loaded.instrument.JHipsterLoadtimeInstrumentationPlugin"
      */
     public static void main(String[] args) {
+
+//        SpringApplication app = new SpringApplicationBuilder()
+//                .parent(Application.class)
+//                .resourceLoader(new StaticWebApplicationContext())
+//                .application();
+
         SpringApplication app = new SpringApplication(Application.class);
         app.setShowBanner(false);
 

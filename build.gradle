@@ -1,4 +1,14 @@
 buildscript {
+
+    println "build war"
+
+//    copy {
+//        from 'src/main/webapp'
+//        into 'build/explodedWar'
+//        include '**/*.html'
+//        include '**/*.jsp'
+//    }
+
     repositories {
         maven { url 'http://repo.spring.io/libs-snapshot' }
         mavenLocal()
@@ -13,6 +23,15 @@ buildscript {
 //        classpath 'com.eriwen:gradle-js-plugin:1.9.0'
     }
 }
+
+//task copyMethod << {
+//    copy {
+//        from 'src/main/webapp'
+//        into 'build/explodedWar'
+//        include '**/*.html'
+//        include '**/*.jsp'
+//    }
+//}
 
 apply plugin: 'java'
 apply plugin: 'maven'
@@ -45,29 +64,17 @@ configurations {
 war {
     baseName = 'kalipo'
     version =  "$version"
+
+    from('kalipo-ui/dist/')
 }
 
-//sourceSets {
-//    main {
-//        java {
-//            srcDir 'kalipo-web/src/main/java'
-//        }
-//        resources {
-//            srcDir 'kalipo-web/src/main/resources'
-//        }
-//        compileClasspath += sourceSets.main.runtimeClasspath
-//    }
-//
-//    test {
-//        java {
-//            srcDir 'kalipo-web/src/test/java'
-//        }
-//        resources {
-//            srcDir 'kalipo-web/src/test/resources'
-//        }
-//        compileClasspath += sourceSets.main.runtimeClasspath
-//    }
-//}
+task webjar(type: Jar, dependsOn: "jar") {
+
+    println "build webjar"
+    from(fileTree("kalipo-ui/dist")) {
+        into "META-INF/resources"
+    }
+}
 
 repositories {
 
