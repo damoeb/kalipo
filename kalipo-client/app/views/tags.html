@@ -26,15 +26,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Sample text attribute</label>
-                            <input type="text" class="form-control" name="test"
-                                   ng-model="tag.sampleTextAttribute" ng-minlength=1 ng-maxlength=50 required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Sample date attribute</label>
-                            <input type="date" class="form-control" name="test"
-                                   ng-model="tag.sampleDateAttribute" required>
+                            <label>name</label>
+                            <input type="text" class="form-control" name="name"
+                                   ng-model="tag.name" ng-minlength=1 ng-maxlength=50 required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -55,16 +49,14 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Sample text</th>
-                <th>Sample date</th>
+                <th>name</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="tag in tags">
                 <td>{{tag.id}}</td>
-                <td>{{tag.sampleTextAttribute}}</td>
-                <td>{{tag.sampleDateAttribute}}</td>
+                <td>{{tag.name}}</td>
                 <td>
                     <button type="submit"
                             ng-click="update(tag.id)"

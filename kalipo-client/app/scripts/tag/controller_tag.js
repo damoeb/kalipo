@@ -26,6 +26,6 @@ kalipoApp.controller('TagController', function ($scope, resolvedTag, Tag) {
     };
 
     $scope.clear = function () {
-        $scope.tag = {id: null, sampleTextAttribute: null, sampleDateAttribute: null};
+        $scope.tag = {id: null, name: null};
     };
 });
