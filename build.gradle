@@ -11,8 +11,6 @@ buildscript {
 
 //        classpath 'com.eriwen:gradle-css-plugin:1.8.0'
 //        classpath 'com.eriwen:gradle-js-plugin:1.9.0'
-        classpath 'com.moowork.gradle:gradle-node-plugin:0.4'
-        classpath 'com.moowork.gradle:gradle-grunt-plugin:0.5'
     }
 }
 
@@ -46,7 +44,7 @@ configurations {
 
 war {
     baseName = 'kalipo'
-    version =  '0.1-SNAPSHOT'
+    version =  "$version"
 }
 
 //sourceSets {
@@ -142,16 +140,14 @@ dependencies {
 }
 
 
-
-
 subprojects {
-    apply plugin: 'java'
+
     apply plugin: 'maven'
-    apply plugin: 'spring-boot'
+    apply plugin: 'java'
 
     group = 'org.kalipo'
     version = '1.0-SNAPSHOT'
-    sourceCompatibility = 1.6
+    sourceCompatibility = 1.8
 
     clean << {
         println "clean $project"

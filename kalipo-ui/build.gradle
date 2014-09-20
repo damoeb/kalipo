@@ -4,6 +4,10 @@
 // define the dependencies gradle buildscript will use to build
 // the app (not the app itself)
 //buildscript {
+
+//    classpath('com.moowork.gradle:gradle-node-plugin:0.4')
+//    classpath('com.moowork.gradle:gradle-grunt-plugin:0.5')
+
 //    repositories {
 //        mavenLocal()
 //        mavenCentral()
@@ -18,11 +22,16 @@
 //}
 
 clean << {
-    println "clean $project"
+    deleteDirs
+    println "cleaned $project"
 }
 
-task deleteDist << {
-    delete fileTree(dir: "dist")
+task deleteDirs << {
+    println "rm dist"
+    delete "dist"
+
+    println "rm dist"
+    delete ".tmp"
 }
 
 apply from: 'yeoman.gradle'
