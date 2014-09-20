@@ -1,0 +1,3 @@
+include 'kalipo-ui'
+include 'kalipo-web'
+

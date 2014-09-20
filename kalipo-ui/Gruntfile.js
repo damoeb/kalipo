@@ -17,11 +17,11 @@ module.exports = function (grunt) {
         yeoman: {
             // configurable paths
             app: require('./bower.json').appPath || 'app',
-            dist: 'src/main/webapp/dist'
+            dist: 'dist'
         },
         watch: {
             styles: {
-                files: ['src/main/webapp/styles/{,*/}*.css'],
+                files: ['app/styles/{,*/}*.css'],
                 tasks: ['copy:styles', 'autoprefixer']
             },
             livereload: {
@@ -29,10 +29,10 @@ module.exports = function (grunt) {
                     livereload: 35729
                 },
                 files: [
-                    'src/main/webapp/**/*.html',
+                    'app/**/*.html',
                     '.tmp/styles/{,*/}*.css',
-                    '{.tmp/,}src/main/webapp/scripts/{,*/}*.js',
-                    'src/main/webapp/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                    '{.tmp/,}app/scripts/{,*/}*.js',
+                    'app/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
             }
         },
@@ -96,13 +96,13 @@ module.exports = function (grunt) {
                     open: true,
                     base: [
                         '.tmp',
-                        'src/main/webapp'
+                        'app'
                     ],
                     middleware: function (connect) {
                         return [
                             proxySnippet,
                             connect.static('.tmp'),
-                            connect.static('src/main/webapp')
+                            connect.static('app')
                         ];
                     }
                 }
@@ -113,7 +113,7 @@ module.exports = function (grunt) {
                     base: [
                         '.tmp',
                         'test',
-                        'src/main/webapp'
+                        'app'
                     ]
                 }
             },
@@ -142,7 +142,7 @@ module.exports = function (grunt) {
             },
             all: [
                 'Gruntfile.js',
-                'src/main/webapp/scripts/{,*/}*.js'
+                'app/scripts/{,*/}*.js'
             ]
         },
         coffee: {
@@ -153,7 +153,7 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: 'src/main/webapp/scripts',
+                    cwd: 'app/scripts',
                     src: '{,*/}*.coffee',
                     dest: '.tmp/scripts',
                     ext: '.js'
@@ -187,7 +187,7 @@ module.exports = function (grunt) {
             }
         },
         useminPrepare: {
-            html: 'src/main/webapp/{,*/}*.html',
+            html: 'app/{,*/}*.html',
             options: {
                 dest: '<%= yeoman.dist %>'
             }
@@ -203,7 +203,7 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: 'src/main/webapp/images',
+                    cwd: 'app/images',
                     src: '{,*/}*.{jpg,jpeg}', // we don't optimize PNG files as it doesn't work on Linux. If you are not on Linux, feel free to use '{,*/}*.{png,jpg,jpeg}'
                     dest: '<%= yeoman.dist %>/images'
                 }]
@@ -213,7 +213,7 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: 'src/main/webapp/images',
+                    cwd: 'app/images',
                     src: '{,*/}*.svg',
                     dest: '<%= yeoman.dist %>/images'
                 }]
@@ -259,7 +259,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     dot: true,
-                    cwd: 'src/main/webapp',
+                    cwd: 'app',
                     dest: '<%= yeoman.dist %>',
                     src: [
                         '*.html',
@@ -278,7 +278,7 @@ module.exports = function (grunt) {
             },
             styles: {
                 expand: true,
-                cwd: 'src/main/webapp/styles',
+                cwd: 'app/styles',
                 dest: '.tmp/styles/',
                 src: '{,*/}*.css'
             },
@@ -314,7 +314,7 @@ module.exports = function (grunt) {
         },
         karma: {
             unit: {
-                configFile: 'src/test/javascript/karma.conf.js',
+                configFile: 'test/karma.conf.js',
                 singleRun: true
             }
         },
