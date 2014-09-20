@@ -6,7 +6,7 @@ import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Tag;
-import org.kalipo.repository.TagRepository;
+import org.kalipo.service.TagService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ public class TagResource {
     private final Logger log = LoggerFactory.getLogger(TagResource.class);
 
     @Inject
-    private TagRepository tagRepository;
+    private TagService tagService;
 
     /**
      * POST  /rest/tags -> Create a new tag.
@@ -40,9 +40,9 @@ public class TagResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new tag")
-    public void create(@Valid @RequestBody Tag tag) {
+    public void create(@Valid @RequestBody Tag tag) throws KalipoRequestException {
         log.debug("REST request to save Tag : {}", tag);
-        tagRepository.save(tag);
+        tagService.create(tag);
     }
 
     /**
@@ -64,7 +64,7 @@ public class TagResource {
             throw new InvalidParameterException("id");
         }
 
-        tagRepository.save(tag);
+        tagService.update(tag);
     }
 
     /**
@@ -77,7 +77,7 @@ public class TagResource {
     @ApiOperation(value = "Get all the tags")
     public List<Tag> getAll() {
         log.debug("REST request to get all Tags");
-        return tagRepository.findAll();
+        return tagService.getAll();
     }
 
     /**
@@ -98,7 +98,7 @@ public class TagResource {
             throw new InvalidParameterException("id");
         }
 
-        return Optional.ofNullable(tagRepository.findOne(id))
+        return Optional.ofNullable(tagService.get(id))
                 .map(tag -> new ResponseEntity<>(
                         tag,
                         HttpStatus.OK))
@@ -120,6 +120,6 @@ public class TagResource {
             throw new InvalidParameterException("id");
         }
 
-        tagRepository.delete(id);
+        tagService.delete(id);
     }
 }

@@ -5,7 +5,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
 import org.kalipo.domain.Tag;
-import org.kalipo.repository.TagRepository;
+import org.kalipo.security.Privileges;
+import org.kalipo.service.TagService;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
@@ -21,7 +22,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
-
 import java.util.Arrays;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -49,7 +49,7 @@ public class TagResourceTest {
     private static final String UPD_SAMPLE_NAME_ATTR = "sampleTitleAttributeUpt";
 
     @Inject
-    private TagRepository tagRepository;
+    private TagService tagService;
 
     private MockMvc restTagMockMvc;
 
@@ -59,11 +59,11 @@ public class TagResourceTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         TagResource tagResource = new TagResource();
-        ReflectionTestUtils.setField(tagResource, "tagRepository", tagRepository);
+        ReflectionTestUtils.setField(tagResource, "tagService", tagService);
 
         this.restTagMockMvc = MockMvcBuilders.standaloneSetup(tagResource).build();
 
-        TestUtil.mockSecurityContext("admin", Arrays.asList());
+        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_TAG));
 
         tag = new Tag();
         tag.setId(DEFAULT_ID);
