@@ -26,6 +26,6 @@ kalipoApp.controller('CommentController', function ($scope, resolvedComment, Com
         };
 
         $scope.clear = function () {
-            $scope.comment = {id: null, sampleTextAttribute: null, sampleDateAttribute: null};
+            $scope.comment = {id: null, threadId: null, parentId: null, title: null, text: null};
         };
     });

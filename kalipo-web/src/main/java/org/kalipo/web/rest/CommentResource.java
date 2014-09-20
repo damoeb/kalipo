@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import java.security.InvalidParameterException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,10 +87,14 @@ public class CommentResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the comments")
-    public List<Comment> getAll() {
+    public List<CommentDTO> getAll() {
 //      todo impl pagination  @QueryParam("offset") int offset, @QueryParam("size") int size
         log.debug("REST request to get all Comments");
-        return commentService.findAll();
+
+        List<CommentDTO> list = new LinkedList<>();
+        commentService.findAll().forEach(comment -> list.add(new CommentDTO(comment)));
+
+        return list;
     }
 
     /**
@@ -104,7 +109,7 @@ public class CommentResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Comment not found")
     })
-    public ResponseEntity<Comment> get(@PathVariable String id) throws KalipoRequestException {
+    public ResponseEntity<CommentDTO> get(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to get Comment : {}", id);
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
@@ -112,7 +117,7 @@ public class CommentResource {
 
         return Optional.ofNullable(commentService.get(id))
                 .map(comment -> new ResponseEntity<>(
-                        comment,
+                        new CommentDTO(comment),
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

@@ -26,16 +26,35 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Sample text attribute</label>
-                            <input type="text" class="form-control" name="test"
-                                   ng-model="comment.sampleTextAttribute" ng-minlength=1 ng-maxlength=50 required>
+                            <label>threadId</label>
+                            <input type="text" class="form-control" name="threadId"
+                                   ng-model="comment.threadId">
                         </div>
 
                         <div class="form-group">
-                            <label>Sample date attribute</label>
-                            <input type="date" class="form-control" name="test"
-                                   ng-model="comment.sampleDateAttribute" required>
+                            <label>parentId</label>
+                            <input type="text" class="form-control" name="parentId"
+                                   ng-model="comment.parentId">
                         </div>
+
+                        <div class="form-group">
+                            <label>title</label>
+                            <input type="text" class="form-control" name="title"
+                                   ng-model="comment.title">
+                        </div>
+
+                        <div class="form-group">
+                            <label>text</label>
+                            <input type="text" class="form-control" name="text"
+                                   ng-model="comment.text">
+                        </div>
+
+                        <div class="form-group">
+                            <label>status</label>
+                            <input type="text" class="form-control" name="status"
+                                   ng-model="comment.status">
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
@@ -55,16 +74,18 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Sample text</th>
-                    <th>Sample date</th>
+                    <th>parentId</th>
+                    <th>title</th>
+                    <th>status</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="comment in comments">
                     <td>{{comment.id}}</td>
-                    <td>{{comment.sampleTextAttribute}}</td>
-                    <td>{{comment.sampleDateAttribute}}</td>
+                    <td>{{comment.parentId}}</td>
+                    <td>{{comment.title}}</td>
+                    <td>{{comment.status}}</td>
                     <td>
                         <button type="submit"
                                 ng-click="update(comment.id)"
