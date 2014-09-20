@@ -26,6 +26,6 @@ kalipoApp.controller('ReportController', function ($scope, resolvedReport, Repor
     };
 
     $scope.clear = function () {
-        $scope.report = {id: null, sampleTextAttribute: null, sampleDateAttribute: null};
+        $scope.report = {id: null, commentId: null, threadId: null, reason: null, status: null};
     };
 });

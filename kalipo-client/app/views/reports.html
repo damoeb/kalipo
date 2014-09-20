@@ -26,16 +26,29 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Sample text attribute</label>
-                            <input type="text" class="form-control" name="test"
-                                   ng-model="report.sampleTextAttribute" ng-minlength=1 ng-maxlength=50 required>
+                            <label>commentId</label>
+                            <input type="text" class="form-control" name="commentId"
+                                   ng-model="report.commentId" required>
                         </div>
 
                         <div class="form-group">
-                            <label>Sample date attribute</label>
-                            <input type="date" class="form-control" name="test"
-                                   ng-model="report.sampleDateAttribute" required>
+                            <label>threadId</label>
+                            <input type="text" class="form-control" name="threadId"
+                                   ng-model="report.threadId" required>
                         </div>
+
+                        <div class="form-group">
+                            <label>reason</label>
+                            <input type="text" class="form-control" name="reason"
+                                   ng-model="report.reason" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>status</label>
+                            <input type="text" class="form-control" name="status"
+                                   ng-model="report.status">
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
@@ -55,16 +68,18 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Sample text</th>
-                <th>Sample date</th>
+                <th>commentId</th>
+                <th>Reason</th>
+                <th>Status</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="report in reports">
                 <td>{{report.id}}</td>
-                <td>{{report.sampleTextAttribute}}</td>
-                <td>{{report.sampleDateAttribute}}</td>
+                <td>{{report.commentId}}</td>
+                <td>{{report.reason}}</td>
+                <td>{{report.status}}</td>
                 <td>
                     <button type="submit"
                             ng-click="update(report.id)"
