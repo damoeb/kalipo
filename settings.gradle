@@ -1,3 +1,3 @@
 include 'kalipo-client'
-include 'kalipo-web'
+include 'kalipo-service'
 
