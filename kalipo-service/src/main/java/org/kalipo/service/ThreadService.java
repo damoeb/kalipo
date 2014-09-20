@@ -3,12 +3,14 @@ package org.kalipo.service;
 import org.kalipo.aop.EnableArgumentValidation;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.ThreadRepository;
+import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.web.rest.KalipoRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class ThreadService {
     @Inject
     private ThreadRepository threadRepository;
 
-    //    @RolesAllowed(Roles.EDIT_THREAD)
+    @RolesAllowed(Privileges.CREATE_THREAD)
     public void create(Thread thread) throws KalipoRequestException {
 
         thread.setAuthorId(SecurityUtils.getCurrentLogin());
@@ -30,7 +32,7 @@ public class ThreadService {
         threadRepository.save(thread);
     }
 
-    //    @RolesAllowed(Privileges.EDIT_THREAD)
+    @RolesAllowed(Privileges.CREATE_THREAD)
     public void update(Thread thread) throws KalipoRequestException {
 
         thread.setAuthorId(SecurityUtils.getCurrentLogin());
@@ -47,7 +49,6 @@ public class ThreadService {
         return threadRepository.findOne(id);
     }
 
-    //    @RolesAllowed(Roles.EDIT_THREAD)
     public void delete(String id) throws KalipoRequestException {
         threadRepository.delete(id);
     }

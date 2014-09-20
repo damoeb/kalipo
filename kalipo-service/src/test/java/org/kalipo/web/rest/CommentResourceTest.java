@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
+import org.kalipo.security.Privileges;
 import org.kalipo.service.CommentService;
 import org.kalipo.web.rest.dto.CommentDTO;
 import org.mockito.MockitoAnnotations;
@@ -21,6 +22,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
+
+import java.util.Arrays;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -65,7 +68,7 @@ public class CommentResourceTest {
 
         this.restCommentMockMvc = MockMvcBuilders.standaloneSetup(commentResource).build();
 
-        TestUtil.mockSecurityContext("admin");
+        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_COMMENT));
 
         comment = new CommentDTO();
         comment.setId(DEFAULT_ID);

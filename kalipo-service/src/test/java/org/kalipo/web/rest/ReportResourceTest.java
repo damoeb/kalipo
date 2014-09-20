@@ -22,6 +22,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
 
+import java.util.Arrays;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -65,7 +67,7 @@ public class ReportResourceTest {
 
         this.restReportMockMvc = MockMvcBuilders.standaloneSetup(reportResource).build();
 
-        TestUtil.mockSecurityContext("admin");
+        TestUtil.mockSecurityContext("admin", Arrays.asList());
 
         report = new ReportDTO();
         report.setId(DEFAULT_ID);

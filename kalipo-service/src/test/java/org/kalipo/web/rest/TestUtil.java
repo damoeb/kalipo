@@ -5,11 +5,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Utility class for testing REST controllers.
@@ -37,11 +42,15 @@ public class TestUtil {
         return mapper.writeValueAsBytes(object);
     }
 
-    public static void mockSecurityContext(Object principal) {
-        Authentication authentication = Mockito.mock(Authentication.class);
+    public static void mockSecurityContext(Object principal, Collection<String> privileges) {
 
-        Mockito.when(authentication.getPrincipal()).thenReturn(principal);
-        Mockito.when(authentication.isAuthenticated()).thenReturn(true);
+        AuthenticationStub authentication = new AuthenticationStub();
+        authentication.setPrincipal(principal);
+        authentication.setAuthenticated(true);
+
+        List<GrantedAuthority> authorities = new LinkedList<>();
+        privileges.forEach(privilege -> authorities.add(new SimpleGrantedAuthority(privilege)));
+        authentication.setAuthorities(authorities);
 
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);

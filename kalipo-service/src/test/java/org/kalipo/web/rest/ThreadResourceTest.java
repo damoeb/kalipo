@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
+import org.kalipo.security.Privileges;
 import org.kalipo.service.ThreadService;
 import org.kalipo.web.rest.dto.ThreadDTO;
 import org.mockito.MockitoAnnotations;
@@ -21,6 +22,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
+
+import java.util.Arrays;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -61,7 +64,7 @@ public class ThreadResourceTest {
 
         this.restThreadMockMvc = MockMvcBuilders.standaloneSetup(threadResource).build();
 
-        TestUtil.mockSecurityContext("admin");
+        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_THREAD));
 
         thread = new ThreadDTO();
         thread.setId(DEFAULT_ID);

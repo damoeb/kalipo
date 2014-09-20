@@ -22,6 +22,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
 
+import java.util.Arrays;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -61,7 +63,7 @@ public class VoteResourceTest {
 
         this.restVoteMockMvc = MockMvcBuilders.standaloneSetup(voteResource).build();
 
-        TestUtil.mockSecurityContext("admin");
+        TestUtil.mockSecurityContext("admin", Arrays.asList());
 
         vote = new VoteDTO();
         vote.setId(DEFAULT_ID);
