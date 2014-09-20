@@ -92,7 +92,7 @@ public class CommentResource {
         log.debug("REST request to get all Comments");
 
         List<CommentDTO> list = new LinkedList<>();
-        commentService.findAll().forEach(comment -> list.add(new CommentDTO(comment)));
+        commentService.findAll().forEach(comment -> list.add(new CommentDTO().fields(comment)));
 
         return list;
     }
@@ -117,7 +117,7 @@ public class CommentResource {
 
         return Optional.ofNullable(commentService.get(id))
                 .map(comment -> new ResponseEntity<>(
-                        new CommentDTO(comment),
+                        new CommentDTO().fields(comment),
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

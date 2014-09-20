@@ -6,4 +6,5 @@ package org.kalipo.security;
 public class Privileges {
     public static final String CREATE_THREAD = "CREATE_THREAD";
     public static final String CREATE_COMMENT = "CREATE_COMMENT";
+    public static final String CREATE_VOTE = "CREATE_VOTE";
 }

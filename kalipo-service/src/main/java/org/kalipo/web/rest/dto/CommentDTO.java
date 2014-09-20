@@ -4,17 +4,15 @@ import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.joda.time.DateTime;
 import org.kalipo.domain.Comment;
-import org.springframework.beans.BeanUtils;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 
 /**
  * A CommentDTO.
  */
 @ApiModel(value = "A Comment")
-public class CommentDTO implements Serializable {
+public class CommentDTO extends BaseDTO<CommentDTO, Comment> {
 
     private String id;
 
@@ -50,10 +48,6 @@ public class CommentDTO implements Serializable {
 
     public CommentDTO() {
 
-    }
-
-    public CommentDTO(Comment comment) {
-        BeanUtils.copyProperties(comment, this);
     }
 
     public String getId() {

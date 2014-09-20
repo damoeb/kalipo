@@ -1,15 +1,15 @@
 package org.kalipo.web.rest.dto;
 
 import org.joda.time.DateTime;
+import org.kalipo.domain.Vote;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * A VoteDTO.
  */
 
-public class VoteDTO implements Serializable {
+public class VoteDTO extends BaseDTO<VoteDTO, Vote> {
 
     private String id;
 

@@ -6,8 +6,7 @@ import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Vote;
-import org.kalipo.repository.VoteRepository;
-import org.kalipo.security.SecurityUtils;
+import org.kalipo.service.VoteService;
 import org.kalipo.web.rest.dto.VoteDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +32,7 @@ public class VoteResource {
     private final Logger log = LoggerFactory.getLogger(VoteResource.class);
 
     @Inject
-    private VoteRepository voteRepository;
+    private VoteService voteService;
 
     /**
      * POST  /rest/votes -> Create a new vote.
@@ -43,13 +43,12 @@ public class VoteResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new vote")
-    public void create(@Valid @RequestBody VoteDTO voteDTO) {
+    public void create(@Valid @RequestBody VoteDTO voteDTO) throws KalipoRequestException {
         log.debug("REST request to save Vote : {}", voteDTO);
         Vote vote = new Vote();
         BeanUtils.copyProperties(voteDTO, vote);
 
-        vote.setAuthorId(SecurityUtils.getCurrentLogin());
-        voteRepository.save(vote);
+        voteService.create(vote);
     }
 
     /**
@@ -74,8 +73,7 @@ public class VoteResource {
         Vote vote = new Vote();
         BeanUtils.copyProperties(voteDTO, vote);
         vote.setId(id);
-        vote.setAuthorId(SecurityUtils.getCurrentLogin());
-        voteRepository.save(vote);
+        voteService.update(vote);
     }
 
     /**
@@ -86,9 +84,13 @@ public class VoteResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the votes")
-    public List<Vote> getAll() {
+    public List<VoteDTO> getAll() {
         log.debug("REST request to get all Votes");
-        return voteRepository.findAll();
+
+        List<VoteDTO> list = new LinkedList<>();
+        voteService.getAll().forEach(vote -> list.add(new VoteDTO().fields(vote)));
+
+        return list;
     }
 
     /**
@@ -103,15 +105,15 @@ public class VoteResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Vote not found")
     })
-    public ResponseEntity<Vote> get(@PathVariable String id) throws KalipoRequestException {
+    public ResponseEntity<VoteDTO> get(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to get Vote : {}", id);
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
         }
 
-        return Optional.ofNullable(voteRepository.findOne(id))
+        return Optional.ofNullable(voteService.get(id))
                 .map(vote -> new ResponseEntity<>(
-                        vote,
+                        new VoteDTO().fields(vote),
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -132,6 +134,6 @@ public class VoteResource {
             throw new InvalidParameterException("id");
         }
 
-        voteRepository.delete(id);
+        voteService.delete(id);
     }
 }

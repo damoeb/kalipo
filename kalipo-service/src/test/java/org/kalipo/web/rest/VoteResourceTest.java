@@ -4,7 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
-import org.kalipo.repository.VoteRepository;
+import org.kalipo.security.Privileges;
+import org.kalipo.service.VoteService;
 import org.kalipo.web.rest.dto.VoteDTO;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -21,7 +22,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
-
 import java.util.Arrays;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -49,7 +49,7 @@ public class VoteResourceTest {
     private static final Boolean UPD_SAMPLE_ISLIKE_ATTR = true;
 
     @Inject
-    private VoteRepository voteRepository;
+    private VoteService voteService;
 
     private MockMvc restVoteMockMvc;
 
@@ -59,11 +59,11 @@ public class VoteResourceTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         VoteResource voteResource = new VoteResource();
-        ReflectionTestUtils.setField(voteResource, "voteRepository", voteRepository);
+        ReflectionTestUtils.setField(voteResource, "voteService", voteService);
 
         this.restVoteMockMvc = MockMvcBuilders.standaloneSetup(voteResource).build();
 
-        TestUtil.mockSecurityContext("admin", Arrays.asList());
+        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_VOTE));
 
         vote = new VoteDTO();
         vote.setId(DEFAULT_ID);
