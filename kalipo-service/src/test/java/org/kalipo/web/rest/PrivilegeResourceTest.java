@@ -5,7 +5,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
 import org.kalipo.domain.Privilege;
-import org.kalipo.repository.PrivilegeRepository;
+import org.kalipo.security.Privileges;
+import org.kalipo.service.PrivilegeService;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
@@ -21,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
+import java.util.Arrays;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -52,7 +54,7 @@ public class PrivilegeResourceTest {
 
 
     @Inject
-    private PrivilegeRepository privilegeRepository;
+    private PrivilegeService privilegeService;
 
     private MockMvc restPrivilegeMockMvc;
 
@@ -62,9 +64,11 @@ public class PrivilegeResourceTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         PrivilegeResource privilegeResource = new PrivilegeResource();
-        ReflectionTestUtils.setField(privilegeResource, "privilegeRepository", privilegeRepository);
+        ReflectionTestUtils.setField(privilegeResource, "privilegeService", privilegeService);
 
         this.restPrivilegeMockMvc = MockMvcBuilders.standaloneSetup(privilegeResource).build();
+
+        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_PRIVILEGE));
 
         privilege = new Privilege();
         privilege.setId(DEFAULT_ID);

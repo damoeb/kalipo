@@ -6,7 +6,7 @@ import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Privilege;
-import org.kalipo.repository.PrivilegeRepository;
+import org.kalipo.service.PrivilegeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ public class PrivilegeResource {
     private final Logger log = LoggerFactory.getLogger(PrivilegeResource.class);
 
     @Inject
-    private PrivilegeRepository privilegeRepository;
+    private PrivilegeService privilegeService;
 
     /**
      * POST  /rest/privileges -> Create a new privilege.
@@ -40,9 +40,9 @@ public class PrivilegeResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new privilege")
-    public void create(@Valid @RequestBody Privilege privilege) {
+    public void create(@Valid @RequestBody Privilege privilege) throws KalipoRequestException {
         log.debug("REST request to save Privilege : {}", privilege);
-        privilegeRepository.save(privilege);
+        privilegeService.create(privilege);
     }
 
     /**
@@ -65,7 +65,7 @@ public class PrivilegeResource {
         }
 
         privilege.setId(id);
-        privilegeRepository.save(privilege);
+        privilegeService.update(privilege);
     }
 
     /**
@@ -78,7 +78,7 @@ public class PrivilegeResource {
     @ApiOperation(value = "Get all the privileges")
     public List<Privilege> getAll() {
         log.debug("REST request to get all Privileges");
-        return privilegeRepository.findAll();
+        return privilegeService.getAll();
     }
 
     /**
@@ -99,7 +99,7 @@ public class PrivilegeResource {
             throw new InvalidParameterException("id");
         }
 
-        return Optional.ofNullable(privilegeRepository.findOne(id))
+        return Optional.ofNullable(privilegeService.get(id))
                 .map(privilege -> new ResponseEntity<>(
                         privilege,
                         HttpStatus.OK))
@@ -121,6 +121,6 @@ public class PrivilegeResource {
             throw new InvalidParameterException("id");
         }
 
-        privilegeRepository.delete(id);
+        privilegeService.delete(id);
     }
 }
