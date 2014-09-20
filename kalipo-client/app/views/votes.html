@@ -26,16 +26,23 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Sample text attribute</label>
-                            <input type="text" class="form-control" name="test"
-                                   ng-model="vote.sampleTextAttribute" ng-minlength=1 ng-maxlength=50 required>
+                            <label>commentId</label>
+                            <input type="text" class="form-control" name="commentId"
+                                   ng-model="vote.commentId" required>
                         </div>
 
                         <div class="form-group">
-                            <label>Sample date attribute</label>
-                            <input type="date" class="form-control" name="test"
-                                   ng-model="vote.sampleDateAttribute" required>
+                            <label>authorId</label>
+                            <input type="text" class="form-control" name="authorId"
+                                   ng-model="vote.authorId" required>
                         </div>
+
+                        <div class="form-group">
+                            <label>isLike</label>
+                            <input type="text" class="form-control" name="isLike"
+                                   ng-model="vote.isLike" required>
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
@@ -55,16 +62,18 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Sample text</th>
-                <th>Sample date</th>
+                <th>commentId</th>
+                <th>authorId</th>
+                <th>isLike</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="vote in votes">
                 <td>{{vote.id}}</td>
-                <td>{{vote.sampleTextAttribute}}</td>
-                <td>{{vote.sampleDateAttribute}}</td>
+                <td>{{vote.commentId}}</td>
+                <td>{{vote.authorId}}</td>
+                <td>{{vote.isLike}}</td>
                 <td>
                     <button type="submit"
                             ng-click="update(vote.id)"
