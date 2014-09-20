@@ -26,6 +26,6 @@ kalipoApp.controller('PrivilegeController', function ($scope, resolvedPrivilege,
     };
 
     $scope.clear = function () {
-        $scope.privilege = {id: null, sampleTextAttribute: null, sampleDateAttribute: null};
+        $scope.privilege = {id: null, name: null, reputation: null};
     };
 });
