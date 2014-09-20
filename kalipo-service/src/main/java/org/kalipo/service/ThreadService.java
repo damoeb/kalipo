@@ -26,6 +26,8 @@ public class ThreadService {
     @RolesAllowed(Privileges.CREATE_THREAD)
     public void create(Thread thread) throws KalipoRequestException {
 
+        // todo id must not exist id
+
         thread.setAuthorId(SecurityUtils.getCurrentLogin());
         thread.setStatus(Thread.Status.OPEN);
 
