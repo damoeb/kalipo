@@ -1,6 +1,7 @@
 package org.kalipo.web.rest.dto;
 
 import org.joda.time.DateTime;
+import org.kalipo.domain.Report;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -18,7 +19,7 @@ public class ReportDTO implements Serializable {
     @NotNull
     private String reason;
 
-    private Status status;
+    private Report.Status status;
 
     @NotNull
     private Long commentId;
@@ -53,11 +54,11 @@ public class ReportDTO implements Serializable {
         this.reason = reason;
     }
 
-    public Status getStatus() {
+    public Report.Status getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(Report.Status status) {
         this.status = status;
     }
 
@@ -93,10 +94,4 @@ public class ReportDTO implements Serializable {
         this.createdDate = createdDate;
     }
 
-    /**
-     * Created by damoeb on 8/8/14.
-     */
-    public static enum Status {
-        PENDING, APPROVED, REJECTED
-    }
 }

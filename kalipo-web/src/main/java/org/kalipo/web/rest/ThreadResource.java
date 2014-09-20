@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,7 +65,7 @@ public class ThreadResource {
             @ApiResponse(code = 404, message = "Thread not found")
     })
     public void update(@PathVariable String id, @Valid @RequestBody ThreadDTO threadDTO) throws KalipoRequestException {
-        log.debug("REST request to update Thread : {}", threadDTO);
+        log.debug(" request to update Thread : {}", threadDTO);
 
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
@@ -85,9 +86,13 @@ public class ThreadResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the threads")
-    public List<Thread> getAll() {
+    public List<ThreadDTO> getAll() {
         log.debug("REST request to get all Threads");
-        return threadService.getAll();
+
+        List<ThreadDTO> list = new LinkedList<>();
+        threadService.getAll().forEach(thread -> list.add(new ThreadDTO(thread)));
+
+        return list;
     }
 
     /**
@@ -102,7 +107,7 @@ public class ThreadResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Thread not found")
     })
-    public ResponseEntity<Thread> get(@PathVariable String id) throws KalipoRequestException {
+    public ResponseEntity<ThreadDTO> get(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to get Thread : {}", id);
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
@@ -110,7 +115,7 @@ public class ThreadResource {
 
         return Optional.ofNullable(threadService.get(id))
                 .map(thread -> new ResponseEntity<>(
-                        thread,
+                        new ThreadDTO(thread),
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

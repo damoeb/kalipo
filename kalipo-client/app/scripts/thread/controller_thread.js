@@ -26,6 +26,6 @@ kalipoApp.controller('ThreadController', function ($scope, resolvedThread, Threa
         };
 
         $scope.clear = function () {
-            $scope.thread = {id: null, sampleTextAttribute: null, sampleDateAttribute: null};
+            $scope.thread = {id: null, uri: null, title: null, status: null};
         };
     });

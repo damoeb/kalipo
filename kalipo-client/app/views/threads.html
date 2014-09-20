@@ -26,16 +26,23 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Sample text attribute</label>
-                            <input type="text" class="form-control" name="test"
-                                   ng-model="thread.sampleTextAttribute" ng-minlength=1 ng-maxlength=50 required>
+                            <label>title</label>
+                            <input type="text" class="form-control" name="title"
+                                   ng-model="thread.title" ng-minlength=1 ng-maxlength=50 required>
                         </div>
 
                         <div class="form-group">
-                            <label>Sample date attribute</label>
-                            <input type="date" class="form-control" name="test"
-                                   ng-model="thread.sampleDateAttribute" required>
+                            <label>status</label>
+                            <input type="text" class="form-control" name="status"
+                                   ng-model="thread.status">
                         </div>
+
+                        <div class="form-group">
+                            <label>uri</label>
+                            <input type="text" class="form-control" name="uri"
+                                   ng-model="thread.uri">
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
@@ -55,16 +62,16 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Sample text</th>
-                    <th>Sample date</th>
+                    <th>Title</th>
+                    <th>Status</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="thread in threads">
                     <td>{{thread.id}}</td>
-                    <td>{{thread.sampleTextAttribute}}</td>
-                    <td>{{thread.sampleDateAttribute}}</td>
+                    <td>{{thread.title}}</td>
+                    <td>{{thread.status}}</td>
                     <td>
                         <button type="submit"
                                 ng-click="update(thread.id)"

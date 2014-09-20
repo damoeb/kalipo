@@ -1,6 +1,8 @@
 package org.kalipo.web.rest.dto;
 
 import org.joda.time.DateTime;
+import org.kalipo.domain.Thread;
+import org.springframework.beans.BeanUtils;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -32,7 +34,14 @@ public class ThreadDTO implements Serializable {
 
     private Boolean readOnly;
 
-    private Status status;
+    private Thread.Status status;
+
+    public ThreadDTO() {
+    }
+
+    public ThreadDTO(Thread thread) {
+        BeanUtils.copyProperties(thread, this);
+    }
 
     public String getId() {
         return id;
@@ -114,18 +123,12 @@ public class ThreadDTO implements Serializable {
         this.readOnly = readOnly;
     }
 
-    public Status getStatus() {
+    public Thread.Status getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(Thread.Status status) {
         this.status = status;
     }
 
-    /**
-     * Created by damoeb on 7/28/14.
-     */
-    public static enum Status {
-        OPEN, CLOSED
-    }
 }
