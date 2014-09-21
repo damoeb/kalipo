@@ -30,14 +30,15 @@ public class VoteService {
     public void create(Vote vote) throws KalipoRequestException {
 
         // todo id must not exist id
-
-        vote.setAuthorId(SecurityUtils.getCurrentLogin());
-
-        voteRepository.save(vote);
+        save(vote);
     }
 
     @RolesAllowed(Privileges.CREATE_VOTE)
     public void update(Vote vote) throws KalipoRequestException {
+        save(vote);
+    }
+
+    private void save(Vote vote) throws KalipoRequestException {
 
         vote.setAuthorId(SecurityUtils.getCurrentLogin());
 

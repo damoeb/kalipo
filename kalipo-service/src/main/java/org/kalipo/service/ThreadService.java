@@ -3,6 +3,7 @@ package org.kalipo.service;
 import org.kalipo.aop.EnableArgumentValidation;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.ThreadRepository;
+import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.web.rest.KalipoRequestException;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.concurrent.Future;
@@ -24,19 +26,19 @@ public class ThreadService {
     @Inject
     private ThreadRepository threadRepository;
 
-    //    @RolesAllowed(Privileges.CREATE_THREAD)
+    @RolesAllowed(Privileges.CREATE_THREAD)
     public void create(Thread thread) throws KalipoRequestException {
 
         // todo id must not exist id
-
-        thread.setAuthorId(SecurityUtils.getCurrentLogin());
-        thread.setStatus(Thread.Status.OPEN);
-
-        threadRepository.save(thread);
+        save(thread);
     }
 
-    //    @RolesAllowed(Privileges.CREATE_THREAD)
+    @RolesAllowed(Privileges.CREATE_THREAD)
     public void update(Thread thread) throws KalipoRequestException {
+        save(thread);
+    }
+
+    private void save(Thread thread) throws KalipoRequestException {
 
         thread.setAuthorId(SecurityUtils.getCurrentLogin());
         thread.setStatus(Thread.Status.OPEN);

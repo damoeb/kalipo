@@ -30,11 +30,16 @@ public class TagService {
 
         // todo id must not exist id
 
-        tagRepository.save(tag);
+        save(tag);
     }
 
     @RolesAllowed(Privileges.CREATE_TAG)
     public void update(Tag tag) throws KalipoRequestException {
+
+        save(tag);
+    }
+
+    private void save(Tag tag) throws KalipoRequestException {
 
         tagRepository.save(tag);
     }

@@ -29,12 +29,16 @@ public class PrivilegeService {
     public void create(Privilege privilege) throws KalipoRequestException {
 
         // todo id must not exist id
-        privilegeRepository.save(privilege);
+        save(privilege);
     }
 
     @RolesAllowed(Privileges.CREATE_PRIVILEGE)
     public void update(Privilege privilege) throws KalipoRequestException {
 
+        save(privilege);
+    }
+
+    private void save(Privilege privilege) throws KalipoRequestException {
         privilegeRepository.save(privilege);
     }
 

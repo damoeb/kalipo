@@ -24,9 +24,11 @@ public class Comment {
     @NotNull
 //    todo fix test to support constraint
 //    @ModelExistsConstraint(Thread.class)
-    private Long threadId;
+    private String threadId;
 
-    private Long parentId;
+    //    todo fix test to support constraint
+//    @ModelExistsConstraint(Comment.class)
+    private String parentId;
 
     private Integer level;
 
@@ -64,19 +66,19 @@ public class Comment {
         this.id = id;
     }
 
-    public Long getThreadId() {
+    public String getThreadId() {
         return threadId;
     }
 
-    public void setThreadId(Long threadId) {
+    public void setThreadId(String threadId) {
         this.threadId = threadId;
     }
 
-    public Long getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 

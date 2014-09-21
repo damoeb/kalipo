@@ -48,7 +48,7 @@ public class CommentResourceTest {
     private static final String UPD_SAMPLE_TEXT_ATTR = "updSampleText";
 //    private static final LocalDate UPD_SAMPLE_TEXT_ATTR = new LocalDate();
 
-    private static final Long DEFAULT_THREAD_ID = 1l;
+    private static final String DEFAULT_THREAD_ID = "1";
     private static final String DEFAULT_TEXT = "sampleText";
     private static final String DEFAULT_TITLE = "sampleTitle";
 

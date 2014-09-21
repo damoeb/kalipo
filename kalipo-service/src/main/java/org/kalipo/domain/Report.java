@@ -39,7 +39,7 @@ public class Report implements Serializable {
 
     @NotNull
     @Field("thread_id")
-    private Long threadId;
+    private String threadId;
 
     private DateTime createdDate;
 
@@ -91,11 +91,11 @@ public class Report implements Serializable {
         this.abused = abused;
     }
 
-    public Long getThreadId() {
+    public String getThreadId() {
         return threadId;
     }
 
-    public void setThreadId(Long threadId) {
+    public void setThreadId(String threadId) {
         this.threadId = threadId;
     }
 

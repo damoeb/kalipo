@@ -3,6 +3,7 @@ package org.kalipo.service;
 import org.kalipo.aop.EnableArgumentValidation;
 import org.kalipo.domain.Comment;
 import org.kalipo.repository.CommentRepository;
+import org.kalipo.repository.ThreadRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.web.rest.KalipoRequestException;
@@ -26,18 +27,22 @@ public class CommentService {
     @Inject
     private CommentRepository commentRepository;
 
+    @Inject
+    private ThreadRepository threadRepository;
+
     @RolesAllowed(Privileges.CREATE_COMMENT)
     public void create(Comment comment) throws KalipoRequestException {
 
         // todo id must not exist id
-        comment.setAuthorId(SecurityUtils.getCurrentLogin());
-        comment.setStatus(Comment.Status.APPROVED);
-        commentRepository.save(comment);
+        save(comment);
     }
 
     @RolesAllowed(Privileges.CREATE_COMMENT)
     public void update(Comment comment) throws KalipoRequestException {
+        save(comment);
+    }
 
+    private void save(Comment comment) throws KalipoRequestException {
         comment.setAuthorId(SecurityUtils.getCurrentLogin());
         comment.setStatus(Comment.Status.APPROVED);
         commentRepository.save(comment);
