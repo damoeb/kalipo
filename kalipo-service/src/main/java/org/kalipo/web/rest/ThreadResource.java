@@ -26,7 +26,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/app/rest")
-public class ThreadResource {
+public class ThreadResource extends BaseResource<Thread, ThreadDTO> {
 
     private final Logger log = LoggerFactory.getLogger(ThreadResource.class);
 
@@ -45,7 +45,7 @@ public class ThreadResource {
     public void create(@Valid @RequestBody ThreadDTO threadDTO) throws KalipoRequestException {
         log.debug("REST request to save Thread : {}", threadDTO);
 
-        threadService.create(new Thread().from(threadDTO));
+        threadService.create(toOrigin(threadDTO));
     }
 
     /**
@@ -67,7 +67,7 @@ public class ThreadResource {
             throw new InvalidParameterException("id");
         }
 
-        Thread thread = new Thread().from(threadDTO);
+        Thread thread = toOrigin(threadDTO);
 
         thread.setId(id);
         threadService.update(thread);
@@ -85,7 +85,7 @@ public class ThreadResource {
         log.debug("REST request to get all Threads");
 
         List<ThreadDTO> list = new LinkedList<>();
-        threadService.getAll().forEach(thread -> list.add(new ThreadDTO().from(thread)));
+        threadService.getAll().forEach(thread -> list.add(fromOrigin(thread)));
 
         return list;
     }
@@ -110,7 +110,7 @@ public class ThreadResource {
 
         return Optional.ofNullable(threadService.get(id))
                 .map(thread -> new ResponseEntity<>(
-                        new ThreadDTO().from(thread),
+                        fromOrigin(thread),
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -131,5 +131,17 @@ public class ThreadResource {
         }
 
         threadService.delete(id);
+    }
+
+    // --
+
+    @Override
+    protected ThreadDTO newDTOInstance() {
+        return new ThreadDTO();
+    }
+
+    @Override
+    protected Thread newOriginInstance() {
+        return new Thread();
     }
 }

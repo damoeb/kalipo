@@ -1,16 +1,16 @@
 package org.kalipo.web.rest.dto;
 
 import org.joda.time.DateTime;
-import org.kalipo.domain.Convertible;
 import org.kalipo.domain.Report;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * A ReportDTO.
  */
 
-public class ReportDTO extends Convertible<Report, ReportDTO> {
+public class ReportDTO implements Serializable {
 
     private String id;
 

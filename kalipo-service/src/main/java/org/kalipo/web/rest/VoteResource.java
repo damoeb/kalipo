@@ -26,7 +26,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/app")
-public class VoteResource {
+public class VoteResource extends BaseResource<Vote, VoteDTO> {
 
     private final Logger log = LoggerFactory.getLogger(VoteResource.class);
 
@@ -45,7 +45,7 @@ public class VoteResource {
     public void create(@Valid @RequestBody VoteDTO voteDTO) throws KalipoRequestException {
         log.debug("REST request to save Vote : {}", voteDTO);
 
-        voteService.create(new Vote().from(voteDTO));
+        voteService.create(toOrigin(voteDTO));
     }
 
     /**
@@ -67,7 +67,7 @@ public class VoteResource {
             throw new InvalidParameterException("id");
         }
 
-        Vote vote = new Vote().from(voteDTO);
+        Vote vote = toOrigin(voteDTO);
         vote.setId(id);
         voteService.update(vote);
     }
@@ -84,7 +84,7 @@ public class VoteResource {
         log.debug("REST request to get all Votes");
 
         List<VoteDTO> list = new LinkedList<>();
-        voteService.getAll().forEach(vote -> list.add(new VoteDTO().from(vote)));
+        voteService.getAll().forEach(vote -> list.add(fromOrigin(vote)));
 
         return list;
     }
@@ -109,7 +109,7 @@ public class VoteResource {
 
         return Optional.ofNullable(voteService.get(id))
                 .map(vote -> new ResponseEntity<>(
-                        new VoteDTO().from(vote),
+                        fromOrigin(vote),
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -131,5 +131,17 @@ public class VoteResource {
         }
 
         voteService.delete(id);
+    }
+
+    // --
+
+    @Override
+    protected VoteDTO newDTOInstance() {
+        return new VoteDTO();
+    }
+
+    @Override
+    protected Vote newOriginInstance() {
+        return new Vote();
     }
 }

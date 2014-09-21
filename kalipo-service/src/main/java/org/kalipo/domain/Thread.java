@@ -1,20 +1,20 @@
 package org.kalipo.domain;
 
 import org.joda.time.DateTime;
-import org.kalipo.web.rest.dto.ThreadDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
  * A Thread.
  */
 
 @Document(collection = "T_THREAD")
-public class Thread extends Convertible<ThreadDTO, Thread> {
+public class Thread implements Serializable {
 
     @Id
     private String id;

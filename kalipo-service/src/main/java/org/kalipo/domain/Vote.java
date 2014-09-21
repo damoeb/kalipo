@@ -1,19 +1,19 @@
 package org.kalipo.domain;
 
 import org.joda.time.DateTime;
-import org.kalipo.web.rest.dto.VoteDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * A Vote.
  */
 
 @Document(collection = "T_VOTE")
-public class Vote extends Convertible<VoteDTO, Vote> {
+public class Vote implements Serializable {
 
     @Id
     private String id;

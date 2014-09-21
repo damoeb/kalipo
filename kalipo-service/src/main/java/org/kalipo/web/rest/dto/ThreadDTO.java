@@ -1,16 +1,16 @@
 package org.kalipo.web.rest.dto;
 
 import org.joda.time.DateTime;
-import org.kalipo.domain.Convertible;
 import org.kalipo.domain.Thread;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * A ThreadDTO.
  */
 
-public class ThreadDTO extends Convertible<Thread, ThreadDTO> {
+public class ThreadDTO implements Serializable {
 
     private String id;
 

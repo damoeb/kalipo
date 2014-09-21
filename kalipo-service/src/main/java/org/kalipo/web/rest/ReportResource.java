@@ -10,7 +10,6 @@ import org.kalipo.service.ReportService;
 import org.kalipo.web.rest.dto.ReportDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +26,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/app")
-public class ReportResource {
+public class ReportResource extends BaseResource<Report, ReportDTO> {
 
     private final Logger log = LoggerFactory.getLogger(ReportResource.class);
 
@@ -46,10 +45,7 @@ public class ReportResource {
     public void create(@Valid @RequestBody ReportDTO reportDTO) throws KalipoRequestException {
         log.debug("REST request to save Report : {}", reportDTO);
 
-        Report report = new Report();
-        BeanUtils.copyProperties(reportDTO, report);
-
-        reportService.create(report);
+        reportService.create(toOrigin(reportDTO));
     }
 
     /**
@@ -71,8 +67,7 @@ public class ReportResource {
             throw new InvalidParameterException("id");
         }
 
-        Report report = new Report();
-        BeanUtils.copyProperties(reportDTO, report);
+        Report report = toOrigin(reportDTO);
 
         report.setId(id);
 
@@ -91,7 +86,7 @@ public class ReportResource {
         log.debug("REST request to get all Reports");
 
         List<ReportDTO> list = new LinkedList<>();
-        reportService.getAll().forEach(report -> list.add(new ReportDTO().from(report)));
+        reportService.getAll().forEach(report -> list.add(fromOrigin(report)));
 
         return list;
     }
@@ -116,7 +111,7 @@ public class ReportResource {
 
         return Optional.ofNullable(reportService.get(id))
                 .map(report -> new ResponseEntity<>(
-                        new ReportDTO().from(report),
+                        fromOrigin(report),
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -137,5 +132,17 @@ public class ReportResource {
         }
 
         reportService.delete(id);
+    }
+
+    // --
+
+    @Override
+    protected ReportDTO newDTOInstance() {
+        return new ReportDTO();
+    }
+
+    @Override
+    protected Report newOriginInstance() {
+        return new Report();
     }
 }
