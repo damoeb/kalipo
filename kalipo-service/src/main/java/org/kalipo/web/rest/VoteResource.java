@@ -10,7 +10,6 @@ import org.kalipo.service.VoteService;
 import org.kalipo.web.rest.dto.VoteDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -45,10 +44,8 @@ public class VoteResource {
     @ApiOperation(value = "Create a new vote")
     public void create(@Valid @RequestBody VoteDTO voteDTO) throws KalipoRequestException {
         log.debug("REST request to save Vote : {}", voteDTO);
-        Vote vote = new Vote();
-        BeanUtils.copyProperties(voteDTO, vote);
 
-        voteService.create(vote);
+        voteService.create(new Vote().from(voteDTO));
     }
 
     /**
@@ -70,8 +67,7 @@ public class VoteResource {
             throw new InvalidParameterException("id");
         }
 
-        Vote vote = new Vote();
-        BeanUtils.copyProperties(voteDTO, vote);
+        Vote vote = new Vote().from(voteDTO);
         vote.setId(id);
         voteService.update(vote);
     }
@@ -88,7 +84,7 @@ public class VoteResource {
         log.debug("REST request to get all Votes");
 
         List<VoteDTO> list = new LinkedList<>();
-        voteService.getAll().forEach(vote -> list.add(new VoteDTO().fields(vote)));
+        voteService.getAll().forEach(vote -> list.add(new VoteDTO().from(vote)));
 
         return list;
     }
@@ -113,7 +109,7 @@ public class VoteResource {
 
         return Optional.ofNullable(voteService.get(id))
                 .map(vote -> new ResponseEntity<>(
-                        new VoteDTO().fields(vote),
+                        new VoteDTO().from(vote),
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

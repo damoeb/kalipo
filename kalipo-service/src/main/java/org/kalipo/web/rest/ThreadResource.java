@@ -10,7 +10,6 @@ import org.kalipo.service.ThreadService;
 import org.kalipo.web.rest.dto.ThreadDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -46,10 +45,7 @@ public class ThreadResource {
     public void create(@Valid @RequestBody ThreadDTO threadDTO) throws KalipoRequestException {
         log.debug("REST request to save Thread : {}", threadDTO);
 
-        Thread thread = new Thread();
-        BeanUtils.copyProperties(threadDTO, thread);
-
-        threadService.create(thread);
+        threadService.create(new Thread().from(threadDTO));
     }
 
     /**
@@ -71,8 +67,7 @@ public class ThreadResource {
             throw new InvalidParameterException("id");
         }
 
-        Thread thread = new Thread();
-        BeanUtils.copyProperties(threadDTO, thread);
+        Thread thread = new Thread().from(threadDTO);
 
         thread.setId(id);
         threadService.update(thread);
@@ -90,7 +85,7 @@ public class ThreadResource {
         log.debug("REST request to get all Threads");
 
         List<ThreadDTO> list = new LinkedList<>();
-        threadService.getAll().forEach(thread -> list.add(new ThreadDTO(thread)));
+        threadService.getAll().forEach(thread -> list.add(new ThreadDTO().from(thread)));
 
         return list;
     }
@@ -115,7 +110,7 @@ public class ThreadResource {
 
         return Optional.ofNullable(threadService.get(id))
                 .map(thread -> new ResponseEntity<>(
-                        new ThreadDTO(thread),
+                        new ThreadDTO().from(thread),
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

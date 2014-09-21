@@ -1,6 +1,7 @@
 package org.kalipo.web.rest.dto;
 
 import org.joda.time.DateTime;
+import org.kalipo.domain.Convertible;
 import org.kalipo.domain.Vote;
 
 import javax.validation.constraints.NotNull;
@@ -9,7 +10,7 @@ import javax.validation.constraints.NotNull;
  * A VoteDTO.
  */
 
-public class VoteDTO extends BaseDTO<VoteDTO, Vote> {
+public class VoteDTO extends Convertible<Vote, VoteDTO> {
 
     private String id;
 

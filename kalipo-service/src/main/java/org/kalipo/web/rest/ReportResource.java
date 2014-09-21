@@ -6,8 +6,7 @@ import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Report;
-import org.kalipo.repository.ReportRepository;
-import org.kalipo.security.SecurityUtils;
+import org.kalipo.service.ReportService;
 import org.kalipo.web.rest.dto.ReportDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +32,7 @@ public class ReportResource {
     private final Logger log = LoggerFactory.getLogger(ReportResource.class);
 
     @Inject
-    private ReportRepository reportRepository;
+    private ReportService reportService;
 
     /**
      * POST  /rest/reports -> Create a new report.
@@ -43,17 +43,13 @@ public class ReportResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new report")
-    public void create(@Valid @RequestBody ReportDTO reportDTO) {
+    public void create(@Valid @RequestBody ReportDTO reportDTO) throws KalipoRequestException {
         log.debug("REST request to save Report : {}", reportDTO);
 
         Report report = new Report();
         BeanUtils.copyProperties(reportDTO, report);
 
-        report.setAuthorId(SecurityUtils.getCurrentLogin());
-        report.setStatus(Report.Status.PENDING);
-        report.setThreadId(1l);
-
-        reportRepository.save(report);
+        reportService.create(report);
     }
 
     /**
@@ -79,11 +75,8 @@ public class ReportResource {
         BeanUtils.copyProperties(reportDTO, report);
 
         report.setId(id);
-        report.setAuthorId(SecurityUtils.getCurrentLogin());
-        report.setStatus(Report.Status.PENDING);
-        report.setThreadId(1l);
 
-        reportRepository.save(report);
+        reportService.update(report);
     }
 
     /**
@@ -94,9 +87,13 @@ public class ReportResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the reports")
-    public List<Report> getAll() {
+    public List<ReportDTO> getAll() {
         log.debug("REST request to get all Reports");
-        return reportRepository.findAll();
+
+        List<ReportDTO> list = new LinkedList<>();
+        reportService.getAll().forEach(report -> list.add(new ReportDTO().from(report)));
+
+        return list;
     }
 
     /**
@@ -111,15 +108,15 @@ public class ReportResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Report not found")
     })
-    public ResponseEntity<Report> get(@PathVariable String id) throws KalipoRequestException {
+    public ResponseEntity<ReportDTO> get(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to get Report : {}", id);
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
         }
 
-        return Optional.ofNullable(reportRepository.findOne(id))
+        return Optional.ofNullable(reportService.get(id))
                 .map(report -> new ResponseEntity<>(
-                        report,
+                        new ReportDTO().from(report),
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -133,12 +130,12 @@ public class ReportResource {
     @Timed
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Delete the \"id\" report")
-    public void delete(@PathVariable String id) throws InvalidParameterException {
+    public void delete(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to delete Report : {}", id);
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
         }
 
-        reportRepository.delete(id);
+        reportService.delete(id);
     }
 }

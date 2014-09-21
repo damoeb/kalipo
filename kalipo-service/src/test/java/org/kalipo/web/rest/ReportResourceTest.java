@@ -4,7 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
-import org.kalipo.repository.ReportRepository;
+import org.kalipo.security.Privileges;
+import org.kalipo.service.ReportService;
 import org.kalipo.web.rest.dto.ReportDTO;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -21,7 +22,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
-
 import java.util.Arrays;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -50,10 +50,8 @@ public class ReportResourceTest {
     private static final Long DEFAULT_SAMPLE_COMMENT_ID_ATTR = 1l;
     private static final Long UPD_SAMPLE_COMMENT_ID_ATTR = 2l;
 
-    private static final String UPD_SAMPLE_TITLE_ATTR = "sampleTitleAttributeUpt";
-
     @Inject
-    private ReportRepository reportRepository;
+    private ReportService reportService;
 
     private MockMvc restReportMockMvc;
 
@@ -63,11 +61,11 @@ public class ReportResourceTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         ReportResource reportResource = new ReportResource();
-        ReflectionTestUtils.setField(reportResource, "reportRepository", reportRepository);
+        ReflectionTestUtils.setField(reportResource, "reportService", reportService);
 
         this.restReportMockMvc = MockMvcBuilders.standaloneSetup(reportResource).build();
 
-        TestUtil.mockSecurityContext("admin", Arrays.asList());
+        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_REPORT));
 
         report = new ReportDTO();
         report.setId(DEFAULT_ID);

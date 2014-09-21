@@ -10,7 +10,6 @@ import org.kalipo.service.CommentService;
 import org.kalipo.web.rest.dto.CommentDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -47,10 +46,7 @@ public class CommentResource {
     public void create(@Valid @RequestBody CommentDTO commentDTO) throws KalipoRequestException {
         log.debug("REST request to save Comment : {}", commentDTO);
 
-        Comment comment = new Comment();
-        BeanUtils.copyProperties(commentDTO, comment);
-
-        commentService.create(comment);
+        commentService.create(new Comment().from(commentDTO));
     }
 
     /**
@@ -72,8 +68,7 @@ public class CommentResource {
             throw new InvalidParameterException("id");
         }
 
-        Comment comment = new Comment();
-        BeanUtils.copyProperties(commentDTO, comment);
+        Comment comment = new Comment().from(commentDTO);
 
         comment.setId(id);
         commentService.update(comment);
@@ -92,7 +87,7 @@ public class CommentResource {
         log.debug("REST request to get all Comments");
 
         List<CommentDTO> list = new LinkedList<>();
-        commentService.findAll().forEach(comment -> list.add(new CommentDTO().fields(comment)));
+        commentService.findAll().forEach(comment -> list.add(new CommentDTO().from(comment)));
 
         return list;
     }
@@ -117,7 +112,7 @@ public class CommentResource {
 
         return Optional.ofNullable(commentService.get(id))
                 .map(comment -> new ResponseEntity<>(
-                        new CommentDTO().fields(comment),
+                        new CommentDTO().from(comment),
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

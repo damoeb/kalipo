@@ -1,26 +1,20 @@
 package org.kalipo.domain;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.joda.deser.LocalDateDeserializer;
 import org.joda.time.DateTime;
-import org.kalipo.domain.util.CustomLocalDateSerializer;
-import org.joda.time.LocalDate;
+import org.kalipo.web.rest.dto.ThreadDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 
 /**
  * A Thread.
  */
 
 @Document(collection = "T_THREAD")
-public class Thread implements Serializable {
+public class Thread extends Convertible<ThreadDTO, Thread> {
 
     @Id
     private String id;
@@ -31,7 +25,7 @@ public class Thread implements Serializable {
     @Size(min = 0, max = 128)
     private String title;
 
-//    @NotNull
+    //    @NotNull
     @Field("created_date")
     private DateTime createdDate = DateTime.now();
 
