@@ -5,8 +5,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
 import org.kalipo.domain.Comment;
+import org.kalipo.domain.Thread;
 import org.kalipo.security.Privileges;
 import org.kalipo.service.CommentService;
+import org.kalipo.service.ThreadService;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
@@ -55,21 +57,28 @@ public class CommentResourceTest {
     @Inject
     private CommentService commentService;
 
+    @Inject
+    private ThreadService threadService;
+
     private MockMvc restCommentMockMvc;
 
     private Comment comment;
 
     @Before
-    public void setup() {
+    public void setup() throws KalipoRequestException {
         MockitoAnnotations.initMocks(this);
         CommentResource commentResource = new CommentResource();
         ReflectionTestUtils.setField(commentResource, "commentService", commentService);
 
         this.restCommentMockMvc = MockMvcBuilders.standaloneSetup(commentResource).build();
 
-        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_COMMENT));
+        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_COMMENT, Privileges.CREATE_THREAD));
+
+        Thread thread = ThreadResourceTest.newThread();
+        threadService.create(thread);
 
         comment = newComment();
+        comment.setThreadId(thread.getId());
     }
 
     @Test

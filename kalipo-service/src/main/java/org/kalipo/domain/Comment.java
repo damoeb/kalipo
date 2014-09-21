@@ -1,6 +1,7 @@
 package org.kalipo.domain;
 
 import org.joda.time.DateTime;
+import org.kalipo.validation.ModelExistsConstraint;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -22,12 +23,10 @@ public class Comment {
     private String id;
 
     @NotNull
-//    todo fix test to support constraint
-//    @ModelExistsConstraint(Thread.class)
+    @ModelExistsConstraint(Thread.class)
     private String threadId;
 
-    //    todo fix test to support constraint
-//    @ModelExistsConstraint(Comment.class)
+    @ModelExistsConstraint(Comment.class)
     private String parentId;
 
     private Integer level;

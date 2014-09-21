@@ -32,7 +32,7 @@ public class ModelExistsConstraintValidator implements ConstraintValidator<Model
     @Override
     public boolean isValid(String id, ConstraintValidatorContext context) {
         if (StringUtils.isBlank(id)) {
-            return false;
+            return true;
         }
         if (clazz == Comment.class) {
             return commentRepository.exists(id);

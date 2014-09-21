@@ -43,6 +43,7 @@ public class ArgumentValidationAspect {
             throw e;
 
         } catch (Throwable e) {
+            log.error("Unexpected exception.", e);
             throw new KalipoRequestException(ErrorCode.UNKNOWN_ERROR, e);
         }
     }
