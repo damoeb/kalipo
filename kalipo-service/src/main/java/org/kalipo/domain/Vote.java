@@ -24,7 +24,7 @@ public class Vote implements Serializable {
 
     @NotNull
     @Field("comment_id")
-//    todo activate
+//    todo fix test to support constraint
 //    @ModelExistsConstraint(Comment.class)
     private Long commentId;
 
