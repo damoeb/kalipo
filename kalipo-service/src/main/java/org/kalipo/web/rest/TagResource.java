@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +40,7 @@ public class TagResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new tag")
-    public void create(@Valid @RequestBody Tag tag) throws KalipoRequestException {
+    public void create(@NotNull @RequestBody Tag tag) throws KalipoRequestException {
         log.debug("REST request to save Tag : {}", tag);
         tagService.create(tag);
     }
@@ -57,7 +57,7 @@ public class TagResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Tag not found")
     })
-    public void update(@PathVariable String id, @Valid @RequestBody Tag tag) throws KalipoRequestException {
+    public void update(@PathVariable String id, @NotNull @RequestBody Tag tag) throws KalipoRequestException {
         log.debug("REST request to update Tag : {}", tag);
 
         if (StringUtils.isBlank(id)) {

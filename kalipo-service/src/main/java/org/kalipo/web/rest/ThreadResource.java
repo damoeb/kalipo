@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +40,7 @@ public class ThreadResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new thread")
-    public void create(@RequestBody Thread thread) throws KalipoRequestException {
+    public void create(@NotNull @RequestBody Thread thread) throws KalipoRequestException {
         log.debug("REST request to save Thread : {}", thread);
 
         threadService.create(thread);
@@ -57,7 +58,7 @@ public class ThreadResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Thread not found")
     })
-    public void update(@PathVariable String id, @RequestBody Thread thread) throws KalipoRequestException {
+    public void update(@PathVariable String id, @NotNull @RequestBody Thread thread) throws KalipoRequestException {
         log.debug(" request to update Thread : {}", thread);
 
         if (StringUtils.isBlank(id)) {

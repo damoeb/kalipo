@@ -4,9 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
+import org.kalipo.domain.Comment;
 import org.kalipo.security.Privileges;
 import org.kalipo.service.CommentService;
-import org.kalipo.web.rest.dto.CommentDTO;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
@@ -22,7 +22,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
-
 import java.util.Arrays;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -58,7 +57,7 @@ public class CommentResourceTest {
 
     private MockMvc restCommentMockMvc;
 
-    private CommentDTO comment;
+    private Comment comment;
 
     @Before
     public void setup() {
@@ -70,7 +69,7 @@ public class CommentResourceTest {
 
         TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_COMMENT));
 
-        comment = new CommentDTO();
+        comment = new Comment();
         comment.setId(DEFAULT_ID);
         comment.setThreadId(DEFAULT_THREAD_ID);
         comment.setText(DEFAULT_TEXT);
@@ -89,7 +88,7 @@ public class CommentResourceTest {
         // Try create a empty Comment
         restCommentMockMvc.perform(post("/app/rest/comments")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(new CommentDTO())))
+                .content(TestUtil.convertObjectToJsonBytes(new Comment())))
                 .andExpect(status().isBadRequest());
 
         // Read Comment

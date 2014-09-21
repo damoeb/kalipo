@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +40,7 @@ public class PrivilegeResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new privilege")
-    public void create(@Valid @RequestBody Privilege privilege) throws KalipoRequestException {
+    public void create(@NotNull @RequestBody Privilege privilege) throws KalipoRequestException {
         log.debug("REST request to save Privilege : {}", privilege);
         privilegeService.create(privilege);
     }
@@ -57,7 +57,7 @@ public class PrivilegeResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Privilege not found")
     })
-    public void update(@PathVariable String id, @Valid @RequestBody Privilege privilege) throws KalipoRequestException {
+    public void update(@PathVariable String id, @NotNull @RequestBody Privilege privilege) throws KalipoRequestException {
         log.debug("REST request to update Privilege : {}", privilege);
 
         if (StringUtils.isBlank(id)) {

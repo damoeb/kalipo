@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +40,7 @@ public class ReportResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new report")
-    public void create(@RequestBody Report report) throws KalipoRequestException {
+    public void create(@NotNull @RequestBody Report report) throws KalipoRequestException {
         log.debug("REST request to save Report : {}", report);
 
         reportService.create(report);
@@ -57,7 +58,7 @@ public class ReportResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Report not found")
     })
-    public void update(@PathVariable String id, @RequestBody Report report) throws KalipoRequestException {
+    public void update(@PathVariable String id, @NotNull @RequestBody Report report) throws KalipoRequestException {
         log.debug("REST request to update Report : {}", report);
 
         if (StringUtils.isBlank(id)) {

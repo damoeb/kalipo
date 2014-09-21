@@ -7,7 +7,6 @@ import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Comment;
 import org.kalipo.service.CommentService;
-import org.kalipo.web.rest.dto.CommentDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,9 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.security.InvalidParameterException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +25,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/app")
-public class CommentResource extends BaseResource<Comment, CommentDTO> {
+public class CommentResource {
 
     private final Logger log = LoggerFactory.getLogger(CommentResource.class);
 
@@ -43,10 +41,10 @@ public class CommentResource extends BaseResource<Comment, CommentDTO> {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new comment")
-    public void create(@Valid @RequestBody CommentDTO commentDTO) throws KalipoRequestException {
-        log.debug("REST request to save Comment : {}", commentDTO);
+    public void create(@NotNull @RequestBody Comment comment) throws KalipoRequestException {
+        log.debug("REST request to save Comment : {}", comment);
 
-        commentService.create(toOrigin(commentDTO));
+        commentService.create(comment);
     }
 
     /**
@@ -61,14 +59,12 @@ public class CommentResource extends BaseResource<Comment, CommentDTO> {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Comment not found")
     })
-    public void update(@PathVariable String id, @Valid @RequestBody CommentDTO commentDTO) throws KalipoRequestException {
-        log.debug("REST request to update Comment : {}", commentDTO);
+    public void update(@PathVariable String id, @NotNull @RequestBody Comment comment) throws KalipoRequestException {
+        log.debug("REST request to update Comment : {}", comment);
 
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
         }
-
-        Comment comment = toOrigin(commentDTO);
 
         comment.setId(id);
         commentService.update(comment);
@@ -82,14 +78,11 @@ public class CommentResource extends BaseResource<Comment, CommentDTO> {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the comments")
-    public List<CommentDTO> getAll() {
+    public List<Comment> getAll() {
 //      todo impl pagination  @QueryParam("offset") int offset, @QueryParam("size") int size
         log.debug("REST request to get all Comments");
 
-        List<CommentDTO> list = new LinkedList<>();
-        commentService.findAll().forEach(comment -> list.add(fromOrigin(comment)));
-
-        return list;
+        return commentService.findAll();
     }
 
     /**
@@ -104,7 +97,7 @@ public class CommentResource extends BaseResource<Comment, CommentDTO> {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Comment not found")
     })
-    public ResponseEntity<CommentDTO> get(@PathVariable String id) throws KalipoRequestException {
+    public ResponseEntity<Comment> get(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to get Comment : {}", id);
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
@@ -112,7 +105,7 @@ public class CommentResource extends BaseResource<Comment, CommentDTO> {
 
         return Optional.ofNullable(commentService.get(id))
                 .map(comment -> new ResponseEntity<>(
-                        fromOrigin(comment),
+                        comment,
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -134,17 +127,5 @@ public class CommentResource extends BaseResource<Comment, CommentDTO> {
         }
 
         commentService.delete(id);
-    }
-
-    // --
-
-    @Override
-    protected CommentDTO newDTOInstance() {
-        return new CommentDTO();
-    }
-
-    @Override
-    protected Comment newOriginInstance() {
-        return new Comment();
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +41,7 @@ public class VoteResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new vote")
-    public void create(@RequestBody Vote vote) throws KalipoRequestException {
+    public void create(@NotNull @RequestBody Vote vote) throws KalipoRequestException {
         log.debug("REST request to save Vote : {}", vote);
 
         voteService.create(vote);
@@ -58,7 +59,7 @@ public class VoteResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Vote not found")
     })
-    public void update(@PathVariable String id, @RequestBody Vote vote) throws KalipoRequestException {
+    public void update(@PathVariable String id, @NotNull @RequestBody Vote vote) throws KalipoRequestException {
         log.debug("REST request to update Vote : {}", vote);
 
         if (StringUtils.isBlank(id)) {
