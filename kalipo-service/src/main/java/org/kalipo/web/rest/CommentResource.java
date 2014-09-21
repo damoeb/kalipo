@@ -27,7 +27,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/app")
-public class CommentResource {
+public class CommentResource extends BaseResource<Comment, CommentDTO> {
 
     private final Logger log = LoggerFactory.getLogger(CommentResource.class);
 
@@ -46,7 +46,7 @@ public class CommentResource {
     public void create(@Valid @RequestBody CommentDTO commentDTO) throws KalipoRequestException {
         log.debug("REST request to save Comment : {}", commentDTO);
 
-        commentService.create(new Comment().from(commentDTO));
+        commentService.create(toOrigin(commentDTO));
     }
 
     /**
@@ -68,7 +68,7 @@ public class CommentResource {
             throw new InvalidParameterException("id");
         }
 
-        Comment comment = new Comment().from(commentDTO);
+        Comment comment = toOrigin(commentDTO);
 
         comment.setId(id);
         commentService.update(comment);
@@ -87,7 +87,7 @@ public class CommentResource {
         log.debug("REST request to get all Comments");
 
         List<CommentDTO> list = new LinkedList<>();
-        commentService.findAll().forEach(comment -> list.add(new CommentDTO().from(comment)));
+        commentService.findAll().forEach(comment -> list.add(fromOrigin(comment)));
 
         return list;
     }
@@ -112,7 +112,7 @@ public class CommentResource {
 
         return Optional.ofNullable(commentService.get(id))
                 .map(comment -> new ResponseEntity<>(
-                        new CommentDTO().from(comment),
+                        fromOrigin(comment),
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -134,5 +134,17 @@ public class CommentResource {
         }
 
         commentService.delete(id);
+    }
+
+    // --
+
+    @Override
+    protected CommentDTO newDTOInstance() {
+        return new CommentDTO();
+    }
+
+    @Override
+    protected Comment newOriginInstance() {
+        return new Comment();
     }
 }

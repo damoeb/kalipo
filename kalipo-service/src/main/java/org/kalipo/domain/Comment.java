@@ -1,7 +1,6 @@
 package org.kalipo.domain;
 
 import org.joda.time.DateTime;
-import org.kalipo.web.rest.dto.CommentDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -14,7 +13,7 @@ import javax.validation.constraints.Size;
  */
 
 @Document(collection = "T_COMMENT")
-public class Comment extends Convertible<CommentDTO, Comment> {
+public class Comment {
 
     public static final int LEN_TITLE = 256;
     public static final int LEN_TEXT = 2048;
