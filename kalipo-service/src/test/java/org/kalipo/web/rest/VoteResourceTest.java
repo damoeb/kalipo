@@ -4,9 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
+import org.kalipo.domain.Vote;
 import org.kalipo.security.Privileges;
 import org.kalipo.service.VoteService;
-import org.kalipo.web.rest.dto.VoteDTO;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
@@ -53,7 +53,7 @@ public class VoteResourceTest {
 
     private MockMvc restVoteMockMvc;
 
-    private VoteDTO vote;
+    private Vote vote;
 
     @Before
     public void setup() {
@@ -65,7 +65,7 @@ public class VoteResourceTest {
 
         TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_VOTE));
 
-        vote = new VoteDTO();
+        vote = new Vote();
         vote.setId(DEFAULT_ID);
         vote.setCommentId(DEFAULT_COMMENT_ID);
         vote.setIsLike(DEFAULT_SAMPLE_ISLIKE_ATTR);
@@ -83,7 +83,7 @@ public class VoteResourceTest {
         // Try create a empty Comment
         restVoteMockMvc.perform(post("/app/rest/votes")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(new VoteDTO())))
+                .content(TestUtil.convertObjectToJsonBytes(new Vote())))
                 .andExpect(status().isBadRequest());
 
         // Read Vote

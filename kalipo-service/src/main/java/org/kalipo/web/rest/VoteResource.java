@@ -7,7 +7,6 @@ import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Vote;
 import org.kalipo.service.VoteService;
-import org.kalipo.web.rest.dto.VoteDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +24,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/app")
-public class VoteResource extends BaseResource<Vote, VoteDTO> {
+public class VoteResource {
 
     private final Logger log = LoggerFactory.getLogger(VoteResource.class);
 
@@ -42,10 +40,10 @@ public class VoteResource extends BaseResource<Vote, VoteDTO> {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new vote")
-    public void create(@Valid @RequestBody VoteDTO voteDTO) throws KalipoRequestException {
-        log.debug("REST request to save Vote : {}", voteDTO);
+    public void create(@RequestBody Vote vote) throws KalipoRequestException {
+        log.debug("REST request to save Vote : {}", vote);
 
-        voteService.create(toOrigin(voteDTO));
+        voteService.create(vote);
     }
 
     /**
@@ -60,14 +58,13 @@ public class VoteResource extends BaseResource<Vote, VoteDTO> {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Vote not found")
     })
-    public void update(@PathVariable String id, @Valid @RequestBody VoteDTO voteDTO) throws KalipoRequestException {
-        log.debug("REST request to update Vote : {}", voteDTO);
+    public void update(@PathVariable String id, @RequestBody Vote vote) throws KalipoRequestException {
+        log.debug("REST request to update Vote : {}", vote);
 
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
         }
 
-        Vote vote = toOrigin(voteDTO);
         vote.setId(id);
         voteService.update(vote);
     }
@@ -80,11 +77,11 @@ public class VoteResource extends BaseResource<Vote, VoteDTO> {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the votes")
-    public List<VoteDTO> getAll() {
+    public List<Vote> getAll() {
         log.debug("REST request to get all Votes");
 
-        List<VoteDTO> list = new LinkedList<>();
-        voteService.getAll().forEach(vote -> list.add(fromOrigin(vote)));
+        List<Vote> list = new LinkedList<>();
+        voteService.getAll().forEach(vote -> list.add(vote));
 
         return list;
     }
@@ -101,7 +98,7 @@ public class VoteResource extends BaseResource<Vote, VoteDTO> {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Vote not found")
     })
-    public ResponseEntity<VoteDTO> get(@PathVariable String id) throws KalipoRequestException {
+    public ResponseEntity<Vote> get(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to get Vote : {}", id);
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
@@ -109,7 +106,7 @@ public class VoteResource extends BaseResource<Vote, VoteDTO> {
 
         return Optional.ofNullable(voteService.get(id))
                 .map(vote -> new ResponseEntity<>(
-                        fromOrigin(vote),
+                        vote,
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -131,17 +128,5 @@ public class VoteResource extends BaseResource<Vote, VoteDTO> {
         }
 
         voteService.delete(id);
-    }
-
-    // --
-
-    @Override
-    protected VoteDTO newDTOInstance() {
-        return new VoteDTO();
-    }
-
-    @Override
-    protected Vote newOriginInstance() {
-        return new Vote();
     }
 }

@@ -1,6 +1,7 @@
 package org.kalipo.domain;
 
 import org.joda.time.DateTime;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -23,13 +24,15 @@ public class Vote implements Serializable {
 
     @NotNull
     @Field("comment_id")
+//    todo activate
+//    @ModelExistsConstraint(Comment.class)
     private Long commentId;
 
     @Field("is_like")
     private Boolean isLike;
 
-    @Field("created_date")
-    private DateTime createdDate = DateTime.now();
+    @CreatedDate
+    private DateTime createdDate;
 
     public String getId() {
         return id;
