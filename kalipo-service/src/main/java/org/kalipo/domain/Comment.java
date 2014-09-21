@@ -22,6 +22,8 @@ public class Comment {
     private String id;
 
     @NotNull
+//    todo fix test to support constraint
+//    @ModelExistsConstraint(Thread.class)
     private Long threadId;
 
     private Long parentId;

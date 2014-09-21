@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 /**
  * REST controller for managing Thread.
@@ -77,10 +78,10 @@ public class ThreadResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the threads")
-    public List<Thread> getAll() {
+    public List<Thread> getAll() throws ExecutionException, InterruptedException {
         log.debug("REST request to get all Threads");
 
-        return threadService.getAll();
+        return threadService.getAll().get();
     }
 
     /**
@@ -95,13 +96,13 @@ public class ThreadResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Thread not found")
     })
-    public ResponseEntity<Thread> get(@PathVariable String id) throws KalipoRequestException {
+    public ResponseEntity<Thread> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
         log.debug("REST request to get Thread : {}", id);
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
         }
 
-        return Optional.ofNullable(threadService.get(id))
+        return Optional.ofNullable(threadService.get(id).get())
                 .map(thread -> new ResponseEntity<>(
                         thread,
                         HttpStatus.OK))

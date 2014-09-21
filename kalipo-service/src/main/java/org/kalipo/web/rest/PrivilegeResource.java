@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 /**
  * REST controller for managing Privilege.
@@ -76,9 +77,9 @@ public class PrivilegeResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the privileges")
-    public List<Privilege> getAll() {
+    public List<Privilege> getAll() throws ExecutionException, InterruptedException {
         log.debug("REST request to get all Privileges");
-        return privilegeService.getAll();
+        return privilegeService.getAll().get();
     }
 
     /**
@@ -93,13 +94,13 @@ public class PrivilegeResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Privilege not found")
     })
-    public ResponseEntity<Privilege> get(@PathVariable String id) throws KalipoRequestException {
+    public ResponseEntity<Privilege> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
         log.debug("REST request to get Privilege : {}", id);
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
         }
 
-        return Optional.ofNullable(privilegeService.get(id))
+        return Optional.ofNullable(privilegeService.get(id).get())
                 .map(privilege -> new ResponseEntity<>(
                         privilege,
                         HttpStatus.OK))

@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 /**
  * REST controller for managing Tag.
@@ -75,9 +76,9 @@ public class TagResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the tags")
-    public List<Tag> getAll() {
+    public List<Tag> getAll() throws ExecutionException, InterruptedException {
         log.debug("REST request to get all Tags");
-        return tagService.getAll();
+        return tagService.getAll().get();
     }
 
     /**
@@ -92,13 +93,13 @@ public class TagResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Tag not found")
     })
-    public ResponseEntity<Tag> get(@PathVariable String id) throws KalipoRequestException {
+    public ResponseEntity<Tag> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
         log.debug("REST request to get Tag : {}", id);
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
         }
 
-        return Optional.ofNullable(tagService.get(id))
+        return Optional.ofNullable(tagService.get(id).get())
                 .map(tag -> new ResponseEntity<>(
                         tag,
                         HttpStatus.OK))

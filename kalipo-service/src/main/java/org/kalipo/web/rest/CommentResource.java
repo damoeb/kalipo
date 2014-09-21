@@ -19,6 +19,7 @@ import javax.validation.constraints.NotNull;
 import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 /**
  * REST controller for managing Comment.
@@ -78,11 +79,11 @@ public class CommentResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the comments")
-    public List<Comment> getAll() {
+    public List<Comment> getAll() throws ExecutionException, InterruptedException {
 //      todo impl pagination  @QueryParam("offset") int offset, @QueryParam("size") int size
         log.debug("REST request to get all Comments");
 
-        return commentService.findAll();
+        return commentService.findAll().get();
     }
 
     /**
@@ -97,13 +98,13 @@ public class CommentResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Comment not found")
     })
-    public ResponseEntity<Comment> get(@PathVariable String id) throws KalipoRequestException {
+    public ResponseEntity<Comment> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
         log.debug("REST request to get Comment : {}", id);
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
         }
 
-        return Optional.ofNullable(commentService.get(id))
+        return Optional.ofNullable(commentService.get(id).get())
                 .map(comment -> new ResponseEntity<>(
                         comment,
                         HttpStatus.OK))

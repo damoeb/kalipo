@@ -8,11 +8,14 @@ import org.kalipo.security.SecurityUtils;
 import org.kalipo.web.rest.KalipoRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import java.util.List;
+import java.util.concurrent.Future;
 
 @Service
 @EnableArgumentValidation
@@ -40,12 +43,14 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    public List<Comment> findAll() {
-        return commentRepository.findAll();
+    @Async
+    public Future<List<Comment>> findAll() {
+        return new AsyncResult<>(commentRepository.findAll());
     }
 
-    public Comment get(String id) throws KalipoRequestException {
-        return commentRepository.findOne(id);
+    @Async
+    public Future<Comment> get(String id) throws KalipoRequestException {
+        return new AsyncResult<>(commentRepository.findOne(id));
     }
 
     public void delete(String id) {

@@ -7,11 +7,14 @@ import org.kalipo.security.Privileges;
 import org.kalipo.web.rest.KalipoRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import java.util.List;
+import java.util.concurrent.Future;
 
 @Service
 @EnableArgumentValidation
@@ -35,12 +38,14 @@ public class PrivilegeService {
         privilegeRepository.save(privilege);
     }
 
-    public List<Privilege> getAll() {
-        return privilegeRepository.findAll();
+    @Async
+    public Future<List<Privilege>> getAll() {
+        return new AsyncResult<>(privilegeRepository.findAll());
     }
 
-    public Privilege get(String id) throws KalipoRequestException {
-        return privilegeRepository.findOne(id);
+    @Async
+    public Future<Privilege> get(String id) throws KalipoRequestException {
+        return new AsyncResult<>(privilegeRepository.findOne(id));
     }
 
     public void delete(String id) throws KalipoRequestException {

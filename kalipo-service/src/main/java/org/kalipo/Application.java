@@ -7,17 +7,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.MetricRepositoryAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
-import org.springframework.web.context.support.StaticWebApplicationContext;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.util.Arrays;
 
+@EnableAsync
 @ComponentScan
 @EnableAutoConfiguration(exclude = {MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class})
 public class Application {
@@ -29,9 +29,9 @@ public class Application {
 
     /**
      * Initializes kalipo.
-     * <p/>
+     * <p>
      * Spring profiles can be configured with a program arguments --spring.profiles.active=your-active-profile
-     * <p/>
+     * <p>
      */
     @PostConstruct
     public void initApplication() throws IOException {
@@ -44,7 +44,7 @@ public class Application {
 
     /**
      * Main method, used to run the application.
-     *
+     * <p>
      * To run the application with hot reload enabled, add the following arguments to your JVM:
      * "-javaagent:spring_loaded/springloaded-jhipster.jar -noverify -Dspringloaded=plugins=io.github.jhipster.loaded.instrument.JHipsterLoadtimeInstrumentationPlugin"
      */

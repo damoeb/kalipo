@@ -7,10 +7,13 @@ import org.kalipo.security.SecurityUtils;
 import org.kalipo.web.rest.KalipoRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.concurrent.Future;
 
 @Service
 @EnableArgumentValidation
@@ -41,12 +44,14 @@ public class ThreadService {
         threadRepository.save(thread);
     }
 
-    public List<Thread> getAll() {
-        return threadRepository.findAll();
+    @Async
+    public Future<List<Thread>> getAll() {
+        return new AsyncResult<>(threadRepository.findAll());
     }
 
-    public Thread get(String id) throws KalipoRequestException {
-        return threadRepository.findOne(id);
+    @Async
+    public Future<Thread> get(String id) throws KalipoRequestException {
+        return new AsyncResult<>(threadRepository.findOne(id));
     }
 
     public void delete(String id) throws KalipoRequestException {

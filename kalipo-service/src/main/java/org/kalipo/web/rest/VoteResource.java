@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 /**
  * REST controller for managing Vote.
@@ -78,13 +78,10 @@ public class VoteResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the votes")
-    public List<Vote> getAll() {
+    public List<Vote> getAll() throws ExecutionException, InterruptedException {
         log.debug("REST request to get all Votes");
 
-        List<Vote> list = new LinkedList<>();
-        voteService.getAll().forEach(vote -> list.add(vote));
-
-        return list;
+        return voteService.getAll().get();
     }
 
     /**
@@ -99,13 +96,13 @@ public class VoteResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Vote not found")
     })
-    public ResponseEntity<Vote> get(@PathVariable String id) throws KalipoRequestException {
+    public ResponseEntity<Vote> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
         log.debug("REST request to get Vote : {}", id);
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
         }
 
-        return Optional.ofNullable(voteService.get(id))
+        return Optional.ofNullable(voteService.get(id).get())
                 .map(vote -> new ResponseEntity<>(
                         vote,
                         HttpStatus.OK))

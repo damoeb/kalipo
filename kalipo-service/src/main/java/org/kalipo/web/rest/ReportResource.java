@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 /**
  * REST controller for managing Report.
@@ -78,10 +79,10 @@ public class ReportResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the reports")
-    public List<Report> getAll() {
+    public List<Report> getAll() throws ExecutionException, InterruptedException {
         log.debug("REST request to get all Reports");
 
-        return reportService.getAll();
+        return reportService.getAll().get();
     }
 
     /**
@@ -96,13 +97,13 @@ public class ReportResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Report not found")
     })
-    public ResponseEntity<Report> get(@PathVariable String id) throws KalipoRequestException {
+    public ResponseEntity<Report> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
         log.debug("REST request to get Report : {}", id);
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
         }
 
-        return Optional.ofNullable(reportService.get(id))
+        return Optional.ofNullable(reportService.get(id).get())
                 .map(report -> new ResponseEntity<>(
                         report,
                         HttpStatus.OK))

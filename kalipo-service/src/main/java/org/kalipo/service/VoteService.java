@@ -8,11 +8,14 @@ import org.kalipo.security.SecurityUtils;
 import org.kalipo.web.rest.KalipoRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import java.util.List;
+import java.util.concurrent.Future;
 
 @Service
 @EnableArgumentValidation
@@ -41,12 +44,14 @@ public class VoteService {
         voteRepository.save(vote);
     }
 
-    public List<Vote> getAll() {
-        return voteRepository.findAll();
+    @Async
+    public Future<List<Vote>> getAll() {
+        return new AsyncResult<>(voteRepository.findAll());
     }
 
-    public Vote get(String id) throws KalipoRequestException {
-        return voteRepository.findOne(id);
+    @Async
+    public Future<Vote> get(String id) throws KalipoRequestException {
+        return new AsyncResult<>(voteRepository.findOne(id));
     }
 
     public void delete(String id) throws KalipoRequestException {
