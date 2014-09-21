@@ -4,9 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
+import org.kalipo.domain.Thread;
 import org.kalipo.security.Privileges;
 import org.kalipo.service.ThreadService;
-import org.kalipo.web.rest.dto.ThreadDTO;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
@@ -22,7 +22,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
-
 import java.util.Arrays;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -54,7 +53,7 @@ public class ThreadResourceTest {
 
     private MockMvc restThreadMockMvc;
 
-    private ThreadDTO thread;
+    private Thread thread;
 
     @Before
     public void setup() {
@@ -66,7 +65,7 @@ public class ThreadResourceTest {
 
         TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_THREAD));
 
-        thread = new ThreadDTO();
+        thread = new Thread();
         thread.setId(DEFAULT_ID);
         thread.setTitle(DEFAULT_SAMPLE_TITLE_ATTR);
     }
@@ -83,7 +82,7 @@ public class ThreadResourceTest {
         // Try create a empty Comment
         restThreadMockMvc.perform(post("/app/rest/threads")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(new ThreadDTO())))
+                .content(TestUtil.convertObjectToJsonBytes(new Thread())))
                 .andExpect(status().isBadRequest());
 
         // Read Thread

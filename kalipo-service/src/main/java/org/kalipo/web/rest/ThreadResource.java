@@ -7,7 +7,6 @@ import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Thread;
 import org.kalipo.service.ThreadService;
-import org.kalipo.web.rest.dto.ThreadDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,8 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +23,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/app/rest")
-public class ThreadResource extends BaseResource<Thread, ThreadDTO> {
+public class ThreadResource {
 
     private final Logger log = LoggerFactory.getLogger(ThreadResource.class);
 
@@ -42,10 +39,10 @@ public class ThreadResource extends BaseResource<Thread, ThreadDTO> {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new thread")
-    public void create(@Valid @RequestBody ThreadDTO threadDTO) throws KalipoRequestException {
-        log.debug("REST request to save Thread : {}", threadDTO);
+    public void create(@RequestBody Thread thread) throws KalipoRequestException {
+        log.debug("REST request to save Thread : {}", thread);
 
-        threadService.create(toOrigin(threadDTO));
+        threadService.create(thread);
     }
 
     /**
@@ -60,14 +57,12 @@ public class ThreadResource extends BaseResource<Thread, ThreadDTO> {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Thread not found")
     })
-    public void update(@PathVariable String id, @Valid @RequestBody ThreadDTO threadDTO) throws KalipoRequestException {
-        log.debug(" request to update Thread : {}", threadDTO);
+    public void update(@PathVariable String id, @RequestBody Thread thread) throws KalipoRequestException {
+        log.debug(" request to update Thread : {}", thread);
 
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
         }
-
-        Thread thread = toOrigin(threadDTO);
 
         thread.setId(id);
         threadService.update(thread);
@@ -81,13 +76,10 @@ public class ThreadResource extends BaseResource<Thread, ThreadDTO> {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the threads")
-    public List<ThreadDTO> getAll() {
+    public List<Thread> getAll() {
         log.debug("REST request to get all Threads");
 
-        List<ThreadDTO> list = new LinkedList<>();
-        threadService.getAll().forEach(thread -> list.add(fromOrigin(thread)));
-
-        return list;
+        return threadService.getAll();
     }
 
     /**
@@ -102,7 +94,7 @@ public class ThreadResource extends BaseResource<Thread, ThreadDTO> {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Thread not found")
     })
-    public ResponseEntity<ThreadDTO> get(@PathVariable String id) throws KalipoRequestException {
+    public ResponseEntity<Thread> get(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to get Thread : {}", id);
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
@@ -110,7 +102,7 @@ public class ThreadResource extends BaseResource<Thread, ThreadDTO> {
 
         return Optional.ofNullable(threadService.get(id))
                 .map(thread -> new ResponseEntity<>(
-                        fromOrigin(thread),
+                        thread,
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -131,17 +123,5 @@ public class ThreadResource extends BaseResource<Thread, ThreadDTO> {
         }
 
         threadService.delete(id);
-    }
-
-    // --
-
-    @Override
-    protected ThreadDTO newDTOInstance() {
-        return new ThreadDTO();
-    }
-
-    @Override
-    protected Thread newOriginInstance() {
-        return new Thread();
     }
 }

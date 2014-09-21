@@ -1,7 +1,9 @@
 package org.kalipo.domain;
 
 import org.joda.time.DateTime;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -22,15 +24,15 @@ public class Thread implements Serializable {
     @Size(min = 1, max = 512)
     private String uri;
 
+    @NotNull
     @Size(min = 0, max = 128)
     private String title;
 
-    //    @NotNull
-    @Field("created_date")
-    private DateTime createdDate = DateTime.now();
+    @CreatedDate
+    private DateTime createdDate;
 
-    @Field("last_modified_date")
-    private DateTime lastModifiedDate = DateTime.now();
+    @LastModifiedDate
+    private DateTime lastModifiedDate;
 
     @Field("comment_count")
     private Integer commentCount = 0;
