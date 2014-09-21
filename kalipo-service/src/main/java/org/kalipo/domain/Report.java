@@ -27,12 +27,13 @@ public class Report implements Serializable {
     @Size(min = 1, max = 512)
     private String reason;
 
-    @NotNull
     private Status status;
 
     @NotNull
     @Field("comment_id")
-    private Long commentId;
+//    todo activate
+//    @ModelExistsConstraint(Comment.class)
+    private String commentId;
 
     private boolean abused;
 
@@ -40,7 +41,7 @@ public class Report implements Serializable {
     @Field("thread_id")
     private Long threadId;
 
-    private DateTime createdDate = DateTime.now();
+    private DateTime createdDate;
 
     public String getId() {
         return id;
@@ -74,11 +75,11 @@ public class Report implements Serializable {
         this.status = status;
     }
 
-    public Long getCommentId() {
+    public String getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(Long commentId) {
+    public void setCommentId(String commentId) {
         this.commentId = commentId;
     }
 

@@ -10,6 +10,10 @@ import org.kalipo.web.rest.KalipoRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.validation.ConstraintViolationException;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Created by damoeb on 17.09.14.
  */
@@ -28,6 +32,15 @@ public class ArgumentValidationAspect {
             checkArguments(joinPoint, signature);
 
             return joinPoint.proceed();
+
+        } catch (ConstraintViolationException e) {
+            List<String> errors = new LinkedList<>();
+            e.getConstraintViolations().forEach(violation -> errors.add(violation.getMessage()));
+
+            throw new KalipoRequestException(ErrorCode.CONSTRAINT_VIOLATED, e);
+
+        } catch (KalipoRequestException e) {
+            throw e;
 
         } catch (Throwable e) {
             throw new KalipoRequestException(ErrorCode.UNKNOWN_ERROR, e);

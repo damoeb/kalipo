@@ -7,7 +7,6 @@ import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Report;
 import org.kalipo.service.ReportService;
-import org.kalipo.web.rest.dto.ReportDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,8 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +23,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/app")
-public class ReportResource extends BaseResource<Report, ReportDTO> {
+public class ReportResource {
 
     private final Logger log = LoggerFactory.getLogger(ReportResource.class);
 
@@ -42,10 +39,10 @@ public class ReportResource extends BaseResource<Report, ReportDTO> {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new report")
-    public void create(@Valid @RequestBody ReportDTO reportDTO) throws KalipoRequestException {
-        log.debug("REST request to save Report : {}", reportDTO);
+    public void create(@RequestBody Report report) throws KalipoRequestException {
+        log.debug("REST request to save Report : {}", report);
 
-        reportService.create(toOrigin(reportDTO));
+        reportService.create(report);
     }
 
     /**
@@ -60,14 +57,12 @@ public class ReportResource extends BaseResource<Report, ReportDTO> {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Report not found")
     })
-    public void update(@PathVariable String id, @Valid @RequestBody ReportDTO reportDTO) throws KalipoRequestException {
-        log.debug("REST request to update Report : {}", reportDTO);
+    public void update(@PathVariable String id, @RequestBody Report report) throws KalipoRequestException {
+        log.debug("REST request to update Report : {}", report);
 
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
         }
-
-        Report report = toOrigin(reportDTO);
 
         report.setId(id);
 
@@ -82,13 +77,10 @@ public class ReportResource extends BaseResource<Report, ReportDTO> {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the reports")
-    public List<ReportDTO> getAll() {
+    public List<Report> getAll() {
         log.debug("REST request to get all Reports");
 
-        List<ReportDTO> list = new LinkedList<>();
-        reportService.getAll().forEach(report -> list.add(fromOrigin(report)));
-
-        return list;
+        return reportService.getAll();
     }
 
     /**
@@ -103,7 +95,7 @@ public class ReportResource extends BaseResource<Report, ReportDTO> {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Report not found")
     })
-    public ResponseEntity<ReportDTO> get(@PathVariable String id) throws KalipoRequestException {
+    public ResponseEntity<Report> get(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to get Report : {}", id);
         if (StringUtils.isBlank(id)) {
             throw new InvalidParameterException("id");
@@ -111,7 +103,7 @@ public class ReportResource extends BaseResource<Report, ReportDTO> {
 
         return Optional.ofNullable(reportService.get(id))
                 .map(report -> new ResponseEntity<>(
-                        fromOrigin(report),
+                        report,
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -132,17 +124,5 @@ public class ReportResource extends BaseResource<Report, ReportDTO> {
         }
 
         reportService.delete(id);
-    }
-
-    // --
-
-    @Override
-    protected ReportDTO newDTOInstance() {
-        return new ReportDTO();
-    }
-
-    @Override
-    protected Report newOriginInstance() {
-        return new Report();
     }
 }

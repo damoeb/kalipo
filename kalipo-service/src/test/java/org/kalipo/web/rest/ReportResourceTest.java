@@ -4,9 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
+import org.kalipo.domain.Report;
 import org.kalipo.security.Privileges;
 import org.kalipo.service.ReportService;
-import org.kalipo.web.rest.dto.ReportDTO;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
@@ -47,15 +47,15 @@ public class ReportResourceTest {
     private static final String DEFAULT_SAMPLE_REASON_ATTR = "sampleReasonAttribute";
     private static final String UPD_SAMPLE_REASON_ATTR = "sampleReasonAttributeUpt";
 
-    private static final Long DEFAULT_SAMPLE_COMMENT_ID_ATTR = 1l;
-    private static final Long UPD_SAMPLE_COMMENT_ID_ATTR = 2l;
+    private static final String DEFAULT_SAMPLE_COMMENT_ID_ATTR = "541dd28744ae45a17b106cd7";
+    private static final String UPD_SAMPLE_COMMENT_ID_ATTR = "541dd28744ae45a17b106cd7";
 
     @Inject
     private ReportService reportService;
 
     private MockMvc restReportMockMvc;
 
-    private ReportDTO report;
+    private Report report;
 
     @Before
     public void setup() {
@@ -67,7 +67,7 @@ public class ReportResourceTest {
 
         TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_REPORT));
 
-        report = new ReportDTO();
+        report = new Report();
         report.setId(DEFAULT_ID);
         report.setReason(DEFAULT_SAMPLE_REASON_ATTR);
         report.setCommentId(DEFAULT_SAMPLE_COMMENT_ID_ATTR);
@@ -85,7 +85,7 @@ public class ReportResourceTest {
         // Try create a empty Comment
         restReportMockMvc.perform(post("/app/rest/reports")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(new ReportDTO())))
+                .content(TestUtil.convertObjectToJsonBytes(new Report())))
                 .andExpect(status().isBadRequest());
 
         // Read Report

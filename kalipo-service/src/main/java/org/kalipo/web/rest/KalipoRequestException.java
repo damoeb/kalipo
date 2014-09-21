@@ -13,6 +13,11 @@ public class KalipoRequestException extends Exception {
     private ErrorCode errorCode;
     private Object resource;
 
+    public KalipoRequestException(ErrorCode errorCode, String message) {
+        super(message);
+        this.errorCode = errorCode;
+    }
+
     public KalipoRequestException(ErrorCode errorCode, Object resource) {
         super(errorCode.getMessage());
         this.errorCode = errorCode;

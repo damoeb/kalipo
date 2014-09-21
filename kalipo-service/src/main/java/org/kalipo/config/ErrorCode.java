@@ -6,6 +6,7 @@ package org.kalipo.config;
 public enum ErrorCode {
 
     UNKNOWN_ERROR(1, "An unknown error occurred"),
+    CONSTRAINT_VIOLATED(1, "A constraint is violated"),
     APP_REQUEST_LIMIT_REACHED(1, "Application request limit reached"),
     USER_REQUEST_LIMIT_REACHED(1, "User request limit reached"),
     INVALID_PARAMETER(1, "Invalid parameter"),
