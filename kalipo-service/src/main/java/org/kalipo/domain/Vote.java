@@ -1,6 +1,7 @@
 package org.kalipo.domain;
 
 import org.joda.time.DateTime;
+import org.kalipo.validation.ModelExistsConstraint;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -22,11 +23,9 @@ public class Vote implements Serializable {
     @NotNull
     private String authorId;
 
-    @NotNull
     @Field("comment_id")
-//    todo fix test to support constraint
-//    @ModelExistsConstraint(Comment.class)
-    private Long commentId;
+    @ModelExistsConstraint(Comment.class)
+    private String commentId;
 
     @Field("is_like")
     private Boolean isLike;
@@ -50,11 +49,11 @@ public class Vote implements Serializable {
         this.authorId = authorId;
     }
 
-    public Long getCommentId() {
+    public String getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(Long commentId) {
+    public void setCommentId(String commentId) {
         this.commentId = commentId;
     }
 

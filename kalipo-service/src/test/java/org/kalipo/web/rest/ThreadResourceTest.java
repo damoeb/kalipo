@@ -65,9 +65,7 @@ public class ThreadResourceTest {
 
         TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_THREAD));
 
-        thread = new Thread();
-        thread.setId(DEFAULT_ID);
-        thread.setTitle(DEFAULT_SAMPLE_TITLE_ATTR);
+        thread = newThread();
     }
 
     @Test
@@ -120,5 +118,12 @@ public class ThreadResourceTest {
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
 
+    }
+
+    public static Thread newThread() {
+        Thread thread = new Thread();
+        thread.setId(DEFAULT_ID);
+        thread.setTitle(DEFAULT_SAMPLE_TITLE_ATTR);
+        return thread;
     }
 }

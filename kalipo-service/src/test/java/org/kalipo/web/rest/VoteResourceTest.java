@@ -4,8 +4,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
+import org.kalipo.domain.Comment;
+import org.kalipo.domain.Thread;
 import org.kalipo.domain.Vote;
 import org.kalipo.security.Privileges;
+import org.kalipo.service.CommentService;
+import org.kalipo.service.ThreadService;
 import org.kalipo.service.VoteService;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -43,7 +47,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class VoteResourceTest {
 
     private static final String DEFAULT_ID = "1";
-    private static final Long DEFAULT_COMMENT_ID = 1l;
+    private static final String DEFAULT_COMMENT_ID = "1";
 
     private static final Boolean DEFAULT_SAMPLE_ISLIKE_ATTR = false;
     private static final Boolean UPD_SAMPLE_ISLIKE_ATTR = true;
@@ -51,24 +55,36 @@ public class VoteResourceTest {
     @Inject
     private VoteService voteService;
 
+    @Inject
+    private CommentService commentService;
+
+    @Inject
+    private ThreadService threadService;
+
     private MockMvc restVoteMockMvc;
 
     private Vote vote;
 
     @Before
-    public void setup() {
+    public void setup() throws KalipoRequestException {
         MockitoAnnotations.initMocks(this);
         VoteResource voteResource = new VoteResource();
         ReflectionTestUtils.setField(voteResource, "voteService", voteService);
 
         this.restVoteMockMvc = MockMvcBuilders.standaloneSetup(voteResource).build();
 
-        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_VOTE));
+        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_VOTE, Privileges.CREATE_THREAD, Privileges.CREATE_COMMENT));
 
         vote = new Vote();
         vote.setId(DEFAULT_ID);
         vote.setCommentId(DEFAULT_COMMENT_ID);
         vote.setIsLike(DEFAULT_SAMPLE_ISLIKE_ATTR);
+
+        Thread thread = ThreadResourceTest.newThread();
+        threadService.create(thread);
+        Comment comment = CommentResourceTest.newComment();
+        comment.setThreadId(thread.getId());
+        commentService.create(comment);
     }
 
     @Test
@@ -91,7 +107,7 @@ public class VoteResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(DEFAULT_ID))
-                .andExpect(jsonPath("$.commentId").value(DEFAULT_COMMENT_ID.intValue()))
+                .andExpect(jsonPath("$.commentId").value(DEFAULT_COMMENT_ID))
                 .andExpect(jsonPath("$.isLike").value(DEFAULT_SAMPLE_ISLIKE_ATTR))
         ;
 

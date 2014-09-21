@@ -69,11 +69,7 @@ public class CommentResourceTest {
 
         TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_COMMENT));
 
-        comment = new Comment();
-        comment.setId(DEFAULT_ID);
-        comment.setThreadId(DEFAULT_THREAD_ID);
-        comment.setText(DEFAULT_TEXT);
-        comment.setTitle(DEFAULT_TITLE);
+        comment = newComment();
     }
 
     @Test
@@ -129,5 +125,14 @@ public class CommentResourceTest {
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
 
+    }
+
+    public static Comment newComment() {
+        Comment comment = new Comment();
+        comment.setId(DEFAULT_ID);
+        comment.setThreadId(DEFAULT_THREAD_ID);
+        comment.setText(DEFAULT_TEXT);
+        comment.setTitle(DEFAULT_TITLE);
+        return comment;
     }
 }
