@@ -1,6 +1,7 @@
 package org.kalipo.domain;
 
 import org.joda.time.DateTime;
+import org.kalipo.validation.ModelExistsConstraint;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -31,8 +32,7 @@ public class Report implements Serializable {
 
     @NotNull
     @Field("comment_id")
-//    todo fix test to support constraint
-//    @ModelExistsConstraint(Comment.class)
+    @ModelExistsConstraint(Comment.class)
     private String commentId;
 
     private boolean abused;

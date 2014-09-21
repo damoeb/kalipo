@@ -4,9 +4,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
+import org.kalipo.domain.Comment;
 import org.kalipo.domain.Report;
+import org.kalipo.domain.Thread;
 import org.kalipo.security.Privileges;
+import org.kalipo.service.CommentService;
 import org.kalipo.service.ReportService;
+import org.kalipo.service.ThreadService;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
@@ -47,8 +51,11 @@ public class ReportResourceTest {
     private static final String DEFAULT_SAMPLE_REASON_ATTR = "sampleReasonAttribute";
     private static final String UPD_SAMPLE_REASON_ATTR = "sampleReasonAttributeUpt";
 
-    private static final String DEFAULT_SAMPLE_COMMENT_ID_ATTR = "541dd28744ae45a17b106cd7";
-    private static final String UPD_SAMPLE_COMMENT_ID_ATTR = "541dd28744ae45a17b106cd7";
+    @Inject
+    private CommentService commentService;
+
+    @Inject
+    private ThreadService threadService;
 
     @Inject
     private ReportService reportService;
@@ -58,19 +65,25 @@ public class ReportResourceTest {
     private Report report;
 
     @Before
-    public void setup() {
+    public void setup() throws KalipoRequestException {
         MockitoAnnotations.initMocks(this);
         ReportResource reportResource = new ReportResource();
         ReflectionTestUtils.setField(reportResource, "reportService", reportService);
 
         this.restReportMockMvc = MockMvcBuilders.standaloneSetup(reportResource).build();
 
-        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_REPORT));
+        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_REPORT, Privileges.CREATE_COMMENT, Privileges.CREATE_THREAD));
+
+        Thread thread = ThreadResourceTest.newThread();
+        threadService.create(thread);
+        Comment comment = CommentResourceTest.newComment();
+        comment.setThreadId(thread.getId());
+        commentService.create(comment);
 
         report = new Report();
         report.setId(DEFAULT_ID);
         report.setReason(DEFAULT_SAMPLE_REASON_ATTR);
-        report.setCommentId(DEFAULT_SAMPLE_COMMENT_ID_ATTR);
+        report.setCommentId(comment.getId());
     }
 
     @Test
@@ -97,7 +110,6 @@ public class ReportResourceTest {
 
         // Update Report
         report.setReason(UPD_SAMPLE_REASON_ATTR);
-        report.setCommentId(UPD_SAMPLE_COMMENT_ID_ATTR);
 
         restReportMockMvc.perform(put("/app/rest/reports/{id}", DEFAULT_ID)
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
