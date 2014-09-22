@@ -1,6 +1,7 @@
 package org.kalipo.service;
 
 import org.kalipo.aop.EnableArgumentValidation;
+import org.kalipo.aop.Throttled;
 import org.kalipo.domain.Comment;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.ThreadRepository;
@@ -31,6 +32,7 @@ public class CommentService {
     private ThreadRepository threadRepository;
 
     @RolesAllowed(Privileges.CREATE_COMMENT)
+    @Throttled
     public void create(Comment comment) throws KalipoRequestException {
 
         // todo id must not exist id
@@ -38,6 +40,7 @@ public class CommentService {
     }
 
     @RolesAllowed(Privileges.CREATE_COMMENT)
+    @Throttled
     public void update(Comment comment) throws KalipoRequestException {
         save(comment);
     }
@@ -58,6 +61,7 @@ public class CommentService {
         return new AsyncResult<>(commentRepository.findOne(id));
     }
 
+    @Throttled
     public void delete(String id) {
         commentRepository.delete(id);
     }

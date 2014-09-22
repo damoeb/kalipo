@@ -23,6 +23,7 @@ public class Vote implements Serializable {
     @NotNull
     private String authorId;
 
+    @NotNull
     @Field("comment_id")
     @ModelExistsConstraint(Comment.class)
     private String commentId;

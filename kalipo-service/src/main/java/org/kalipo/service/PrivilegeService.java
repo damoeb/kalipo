@@ -1,6 +1,7 @@
 package org.kalipo.service;
 
 import org.kalipo.aop.EnableArgumentValidation;
+import org.kalipo.aop.Throttled;
 import org.kalipo.domain.Privilege;
 import org.kalipo.repository.PrivilegeRepository;
 import org.kalipo.security.Privileges;
@@ -26,6 +27,7 @@ public class PrivilegeService {
     private PrivilegeRepository privilegeRepository;
 
     @RolesAllowed(Privileges.CREATE_PRIVILEGE)
+    @Throttled
     public void create(Privilege privilege) throws KalipoRequestException {
 
         // todo id must not exist id
@@ -33,6 +35,7 @@ public class PrivilegeService {
     }
 
     @RolesAllowed(Privileges.CREATE_PRIVILEGE)
+    @Throttled
     public void update(Privilege privilege) throws KalipoRequestException {
 
         save(privilege);

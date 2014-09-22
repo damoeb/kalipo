@@ -1,6 +1,7 @@
 package org.kalipo.service;
 
 import org.kalipo.aop.EnableArgumentValidation;
+import org.kalipo.aop.Throttled;
 import org.kalipo.domain.Tag;
 import org.kalipo.repository.TagRepository;
 import org.kalipo.security.Privileges;
@@ -26,6 +27,7 @@ public class TagService {
     private TagRepository tagRepository;
 
     @RolesAllowed(Privileges.CREATE_TAG)
+    @Throttled
     public void create(Tag tag) throws KalipoRequestException {
 
         // todo id must not exist id
@@ -34,6 +36,7 @@ public class TagService {
     }
 
     @RolesAllowed(Privileges.CREATE_TAG)
+    @Throttled
     public void update(Tag tag) throws KalipoRequestException {
 
         save(tag);

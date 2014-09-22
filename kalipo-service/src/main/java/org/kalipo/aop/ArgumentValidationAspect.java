@@ -33,6 +33,7 @@ public class ArgumentValidationAspect {
 
             return joinPoint.proceed();
 
+            // todo exception handling should be done in GlobalExceptionHandler
         } catch (ConstraintViolationException e) {
             List<String> errors = new LinkedList<>();
             e.getConstraintViolations().forEach(violation -> errors.add(violation.getMessage()));

@@ -24,6 +24,10 @@ public class KalipoRequestException extends Exception {
         this.resource = resource;
     }
 
+    public KalipoRequestException(ErrorCode errorCode) {
+        this(errorCode, errorCode.getMessage());
+    }
+
     public ErrorCode getErrorCode() {
         return errorCode;
     }

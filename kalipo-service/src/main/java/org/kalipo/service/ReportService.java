@@ -2,6 +2,7 @@ package org.kalipo.service;
 
 import org.joda.time.DateTime;
 import org.kalipo.aop.EnableArgumentValidation;
+import org.kalipo.aop.Throttled;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Report;
@@ -34,6 +35,7 @@ public class ReportService {
     private CommentRepository commentRepository;
 
     @RolesAllowed(Privileges.CREATE_REPORT)
+    @Throttled
     public void create(Report report) throws KalipoRequestException {
 
         // todo id must not exist id
@@ -44,6 +46,7 @@ public class ReportService {
     }
 
     @RolesAllowed(Privileges.CREATE_REPORT)
+    @Throttled
     public void update(Report report) throws KalipoRequestException {
 
         report.setStatus(Report.Status.PENDING);

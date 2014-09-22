@@ -8,9 +8,10 @@ public enum ErrorCode {
     UNKNOWN_ERROR(1, "An unknown error occurred"),
     CONSTRAINT_VIOLATED(1, "A constraint is violated"),
     APP_REQUEST_LIMIT_REACHED(1, "Application request limit reached"),
+    METHOD_REQUEST_LIMIT_REACHED(1, "Method request limit"),
     USER_REQUEST_LIMIT_REACHED(1, "User request limit reached"),
     INVALID_PARAMETER(1, "Invalid parameter"),
-    PERMISSION_DENIED(1, "Permission denied"),;
+    PERMISSION_DENIED(1, "Permission denied");
 //    BANNED(1, "you are banned"),
 //    REPUTATION(2, "reputation is too low"),
 //    FREQUENCY(3, "use is time limited (temporary lock)"),

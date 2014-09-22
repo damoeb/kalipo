@@ -1,6 +1,7 @@
 package org.kalipo.service;
 
 import org.kalipo.aop.EnableArgumentValidation;
+import org.kalipo.aop.Throttled;
 import org.kalipo.domain.Vote;
 import org.kalipo.repository.VoteRepository;
 import org.kalipo.security.Privileges;
@@ -27,6 +28,7 @@ public class VoteService {
     private VoteRepository voteRepository;
 
     @RolesAllowed(Privileges.CREATE_VOTE)
+    @Throttled
     public void create(Vote vote) throws KalipoRequestException {
 
         // todo id must not exist id
@@ -34,6 +36,7 @@ public class VoteService {
     }
 
     @RolesAllowed(Privileges.CREATE_VOTE)
+    @Throttled
     public void update(Vote vote) throws KalipoRequestException {
         save(vote);
     }

@@ -1,6 +1,7 @@
 package org.kalipo.service;
 
 import org.kalipo.aop.EnableArgumentValidation;
+import org.kalipo.aop.Throttled;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.ThreadRepository;
 import org.kalipo.security.Privileges;
@@ -27,6 +28,7 @@ public class ThreadService {
     private ThreadRepository threadRepository;
 
     @RolesAllowed(Privileges.CREATE_THREAD)
+    @Throttled
     public void create(Thread thread) throws KalipoRequestException {
 
         // todo id must not exist id
@@ -34,6 +36,7 @@ public class ThreadService {
     }
 
     @RolesAllowed(Privileges.CREATE_THREAD)
+    @Throttled
     public void update(Thread thread) throws KalipoRequestException {
         save(thread);
     }
