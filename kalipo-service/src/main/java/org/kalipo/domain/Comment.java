@@ -22,7 +22,7 @@ public class Comment {
     @Id
     private String id;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.threadId}")
     @ModelExistsConstraint(Thread.class)
     private String threadId;
 
@@ -31,21 +31,21 @@ public class Comment {
 
     private Integer level;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.reputation}")
     private Integer reputation = 0;
 
     @CreatedDate
     private DateTime createdDate;
 
-    @NotNull
-    @Size(min = 1, max = LEN_TEXT)
+    @NotNull(message = "{constraint.notnull.text}")
+    @Size(min = 1, max = LEN_TEXT, message = "{constraint.length.text}")
     private String text;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.title}")
     @Size(min = 1, max = LEN_TITLE)
     private String title;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.authorId}")
     private String authorId;
 
     private Integer likes = 0;
@@ -54,7 +54,7 @@ public class Comment {
 
     private Boolean deleted;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.status}")
     private Status status;
 
     public String getId() {
