@@ -1,6 +1,8 @@
 package org.kalipo.security;
 
 /**
+ * Privileges a user can obtain, depending on the users reputation
+ *
  * Created by damoeb on 16.09.14.
  */
 public class Privileges {
