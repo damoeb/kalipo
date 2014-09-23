@@ -1,0 +1,48 @@
+<mongoChangeLog>
+    <changeSet changeId="ChangeSet-2" author="jhipster">
+        <script>
+            db.T_PRIVILEGE.insert(
+            {
+            "_id" : "1",
+            "name": "CREATE_THREAD",
+            "reputation": 0
+            });
+
+            db.T_PRIVILEGE.insert(
+            {
+            "_id" : "2",
+            "name": "CREATE_COMMENT",
+            "reputation": 0
+            });
+
+            db.T_PRIVILEGE.insert(
+            {
+            "_id" : "3",
+            "name": "CREATE_VOTE",
+            "reputation": 0
+            });
+
+            db.T_PRIVILEGE.insert(
+            {
+            "_id" : "4",
+            "name": "CREATE_PRIVILEGE",
+            "reputation": 0
+            });
+
+            db.T_PRIVILEGE.insert(
+            {
+            "_id" : "5",
+            "name": "CREATE_TAG",
+            "reputation": 0
+            });
+
+            db.T_PRIVILEGE.insert(
+            {
+            "_id" : "6",
+            "name": "CREATE_REPORT",
+            "reputation": 0
+            });
+
+        </script>
+    </changeSet>
+</mongoChangeLog>

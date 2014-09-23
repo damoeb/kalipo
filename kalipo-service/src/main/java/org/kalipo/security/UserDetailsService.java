@@ -1,7 +1,9 @@
 package org.kalipo.security;
 
 import org.kalipo.domain.Authority;
+import org.kalipo.domain.Privilege;
 import org.kalipo.domain.User;
+import org.kalipo.repository.PrivilegeRepository;
 import org.kalipo.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Authenticate a user from the database.
@@ -26,6 +29,9 @@ public class UserDetailsService implements org.springframework.security.core.use
 
     @Inject
     private UserRepository userRepository;
+
+    @Inject
+    private PrivilegeRepository privilegeRepository;
 
     @Override
     @Transactional
@@ -46,7 +52,13 @@ public class UserDetailsService implements org.springframework.security.core.use
             grantedAuthorities.add(grantedAuthority);
         }
 
-        // todo add authorities based on reputation
+        // append privileges according to reputation
+        List<Privilege> privileges = privilegeRepository.findAll();
+        for (Privilege privilege : privileges) {
+            if (privilege.getReputation() >= userFromDatabase.getReputation()) {
+                grantedAuthorities.add(new SimpleGrantedAuthority(privilege.getName()));
+            }
+        }
 
         return new org.springframework.security.core.userdetails.User(lowercaseLogin, userFromDatabase.getPassword(),
                 grantedAuthorities);
