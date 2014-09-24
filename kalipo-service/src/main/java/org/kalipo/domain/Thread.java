@@ -21,6 +21,9 @@ public class Thread implements Serializable {
     @Id
     private String id;
 
+    /**
+     * todo should be a set of urls, the amount of url is defined via Roles
+     */
     @Size(min = 1, max = 512)
     private String uri;
 
