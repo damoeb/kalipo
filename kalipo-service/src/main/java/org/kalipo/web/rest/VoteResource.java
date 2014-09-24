@@ -22,6 +22,9 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * REST controller for managing Vote.
+ *
+ * todo: on dislikes: reputation -1 of voter and -2 of author
+ * todo: on like: reputation +10 of author
  */
 @RestController
 @RequestMapping("/app")

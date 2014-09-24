@@ -23,6 +23,8 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * REST controller for managing Comment.
+ *
+ * todo: delete your comment: reputation -50
  */
 @RestController
 @RequestMapping("/app")

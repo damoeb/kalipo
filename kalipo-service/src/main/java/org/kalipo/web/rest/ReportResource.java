@@ -22,6 +22,12 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * REST controller for managing Report.
+ * <p>
+ * todo: on approve: reputation + 5 for every reporter, reputation - 100 for author
+ * todo: on reject: reputation - 50 for author
+ * todo: on report: iff count > 5 comment will become deleted until peer review
+ * todo: peer review reports of users with reputation >= author
+ * todo: support updates for approve, reject
  */
 @RestController
 @RequestMapping("/app")

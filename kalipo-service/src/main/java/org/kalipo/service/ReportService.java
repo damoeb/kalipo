@@ -1,6 +1,5 @@
 package org.kalipo.service;
 
-import org.joda.time.DateTime;
 import org.kalipo.aop.EnableArgumentValidation;
 import org.kalipo.aop.Throttled;
 import org.kalipo.config.ErrorCode;
@@ -65,7 +64,6 @@ public class ReportService {
         report.setStatus(Report.Status.PENDING);
 
         report.setThreadId(comment.getThreadId());
-        report.setCreatedDate(DateTime.now());
 
         reportRepository.save(report);
     }

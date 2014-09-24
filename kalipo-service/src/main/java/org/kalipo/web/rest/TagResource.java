@@ -22,6 +22,8 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * REST controller for managing Tag.
+ *
+ * todo: autosuggest matching tag, tag-cloud, tag modification is mainly done internal
  */
 @RestController
 @RequestMapping("/app")

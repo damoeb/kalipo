@@ -22,6 +22,8 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * REST controller for managing Thread.
+ *
+ * todo: a thread is created with the leading comment, that should be verbose
  */
 @RestController
 @RequestMapping("/app/rest")
