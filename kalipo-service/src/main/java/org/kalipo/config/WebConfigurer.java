@@ -3,12 +3,13 @@ package org.kalipo.config;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.servlet.InstrumentedFilter;
 import com.codahale.metrics.servlets.MetricsServlet;
-import org.kalipo.web.filter.CachingHttpHeadersFilter;
-import org.kalipo.web.filter.StaticResourcesProductionFilter;
-import org.kalipo.web.filter.gzip.GZipServletFilter;
 import org.atmosphere.cache.UUIDBroadcasterCache;
 import org.atmosphere.cpr.AtmosphereFramework;
 import org.atmosphere.cpr.AtmosphereServlet;
+import org.kalipo.web.filter.CachingHttpHeadersFilter;
+import org.kalipo.web.filter.StaticResourcesProductionFilter;
+import org.kalipo.web.filter.UrlForwardingServletFilter;
+import org.kalipo.web.filter.gzip.GZipServletFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -69,6 +70,19 @@ public class WebConfigurer implements ServletContextInitializer {
         compressingFilter.addMappingForUrlPatterns(disps, true, "/app/rest/*");
         compressingFilter.addMappingForUrlPatterns(disps, true, "/metrics/*");
         compressingFilter.setAsyncSupported(true);
+    }
+
+    /**
+     * Initializes the UrlCatcher filter.
+     */
+    private void initUrlForwardingFilter(ServletContext servletContext, EnumSet<DispatcherType> disps) {
+        log.debug("Registering UrlForwarding Filter");
+        FilterRegistration.Dynamic urlCatcherFilter = servletContext.addFilter("urlForwardingFilter", new UrlForwardingServletFilter());
+        Map<String, String> parameters = new HashMap<>();
+        urlCatcherFilter.setInitParameters(parameters);
+        // todo improve pattern to catch only urls starting with http[s]:
+        urlCatcherFilter.addMappingForUrlPatterns(disps, true, "/*");
+        urlCatcherFilter.setAsyncSupported(false);
     }
 
     /**
