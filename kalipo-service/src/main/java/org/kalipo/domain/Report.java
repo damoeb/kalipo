@@ -2,7 +2,9 @@ package org.kalipo.domain;
 
 import org.joda.time.DateTime;
 import org.kalipo.validation.ModelExistsConstraint;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -41,7 +43,16 @@ public class Report implements Serializable {
     @Field("thread_id")
     private String threadId;
 
+    @CreatedDate
     private DateTime createdDate;
+
+    @LastModifiedDate
+    private DateTime lastModifiedDate;
+
+    @ModelExistsConstraint(User.class)
+    private String reviewerId;
+
+    private String reviewNote;
 
     public String getId() {
         return id;
@@ -105,6 +116,30 @@ public class Report implements Serializable {
 
     public void setCreatedDate(DateTime createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public DateTime getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(DateTime lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getReviewerId() {
+        return reviewerId;
+    }
+
+    public void setReviewerId(String reviewerId) {
+        this.reviewerId = reviewerId;
+    }
+
+    public String getReviewNote() {
+        return reviewNote;
+    }
+
+    public void setReviewNote(String reviewNote) {
+        this.reviewNote = reviewNote;
     }
 
     /**

@@ -9,9 +9,8 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
- * A Tag.
+ * A Tag. This entity conserves stats about a tag
  */
-
 @Document(collection = "T_TAG")
 public class Tag implements Serializable {
 
@@ -22,6 +21,11 @@ public class Tag implements Serializable {
     @Size(min = 1, max = 50)
     @Field("name")
     private String name;
+
+    /**
+     * Global usage of this tag
+     */
+    private int usage;
 
     public String getId() {
         return id;
@@ -37,5 +41,13 @@ public class Tag implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getUsage() {
+        return usage;
+    }
+
+    public void setUsage(int usage) {
+        this.usage = usage;
     }
 }
