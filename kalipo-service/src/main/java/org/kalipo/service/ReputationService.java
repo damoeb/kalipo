@@ -76,6 +76,7 @@ public class ReputationService {
         final Comment comment = commentRepository.findOne(report.getCommentId());
         Asserts.notNull(comment, "commentId");
 
+        // todo resourceRef must not be null
         final String resourceRef = report.getId();
         final String reporterId = report.getAuthorId();
         final String authorId = comment.getAuthorId();

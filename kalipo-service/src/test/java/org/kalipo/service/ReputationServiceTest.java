@@ -135,18 +135,47 @@ public class ReputationServiceTest {
 
     }
 
-//    @Test
-//    public void test_approveOrRejectReport() throws KalipoRequestException {
-//
-//        User userBefore = userRepository.findOne(SecurityUtils.getCurrentLogin());
-//
-//        Report newReport = new Report();
-//        reputationService.approveOrRejectReport(newReport);
-//
-//        User userAfter = userRepository.findOne(SecurityUtils.getCurrentLogin());
-//
-//
-//    }
+    @Test
+    public void test_approveReport() throws KalipoRequestException {
+
+        User userBefore = userRepository.findOne(SecurityUtils.getCurrentLogin());
+
+        Report newReport = new Report();
+        newReport.setCommentId(comment.getId());
+        newReport.setStatus(Report.Status.APPROVED);
+        newReport.setAuthorId(SecurityUtils.getCurrentLogin());
+
+        reputationService.approveOrRejectReport(newReport);
+
+        User userAfter = userRepository.findOne(SecurityUtils.getCurrentLogin());
+
+        int repReport = reputationDefinitionRepository.findByType(ReputationDefinition.Type.REPORT).getReputation();
+        int repReported = reputationDefinitionRepository.findByType(ReputationDefinition.Type.REPORTED).getReputation();
+
+        assertThat(userBefore.getReputation()).isEqualTo(userAfter.getReputation() - repReport - repReported);
+
+    }
+
+    @Test
+    public void test_rejectReport() throws KalipoRequestException {
+
+        User userBefore = userRepository.findOne(SecurityUtils.getCurrentLogin());
+
+        Report newReport = new Report();
+        newReport.setAbused(true);
+        newReport.setCommentId(comment.getId());
+        newReport.setStatus(Report.Status.REJECTED);
+        newReport.setAuthorId(SecurityUtils.getCurrentLogin());
+
+        reputationService.approveOrRejectReport(newReport);
+
+        User userAfter = userRepository.findOne(SecurityUtils.getCurrentLogin());
+
+        int repAbusedReport = reputationDefinitionRepository.findByType(ReputationDefinition.Type.ABUSED_REPORT).getReputation();
+
+        assertThat(userBefore.getReputation()).isEqualTo(userAfter.getReputation() - repAbusedReport);
+
+    }
 //
 //    @Test
 //    public void test_punishDeletingComment() throws KalipoRequestException {

@@ -35,6 +35,27 @@
             "type": "DISLIKED",
             "reputation": -1
             });
+
+            db.T_REPUTATION_DEFINITION.insert(
+            {
+            "_id" : "6",
+            "type": "REPORT",
+            "reputation": -100
+            });
+
+            db.T_REPUTATION_DEFINITION.insert(
+            {
+            "_id" : "7",
+            "type": "REPORTED",
+            "reputation": 50
+            });
+
+            db.T_REPUTATION_DEFINITION.insert(
+            {
+            "_id" : "8",
+            "type": "ABUSED_REPORT",
+            "reputation": -200
+            });
         </script>
     </changeSet>
 </mongoChangeLog>
