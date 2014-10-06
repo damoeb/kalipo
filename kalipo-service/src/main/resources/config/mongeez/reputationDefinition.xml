@@ -56,6 +56,13 @@
             "type": "ABUSED_REPORT",
             "reputation": -200
             });
+
+            db.T_REPUTATION_DEFINITION.insert(
+            {
+            "_id" : "9",
+            "type": "RM_COMMENT",
+            "reputation": -200
+            });
         </script>
     </changeSet>
 </mongoChangeLog>

@@ -176,12 +176,19 @@ public class ReputationServiceTest {
         assertThat(userBefore.getReputation()).isEqualTo(userAfter.getReputation() - repAbusedReport);
 
     }
-//
-//    @Test
-//    public void test_punishDeletingComment() throws KalipoRequestException {
-////        assertThat(persistentTokenRepository.findByUser(admin)).hasSize(existingCount + 1);
-//        Comment newComment = new Comment();
-//        reputationService.punishDeletingComment(newComment);
-//    }
+
+    @Test
+    public void test_punishDeletingComment() throws KalipoRequestException {
+
+        User userBefore = userRepository.findOne(SecurityUtils.getCurrentLogin());
+
+        reputationService.punishDeletingComment(comment);
+
+        User userAfter = userRepository.findOne(SecurityUtils.getCurrentLogin());
+
+        int repRmComment = reputationDefinitionRepository.findByType(ReputationDefinition.Type.RM_COMMENT).getReputation();
+
+        assertThat(userBefore.getReputation()).isEqualTo(userAfter.getReputation() - repRmComment);
+    }
 
 }

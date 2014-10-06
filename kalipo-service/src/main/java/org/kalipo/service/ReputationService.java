@@ -119,8 +119,10 @@ public class ReputationService {
     public void punishDeletingComment(@Valid @NotNull Comment comment) throws KalipoRequestException {
         Asserts.notNull(comment, "comment");
 
-        RepRevision rvForNewUser = createRevision(comment.getAuthorId(), comment.getId(), ReputationDefinition.Type.RM_COMMENT);
-        repRevisionRepository.save(rvForNewUser);
+        RepRevision rvForUser = createRevision(comment.getAuthorId(), comment.getId(), ReputationDefinition.Type.RM_COMMENT);
+        repRevisionRepository.save(rvForUser);
+
+        updateUserReputation(rvForUser);
     }
 
     // --
