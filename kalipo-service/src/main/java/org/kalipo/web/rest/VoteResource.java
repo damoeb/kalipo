@@ -22,9 +22,6 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * REST controller for managing Vote.
- *
- * todo: on dislikes: reputation -1 of voter and -2 of author
- * todo: on like: reputation +10 of author
  */
 @RestController
 @RequestMapping("/app")
@@ -48,29 +45,6 @@ public class VoteResource {
         log.debug("REST request to save Vote : {}", vote);
 
         voteService.create(vote);
-    }
-
-    /**
-     * PUT  /rest/votes -> Update existing vote.
-     */
-    @RequestMapping(value = "/rest/votes/{id}",
-            method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    @ApiOperation(value = "Update existing vote")
-    @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Invalid ID supplied"),
-            @ApiResponse(code = 404, message = "Vote not found")
-    })
-    public void update(@PathVariable String id, @NotNull @RequestBody Vote vote) throws KalipoRequestException {
-        log.debug("REST request to update Vote : {}", vote);
-
-        if (StringUtils.isBlank(id)) {
-            throw new InvalidParameterException("id");
-        }
-
-        vote.setId(id);
-        voteService.update(vote);
     }
 
     /**

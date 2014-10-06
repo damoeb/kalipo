@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.concurrent.Future;
 
@@ -27,21 +28,18 @@ public class VoteService {
     @Inject
     private VoteRepository voteRepository;
 
+    @Inject
+    private ReputationService reputationService;
+
     @RolesAllowed(Privileges.CREATE_VOTE)
     @Throttled
-    public void create(Vote vote) throws KalipoRequestException {
+    public void create(@Valid Vote vote) throws KalipoRequestException {
 
         // todo id must not exist id
-        save(vote);
-    }
 
-    @RolesAllowed(Privileges.CREATE_VOTE)
-    @Throttled
-    public void update(Vote vote) throws KalipoRequestException {
-        save(vote);
-    }
+        // todo check that comment exists
 
-    private void save(Vote vote) throws KalipoRequestException {
+        reputationService.likeOrDislikeComment(vote);
 
         vote.setAuthorId(SecurityUtils.getCurrentLogin());
 
@@ -61,5 +59,4 @@ public class VoteService {
     public void delete(String id) throws KalipoRequestException {
         voteRepository.delete(id);
     }
-
 }

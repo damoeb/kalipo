@@ -111,21 +111,21 @@ public class VoteResourceTest {
                 .andExpect(jsonPath("$.isLike").value(DEFAULT_SAMPLE_ISLIKE_ATTR))
         ;
 
-        // Update Vote
-        vote.setIsLike(UPD_SAMPLE_ISLIKE_ATTR);
-
-        restVoteMockMvc.perform(put("/app/rest/votes/{id}", DEFAULT_ID)
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(vote)))
-                .andExpect(status().isOk());
-
-        // Read updated Vote
-        restVoteMockMvc.perform(get("/app/rest/votes/{id}", DEFAULT_ID))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(DEFAULT_ID))
-                .andExpect(jsonPath("$.isLike").value(UPD_SAMPLE_ISLIKE_ATTR))
-        ;
+//        // Update Vote
+//        vote.setIsLike(UPD_SAMPLE_ISLIKE_ATTR);
+//
+//        restVoteMockMvc.perform(put("/app/rest/votes/{id}", DEFAULT_ID)
+//                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+//                .content(TestUtil.convertObjectToJsonBytes(vote)))
+//                .andExpect(status().isOk());
+//
+//        // Read updated Vote
+//        restVoteMockMvc.perform(get("/app/rest/votes/{id}", DEFAULT_ID))
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(jsonPath("$.id").value(DEFAULT_ID))
+//                .andExpect(jsonPath("$.isLike").value(UPD_SAMPLE_ISLIKE_ATTR))
+//        ;
 
         // Delete Vote
         restVoteMockMvc.perform(delete("/app/rest/votes/{id}", DEFAULT_ID)

@@ -2,7 +2,7 @@ package org.kalipo.security;
 
 /**
  * Privileges a user can obtain, depending on the users reputation
- *
+ * <p>
  * Created by damoeb on 16.09.14.
  */
 public class Privileges {
@@ -12,4 +12,5 @@ public class Privileges {
     public static final String CREATE_PRIVILEGE = "CREATE_PRIVILEGE";
     public static final String CREATE_TAG = "CREATE_TAG";
     public static final String CREATE_REPORT = "CREATE_REPORT";
+    public static final String CLOSE_REPORT = "CLOSE_REPORT";
 }

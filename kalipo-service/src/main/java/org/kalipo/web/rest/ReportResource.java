@@ -4,7 +4,6 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
-import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Report;
 import org.kalipo.service.ReportService;
 import org.slf4j.Logger;
@@ -22,12 +21,6 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * REST controller for managing Report.
- * <p>
- * todo: on approve: reputation + 5 for every reporter, reputation - 100 for author
- * todo: on reject: reputation - 50 for author
- * todo: on report: iff count > 5 comment will become deleted until peer review
- * todo: peer review reports of users with reputation >= author
- * todo: support updates for approve, reject
  */
 @RestController
 @RequestMapping("/app")
@@ -54,27 +47,39 @@ public class ReportResource {
     }
 
     /**
-     * PUT  /rest/reports -> Update existing report.
+     * PUT  /rest/reports/{id}/approve -> Approve report.
      */
-    @RequestMapping(value = "/rest/reports/{id}",
+    @RequestMapping(value = "/rest/reports/{id}/approve",
             method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @ApiOperation(value = "Update existing report")
+    @ApiOperation(value = "Approve report")
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Report not found")
     })
-    public void update(@PathVariable String id, @NotNull @RequestBody Report report) throws KalipoRequestException {
-        log.debug("REST request to update Report : {}", report);
+    public void approve(@NotNull @PathVariable String id) throws KalipoRequestException {
+        log.debug("REST request to approve Report : {}", id);
 
-        if (StringUtils.isBlank(id)) {
-            throw new InvalidParameterException("id");
-        }
+        reportService.approve(id);
+    }
 
-        report.setId(id);
+    /**
+     * PUT  /rest/reports/{id}/reject -> Reject report.
+     */
+    @RequestMapping(value = "/rest/reports/{id}/reject",
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Reject report")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Invalid ID supplied"),
+            @ApiResponse(code = 404, message = "Report not found")
+    })
+    public void reject(@NotNull @PathVariable String id) throws KalipoRequestException {
+        log.debug("REST request to reject Report : {}", id);
 
-        reportService.update(report);
+        reportService.reject(id);
     }
 
     /**
@@ -92,6 +97,20 @@ public class ReportResource {
     }
 
     /**
+     * GET  /rest/reports/pending -> get all pending the reports.
+     */
+    @RequestMapping(value = "/rest/reports/pending",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Get all pending reports")
+    public List<Report> getAllPending() throws ExecutionException, InterruptedException {
+        log.debug("REST request to get all Reports");
+
+        return reportService.getAllPending().get();
+    }
+
+    /**
      * GET  /rest/reports/:id -> get the "id" report.
      */
     @RequestMapping(value = "/rest/reports/{id}",
@@ -105,9 +124,6 @@ public class ReportResource {
     })
     public ResponseEntity<Report> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
         log.debug("REST request to get Report : {}", id);
-        if (StringUtils.isBlank(id)) {
-            throw new InvalidParameterException("id");
-        }
 
         return Optional.ofNullable(reportService.get(id).get())
                 .map(report -> new ResponseEntity<>(
@@ -127,9 +143,6 @@ public class ReportResource {
     @ApiOperation(value = "Delete the \"id\" report")
     public void delete(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to delete Report : {}", id);
-        if (StringUtils.isBlank(id)) {
-            throw new InvalidParameterException("id");
-        }
 
         reportService.delete(id);
     }

@@ -1,5 +1,7 @@
 package org.kalipo.service;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.kalipo.domain.Authority;
 import org.kalipo.domain.PersistentToken;
 import org.kalipo.domain.User;
@@ -8,8 +10,6 @@ import org.kalipo.repository.PersistentTokenRepository;
 import org.kalipo.repository.UserRepository;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.RandomUtil;
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -34,6 +34,9 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     @Inject
+    private ReputationService reputationService;
+
+    @Inject
     private UserRepository userRepository;
 
     @Inject
@@ -45,15 +48,15 @@ public class UserService {
     public User activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
         return Optional.ofNullable(userRepository.getUserByActivationKey(key))
-            .map(user -> {
-                // activate given user for the registration key.
-                user.setActivated(true);
-                user.setActivationKey(null);
-                userRepository.save(user);
-                log.debug("Activated user: {}", user);
-                return user;
-            })
-            .orElse(null);
+                .map(user -> {
+                    // activate given user for the registration key.
+                    user.setActivated(true);
+                    user.setActivationKey(null);
+                    userRepository.save(user);
+                    log.debug("Activated user: {}", user);
+                    return user;
+                })
+                .orElse(null);
     }
 
     public User createUserInformation(String login, String password, String firstName, String lastName, String email,
@@ -76,6 +79,9 @@ public class UserService {
         authorities.add(authority);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
+
+        reputationService.initUser(newUser);
+
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }

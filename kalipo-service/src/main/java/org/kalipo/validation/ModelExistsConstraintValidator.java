@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Comment;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.ThreadRepository;
+import org.kalipo.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +23,8 @@ public class ModelExistsConstraintValidator implements ConstraintValidator<Model
     private CommentRepository commentRepository;
     @Inject
     private ThreadRepository threadRepository;
+    @Inject
+    private UserRepository userRepository;
     private Class<?> clazz;
 
     @Override
@@ -39,6 +42,9 @@ public class ModelExistsConstraintValidator implements ConstraintValidator<Model
         }
         if (clazz == org.kalipo.domain.Thread.class) {
             return threadRepository.exists(id);
+        }
+        if (clazz == org.kalipo.domain.User.class) {
+            return userRepository.exists(id);
         }
 
         log.error(String.format("Class %s is not supported", clazz));

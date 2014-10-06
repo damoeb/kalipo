@@ -1,0 +1,40 @@
+<mongoChangeLog>
+    <changeSet changeId="ChangeSet-2" author="jhipster">
+        <script>
+            db.T_REPUTATION_DEFINITION.insert(
+            {
+            "_id" : "1",
+            "type": "WELCOME",
+            "reputation": 50
+            });
+
+            db.T_REPUTATION_DEFINITION.insert(
+            {
+            "_id" : "2",
+            "type": "LIKE",
+            "reputation": 2
+            });
+
+            db.T_REPUTATION_DEFINITION.insert(
+            {
+            "_id" : "3",
+            "type": "LIKED",
+            "reputation": -1
+            });
+
+            db.T_REPUTATION_DEFINITION.insert(
+            {
+            "_id" : "4",
+            "type": "DISLIKE",
+            "reputation": -2
+            });
+
+            db.T_REPUTATION_DEFINITION.insert(
+            {
+            "_id" : "5",
+            "type": "DISLIKED",
+            "reputation": -1
+            });
+        </script>
+    </changeSet>
+</mongoChangeLog>

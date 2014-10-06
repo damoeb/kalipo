@@ -2,4 +2,5 @@
     <file path="authorities.xml"/>
     <file path="users.xml"/>
     <file path="privileges.xml"/>
+    <file path="reputationDefinition.xml"/>
 </changeFiles>

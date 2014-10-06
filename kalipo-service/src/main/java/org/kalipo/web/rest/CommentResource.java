@@ -7,6 +7,7 @@ import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Comment;
 import org.kalipo.service.CommentService;
+import org.kalipo.service.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * REST controller for managing Comment.
- *
+ * <p>
  * todo: delete your comment: reputation -50
  */
 @RestController
@@ -65,9 +66,7 @@ public class CommentResource {
     public void update(@PathVariable String id, @NotNull @RequestBody Comment comment) throws KalipoRequestException {
         log.debug("REST request to update Comment : {}", comment);
 
-        if (StringUtils.isBlank(id)) {
-            throw new InvalidParameterException("id");
-        }
+        Asserts.notNull(id, "id");
 
         comment.setId(id);
         commentService.update(comment);

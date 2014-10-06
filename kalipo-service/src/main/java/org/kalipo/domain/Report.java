@@ -82,8 +82,9 @@ public class Report implements Serializable {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public Report setStatus(Status status) {
         this.status = status;
+        return this;
     }
 
     public String getCommentId() {
