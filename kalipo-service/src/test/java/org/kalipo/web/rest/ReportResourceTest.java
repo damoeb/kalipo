@@ -108,21 +108,6 @@ public class ReportResourceTest {
                 .andExpect(jsonPath("$.id").value(DEFAULT_ID))
                 .andExpect(jsonPath("$.reason").value(DEFAULT_SAMPLE_REASON_ATTR));
 
-        // Update Report
-        report.setReason(UPD_SAMPLE_REASON_ATTR);
-
-        restReportMockMvc.perform(put("/app/rest/reports/{id}", DEFAULT_ID)
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(report)))
-                .andExpect(status().isOk());
-
-        // Read updated Report
-        restReportMockMvc.perform(get("/app/rest/reports/{id}", DEFAULT_ID))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(DEFAULT_ID))
-                .andExpect(jsonPath("$.reason").value(UPD_SAMPLE_REASON_ATTR));
-
         // Delete Report
         restReportMockMvc.perform(delete("/app/rest/reports/{id}", DEFAULT_ID)
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
