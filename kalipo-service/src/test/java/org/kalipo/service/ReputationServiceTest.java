@@ -50,9 +50,6 @@ public class ReputationServiceTest {
     private ReputationDefinitionRepository reputationDefinitionRepository;
 
     @Inject
-    private UserService userService;
-
-    @Inject
     private ReputationService reputationService;
 
     @Inject

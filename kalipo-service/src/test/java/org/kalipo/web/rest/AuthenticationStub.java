@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 
 /**
+ * Class to support Authentication in Tests
  * Created by damoeb on 21.09.14.
  */
 public class AuthenticationStub implements Authentication {

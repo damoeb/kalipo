@@ -18,7 +18,7 @@ import java.net.URLDecoder;
  * <p>
  * Created by damoeb on 25.09.14.
  */
-public class UrlForwardingServletFilter implements Filter {
+public class UrlHookServletFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

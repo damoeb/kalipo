@@ -8,7 +8,7 @@ import org.atmosphere.cpr.AtmosphereFramework;
 import org.atmosphere.cpr.AtmosphereServlet;
 import org.kalipo.web.filter.CachingHttpHeadersFilter;
 import org.kalipo.web.filter.StaticResourcesProductionFilter;
-import org.kalipo.web.filter.UrlForwardingServletFilter;
+import org.kalipo.web.filter.UrlHookServletFilter;
 import org.kalipo.web.filter.gzip.GZipServletFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +52,7 @@ public class WebConfigurer implements ServletContextInitializer {
             initStaticResourcesProductionFilter(servletContext, disps);
         }
         initGzipFilter(servletContext, disps);
+        initUrlHookFilter(servletContext, disps);
         log.info("Web application fully configured");
     }
 
@@ -75,9 +76,9 @@ public class WebConfigurer implements ServletContextInitializer {
     /**
      * Initializes the UrlCatcher filter.
      */
-    private void initUrlForwardingFilter(ServletContext servletContext, EnumSet<DispatcherType> disps) {
-        log.debug("Registering UrlForwarding Filter");
-        FilterRegistration.Dynamic urlCatcherFilter = servletContext.addFilter("urlForwardingFilter", new UrlForwardingServletFilter());
+    private void initUrlHookFilter(ServletContext servletContext, EnumSet<DispatcherType> disps) {
+        log.debug("Registering UrlHook Filter");
+        FilterRegistration.Dynamic urlCatcherFilter = servletContext.addFilter("urlHookFilter", new UrlHookServletFilter());
         Map<String, String> parameters = new HashMap<>();
         urlCatcherFilter.setInitParameters(parameters);
         // todo improve pattern to catch only urls starting with http[s]:

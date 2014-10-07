@@ -49,7 +49,6 @@ public class ReportResourceTest {
     private static final String DEFAULT_ID = "1";
 
     private static final String DEFAULT_SAMPLE_REASON_ATTR = "sampleReasonAttribute";
-    private static final String UPD_SAMPLE_REASON_ATTR = "sampleReasonAttributeUpt";
 
     @Inject
     private CommentService commentService;

@@ -50,7 +50,6 @@ public class VoteResourceTest {
     private static final String DEFAULT_COMMENT_ID = "1";
 
     private static final Boolean DEFAULT_SAMPLE_ISLIKE_ATTR = false;
-    private static final Boolean UPD_SAMPLE_ISLIKE_ATTR = true;
 
     @Inject
     private VoteService voteService;
