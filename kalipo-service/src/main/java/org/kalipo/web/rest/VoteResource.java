@@ -41,10 +41,10 @@ public class VoteResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new vote")
-    public void create(@NotNull @RequestBody Vote vote) throws KalipoRequestException {
+    public Vote create(@NotNull @RequestBody Vote vote) throws KalipoRequestException {
         log.debug("REST request to save Vote : {}", vote);
 
-        voteService.create(vote);
+        return voteService.create(vote);
     }
 
     /**

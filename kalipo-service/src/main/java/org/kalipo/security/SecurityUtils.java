@@ -25,7 +25,7 @@ public final class SecurityUtils {
         UserDetails springSecurityUser = null;
         String userName = null;
 
-        if(authentication != null) {
+        if (authentication != null) {
             if (authentication.getPrincipal() instanceof UserDetails) {
                 springSecurityUser = (UserDetails) authentication.getPrincipal();
                 userName = springSecurityUser.getUsername();
@@ -56,5 +56,27 @@ public final class SecurityUtils {
         }
 
         return true;
+    }
+
+    /**
+     * Check if a user has a privilege
+     *
+     * @param privilege
+     * @return
+     */
+    public static boolean hasPrivilege(String privilege) {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+
+        final Collection<? extends GrantedAuthority> authorities = securityContext.getAuthentication().getAuthorities();
+
+        if (authorities != null) {
+            for (GrantedAuthority authority : authorities) {
+                if (authority.getAuthority().equals(privilege)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

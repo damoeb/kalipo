@@ -33,22 +33,25 @@ public class CommentService {
 
     @RolesAllowed(Privileges.CREATE_COMMENT)
     @Throttled
-    public void create(Comment comment) throws KalipoRequestException {
+    public Comment create(Comment comment) throws KalipoRequestException {
 
-        // todo id must not exist id
-        save(comment);
+        Asserts.isNotNull(comment, "thread");
+        Asserts.isNull(comment.getId(), "id");
+
+        return save(comment);
     }
 
     @RolesAllowed(Privileges.CREATE_COMMENT)
     @Throttled
-    public void update(Comment comment) throws KalipoRequestException {
-        save(comment);
+    public Comment update(Comment comment) throws KalipoRequestException {
+        Asserts.isNotNull(comment, "comment");
+        return save(comment);
     }
 
-    private void save(Comment comment) throws KalipoRequestException {
+    private Comment save(Comment comment) throws KalipoRequestException {
         comment.setAuthorId(SecurityUtils.getCurrentLogin());
         comment.setStatus(Comment.Status.APPROVED);
-        commentRepository.save(comment);
+        return commentRepository.save(comment);
     }
 
     @Async
@@ -65,7 +68,7 @@ public class CommentService {
     public void delete(String id) throws KalipoRequestException {
 
         Comment comment = commentRepository.findOne(id);
-        Asserts.notNull(comment, "id");
+        Asserts.isNotNull(comment, "id");
 
         // todo check permissions
         reputationService.punishDeletingComment(comment);

@@ -6,6 +6,7 @@ import org.kalipo.domain.Vote;
 import org.kalipo.repository.VoteRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
+import org.kalipo.service.util.Asserts;
 import org.kalipo.web.rest.KalipoRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,17 +34,15 @@ public class VoteService {
 
     @RolesAllowed(Privileges.CREATE_VOTE)
     @Throttled
-    public void create(@Valid Vote vote) throws KalipoRequestException {
+    public Vote create(@Valid Vote vote) throws KalipoRequestException {
 
-        // todo id must not exist id
-
-        // todo check that comment exists
+        Asserts.isNull(vote.getId(), "id");
 
         reputationService.likeOrDislikeComment(vote);
 
         vote.setAuthorId(SecurityUtils.getCurrentLogin());
 
-        voteRepository.save(vote);
+        return voteRepository.save(vote);
     }
 
     @Async

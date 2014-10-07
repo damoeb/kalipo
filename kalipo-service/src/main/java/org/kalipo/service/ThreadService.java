@@ -1,11 +1,13 @@
 package org.kalipo.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kalipo.aop.EnableArgumentValidation;
 import org.kalipo.aop.Throttled;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.ThreadRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
+import org.kalipo.service.util.Asserts;
 import org.kalipo.web.rest.KalipoRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,24 +31,32 @@ public class ThreadService {
 
     @RolesAllowed(Privileges.CREATE_THREAD)
     @Throttled
-    public void create(Thread thread) throws KalipoRequestException {
+    public Thread create(Thread thread) throws KalipoRequestException {
 
-        // todo id must not exist id
-        save(thread);
+        Asserts.isNotNull(thread, "thread");
+        Asserts.isNull(thread.getId(), "id");
+
+        return save(thread);
     }
 
     @RolesAllowed(Privileges.CREATE_THREAD)
     @Throttled
-    public void update(Thread thread) throws KalipoRequestException {
-        save(thread);
+    public Thread update(Thread thread) throws KalipoRequestException {
+        Asserts.isNotNull(thread, "thread");
+
+        return save(thread);
     }
 
-    private void save(Thread thread) throws KalipoRequestException {
+    private Thread save(Thread thread) throws KalipoRequestException {
+
+        if (StringUtils.isNotBlank(thread.getUriHook())) {
+            Asserts.hasPrivilege(Privileges.HOOK_THREAD_TO_URL);
+        }
 
         thread.setAuthorId(SecurityUtils.getCurrentLogin());
         thread.setStatus(Thread.Status.OPEN);
 
-        threadRepository.save(thread);
+        return threadRepository.save(thread);
     }
 
     @Async

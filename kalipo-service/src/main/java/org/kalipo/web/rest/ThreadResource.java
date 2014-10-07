@@ -7,6 +7,7 @@ import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Thread;
 import org.kalipo.service.ThreadService;
+import org.kalipo.service.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -43,10 +44,10 @@ public class ThreadResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new thread")
-    public void create(@NotNull @RequestBody Thread thread) throws KalipoRequestException {
+    public Thread create(@NotNull @RequestBody Thread thread) throws KalipoRequestException {
         log.debug("REST request to save Thread : {}", thread);
 
-        threadService.create(thread);
+        return threadService.create(thread);
     }
 
     /**
@@ -61,15 +62,13 @@ public class ThreadResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Thread not found")
     })
-    public void update(@PathVariable String id, @NotNull @RequestBody Thread thread) throws KalipoRequestException {
+    public Thread update(@PathVariable String id, @NotNull @RequestBody Thread thread) throws KalipoRequestException {
         log.debug(" request to update Thread : {}", thread);
 
-        if (StringUtils.isBlank(id)) {
-            throw new InvalidParameterException("id");
-        }
+        Asserts.isNotNull(id, "id");
 
         thread.setId(id);
-        threadService.update(thread);
+        return threadService.update(thread);
     }
 
     /**

@@ -23,6 +23,8 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
@@ -46,8 +48,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("dev")
 public class VoteResourceTest {
 
-    private static final String DEFAULT_ID = "1";
-    private static final String DEFAULT_COMMENT_ID = "1";
+    private String voteId;
+    private String commentId;
 
     private static final Boolean DEFAULT_SAMPLE_ISLIKE_ATTR = false;
 
@@ -74,16 +76,17 @@ public class VoteResourceTest {
 
         TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_VOTE, Privileges.CREATE_THREAD, Privileges.CREATE_COMMENT));
 
-        vote = new Vote();
-        vote.setId(DEFAULT_ID);
-        vote.setCommentId(DEFAULT_COMMENT_ID);
-        vote.setIsLike(DEFAULT_SAMPLE_ISLIKE_ATTR);
-
         Thread thread = ThreadResourceTest.newThread();
         threadService.create(thread);
         Comment comment = CommentResourceTest.newComment();
         comment.setThreadId(thread.getId());
         commentService.create(comment);
+
+        commentId = comment.getId();
+
+        vote = new Vote();
+        vote.setCommentId(commentId);
+        vote.setIsLike(DEFAULT_SAMPLE_ISLIKE_ATTR);
     }
 
     @Test
@@ -93,7 +96,13 @@ public class VoteResourceTest {
         restVoteMockMvc.perform(post("/app/rest/votes")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(vote)))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andDo(new ResultHandler() {
+                    @Override
+                    public void handle(MvcResult result) throws Exception {
+                        voteId = TestUtil.toJson(result).getString("id");
+                    }
+                });
 
         // Try create a empty Comment
         restVoteMockMvc.perform(post("/app/rest/votes")
@@ -102,37 +111,21 @@ public class VoteResourceTest {
                 .andExpect(status().isBadRequest());
 
         // Read Vote
-        restVoteMockMvc.perform(get("/app/rest/votes/{id}", DEFAULT_ID))
+        restVoteMockMvc.perform(get("/app/rest/votes/{id}", voteId))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(DEFAULT_ID))
-                .andExpect(jsonPath("$.commentId").value(DEFAULT_COMMENT_ID))
+                .andExpect(jsonPath("$.id").value(voteId))
+                .andExpect(jsonPath("$.commentId").value(commentId))
                 .andExpect(jsonPath("$.isLike").value(DEFAULT_SAMPLE_ISLIKE_ATTR))
         ;
 
-//        // Update Vote
-//        vote.setIsLike(UPD_SAMPLE_ISLIKE_ATTR);
-//
-//        restVoteMockMvc.perform(put("/app/rest/votes/{id}", DEFAULT_ID)
-//                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-//                .content(TestUtil.convertObjectToJsonBytes(vote)))
-//                .andExpect(status().isOk());
-//
-//        // Read updated Vote
-//        restVoteMockMvc.perform(get("/app/rest/votes/{id}", DEFAULT_ID))
-//                .andExpect(status().isOk())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$.id").value(DEFAULT_ID))
-//                .andExpect(jsonPath("$.isLike").value(UPD_SAMPLE_ISLIKE_ATTR))
-//        ;
-
         // Delete Vote
-        restVoteMockMvc.perform(delete("/app/rest/votes/{id}", DEFAULT_ID)
+        restVoteMockMvc.perform(delete("/app/rest/votes/{id}", voteId)
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 
         // Read nonexisting Vote
-        restVoteMockMvc.perform(get("/app/rest/votes/{id}", DEFAULT_ID)
+        restVoteMockMvc.perform(get("/app/rest/votes/{id}", voteId)
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
 

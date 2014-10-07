@@ -13,4 +13,5 @@ public class Privileges {
     public static final String CREATE_TAG = "CREATE_TAG";
     public static final String CREATE_REPORT = "CREATE_REPORT";
     public static final String CLOSE_REPORT = "CLOSE_REPORT";
+    public static final String HOOK_THREAD_TO_URL = "HOOK_THREAD_TO_URL";
 }

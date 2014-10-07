@@ -25,7 +25,7 @@ public class Thread implements Serializable {
      * todo should be a set of urls, the amount of url is defined via Roles
      */
     @Size(min = 1, max = 512)
-    private String uri;
+    private String uriHook;
 
     @NotNull
     @Size(min = 0, max = 128)
@@ -70,12 +70,12 @@ public class Thread implements Serializable {
         this.id = id;
     }
 
-    public String getUri() {
-        return uri;
+    public String getUriHook() {
+        return uriHook;
     }
 
-    public void setUri(String uri) {
-        this.uri = uri;
+    public void setUriHook(String uriHook) {
+        this.uriHook = uriHook;
     }
 
     public String getTitle() {

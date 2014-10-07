@@ -43,11 +43,11 @@ public class ReputationService {
      */
     public void likeOrDislikeComment(Vote vote) throws KalipoRequestException {
 
-        Asserts.notNull(vote, "vote");
+        Asserts.isNotNull(vote, "vote");
         vote.setAuthorId(SecurityUtils.getCurrentLogin());
 
         final Comment comment = commentRepository.findOne(vote.getCommentId());
-        Asserts.notNull(comment, "commentId");
+        Asserts.isNotNull(comment, "commentId");
 
         final String resourceRef = comment.getId();
         final String authorId = comment.getAuthorId();
@@ -71,10 +71,10 @@ public class ReputationService {
     }
 
     public void approveOrRejectReport(Report report) throws KalipoRequestException {
-        Asserts.notNull(report, "report");
+        Asserts.isNotNull(report, "report");
 
         final Comment comment = commentRepository.findOne(report.getCommentId());
-        Asserts.notNull(comment, "commentId");
+        Asserts.isNotNull(comment, "commentId");
 
         // todo resourceRef must not be null
         final String resourceRef = report.getId();
@@ -117,7 +117,7 @@ public class ReputationService {
     }
 
     public void punishDeletingComment(@Valid @NotNull Comment comment) throws KalipoRequestException {
-        Asserts.notNull(comment, "comment");
+        Asserts.isNotNull(comment, "comment");
 
         RepRevision rvForUser = createRevision(comment.getAuthorId(), comment.getId(), ReputationDefinition.Type.RM_COMMENT);
         repRevisionRepository.save(rvForUser);

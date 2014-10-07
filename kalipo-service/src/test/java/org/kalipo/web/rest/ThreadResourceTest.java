@@ -19,6 +19,8 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
@@ -42,8 +44,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("dev")
 public class ThreadResourceTest {
 
-    private static final String DEFAULT_ID = "1";
-
     private static final String DEFAULT_SAMPLE_TITLE_ATTR = "sampleTitleAttribute";
 
     private static final String UPD_SAMPLE_TITLE_ATTR = "sampleTitleAttributeUpt";
@@ -52,6 +52,8 @@ public class ThreadResourceTest {
     private ThreadService threadService;
 
     private MockMvc restThreadMockMvc;
+
+    private String threadId;
 
     private Thread thread;
 
@@ -75,7 +77,13 @@ public class ThreadResourceTest {
         restThreadMockMvc.perform(post("/app/rest/threads")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(thread)))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andDo(new ResultHandler() {
+                    @Override
+                    public void handle(MvcResult result) throws Exception {
+                        threadId = TestUtil.toJson(result).getString("id");
+                    }
+                });
 
         // Try create a empty Comment
         restThreadMockMvc.perform(post("/app/rest/threads")
@@ -84,37 +92,34 @@ public class ThreadResourceTest {
                 .andExpect(status().isBadRequest());
 
         // Read Thread
-        restThreadMockMvc.perform(get("/app/rest/threads/{id}", DEFAULT_ID))
+        restThreadMockMvc.perform(get("/app/rest/threads/{id}", threadId))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(DEFAULT_ID))
-//                .andExpect(jsonPath("$.sampleDateAttribute").value(DEFAULT_SAMPLE_DATE_ATTR.toString()))
+                .andExpect(jsonPath("$.id").value(threadId))
                 .andExpect(jsonPath("$.title").value(DEFAULT_SAMPLE_TITLE_ATTR));
 
         // Update Thread
-//        thread.setSampleDateAttribute(UPD_SAMPLE_DATE_ATTR);
         thread.setTitle(UPD_SAMPLE_TITLE_ATTR);
 
-        restThreadMockMvc.perform(put("/app/rest/threads/{id}", DEFAULT_ID)
+        restThreadMockMvc.perform(put("/app/rest/threads/{id}", threadId)
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(thread)))
                 .andExpect(status().isOk());
 
         // Read updated Thread
-        restThreadMockMvc.perform(get("/app/rest/threads/{id}", DEFAULT_ID))
+        restThreadMockMvc.perform(get("/app/rest/threads/{id}", threadId))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(DEFAULT_ID))
-//                .andExpect(jsonPath("$.sampleDateAttribute").value(UPD_SAMPLE_DATE_ATTR.toString()))
+                .andExpect(jsonPath("$.id").value(threadId))
                 .andExpect(jsonPath("$.title").value(UPD_SAMPLE_TITLE_ATTR));
 
         // Delete Thread
-        restThreadMockMvc.perform(delete("/app/rest/threads/{id}", DEFAULT_ID)
+        restThreadMockMvc.perform(delete("/app/rest/threads/{id}", threadId)
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 
         // Read nonexisting Thread
-        restThreadMockMvc.perform(get("/app/rest/threads/{id}", DEFAULT_ID)
+        restThreadMockMvc.perform(get("/app/rest/threads/{id}", threadId)
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
 
@@ -122,7 +127,6 @@ public class ThreadResourceTest {
 
     public static Thread newThread() {
         Thread thread = new Thread();
-        thread.setId(DEFAULT_ID);
         thread.setTitle(DEFAULT_SAMPLE_TITLE_ATTR);
         return thread;
     }

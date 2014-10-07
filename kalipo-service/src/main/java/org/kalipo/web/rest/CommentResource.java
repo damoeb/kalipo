@@ -45,10 +45,10 @@ public class CommentResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new comment")
-    public void create(@NotNull @RequestBody Comment comment) throws KalipoRequestException {
+    public Comment create(@NotNull @RequestBody Comment comment) throws KalipoRequestException {
         log.debug("REST request to save Comment : {}", comment);
 
-        commentService.create(comment);
+        return commentService.create(comment);
     }
 
     /**
@@ -63,13 +63,13 @@ public class CommentResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Comment not found")
     })
-    public void update(@PathVariable String id, @NotNull @RequestBody Comment comment) throws KalipoRequestException {
+    public Comment update(@PathVariable String id, @NotNull @RequestBody Comment comment) throws KalipoRequestException {
         log.debug("REST request to update Comment : {}", comment);
 
-        Asserts.notNull(id, "id");
+        Asserts.isNotNull(id, "id");
 
         comment.setId(id);
-        commentService.update(comment);
+        return commentService.update(comment);
     }
 
     /**

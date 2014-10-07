@@ -21,6 +21,8 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
@@ -44,15 +46,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("dev")
 public class CommentResourceTest {
 
-    private static final String DEFAULT_ID = "1";
-
     private static final String UPD_SAMPLE_TITLE_ATTR = "updSampleTitle";
-    private static final String UPD_SAMPLE_TEXT_ATTR = "updSampleText";
-//    private static final LocalDate UPD_SAMPLE_TEXT_ATTR = new LocalDate();
 
-    private static final String DEFAULT_THREAD_ID = "1";
+    private static final String UPD_SAMPLE_TEXT_ATTR = "updSampleText";
     private static final String DEFAULT_TEXT = "sampleText";
+
     private static final String DEFAULT_TITLE = "sampleTitle";
+
+    private String commentId;
 
     @Inject
     private CommentService commentService;
@@ -88,7 +89,13 @@ public class CommentResourceTest {
         restCommentMockMvc.perform(post("/app/rest/comments")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(comment)))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andDo(new ResultHandler() {
+                    @Override
+                    public void handle(MvcResult result) throws Exception {
+                        commentId = TestUtil.toJson(result).getString("id");
+                    }
+                });
 
         // Try create a empty Comment
         restCommentMockMvc.perform(post("/app/rest/comments")
@@ -97,40 +104,39 @@ public class CommentResourceTest {
                 .andExpect(status().isBadRequest());
 
         // Read Comment
-        restCommentMockMvc.perform(get("/app/rest/comments/{id}", DEFAULT_ID))
+        restCommentMockMvc.perform(get("/app/rest/comments/{id}", commentId))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(DEFAULT_ID))
+                .andExpect(jsonPath("$.id").value(commentId))
                 .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
                 .andExpect(jsonPath("$.text").value(DEFAULT_TEXT))
-//                .andExpect(jsonPath("$.threadId").value(DEFAULT_THREAD_ID))
         ;
 //
 //        // Update Comment
         comment.setTitle(UPD_SAMPLE_TITLE_ATTR);
         comment.setText(UPD_SAMPLE_TEXT_ATTR);
 //
-        restCommentMockMvc.perform(put("/app/rest/comments/{id}", DEFAULT_ID)
+        restCommentMockMvc.perform(put("/app/rest/comments/{id}", commentId)
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(comment)))
                 .andExpect(status().isOk());
 
         // Read updated Comment
-        restCommentMockMvc.perform(get("/app/rest/comments/{id}", DEFAULT_ID))
+        restCommentMockMvc.perform(get("/app/rest/comments/{id}", commentId))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(DEFAULT_ID))
+                .andExpect(jsonPath("$.id").value(commentId))
                 .andExpect(jsonPath("$.title").value(UPD_SAMPLE_TITLE_ATTR))
                 .andExpect(jsonPath("$.text").value(UPD_SAMPLE_TEXT_ATTR))
         ;
 
         // Delete Comment
-        restCommentMockMvc.perform(delete("/app/rest/comments/{id}", DEFAULT_ID)
+        restCommentMockMvc.perform(delete("/app/rest/comments/{id}", commentId)
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 
         // Read nonexisting Comment
-        restCommentMockMvc.perform(get("/app/rest/comments/{id}", DEFAULT_ID)
+        restCommentMockMvc.perform(get("/app/rest/comments/{id}", commentId)
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
 
@@ -138,8 +144,6 @@ public class CommentResourceTest {
 
     public static Comment newComment() {
         Comment comment = new Comment();
-        comment.setId(DEFAULT_ID);
-        comment.setThreadId(DEFAULT_THREAD_ID);
         comment.setText(DEFAULT_TEXT);
         comment.setTitle(DEFAULT_TITLE);
         return comment;

@@ -49,13 +49,13 @@ public class ReportService {
     @Throttled
     public void create(Report report) throws KalipoRequestException {
 
-        // todo id must not exist id
+        Asserts.isNull(report.getId(), "id");
 
         report.setStatus(Report.Status.PENDING);
 
         Comment comment = commentRepository.findOne(report.getCommentId());
 
-        Asserts.notNull(comment, "commentId");
+        Asserts.isNotNull(comment, "commentId");
 
         report.setAuthorId(SecurityUtils.getCurrentLogin());
         report.setStatus(Report.Status.PENDING);
@@ -119,7 +119,7 @@ public class ReportService {
     private Report getPendingReport(String id) throws KalipoRequestException {
         Report report = reportRepository.findOne(id);
 
-        Asserts.notNull(report, "id");
+        Asserts.isNotNull(report, "id");
 
         if (report.getStatus() != Report.Status.PENDING) {
             throw new KalipoRequestException(ErrorCode.CONSTRAINT_VIOLATED, "Report must be pending");
