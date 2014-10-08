@@ -40,10 +40,10 @@ public class ReportResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new report")
-    public void create(@NotNull @RequestBody Report report) throws KalipoRequestException {
+    public Report create(@NotNull @RequestBody Report report) throws KalipoRequestException {
         log.debug("REST request to save Report : {}", report);
 
-        reportService.create(report);
+        return reportService.create(report);
     }
 
     /**

@@ -23,6 +23,8 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
@@ -46,8 +48,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("dev")
 public class ReportResourceTest {
 
-    private static final String DEFAULT_ID = "1";
-
     private static final String DEFAULT_SAMPLE_REASON_ATTR = "sampleReasonAttribute";
 
     @Inject
@@ -60,6 +60,8 @@ public class ReportResourceTest {
     private ReportService reportService;
 
     private MockMvc restReportMockMvc;
+
+    private String reportId;
 
     private Report report;
 
@@ -80,7 +82,6 @@ public class ReportResourceTest {
         commentService.create(comment);
 
         report = new Report();
-        report.setId(DEFAULT_ID);
         report.setReason(DEFAULT_SAMPLE_REASON_ATTR);
         report.setCommentId(comment.getId());
     }
@@ -92,7 +93,12 @@ public class ReportResourceTest {
         restReportMockMvc.perform(post("/app/rest/reports")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(report)))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated()).andDo(new ResultHandler() {
+            @Override
+            public void handle(MvcResult result) throws Exception {
+                reportId = TestUtil.toJson(result).getString("id");
+            }
+        });
 
         // Try create a empty Comment
         restReportMockMvc.perform(post("/app/rest/reports")
@@ -101,19 +107,19 @@ public class ReportResourceTest {
                 .andExpect(status().isBadRequest());
 
         // Read Report
-        restReportMockMvc.perform(get("/app/rest/reports/{id}", DEFAULT_ID))
+        restReportMockMvc.perform(get("/app/rest/reports/{id}", reportId))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(DEFAULT_ID))
+                .andExpect(jsonPath("$.id").value(reportId))
                 .andExpect(jsonPath("$.reason").value(DEFAULT_SAMPLE_REASON_ATTR));
 
         // Delete Report
-        restReportMockMvc.perform(delete("/app/rest/reports/{id}", DEFAULT_ID)
+        restReportMockMvc.perform(delete("/app/rest/reports/{id}", reportId)
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 
         // Read nonexisting Report
-        restReportMockMvc.perform(get("/app/rest/reports/{id}", DEFAULT_ID)
+        restReportMockMvc.perform(get("/app/rest/reports/{id}", reportId)
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
 

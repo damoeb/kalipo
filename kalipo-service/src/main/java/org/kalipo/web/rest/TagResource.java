@@ -7,6 +7,7 @@ import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Tag;
 import org.kalipo.service.TagService;
+import org.kalipo.service.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -43,31 +44,12 @@ public class TagResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new tag")
-    public void create(@NotNull @RequestBody Tag tag) throws KalipoRequestException {
+    public Tag create(@NotNull @RequestBody Tag tag) throws KalipoRequestException {
         log.debug("REST request to save Tag : {}", tag);
-        tagService.create(tag);
-    }
 
-    /**
-     * PUT  /rest/tags -> Update existing tag.
-     */
-    @RequestMapping(value = "/rest/tags/{id}",
-            method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    @ApiOperation(value = "Update existing tag")
-    @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Invalid ID supplied"),
-            @ApiResponse(code = 404, message = "Tag not found")
-    })
-    public void update(@PathVariable String id, @NotNull @RequestBody Tag tag) throws KalipoRequestException {
-        log.debug("REST request to update Tag : {}", tag);
+        Asserts.isNull(tag.getId(), "id");
 
-        if (StringUtils.isBlank(id)) {
-            throw new InvalidParameterException("id");
-        }
-
-        tagService.update(tag);
+        return tagService.create(tag);
     }
 
     /**

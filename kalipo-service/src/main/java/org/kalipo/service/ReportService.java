@@ -47,7 +47,7 @@ public class ReportService {
 
     @RolesAllowed(Privileges.CREATE_REPORT)
     @Throttled
-    public void create(Report report) throws KalipoRequestException {
+    public Report create(Report report) throws KalipoRequestException {
 
         Asserts.isNull(report.getId(), "id");
 
@@ -61,7 +61,7 @@ public class ReportService {
         report.setStatus(Report.Status.PENDING);
         report.setThreadId(comment.getThreadId());
 
-        reportRepository.save(report);
+        return reportRepository.save(report);
     }
 
     @RolesAllowed(Privileges.CLOSE_REPORT)

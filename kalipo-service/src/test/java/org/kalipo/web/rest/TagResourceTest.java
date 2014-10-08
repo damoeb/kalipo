@@ -19,6 +19,8 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
@@ -42,8 +44,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("dev")
 public class TagResourceTest {
 
-    private static final String DEFAULT_ID = "1";
-
     private static final String DEFAULT_SAMPLE_NAME_ATTR = "sampleTitleAttribute";
 
     private static final String UPD_SAMPLE_NAME_ATTR = "sampleTitleAttributeUpt";
@@ -54,6 +54,8 @@ public class TagResourceTest {
     private MockMvc restTagMockMvc;
 
     private Tag tag;
+
+    private String tagId;
 
     @Before
     public void setup() {
@@ -66,7 +68,6 @@ public class TagResourceTest {
         TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_TAG));
 
         tag = new Tag();
-        tag.setId(DEFAULT_ID);
         tag.setName(DEFAULT_SAMPLE_NAME_ATTR);
     }
 
@@ -77,7 +78,14 @@ public class TagResourceTest {
         restTagMockMvc.perform(post("/app/rest/tags")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(tag)))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andDo(new ResultHandler() {
+                    @Override
+                    public void handle(MvcResult result) throws Exception {
+                        tagId = TestUtil.toJson(result).getString("id");
+                    }
+                });
+
 
         // Try create a empty Comment
         restTagMockMvc.perform(post("/app/rest/tags")
@@ -86,37 +94,19 @@ public class TagResourceTest {
                 .andExpect(status().isBadRequest());
 
         // Read Tag
-        restTagMockMvc.perform(get("/app/rest/tags/{id}", DEFAULT_ID))
+        restTagMockMvc.perform(get("/app/rest/tags/{id}", tagId))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(DEFAULT_ID))
-//                .andExpect(jsonPath("$.sampleDateAttribute").value(DEFAULT_SAMPLE_DATE_ATTR.toString()))
+                .andExpect(jsonPath("$.id").value(tagId))
                 .andExpect(jsonPath("$.name").value(DEFAULT_SAMPLE_NAME_ATTR));
 
-        // Update Tag
-//        tag.setSampleDateAttribute(UPD_SAMPLE_DATE_ATTR);
-        tag.setName(UPD_SAMPLE_NAME_ATTR);
-
-        restTagMockMvc.perform(put("/app/rest/tags/{id}", DEFAULT_ID)
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(tag)))
-                .andExpect(status().isOk());
-
-        // Read updated Tag
-        restTagMockMvc.perform(get("/app/rest/tags/{id}", DEFAULT_ID))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(DEFAULT_ID))
-//                .andExpect(jsonPath("$.sampleDateAttribute").value(UPD_SAMPLE_DATE_ATTR.toString()))
-                .andExpect(jsonPath("$.name").value(UPD_SAMPLE_NAME_ATTR));
-
         // Delete Tag
-        restTagMockMvc.perform(delete("/app/rest/tags/{id}", DEFAULT_ID)
+        restTagMockMvc.perform(delete("/app/rest/tags/{id}", tagId)
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 
         // Read nonexisting Tag
-        restTagMockMvc.perform(get("/app/rest/tags/{id}", DEFAULT_ID)
+        restTagMockMvc.perform(get("/app/rest/tags/{id}", tagId)
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
 

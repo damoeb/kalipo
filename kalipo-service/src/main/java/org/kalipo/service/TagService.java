@@ -5,6 +5,7 @@ import org.kalipo.aop.Throttled;
 import org.kalipo.domain.Tag;
 import org.kalipo.repository.TagRepository;
 import org.kalipo.security.Privileges;
+import org.kalipo.service.util.Asserts;
 import org.kalipo.web.rest.KalipoRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,23 +29,23 @@ public class TagService {
 
     @RolesAllowed(Privileges.CREATE_TAG)
     @Throttled
-    public void create(Tag tag) throws KalipoRequestException {
+    public Tag create(Tag tag) throws KalipoRequestException {
 
-        // todo id must not exist id
+        Asserts.isNull(tag.getId(), "id");
 
-        save(tag);
+        return save(tag);
     }
 
     @RolesAllowed(Privileges.CREATE_TAG)
     @Throttled
-    public void update(Tag tag) throws KalipoRequestException {
+    public Tag update(Tag tag) throws KalipoRequestException {
 
-        save(tag);
+        return save(tag);
     }
 
-    private void save(Tag tag) throws KalipoRequestException {
+    private Tag save(Tag tag) throws KalipoRequestException {
 
-        tagRepository.save(tag);
+        return tagRepository.save(tag);
     }
 
     @Async
