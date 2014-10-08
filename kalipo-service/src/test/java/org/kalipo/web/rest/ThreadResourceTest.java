@@ -1,7 +1,9 @@
 package org.kalipo.web.rest;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
 import org.kalipo.domain.Thread;
@@ -25,6 +27,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -47,6 +51,10 @@ public class ThreadResourceTest {
     private static final String DEFAULT_SAMPLE_TITLE_ATTR = "sampleTitleAttribute";
 
     private static final String UPD_SAMPLE_TITLE_ATTR = "sampleTitleAttributeUpt";
+    public static final List<String> DEFAULT_PRIVILEGES = Arrays.asList(Privileges.CREATE_THREAD);
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Inject
     private ThreadService threadService;
@@ -65,13 +73,14 @@ public class ThreadResourceTest {
 
         this.restThreadMockMvc = MockMvcBuilders.standaloneSetup(threadResource).build();
 
-        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_THREAD));
+        TestUtil.mockSecurityContext("admin", DEFAULT_PRIVILEGES);
 
-        thread = newThread();
     }
 
     @Test
     public void testCRUDThread() throws Exception {
+
+        thread = newThread();
 
         // Create Thread
         restThreadMockMvc.perform(post("/app/rest/threads")
@@ -123,6 +132,36 @@ public class ThreadResourceTest {
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
 
+    }
+
+    @Test
+    public void test_UrlHooksWithoutPermission() throws Exception {
+
+        thread = newThread();
+        thread.setUriHook("http://example.com");
+
+        restThreadMockMvc.perform(post("/app/rest/threads")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(thread)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void test_UrlHooksWithPermission() throws Exception {
+
+        thread = newThread();
+        thread.setUriHook("http://example.com");
+
+        List<String> privileges = new LinkedList<>();
+        privileges.add(Privileges.HOOK_THREAD_TO_URL);
+        privileges.addAll(DEFAULT_PRIVILEGES);
+
+        TestUtil.mockSecurityContext("admin", privileges);
+
+        restThreadMockMvc.perform(post("/app/rest/threads")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(thread)))
+                .andExpect(status().isCreated());
     }
 
     public static Thread newThread() {
