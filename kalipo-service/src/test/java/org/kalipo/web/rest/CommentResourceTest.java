@@ -135,10 +135,28 @@ public class CommentResourceTest {
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 
-        // Read nonexisting Comment
+        // Read non-existing Comment
         restCommentMockMvc.perform(get("/app/rest/comments/{id}", commentId)
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
+
+    }
+
+    @Test
+    public void test_failCommentOnReadOnlyThread() throws Exception {
+
+        Thread thread = ThreadResourceTest.newThread();
+        thread.setReadOnly(true);
+        threadService.create(thread);
+
+        comment = newComment();
+        comment.setThreadId(thread.getId());
+
+        // Create Comment
+        restCommentMockMvc.perform(post("/app/rest/comments")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(comment)))
+                .andExpect(status().isBadRequest());
 
     }
 

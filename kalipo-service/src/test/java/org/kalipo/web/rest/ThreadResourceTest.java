@@ -49,8 +49,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ThreadResourceTest {
 
     private static final String DEFAULT_SAMPLE_TITLE_ATTR = "sampleTitleAttribute";
+    private static final Boolean DEFAULT_SAMPLE_READONLY_ATTR = false;
 
     private static final String UPD_SAMPLE_TITLE_ATTR = "sampleTitleAttributeUpt";
+    private static final Boolean UPD_SAMPLE_READONLY_ATTR = true;
     public static final List<String> DEFAULT_PRIVILEGES = Arrays.asList(Privileges.CREATE_THREAD);
 
     @Rule
@@ -105,10 +107,12 @@ public class ThreadResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(threadId))
-                .andExpect(jsonPath("$.title").value(DEFAULT_SAMPLE_TITLE_ATTR));
+                .andExpect(jsonPath("$.title").value(DEFAULT_SAMPLE_TITLE_ATTR))
+                .andExpect(jsonPath("$.readOnly").value(DEFAULT_SAMPLE_READONLY_ATTR));
 
         // Update Thread
         thread.setTitle(UPD_SAMPLE_TITLE_ATTR);
+        thread.setReadOnly(UPD_SAMPLE_READONLY_ATTR);
 
         restThreadMockMvc.perform(put("/app/rest/threads/{id}", threadId)
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -120,7 +124,8 @@ public class ThreadResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(threadId))
-                .andExpect(jsonPath("$.title").value(UPD_SAMPLE_TITLE_ATTR));
+                .andExpect(jsonPath("$.title").value(UPD_SAMPLE_TITLE_ATTR))
+                .andExpect(jsonPath("$.readOnly").value(UPD_SAMPLE_READONLY_ATTR));
 
         // Delete Thread
         restThreadMockMvc.perform(delete("/app/rest/threads/{id}", threadId)
@@ -167,6 +172,7 @@ public class ThreadResourceTest {
     public static Thread newThread() {
         Thread thread = new Thread();
         thread.setTitle(DEFAULT_SAMPLE_TITLE_ATTR);
+        thread.setReadOnly(DEFAULT_SAMPLE_READONLY_ATTR);
         return thread;
     }
 }

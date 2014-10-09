@@ -2,8 +2,11 @@ package org.kalipo.service;
 
 import org.kalipo.aop.EnableArgumentValidation;
 import org.kalipo.aop.Throttled;
+import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
+import org.kalipo.domain.Thread;
 import org.kalipo.repository.CommentRepository;
+import org.kalipo.repository.ThreadRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
@@ -29,13 +32,16 @@ public class CommentService {
     private CommentRepository commentRepository;
 
     @Inject
+    private ThreadRepository threadRepository;
+
+    @Inject
     private ReputationService reputationService;
 
     @RolesAllowed(Privileges.CREATE_COMMENT)
     @Throttled
     public Comment create(Comment comment) throws KalipoRequestException {
 
-        Asserts.isNotNull(comment, "thread");
+        Asserts.isNotNull(comment, "comment");
         Asserts.isNull(comment.getId(), "id");
 
         return save(comment);
@@ -49,6 +55,14 @@ public class CommentService {
     }
 
     private Comment save(Comment comment) throws KalipoRequestException {
+
+        Thread thread = threadRepository.findOne(comment.getThreadId());
+        Asserts.isNotNull(thread, "threadId");
+
+        if (thread.getReadOnly()) {
+            throw new KalipoRequestException(ErrorCode.CONSTRAINT_VIOLATED, "thread is readonly");
+        }
+
         comment.setAuthorId(SecurityUtils.getCurrentLogin());
         comment.setStatus(Comment.Status.APPROVED);
         return commentRepository.save(comment);
