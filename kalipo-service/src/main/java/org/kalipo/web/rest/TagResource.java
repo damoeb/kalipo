@@ -4,7 +4,6 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
-import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Tag;
 import org.kalipo.service.TagService;
 import org.kalipo.service.util.Asserts;
@@ -23,7 +22,7 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * REST controller for managing Tag.
- *
+ * <p>
  * todo: autosuggest matching tag, tag-cloud, tag modification is mainly done internal
  */
 @RestController
@@ -79,9 +78,7 @@ public class TagResource {
     })
     public ResponseEntity<Tag> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
         log.debug("REST request to get Tag : {}", id);
-        if (StringUtils.isBlank(id)) {
-            throw new InvalidParameterException("id");
-        }
+        Asserts.isNotNull(id, "id");
 
         return Optional.ofNullable(tagService.get(id).get())
                 .map(tag -> new ResponseEntity<>(
@@ -101,9 +98,7 @@ public class TagResource {
     @ApiOperation(value = "Delete the \"id\" tag")
     public void delete(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to delete Tag : {}", id);
-        if (StringUtils.isBlank(id)) {
-            throw new InvalidParameterException("id");
-        }
+        Asserts.isNotNull(id, "id");
 
         tagService.delete(id);
     }

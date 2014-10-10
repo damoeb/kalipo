@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
- * A Tag. This entity conserves stats about a tag
+ * A Tag. This entity conserves stats about a tag and todo is used for autosuggestion
  */
 @Document(collection = "T_TAG")
 public class Tag implements Serializable {

@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotNull;
 
 /**
- * A Reputation.
+ * A ReputationDefinition defines reputation modifiers for specific Types. A Type can be seen as an action. Reputation is a positive or negative number that is added to the current user reputation
  */
 
 @Document(collection = "T_REPUTATION_DEFINITION")
@@ -24,7 +24,6 @@ public class ReputationDefinition {
 //    private DateTime lastModifiedDate;
 
     @NotNull(message = "{constraint.notnull.type}")
-//    @Field("rtype")
     private Type type;
 
     @NotNull(message = "{constraint.notnull.reputation}")

@@ -1,21 +1,28 @@
 package org.kalipo.service;
 
 import org.kalipo.aop.EnableArgumentValidation;
+import org.kalipo.aop.Throttled;
 import org.kalipo.domain.*;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.RepRevisionRepository;
 import org.kalipo.repository.ReputationDefinitionRepository;
 import org.kalipo.repository.UserRepository;
+import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
 import org.kalipo.web.rest.KalipoRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.concurrent.Future;
 
 @Service
 @EnableArgumentValidation
@@ -123,6 +130,23 @@ public class ReputationService {
         repRevisionRepository.save(rvForUser);
 
         updateUserReputation(rvForUser);
+    }
+
+    @RolesAllowed(Privileges.CREATE_PRIVILEGE)
+    @Throttled
+    public void update(ReputationDefinition reputationDefinition) throws KalipoRequestException {
+        reputationDefinitionRepository.save(reputationDefinition);
+    }
+
+    @Async
+    public Future<ReputationDefinition> get(String id) throws KalipoRequestException {
+        return new AsyncResult<>(reputationDefinitionRepository.findOne(id));
+    }
+
+
+    @Async
+    public Future<List<ReputationDefinition>> getAll() {
+        return new AsyncResult<>(reputationDefinitionRepository.findAll());
     }
 
     // --

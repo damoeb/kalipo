@@ -1,0 +1,77 @@
+<div>
+
+    <h2>Reputations</h2>
+
+    <div class="modal fade" id="saveReputationModal" tabindex="-1" role="dialog" aria-labelledby="myReputationLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="form" role="form" novalidate
+                      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                      ng-submit="create()">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" id="myReputationLabel">Edit a Reputation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control" name="id"
+                                   ng-model="reputation.id" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Type</label>
+                            <input type="text" class="form-control" name="type"
+                                   ng-model="reputation.type" ng-minlength=1 ng-maxlength=50 required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>reputation</label>
+                            <input type="text" class="form-control" name="reputation"
+                                   ng-model="reputation.reputation" required>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                        </button>
+                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span> Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="reputation in reputations">
+                <td>{{reputation.id}}</td>
+                <td>{{reputation.type}}</td>
+                <td>{{reputation.reputation}}</td>
+                <td>
+                    <button type="submit"
+                            ng-click="update(reputation.id)"
+                            class="btn">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

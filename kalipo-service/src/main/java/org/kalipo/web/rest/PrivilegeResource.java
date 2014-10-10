@@ -4,9 +4,9 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
-import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Privilege;
 import org.kalipo.service.PrivilegeService;
+import org.kalipo.service.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -61,9 +61,7 @@ public class PrivilegeResource {
     public void update(@PathVariable String id, @NotNull @RequestBody Privilege privilege) throws KalipoRequestException {
         log.debug("REST request to update Privilege : {}", privilege);
 
-        if (StringUtils.isBlank(id)) {
-            throw new InvalidParameterException("id");
-        }
+        Asserts.isNotNull(id, "id");
 
         privilege.setId(id);
         privilegeService.update(privilege);
@@ -96,9 +94,7 @@ public class PrivilegeResource {
     })
     public ResponseEntity<Privilege> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
         log.debug("REST request to get Privilege : {}", id);
-        if (StringUtils.isBlank(id)) {
-            throw new InvalidParameterException("id");
-        }
+        Asserts.isNotNull(id, "id");
 
         return Optional.ofNullable(privilegeService.get(id).get())
                 .map(privilege -> new ResponseEntity<>(
@@ -118,9 +114,7 @@ public class PrivilegeResource {
     @ApiOperation(value = "Delete the \"id\" privilege")
     public void delete(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to delete Privilege : {}", id);
-        if (StringUtils.isBlank(id)) {
-            throw new InvalidParameterException("id");
-        }
+        Asserts.isNotNull(id, "id");
 
         privilegeService.delete(id);
     }

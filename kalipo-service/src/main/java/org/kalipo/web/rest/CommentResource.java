@@ -4,7 +4,6 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
-import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Comment;
 import org.kalipo.service.CommentService;
 import org.kalipo.service.util.Asserts;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
-import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
@@ -101,9 +99,7 @@ public class CommentResource {
     })
     public ResponseEntity<Comment> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
         log.debug("REST request to get Comment : {}", id);
-        if (StringUtils.isBlank(id)) {
-            throw new InvalidParameterException("id");
-        }
+        Asserts.isNotNull(id, "id");
 
         return Optional.ofNullable(commentService.get(id).get())
                 .map(comment -> new ResponseEntity<>(
@@ -124,9 +120,7 @@ public class CommentResource {
     public void delete(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to delete Comment : {}", id);
 
-        if (StringUtils.isBlank(id)) {
-            throw new InvalidParameterException("id");
-        }
+        Asserts.isNotNull(id, "id");
 
         commentService.delete(id);
     }

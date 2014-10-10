@@ -4,9 +4,9 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
-import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Vote;
 import org.kalipo.service.VoteService;
+import org.kalipo.service.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -75,9 +75,7 @@ public class VoteResource {
     })
     public ResponseEntity<Vote> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
         log.debug("REST request to get Vote : {}", id);
-        if (StringUtils.isBlank(id)) {
-            throw new InvalidParameterException("id");
-        }
+        Asserts.isNotNull(id, "id");
 
         return Optional.ofNullable(voteService.get(id).get())
                 .map(vote -> new ResponseEntity<>(
@@ -98,9 +96,7 @@ public class VoteResource {
     public void delete(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to delete Vote : {}", id);
 
-        if (StringUtils.isBlank(id)) {
-            throw new InvalidParameterException("id");
-        }
+        Asserts.isNotNull(id, "id");
 
         voteService.delete(id);
     }
