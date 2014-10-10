@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * A Thread.
@@ -61,6 +62,8 @@ public class Thread implements Serializable {
     private Boolean readOnly = false; // todo implement readonly
 
     private Status status;
+
+    private Set<Tag> tags;
 
     public String getId() {
         return id;
@@ -148,6 +151,14 @@ public class Thread implements Serializable {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
     /**

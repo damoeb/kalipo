@@ -3,6 +3,7 @@ package org.kalipo.service;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.aop.EnableArgumentValidation;
 import org.kalipo.aop.Throttled;
+import org.kalipo.domain.Tag;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.ThreadRepository;
 import org.kalipo.security.Privileges;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Future;
 
 @Service
@@ -35,6 +37,8 @@ public class ThreadService {
 
         Asserts.isNotNull(thread, "thread");
         Asserts.isNull(thread.getId(), "id");
+
+        thread.setStatus(Thread.Status.OPEN);
 
         return save(thread);
     }
@@ -54,14 +58,13 @@ public class ThreadService {
         }
 
         thread.setAuthorId(SecurityUtils.getCurrentLogin());
-        thread.setStatus(Thread.Status.OPEN);
 
         return threadRepository.save(thread);
     }
 
     @Async
     public Future<List<Thread>> getAll() {
-        return new AsyncResult<>(threadRepository.findAll());
+        return new AsyncResult<List<Thread>>(threadRepository.findAll());
     }
 
     @Async
@@ -73,4 +76,17 @@ public class ThreadService {
         threadRepository.delete(id);
     }
 
+    @RolesAllowed(Privileges.CREATE_THREAD)
+    public void setTagsOfThread(String id, Set<Tag> tags) throws KalipoRequestException {
+        Thread thread = threadRepository.findOne(id);
+
+        Asserts.isNotNull(thread, "id");
+
+        // todo check ids if provided
+        thread.setTags(tags);
+
+        Asserts.isNotReadOnly(thread);
+
+        threadRepository.save(thread);
+    }
 }

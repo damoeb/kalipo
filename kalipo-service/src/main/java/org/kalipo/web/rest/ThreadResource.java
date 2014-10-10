@@ -4,7 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
-import org.apache.commons.lang3.StringUtils;
+import org.kalipo.domain.Tag;
 import org.kalipo.domain.Thread;
 import org.kalipo.service.ThreadService;
 import org.kalipo.service.util.Asserts;
@@ -19,11 +19,11 @@ import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 /**
  * REST controller for managing Thread.
- *
  * todo: a thread is created with the leading comment, that should be verbose
  */
 @RestController
@@ -63,7 +63,7 @@ public class ThreadResource {
             @ApiResponse(code = 404, message = "Thread not found")
     })
     public Thread update(@PathVariable String id, @NotNull @RequestBody Thread thread) throws KalipoRequestException {
-        log.debug(" request to update Thread : {}", thread);
+        log.debug("REST request to update Thread : {}", thread);
 
         Asserts.isNotNull(id, "id");
 
@@ -99,9 +99,7 @@ public class ThreadResource {
     })
     public ResponseEntity<Thread> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
         log.debug("REST request to get Thread : {}", id);
-        if (StringUtils.isBlank(id)) {
-            throw new InvalidParameterException("id");
-        }
+        Asserts.isNotNull(id, "id");
 
         return Optional.ofNullable(threadService.get(id).get())
                 .map(thread -> new ResponseEntity<>(
@@ -121,10 +119,29 @@ public class ThreadResource {
     @ApiOperation(value = "Delete the \"id\" thread")
     public void delete(@PathVariable String id) throws KalipoRequestException {
         log.debug("REST request to delete Thread : {}", id);
-        if (StringUtils.isBlank(id)) {
-            throw new InvalidParameterException("id");
-        }
+        Asserts.isNotNull(id, "id");
 
         threadService.delete(id);
+    }
+
+    /**
+     * PUT  /rest/threads/{id}/tags -> Set tags of existing thread.
+     */
+    @RequestMapping(value = "/threads/{id}/tags",
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Set tags of thread")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Invalid ID supplied"),
+            @ApiResponse(code = 404, message = "Thread not found")
+    })
+    public void setTags(@PathVariable String id, @NotNull @RequestBody Set<Tag> tags) throws KalipoRequestException {
+        log.debug("REST request to add Tags {} to thread {}", tags, id);
+
+        Asserts.isNotNull(id, "id");
+        Asserts.isNotNull(tags, "tags");
+
+        threadService.setTagsOfThread(id, tags);
     }
 }

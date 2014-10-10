@@ -111,7 +111,7 @@ public class CommentResourceTest {
                 .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
                 .andExpect(jsonPath("$.text").value(DEFAULT_TEXT))
         ;
-//
+
 //        // Update Comment
         comment.setTitle(UPD_SAMPLE_TITLE_ATTR);
         comment.setText(UPD_SAMPLE_TEXT_ATTR);

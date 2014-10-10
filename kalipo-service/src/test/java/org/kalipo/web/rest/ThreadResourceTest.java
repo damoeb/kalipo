@@ -1,11 +1,16 @@
 package org.kalipo.web.rest;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
+import org.kalipo.domain.Tag;
 import org.kalipo.domain.Thread;
 import org.kalipo.security.Privileges;
 import org.kalipo.service.ThreadService;
@@ -26,9 +31,7 @@ import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -96,7 +99,12 @@ public class ThreadResourceTest {
                     }
                 });
 
-        // Try create a empty Comment
+        // Try create without Thread
+        restThreadMockMvc.perform(post("/app/rest/threads")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(status().isBadRequest());
+
+        // Try create a empty Thread
         restThreadMockMvc.perform(post("/app/rest/threads")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(new Thread())))
@@ -167,6 +175,93 @@ public class ThreadResourceTest {
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(thread)))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void test_addAndRemoveTags() throws Exception {
+
+        thread = newThread();
+
+        Set<Tag> tags = new HashSet<Tag>();
+        tags.add(new Tag("something"));
+
+        thread.setTags(tags);
+
+        // Create Thread
+        restThreadMockMvc.perform(post("/app/rest/threads")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(thread)))
+                .andExpect(status().isCreated())
+                .andDo(new ResultHandler() {
+                    @Override
+                    public void handle(MvcResult result) throws Exception {
+                        threadId = TestUtil.toJson(result).getString("id");
+                    }
+                });
+
+        // Read updated Thread
+        restThreadMockMvc.perform(get("/app/rest/threads/{id}", threadId))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.tags").value(new BaseMatcher() {
+
+                    @Override
+                    public boolean matches(Object item) {
+                        return equalsTags(tags, (net.minidev.json.JSONArray) item);
+                    }
+
+                    @Override
+                    public void describeTo(Description description) {
+
+                    }
+                }));
+
+        tags.clear();
+        tags.add(new Tag("something2"));
+
+        // update tags only
+        restThreadMockMvc.perform(put(String.format("/app/rest/threads/%s/tags", threadId))
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(tags)))
+                .andExpect(status().isOk());
+
+
+        // Read updated Thread
+        restThreadMockMvc.perform(get("/app/rest/threads/{id}", threadId))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.tags").value(new BaseMatcher() {
+
+                    @Override
+                    public boolean matches(Object item) {
+                        return equalsTags(tags, (net.minidev.json.JSONArray) item);
+                    }
+
+                    @Override
+                    public void describeTo(Description description) {
+
+                    }
+                }));
+
+    }
+
+    private boolean equalsTags(Set<Tag> orgTags, net.minidev.json.JSONArray tagsArr) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        Set<Tag> updatedTags = new HashSet<Tag>();
+        for (Tag tag : mapper.convertValue(tagsArr, Tag[].class)) {
+            updatedTags.add(tag);
+        }
+
+        if (orgTags.size() == updatedTags.size()) {
+            for (Tag tag : orgTags) {
+                if (!updatedTags.contains(tag)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public static Thread newThread() {

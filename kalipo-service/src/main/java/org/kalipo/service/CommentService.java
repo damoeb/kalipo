@@ -2,7 +2,6 @@ package org.kalipo.service;
 
 import org.kalipo.aop.EnableArgumentValidation;
 import org.kalipo.aop.Throttled;
-import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.CommentRepository;
@@ -58,10 +57,7 @@ public class CommentService {
 
         Thread thread = threadRepository.findOne(comment.getThreadId());
         Asserts.isNotNull(thread, "threadId");
-
-        if (thread.getReadOnly()) {
-            throw new KalipoRequestException(ErrorCode.CONSTRAINT_VIOLATED, "thread is readonly");
-        }
+        Asserts.isNotReadOnly(thread);
 
         comment.setAuthorId(SecurityUtils.getCurrentLogin());
         comment.setStatus(Comment.Status.APPROVED);
