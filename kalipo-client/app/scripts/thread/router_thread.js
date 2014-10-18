@@ -15,4 +15,11 @@ kalipoApp
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
+                .when('/threads/create', {
+                    templateUrl: 'views/thread-new.html',
+                    controller: 'ThreadController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.all]
+                    }
+                })
         });
