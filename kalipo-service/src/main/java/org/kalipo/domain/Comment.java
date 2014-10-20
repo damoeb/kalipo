@@ -1,5 +1,6 @@
 package org.kalipo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.joda.time.DateTime;
 import org.kalipo.validation.ModelExistsConstraint;
 import org.springframework.data.annotation.CreatedDate;
@@ -45,6 +46,7 @@ public class Comment {
     @Size(min = 1, max = LEN_TITLE)
     private String title;
 
+    @JsonIgnore
     @NotNull(message = "{constraint.notnull.authorId}")
     private String authorId;
 
@@ -52,6 +54,7 @@ public class Comment {
 
     private Integer dislikes = 0;
 
+    @JsonIgnore
     private Boolean deleted;
 
     @NotNull(message = "{constraint.notnull.status}")

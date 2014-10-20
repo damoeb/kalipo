@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
+import org.kalipo.domain.Comment;
 import org.kalipo.domain.Tag;
 import org.kalipo.domain.Thread;
 import org.kalipo.service.ThreadService;
@@ -143,5 +144,28 @@ public class ThreadResource {
         Asserts.isNotNull(tags, "tags");
 
         threadService.setTagsOfThread(id, tags);
+    }
+
+    /**
+     * GET  /rest/threads/:id/comments -> get comments of the "id" thread.
+     */
+    @RequestMapping(value = "/threads/{id}/comments",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Get comments of the \"id\" thread.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Invalid ID supplied"),
+            @ApiResponse(code = 404, message = "Thread not found")
+    })
+    public ResponseEntity<List<Comment>> getComments(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
+        log.debug("REST request to get Comments of Thread : {}", id);
+        Asserts.isNotNull(id, "id");
+
+        return Optional.ofNullable(threadService.getComments(id).get())
+                .map(thread -> new ResponseEntity<>(
+                        thread,
+                        HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

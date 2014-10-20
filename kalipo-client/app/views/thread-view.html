@@ -1,30 +1,30 @@
 <div class="row">
     <h2>{{thread.title}}</h2> <span style="color: gray">created {{thread.createdDate | fromNow}}</span>
-    <h4>{{commentCount}} comments</h4>
+    <h4>{{comments.length}} comments</h4>
 </div>
 
 <div class="row">
-    <ul class="nav nav-tabs" role="tablist">
-        <li class="active"><a href="javascript:void(0)">Discussion</a></li>
-        <li><a href="#/thread/{{thread.id}}/pending">Pending <span class="badge" ng-show="pendingCount > 0">{{pendingCount}}</span></a>
-        </li>
-        <li><a href="#/thread/{{thread.id}}/reports">Reports <span class="badge" ng-show="reportCount > 0">{{reportCount}}</span></a>
-        </li>
-        <li><a href="#/thread/{{thread.id}}/my">My</a></li>
-    </ul>
+    <!--<ul class="nav nav-tabs" role="tablist">-->
+    <!--<li class="active"><a href="javascript:void(0)">Discussion</a></li>-->
+    <!--<li><a href="#/thread/{{thread.id}}/pending">Pending <span class="badge" ng-show="pendingCount > 0">{{pendingCount}}</span></a>-->
+    <!--</li>-->
+    <!--<li><a href="#/thread/{{thread.id}}/reports">Reports <span class="badge" ng-show="reportCount > 0">{{reportCount}}</span></a>-->
+    <!--</li>-->
+    <!--<li><a href="#/thread/{{thread.id}}/my">My</a></li>-->
+    <!--</ul>-->
 
     <div style="margin-top: 15px">
 
         <div ng-include="'create_comment_renderer.html'"></div>
 
         <dl style="margin:0;">
-            <dd ng-repeat="comment in approved | orderBy:createdDate" ng-include="'comment_renderer.html'">
+            <dd ng-repeat="comment in comments | orderBy:createdDate" ng-include="'comment_renderer.html'">
 
             </dd>
         </dl>
 
-        <div ng-show="approved.length > 10" style="margin-top: 10px">
-            <div ng-include="'create_comment_renderer.html'"></div>
+        <div ng-show="comments.length > 10" style="margin-top: 10px">
+        <div ng-include="'create_comment_renderer.html'"></div>
         </div>
 
     </div>

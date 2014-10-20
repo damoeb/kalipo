@@ -14,18 +14,14 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
 
         var threadId = $routeParams.id;
 
-        $scope.refresh = function () {
+        Thread.get({id: threadId}, function (thread) {
+            $scope.thread = thread;
+        });
 
-            Thread.get({id: threadId}, function (thread) {
-                $scope.thread = thread;
-//                $scope.commentCount = response.approved.length;
-//                $scope.approved = $scope.tree(response.approved);
-//                $scope.pendingCount = response.pendingCount;
-//                $scope.reportCount = response.reportCount;
-            });
-        };
+        Thread.getComments({id: threadId}, function (comments) {
+            $scope.comments = comments;
+        });
 
-        $scope.refresh();
 
         $scope.create = function () {
 

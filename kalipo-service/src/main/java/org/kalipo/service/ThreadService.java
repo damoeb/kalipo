@@ -3,8 +3,10 @@ package org.kalipo.service;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.aop.EnableArgumentValidation;
 import org.kalipo.aop.Throttled;
+import org.kalipo.domain.Comment;
 import org.kalipo.domain.Tag;
 import org.kalipo.domain.Thread;
+import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.ThreadRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Future;
@@ -31,6 +34,12 @@ public class ThreadService {
     @Inject
     private ThreadRepository threadRepository;
 
+    @Inject
+    private CommentRepository commentRepository;
+
+    @Inject
+    private CommentService commentService;
+
     @RolesAllowed(Privileges.CREATE_THREAD)
     @Throttled
     public Thread create(Thread thread) throws KalipoRequestException {
@@ -40,7 +49,16 @@ public class ThreadService {
 
         thread.setStatus(Thread.Status.OPEN);
 
-        return save(thread);
+        thread = save(thread);
+
+        Comment comment = new Comment();
+        comment.setThreadId(thread.getId());
+        comment.setTitle(thread.getTitle());
+        comment.setText(thread.getText());
+
+        commentService.create(comment);
+
+        return thread;
     }
 
     @RolesAllowed(Privileges.CREATE_THREAD)
@@ -69,7 +87,12 @@ public class ThreadService {
 
     @Async
     public Future<Thread> get(String id) throws KalipoRequestException {
-        return new AsyncResult<>(threadRepository.findOne(id));
+        return new AsyncResult<Thread>(threadRepository.findOne(id));
+    }
+
+    @Async
+    public Future<List<Comment>> getComments(String id) throws KalipoRequestException {
+        return new AsyncResult<List<Comment>>(commentRepository.findByThreadIdAndStatus(id, Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING)));
     }
 
     public void delete(String id) throws KalipoRequestException {
