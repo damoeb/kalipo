@@ -2,9 +2,10 @@
 
     <h2>Threads</h2>
 
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveThreadModal" ng-click="clear()">
+    <a class="btn btn-primary btn-lg" href="#/thread/create">
         <span class="glyphicon glyphicon-flash"></span> Create a new Thread
-    </button>
+    </a>
+
     <div class="modal fade" id="saveThreadModal" tabindex="-1" role="dialog" aria-labelledby="myThreadLabel"
          aria-hidden="true">
         <div class="modal-dialog">
@@ -60,31 +61,31 @@
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Status</th>
-                    <th></th>
-                </tr>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="thread in threads">
-                    <td>{{thread.id}}</td>
-                    <td>{{thread.title}}</td>
-                    <td>{{thread.status}}</td>
-                    <td>
-                        <button type="submit"
-                                ng-click="update(thread.id)"
-                                class="btn">
-                            <span class="glyphicon glyphicon-pencil"></span> Edit
-                        </button>
-                        <button type="submit"
-                                ng-click="delete(thread.id)"
-                                class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove-circle"></span> Delete
-                        </button>
-                    </td>
-                </tr>
+            <tr ng-repeat="thread in threads">
+                <td><a href="#/thread/{{thread.id}}">{{thread.id}}</a></td>
+                <td>{{thread.title}}</td>
+                <td>{{thread.status}}</td>
+                <td>
+                    <button type="submit"
+                            ng-click="update(thread.id)"
+                            class="btn">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(thread.id)"
+                            class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                    </button>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

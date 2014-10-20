@@ -1,6 +1,6 @@
 <div>
     <form name="form" role="form" novalidate ng-submit="create()">
-        <h4>Start a new Thread</h4>
+        <h4>Create a Thread</h4>
 
         <div>You will become mod for this thread and approve posts</div>
         <table class="table">
@@ -16,7 +16,7 @@
             </tr>
             <tr>
                 <td>Comment</td>
-                <td><textarea class="form-control" placeholder="This is the first comment" ng-model="thread.description"
+                <td><textarea class="form-control" placeholder="This is the first comment" ng-model="thread.text"
                               ng-minlength=1 ng-maxlength=2048 required></textarea></td>
             </tr>
             <tr>

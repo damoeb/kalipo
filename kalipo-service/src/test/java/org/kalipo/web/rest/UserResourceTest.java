@@ -5,7 +5,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
 import org.kalipo.config.MongoConfiguration;
-import org.kalipo.repository.UserRepository;
+import org.kalipo.security.Privileges;
+import org.kalipo.service.UserService;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
@@ -18,10 +19,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
-
 import java.util.Arrays;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -38,14 +39,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserResourceTest {
 
     @Inject
-    private UserRepository userRepository;
+    private UserService userService;
 
     private MockMvc restUserMockMvc;
 
     @Before
     public void setup() {
         UserResource userResource = new UserResource();
-        ReflectionTestUtils.setField(userResource, "userRepository", userRepository);
+        ReflectionTestUtils.setField(userResource, "userService", userService);
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource).build();
 
         TestUtil.mockSecurityContext("admin", Arrays.asList());
@@ -65,5 +66,24 @@ public class UserResourceTest {
         restUserMockMvc.perform(get("/app/rest/users/unknown")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void test_banUserWithoutPermission() throws Exception {
+
+        TestUtil.mockSecurityContext("admin", Arrays.asList());
+
+        restUserMockMvc.perform(post("/app/rest/users/admin/ban")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void test_banUser() throws Exception {
+        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.BAN_USER));
+
+        restUserMockMvc.perform(post("/app/rest/users/admin/ban")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }

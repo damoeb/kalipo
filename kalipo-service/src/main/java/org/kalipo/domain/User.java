@@ -53,10 +53,13 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Field("reputation")
     private int reputation;
 
+    @Field
+    @JsonIgnore
+    private boolean banned;
+
     @JsonIgnore
     private Set<Authority> authorities = new HashSet<>();
 
-    
     private Set<PersistentToken> persistentTokens = new HashSet<>();
 
     public String getLogin() {
@@ -137,6 +140,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setReputation(int reputation) {
         this.reputation = reputation;
+    }
+
+    public boolean isBanned() {
+        return banned;
+    }
+
+    public void setBanned(boolean banned) {
+        this.banned = banned;
     }
 
     @Override

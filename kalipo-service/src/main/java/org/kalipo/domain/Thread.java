@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -62,6 +63,9 @@ public class Thread implements Serializable {
     private Boolean readOnly = false; // todo implement readonly
 
     private Status status;
+
+    @Transient
+    private String text;
 
     private Set<Tag> tags;
 
@@ -159,6 +163,14 @@ public class Thread implements Serializable {
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     /**

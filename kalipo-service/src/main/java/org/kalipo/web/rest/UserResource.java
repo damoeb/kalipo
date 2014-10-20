@@ -2,13 +2,13 @@ package org.kalipo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.kalipo.domain.User;
-import org.kalipo.repository.UserRepository;
 import org.kalipo.security.AuthoritiesConstants;
+import org.kalipo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,7 +28,7 @@ public class UserResource {
     private final Logger log = LoggerFactory.getLogger(UserResource.class);
 
     @Inject
-    private UserRepository userRepository;
+    private UserService userService;
 
     /**
      * GET  /rest/users/:login -> get the "login" user.
@@ -40,8 +40,20 @@ public class UserResource {
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     ResponseEntity<User> getUser(@PathVariable String login) {
         log.debug("REST request to get User : {}", login);
-        return Optional.ofNullable(userRepository.findOne(login))
+        return Optional.ofNullable(userService.findOne(login))
                 .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /**
+     * POST  /rest/users/:login/ban -> ban the "login" user.
+     */
+    @RequestMapping(value = "/rest/users/{login}/ban",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    ResponseEntity<User> ban(@PathVariable String login) throws KalipoRequestException {
+        log.debug("REST request to ban User : {}", login);
+        return new ResponseEntity<>(userService.ban(login), HttpStatus.OK);
     }
 }

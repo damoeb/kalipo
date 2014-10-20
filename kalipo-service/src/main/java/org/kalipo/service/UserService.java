@@ -8,14 +8,18 @@ import org.kalipo.domain.User;
 import org.kalipo.repository.AuthorityRepository;
 import org.kalipo.repository.PersistentTokenRepository;
 import org.kalipo.repository.UserRepository;
+import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
+import org.kalipo.service.util.Asserts;
 import org.kalipo.service.util.RandomUtil;
+import org.kalipo.web.rest.KalipoRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import java.util.HashSet;
 import java.util.List;
@@ -142,5 +146,20 @@ public class UserService {
             log.debug("Deleting not activated user {}", user.getLogin());
             userRepository.delete(user);
         }
+    }
+
+    public User findOne(String login) {
+        return userRepository.findOne(login);
+    }
+
+    @RolesAllowed(Privileges.BAN_USER)
+    public User ban(String login) throws KalipoRequestException {
+        User user = userRepository.findOne(login);
+
+        Asserts.isNotNull(user, "login");
+
+        user.setBanned(true);
+
+        return userRepository.save(user);
     }
 }

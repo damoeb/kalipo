@@ -50,6 +50,13 @@
             "reputation": 0
             });
 
+            db.T_PRIVILEGE.insert(
+            {
+            "_id" : "8",
+            "name": "BAN_USER",
+            "reputation": 0
+            });
+
         </script>
     </changeSet>
 </mongoChangeLog>

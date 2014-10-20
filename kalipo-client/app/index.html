@@ -137,10 +137,10 @@
     </div>
 </nav>
 <div class="container">
-    <div class="well" ng-view=""></div>
+    <div ng-view=""></div>
 
     <div class="footer">
-        <p translate="footer">This is your footer</p>
+        <!-- todo <p translate="footer">This is your footer</p>-->
     </div>
 </div>
 
@@ -167,6 +167,9 @@
 <script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
 <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
 <script src="bower_components/angular-dynamic-locale/src/tmhDinamicLocale.js"></script>
+<script src="bower_components/angular-noty/dist/angular-noty.dist.js"></script>
+<script src="bower_components/angular-momentjs/angular-momentjs.min.js"></script>
+<script src="bower_components/momentjs/min/moment.min.js"></script>
 <script src="scripts/http-auth-interceptor.js"></script>
 <script src="scripts/truncate.js"></script>
 <script src="scripts/utils.js"></script>
@@ -194,6 +197,8 @@
 <script src="scripts/comment/service_comment.js"></script>
 <script src="scripts/thread/router_thread.js"></script>
 <script src="scripts/thread/controller_thread.js"></script>
+<script src="scripts/thread/controller_create_thread.js"></script>
+<script src="scripts/thread/controller_view_thread.js"></script>
 <script src="scripts/thread/service_thread.js"></script>
 <script src="scripts/vote/router_vote.js"></script>
 <script src="scripts/vote/controller_vote.js"></script>
@@ -210,6 +215,43 @@
 <script src="scripts/reputation/router_reputation.js"></script>
 <script src="scripts/reputation/controller_reputation.js"></script>
 <script src="scripts/reputation/service_reputation.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $.noty.defaults = {
+            layout: 'top',
+            theme: 'defaultTheme',
+            type: 'alert',
+            text: '', // can be html or string
+            dismissQueue: true, // If you want to use queue feature set this true
+            template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
+            animation: {
+                open: {height: 'toggle'},
+                close: {height: 'toggle'},
+                easing: 'swing',
+                speed: 500 // opening & closing animation speed
+            },
+            timeout: 5000, // delay for closing event. Set false for sticky notifications
+            force: false, // adds notification to the beginning of queue when set to true
+            modal: false,
+            maxVisible: 5, // you can set max visible notification for dismissQueue true option,
+            killer: false, // for close all notifications before show
+            closeWith: ['click'], // ['click', 'button', 'hover']
+            callback: {
+                onShow: function () {
+                },
+                afterShow: function () {
+                },
+                onClose: function () {
+                },
+                afterClose: function () {
+                }
+            },
+            buttons: false // an array of buttons
+        };
+    });
+</script>
+
 <!-- endbuild -->
 </body>
 </html>
