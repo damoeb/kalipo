@@ -1,0 +1,38 @@
+{
+  "name": "angular-noty",
+  "version": "0.0.1",
+  "homepage": "https://github.com/azadorozhniy/angular-noty",
+  "authors": [
+    "azadorozhniy <artem.zadorozhniy@gmail.com>"
+  ],
+  "description": "Angular wrapper for noty - cool growl like notifications",
+  "keywords": [
+    "anglar",
+    "noty",
+    "growl",
+    "notification"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "noty": "~2.2.5",
+    "angular": "~1.2.22",
+    "jquery": "~2.1.1"
+  },
+  "_release": "0.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.1",
+    "commit": "0db0ea5a1bf7f7dcdf8bebf7d3ff6bd2ca4e3755"
+  },
+  "_source": "git://github.com/azadorozhniy/angular-noty.git",
+  "_target": "~0.0.1",
+  "_originalSource": "angular-noty",
+  "_direct": true
+}
