@@ -52,11 +52,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ThreadResourceTest {
 
     private static final String DEFAULT_SAMPLE_TITLE_ATTR = "sampleTitleAttribute";
+    private static final String DEFAULT_SAMPLE_TEXT_ATTR = "sampleTextAttribute";
     private static final Boolean DEFAULT_SAMPLE_READONLY_ATTR = false;
 
     private static final String UPD_SAMPLE_TITLE_ATTR = "sampleTitleAttributeUpt";
     private static final Boolean UPD_SAMPLE_READONLY_ATTR = true;
-    public static final List<String> DEFAULT_PRIVILEGES = Arrays.asList(Privileges.CREATE_THREAD);
+    public static final List<String> DEFAULT_PRIVILEGES = Arrays.asList(Privileges.CREATE_THREAD, Privileges.CREATE_COMMENT);
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -267,6 +268,7 @@ public class ThreadResourceTest {
     public static Thread newThread() {
         Thread thread = new Thread();
         thread.setTitle(DEFAULT_SAMPLE_TITLE_ATTR);
+        thread.setText(DEFAULT_SAMPLE_TEXT_ATTR);
         thread.setReadOnly(DEFAULT_SAMPLE_READONLY_ATTR);
         return thread;
     }

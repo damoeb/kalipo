@@ -146,8 +146,10 @@ public class CommentResourceTest {
     public void test_failCommentOnReadOnlyThread() throws Exception {
 
         Thread thread = ThreadResourceTest.newThread();
-        thread.setReadOnly(true);
         threadService.create(thread);
+
+        thread.setReadOnly(true);
+        threadService.update(thread);
 
         comment = newComment();
         comment.setThreadId(thread.getId());

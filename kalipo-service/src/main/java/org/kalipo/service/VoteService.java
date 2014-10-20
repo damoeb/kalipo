@@ -2,7 +2,9 @@ package org.kalipo.service;
 
 import org.kalipo.aop.EnableArgumentValidation;
 import org.kalipo.aop.Throttled;
+import org.kalipo.domain.Comment;
 import org.kalipo.domain.Vote;
+import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.VoteRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
@@ -32,6 +34,9 @@ public class VoteService {
     @Inject
     private ReputationService reputationService;
 
+    @Inject
+    private CommentRepository commentRepository;
+
     @RolesAllowed(Privileges.CREATE_VOTE)
     @Throttled
     public Vote create(@Valid Vote vote) throws KalipoRequestException {
@@ -41,6 +46,18 @@ public class VoteService {
         reputationService.likeOrDislikeComment(vote);
 
         vote.setAuthorId(SecurityUtils.getCurrentLogin());
+
+//        todo replace by scheduled job
+        Comment comment = commentRepository.findOne(vote.getCommentId());
+
+        Asserts.isNotNull(comment, "commentId");
+        if (vote.getIsLike()) {
+            comment.setLikes(comment.getLikes() + 1);
+        } else {
+            comment.setDislikes(comment.getDislikes() + 1);
+        }
+        commentRepository.save(comment);
+
 
         return voteRepository.save(vote);
     }

@@ -44,7 +44,6 @@ public class ReportService {
     @Inject
     private ReputationService reputationService;
 
-
     @RolesAllowed(Privileges.CREATE_REPORT)
     @Throttled
     public Report create(Report report) throws KalipoRequestException {

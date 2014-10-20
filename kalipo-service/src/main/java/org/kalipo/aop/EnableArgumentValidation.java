@@ -9,11 +9,12 @@ import java.lang.annotation.Target;
 
 /**
  * Validate all arguments against null
- *
+ * <p>
  * Created by damoeb on 17.09.14.
  */
 @Component
 @Target(value = {ElementType.METHOD, ElementType.TYPE})
 @Retention(value = RetentionPolicy.RUNTIME)
+@Deprecated
 public @interface EnableArgumentValidation {
 }

@@ -1,9 +1,7 @@
 'use strict';
 
-//'Comment', 'Report', 'Vote',
-
-kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread', '$log', '$location', '$anchorScroll',
-    function ($scope, $routeParams, Thread, $log, $location, $anchorScroll) {
+kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread', 'Comment', 'Report', 'Vote', '$log', '$location', '$anchorScroll',
+    function ($scope, $routeParams, Thread, Comment, Report, Vote, $log, $location, $anchorScroll) {
 
         $scope.draft = {};
         $scope.thread = {};
@@ -35,31 +33,31 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
                 });
         };
 
-        $scope.tree = function (comments) {
-
-            var map = {};
-            var roots = [];
-
-            for (var i in comments) {
-                var comment = comments[i];
-                map[comment.id] = comment;
-                comment.subcomments = [];
-                comment.report = false;
-                comment.maximized = true;
-            }
-
-            $.each(comments, function (index, comment) {
-                if (comment.level == 0) {
-                    roots.push(comment);
-                } else {
-                    var _parent = map[comment.parentId];
-                    _parent.subcomments.push(comment);
-                }
-            });
-
-            return roots;
-
-        };
+//        $scope.tree = function (comments) {
+//
+//            var map = {};
+//            var roots = [];
+//
+//            for (var i in comments) {
+//                var comment = comments[i];
+//                map[comment.id] = comment;
+//                comment.subcomments = [];
+//                comment.report = false;
+//                comment.maximized = true;
+//            }
+//
+//            $.each(comments, function (index, comment) {
+//                if (comment.level == 0) {
+//                    roots.push(comment);
+//                } else {
+//                    var _parent = map[comment.parentId];
+//                    _parent.subcomments.push(comment);
+//                }
+//            });
+//
+//            return roots;
+//
+//        };
 
         $scope.toggleReplyForm = function (comment) {
 
@@ -87,7 +85,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
         $scope.like = function (comment) {
             comment.likes++;
 
-            var vote = {like: true, commentId: comment.id};
+            var vote = {isLike: true, commentId: comment.id};
 
             Vote.save(vote, function (updated) {
                 $log.log(updated);
@@ -105,13 +103,6 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
                 $log.log(updated);
             });
         };
-
-//        $scope.delete = function (id) {
-//            Comment.delete({id: id},
-//                function () {
-//                    $scope.comments = Comment.query();
-//                });
-//        };
 
         $scope.clear = function () {
             $scope.draft = {id: null, text: null};
