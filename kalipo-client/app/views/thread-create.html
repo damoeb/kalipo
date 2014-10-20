@@ -20,7 +20,12 @@
                               ng-minlength=1 ng-maxlength=2048 required></textarea></td>
             </tr>
             <tr>
-                <td></td>
+                <td>Tags</td>
+                <td><input class="form-control" ng-model="thread.tags"
+                           placeholder="Space separated tags"></td>
+            </tr>
+            <tr>
+            <td></td>
                 <td>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
                         Create Thread
