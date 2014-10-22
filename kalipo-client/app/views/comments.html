@@ -115,13 +115,10 @@
                                 <span class="glyphicon glyphicon-resize-small"></span></a>
                         </div>
 
-                        <span ng-show="comment.parentId == null" class="glyphicon glyphicon-leaf"
-                              style="color: #666"></span>
-                        <strong>
-                            <!--<a ng-show="comment.parentId != null" href="javascript:void(0)"-->
-                            <!--ng-click="scrollTo(comment.parentId)">Re:</a>-->
+                        <a ng-show="comment.parentId != null" href="javascript:void(0)"
+                           ng-click="scrollTo(comment.parentId)">Re:</a>
 
-                            {{comment.title}}
+                        {{comment.title}}
                         </strong>
                     </div>
 
@@ -208,8 +205,8 @@
                             <a href="javascript:void(0)">
                                 <span class="glyphicon glyphicon-resize-full"></span></a>
 
-                            <span ng-show="comment.parentId == null" class="glyphicon glyphicon-leaf"
-                                  style="color: #666"></span>
+                            <!--<span ng-show="comment.parentId == null" class="glyphicon glyphicon-leaf"-->
+                            <!--style="color: #666"></span>-->
 
                             <strong>{{comment.title}}</strong>
                             <span style="color: grey">({{comment.subcomments.length}} children)</span>

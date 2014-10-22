@@ -13,6 +13,7 @@ module.exports = function (config) {
         files: [
             'app/bower_components/modernizr/modernizr.js',
             'app/bower_components/jquery/dist/jquery.js',
+            'app/bower_components/momentjs/min/moment.min.js',
             'app/bower_components/angular/angular.js',
             'app/bower_components/angular-mocks/angular-mocks.js',
             'app/bower_components/angular-route/angular-route.js',
@@ -23,6 +24,7 @@ module.exports = function (config) {
             'app/bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js',
             'app/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
             'app/bower_components/angular-dynamic-locale/src/tmhDinamicLocale.js',
+            'app/bower_components/angular-momentjs/angular-momentjs.min.js',
             'app/scripts/*.js',
             'app/scripts/**/*.js',
             'test/**/!(karma.conf).js'

@@ -30,8 +30,6 @@ public class Comment {
     @ModelExistsConstraint(Comment.class)
     private String parentId;
 
-    private Integer level;
-
     @NotNull(message = "{constraint.notnull.reputation}")
     private Integer reputation = 0;
 
@@ -42,7 +40,7 @@ public class Comment {
     @Size(min = 1, max = LEN_TEXT, message = "{constraint.length.text}")
     private String text;
 
-    @NotNull(message = "{constraint.notnull.title}")
+    //    @NotNull(message = "{constraint.notnull.title}")
     @Size(min = 1, max = LEN_TITLE)
     private String title;
 
@@ -82,14 +80,6 @@ public class Comment {
 
     public void setParentId(String parentId) {
         this.parentId = parentId;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
     }
 
     public Integer getReputation() {

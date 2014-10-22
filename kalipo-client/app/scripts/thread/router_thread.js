@@ -22,7 +22,14 @@ kalipoApp
                     authorizedRoles: [USER_ROLES.all]
                 }
             })
-            .when('/thread/:id', {
+            .when('/thread/:threadId', {
+                templateUrl: 'views/thread-view.html',
+                controller: 'ViewThreadController',
+                access: {
+                    authorizedRoles: [USER_ROLES.all]
+                }
+            })
+            .when('/thread/:threadId/:commentId', {
                 templateUrl: 'views/thread-view.html',
                 controller: 'ViewThreadController',
                 access: {

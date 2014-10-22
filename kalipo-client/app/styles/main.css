@@ -1,6 +1,6 @@
 body {
     background: #fafafa;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;
 }
 
@@ -100,3 +100,67 @@ ul#strength {
     width:20px;
 }
 /* end Password strength bar style */
+
+/* Customizations */
+
+.post {
+    padding: 5px 5px 5px 10px;
+}
+
+.post .menu {
+    color: #efefef;
+    padding-top: 5px;
+}
+
+.post .menu a {
+    margin-right: 5px;
+    color: #ccc;
+}
+
+.post:hover {
+    background: none repeat scroll 0 0 #ffffff;
+    -moz-box-shadow: 1px 1px 2px 1px #ccc;
+    -webkit-box-shadow: 1px 1px 2px 1px #ccc;
+    box-shadow: 1px 1px 2px 1px #ccc;
+}
+
+.post .flag a {
+    visibility: hidden;
+}
+
+.post:hover .flag a {
+    color: black;
+    visibility: visible;
+}
+
+.post:hover .voteUp {
+    color: green;
+}
+
+.post:hover .voteDown {
+    color: red;
+}
+
+.post:hover a {
+    color: #428bca;
+}
+
+.post-slim {
+    padding: 10px;
+}
+
+.abused-report {
+    /*border-radius: 4px;*/
+    padding: 15px;
+    background-color: #f4f2db;
+    border-bottom: 1px solid #e7e5cf;
+    color: #8a832b;
+}
+
+.report {
+    /*border-radius: 4px;*/
+    padding: 15px;
+    background-color: #d9edf7;
+    border-bottom: 1px solid #bce8f1;
+    color: #31708f;
+}

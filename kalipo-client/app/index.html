@@ -25,7 +25,7 @@
     your browser</a> to improve your experience.</p>
 <![endif]-->
 <div class="development"></div>
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
@@ -34,48 +34,18 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><span translate="global.title">kalipo</span></a>
+            <a class="navbar-brand" href="#">
+                <span class="glyphicon glyphicon-chevron-right"
+                      style="color: #E84B56; text-shadow: 2px 2px #9D2D36;"></span>
+                <span translate="global.title" style="font-weight: 900;">kalipo</span>
+            </a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="authenticated">
             <ul class="nav navbar-nav nav-pills navbar-right">
-                <li>
-                    <a href="#">
-                        <span class="glyphicon glyphicon-home"></span>
-                        <span translate="global.menu.home">Home</span>
-                    </a>
-                </li>
-                <li class="dropdown pointer">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-                                <span>
-                                    <span class="glyphicon glyphicon-user"></span>
-                                    <span class="hidden-tablet" translate="global.menu.account.main">
-                                        Account
-                                    </span>
-                                    <b class="caret"></b>
-                                </span>
-                    </a>
-                    <ul class="dropdown-menu" ng-controller="MenuController">
-                        <li ng-switch-when="true"><a href="#/settings"><span class="glyphicon glyphicon-wrench"></span>
-                            &#xA0;<span translate="global.menu.account.settings">Settings</span></a></li>
-                        <li ng-switch-when="true"><a href="#/password"><span class="glyphicon glyphicon-lock"></span>
-                            &#xA0;<span translate="global.menu.account.password">Password</span></a></li>
-                        <li ng-switch-when="true"><a href="#/sessions"><span class="glyphicon glyphicon-cloud"></span>
-                            &#xA0;<span translate="global.menu.account.sessions">Sessions</span></a></li>
-                        <li ng-switch-when="true"><a href="#/logout"><span class="glyphicon glyphicon-log-out"></span>
-                            &#xA0;<span translate="global.menu.account.logout">Log out</span></a></li>
-                        <li ng-switch-when="false"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span>
-                            &#xA0;<span translate="global.menu.account.login">Authenticate</span></a></li>
-
-                        <li ng-switch-when="false"><a href="#/register"><span
-                                class="glyphicon glyphicon-plus-sign"></span>
-                            &#xA0;<span translate="global.menu.account.register">Register</span></a></li>
-                    </ul>
-                </li>
                 <li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer"
                     ng-controller="AdminController">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
                                 <span>
-                                    <span class="glyphicon glyphicon-tower"></span>
                                     <span class="hidden-tablet" translate="global.menu.admin">Admin</span>
                                     <b class="caret"></b>
                                 </span>
@@ -118,20 +88,47 @@
                             &#xA0;<span>Votes</span></a></li>
                     </ul>
                 </li>
-                <li class="dropdown pointer" ng-controller="LanguageController">
+                <!--<li class="dropdown pointer" ng-controller="LanguageController">-->
+                <!--<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">-->
+                <!--<span>-->
+                <!--<span class="glyphicon glyphicon-flag"></span>-->
+                <!--<span class="hidden-tablet" translate="global.menu.language">Language</span>-->
+                <!--<b class="caret"></b>-->
+                <!--</span>-->
+                <!--</a>-->
+                <!--<ul class="dropdown-menu">-->
+                <!--<li active-menu="{{key}}" ng-repeat="(key, language) in languages">-->
+                <!--<a href="#" ng-click="changeLanguage(key)">{{language}}</a>-->
+                <!--</li>-->
+                <li class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
                                 <span>
-                                    <span class="glyphicon glyphicon-flag"></span>
-                                    <span class="hidden-tablet" translate="global.menu.language">Language</span>
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <span class="hidden-tablet" translate="global.menu.account.main">
+                                        Account
+                                    </span>
                                     <b class="caret"></b>
                                 </span>
                     </a>
-                    <ul class="dropdown-menu">
-                        <li active-menu="{{key}}" ng-repeat="(key, language) in languages">
-                            <a href="#" ng-click="changeLanguage(key)">{{language}}</a>
-                        </li>
+                    <ul class="dropdown-menu" ng-controller="MenuController">
+                        <li ng-switch-when="true"><a href="#/settings"><span class="glyphicon glyphicon-wrench"></span>
+                            &#xA0;<span translate="global.menu.account.settings">Settings</span></a></li>
+                        <li ng-switch-when="true"><a href="#/password"><span class="glyphicon glyphicon-lock"></span>
+                            &#xA0;<span translate="global.menu.account.password">Password</span></a></li>
+                        <li ng-switch-when="true"><a href="#/sessions"><span class="glyphicon glyphicon-cloud"></span>
+                            &#xA0;<span translate="global.menu.account.sessions">Sessions</span></a></li>
+                        <li ng-switch-when="true"><a href="#/logout"><span class="glyphicon glyphicon-log-out"></span>
+                            &#xA0;<span translate="global.menu.account.logout">Log out</span></a></li>
+                        <li ng-switch-when="false"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span>
+                            &#xA0;<span translate="global.menu.account.login">Authenticate</span></a></li>
+
+                        <li ng-switch-when="false"><a href="#/register"><span
+                                class="glyphicon glyphicon-plus-sign"></span>
+                            &#xA0;<span translate="global.menu.account.register">Register</span></a></li>
                     </ul>
                 </li>
+                <!--</ul>-->
+                <!--</li>-->
             </ul>
         </div>
     </div>
@@ -158,6 +155,7 @@
 <!-- build:js scripts/scripts.js -->
 <script src="bower_components/modernizr/modernizr.js"></script>
 <script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/momentjs/min/moment.min.js"></script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -169,7 +167,6 @@
 <script src="bower_components/angular-dynamic-locale/src/tmhDinamicLocale.js"></script>
 <script src="bower_components/angular-noty/dist/angular-noty.dist.js"></script>
 <script src="bower_components/angular-momentjs/angular-momentjs.min.js"></script>
-<script src="bower_components/momentjs/min/moment.min.js"></script>
 <script src="scripts/http-auth-interceptor.js"></script>
 <script src="scripts/truncate.js"></script>
 <script src="scripts/utils.js"></script>

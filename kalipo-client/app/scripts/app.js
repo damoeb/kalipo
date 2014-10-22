@@ -4,7 +4,7 @@
 var httpHeaders;
 
 var kalipoApp = angular.module('kalipoApp', ['http-auth-interceptor', 'tmh.dynamicLocale',
-    'ngResource', 'ngRoute', 'ngCookies', 'kalipoAppUtils', 'pascalprecht.translate', 'truncate', 'notyModule', 'angular-momentjs']);
+    'ngResource', 'ngRoute', 'ngCookies', 'kalipoAppUtils', 'pascalprecht.translate', 'truncate', 'angular-momentjs']);
 
 angular.module('kalipoApp').filter('fromNow', function () {
     return function (dateString) {

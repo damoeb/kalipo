@@ -10,16 +10,21 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
         $scope.commentCount = 0;
         $scope.reportCount = 0;
 
-        var threadId = $routeParams.id;
+        var threadId = $routeParams.threadId;
+        var commentId = $routeParams.commentId;
 
         Thread.get({id: threadId}, function (thread) {
             $scope.thread = thread;
         });
 
         Thread.getComments({id: threadId}, function (comments) {
-            $scope.comments = comments;
-        });
+            $scope.comments = _cluster(comments);
 
+            if (commentId) {
+                noty({text: 'Go to comment ' + commentId});
+                $scope.scrollTo(commentId);
+            }
+        });
 
         $scope.create = function () {
 
@@ -28,36 +33,36 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
             Comment.save($scope.draft,
                 function () {
                     $scope.clear();
-
-                    $scope.refresh();
                 });
         };
 
-//        $scope.tree = function (comments) {
-//
-//            var map = {};
-//            var roots = [];
-//
-//            for (var i in comments) {
-//                var comment = comments[i];
-//                map[comment.id] = comment;
-//                comment.subcomments = [];
-//                comment.report = false;
-//                comment.maximized = true;
-//            }
-//
-//            $.each(comments, function (index, comment) {
-//                if (comment.level == 0) {
-//                    roots.push(comment);
-//                } else {
-//                    var _parent = map[comment.parentId];
-//                    _parent.subcomments.push(comment);
-//                }
-//            });
-//
-//            return roots;
-//
-//        };
+        var _cluster = function (comments) {
+
+            console.log(comments);
+
+            var map = {};
+            var roots = [];
+
+            for (var i in comments) {
+                var comment = comments[i];
+                map[comment.id] = comment;
+                comment.subcomments = [];
+                comment.report = false;
+                comment.maximized = true;
+            }
+
+            $.each(comments, function (index, comment) {
+                if (comment.parentId == null) {
+                    roots.push(comment);
+                } else {
+                    var _parent = map[comment.parentId];
+                    _parent.subcomments.push(comment);
+                }
+            });
+
+            return roots;
+
+        };
 
         $scope.toggleReplyForm = function (comment) {
 
@@ -88,7 +93,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
             var vote = {isLike: true, commentId: comment.id};
 
             Vote.save(vote, function (updated) {
-                $log.log(updated);
+                noty({text: 'Liked', type: 'success'});
             });
         };
 
@@ -97,10 +102,12 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
         };
 
         $scope.dislike = function (comment) {
-            var vote = {like: false, commentId: comment.id};
+            comment.dislikes++;
+
+            var vote = {isLike: false, commentId: comment.id};
 
             Vote.save(vote, function (updated) {
-                $log.log(updated);
+                noty({text: 'Disliked', type: 'success'});
             });
         };
 
