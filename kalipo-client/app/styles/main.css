@@ -105,6 +105,7 @@ ul#strength {
 
 .post {
     padding: 5px 5px 5px 10px;
+    border-bottom: 1px solid #cccccc;
 }
 
 .post .menu {
@@ -118,10 +119,10 @@ ul#strength {
 }
 
 .post:hover {
-    background: none repeat scroll 0 0 #ffffff;
-    -moz-box-shadow: 1px 1px 2px 1px #ccc;
-    -webkit-box-shadow: 1px 1px 2px 1px #ccc;
-    box-shadow: 1px 1px 2px 1px #ccc;
+    /*background: none repeat scroll 0 0 #ffffff;*/
+    -moz-box-shadow: 2px 1px 2px 0px #ccc;
+    -webkit-box-shadow: 2px 1px 2px 0px #ccc;
+    box-shadow: 2px 1px 2px 0px #ccc;
 }
 
 .post .flag a {

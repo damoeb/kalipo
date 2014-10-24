@@ -76,14 +76,18 @@
 </div>
 
 <script type="text/ng-template" id="likes_renderer.html">
-    <div ng-show="comment.dislikes > 0 || comment.likes > 0">
-        <div ng-show="comment.dislikes > 0" style="color: red; display: inline-block">
-            {{comment.dislikes}}
-            <div style="height:5px; background-color: red; width: {{3 * comment.dislikes}}px; max-width: 120px; display: inline-block; margin: 2px 0 2px 0"></div>
+    <div ng-show="comment.dislikes > 0 || comment.likes > 0" style="line-height: 5px">
+
+        <div style="float: left; width: 50%" title="{{comment.dislikes}} dislikes">
+            <div ng-show="comment.dislikes > 0" class="pull-right" style="color: red; display: inline-block;">
+                <div style="height:5px; background-color: red; width: {{3 * comment.dislikes}}px; max-width: 120px; display: inline-block; margin: 2px 0 2px 0"></div>
+            </div>
         </div>
-        <div ng-show="comment.likes > 0" style="color: green; display: inline-block">
-            <div style="height:5px; background-color: green; width: {{3 * comment.likes}}px; max-width: 120px; display: inline-block; margin: 2px 0 2px 0"></div>
-            {{comment.likes}}
+        <div title="{{comment.likes}} likes">
+            <div ng-show="comment.likes > 0" style="color: green; display: inline-block; line-height: 5px">
+                <div style="height:5px; background-color: green; width: {{3 * comment.likes}}px; max-width: 120px; display: inline-block; margin: 2px 0 2px 0"></div>
+                <!--{{comment.likes}}-->
+            </div>
         </div>
     </div>
 </script>
