@@ -1,5 +1,5 @@
 body {
-    background: #fafafa;
+    background: #e5e5e5;
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;
 }
@@ -163,4 +163,16 @@ ul#strength {
     background-color: #d9edf7;
     border-bottom: 1px solid #bce8f1;
     color: #31708f;
+}
+
+.box {
+    background-color: #fefefe;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    color: #303030;
+    margin-bottom: 20px;
+}
+
+.box-padding {
+    padding: 10px 20px;
 }

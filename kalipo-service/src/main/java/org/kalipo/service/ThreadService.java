@@ -48,23 +48,48 @@ public class ThreadService {
         Asserts.isNull(thread.getId(), "id");
 
         thread.setStatus(Thread.Status.OPEN);
+        thread.setCommentCount(0);
+        thread.setLikes(0);
+        thread.setDislikes(0);
 
         thread = save(thread);
 
+        // create lead comment
         Comment comment = new Comment();
         comment.setThreadId(thread.getId());
         comment.setTitle(thread.getTitle());
         comment.setText(thread.getText());
 
-        commentService.create(comment);
+        comment = commentService.create(comment);
+
+        thread.setLeadCommentId(comment.getId());
+
+        save(thread);
 
         return thread;
     }
 
-    @RolesAllowed(Privileges.CREATE_THREAD)
+    @RolesAllowed(Privileges.MODERATE_THREAD)
     @Throttled
     public Thread update(Thread thread) throws KalipoRequestException {
         Asserts.isNotNull(thread, "thread");
+        Asserts.isNotNull(thread.getId(), "id");
+
+        Thread original = threadRepository.findOne(thread.getId());
+        Asserts.isNotNull(original, "thread");
+
+        // keep final values
+        Asserts.nullOrEqual(thread.getLeadCommentId(), original.getLeadCommentId(), "leadCommentId");
+        thread.setLeadCommentId(original.getLeadCommentId());
+
+        Asserts.nullOrEqual(thread.getCommentCount(), original.getCommentCount(), "commentCount");
+        thread.setCommentCount(original.getCommentCount());
+
+        Asserts.nullOrEqual(thread.getLikes(), original.getLikes(), "likes");
+        thread.setLikes(original.getLikes());
+
+        Asserts.nullOrEqual(thread.getDislikes(), original.getDislikes(), "dislikes");
+        thread.setDislikes(original.getDislikes());
 
         return save(thread);
     }

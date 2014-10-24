@@ -1,5 +1,6 @@
 package org.kalipo.service.util;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Thread;
 import org.kalipo.security.SecurityUtils;
@@ -31,6 +32,18 @@ public final class Asserts {
     public static void isNotReadOnly(Thread thread) throws KalipoRequestException {
         if (thread.getReadOnly()) {
             throw new KalipoRequestException(ErrorCode.CONSTRAINT_VIOLATED, "thread is readonly");
+        }
+    }
+
+    public static void nullOrEqual(String found, String expected, String fieldName) throws KalipoRequestException {
+        if (!StringUtils.equals(found, expected)) {
+            throw new KalipoRequestException(ErrorCode.CONSTRAINT_VIOLATED, String.format("%s cannot be modified", fieldName));
+        }
+    }
+
+    public static void nullOrEqual(Integer found, Integer expected, String fieldName) throws KalipoRequestException {
+        if (found != null && !found.equals(expected)) {
+            throw new KalipoRequestException(ErrorCode.CONSTRAINT_VIOLATED, String.format("%s cannot be modified", fieldName));
         }
     }
 }

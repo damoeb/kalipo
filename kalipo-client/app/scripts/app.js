@@ -119,8 +119,13 @@ kalipoApp
                 }
             })
             .otherwise({
-                templateUrl: 'views/main.html',
-                controller: 'MainController',
+                templateUrl: 'views/threads.html',
+                controller: 'ThreadController',
+                resolve: {
+                    resolvedThread: ['Thread', function (Thread) {
+                        return Thread.query();
+                    }]
+                },
                 access: {
                     authorizedRoles: [USER_ROLES.all]
                 }

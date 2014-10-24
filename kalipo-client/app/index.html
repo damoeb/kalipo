@@ -42,6 +42,16 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="authenticated">
             <ul class="nav navbar-nav nav-pills navbar-right">
+                <li class="dropdown pointer" ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)"
+                    ng-controller="AdminController">
+                    <a href="#/thread/create">
+                        <span>
+                            <span class="hidden-tablet">
+                                New Thread
+                            </span>
+                        </span>
+                    </a>
+                </li>
                 <li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer"
                     ng-controller="AdminController">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
@@ -88,24 +98,13 @@
                             &#xA0;<span>Votes</span></a></li>
                     </ul>
                 </li>
-                <!--<li class="dropdown pointer" ng-controller="LanguageController">-->
-                <!--<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">-->
-                <!--<span>-->
-                <!--<span class="glyphicon glyphicon-flag"></span>-->
-                <!--<span class="hidden-tablet" translate="global.menu.language">Language</span>-->
-                <!--<b class="caret"></b>-->
-                <!--</span>-->
-                <!--</a>-->
-                <!--<ul class="dropdown-menu">-->
-                <!--<li active-menu="{{key}}" ng-repeat="(key, language) in languages">-->
-                <!--<a href="#" ng-click="changeLanguage(key)">{{language}}</a>-->
-                <!--</li>-->
                 <li class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
                                 <span>
                                     <span class="glyphicon glyphicon-user"></span>
                                     <span class="hidden-tablet" translate="global.menu.account.main">
                                         Account
+                                        <!-- todo replace by login -->
                                     </span>
                                     <b class="caret"></b>
                                 </span>

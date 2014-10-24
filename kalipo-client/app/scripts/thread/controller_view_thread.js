@@ -9,6 +9,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
         $scope.pendingCount = 0;
         $scope.commentCount = 0;
         $scope.reportCount = 0;
+        $scope.doComment = false;
 
         var threadId = $routeParams.threadId;
         var commentId = $routeParams.commentId;
@@ -37,8 +38,6 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
         };
 
         var _cluster = function (comments) {
-
-            console.log(comments);
 
             var map = {};
             var roots = [];

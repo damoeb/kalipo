@@ -40,11 +40,9 @@ public class Comment {
     @Size(min = 1, max = LEN_TEXT, message = "{constraint.length.text}")
     private String text;
 
-    //    @NotNull(message = "{constraint.notnull.title}")
     @Size(min = 1, max = LEN_TITLE)
     private String title;
 
-    @JsonIgnore
     @NotNull(message = "{constraint.notnull.authorId}")
     private String authorId;
 

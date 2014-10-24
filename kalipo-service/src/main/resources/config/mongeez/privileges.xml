@@ -11,48 +11,55 @@
             db.T_PRIVILEGE.insert(
             {
             "_id" : "2",
-            "name": "CREATE_COMMENT",
+            "name": "MODERATE_THREAD",
             "reputation": 0
             });
 
             db.T_PRIVILEGE.insert(
             {
             "_id" : "3",
-            "name": "CREATE_VOTE",
+            "name": "CREATE_COMMENT",
             "reputation": 0
             });
 
             db.T_PRIVILEGE.insert(
             {
             "_id" : "4",
-            "name": "CREATE_PRIVILEGE",
+            "name": "CREATE_VOTE",
             "reputation": 0
             });
 
             db.T_PRIVILEGE.insert(
             {
             "_id" : "5",
-            "name": "CREATE_TAG",
+            "name": "CREATE_PRIVILEGE",
             "reputation": 0
             });
 
             db.T_PRIVILEGE.insert(
             {
             "_id" : "6",
-            "name": "CREATE_REPORT",
+            "name": "CREATE_TAG",
             "reputation": 0
             });
 
             db.T_PRIVILEGE.insert(
             {
             "_id" : "7",
-            "name": "HOOK_THREAD_TO_URL",
+            "name": "CREATE_REPORT",
             "reputation": 0
             });
 
             db.T_PRIVILEGE.insert(
             {
             "_id" : "8",
+            "name": "HOOK_THREAD_TO_URL",
+            "reputation": 0
+            });
+
+            db.T_PRIVILEGE.insert(
+            {
+            "_id" : "9",
             "name": "BAN_USER",
             "reputation": 0
             });

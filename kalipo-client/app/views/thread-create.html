@@ -1,10 +1,11 @@
-<div>
+<div class="box box-padding">
     <form name="form" role="form" novalidate ng-submit="create()">
         <h4>Create a Thread</h4>
 
         <div>You will become mod for this thread and approve posts</div>
-        <table class="table">
-            <tr>
+
+        <table class="table-responsive table">
+        <tr>
                 <td>Title</td>
                 <td><input class="form-control" ng-model="thread.title"
                            placeholder="Title"></td>

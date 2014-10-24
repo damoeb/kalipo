@@ -10,7 +10,7 @@ kalipoApp.controller('CreateThreadController', function ($scope, Thread) {
 
         Thread.save($scope.thread,
             function (data) {
-                // todo redirect to thread
+                // todo go to promote thread
                 noty({text: 'Thread created', type: 'success'});
             });
     };

@@ -1,5 +1,6 @@
 package org.kalipo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -39,12 +40,16 @@ public class Thread implements Serializable {
     @LastModifiedDate
     private DateTime lastModifiedDate;
 
-    @Field("comment_count")
     private Integer commentCount = 0;
+    private Integer authorCount = 0;
+    private Integer views = 0;
 
+    @JsonIgnore
     @NotNull
     @Field("author_id")
     private String authorId;
+
+    private String leadCommentId;
 
     /**
      * Sum of all comment likes plus thread likes
@@ -60,10 +65,13 @@ public class Thread implements Serializable {
      * Disable comments
      */
     @Field("read_only")
-    private Boolean readOnly = false; // todo implement readonly
+    private Boolean readOnly = false;
 
     private Status status;
 
+    /**
+     * used to transfer text for the mandatory lead comment
+     */
     @Transient
     private String text;
 
@@ -171,6 +179,14 @@ public class Thread implements Serializable {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getLeadCommentId() {
+        return leadCommentId;
+    }
+
+    public void setLeadCommentId(String leadCommentId) {
+        this.leadCommentId = leadCommentId;
     }
 
     /**

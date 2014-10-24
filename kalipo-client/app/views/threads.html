@@ -2,91 +2,24 @@
 
     <h2>Threads</h2>
 
-    <a class="btn btn-primary btn-lg" href="#/thread/create">
-        <span class="glyphicon glyphicon-flash"></span> Create a new Thread
-    </a>
+    <div class="box list-group">
+        <div class="list-group-item row" ng-repeat="thread in threads">
+            <!--<div class="col-lg-1">-->
+            <!--{{thread.likes}}-->
+            <!--</div>-->
+            <div class="col-lg-12">
+                <h4>
+                    <a href="#/thread/{{thread.id}}">{{thread.title}}</a>
+                </h4>
 
-    <div class="modal fade" id="saveThreadModal" tabindex="-1" role="dialog" aria-labelledby="myThreadLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form name="form" role="form" novalidate
-                      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
-                      ng-submit="create()">
-
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                ng-click="clear()">&times;</button>
-                        <h4 class="modal-title" id="myThreadLabel">Create or edit a Thread</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>ID</label>
-                            <input type="text" class="form-control" name="id"
-                                   ng-model="thread.id" readonly>
-                        </div>
-
-                        <div class="form-group">
-                            <label>title</label>
-                            <input type="text" class="form-control" name="title"
-                                   ng-model="thread.title" ng-minlength=1 ng-maxlength=50 required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>status</label>
-                            <input type="text" class="form-control" name="status"
-                                   ng-model="thread.status">
-                        </div>
-
-                        <div class="form-group">
-                            <label>uri</label>
-                            <input type="text" class="form-control" name="uri"
-                                   ng-model="thread.uriHook">
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
-                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-                        </button>
-                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-save"></span> Save
-                        </button>
-                    </div>
-                </form>
+                <div><span style="color: gray">Submitted {{thread.createdDate | fromNow}}</span></div>
+                <div>{{thread.commentCount}} comments</div>
+                <div ng-show="thread.tags!=null && thread.tags.length>0">
+                    <a href="#/tags/{{tag.name}}" ng-repeat="tag in thread.tags" class="badge">
+                        {{tag.name}}
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Status</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="thread in threads">
-                <td><a href="#/thread/{{thread.id}}">{{thread.id}}</a></td>
-                <td>{{thread.title}}</td>
-                <td>{{thread.status}}</td>
-                <td>
-                    <button type="submit"
-                            ng-click="update(thread.id)"
-                            class="btn">
-                        <span class="glyphicon glyphicon-pencil"></span> Edit
-                    </button>
-                    <button type="submit"
-                            ng-click="delete(thread.id)"
-                            class="btn btn-danger">
-                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
     </div>
 </div>
