@@ -19,11 +19,15 @@ instruction to grab the documentation
 
 Installation
 ------------
-instruction to grab the latest code and detailed instructions to build it (or quick overview and "Read INSTALL")
+
+~~
+git clone https://github.com/damoeb/kalipo.git
+./gradlew run
+~~
 
 ### Requirements
+* git
 * java 1.8
-* gradle
 * mongo db
 
 ### Modules
