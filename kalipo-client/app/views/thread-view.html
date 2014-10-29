@@ -1,25 +1,29 @@
-<div class="row">
-    <h2>{{thread.title}}</h2>
-</div>
+<div class="row" style="background-color: #ff4081;">
 
-<div class="row">
-
-    <div ng-show="thread.tags!=null && thread.tags.length>0">
-        <a href="#/tags/{{tag.name}}" ng-repeat="tag in thread.tags" class="badge">
-            {{tag.name}}
-        </a>
+    <div style="background-color: #e91e63">
+        <h2>{{thread.title}}</h2>
     </div>
 
-    <h4>
-        <span ng-show="thread.commentCount == 1">{{thread.commentCount}} comment</span>
-        <span ng-show="thread.commentCount != 1">{{thread.commentCount}} comments</span>
+    <div style="padding: 10px">
+        <span ng-show="thread.tags!=null && thread.tags.length>0">
+            <a href="#/tags/{{tag.name}}" ng-repeat="tag in thread.tags" class="badge" style="margin-right: 5px">
+                {{tag.name}}
+            </a>
+        </span>
 
-        <span ng-show="thread.authorCount == 1">{{thread.authorCount}} authors</span>
-        <span ng-show="thread.authorCount != 1">{{thread.authorCount}} authors</span>
+        <h4>
+            <span ng-show="thread.commentCount == 1">{{thread.commentCount}} comment</span>
+            <span ng-show="thread.commentCount != 1">{{thread.commentCount}} comments</span>
 
-        {{thread.createdDate | fromNow}}
-    </h4>
+            by
 
+            <span ng-show="thread.authorCount == 1">{{thread.authorCount}} authors</span>
+            <span ng-show="thread.authorCount != 1">{{thread.authorCount}} authors</span>
+
+            {{thread.createdDate | fromNow}}
+        </h4>
+
+    </div>
 
 </div>
 
