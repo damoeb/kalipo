@@ -20,10 +20,8 @@ instruction to grab the documentation
 Installation
 ------------
 
-~~
-git clone https://github.com/damoeb/kalipo.git
-./gradlew run
-~~
+    git clone https://github.com/damoeb/kalipo.git
+    ./gradlew run
 
 ### Requirements
 * git
