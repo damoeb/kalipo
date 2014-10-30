@@ -50,6 +50,7 @@ public class CommentService {
     @Throttled
     public Comment update(Comment comment) throws KalipoRequestException {
         Asserts.isNotNull(comment, "comment");
+        // todo is owner
         return save(comment);
     }
 
@@ -60,6 +61,8 @@ public class CommentService {
         Asserts.isNotReadOnly(thread);
 
         comment.setAuthorId(SecurityUtils.getCurrentLogin());
+
+        // todo status is pending, as long the user has < 5 approved comments
         comment.setStatus(Comment.Status.APPROVED);
         return commentRepository.save(comment);
     }

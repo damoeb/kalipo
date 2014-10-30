@@ -3,6 +3,7 @@
 kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread', 'Comment', 'Report', 'Vote', '$log', '$location', '$anchorScroll',
     function ($scope, $routeParams, Thread, Comment, Report, Vote, $log, $location, $anchorScroll) {
 
+        $scope.share = null;
         $scope.draft = {};
         $scope.thread = {};
         $scope.reportModel = {};
@@ -26,6 +27,14 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
                 $scope.scrollTo(commentId);
             }
         });
+
+        $scope.toggleShareComponent = function () {
+            if($scope.share == null) {
+                $scope.share = 'social';
+            } else {
+                $scope.share = null;
+            }
+        };
 
         $scope.create = function () {
 
@@ -92,7 +101,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
             var vote = {isLike: true, commentId: comment.id};
 
             Vote.save(vote, function (updated) {
-                noty({text: 'Liked', type: 'success'});
+//                noty({text: 'Liked', type: 'success'});
             });
         };
 
@@ -106,7 +115,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
             var vote = {isLike: false, commentId: comment.id};
 
             Vote.save(vote, function (updated) {
-                noty({text: 'Disliked', type: 'success'});
+//                noty({text: 'Disliked', type: 'success'});
             });
         };
 

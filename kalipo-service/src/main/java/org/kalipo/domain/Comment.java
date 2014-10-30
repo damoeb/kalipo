@@ -40,7 +40,7 @@ public class Comment {
     @Size(min = 2, max = LEN_TEXT, message = "{constraint.length.text}")
     private String text;
 
-    @Size(min = 1, max = LEN_TITLE)
+    @Size(max = LEN_TITLE)
     private String title;
 
     @NotNull(message = "{constraint.notnull.authorId}")
