@@ -1,39 +1,79 @@
+<h2>Create a Diskussion</h2>
+
 <div class="box box-padding">
     <form name="form" role="form" novalidate ng-submit="create()">
-        <h4>Create a Thread</h4>
 
-        <div>You will become mod for this thread and approve posts</div>
+        <div class="row box-row">
+            <div class="col-md-push-3 col-md-9">
+                You will become mod for this thread and approve posts
+            </div>
+        </div>
 
-        <table class="table-responsive table">
-        <tr>
-                <td>Title</td>
-                <td><input class="form-control" ng-model="thread.title"
-                           placeholder="Title"></td>
-            </tr>
-            <tr>
-                <td>Url</td>
-                <td><input class="form-control" ng-model="thread.uriHook"
-                           placeholder="Url"></td>
-            </tr>
-            <tr>
-                <td>Comment</td>
-                <td><textarea class="form-control" placeholder="This is the first comment" ng-model="thread.text"
-                              ng-minlength=1 ng-maxlength=2048 required></textarea></td>
-            </tr>
-            <tr>
-                <td>Tags</td>
-                <td><input class="form-control" ng-model="thread.tags"
-                           placeholder="Space separated tags"></td>
-            </tr>
-            <tr>
-            <td></td>
-                <td>
-                    <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
-                        Create Thread
-                    </button>
-                </td>
-            </tr>
-        </table>
+        <div class="row box-row">
+            <div class="col-md-3"><h4>Title*</h4></div>
+            <div class="col-md-9">
+                <input name="title" class="form-control" ng-model="thread.title" placeholder="6-10 words is the magic headline range!" required ng-minlength="10" ng-maxlength="64">
+                <div class="error-container"
+                     ng-show="form.title.$dirty && form.title.$invalid">
+                    <small ng-show="form.title.$error.required">
+                        Title is required.
+                    </small>
+                    <small ng-show="form.title.$error.minlength">
+                        Title is required to be at least 10 characters
+                    </small>
+                    <small ng-show="form.title.$error.maxlength">
+                        Title cannot be longer than 64 characters
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row box-row">
+            <div class="col-md-3"><h4>Url</h4></div>
+            <div class="col-md-9"><input name="url" class="form-control" ng-model="thread.uriHook" type="url"
+                                         placeholder="If not in the comment, place the most important URL here"></div>
+            <div class="error-container"
+                 ng-show="form.url.$dirty && form.url.$invalid">
+                <small ng-show="form.url.$error.url">
+                    Sure, this is is a Url?
+                </small>
+            </div>
+        </div>
+
+        <div class="row box-row">
+            <div class="col-md-3"><h4>Ripper*</h4></div>
+            <div class="col-md-9">
+                <textarea name="text" class="form-control" placeholder="For the lead comment, brevity is the key." ng-model="thread.text"
+                          ng-minlength=2 ng-maxlength=2048 required></textarea>
+                <div class="error-container"
+                     ng-show="form.text.$dirty && form.text.$invalid">
+                    <small ng-show="form.text.$error.required">
+                        Text is required.
+                    </small>
+                    <small ng-show="form.text.$error.minlength">
+                        Text is required to be at least 2 characters
+                    </small>
+                    <small ng-show="form.text.$error.maxlength">
+                        Text cannot be longer than 2048 characters
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row box-row">
+            <div class="col-md-3"><h4>Tag</h4></div>
+            <div class="col-md-9"><input class="form-control" ng-model="thread.tags"
+                                         placeholder="Space separated tags"></div>
+        </div>
+
+        <div class="row box-row">
+            <div class="col-md-push-3 col-md-9">
+                <a href="#/threads" ng-disabled="form.$invalid" class="btn">Cancel</a>
+                <button type="submit" class="btn btn-primary">
+                    Create Thread
+                </button>
+            </div>
+        </div>
 
     </form>
 </div>

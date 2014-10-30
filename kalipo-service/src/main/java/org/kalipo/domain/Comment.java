@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 @Document(collection = "T_COMMENT")
 public class Comment {
 
-    public static final int LEN_TITLE = 256;
+    public static final int LEN_TITLE = 64;
     public static final int LEN_TEXT = 2048;
 
     @Id
@@ -37,7 +37,7 @@ public class Comment {
     private DateTime createdDate;
 
     @NotNull(message = "{constraint.notnull.text}")
-    @Size(min = 1, max = LEN_TEXT, message = "{constraint.length.text}")
+    @Size(min = 2, max = LEN_TEXT, message = "{constraint.length.text}")
     private String text;
 
     @Size(min = 1, max = LEN_TITLE)

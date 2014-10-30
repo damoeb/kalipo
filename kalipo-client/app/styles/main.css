@@ -177,3 +177,33 @@ ul#strength {
 .box-padding {
     padding: 10px 20px;
 }
+
+.box-row {
+    margin-bottom: 10px;
+}
+
+
+/* field validation */
+.ng-pristine {}
+.ng-dirty {}
+.ng-valid {}
+.ng-invalid {}
+
+input.ng-invalid {
+    border: 1px solid red;
+}
+input.ng-valid.ng-dirty {
+    border: 1px solid green;
+}
+form .error-container {
+    color: #bb1f34
+}
+
+/* notifications */
+.flash {
+    padding: 10px 18px; margin-bottom: 15px
+}
+
+.flash-info {
+    background-color: #bfd9f5;
+}

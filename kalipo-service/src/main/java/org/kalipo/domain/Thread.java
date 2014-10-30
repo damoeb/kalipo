@@ -1,6 +1,7 @@
 package org.kalipo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.URL;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -28,10 +29,11 @@ public class Thread implements Serializable {
      * todo should be a set of urls, the amount of url is defined via Roles
      */
     @Size(min = 1, max = 512)
+    @URL
     private String uriHook;
 
     @NotNull
-    @Size(min = 0, max = 128)
+    @Size(min = 10, max = 64)
     private String title;
 
     @CreatedDate
@@ -41,6 +43,10 @@ public class Thread implements Serializable {
     private DateTime lastModifiedDate;
 
     private Integer commentCount = 0;
+
+    /**
+     * Number of distinct authors in the discussion
+     */
     private Integer authorCount = 0;
     private Integer views = 0;
 

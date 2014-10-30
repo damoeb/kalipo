@@ -17,6 +17,13 @@ kalipoApp
                     authorizedRoles: [USER_ROLES.all]
                 }
             })
+            .when('/thread/:threadId/promote', {
+                templateUrl: 'views/thread-promote.html',
+                controller: 'PromoteThreadController',
+                access: {
+                    authorizedRoles: [USER_ROLES.all]
+                }
+            })
             .when('/thread/:threadId/:commentId', {
                 templateUrl: 'views/thread-view.html',
                 controller: 'ViewThreadController',

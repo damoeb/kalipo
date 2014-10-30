@@ -1,6 +1,8 @@
 'use strict';
 
-kalipoApp.controller('CreateThreadController', function ($scope, Thread) {
+kalipoApp.controller('CreateThreadController', function ($scope, $location, Thread) {
+
+    $scope.thread = {};
 
     $scope.create = function () {
 
@@ -10,8 +12,7 @@ kalipoApp.controller('CreateThreadController', function ($scope, Thread) {
 
         Thread.save($scope.thread,
             function (data) {
-                // todo go to promote thread
-                noty({text: 'Thread created', type: 'success'});
+                $location.path('/thread/' + data.id + '/promote');
             });
     };
 
