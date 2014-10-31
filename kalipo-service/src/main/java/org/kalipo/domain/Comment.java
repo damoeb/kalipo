@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 @Document(collection = "T_COMMENT")
 public class Comment {
 
-    public static final int LEN_TITLE = 64;
+    public static final int LEN_TITLE = 128;
     public static final int LEN_TEXT = 2048;
 
     @Id

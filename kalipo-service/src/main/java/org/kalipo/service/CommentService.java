@@ -43,22 +43,31 @@ public class CommentService {
         Asserts.isNotNull(comment, "comment");
         Asserts.isNull(comment.getId(), "id");
 
-        return save(comment);
+        return save(comment, true);
     }
 
     @RolesAllowed(Privileges.CREATE_COMMENT)
     @Throttled
     public Comment update(Comment comment) throws KalipoRequestException {
         Asserts.isNotNull(comment, "comment");
-        // todo is owner
-        return save(comment);
+        Asserts.isNotNull(comment.getId(), "id");
+
+        Comment orgComment = commentRepository.findOne(comment.getId());
+        Asserts.isCurrentLogin(orgComment.getAuthorId());
+
+        return save(comment, false);
     }
 
-    private Comment save(Comment comment) throws KalipoRequestException {
+    private Comment save(Comment comment, boolean isNew) throws KalipoRequestException {
 
         Thread thread = threadRepository.findOne(comment.getThreadId());
         Asserts.isNotNull(thread, "threadId");
         Asserts.isNotReadOnly(thread);
+
+        if (isNew) {
+            thread.setCommentCount(thread.getCommentCount() + 1);
+            threadRepository.save(thread);
+        }
 
         comment.setAuthorId(SecurityUtils.getCurrentLogin());
 

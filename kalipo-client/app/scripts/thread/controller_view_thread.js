@@ -3,7 +3,12 @@
 kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread', 'Comment', 'Report', 'Vote', '$log', '$location', '$anchorScroll',
     function ($scope, $routeParams, Thread, Comment, Report, Vote, $log, $location, $anchorScroll) {
 
-        $scope.share = null;
+        if ($location.path().endsWith('share')) {
+            $scope.share = 'social';
+        } else {
+            $scope.share = null;
+        }
+
         $scope.draft = {};
         $scope.thread = {};
         $scope.reportModel = {};
@@ -29,7 +34,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
         });
 
         $scope.toggleShareComponent = function () {
-            if($scope.share == null) {
+            if ($scope.share == null) {
                 $scope.share = 'social';
             } else {
                 $scope.share = null;

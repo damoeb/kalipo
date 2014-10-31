@@ -46,4 +46,10 @@ public final class Asserts {
             throw new KalipoRequestException(ErrorCode.CONSTRAINT_VIOLATED, String.format("%s cannot be modified", fieldName));
         }
     }
+
+    public static void isCurrentLogin(String authorId) throws KalipoRequestException {
+        if (StringUtils.equals(SecurityUtils.getCurrentLogin(), authorId)) {
+            throw new KalipoRequestException(ErrorCode.CONSTRAINT_VIOLATED, String.format("Only %s can modify", authorId));
+        }
+    }
 }

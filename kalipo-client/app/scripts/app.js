@@ -149,6 +149,7 @@ kalipoApp
     .run(function ($rootScope, $location, $http, AuthenticationSharedService, Session, USER_ROLES) {
         $rootScope.$on('$routeChangeStart', function (event, next) {
             $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
+            $rootScope.email = 'somemail@domain.com'; // todo implement
             $rootScope.userRoles = USER_ROLES;
             AuthenticationSharedService.valid(next.access.authorizedRoles);
         });

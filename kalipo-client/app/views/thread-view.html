@@ -28,9 +28,10 @@
 
 <div class="row box box-padding" ng-show="share != null">
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#">Social</a></li>
-        <li role="presentation"><a href="#">Embed</a></li>
-        <li role="presentation"><a href="#">E-Mail</a></li>
+        <li ng-class="{active: share=='social'}"><a href="javascript:void(0)" ng-click="share = 'social'">Social</a>
+        </li>
+        <li ng-class="{active: share=='embed'}"><a href="javascript:void(0)" ng-click="share = 'embed'">Embed</a></li>
+        <li ng-class="{active: share=='email'}"><a href="javascript:void(0)" ng-click="share = 'email'">E-Mail</a></li>
     </ul>
 
     <div ng-show="share == 'social'">
@@ -282,15 +283,17 @@
 
 </script>
 
+<!-- todo create embed code-->
 <script type="text/ng-template" id="share_embed.template">
     <div>
-        <input title="Code einbetten" class="form-control">
+        <input title="Code einbetten" class="form-control" placeholder="Some code">
     </div>
 </script>
 
+<!-- todo create email code-->
 <script type="text/ng-template" id="share_email.template">
     <div>
-        <input title="Code einbetten" class="form-control">
+        <textarea class="form-control"></textarea>
     </div>
 </script>
 
