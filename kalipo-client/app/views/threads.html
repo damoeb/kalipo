@@ -4,23 +4,28 @@
 <!--There are some pending comments <a href="">review</a>-->
 <!--</div>-->
 <!-- todo see http://bootsnipp.com/snippets/featured/e-mail-interface -->
-<div class="box list-group">
-    <div class="list-group-item row" ng-repeat="thread in threads">
-        <!--<div class="col-lg-1">-->
-        <!--{{thread.likes}}-->
-        <!--</div>-->
-        <div class="col-lg-12">
-            <h4>
-                <a href="#/thread/{{thread.id}}">{{thread.title}}</a>
-            </h4>
+<div class="box">
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="thread in threads">
 
-            <div><span style="color: gray">Submitted {{thread.createdDate | fromNow}}</span></div>
-            <div>{{thread.commentCount}} comments</div>
-            <div ng-show="thread.tags!=null && thread.tags.length>0">
-                <a href="#/tags/{{tag.name}}" ng-repeat="tag in thread.tags" class="badge">
-                    {{tag.name}}
-                </a>
+            <div class="row">
+                <div class="col-xs-2 col-md-1">
+                    <img alt="" class="img-circle img-responsive" src="http://placehold.it/80"></div>
+                <div class="col-xs-10 col-md-11">
+                    <div>
+                        <a href="#/thread/{{thread.id}}">{{thread.title}}</a>
+
+                        <div style="color: gray">
+                            Submitted {{thread.createdDate | fromNow}}
+                        </div>
+                    </div>
+                    <div ng-show="thread.tags!=null && thread.tags.length>0">
+                        <a href="#/tags/{{tag.name}}" ng-repeat="tag in thread.tags" class="badge">
+                            {{tag.name}}
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        </li>
+    </ul>
 </div>

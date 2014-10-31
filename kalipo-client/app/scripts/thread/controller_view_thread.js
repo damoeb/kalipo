@@ -60,8 +60,8 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
                 var comment = comments[i];
                 map[comment.id] = comment;
                 comment.subcomments = [];
-                comment.report = false;
-                comment.maximized = true;
+                comment.$report = false;
+                comment.$maximized = true;
             }
 
             $.each(comments, function (index, comment) {

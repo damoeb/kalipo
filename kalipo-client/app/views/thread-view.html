@@ -2,13 +2,7 @@
 
 <div class="row box box-padding">
 
-    <span ng-show="thread.tags!=null && thread.tags.length>0">
-        <a href="#/tags/{{tag.name}}" ng-repeat="tag in thread.tags" class="badge" style="margin-right: 5px">
-            {{tag.name}}
-        </a>
-    </span>
-
-    <h4>
+    <div>
         <span ng-show="thread.commentCount == 1">{{thread.commentCount}} comment</span>
         <span ng-show="thread.commentCount != 1">{{thread.commentCount}} comments</span>
 
@@ -18,7 +12,13 @@
         <span ng-show="thread.authorCount != 1">{{thread.authorCount}} authors</span>
 
         {{thread.createdDate | fromNow}}
-    </h4>
+    </div>
+
+    <div ng-show="thread.tags!=null && thread.tags.length>0">
+        <a href="#/tags/{{tag.name}}" ng-repeat="tag in thread.tags" class="badge" style="margin-right: 5px">
+            {{tag.name}}
+        </a>
+    </div>
 
     <ul class="nav nav-pills" style="border-top: 1px solid #e2e2e2; padding-top: 5px">
         <li role="presentation"><a href="javascript:void(0)" ng-click="toggleShareComponent()">Share</a></li>
@@ -45,29 +45,39 @@
     </div>
 </div>
 
-<div class="row box">
+<div class="row">
+    <div class="box col-lg-8">
 
-    <div style="margin-top: 15px">
+        <div style="margin-top: 15px">
 
-        <div ng-show="!doComment" ng-click="doComment = true">
-            <div ng-include="'pre_create_comment_renderer.html'">
+            <div ng-show="!doComment" ng-click="doComment = true">
+                <div ng-include="'pre_create_comment_renderer.html'">
+                </div>
             </div>
-        </div>
-        <div ng-show="doComment">
-            <div ng-include="'create_comment_renderer.html'">
+            <div ng-show="doComment">
+                <div ng-include="'create_comment_renderer.html'">
+                </div>
             </div>
+
+            <div style="padding: 0 10px 10px 10px; color: gray">
+                2 users are typing...
+            </div>
+
+            <dl style="margin:0;">
+                <dd ng-repeat="comment in comments | orderBy:createdDate" ng-include="'comment_renderer.html'">
+
+                </dd>
+            </dl>
+
+            <div ng-show="comments.length > 10" style="margin-top: 10px">
+                <div ng-include="'create_comment_renderer.html'"></div>
+            </div>
+
         </div>
+    </div>
 
-        <dl style="margin:0;">
-            <dd ng-repeat="comment in comments | orderBy:createdDate" ng-include="'comment_renderer.html'">
-
-            </dd>
-        </dl>
-
-        <div ng-show="comments.length > 10" style="margin-top: 10px">
-            <div ng-include="'create_comment_renderer.html'"></div>
-        </div>
-
+    <div class="col-lg-push-1 col-lg-3">
+        Some stuff
     </div>
 </div>
 
@@ -153,7 +163,7 @@
 
     <div>
 
-        <div ng-switch on="comment.maximized">
+        <div ng-switch on="comment.$maximized">
 
             <!-- Maximized view -->
             <div ng-switch-default>
@@ -166,7 +176,7 @@
                     <div>
                         <div class="menu" style="display: inline">
                             <a href="javascript:void(0)"
-                               ng-click="comment.maximized = !comment.maximized" title="Click to minimize">
+                               ng-click="comment.$maximized = !comment.$maximized" title="Click to minimize">
                                 <span class="glyphicon glyphicon-resize-small"></span></a>
                         </div>
 
@@ -254,7 +264,7 @@
                     <!--ng-show="{{comment.parentId != null}}">Re:</a></strong>-->
 
                     <div style="overflow: hidden; max-height:3em; min-height:1.8em;"
-                         ng-click="comment.maximized = !comment.maximized">
+                         ng-click="comment.$maximized = !comment.$maximized">
 
                         <div style="display: inline">
                             <a href="javascript:void(0)">
@@ -302,80 +312,111 @@
         <div>
             <ul class="share-group ytg-box">
                 <li>
-                    <button class="yt-uix-tooltip share-service-button share-facebook-icon" data-service-name="FACEBOOK" onclick="yt.window.popup(&quot;http:\/\/www.facebook.com\/dialog\/feed?app_id=87741124305\u0026link=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026display=popup\u0026name=oOoOO%20-%20Seaww\u0026caption=\u0026description=Seaww%20was%20featured%20on%20a%20split%207%22%20with%20White%20Ring%20on%20Emotion%20%28sold%20out%29.%20Video%20by%20Daniel%20Lopatin.%0A%0Ahttp%3A\/\/www.eeemotion.se\/%0Ahttp%3A\/\/www.facebook.com\/eeemotion%0Ahttps%3A\/\/twitter.com\/eeemotion%0A%0ABuy%20on%20iTunes%3A%20http%3A\/\/itunes.apple.com\/se\/album\/roses-seaww-emotion-single\/id362308200%0AListen%20on%20Spotify%3A%20http%3A\/\/open.spotify.com\/album\/55h8qAZzI5Bxjsn6VJi4in\u0026picture=http%3A\/\/i.ytimg.com\/vi\/J0zYmPKAP18\/maxresdefault.jpg\u0026source=https%3A\/\/www.youtube.com\/v\/J0zYmPKAP18%3Fversion%3D3%26autohide%3D1%26showinfo%3D1%26autoplay%3D1%26autohide%3D1%26feature%3Dshare\u0026ref=share\u0026actions={\&quot;name\&quot;:\&quot;Auf YouTube abonnieren\&quot;, \&quot;link\&quot;:\&quot;http:\/\/www.youtube.com\/channel\/UC1SdPYp1tewxZdbaWpBgjLQ?sub_confirmation=1\&quot;}\u0026redirect_uri=https:\/\/www.youtube.com\/facebook_redirect&quot;, {'height': 306,'width': 650,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=FACEBOOK\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=10\u0026feature=share&quot;);return false;">
-                        <span class="share-service-icon share-service-icon-facebook yt-sprite" title="Teilen auf Facebook"></span>
+                    <button class="yt-uix-tooltip share-service-button share-facebook-icon" data-service-name="FACEBOOK"
+                            onclick="yt.window.popup(&quot;http:\/\/www.facebook.com\/dialog\/feed?app_id=87741124305\u0026link=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026display=popup\u0026name=oOoOO%20-%20Seaww\u0026caption=\u0026description=Seaww%20was%20featured%20on%20a%20split%207%22%20with%20White%20Ring%20on%20Emotion%20%28sold%20out%29.%20Video%20by%20Daniel%20Lopatin.%0A%0Ahttp%3A\/\/www.eeemotion.se\/%0Ahttp%3A\/\/www.facebook.com\/eeemotion%0Ahttps%3A\/\/twitter.com\/eeemotion%0A%0ABuy%20on%20iTunes%3A%20http%3A\/\/itunes.apple.com\/se\/album\/roses-seaww-emotion-single\/id362308200%0AListen%20on%20Spotify%3A%20http%3A\/\/open.spotify.com\/album\/55h8qAZzI5Bxjsn6VJi4in\u0026picture=http%3A\/\/i.ytimg.com\/vi\/J0zYmPKAP18\/maxresdefault.jpg\u0026source=https%3A\/\/www.youtube.com\/v\/J0zYmPKAP18%3Fversion%3D3%26autohide%3D1%26showinfo%3D1%26autoplay%3D1%26autohide%3D1%26feature%3Dshare\u0026ref=share\u0026actions={\&quot;name\&quot;:\&quot;Auf YouTube abonnieren\&quot;, \&quot;link\&quot;:\&quot;http:\/\/www.youtube.com\/channel\/UC1SdPYp1tewxZdbaWpBgjLQ?sub_confirmation=1\&quot;}\u0026redirect_uri=https:\/\/www.youtube.com\/facebook_redirect&quot;, {'height': 306,'width': 650,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=FACEBOOK\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=10\u0026feature=share&quot;);return false;">
+                        <span class="share-service-icon share-service-icon-facebook yt-sprite"
+                              title="Teilen auf Facebook"></span>
                     </button>
                 </li>
 
                 <li>
-                    <button class="yt-uix-tooltip share-service-button share-twitter-icon" data-service-name="TWITTER" onclick="yt.window.popup(&quot;http:\/\/twitter.com\/intent\/tweet?url=http%3A\/\/youtu.be\/J0zYmPKAP18\u0026text=oOoOO%20-%20Seaww:\u0026via=YouTube\u0026related=YouTube,YouTubeTrends,YTCreators&quot;, {'height': 420,'width': 550,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=TWITTER\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=31\u0026feature=share&quot;);return false;">
-                        <span class="share-service-icon share-service-icon-twitter yt-sprite" title="Teilen auf Twitter"></span>
+                    <button class="yt-uix-tooltip share-service-button share-twitter-icon" data-service-name="TWITTER"
+                            onclick="yt.window.popup(&quot;http:\/\/twitter.com\/intent\/tweet?url=http%3A\/\/youtu.be\/J0zYmPKAP18\u0026text=oOoOO%20-%20Seaww:\u0026via=YouTube\u0026related=YouTube,YouTubeTrends,YTCreators&quot;, {'height': 420,'width': 550,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=TWITTER\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=31\u0026feature=share&quot;);return false;">
+                        <span class="share-service-icon share-service-icon-twitter yt-sprite"
+                              title="Teilen auf Twitter"></span>
                     </button>
                 </li>
 
                 <li>
-                    <button class="yt-uix-tooltip share-service-button share-googleplus-icon" data-service-name="GOOGLEPLUS" onclick="yt.window.popup(&quot;https:\/\/plus.google.com\/share?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026source=yt\u0026hl=de\u0026soc-platform=1\u0026soc-app=130&quot;, {'height': 620,'width': 620,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=GOOGLEPLUS\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=43\u0026feature=share&quot;);return false;">
-                        <span class="share-service-icon share-service-icon-googleplus yt-sprite" title="Teilen auf Google+"></span>
+                    <button class="yt-uix-tooltip share-service-button share-googleplus-icon"
+                            data-service-name="GOOGLEPLUS"
+                            onclick="yt.window.popup(&quot;https:\/\/plus.google.com\/share?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026source=yt\u0026hl=de\u0026soc-platform=1\u0026soc-app=130&quot;, {'height': 620,'width': 620,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=GOOGLEPLUS\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=43\u0026feature=share&quot;);return false;">
+                        <span class="share-service-icon share-service-icon-googleplus yt-sprite"
+                              title="Teilen auf Google+"></span>
                     </button>
                 </li>
 
                 <li>
-                    <button class="yt-uix-tooltip share-service-button share-blogger-icon" data-service-name="BLOGGER" onclick="yt.window.popup(&quot;http:\/\/www.blogger.com\/blog-this.g?n=oOoOO%20-%20Seaww\u0026source=youtube\u0026b=%3Ciframe%20width%3D%22480%22%20height%3D%22270%22%20src%3D%22https%3A\/\/www.youtube.com\/embed\/J0zYmPKAP18%22%20frameborder%3D%220%22%20allowfullscreen%3E%3C\/iframe%3E\u0026eurl=http%3A\/\/i.ytimg.com\/vi\/J0zYmPKAP18\/maxresdefault.jpg&quot;, {'height': 468,'width': 768,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=BLOGGER\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=34\u0026feature=share&quot;);return false;">
-                        <span class="share-service-icon share-service-icon-blogger yt-sprite" title="Teilen auf Blogger"></span>
+                    <button class="yt-uix-tooltip share-service-button share-blogger-icon" data-service-name="BLOGGER"
+                            onclick="yt.window.popup(&quot;http:\/\/www.blogger.com\/blog-this.g?n=oOoOO%20-%20Seaww\u0026source=youtube\u0026b=%3Ciframe%20width%3D%22480%22%20height%3D%22270%22%20src%3D%22https%3A\/\/www.youtube.com\/embed\/J0zYmPKAP18%22%20frameborder%3D%220%22%20allowfullscreen%3E%3C\/iframe%3E\u0026eurl=http%3A\/\/i.ytimg.com\/vi\/J0zYmPKAP18\/maxresdefault.jpg&quot;, {'height': 468,'width': 768,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=BLOGGER\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=34\u0026feature=share&quot;);return false;">
+                        <span class="share-service-icon share-service-icon-blogger yt-sprite"
+                              title="Teilen auf Blogger"></span>
                     </button>
                 </li>
 
                 <li>
-                    <button class="yt-uix-tooltip share-service-button share-reddit-icon" data-service-name="REDDIT" onclick="yt.window.popup(&quot;http:\/\/reddit.com\/submit?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026title=oOoOO%20-%20Seaww&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=REDDIT\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=4\u0026feature=share&quot;);return false;">
-                        <span class="share-service-icon share-service-icon-reddit yt-sprite" title="Teilen auf reddit"></span>
+                    <button class="yt-uix-tooltip share-service-button share-reddit-icon" data-service-name="REDDIT"
+                            onclick="yt.window.popup(&quot;http:\/\/reddit.com\/submit?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026title=oOoOO%20-%20Seaww&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=REDDIT\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=4\u0026feature=share&quot;);return false;">
+                        <span class="share-service-icon share-service-icon-reddit yt-sprite"
+                              title="Teilen auf reddit"></span>
                     </button>
                 </li>
 
                 <li>
-                    <button class="yt-uix-tooltip share-service-button share-tumblr-icon" data-service-name="TUMBLR" onclick="yt.window.popup(&quot;http:\/\/www.tumblr.com\/share\/video?embed=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026caption=oOoOO%20-%20Seaww&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=TUMBLR\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=40\u0026feature=share&quot;);return false;">
-                        <span class="share-service-icon share-service-icon-tumblr yt-sprite" title="Teilen auf Tumblr"></span>
+                    <button class="yt-uix-tooltip share-service-button share-tumblr-icon" data-service-name="TUMBLR"
+                            onclick="yt.window.popup(&quot;http:\/\/www.tumblr.com\/share\/video?embed=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026caption=oOoOO%20-%20Seaww&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=TUMBLR\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=40\u0026feature=share&quot;);return false;">
+                        <span class="share-service-icon share-service-icon-tumblr yt-sprite"
+                              title="Teilen auf Tumblr"></span>
                     </button>
                 </li>
 
                 <li>
-                    <button class="yt-uix-tooltip share-service-button share-vkontakte-icon" data-service-name="VKONTAKTE" onclick="yt.window.popup(&quot;http:\/\/vkontakte.ru\/share.php?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=VKONTAKTE\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=36\u0026feature=share&quot;);return false;">
-                        <span class="share-service-icon share-service-icon-vkontakte yt-sprite" title="Teilen auf ВКонтакте"></span>
+                    <button class="yt-uix-tooltip share-service-button share-vkontakte-icon"
+                            data-service-name="VKONTAKTE"
+                            onclick="yt.window.popup(&quot;http:\/\/vkontakte.ru\/share.php?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=VKONTAKTE\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=36\u0026feature=share&quot;);return false;">
+                        <span class="share-service-icon share-service-icon-vkontakte yt-sprite"
+                              title="Teilen auf ВКонтакте"></span>
                     </button>
                 </li>
 
                 <li>
-                    <button class="yt-uix-tooltip share-service-button share-skyblog-icon" data-service-name="SKYBLOG" onclick="yt.window.popup(&quot;http:\/\/skyrock.com\/m\/blog\/share-widget.php?idp=10\u0026idm=J0zYmPKAP18\u0026title=oOoOO%20-%20Seaww&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=SKYBLOG\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=22\u0026feature=share&quot;);return false;">
-                        <span class="share-service-icon share-service-icon-skyblog yt-sprite" title="Teilen auf Skyrock"></span>
+                    <button class="yt-uix-tooltip share-service-button share-skyblog-icon" data-service-name="SKYBLOG"
+                            onclick="yt.window.popup(&quot;http:\/\/skyrock.com\/m\/blog\/share-widget.php?idp=10\u0026idm=J0zYmPKAP18\u0026title=oOoOO%20-%20Seaww&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=SKYBLOG\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=22\u0026feature=share&quot;);return false;">
+                        <span class="share-service-icon share-service-icon-skyblog yt-sprite"
+                              title="Teilen auf Skyrock"></span>
                     </button>
                 </li>
 
                 <li>
-                    <button class="yt-uix-tooltip share-service-button share-odnoklassniki-icon" data-service-name="ODNOKLASSNIKI" onclick="yt.window.popup(&quot;http:\/\/www.odnoklassniki.ru\/dk?st.cmd=addShare\u0026st.noresize=on\u0026st._surl=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=ODNOKLASSNIKI\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=39\u0026feature=share&quot;);return false;">
-                        <span class="share-service-icon share-service-icon-odnoklassniki yt-sprite" title="Teilen auf Одноклассники"></span>
+                    <button class="yt-uix-tooltip share-service-button share-odnoklassniki-icon"
+                            data-service-name="ODNOKLASSNIKI"
+                            onclick="yt.window.popup(&quot;http:\/\/www.odnoklassniki.ru\/dk?st.cmd=addShare\u0026st.noresize=on\u0026st._surl=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=ODNOKLASSNIKI\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=39\u0026feature=share&quot;);return false;">
+                        <span class="share-service-icon share-service-icon-odnoklassniki yt-sprite"
+                              title="Teilen auf Одноклассники"></span>
                     </button>
                 </li>
 
                 <li>
-                    <button class="yt-uix-tooltip share-service-button share-linkedin-icon" data-service-name="LINKEDIN" onclick="yt.window.popup(&quot;http:\/\/www.linkedin.com\/shareArticle?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026title=oOoOO%20-%20Seaww\u0026summary=Seaww%20was%20featured%20on%20a%20split%207%22%20with%20White%20Ring%20on%20Emotion%20%28sold%20out%29.%20Video%20by%20Daniel%20Lopatin.%0A%0Ahttp%3A\/\/www.eeemotion.se\/%0Ahttp%3A\/\/www.facebook.com\/eeemotion%0Ahttps%3A\/\/twitter.com\/eeemotion%0A%0ABuy%20on%20iTunes%3A%20http%3A\/\/itunes.apple.com\/se\/album\/roses-seaww-emotion-single\/id362308200%0AListen%20on%20Spotify%3A%20http%3A\/\/open.spotify.com\/album\/55h8qAZzI5Bxjsn6VJi4in\u0026source=Youtube&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=LINKEDIN\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=42\u0026feature=share&quot;);return false;">
-                        <span class="share-service-icon share-service-icon-linkedin yt-sprite" title="Teilen auf LinkedIn"></span>
+                    <button class="yt-uix-tooltip share-service-button share-linkedin-icon" data-service-name="LINKEDIN"
+                            onclick="yt.window.popup(&quot;http:\/\/www.linkedin.com\/shareArticle?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026title=oOoOO%20-%20Seaww\u0026summary=Seaww%20was%20featured%20on%20a%20split%207%22%20with%20White%20Ring%20on%20Emotion%20%28sold%20out%29.%20Video%20by%20Daniel%20Lopatin.%0A%0Ahttp%3A\/\/www.eeemotion.se\/%0Ahttp%3A\/\/www.facebook.com\/eeemotion%0Ahttps%3A\/\/twitter.com\/eeemotion%0A%0ABuy%20on%20iTunes%3A%20http%3A\/\/itunes.apple.com\/se\/album\/roses-seaww-emotion-single\/id362308200%0AListen%20on%20Spotify%3A%20http%3A\/\/open.spotify.com\/album\/55h8qAZzI5Bxjsn6VJi4in\u0026source=Youtube&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=LINKEDIN\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=42\u0026feature=share&quot;);return false;">
+                        <span class="share-service-icon share-service-icon-linkedin yt-sprite"
+                              title="Teilen auf LinkedIn"></span>
                     </button>
                 </li>
 
                 <li>
-                    <button class="yt-uix-tooltip share-service-button share-livejournal-icon" data-service-name="LIVEJOURNAL" onclick="yt.window.popup(&quot;http:\/\/www.livejournal.com\/update.bml?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026subject=oOoOO%20-%20Seaww&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=LIVEJOURNAL\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=38\u0026feature=share&quot;);return false;">
-                        <span class="share-service-icon share-service-icon-livejournal yt-sprite" title="Teilen auf LiveJournal"></span>
+                    <button class="yt-uix-tooltip share-service-button share-livejournal-icon"
+                            data-service-name="LIVEJOURNAL"
+                            onclick="yt.window.popup(&quot;http:\/\/www.livejournal.com\/update.bml?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026subject=oOoOO%20-%20Seaww&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=LIVEJOURNAL\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=38\u0026feature=share&quot;);return false;">
+                        <span class="share-service-icon share-service-icon-livejournal yt-sprite"
+                              title="Teilen auf LiveJournal"></span>
                     </button>
                 </li>
 
                 <li>
-                    <button class="yt-uix-tooltip share-service-button share-pinterest-icon" data-service-name="PINTEREST" onclick="yt.window.popup(&quot;http:\/\/pinterest.com\/pin\/create\/button\/?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026description=oOoOO%20-%20Seaww\u0026is_video=true\u0026media=http%3A\/\/i.ytimg.com\/vi\/J0zYmPKAP18\/maxresdefault.jpg&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=PINTEREST\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=45\u0026feature=share&quot;);return false;">
-                        <span class="share-service-icon share-service-icon-pinterest yt-sprite" title="Teilen auf Pinterest"></span>
+                    <button class="yt-uix-tooltip share-service-button share-pinterest-icon"
+                            data-service-name="PINTEREST"
+                            onclick="yt.window.popup(&quot;http:\/\/pinterest.com\/pin\/create\/button\/?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026description=oOoOO%20-%20Seaww\u0026is_video=true\u0026media=http%3A\/\/i.ytimg.com\/vi\/J0zYmPKAP18\/maxresdefault.jpg&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=PINTEREST\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=45\u0026feature=share&quot;);return false;">
+                        <span class="share-service-icon share-service-icon-pinterest yt-sprite"
+                              title="Teilen auf Pinterest"></span>
                     </button>
                 </li>
 
                 <li>
-                    <button class="yt-uix-tooltip share-service-button share-digg-icon" data-service-name="DIGG" onclick="yt.window.popup(&quot;http:\/\/digg.com\/submit?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=DIGG\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=1\u0026feature=share&quot;);return false;">
-                        <span class="share-service-icon share-service-icon-digg yt-sprite" title="Teilen auf Digg"></span>
+                    <button class="yt-uix-tooltip share-service-button share-digg-icon" data-service-name="DIGG"
+                            onclick="yt.window.popup(&quot;http:\/\/digg.com\/submit?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=DIGG\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=1\u0026feature=share&quot;);return false;">
+                        <span class="share-service-icon share-service-icon-digg yt-sprite"
+                              title="Teilen auf Digg"></span>
                     </button>
                 </li>
 
@@ -384,7 +425,8 @@
         </div>
         <div>
             <span>
-                <input title="Link teilen" value="http://youtu.be/J0zYmPKAP18" name="share_url" class="form-control" type="url">
+                <input title="Link teilen" value="http://youtu.be/J0zYmPKAP18" name="share_url" class="form-control"
+                       type="url">
             </span>
         </div>
 

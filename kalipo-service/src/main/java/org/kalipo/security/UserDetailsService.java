@@ -53,6 +53,7 @@ public class UserDetailsService implements org.springframework.security.core.use
 
         // append privileges according to reputation
         // todo write query findByReputationLowerThan
+//        List<Privilege> privileges = privilegeRepository.findByReputationLowerThanOrEqual(userFromDatabase.getReputation());
         List<Privilege> privileges = privilegeRepository.findAll();
         for (Privilege privilege : privileges) {
             if (privilege.getReputation() <= userFromDatabase.getReputation()) {

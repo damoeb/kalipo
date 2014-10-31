@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.MetricRepositoryAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
@@ -14,18 +16,20 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
 @EnableAsync
 @ComponentScan
 @EnableAutoConfiguration(exclude = {MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class})
-public class Application {
+public class Application implements EmbeddedServletContainerCustomizer {
 
     private final Logger log = LoggerFactory.getLogger(Application.class);
 
     @Inject
     private Environment env;
+
 
     /**
      * Initializes kalipo.
@@ -50,11 +54,6 @@ public class Application {
      */
     public static void main(String[] args) {
 
-//        SpringApplication app = new SpringApplicationBuilder()
-//                .parent(Application.class)
-//                .resourceLoader(new StaticWebApplicationContext())
-//                .application();
-
         SpringApplication app = new SpringApplication(Application.class);
         app.setShowBanner(false);
 
@@ -73,6 +72,17 @@ public class Application {
     private static void addDefaultProfile(SpringApplication app, SimpleCommandLinePropertySource source) {
         if (!source.containsProperty("spring.profiles.active")) {
             app.setAdditionalProfiles(Constants.SPRING_PROFILE_DEVELOPMENT);
+        }
+    }
+
+    @Override
+    public void customize(ConfigurableEmbeddedServletContainer container) {
+        final String clientProject = "kalipo-client";
+
+        if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
+            container.setDocumentRoot(new File(clientProject + "/dist"));
+        } else {
+            container.setDocumentRoot(new File(clientProject + "/app"));
         }
     }
 }
