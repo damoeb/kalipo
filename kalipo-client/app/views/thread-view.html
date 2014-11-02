@@ -82,17 +82,12 @@
 </div>
 
 <script type="text/ng-template" id="likes_renderer.html">
-    <div ng-show="comment.dislikes > 0 || comment.likes > 0" style="line-height: 5px">
+    <div ng-show="comment.likes > 0" style="line-height: 5px" class="pull-right">
 
-        <div style="float: left; width: 50%" title="{{comment.dislikes}} dislikes">
-            <div ng-show="comment.dislikes > 0" class="pull-right" style="color: red; display: inline-block;">
-                <div style="height:5px; background-color: red; width: {{3 * comment.dislikes}}px; max-width: 120px; display: inline-block; margin: 2px 0 2px 0"></div>
+        <div style="width: 100px" title="{{comment.likes}} likes {{comment.dislikes}} dislikes">
+            <div class="post-bar-likes" style="width: {{comment.$likes}}%;">
             </div>
-        </div>
-        <div title="{{comment.likes}} likes">
-            <div ng-show="comment.likes > 0" style="color: green; display: inline-block; line-height: 5px">
-                <div style="height:5px; background-color: green; width: {{3 * comment.likes}}px; max-width: 120px; display: inline-block; margin: 2px 0 2px 0"></div>
-                <!--{{comment.likes}}-->
+            <div class="pull-right post-bar-dislikes" style="width: {{comment.$dislikes}}%;">
             </div>
         </div>
     </div>
@@ -104,8 +99,6 @@
         <h4>Your comment</h4>
 
         <form name="form" role="form" novalidate ng-submit="draft.parentId = null; create()">
-            <div><input class="form-control" ng-model="draft.title" ng-minlength=1 ng-maxlength=148
-                        placeholder="Title"></div>
             <div><textarea class="form-control" placeholder="Type your comment here..." ng-model="draft.text"
                            ng-minlength=1 ng-maxlength=2048 required></textarea></div>
 
@@ -138,9 +131,6 @@
 
         <form name="form" role="form" novalidate ng-submit="draft.parentId = comment.id; create()">
             <h4>Reply</h4>
-            <input class="form-control" ng-model="draft.title" ng-minlength=1 ng-maxlength=148
-                   placeholder="Title..."/>
-
             <div><textarea class="form-control" placeholder="Type your comment here..." ng-model="draft.text"
                            ng-minlength=1 ng-maxlength=2048 required></textarea></div>
 
@@ -168,30 +158,23 @@
             <!-- Maximized view -->
             <div ng-switch-default>
 
-                <div ng-include="'likes_renderer.html'"></div>
-
                 <div class="post">
                     <a id="{{comment.id}}"></a>
 
                     <div>
-                        <div class="menu" style="display: inline">
+
+                        <div ng-include="'likes_renderer.html'"></div>
+
+                        <span class="menu">
                             <a href="javascript:void(0)"
                                ng-click="comment.$maximized = !comment.$maximized" title="Click to minimize">
-                                <span class="glyphicon glyphicon-resize-small"></span></a>
-                        </div>
+                                <span class="glyphicon glyphicon-chevron-up"></span></a>
+                        </span>
 
-                        <strong>
-                            {{comment.title}}
-                        </strong>
+                        <a href="#/users/{{comment.authorId}}"><strong>{{comment.authorId}}</strong></a>
+                        <span style="color: grey; font-size: smaller" title="{{comment.createdDate | dateString }}">{{comment.createdDate | fromNow }}</span>
 
-                        <span class="pull-right" style="color: grey" title="{{comment.createdDate | dateString }}">{{comment.createdDate | fromNow }}</span>
-
-                    </div>
-
-                    <div>
-                        <span style="white-space: pre-line">{{comment.text}}</span> --
-                        <span style="color: grey">by <a
-                                href="#/users/{{comment.authorId}}">{{comment.authorId}}</a></span>
+                        <div style="white-space: pre-line">{{comment.text}}</div>
                     </div>
 
                     <div class="menu" style="border-top: 1px solid #efefef;">
@@ -200,9 +183,11 @@
                         </a>
                         <a class="voteUp" href="javascript:void(0)" ng-click="like(comment)">
                             <span class="glyphicon glyphicon-thumbs-up"></span>
+                            <span ng-show="comment.likes>0">{{comment.likes}}</span>
                         </a>
                         <a class="voteDown" href="javascript:void(0)" ng-click="dislike(comment)">
                             <span class="glyphicon glyphicon-thumbs-down"></span>
+                            <span ng-show="comment.dislikes>0">{{comment.dislikes}}</span>
                         </a>
                         <a ng-show="comment.parentId != null" href="javascript:void(0)"
                            ng-click="scrollTo(comment.parentId)">
@@ -266,15 +251,16 @@
                     <div style="overflow: hidden; max-height:3em; min-height:1.8em;"
                          ng-click="comment.$maximized = !comment.$maximized">
 
+                        <div ng-include="'likes_renderer.html'"></div>
+
                         <div style="display: inline">
                             <a href="javascript:void(0)">
-                                <span class="glyphicon glyphicon-resize-full"></span></a>
+                                <span class="glyphicon glyphicon-chevron-down"></span></a>
 
                             <!--<span ng-show="comment.parentId == null" class="glyphicon glyphicon-leaf"-->
                             <!--style="color: #666"></span>-->
 
-                            <strong>{{comment.title}}</strong>
-                            <span style="color: grey">({{comment.subcomments.length}} children)</span>
+                            <span style="color: grey" ng-show="comment.$subcomments > 0">({{comment.$subcomments}} children)</span>
                         </div>
 
                         <div style="white-space: nowrap; cursor: pointer; color: grey; display: inline">

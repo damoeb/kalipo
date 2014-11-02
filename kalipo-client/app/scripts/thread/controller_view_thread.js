@@ -62,6 +62,11 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
                 comment.subcomments = [];
                 comment.$report = false;
                 comment.$maximized = true;
+                comment.$subcomments = 0; // todo calculate
+
+                var total = comment.likes + comment.dislikes;
+                comment.$likes = comment.likes / total * 100;
+                comment.$dislikes = comment.dislikes / total * 100;
             }
 
             $.each(comments, function (index, comment) {
