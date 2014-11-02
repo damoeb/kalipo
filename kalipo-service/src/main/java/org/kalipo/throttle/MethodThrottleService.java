@@ -1,7 +1,7 @@
 package org.kalipo.throttle;
 
 import org.kalipo.config.ErrorCode;
-import org.kalipo.web.rest.KalipoRequestException;
+import org.kalipo.web.rest.KalipoException;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Singleton;
@@ -23,16 +23,16 @@ public class MethodThrottleService {
      *
      * @param methodName the unique method name
      * @param poolSize   max concurrent request allowed
-     * @throws KalipoRequestException if request limit is exceeded
+     * @throws org.kalipo.web.rest.KalipoException if request limit is exceeded
      */
-    public void initAndEnter(final String methodName, final int poolSize) throws KalipoRequestException {
+    public void initAndEnter(final String methodName, final int poolSize) throws KalipoException {
 
         if (!methods.containsKey(methodName)) {
             methods.put(methodName, poolSize);
         }
 
         if (methods.get(methodName) <= 0) {
-            throw new KalipoRequestException(ErrorCode.METHOD_REQUEST_LIMIT_REACHED);
+            throw new KalipoException(ErrorCode.METHOD_REQUEST_LIMIT_REACHED);
         }
 
         methods.put(methodName, methods.get(methodName) - 1);

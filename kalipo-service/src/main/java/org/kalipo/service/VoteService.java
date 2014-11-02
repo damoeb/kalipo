@@ -1,6 +1,6 @@
 package org.kalipo.service;
 
-import org.kalipo.aop.EnableArgumentValidation;
+import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Vote;
@@ -9,7 +9,7 @@ import org.kalipo.repository.VoteRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
-import org.kalipo.web.rest.KalipoRequestException;
+import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 @Service
-@EnableArgumentValidation
+@KalipoExceptionHandler
 public class VoteService {
 
     private final Logger log = LoggerFactory.getLogger(VoteService.class);
@@ -39,7 +39,7 @@ public class VoteService {
 
     @RolesAllowed(Privileges.CREATE_VOTE)
     @Throttled
-    public Vote create(@Valid Vote vote) throws KalipoRequestException {
+    public Vote create(@Valid Vote vote) throws KalipoException {
 
         Asserts.isNull(vote.getId(), "id");
 
@@ -68,11 +68,11 @@ public class VoteService {
     }
 
     @Async
-    public Future<Vote> get(String id) throws KalipoRequestException {
+    public Future<Vote> get(String id) throws KalipoException {
         return new AsyncResult<>(voteRepository.findOne(id));
     }
 
-    public void delete(String id) throws KalipoRequestException {
+    public void delete(String id) throws KalipoException {
         voteRepository.delete(id);
     }
 }

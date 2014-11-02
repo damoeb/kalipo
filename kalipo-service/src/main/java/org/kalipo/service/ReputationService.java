@@ -1,6 +1,6 @@
 package org.kalipo.service;
 
-import org.kalipo.aop.EnableArgumentValidation;
+import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
 import org.kalipo.domain.*;
 import org.kalipo.repository.CommentRepository;
@@ -10,7 +10,7 @@ import org.kalipo.repository.UserRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
-import org.kalipo.web.rest.KalipoRequestException;
+import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 @Service
-@EnableArgumentValidation
+@KalipoExceptionHandler
 public class ReputationService {
 
     private final Logger log = LoggerFactory.getLogger(ReputationService.class);
@@ -48,9 +48,10 @@ public class ReputationService {
      * todo: on dislikes: reputation -1 of voter and -2 of author
      * todo: on like: reputation +10 of author, probably reputation -1 of voter to hinder meat-puppet issue
      */
-    public void likeOrDislikeComment(Vote vote) throws KalipoRequestException {
+    public void likeOrDislikeComment(Vote vote) throws KalipoException {
 
         Asserts.isNotNull(vote, "vote");
+        Asserts.isNotNull(vote.getCommentId(), "commentId");
         vote.setAuthorId(SecurityUtils.getCurrentLogin());
 
         final Comment comment = commentRepository.findOne(vote.getCommentId());
@@ -77,7 +78,7 @@ public class ReputationService {
         updateUserReputation(rvForVoter);
     }
 
-    public void approveOrRejectReport(Report report) throws KalipoRequestException {
+    public void approveOrRejectReport(Report report) throws KalipoException {
         Asserts.isNotNull(report, "report");
 
         final Comment comment = commentRepository.findOne(report.getCommentId());
@@ -123,7 +124,7 @@ public class ReputationService {
 
     }
 
-    public void punishDeletingComment(@Valid @NotNull Comment comment) throws KalipoRequestException {
+    public void punishDeletingComment(@Valid @NotNull Comment comment) throws KalipoException {
         Asserts.isNotNull(comment, "comment");
 
         RepRevision rvForUser = createRevision(comment.getAuthorId(), comment.getId(), ReputationDefinition.Type.RM_COMMENT);
@@ -134,12 +135,12 @@ public class ReputationService {
 
     @RolesAllowed(Privileges.CREATE_PRIVILEGE)
     @Throttled
-    public void update(ReputationDefinition reputationDefinition) throws KalipoRequestException {
+    public void update(ReputationDefinition reputationDefinition) throws KalipoException {
         reputationDefinitionRepository.save(reputationDefinition);
     }
 
     @Async
-    public Future<ReputationDefinition> get(String id) throws KalipoRequestException {
+    public Future<ReputationDefinition> get(String id) throws KalipoException {
         return new AsyncResult<>(reputationDefinitionRepository.findOne(id));
     }
 

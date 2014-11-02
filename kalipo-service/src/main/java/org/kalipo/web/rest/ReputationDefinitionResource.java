@@ -44,7 +44,7 @@ public class ReputationDefinitionResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Reputation not found")
     })
-    public void update(@PathVariable String id, @NotNull @RequestBody ReputationDefinition reputation) throws KalipoRequestException {
+    public void update(@PathVariable String id, @NotNull @RequestBody ReputationDefinition reputation) throws KalipoException {
         log.debug("REST request to update Reputation : {}", reputation);
 
         Asserts.isNotNull(id, "id");
@@ -78,7 +78,7 @@ public class ReputationDefinitionResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Reputation not found")
     })
-    public ResponseEntity<ReputationDefinition> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
+    public ResponseEntity<ReputationDefinition> get(@PathVariable String id) throws KalipoException, ExecutionException, InterruptedException {
         log.debug("REST request to get Reputation : {}", id);
         Asserts.isNotNull(id, "id");
 

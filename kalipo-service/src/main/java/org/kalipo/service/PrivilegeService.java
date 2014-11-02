@@ -1,11 +1,12 @@
 package org.kalipo.service;
 
-import org.kalipo.aop.EnableArgumentValidation;
+import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
 import org.kalipo.domain.Privilege;
 import org.kalipo.repository.PrivilegeRepository;
 import org.kalipo.security.Privileges;
-import org.kalipo.web.rest.KalipoRequestException;
+import org.kalipo.service.util.Asserts;
+import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 @Service
-@EnableArgumentValidation
+@KalipoExceptionHandler
 public class PrivilegeService {
 
     private final Logger log = LoggerFactory.getLogger(PrivilegeService.class);
@@ -28,21 +29,21 @@ public class PrivilegeService {
 
     @RolesAllowed(Privileges.CREATE_PRIVILEGE)
     @Throttled
-    public void create(Privilege privilege) throws KalipoRequestException {
-
-        // todo id must not exist id
-        save(privilege);
+    public Privilege create(Privilege privilege) throws KalipoException {
+        Asserts.isNotNull(privilege, "privilege");
+        return save(privilege);
     }
 
     @RolesAllowed(Privileges.CREATE_PRIVILEGE)
     @Throttled
-    public void update(Privilege privilege) throws KalipoRequestException {
-
-        save(privilege);
+    public Privilege update(Privilege privilege) throws KalipoException {
+        Asserts.isNotNull(privilege, "privilege");
+        Asserts.isNotNull(privilege.getId(), "id");
+        return save(privilege);
     }
 
-    private void save(Privilege privilege) throws KalipoRequestException {
-        privilegeRepository.save(privilege);
+    private Privilege save(Privilege privilege) throws KalipoException {
+        return privilegeRepository.save(privilege);
     }
 
     @Async
@@ -51,11 +52,11 @@ public class PrivilegeService {
     }
 
     @Async
-    public Future<Privilege> get(String id) throws KalipoRequestException {
+    public Future<Privilege> get(String id) throws KalipoException {
         return new AsyncResult<>(privilegeRepository.findOne(id));
     }
 
-    public void delete(String id) throws KalipoRequestException {
+    public void delete(String id) throws KalipoException {
         privilegeRepository.delete(id);
     }
 

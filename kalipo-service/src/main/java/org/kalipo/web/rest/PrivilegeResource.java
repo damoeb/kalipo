@@ -41,9 +41,9 @@ public class PrivilegeResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new privilege")
-    public void create(@NotNull @RequestBody Privilege privilege) throws KalipoRequestException {
+    public Privilege create(@NotNull @RequestBody Privilege privilege) throws KalipoException {
         log.debug("REST request to save Privilege : {}", privilege);
-        privilegeService.create(privilege);
+        return privilegeService.create(privilege);
     }
 
     /**
@@ -58,13 +58,13 @@ public class PrivilegeResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Privilege not found")
     })
-    public void update(@PathVariable String id, @NotNull @RequestBody Privilege privilege) throws KalipoRequestException {
+    public Privilege update(@PathVariable String id, @NotNull @RequestBody Privilege privilege) throws KalipoException {
         log.debug("REST request to update Privilege : {}", privilege);
 
         Asserts.isNotNull(id, "id");
 
         privilege.setId(id);
-        privilegeService.update(privilege);
+        return privilegeService.update(privilege);
     }
 
     /**
@@ -92,7 +92,7 @@ public class PrivilegeResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Privilege not found")
     })
-    public ResponseEntity<Privilege> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
+    public ResponseEntity<Privilege> get(@PathVariable String id) throws KalipoException, ExecutionException, InterruptedException {
         log.debug("REST request to get Privilege : {}", id);
         Asserts.isNotNull(id, "id");
 
@@ -112,7 +112,7 @@ public class PrivilegeResource {
     @Timed
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Delete the \"id\" privilege")
-    public void delete(@PathVariable String id) throws KalipoRequestException {
+    public void delete(@PathVariable String id) throws KalipoException {
         log.debug("REST request to delete Privilege : {}", id);
         Asserts.isNotNull(id, "id");
 

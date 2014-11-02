@@ -3,6 +3,7 @@ fix comment.html
 fix atmosphere
 review workflow
 rm EnableArgument
+rm title for comment in frontend
 Support quotes
 tabs: discussion/authors/stats
 Realtime: 2 typing... oder Armin is typing..

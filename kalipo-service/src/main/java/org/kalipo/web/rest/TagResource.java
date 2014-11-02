@@ -43,7 +43,7 @@ public class TagResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new tag")
-    public Tag create(@NotNull @RequestBody Tag tag) throws KalipoRequestException {
+    public Tag create(@NotNull @RequestBody Tag tag) throws KalipoException {
         log.debug("REST request to save Tag : {}", tag);
 
         Asserts.isNull(tag.getId(), "id");
@@ -76,7 +76,7 @@ public class TagResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Tag not found")
     })
-    public ResponseEntity<Tag> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
+    public ResponseEntity<Tag> get(@PathVariable String id) throws KalipoException, ExecutionException, InterruptedException {
         log.debug("REST request to get Tag : {}", id);
         Asserts.isNotNull(id, "id");
 
@@ -96,7 +96,7 @@ public class TagResource {
     @Timed
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Delete the \"id\" tag")
-    public void delete(@PathVariable String id) throws KalipoRequestException {
+    public void delete(@PathVariable String id) throws KalipoException {
         log.debug("REST request to delete Tag : {}", id);
         Asserts.isNotNull(id, "id");
 

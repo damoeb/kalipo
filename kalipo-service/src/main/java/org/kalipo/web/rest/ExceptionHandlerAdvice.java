@@ -14,11 +14,13 @@ import java.util.List;
 /**
  * Created by damoeb on 17.09.14.
  */
+// todo does not work
+@Deprecated
 @ControllerAdvice(annotations = RestController.class)
 public class ExceptionHandlerAdvice {
 
-    @ExceptionHandler(KalipoRequestException.class)
-    private ResponseEntity<ExceptionSummary> handleKalipoException(KalipoRequestException exception) {
+    @ExceptionHandler(KalipoException.class)
+    private ResponseEntity<ExceptionSummary> handleKalipoException(KalipoException exception) {
         return new ResponseEntity<>(new ExceptionSummary(exception), HttpStatus.BAD_REQUEST);
     }
 

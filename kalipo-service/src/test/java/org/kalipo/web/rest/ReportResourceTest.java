@@ -66,7 +66,7 @@ public class ReportResourceTest {
     private Report report;
 
     @Before
-    public void setup() throws KalipoRequestException {
+    public void setup() throws KalipoException {
         MockitoAnnotations.initMocks(this);
         ReportResource reportResource = new ReportResource();
         ReflectionTestUtils.setField(reportResource, "reportService", reportService);

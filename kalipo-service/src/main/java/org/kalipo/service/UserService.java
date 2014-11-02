@@ -12,7 +12,7 @@ import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
 import org.kalipo.service.util.RandomUtil;
-import org.kalipo.web.rest.KalipoRequestException;
+import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -153,7 +153,7 @@ public class UserService {
     }
 
     @RolesAllowed(Privileges.BAN_USER)
-    public User ban(String login) throws KalipoRequestException {
+    public User ban(String login) throws KalipoException {
         User user = userRepository.findOne(login);
 
         Asserts.isNotNull(user, "login");

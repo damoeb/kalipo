@@ -12,7 +12,7 @@ public class ExceptionSummary {
         this.errorMessage = message;
     }
 
-    public ExceptionSummary(KalipoRequestException exception) {
+    public ExceptionSummary(KalipoException exception) {
         this.errorMessage = exception.getMessage();
         this.errorCode = exception.getErrorCode().getCode();
         this.resource = exception.getResource();

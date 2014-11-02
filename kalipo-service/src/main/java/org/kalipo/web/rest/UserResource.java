@@ -52,7 +52,7 @@ public class UserResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    ResponseEntity<User> ban(@PathVariable String login) throws KalipoRequestException {
+    ResponseEntity<User> ban(@PathVariable String login) throws KalipoException {
         log.debug("REST request to ban User : {}", login);
         return new ResponseEntity<>(userService.ban(login), HttpStatus.OK);
     }

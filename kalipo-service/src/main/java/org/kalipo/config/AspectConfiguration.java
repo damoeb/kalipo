@@ -1,6 +1,6 @@
 package org.kalipo.config;
 
-import org.kalipo.aop.ArgumentValidationAspect;
+import org.kalipo.aop.ExceptionHandlerAspect;
 import org.kalipo.aop.MethodThrottleAspect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +14,8 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 public class AspectConfiguration {
 
     @Bean
-    public ArgumentValidationAspect argumentValidationAspect() {
-        return new ArgumentValidationAspect();
+    public ExceptionHandlerAspect exceptionHandlerAspect() {
+        return new ExceptionHandlerAspect();
     }
 
     @Bean

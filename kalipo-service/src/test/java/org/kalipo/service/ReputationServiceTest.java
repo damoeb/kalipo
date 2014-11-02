@@ -14,7 +14,7 @@ import org.kalipo.repository.UserRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.web.rest.CommentResourceTest;
-import org.kalipo.web.rest.KalipoRequestException;
+import org.kalipo.web.rest.KalipoException;
 import org.kalipo.web.rest.TestUtil;
 import org.kalipo.web.rest.ThreadResourceTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -61,7 +61,7 @@ public class ReputationServiceTest {
     private Comment comment;
 
     @Before
-    public void test_before() throws KalipoRequestException {
+    public void test_before() throws KalipoException {
         TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_COMMENT, Privileges.CREATE_THREAD));
 
         Thread thread = ThreadResourceTest.newThread();
@@ -77,7 +77,7 @@ public class ReputationServiceTest {
 
         User userBefore = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
-//        exception.expect(KalipoRequestException.class);
+//        exception.expect(KalipoException.class);
         reputationService.initUser(userBefore);
 
         // get user reputation
@@ -93,7 +93,7 @@ public class ReputationServiceTest {
     }
 
     @Test
-    public void test_likeComment() throws KalipoRequestException {
+    public void test_likeComment() throws KalipoException {
 
         User userBefore = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
@@ -113,7 +113,7 @@ public class ReputationServiceTest {
     }
 
     @Test
-    public void test_dislikeComment() throws KalipoRequestException {
+    public void test_dislikeComment() throws KalipoException {
 
         User userBefore = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
@@ -133,7 +133,7 @@ public class ReputationServiceTest {
     }
 
     @Test
-    public void test_approveReport() throws KalipoRequestException {
+    public void test_approveReport() throws KalipoException {
 
         User userBefore = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
@@ -154,7 +154,7 @@ public class ReputationServiceTest {
     }
 
     @Test
-    public void test_rejectReport() throws KalipoRequestException {
+    public void test_rejectReport() throws KalipoException {
 
         User userBefore = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
@@ -175,7 +175,7 @@ public class ReputationServiceTest {
     }
 
     @Test
-    public void test_punishDeletingComment() throws KalipoRequestException {
+    public void test_punishDeletingComment() throws KalipoException {
 
         User userBefore = userRepository.findOne(SecurityUtils.getCurrentLogin());
 

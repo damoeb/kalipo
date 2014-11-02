@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -96,7 +97,9 @@ public class ThreadResourceTest {
                 .andDo(new ResultHandler() {
                     @Override
                     public void handle(MvcResult result) throws Exception {
-                        threadId = TestUtil.toJson(result).getString("id");
+                        JSONObject json = TestUtil.toJson(result);
+                        threadId = json.getString("id");
+                        thread.setLeadCommentId(json.getString("leadCommentId"));
                     }
                 });
 

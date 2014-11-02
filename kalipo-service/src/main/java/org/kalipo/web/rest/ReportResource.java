@@ -40,7 +40,7 @@ public class ReportResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new report")
-    public Report create(@NotNull @RequestBody Report report) throws KalipoRequestException {
+    public Report create(@NotNull @RequestBody Report report) throws KalipoException {
         log.debug("REST request to save Report : {}", report);
 
         return reportService.create(report);
@@ -58,7 +58,7 @@ public class ReportResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Report not found")
     })
-    public void approve(@NotNull @PathVariable String id) throws KalipoRequestException {
+    public void approve(@NotNull @PathVariable String id) throws KalipoException {
         log.debug("REST request to approve Report : {}", id);
 
         reportService.approve(id);
@@ -76,7 +76,7 @@ public class ReportResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Report not found")
     })
-    public void reject(@NotNull @PathVariable String id) throws KalipoRequestException {
+    public void reject(@NotNull @PathVariable String id) throws KalipoException {
         log.debug("REST request to reject Report : {}", id);
 
         reportService.reject(id);
@@ -122,7 +122,7 @@ public class ReportResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Report not found")
     })
-    public ResponseEntity<Report> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
+    public ResponseEntity<Report> get(@PathVariable String id) throws KalipoException, ExecutionException, InterruptedException {
         log.debug("REST request to get Report : {}", id);
 
         return Optional.ofNullable(reportService.get(id).get())
@@ -141,7 +141,7 @@ public class ReportResource {
     @Timed
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Delete the \"id\" report")
-    public void delete(@PathVariable String id) throws KalipoRequestException {
+    public void delete(@PathVariable String id) throws KalipoException {
         log.debug("REST request to delete Report : {}", id);
 
         reportService.delete(id);

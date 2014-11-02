@@ -43,7 +43,7 @@ public class CommentResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new comment")
-    public Comment create(@NotNull @RequestBody Comment comment) throws KalipoRequestException {
+    public Comment create(@NotNull @RequestBody Comment comment) throws KalipoException {
         log.debug("REST request to save Comment : {}", comment);
 
         return commentService.create(comment);
@@ -61,7 +61,7 @@ public class CommentResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Comment not found")
     })
-    public Comment update(@PathVariable String id, @NotNull @RequestBody Comment comment) throws KalipoRequestException {
+    public Comment update(@PathVariable String id, @NotNull @RequestBody Comment comment) throws KalipoException {
         log.debug("REST request to update Comment : {}", comment);
 
         Asserts.isNotNull(id, "id");
@@ -97,7 +97,7 @@ public class CommentResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Comment not found")
     })
-    public ResponseEntity<Comment> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
+    public ResponseEntity<Comment> get(@PathVariable String id) throws KalipoException, ExecutionException, InterruptedException {
         log.debug("REST request to get Comment : {}", id);
         Asserts.isNotNull(id, "id");
 
@@ -117,7 +117,7 @@ public class CommentResource {
     @Timed
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Delete the \"id\" comment")
-    public void delete(@PathVariable String id) throws KalipoRequestException {
+    public void delete(@PathVariable String id) throws KalipoException {
         log.debug("REST request to delete Comment : {}", id);
 
         Asserts.isNotNull(id, "id");

@@ -45,7 +45,7 @@ public class ThreadResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new thread")
-    public Thread create(@NotNull @RequestBody Thread thread) throws KalipoRequestException {
+    public Thread create(@NotNull @RequestBody Thread thread) throws KalipoException {
         log.debug("REST request to save Thread : {}", thread);
 
         return threadService.create(thread);
@@ -63,7 +63,7 @@ public class ThreadResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Thread not found")
     })
-    public Thread update(@PathVariable String id, @NotNull @RequestBody Thread thread) throws KalipoRequestException {
+    public Thread update(@PathVariable String id, @NotNull @RequestBody Thread thread) throws KalipoException {
         log.debug("REST request to update Thread : {}", thread);
 
         Asserts.isNotNull(id, "id");
@@ -98,7 +98,7 @@ public class ThreadResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Thread not found")
     })
-    public ResponseEntity<Thread> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
+    public ResponseEntity<Thread> get(@PathVariable String id) throws KalipoException, ExecutionException, InterruptedException {
         log.debug("REST request to get Thread : {}", id);
         Asserts.isNotNull(id, "id");
 
@@ -118,7 +118,7 @@ public class ThreadResource {
     @Timed
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Delete the \"id\" thread")
-    public void delete(@PathVariable String id) throws KalipoRequestException {
+    public void delete(@PathVariable String id) throws KalipoException {
         log.debug("REST request to delete Thread : {}", id);
         Asserts.isNotNull(id, "id");
 
@@ -137,7 +137,7 @@ public class ThreadResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Thread not found")
     })
-    public void setTags(@PathVariable String id, @NotNull @RequestBody Set<Tag> tags) throws KalipoRequestException {
+    public void setTags(@PathVariable String id, @NotNull @RequestBody Set<Tag> tags) throws KalipoException {
         log.debug("REST request to add Tags {} to thread {}", tags, id);
 
         Asserts.isNotNull(id, "id");
@@ -158,7 +158,7 @@ public class ThreadResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Thread not found")
     })
-    public ResponseEntity<List<Comment>> getComments(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
+    public ResponseEntity<List<Comment>> getComments(@PathVariable String id) throws KalipoException, ExecutionException, InterruptedException {
         log.debug("REST request to get Comments of Thread : {}", id);
         Asserts.isNotNull(id, "id");
 

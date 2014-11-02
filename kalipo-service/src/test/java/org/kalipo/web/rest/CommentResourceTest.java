@@ -46,8 +46,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("dev")
 public class CommentResourceTest {
 
-    private static final String UPD_SAMPLE_TITLE_ATTR = "updSampleTitle";
-
     private static final String UPD_SAMPLE_TEXT_ATTR = "updSampleText";
     private static final String DEFAULT_TEXT = "sampleText";
 
@@ -66,14 +64,14 @@ public class CommentResourceTest {
     private Comment comment;
 
     @Before
-    public void setup() throws KalipoRequestException {
+    public void setup() throws KalipoException {
         MockitoAnnotations.initMocks(this);
         CommentResource commentResource = new CommentResource();
         ReflectionTestUtils.setField(commentResource, "commentService", commentService);
 
         this.restCommentMockMvc = MockMvcBuilders.standaloneSetup(commentResource).build();
 
-        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_COMMENT, Privileges.CREATE_THREAD));
+        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_COMMENT, Privileges.CREATE_THREAD, Privileges.MODERATE_THREAD));
 
         Thread thread = ThreadResourceTest.newThread();
         threadService.create(thread);
@@ -108,12 +106,10 @@ public class CommentResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(commentId))
-                .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
                 .andExpect(jsonPath("$.text").value(DEFAULT_TEXT))
         ;
 
 //        // Update Comment
-        comment.setTitle(UPD_SAMPLE_TITLE_ATTR);
         comment.setText(UPD_SAMPLE_TEXT_ATTR);
 //
         restCommentMockMvc.perform(put("/app/rest/comments/{id}", commentId)
@@ -126,7 +122,6 @@ public class CommentResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(commentId))
-                .andExpect(jsonPath("$.title").value(UPD_SAMPLE_TITLE_ATTR))
                 .andExpect(jsonPath("$.text").value(UPD_SAMPLE_TEXT_ATTR))
         ;
 
@@ -146,7 +141,7 @@ public class CommentResourceTest {
     public void test_failCommentOnReadOnlyThread() throws Exception {
 
         Thread thread = ThreadResourceTest.newThread();
-        threadService.create(thread);
+        thread = threadService.create(thread);
 
         thread.setReadOnly(true);
         threadService.update(thread);
@@ -165,7 +160,6 @@ public class CommentResourceTest {
     public static Comment newComment() {
         Comment comment = new Comment();
         comment.setText(DEFAULT_TEXT);
-        comment.setTitle(DEFAULT_TITLE);
         return comment;
     }
 }

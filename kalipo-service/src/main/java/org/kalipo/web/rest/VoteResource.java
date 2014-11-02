@@ -41,7 +41,7 @@ public class VoteResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new vote")
-    public Vote create(@NotNull @RequestBody Vote vote) throws KalipoRequestException {
+    public Vote create(@NotNull @RequestBody Vote vote) throws KalipoException {
         log.debug("REST request to save Vote : {}", vote);
 
         return voteService.create(vote);
@@ -73,7 +73,7 @@ public class VoteResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Vote not found")
     })
-    public ResponseEntity<Vote> get(@PathVariable String id) throws KalipoRequestException, ExecutionException, InterruptedException {
+    public ResponseEntity<Vote> get(@PathVariable String id) throws KalipoException, ExecutionException, InterruptedException {
         log.debug("REST request to get Vote : {}", id);
         Asserts.isNotNull(id, "id");
 
@@ -93,7 +93,7 @@ public class VoteResource {
     @Timed
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Delete the \"id\" vote")
-    public void delete(@PathVariable String id) throws KalipoRequestException {
+    public void delete(@PathVariable String id) throws KalipoException {
         log.debug("REST request to delete Vote : {}", id);
 
         Asserts.isNotNull(id, "id");

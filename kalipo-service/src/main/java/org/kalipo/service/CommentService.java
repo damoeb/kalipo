@@ -1,6 +1,6 @@
 package org.kalipo.service;
 
-import org.kalipo.aop.EnableArgumentValidation;
+import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Thread;
@@ -9,7 +9,7 @@ import org.kalipo.repository.ThreadRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
-import org.kalipo.web.rest.KalipoRequestException;
+import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 @Service
-@EnableArgumentValidation
+@KalipoExceptionHandler
 public class CommentService {
 
     private final Logger log = LoggerFactory.getLogger(CommentService.class);
@@ -38,7 +38,7 @@ public class CommentService {
 
     @RolesAllowed(Privileges.CREATE_COMMENT)
     @Throttled
-    public Comment create(Comment comment) throws KalipoRequestException {
+    public Comment create(Comment comment) throws KalipoException {
 
         Asserts.isNotNull(comment, "comment");
         Asserts.isNull(comment.getId(), "id");
@@ -48,7 +48,7 @@ public class CommentService {
 
     @RolesAllowed(Privileges.CREATE_COMMENT)
     @Throttled
-    public Comment update(Comment comment) throws KalipoRequestException {
+    public Comment update(Comment comment) throws KalipoException {
         Asserts.isNotNull(comment, "comment");
         Asserts.isNotNull(comment.getId(), "id");
 
@@ -58,7 +58,9 @@ public class CommentService {
         return save(comment, false);
     }
 
-    private Comment save(Comment comment, boolean isNew) throws KalipoRequestException {
+    private Comment save(Comment comment, boolean isNew) throws KalipoException {
+
+        Asserts.isNotNull(comment.getThreadId(), "threadId");
 
         Thread thread = threadRepository.findOne(comment.getThreadId());
         Asserts.isNotNull(thread, "threadId");
@@ -82,12 +84,12 @@ public class CommentService {
     }
 
     @Async
-    public Future<Comment> get(String id) throws KalipoRequestException {
+    public Future<Comment> get(String id) throws KalipoException {
         return new AsyncResult<>(commentRepository.findOne(id));
     }
 
     @Throttled
-    public void delete(String id) throws KalipoRequestException {
+    public void delete(String id) throws KalipoException {
 
         Comment comment = commentRepository.findOne(id);
         Asserts.isNotNull(comment, "id");

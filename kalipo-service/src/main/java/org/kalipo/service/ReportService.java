@@ -1,6 +1,6 @@
 package org.kalipo.service;
 
-import org.kalipo.aop.EnableArgumentValidation;
+import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
@@ -10,7 +10,7 @@ import org.kalipo.repository.ReportRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
-import org.kalipo.web.rest.KalipoRequestException;
+import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -30,7 +30,7 @@ import java.util.concurrent.Future;
  * todo: support updates for approve, reject
  */
 @Service
-@EnableArgumentValidation
+@KalipoExceptionHandler
 public class ReportService {
 
     private final Logger log = LoggerFactory.getLogger(ReportService.class);
@@ -46,9 +46,10 @@ public class ReportService {
 
     @RolesAllowed(Privileges.CREATE_REPORT)
     @Throttled
-    public Report create(Report report) throws KalipoRequestException {
+    public Report create(Report report) throws KalipoException {
 
         Asserts.isNull(report.getId(), "id");
+        Asserts.isNotNull(report.getCommentId(), "commentId");
 
         report.setStatus(Report.Status.PENDING);
 
@@ -65,13 +66,13 @@ public class ReportService {
 
     @RolesAllowed(Privileges.CLOSE_REPORT)
     @Throttled
-    public void approve(String id) throws KalipoRequestException {
+    public void approve(String id) throws KalipoException {
         approveOrReject(getPendingReport(id).setStatus(Report.Status.APPROVED));
     }
 
     @RolesAllowed(Privileges.CLOSE_REPORT)
     @Throttled
-    public void reject(String id) throws KalipoRequestException {
+    public void reject(String id) throws KalipoException {
         approveOrReject(getPendingReport(id).setStatus(Report.Status.REJECTED));
     }
 
@@ -88,7 +89,7 @@ public class ReportService {
     }
 
     @Async
-    public Future<Report> get(String id) throws KalipoRequestException {
+    public Future<Report> get(String id) throws KalipoException {
         return new AsyncResult<Report>(reportRepository.findOne(id));
     }
 
@@ -96,9 +97,9 @@ public class ReportService {
      * Delete a pending report
      *
      * @param id the report id
-     * @throws KalipoRequestException
+     * @throws org.kalipo.web.rest.KalipoException
      */
-    public void delete(String id) throws KalipoRequestException {
+    public void delete(String id) throws KalipoException {
 
         getPendingReport(id); // will fail if not pending or existing
 
@@ -107,7 +108,7 @@ public class ReportService {
 
     // --
 
-    private void approveOrReject(Report report) throws KalipoRequestException {
+    private void approveOrReject(Report report) throws KalipoException {
         reputationService.approveOrRejectReport(report);
 
         report.setReviewerId(SecurityUtils.getCurrentLogin());
@@ -115,13 +116,13 @@ public class ReportService {
         reportRepository.save(report);
     }
 
-    private Report getPendingReport(String id) throws KalipoRequestException {
+    private Report getPendingReport(String id) throws KalipoException {
         Report report = reportRepository.findOne(id);
 
         Asserts.isNotNull(report, "id");
 
         if (report.getStatus() != Report.Status.PENDING) {
-            throw new KalipoRequestException(ErrorCode.CONSTRAINT_VIOLATED, "Report must be pending");
+            throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "Report must be pending");
         }
         return report;
     }

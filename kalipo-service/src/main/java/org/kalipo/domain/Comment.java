@@ -17,7 +17,6 @@ import javax.validation.constraints.Size;
 @Document(collection = "T_COMMENT")
 public class Comment {
 
-    public static final int LEN_TITLE = 128;
     public static final int LEN_TEXT = 2048;
 
     @Id
@@ -39,9 +38,6 @@ public class Comment {
     @NotNull(message = "{constraint.notnull.text}")
     @Size(min = 2, max = LEN_TEXT, message = "{constraint.length.text}")
     private String text;
-
-    @Size(max = LEN_TITLE)
-    private String title;
 
     @NotNull(message = "{constraint.notnull.authorId}")
     private String authorId;
@@ -102,14 +98,6 @@ public class Comment {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getAuthorId() {

@@ -1,7 +1,7 @@
 package org.kalipo.service;
 
 import org.apache.commons.lang3.StringUtils;
-import org.kalipo.aop.EnableArgumentValidation;
+import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Tag;
@@ -11,7 +11,7 @@ import org.kalipo.repository.ThreadRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
-import org.kalipo.web.rest.KalipoRequestException;
+import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -26,7 +26,7 @@ import java.util.Set;
 import java.util.concurrent.Future;
 
 @Service
-@EnableArgumentValidation
+@KalipoExceptionHandler
 public class ThreadService {
 
     private final Logger log = LoggerFactory.getLogger(ThreadService.class);
@@ -42,7 +42,7 @@ public class ThreadService {
 
     @RolesAllowed(Privileges.CREATE_THREAD)
     @Throttled
-    public Thread create(Thread thread) throws KalipoRequestException {
+    public Thread create(Thread thread) throws KalipoException {
 
         Asserts.isNotNull(thread, "thread");
         Asserts.isNull(thread.getId(), "id");
@@ -57,7 +57,6 @@ public class ThreadService {
         // create lead comment
         Comment comment = new Comment();
         comment.setThreadId(thread.getId());
-        comment.setTitle(thread.getTitle());
         comment.setText(thread.getText());
 
         comment = commentService.create(comment);
@@ -71,7 +70,7 @@ public class ThreadService {
 
     @RolesAllowed(Privileges.MODERATE_THREAD)
     @Throttled
-    public Thread update(Thread thread) throws KalipoRequestException {
+    public Thread update(Thread thread) throws KalipoException {
         Asserts.isNotNull(thread, "thread");
         Asserts.isNotNull(thread.getId(), "id");
 
@@ -94,7 +93,7 @@ public class ThreadService {
         return save(thread);
     }
 
-    private Thread save(Thread thread) throws KalipoRequestException {
+    private Thread save(Thread thread) throws KalipoException {
 
         if (StringUtils.isNotBlank(thread.getUriHook())) {
             Asserts.hasPrivilege(Privileges.HOOK_THREAD_TO_URL);
@@ -111,21 +110,21 @@ public class ThreadService {
     }
 
     @Async
-    public Future<Thread> get(String id) throws KalipoRequestException {
+    public Future<Thread> get(String id) throws KalipoException {
         return new AsyncResult<Thread>(threadRepository.findOne(id));
     }
 
     @Async
-    public Future<List<Comment>> getComments(String id) throws KalipoRequestException {
+    public Future<List<Comment>> getComments(String id) throws KalipoException {
         return new AsyncResult<List<Comment>>(commentRepository.findByThreadIdAndStatus(id, Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING)));
     }
 
-    public void delete(String id) throws KalipoRequestException {
+    public void delete(String id) throws KalipoException {
         threadRepository.delete(id);
     }
 
     @RolesAllowed(Privileges.CREATE_THREAD)
-    public void setTagsOfThread(String id, Set<Tag> tags) throws KalipoRequestException {
+    public void setTagsOfThread(String id, Set<Tag> tags) throws KalipoException {
         Thread thread = threadRepository.findOne(id);
 
         Asserts.isNotNull(thread, "id");

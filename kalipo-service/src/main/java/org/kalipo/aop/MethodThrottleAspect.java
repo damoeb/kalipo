@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.kalipo.throttle.MethodThrottleService;
-import org.kalipo.web.rest.KalipoRequestException;
+import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +30,7 @@ public class MethodThrottleAspect {
     }
 
     @Before("throttledMethod()")
-    public void enter(JoinPoint joinPoint) throws KalipoRequestException {
+    public void enter(JoinPoint joinPoint) throws KalipoException {
 
         final MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 

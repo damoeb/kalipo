@@ -67,7 +67,7 @@ public class VoteResourceTest {
     private Vote vote;
 
     @Before
-    public void setup() throws KalipoRequestException {
+    public void setup() throws KalipoException {
         MockitoAnnotations.initMocks(this);
         VoteResource voteResource = new VoteResource();
         ReflectionTestUtils.setField(voteResource, "voteService", voteService);
@@ -80,7 +80,7 @@ public class VoteResourceTest {
         threadService.create(thread);
         Comment comment = CommentResourceTest.newComment();
         comment.setThreadId(thread.getId());
-        commentService.create(comment);
+        comment = commentService.create(comment);
 
         commentId = comment.getId();
 
