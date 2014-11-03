@@ -12,6 +12,8 @@ import org.kalipo.service.util.Asserts;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ import java.util.concurrent.Future;
 @KalipoExceptionHandler
 public class CommentService {
 
+    private static final int PAGE_SIZE = 5;
     private final Logger log = LoggerFactory.getLogger(CommentService.class);
 
     @Inject
@@ -54,8 +57,23 @@ public class CommentService {
 
         Comment orgComment = commentRepository.findOne(comment.getId());
         Asserts.isCurrentLogin(orgComment.getAuthorId());
+        // todo assert same status
 
         return save(comment, false);
+    }
+
+    @RolesAllowed(Privileges.REVIEW_COMMENT)
+    @Throttled
+    public Comment approve(String id) throws KalipoException {
+        // todo implement
+        return null;
+    }
+
+    @RolesAllowed(Privileges.REVIEW_COMMENT)
+    @Throttled
+    public Comment reject(String id) throws KalipoException {
+        // todo implement
+        return null;
     }
 
     private Comment save(Comment comment, boolean isNew) throws KalipoException {
@@ -79,8 +97,9 @@ public class CommentService {
     }
 
     @Async
-    public Future<List<Comment>> findAll() {
-        return new AsyncResult<>(commentRepository.findAll());
+    public Future<List<Comment>> findAllUnderReview(final int pageNumber) {
+        PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, "createdDate");
+        return new AsyncResult<>(commentRepository.findByStatus(Comment.Status.PENDING, pageable));
     }
 
     @Async

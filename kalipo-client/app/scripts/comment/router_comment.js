@@ -3,12 +3,12 @@
 kalipoApp
     .config(function ($routeProvider, $httpProvider, $translateProvider, USER_ROLES) {
             $routeProvider
-                .when('/comment', {
+                .when('/review', {
                     templateUrl: 'views/comments.html',
-                    controller: 'CommentController',
+                    controller: 'ReviewCommentController',
                     resolve:{
                         resolvedComment: ['Comment', function (Comment) {
-                            return Comment.query();
+                            return Comment.getCandidates();
                         }]
                     },
                     access: {

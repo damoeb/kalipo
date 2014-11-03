@@ -43,17 +43,24 @@
         <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="authenticated">
             <ul class="nav navbar-nav nav-pills navbar-right">
                 <li class="dropdown pointer" ng-switch-when="true">
-                <a href="#/thread/create">
+                    <a href="#/thread/create">
                         <span>
                             Create Discussion
                         </span>
                     </a>
                 </li>
                 <li class="dropdown pointer" ng-switch-when="true">
-                    <a href="#/notifications">
+                    <a href="#/notifications" title="Notifications">
                         <span class="glyphicon glyphicon-comment">
                         </span>
                         <span class="label label-danger">4</span>
+                    </a>
+                </li>
+                <li class="dropdown pointer" ng-switch-when="true">
+                    <a href="#/review" title="Pending Comments">
+                        <span class="glyphicon glyphicon-eye-close">
+                        </span>
+                        <span class="label label-default">14</span>
                     </a>
                 </li>
                 <li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer"
@@ -86,8 +93,6 @@
                                 </span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#/comment">
-                            &#xA0;<span>Comments</span></a></li>
                         <li><a href="#/privilege">
                             &#xA0;<span>Privileges</span></a></li>
                         <li><a href="#/report">
@@ -195,7 +200,7 @@
 <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/collapse.js"></script>
 <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/tab.js"></script>
 <script src="scripts/comment/router_comment.js"></script>
-<script src="scripts/comment/controller_comment.js"></script>
+<script src="scripts/comment/controller_review_comment.js"></script>
 <script src="scripts/comment/service_comment.js"></script>
 <script src="scripts/thread/router_thread.js"></script>
 <script src="scripts/thread/controller_thread.js"></script>

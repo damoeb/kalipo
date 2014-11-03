@@ -71,18 +71,53 @@ public class CommentResource {
     }
 
     /**
-     * GET  /rest/comments -> get all the comments.
+     * PUT  /rest/comments/{id}/approve -> Update existing comment.
      */
-    @RequestMapping(value = "/rest/comments",
+    @RequestMapping(value = "/rest/comments/{id}/approve",
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Approve comment")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Invalid ID supplied"),
+            @ApiResponse(code = 404, message = "Comment not found")
+    })
+    public Comment approve(@PathVariable String id) throws KalipoException {
+        log.debug("REST request to approve Comment : {}", id);
+
+        return commentService.approve(id);
+    }
+
+    /**
+     * PUT  /rest/comments/{id}/reject -> Update existing comment.
+     */
+    @RequestMapping(value = "/rest/comments/{id}/reject",
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Reject comment")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Invalid ID supplied"),
+            @ApiResponse(code = 404, message = "Comment not found")
+    })
+    public Comment reject(@PathVariable String id) throws KalipoException {
+        log.debug("REST request to reject Comment : {}", id);
+
+        return commentService.reject(id);
+    }
+
+    /**
+     * GET  /rest/comments/review -> get all the comments, that have to be reviewed.
+     */
+    @RequestMapping(value = "/rest/comments/review/{page}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @ApiOperation(value = "Get all the comments")
-    public List<Comment> getAll() throws ExecutionException, InterruptedException {
-//      todo impl pagination  @QueryParam("offset") int offset, @QueryParam("size") int size
-        log.debug("REST request to get all Comments");
+    @ApiOperation(value = "Get all the comments, that have to be reviewed")
+    public List<Comment> getAllUnderReview(@PathVariable Integer page) throws ExecutionException, InterruptedException {
+        log.debug("REST request to get all Comments, that have to be reviewed");
 
-        return commentService.findAll().get();
+        return commentService.findAllUnderReview(page).get();
     }
 
     /**
