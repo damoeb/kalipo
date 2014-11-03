@@ -5,7 +5,6 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import org.kalipo.domain.Comment;
-import org.kalipo.domain.Tag;
 import org.kalipo.domain.Thread;
 import org.kalipo.service.ThreadService;
 import org.kalipo.service.util.Asserts;
@@ -20,7 +19,6 @@ import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -123,27 +121,6 @@ public class ThreadResource {
         Asserts.isNotNull(id, "id");
 
         threadService.delete(id);
-    }
-
-    /**
-     * PUT  /rest/threads/{id}/tags -> Set tags of existing thread.
-     */
-    @RequestMapping(value = "/threads/{id}/tags",
-            method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    @ApiOperation(value = "Set tags of thread")
-    @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Invalid ID supplied"),
-            @ApiResponse(code = 404, message = "Thread not found")
-    })
-    public void setTags(@PathVariable String id, @NotNull @RequestBody Set<Tag> tags) throws KalipoException {
-        log.debug("REST request to add Tags {} to thread {}", tags, id);
-
-        Asserts.isNotNull(id, "id");
-        Asserts.isNotNull(tags, "tags");
-
-        threadService.setTagsOfThread(id, tags);
     }
 
     /**

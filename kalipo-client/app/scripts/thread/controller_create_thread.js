@@ -6,10 +6,6 @@ kalipoApp.controller('CreateThreadController', function ($scope, $location, Thre
 
     $scope.create = function () {
 
-        if ($scope.thread.tags) {
-            $scope.thread.tags = $scope.thread.tags.split(' ');
-        }
-
         Thread.save($scope.thread,
             function (data) {
                 $location.path('/thread/' + data.id + '/share');

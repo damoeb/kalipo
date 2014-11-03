@@ -4,7 +4,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
 import org.kalipo.domain.Comment;
-import org.kalipo.domain.Tag;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.ThreadRepository;
@@ -22,7 +21,6 @@ import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.Future;
 
 @Service
@@ -121,19 +119,5 @@ public class ThreadService {
 
     public void delete(String id) throws KalipoException {
         threadRepository.delete(id);
-    }
-
-    @RolesAllowed(Privileges.CREATE_THREAD)
-    public void setTagsOfThread(String id, Set<Tag> tags) throws KalipoException {
-        Thread thread = threadRepository.findOne(id);
-
-        Asserts.isNotNull(thread, "id");
-
-        // todo check ids if provided
-        thread.setTags(tags);
-
-        Asserts.isNotReadOnly(thread);
-
-        threadRepository.save(thread);
     }
 }

@@ -1,7 +1,7 @@
 'use strict';
 
-kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread', 'Comment', 'Report', 'Vote', '$log', '$location', '$anchorScroll',
-    function ($scope, $routeParams, Thread, Comment, Report, Vote, $log, $location, $anchorScroll) {
+kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootScope', 'Thread', 'Comment', 'Report', 'Vote', '$log', '$location', '$anchorScroll',
+    function ($scope, $routeParams, $rootScope, Thread, Comment, Report, Vote, $log, $location, $anchorScroll) {
 
         if ($location.path().endsWith('share')) {
             $scope.share = 'social';
@@ -9,13 +9,15 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
             $scope.share = null;
         }
 
+        $scope.textCommentHere = 'Add a comment...';
+
         $scope.draft = {};
         $scope.thread = {};
         $scope.reportModel = {};
         $scope.pendingCount = 0;
         $scope.commentCount = 0;
         $scope.reportCount = 0;
-        $scope.doComment = false;
+        $scope.$doComment = false;
 
         var threadId = $routeParams.threadId;
         var commentId = $routeParams.commentId;
@@ -64,7 +66,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
 
                 // todo minimize negative-only comments, hell-banned subthreads
 
-                comment.$maximized = true;
+                comment.$maximized = !(comment.dislikes > 5 && comment.dislikes > comment.likes);
 
                 var total = comment.likes + comment.dislikes;
                 comment.$likes = comment.likes / total * 100;
@@ -88,8 +90,6 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
                     var subcomment = comment.subcomments[i];
                     comment.$commentCount += get$commentCount(0, subcomment);
                 }
-
-                console.log(comment.$commentCount);
 
                 return comment.$commentCount;
             };

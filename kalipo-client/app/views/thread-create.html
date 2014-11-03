@@ -12,7 +12,10 @@
         <div class="row box-row">
             <div class="col-md-3"><h4>Title*</h4></div>
             <div class="col-md-9">
-                <input name="title" class="form-control" ng-model="thread.title" placeholder="6-10 words is the magic headline range!" required ng-minlength="10" ng-maxlength="64">
+                <input name="title" class="form-control" ng-model="thread.title"
+                       placeholder="6-10 words is the magic headline range!" required ng-minlength="10"
+                       ng-maxlength="64">
+
                 <div class="error-container"
                      ng-show="form.title.$dirty && form.title.$invalid">
                     <small ng-show="form.title.$error.required">
@@ -43,8 +46,10 @@
         <div class="row box-row">
             <div class="col-md-3"><h4>Ripper*</h4></div>
             <div class="col-md-9">
-                <textarea name="text" class="form-control" placeholder="For the lead comment, brevity is the key." ng-model="thread.text"
+                <textarea name="text" class="form-control" placeholder="For the lead comment, brevity is the key."
+                          ng-model="thread.text"
                           ng-minlength=2 ng-maxlength=2048 required></textarea>
+
                 <div class="error-container"
                      ng-show="form.text.$dirty && form.text.$invalid">
                     <small ng-show="form.text.$error.required">
@@ -58,12 +63,6 @@
                     </small>
                 </div>
             </div>
-        </div>
-
-        <div class="row box-row">
-            <div class="col-md-3"><h4>Tag</h4></div>
-            <div class="col-md-9"><input class="form-control" ng-model="thread.tags"
-                                         placeholder="Space separated tags"></div>
         </div>
 
         <div class="row box-row">
