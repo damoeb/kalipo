@@ -1,3 +1,8 @@
+@name messages
+#hashtags in comment
+Notifications: replied, mentioned, upvoted
+Monthly Newsletter
+
 fix todos
 fix comment.html
 fix atmosphere
