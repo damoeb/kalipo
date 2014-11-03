@@ -101,7 +101,7 @@
                            ng-minlength=1 ng-maxlength=2048 required></textarea></div>
 
             <div class="pull-right">
-                Posting as todo
+                Posting as <strong>{{login}}</strong>
                 <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary btn-sm">
                     Comment
                 </button>
@@ -126,28 +126,28 @@
 
 <script type="text/ng-template" id="replyto_comment_renderer.html">
 
-    <div style="padding: 10px;" class="clearfix">
+    <div style="padding: 10px;" class="clearfix post">
 
-        <div class="clearfix">
-            <form name="form" role="form" novalidate ng-submit="draft.parentId = comment.id; create()">
-                <div><textarea class="form-control" placeholder="{{textCommentHere}}" ng-model="draft.text"
-                               ng-minlength=1 ng-maxlength=2048 required></textarea></div>
-            </form>
-        </div>
+        <form name="form" role="form" novalidate ng-submit="draft.parentId = comment.id; create()">
 
-        <div class="clearfix">
-            <button type="button" class="btn btn-default btn-sm" ng-click="comment.reply = false" title="Cancel">
-                <span class="glyphicon glyphicon-remove"></span>
-                Close
-            </button>
-            <div class="pull-right">
-                Posting as todo
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary btn-sm">
-                    Comment
-                </button>
+            <div class="clearfix">
+                <textarea class="form-control" placeholder="{{textCommentHere}}" ng-model="draft.text"
+                          ng-minlength=1 ng-maxlength=2048 required></textarea>
             </div>
-        </div>
 
+            <div class="clearfix">
+                <button type="button" class="btn btn-default btn-sm" ng-click="comment.reply = false" title="Cancel">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    Close
+                </button>
+                <div class="pull-right">
+                    Posting as <strong>{{login}}</strong>
+                    <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary btn-sm">
+                        Comment
+                    </button>
+                </div>
+            </div>
+        </form>
 
     </div>
 

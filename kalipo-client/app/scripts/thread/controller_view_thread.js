@@ -3,11 +3,11 @@
 kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootScope', 'Thread', 'Comment', 'Report', 'Vote', '$log', '$location', '$anchorScroll',
     function ($scope, $routeParams, $rootScope, Thread, Comment, Report, Vote, $log, $location, $anchorScroll) {
 
-        if ($location.path().endsWith('share')) {
-            $scope.share = 'social';
-        } else {
-            $scope.share = null;
-        }
+//        if ($location.path().endsWith('share')) {
+//            $scope.share = 'social';
+//        } else {
+//            $scope.share = null;
+//        }
 
         $scope.textCommentHere = 'Add a comment...';
 

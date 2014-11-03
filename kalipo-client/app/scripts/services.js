@@ -162,6 +162,7 @@ kalipoApp.factory('AuthenticationSharedService', function ($rootScope, $http, au
                                 $rootScope.$broadcast("event:auth-notAuthorized");
                             }
 
+                            $rootScope.login = data.login;
                             $rootScope.authenticated = true;
                         });
                     }

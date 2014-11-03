@@ -42,14 +42,18 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="authenticated">
             <ul class="nav navbar-nav nav-pills navbar-right">
-                <li class="dropdown pointer" ng-switch-when="true"
-                    ng-controller="AdminController">
-                    <a href="#/thread/create">
+                <li class="dropdown pointer" ng-switch-when="true">
+                <a href="#/thread/create">
                         <span>
-                            <span class="hidden-tablet">
-                                New Thread
-                            </span>
+                            Create Discussion
                         </span>
+                    </a>
+                </li>
+                <li class="dropdown pointer" ng-switch-when="true">
+                    <a href="#/notifications">
+                        <span class="glyphicon glyphicon-comment">
+                        </span>
+                        <span class="label label-danger">4</span>
                     </a>
                 </li>
                 <li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer"
@@ -103,7 +107,7 @@
                                 <span>
                                     <span class="glyphicon glyphicon-user"></span>
                                     <span ng-switch-when="true">
-                                        {{email}}
+                                        {{login}}
                                     </span>
                                     <span ng-switch-when="false">
                                         Account

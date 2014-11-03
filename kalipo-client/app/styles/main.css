@@ -40,12 +40,12 @@ body {
 }
 
 .hipster {
-  display: inline-block;
-  width: 463px;
-  height: 640px;
-  background-image: url("../images/hipster.jpg");
-  background-position: center center;
-  background-repeat: no-repeat;
+    display: inline-block;
+    width: 463px;
+    height: 640px;
+    background-image: url("../images/hipster.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .hand {
@@ -67,38 +67,69 @@ body {
     font-size: 10px;
 }
 
-.voffset  { margin-top: 2px; }
-.voffset1 { margin-top: 5px; }
-.voffset2 { margin-top: 10px; }
-.voffset3 { margin-top: 15px; }
-.voffset4 { margin-top: 30px; }
-.voffset5 { margin-top: 40px; }
-.voffset6 { margin-top: 60px; }
-.voffset7 { margin-top: 80px; }
-.voffset8 { margin-top: 100px; }
-.voffset9 { margin-top: 150px; }
+.voffset {
+    margin-top: 2px;
+}
+
+.voffset1 {
+    margin-top: 5px;
+}
+
+.voffset2 {
+    margin-top: 10px;
+}
+
+.voffset3 {
+    margin-top: 15px;
+}
+
+.voffset4 {
+    margin-top: 30px;
+}
+
+.voffset5 {
+    margin-top: 40px;
+}
+
+.voffset6 {
+    margin-top: 60px;
+}
+
+.voffset7 {
+    margin-top: 80px;
+}
+
+.voffset8 {
+    margin-top: 100px;
+}
+
+.voffset9 {
+    margin-top: 150px;
+}
 
 /* start Password strength bar style */
 ul#strength {
-    display:inline;
-    list-style:none;
-    margin:0;
-    margin-left:15px;
-    padding:0;
-    vertical-align:2px;
+    display: inline;
+    list-style: none;
+    margin: 0;
+    margin-left: 15px;
+    padding: 0;
+    vertical-align: 2px;
 }
 
 .point:last {
-    margin:0 !important;
+    margin: 0 !important;
 }
+
 .point {
-    background:#DDD;
-    border-radius:2px;
-    display:inline-block;
-    height:5px;
-    margin-right:1px;
-    width:20px;
+    background: #DDD;
+    border-radius: 2px;
+    display: inline-block;
+    height: 5px;
+    margin-right: 1px;
+    width: 20px;
 }
+
 /* end Password strength bar style */
 
 /* Customizations */
@@ -127,6 +158,10 @@ ul#strength {
 .post .menu a {
     margin-right: 5px;
     color: #ccc;
+}
+
+.post {
+    border-bottom: 1px solid #d7d7d7;
 }
 
 .post:hover {
@@ -193,26 +228,35 @@ ul#strength {
     margin-bottom: 10px;
 }
 
-
 /* field validation */
-.ng-pristine {}
-.ng-dirty {}
-.ng-valid {}
-.ng-invalid {}
+.ng-pristine {
+}
+
+.ng-dirty {
+}
+
+.ng-valid {
+}
+
+.ng-invalid {
+}
 
 input.ng-invalid {
     border: 1px solid red;
 }
+
 input.ng-valid.ng-dirty {
     border: 1px solid green;
 }
+
 form .error-container {
     color: #bb1f34
 }
 
 /* notifications */
 .flash {
-    padding: 10px 18px; margin-bottom: 15px
+    padding: 10px 18px;
+    margin-bottom: 15px
 }
 
 .flash-info {
