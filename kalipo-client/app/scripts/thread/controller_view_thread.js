@@ -62,7 +62,6 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
                 comment.subcomments = [];
                 comment.$report = false;
                 comment.$maximized = true;
-                comment.$subcomments = 0; // todo calculate
 
                 var total = comment.likes + comment.dislikes;
                 comment.$likes = comment.likes / total * 100;
@@ -77,6 +76,22 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
                     _parent.subcomments.push(comment);
                 }
             });
+
+            var get$commentCount = function (index, comment) {
+
+                comment.$commentCount = 1;
+
+                for(var i=0; i < comment.subcomments.length; i++) {
+                    var subcomment = comment.subcomments[i];
+                    comment.$commentCount += get$commentCount(0, subcomment);
+                }
+
+                console.log(comment.$commentCount);
+
+                return comment.$commentCount;
+            };
+
+            $.each(roots, get$commentCount);
 
             return roots;
 

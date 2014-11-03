@@ -245,25 +245,22 @@
 
                 <div class="minimized post" style="cursor: pointer;" title="Click to maximize">
 
-                    <!--<strong><a href="javascript:void(0)" ng-click="scrollTo(comment.parentId)"-->
-                    <!--ng-show="{{comment.parentId != null}}">Re:</a></strong>-->
-
                     <div style="overflow: hidden; max-height:3em; min-height:1.8em;"
                          ng-click="comment.$maximized = !comment.$maximized">
 
                         <div ng-include="'likes_renderer.html'"></div>
 
-                        <div style="display: inline">
+                        <div style="float: left; margin-right:5px;">
                             <a href="javascript:void(0)">
                                 <span class="glyphicon glyphicon-chevron-down"></span></a>
 
-                            <!--<span ng-show="comment.parentId == null" class="glyphicon glyphicon-leaf"-->
-                            <!--style="color: #666"></span>-->
+                            <strong><a href="javascript:void(0)" ng-click="scrollTo(comment.parentId)"
+                                       ng-show="{{comment.parentId != null}}">Re:</a></strong>
 
-                            <span style="color: grey" ng-show="comment.$subcomments > 0">({{comment.$subcomments}} children)</span>
+                            <span style="color: grey" ng-show="comment.$commentCount > 1">({{comment.$commentCount}} comments)</span>
                         </div>
 
-                        <div style="white-space: nowrap; cursor: pointer; color: grey; display: inline">
+                        <div style="white-space: nowrap; cursor: pointer; color: grey;">
                             <span>{{comment.text}}</span>
                         </div>
 

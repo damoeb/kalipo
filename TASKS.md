@@ -2,8 +2,6 @@ fix todos
 fix comment.html
 fix atmosphere
 review workflow
-rm EnableArgument
-rm title for comment in frontend
 Support quotes
 tabs: discussion/authors/stats
 Realtime: 2 typing... oder Armin is typing..
@@ -22,11 +20,6 @@ http://choosealicense.com/
 - Reputation
 
 Zahl der Icons in Kommentar minimieren
-
-bei click auf Kommentar wechselt Zustand von
-- minimiert (also das was es schon gibt): Kinder versteckt
-- klein (wenn zuviele Zeilen dabei sind, werden die ala youtube ausgeblendet)
-- und voll
 
 
 create sorting functions
