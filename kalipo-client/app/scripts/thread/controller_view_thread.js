@@ -61,6 +61,9 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', 'Thread'
                 map[comment.id] = comment;
                 comment.subcomments = [];
                 comment.$report = false;
+
+                // todo minimize negative-only comments, hell-banned subthreads
+
                 comment.$maximized = true;
 
                 var total = comment.likes + comment.dislikes;
