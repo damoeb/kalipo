@@ -2,8 +2,8 @@ package org.kalipo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
-
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -52,7 +52,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/i18n/**")
             .antMatchers("/swagger-ui/**")
             .antMatchers("/app/rest/register")
-            .antMatchers("/app/rest/activate");
+            .antMatchers("/app/rest/activate")
+            // API getters do not require authentication
+            .regexMatchers(HttpMethod.GET, "/app/rest/.*")
+        ;
     }
     
     

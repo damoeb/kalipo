@@ -42,10 +42,12 @@ public class OAuth2ServerConfiguration {
             http
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint)
+
                 .and()
                 .logout()
                 .logoutUrl("/app/logout")
                 .logoutSuccessHandler(ajaxLogoutSuccessHandler)
+
                 .and()
                 .csrf()
                 .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/oauth/authorize"))
@@ -54,6 +56,7 @@ public class OAuth2ServerConfiguration {
                 .frameOptions().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
                 .and()
                 .authorizeRequests()
                 .antMatchers("/views/**").permitAll()
@@ -74,10 +77,7 @@ public class OAuth2ServerConfiguration {
                 .antMatchers("/env/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/api-docs/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                    .antMatchers("/protected/**").authenticated()
-            ;
-            // todo allow all getters
-
+                .antMatchers("/protected/**").authenticated();
         }
     }
 
