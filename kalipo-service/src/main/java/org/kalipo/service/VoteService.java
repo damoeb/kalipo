@@ -3,6 +3,7 @@ package org.kalipo.service;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
 import org.kalipo.domain.Comment;
+import org.kalipo.domain.Notice;
 import org.kalipo.domain.Vote;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.VoteRepository;
@@ -35,6 +36,9 @@ public class VoteService {
     private ReputationService reputationService;
 
     @Inject
+    private NoticeService noticeService;
+
+    @Inject
     private CommentRepository commentRepository;
 
     @RolesAllowed(Privileges.CREATE_VOTE)
@@ -53,11 +57,11 @@ public class VoteService {
         Asserts.isNotNull(comment, "commentId");
         if (vote.getIsLike()) {
             comment.setLikes(comment.getLikes() + 1);
+            noticeService.notify(comment.getAuthorId(), Notice.Type.LIKE, comment.getId());
         } else {
             comment.setDislikes(comment.getDislikes() + 1);
         }
         commentRepository.save(comment);
-
 
         return voteRepository.save(vote);
     }

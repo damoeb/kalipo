@@ -20,7 +20,7 @@ import java.util.Set;
 public class User extends AbstractAuditingEntity implements Serializable {
 
     @NotNull
-    @Size(min = 0, max = 50)
+    @Size(min = 0, max = 20)
     @Id
     private String login;
 

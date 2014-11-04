@@ -4,6 +4,7 @@ import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
+import org.kalipo.domain.Notice;
 import org.kalipo.domain.Report;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.ReportRepository;
@@ -43,6 +44,9 @@ public class ReportService {
 
     @Inject
     private ReputationService reputationService;
+
+    @Inject
+    private NoticeService noticeService;
 
     @RolesAllowed(Privileges.CREATE_REPORT)
     @Throttled
@@ -112,6 +116,14 @@ public class ReportService {
         reputationService.approveOrRejectReport(report);
 
         report.setReviewerId(SecurityUtils.getCurrentLogin());
+
+        Comment comment = commentRepository.findOne(report.getCommentId());
+
+        if (report.getStatus() == Report.Status.APPROVED) {
+            noticeService.notify(comment.getAuthorId(), Notice.Type.DELETION, comment.getId());
+        } else {
+            noticeService.notify(comment.getAuthorId(), Notice.Type.APPROVAL, comment.getId());
+        }
 
         reportRepository.save(report);
     }

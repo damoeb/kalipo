@@ -2,9 +2,10 @@ package org.kalipo.service;
 
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
-import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
+import org.kalipo.domain.Notice;
 import org.kalipo.domain.Thread;
+import org.kalipo.domain.User;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.ThreadRepository;
 import org.kalipo.security.Privileges;
@@ -21,8 +22,12 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Future;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @KalipoExceptionHandler
@@ -30,6 +35,8 @@ public class CommentService {
 
     private static final int PAGE_SIZE = 5;
     private final Logger log = LoggerFactory.getLogger(CommentService.class);
+
+    private static final Pattern FIND_USER_REFERENCES = Pattern.compile("@[a-z0-9]+");
 
     @Inject
     private CommentRepository commentRepository;
@@ -39,6 +46,12 @@ public class CommentService {
 
     @Inject
     private ReputationService reputationService;
+
+    @Inject
+    private NoticeService noticeService;
+
+    @Inject
+    private UserService userService;
 
     @RolesAllowed(Privileges.CREATE_COMMENT)
     @Throttled
@@ -56,17 +69,20 @@ public class CommentService {
         Asserts.isNotNull(comment, "comment");
         Asserts.isNotNull(comment.getId(), "id");
 
-        Comment orgComment = commentRepository.findOne(comment.getId());
-        Asserts.isCurrentLogin(orgComment.getAuthorId());
+        Comment original = commentRepository.findOne(comment.getId());
+        Asserts.isCurrentLogin(original.getAuthorId());
 
-        if (comment.getStatus() != orgComment.getStatus()) {
-            throw new KalipoException(ErrorCode.INVALID_PARAMETER, "status may not be altered");
-        }
+        Asserts.nullOrEqual(comment.getStatus(), original.getStatus(), "status");
+        comment.setStatus(original.getStatus());
 
-        comment.setStatus(orgComment.getStatus());
-        comment.setLikes(orgComment.getLikes());
-        comment.setDislikes(orgComment.getDislikes());
-        comment.setCreatedDate(orgComment.getCreatedDate());
+        Asserts.nullOrEqual(comment.getLikes(), original.getLikes(), "likes");
+        comment.setLikes(original.getLikes());
+
+        Asserts.nullOrEqual(comment.getDislikes(), original.getDislikes(), "dislikes");
+        comment.setDislikes(original.getDislikes());
+
+        Asserts.nullOrEqual(comment.getCreatedDate(), original.getCreatedDate(), "createdDate");
+        comment.setCreatedDate(original.getCreatedDate());
 
         return save(comment, false);
     }
@@ -108,10 +124,21 @@ public class CommentService {
 
     // --
 
-    public Comment approveOrReject(String id, Comment.Status newStatus) throws KalipoException {
+    private Comment approveOrReject(String id, Comment.Status newStatus) throws KalipoException {
         Comment comment = commentRepository.findOne(id);
+
+        Asserts.isNotNull(comment, "id");
+
         comment.setStatus(newStatus);
-        // todo send notification, save reviewer
+        // todo send notification to author, save reviewer
+
+        if (newStatus == Comment.Status.APPROVED) {
+            notifyMentionedUsers(comment);
+            noticeService.notify(comment.getAuthorId(), Notice.Type.APPROVAL, comment.getId());
+        } else {
+            noticeService.notify(comment.getAuthorId(), Notice.Type.DELETION, comment.getId());
+        }
+
         return commentRepository.save(comment);
     }
 
@@ -126,12 +153,48 @@ public class CommentService {
         if (isNew) {
             thread.setCommentCount(thread.getCommentCount() + 1);
             threadRepository.save(thread);
+
+            notifyAuthorOfParent(comment);
+
         }
 
         comment.setAuthorId(SecurityUtils.getCurrentLogin());
 
-        // todo status is pending, as long the user has < 5 approved comments
-        comment.setStatus(Comment.Status.APPROVED);
+        User author = userService.findOne(SecurityUtils.getCurrentLogin());
+
+        if (author.getApprovedCommentCount() < 5) {
+            comment.setStatus(Comment.Status.PENDING);
+
+        } else {
+            comment.setStatus(Comment.Status.APPROVED);
+            notifyMentionedUsers(comment);
+        }
+
         return commentRepository.save(comment);
+    }
+
+    private void notifyAuthorOfParent(Comment comment) {
+        if (comment.getParentId() != null) {
+            Comment parent = commentRepository.findOne(comment.getParentId());
+            if (parent != null) {
+                noticeService.notify(parent.getAuthorId(), Notice.Type.REPLY, comment.getId());
+            }
+        }
+    }
+
+    private void notifyMentionedUsers(Comment comment) {
+
+        // find mentioned usernames, starting with @ like @myname
+        Matcher matcher = FIND_USER_REFERENCES.matcher(comment.getText());
+        Set<String> uqLogins = new HashSet<>();
+        while (matcher.find()) {
+            String login = matcher.group();
+            uqLogins.add(login);
+        }
+
+        for (String login : uqLogins) {
+            // notify @login
+            noticeService.notify(login, Notice.Type.MENTION, comment.getId());
+        }
     }
 }

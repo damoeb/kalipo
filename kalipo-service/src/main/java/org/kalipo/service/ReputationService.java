@@ -48,6 +48,7 @@ public class ReputationService {
      * todo: on dislikes: reputation -1 of voter and -2 of author
      * todo: on like: reputation +10 of author, probably reputation -1 of voter to hinder meat-puppet issue
      */
+    // todo async
     public void likeOrDislikeComment(Vote vote) throws KalipoException {
 
         Asserts.isNotNull(vote, "vote");
@@ -78,6 +79,7 @@ public class ReputationService {
         updateUserReputation(rvForVoter);
     }
 
+    // todo async
     public void approveOrRejectReport(Report report) throws KalipoException {
         Asserts.isNotNull(report, "report");
 
@@ -116,6 +118,7 @@ public class ReputationService {
         }
     }
 
+    // todo async
     public void initUser(@Valid @NotNull User user) {
         RepRevision rvForNewUser = createRevision(user.getLogin(), user.getLogin(), ReputationDefinition.Type.WELCOME);
         repRevisionRepository.save(rvForNewUser);
@@ -124,6 +127,7 @@ public class ReputationService {
 
     }
 
+    // todo async
     public void punishDeletingComment(@Valid @NotNull Comment comment) throws KalipoException {
         Asserts.isNotNull(comment, "comment");
 

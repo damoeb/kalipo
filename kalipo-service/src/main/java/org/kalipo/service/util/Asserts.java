@@ -52,4 +52,10 @@ public final class Asserts {
             throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, String.format("Only %s can modify", authorId));
         }
     }
+
+    public static void nullOrEqual(Object found, Object expected, String fieldName) throws KalipoException {
+        if (found != null && !found.equals(expected)) {
+            throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, String.format("%s cannot be modified", fieldName));
+        }
+    }
 }
