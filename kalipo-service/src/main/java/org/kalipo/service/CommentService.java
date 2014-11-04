@@ -130,7 +130,9 @@ public class CommentService {
         Asserts.isNotNull(comment, "id");
 
         comment.setStatus(newStatus);
-        // todo send notification to author, save reviewer
+        // todo save reviewer
+
+        comment = commentRepository.save(comment);
 
         if (newStatus == Comment.Status.APPROVED) {
             notifyMentionedUsers(comment);
@@ -139,7 +141,7 @@ public class CommentService {
             noticeService.notify(comment.getAuthorId(), Notice.Type.DELETION, comment.getId());
         }
 
-        return commentRepository.save(comment);
+        return comment;
     }
 
     private Comment save(Comment comment, boolean isNew) throws KalipoException {
@@ -150,14 +152,6 @@ public class CommentService {
         Asserts.isNotNull(thread, "threadId");
         Asserts.isNotReadOnly(thread);
 
-        if (isNew) {
-            thread.setCommentCount(thread.getCommentCount() + 1);
-            threadRepository.save(thread);
-
-            notifyAuthorOfParent(comment);
-
-        }
-
         comment.setAuthorId(SecurityUtils.getCurrentLogin());
 
         User author = userService.findOne(SecurityUtils.getCurrentLogin());
@@ -167,10 +161,23 @@ public class CommentService {
 
         } else {
             comment.setStatus(Comment.Status.APPROVED);
+        }
+
+        comment = commentRepository.save(comment);
+
+        if (isNew) {
+            thread.setCommentCount(thread.getCommentCount() + 1);
+            threadRepository.save(thread);
+
+            notifyAuthorOfParent(comment);
+
+        }
+
+        if (comment.getStatus() == Comment.Status.APPROVED) {
             notifyMentionedUsers(comment);
         }
 
-        return commentRepository.save(comment);
+        return comment;
     }
 
     private void notifyAuthorOfParent(Comment comment) {

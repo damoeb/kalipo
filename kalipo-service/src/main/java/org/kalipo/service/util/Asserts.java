@@ -10,11 +10,11 @@ import org.kalipo.web.rest.KalipoException;
  * Created by damoeb on 26.09.14.
  */
 public final class Asserts {
+
     public static void isNotNull(Object o, String paramName) throws KalipoException {
         if (o == null) {
             throw new KalipoException(ErrorCode.INVALID_PARAMETER, paramName);
         }
-
     }
 
     public static void isNull(Object o, String paramName) throws KalipoException {
@@ -36,7 +36,7 @@ public final class Asserts {
     }
 
     public static void nullOrEqual(String found, String expected, String fieldName) throws KalipoException {
-        if (!StringUtils.equals(found, expected)) {
+        if (found != null && !StringUtils.equals(found, expected)) {
             throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, String.format("%s cannot be modified", fieldName));
         }
     }

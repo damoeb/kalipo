@@ -1,15 +1,21 @@
 package org.kalipo.web.rest;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kalipo.Application;
+import org.kalipo.domain.Comment;
 import org.kalipo.domain.Notice;
 import org.kalipo.security.Privileges;
+import org.kalipo.service.CommentService;
 import org.kalipo.service.NoticeService;
+import org.kalipo.service.ThreadService;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,8 +32,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import javax.inject.Inject;
 import java.util.Arrays;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 /**
@@ -42,6 +50,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class})
 @ActiveProfiles("dev")
+@EnableAsync
 public class NoticeResourceTest {
 
     private static final String DEFAULT_SAMPLE_NAME_ATTR = "sampleTitleAttribute";
@@ -51,6 +60,12 @@ public class NoticeResourceTest {
     @Inject
     private NoticeService noticeService;
 
+    @Inject
+    private ThreadService threadService;
+
+    @Inject
+    private CommentService commentService;
+
     private MockMvc restNoticeMockMvc;
 
     private Notice notice;
@@ -58,7 +73,7 @@ public class NoticeResourceTest {
     private String noticeId;
 
     @Before
-    public void setup() {
+    public void setup() throws KalipoException {
         MockitoAnnotations.initMocks(this);
         NoticeResource noticeResource = new NoticeResource();
         ReflectionTestUtils.setField(noticeResource, "noticeService", noticeService);
@@ -69,46 +84,59 @@ public class NoticeResourceTest {
 
         notice = new Notice();
 //        notice.setName(DEFAULT_SAMPLE_NAME_ATTR);
+
+
+        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_COMMENT, Privileges.CREATE_THREAD, Privileges.MODERATE_THREAD));
+
+        /*
+         create comment,
+         reply on that
+        */
+
+
+        org.kalipo.domain.Thread thread = ThreadResourceTest.newThread();
+        thread = threadService.create(thread);
+
+        Comment comment = CommentResourceTest.newComment();
+        comment.setThreadId(thread.getId());
+        comment = commentService.create(comment);
+
+        Comment reply = CommentResourceTest.newComment();
+        reply.setThreadId(thread.getId());
+        reply.setParentId(comment.getId());
+        reply = commentService.create(reply);
     }
 
     @Test
     public void testCRUDNotice() throws Exception {
 
-        // Create Notice
-        restNoticeMockMvc.perform(post("/app/rest/notices")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(notice)))
-                .andExpect(status().isCreated())
-                .andDo(new ResultHandler() {
-                    @Override
-                    public void handle(MvcResult result) throws Exception {
-                        noticeId = TestUtil.toJson(result).getString("id");
-                    }
-                });
+        /*
+         read notices
+         update read field
+        */
 
+        Thread.sleep(1000);
 
-        // Try create a empty Comment
-        restNoticeMockMvc.perform(post("/app/rest/notices")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(new Notice())))
-                .andExpect(status().isBadRequest());
-
-        // Read Notice
-        restNoticeMockMvc.perform(get("/app/rest/notices/{id}", noticeId))
+        // Read My Notices
+        restNoticeMockMvc.perform(get("/app/rest/notices/admin/{page}", 0))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(noticeId))
-                .andExpect(jsonPath("$.name").value(DEFAULT_SAMPLE_NAME_ATTR));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON)
+                ).andDo(new ResultHandler() {
+            @Override
+            public void handle(MvcResult result) throws Exception {
+                noticeId = ((JSONObject) new JSONArray(result.getResponse().getContentAsString()).get(0)).getString("id");
+            }
+        });
 
-        // Delete Notice
-        restNoticeMockMvc.perform(delete("/app/rest/notices/{id}", noticeId)
-                .accept(TestUtil.APPLICATION_JSON_UTF8))
+        // Set one notice is read=true
+        Notice update = new Notice();
+        update.setRead(true);
+
+        restNoticeMockMvc.perform(put("/app/rest/notices/{id}", noticeId)
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(update)))
                 .andExpect(status().isOk());
 
-        // Read nonexisting Notice
-        restNoticeMockMvc.perform(get("/app/rest/notices/{id}", noticeId)
-                .accept(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(status().isNotFound());
-
+        // todo read again
     }
 }

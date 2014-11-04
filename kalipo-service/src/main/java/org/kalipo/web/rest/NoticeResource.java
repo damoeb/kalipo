@@ -2,7 +2,8 @@ package org.kalipo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.kalipo.domain.Notice;
-import org.kalipo.repository.NoticeRepository;
+import org.kalipo.service.NoticeService;
+import org.kalipo.service.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -23,57 +24,34 @@ public class NoticeResource {
     private final Logger log = LoggerFactory.getLogger(NoticeResource.class);
 
     @Inject
-    private NoticeRepository noticeRepository;
+    private NoticeService noticeService;
 
     /**
-     * POST  /rest/notices -> Create a new notice.
+     * PUT  /rest/notices/{id} -> Update an existing notice.
      */
-    @RequestMapping(value = "/rest/notices",
-            method = RequestMethod.POST,
+    @RequestMapping(value = "/rest/notices/{id}",
+            method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void create(@RequestBody Notice notice) {
-        log.debug("REST request to save Notice : {}", notice);
-        noticeRepository.save(notice);
-    }
+    public Notice update(@PathVariable String id, @RequestBody Notice notice) throws KalipoException {
+        log.debug("REST request to update Notice : {}", id);
+        Asserts.isNotNull(id, "id");
+        Asserts.isNotNull(notice, "payload");
 
-    /**
-     * GET  /rest/notices -> get all the notices.
-     */
-    @RequestMapping(value = "/rest/notices",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public List<Notice> getAll() {
-        log.debug("REST request to get all Notices");
-        return noticeRepository.findAll();
+        notice.setId(id);
+
+        return noticeService.update(notice);
     }
 
     /**
      * GET  /rest/notices/:id -> get the "id" notice.
      */
-    @RequestMapping(value = "/rest/notices/{id}",
+    @RequestMapping(value = "/rest/notices/{login}/{page}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Notice> get(@PathVariable String id) {
-        log.debug("REST request to get Notice : {}", id);
-        Notice notice = noticeRepository.findOne(id);
-        if (notice == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(notice, HttpStatus.OK);
-    }
-
-    /**
-     * DELETE  /rest/notices/:id -> delete the "id" notice.
-     */
-    @RequestMapping(value = "/rest/notices/{id}",
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public void delete(@PathVariable String id) {
-        log.debug("REST request to delete Notice : {}", id);
-        noticeRepository.delete(id);
+    public ResponseEntity<List<Notice>> get(@PathVariable String login, @PathVariable int page) {
+        log.debug("REST request to get Notice : {}", login);
+        return new ResponseEntity<List<Notice>>(noticeService.findByUser(login, page), HttpStatus.OK);
     }
 }
