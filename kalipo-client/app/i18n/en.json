@@ -104,7 +104,6 @@
         }
     },
     "login": {
-        "title": "Authentication",
         "form": {
             "password": "Password",
             "password.placeholder": "Your password",

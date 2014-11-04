@@ -104,7 +104,6 @@
         }
     },
     "login": {
-        "title": "Anmeldung",
         "form": {
             "password": "Passwort",
             "password.placeholder": "Ihr Passwort",
