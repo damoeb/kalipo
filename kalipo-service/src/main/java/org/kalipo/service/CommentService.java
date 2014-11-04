@@ -2,6 +2,7 @@ package org.kalipo.service;
 
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
+import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.CommentRepository;
@@ -57,7 +58,15 @@ public class CommentService {
 
         Comment orgComment = commentRepository.findOne(comment.getId());
         Asserts.isCurrentLogin(orgComment.getAuthorId());
-        // todo assert same status
+
+        if (comment.getStatus() != orgComment.getStatus()) {
+            throw new KalipoException(ErrorCode.INVALID_PARAMETER, "status may not be altered");
+        }
+
+        comment.setStatus(orgComment.getStatus());
+        comment.setLikes(orgComment.getLikes());
+        comment.setDislikes(orgComment.getDislikes());
+        comment.setCreatedDate(orgComment.getCreatedDate());
 
         return save(comment, false);
     }
@@ -65,35 +74,13 @@ public class CommentService {
     @RolesAllowed(Privileges.REVIEW_COMMENT)
     @Throttled
     public Comment approve(String id) throws KalipoException {
-        // todo implement
-        return null;
+        return approveOrReject(id, Comment.Status.APPROVED);
     }
 
     @RolesAllowed(Privileges.REVIEW_COMMENT)
     @Throttled
     public Comment reject(String id) throws KalipoException {
-        // todo implement
-        return null;
-    }
-
-    private Comment save(Comment comment, boolean isNew) throws KalipoException {
-
-        Asserts.isNotNull(comment.getThreadId(), "threadId");
-
-        Thread thread = threadRepository.findOne(comment.getThreadId());
-        Asserts.isNotNull(thread, "threadId");
-        Asserts.isNotReadOnly(thread);
-
-        if (isNew) {
-            thread.setCommentCount(thread.getCommentCount() + 1);
-            threadRepository.save(thread);
-        }
-
-        comment.setAuthorId(SecurityUtils.getCurrentLogin());
-
-        // todo status is pending, as long the user has < 5 approved comments
-        comment.setStatus(Comment.Status.APPROVED);
-        return commentRepository.save(comment);
+        return approveOrReject(id, Comment.Status.REJECTED);
     }
 
     @Async
@@ -117,5 +104,34 @@ public class CommentService {
         reputationService.punishDeletingComment(comment);
 
         commentRepository.delete(id);
+    }
+
+    // --
+
+    public Comment approveOrReject(String id, Comment.Status newStatus) throws KalipoException {
+        Comment comment = commentRepository.findOne(id);
+        comment.setStatus(newStatus);
+        // todo send notification, save reviewer
+        return commentRepository.save(comment);
+    }
+
+    private Comment save(Comment comment, boolean isNew) throws KalipoException {
+
+        Asserts.isNotNull(comment.getThreadId(), "threadId");
+
+        Thread thread = threadRepository.findOne(comment.getThreadId());
+        Asserts.isNotNull(thread, "threadId");
+        Asserts.isNotReadOnly(thread);
+
+        if (isNew) {
+            thread.setCommentCount(thread.getCommentCount() + 1);
+            threadRepository.save(thread);
+        }
+
+        comment.setAuthorId(SecurityUtils.getCurrentLogin());
+
+        // todo status is pending, as long the user has < 5 approved comments
+        comment.setStatus(Comment.Status.APPROVED);
+        return commentRepository.save(comment);
     }
 }
