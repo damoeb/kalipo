@@ -21,7 +21,9 @@ import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 @Service
 @KalipoExceptionHandler
@@ -61,6 +63,8 @@ public class ThreadService {
 
         thread.setLeadCommentId(comment.getId());
 
+        thread.getModIds().add(SecurityUtils.getCurrentLogin());
+
         save(thread);
 
         return thread;
@@ -74,6 +78,28 @@ public class ThreadService {
 
         Thread original = threadRepository.findOne(thread.getId());
         Asserts.isNotNull(original, "thread");
+
+        // mod rule: add any user with MODERATE_THREAD, remove only self, iff not empty
+        Set<String> originalModIds = original.getModIds();
+        if(thread.getModIds()==null || originalModIds.containsAll(thread.getModIds())) {
+            thread.setModIds(originalModIds);
+        } else {
+
+            // original.getModIds() - thread.getModIds()
+            Set<String> removed = originalModIds.stream().filter(uid -> thread.getModIds().contains(uid)).collect(Collectors.toSet());
+
+            // thread.getModIds() - original.getModIds();
+            Set<String> added = thread.getModIds().stream().filter(uid -> original.getModIds().contains(uid)).collect(Collectors.toSet());
+
+            for(String userId : added) {
+//                todo Asserts.hasPrivilege(Privileges.MODERATE_THREAD);
+            }
+
+            for(String userId : removed) {
+//                todo Asserts.hasPrivilege(Privileges.SUPER_MODERATOR);
+//                todo or himself
+            }
+        }
 
         // keep final values
         Asserts.nullOrEqual(thread.getLeadCommentId(), original.getLeadCommentId(), "leadCommentId");
@@ -96,8 +122,6 @@ public class ThreadService {
         if (StringUtils.isNotBlank(thread.getUriHook())) {
             Asserts.hasPrivilege(Privileges.HOOK_THREAD_TO_URL);
         }
-
-        thread.setAuthorId(SecurityUtils.getCurrentLogin());
 
         return threadRepository.save(thread);
     }

@@ -47,17 +47,18 @@ public class VoteService {
 
         Asserts.isNull(vote.getId(), "id");
 
+        Comment comment = commentRepository.findOne(vote.getCommentId());
+        Asserts.isNotNull(comment, "commentId");
+
         reputationService.likeOrDislikeComment(vote);
 
         vote.setAuthorId(SecurityUtils.getCurrentLogin());
 
-//        todo replace by scheduled job
-        Comment comment = commentRepository.findOne(vote.getCommentId());
+//        todo replace by scheduled job, with delay to prevent bandwaggon effect
 
-        Asserts.isNotNull(comment, "commentId");
         if (vote.getIsLike()) {
             comment.setLikes(comment.getLikes() + 1);
-            noticeService.notify(comment.getAuthorId(), Notice.Type.LIKE, comment.getId());
+            noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.LIKE, comment.getId());
         } else {
             comment.setDislikes(comment.getDislikes() + 1);
         }

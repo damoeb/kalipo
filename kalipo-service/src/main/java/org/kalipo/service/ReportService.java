@@ -8,6 +8,7 @@ import org.kalipo.domain.Notice;
 import org.kalipo.domain.Report;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.ReportRepository;
+import org.kalipo.repository.ThreadRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
@@ -43,6 +44,9 @@ public class ReportService {
     private CommentRepository commentRepository;
 
     @Inject
+    private ThreadRepository threadRepository;
+
+    @Inject
     private ReputationService reputationService;
 
     @Inject
@@ -65,7 +69,16 @@ public class ReportService {
         report.setStatus(Report.Status.PENDING);
         report.setThreadId(comment.getThreadId());
 
-        return reportRepository.save(report);
+        report = reportRepository.save(report);
+
+        // todo async
+        if(!comment.getReported()) {
+            comment.setReported(true);
+            commentRepository.save(comment);
+            notifyModsOfThread(comment.getThreadId(), report);
+        }
+
+        return report;
     }
 
     @RolesAllowed(Privileges.CLOSE_REPORT)
@@ -103,6 +116,7 @@ public class ReportService {
      * @param id the report id
      * @throws org.kalipo.web.rest.KalipoException
      */
+    // todo add RolesAllowed
     public void delete(String id) throws KalipoException {
 
         getPendingReport(id); // will fail if not pending or existing
@@ -112,6 +126,12 @@ public class ReportService {
 
     // --
 
+    private void notifyModsOfThread(String threadId, Report report) {
+        for(String modId : threadRepository.findOne(threadId).getModIds()) {
+            noticeService.notifyAsync(modId, Notice.Type.REPORT, report.getCommentId());
+        }
+    }
+
     private void approveOrReject(Report report) throws KalipoException {
         reputationService.approveOrRejectReport(report);
 
@@ -120,9 +140,9 @@ public class ReportService {
         Comment comment = commentRepository.findOne(report.getCommentId());
 
         if (report.getStatus() == Report.Status.APPROVED) {
-            noticeService.notify(comment.getAuthorId(), Notice.Type.DELETION, comment.getId());
+            noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.DELETION, comment.getId());
         } else {
-            noticeService.notify(comment.getAuthorId(), Notice.Type.APPROVAL, comment.getId());
+            noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.APPROVAL, comment.getId());
         }
 
         reportRepository.save(report);

@@ -117,6 +117,8 @@ public class CommentService {
         Asserts.isNotNull(comment, "id");
 
         // todo check permissions
+        // author or mod can delete
+
         reputationService.punishDeletingComment(comment);
 
         commentRepository.delete(id);
@@ -130,15 +132,21 @@ public class CommentService {
         Asserts.isNotNull(comment, "id");
 
         comment.setStatus(newStatus);
-        // todo save reviewer
+        // save reviewer
+        comment.setReviewerId(SecurityUtils.getCurrentLogin());
 
         comment = commentRepository.save(comment);
 
         if (newStatus == Comment.Status.APPROVED) {
             notifyMentionedUsers(comment);
-            noticeService.notify(comment.getAuthorId(), Notice.Type.APPROVAL, comment.getId());
+            noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.APPROVAL, comment.getId());
+
+//            todo implement
+//            User author = userService.findOne(comment.getAuthorId());
+//            author.setApprovedCommentCount(author.getApprovedCommentCount() + 1);
+
         } else {
-            noticeService.notify(comment.getAuthorId(), Notice.Type.DELETION, comment.getId());
+            noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.DELETION, comment.getId());
         }
 
         return comment;
@@ -184,7 +192,7 @@ public class CommentService {
         if (comment.getParentId() != null) {
             Comment parent = commentRepository.findOne(comment.getParentId());
             if (parent != null) {
-                noticeService.notify(parent.getAuthorId(), Notice.Type.REPLY, comment.getId());
+                noticeService.notifyAsync(parent.getAuthorId(), Notice.Type.REPLY, comment.getId());
             }
         }
     }
@@ -201,7 +209,7 @@ public class CommentService {
 
         for (String login : uqLogins) {
             // notify @login
-            noticeService.notify(login, Notice.Type.MENTION, comment.getId());
+            noticeService.notifyAsync(login, Notice.Type.MENTION, comment.getId());
         }
     }
 }

@@ -25,7 +25,7 @@ public class NoticeService {
     private NoticeRepository noticeRepository;
 
     //    todo @Async
-    public void notify(String recipientId, Notice.Type type, String commentId) {
+    public void notifyAsync(String recipientId, Notice.Type type, String commentId) {
 
         try {
             Asserts.isNotNull(recipientId, "recipientId");

@@ -29,6 +29,7 @@ public class Comment {
     @ModelExistsConstraint(Comment.class)
     private String parentId;
 
+    @JsonIgnore
     @NotNull(message = "{constraint.notnull.reputation}")
     private Integer reputation = 0;
 
@@ -49,8 +50,14 @@ public class Comment {
     @JsonIgnore
     private Boolean deleted;
 
+    @JsonIgnore
+    private Boolean reported;
+
+    @JsonIgnore
     @NotNull(message = "{constraint.notnull.status}")
     private Status status;
+
+    private String reviewerId;
 
     public String getId() {
         return id;
@@ -138,6 +145,22 @@ public class Comment {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public String getReviewerId() {
+        return reviewerId;
+    }
+
+    public void setReviewerId(String reviewerId) {
+        this.reviewerId = reviewerId;
+    }
+
+    public Boolean getReported() {
+        return reported;
+    }
+
+    public void setReported(Boolean reported) {
+        this.reported = reported;
     }
 
     /**
