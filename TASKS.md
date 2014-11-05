@@ -1,4 +1,9 @@
 review comments
+like a comment -> follow this comment?
+dislike a comment -> minimize this thread?
+rechts oben: reputation increases +2 upvoted wie in einem spiel
+
+thread moderators are notified about reports
 
 @name messages
 #hashtags in comment
@@ -14,6 +19,9 @@ Realtime: 2 typing... oder Armin is typing..
 ? Allow Anonymous Posts: will be reviewed.
 
 monitoring
+
+profile activities the standard user:
+-
 
 --
 
