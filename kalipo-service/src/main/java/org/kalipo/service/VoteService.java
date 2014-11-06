@@ -50,7 +50,7 @@ public class VoteService {
         Comment comment = commentRepository.findOne(vote.getCommentId());
         Asserts.isNotNull(comment, "commentId");
 
-        reputationService.likeOrDislikeComment(vote);
+        reputationService.onCommentVoting(vote);
 
         vote.setAuthorId(SecurityUtils.getCurrentLogin());
 

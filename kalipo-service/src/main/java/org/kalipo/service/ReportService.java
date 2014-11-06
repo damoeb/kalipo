@@ -8,7 +8,6 @@ import org.kalipo.domain.Notice;
 import org.kalipo.domain.Report;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.ReportRepository;
-import org.kalipo.repository.ThreadRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
@@ -25,11 +24,10 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 /**
- * todo: on approve: reputation + 5 for every reporter, reputation - 100 for author
- * todo: on reject: reputation - 50 for author
- * todo: on report: iff count > 5 comment will become deleted until peer review
+ * on approve: reputation + 5 for every reporter, reputation - 100 for author
+ * on reject: reputation - 50 for author
+ * on report: iff report count > 5 comment will become hidden until reviewed
  * todo: peer review reports of users with reputation >= author
- * todo: support updates for approve, reject
  */
 @Service
 @KalipoExceptionHandler
@@ -42,9 +40,6 @@ public class ReportService {
 
     @Inject
     private CommentRepository commentRepository;
-
-    @Inject
-    private ThreadRepository threadRepository;
 
     @Inject
     private ReputationService reputationService;
@@ -71,12 +66,18 @@ public class ReportService {
 
         report = reportRepository.save(report);
 
+        // todo replace by query
+        comment.setReportedCount(comment.getReportedCount() + 1);
+
         // todo async
-        if(!comment.getReported()) {
-            comment.setReported(true);
-            commentRepository.save(comment);
-            notifyModsOfThread(comment.getThreadId(), report);
+        if (comment.getReportedCount() == 1) {
+            noticeService.notifyModsOfThread(comment.getThreadId(), report);
         }
+        if (comment.getReportedCount() == 3) {
+            comment.setHidden(true);
+            noticeService.notifySuperMods(comment);
+        }
+        commentRepository.save(comment);
 
         return report;
     }
@@ -93,6 +94,7 @@ public class ReportService {
         approveOrReject(getPendingReport(id).setStatus(Report.Status.REJECTED));
     }
 
+    // todo can be removed?
     // todo add RolesAllowed
     @Async
     public Future<List<Report>> getAll() {
@@ -126,26 +128,28 @@ public class ReportService {
 
     // --
 
-    private void notifyModsOfThread(String threadId, Report report) {
-        for(String modId : threadRepository.findOne(threadId).getModIds()) {
-            noticeService.notifyAsync(modId, Notice.Type.REPORT, report.getCommentId());
-        }
-    }
-
     private void approveOrReject(Report report) throws KalipoException {
-        reputationService.approveOrRejectReport(report);
 
         report.setReviewerId(SecurityUtils.getCurrentLogin());
 
         Comment comment = commentRepository.findOne(report.getCommentId());
 
         if (report.getStatus() == Report.Status.APPROVED) {
+            comment.setDeleted(true);
+            commentRepository.save(comment);
+
             noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.DELETION, comment.getId());
+
         } else {
+            if (comment.getHidden()) {
+                comment.setHidden(true);
+                commentRepository.save(comment);
+            }
+
             noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.APPROVAL, comment.getId());
         }
 
-        reportRepository.save(report);
+        reputationService.onReportApprovalOrRejection(reportRepository.save(report));
     }
 
     private Report getPendingReport(String id) throws KalipoException {

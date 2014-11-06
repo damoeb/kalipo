@@ -84,7 +84,7 @@ public class UserService {
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
 
-        reputationService.initUser(newUser);
+        reputationService.onUserCreation(newUser);
 
         log.debug("Created Information for User: {}", newUser);
         return newUser;

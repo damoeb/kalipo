@@ -19,4 +19,7 @@ public interface CommentRepository extends MongoRepository<Comment, String> {
     List<Comment> findByThreadIdAndStatus(String id, Collection<Comment.Status> status);
 
     List<Comment> findByStatus(Comment.Status status, Pageable pageable);
+
+    @Query(value = "{'authorId': ?0, 'status': 'APPROVED'}", count = true)
+    Long getApprovedCommentCountOfUser(String userId);
 }

@@ -44,12 +44,12 @@ public class ReputationService {
 
     /**
      * Create a reputation revision for a vote
+     * on dislikes: reputation -1 of voter and -2 of author
+     * on like: reputation +10 of author, probably reputation -1 of voter to hinder meat-puppet issue
      * <p>
-     * todo: on dislikes: reputation -1 of voter and -2 of author
-     * todo: on like: reputation +10 of author, probably reputation -1 of voter to hinder meat-puppet issue
      */
     // todo async
-    public void likeOrDislikeComment(Vote vote) throws KalipoException {
+    public void onCommentVoting(Vote vote) throws KalipoException {
 
         Asserts.isNotNull(vote, "vote");
         Asserts.isNotNull(vote.getCommentId(), "commentId");
@@ -80,14 +80,15 @@ public class ReputationService {
     }
 
     // todo async
-    public void approveOrRejectReport(Report report) throws KalipoException {
+    public void onReportApprovalOrRejection(Report report) throws KalipoException {
         Asserts.isNotNull(report, "report");
 
         final Comment comment = commentRepository.findOne(report.getCommentId());
         Asserts.isNotNull(comment, "commentId");
 
-        // todo resourceRef must not be null
         final String resourceRef = report.getId();
+        Asserts.isNotNull(resourceRef, "id");
+
         final String reporterId = report.getAuthorId();
         final String authorId = comment.getAuthorId();
 
@@ -108,7 +109,6 @@ public class ReputationService {
             /**
              * report is invalid
              */
-            // todo use abuse flag?
             if (report.isAbused()) {
                 RepRevision rvForReporter = createRevision(reporterId, resourceRef, ReputationDefinition.Type.ABUSED_REPORT);
                 repRevisionRepository.save(rvForReporter);
@@ -118,8 +118,13 @@ public class ReputationService {
         }
     }
 
+    /**
+     * A newly created user receives a welcome reputation. The background of this is to establish user.reputation=0 as virtual death (the inability of actively joining the discussion)
+     *
+     * @param user the user
+     */
     // todo async
-    public void initUser(@Valid @NotNull User user) {
+    public void onUserCreation(@Valid @NotNull User user) {
         RepRevision rvForNewUser = createRevision(user.getLogin(), user.getLogin(), ReputationDefinition.Type.WELCOME);
         repRevisionRepository.save(rvForNewUser);
 
@@ -127,8 +132,13 @@ public class ReputationService {
 
     }
 
+    /**
+     * Punish comment deleting by ReputationDefinition.Type.RM_COMMENT
+     * @param comment the comment
+     * @throws KalipoException
+     */
     // todo async
-    public void punishDeletingComment(@Valid @NotNull Comment comment) throws KalipoException {
+    public void onCommentDeletion(@Valid @NotNull Comment comment) throws KalipoException {
         Asserts.isNotNull(comment, "comment");
 
         RepRevision rvForUser = createRevision(comment.getAuthorId(), comment.getId(), ReputationDefinition.Type.RM_COMMENT);

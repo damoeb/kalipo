@@ -5,7 +5,6 @@ import org.kalipo.aop.Throttled;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Notice;
 import org.kalipo.domain.Thread;
-import org.kalipo.domain.User;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.ThreadRepository;
 import org.kalipo.security.Privileges;
@@ -22,12 +21,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.Future;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 @KalipoExceptionHandler
@@ -35,8 +30,6 @@ public class CommentService {
 
     private static final int PAGE_SIZE = 5;
     private final Logger log = LoggerFactory.getLogger(CommentService.class);
-
-    private static final Pattern FIND_USER_REFERENCES = Pattern.compile("@[a-z0-9]+");
 
     @Inject
     private CommentRepository commentRepository;
@@ -49,9 +42,6 @@ public class CommentService {
 
     @Inject
     private NoticeService noticeService;
-
-    @Inject
-    private UserService userService;
 
     @RolesAllowed(Privileges.CREATE_COMMENT)
     @Throttled
@@ -119,7 +109,7 @@ public class CommentService {
         // todo check permissions
         // author or mod can delete
 
-        reputationService.punishDeletingComment(comment);
+        reputationService.onCommentDeletion(comment);
 
         commentRepository.delete(id);
     }
@@ -138,12 +128,8 @@ public class CommentService {
         comment = commentRepository.save(comment);
 
         if (newStatus == Comment.Status.APPROVED) {
-            notifyMentionedUsers(comment);
+            noticeService.notifyMentionedUsers(comment);
             noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.APPROVAL, comment.getId());
-
-//            todo implement
-//            User author = userService.findOne(comment.getAuthorId());
-//            author.setApprovedCommentCount(author.getApprovedCommentCount() + 1);
 
         } else {
             noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.DELETION, comment.getId());
@@ -162,9 +148,8 @@ public class CommentService {
 
         comment.setAuthorId(SecurityUtils.getCurrentLogin());
 
-        User author = userService.findOne(SecurityUtils.getCurrentLogin());
-
-        if (author.getApprovedCommentCount() < 5) {
+        // todo test this call
+        if (commentRepository.getApprovedCommentCountOfUser(SecurityUtils.getCurrentLogin()) < 5) {
             comment.setStatus(Comment.Status.PENDING);
 
         } else {
@@ -177,39 +162,12 @@ public class CommentService {
             thread.setCommentCount(thread.getCommentCount() + 1);
             threadRepository.save(thread);
 
-            notifyAuthorOfParent(comment);
+            noticeService.notifyAuthorOfParent(comment);
 
         }
 
-        if (comment.getStatus() == Comment.Status.APPROVED) {
-            notifyMentionedUsers(comment);
-        }
+        noticeService.notifyMentionedUsers(comment);
 
         return comment;
-    }
-
-    private void notifyAuthorOfParent(Comment comment) {
-        if (comment.getParentId() != null) {
-            Comment parent = commentRepository.findOne(comment.getParentId());
-            if (parent != null) {
-                noticeService.notifyAsync(parent.getAuthorId(), Notice.Type.REPLY, comment.getId());
-            }
-        }
-    }
-
-    private void notifyMentionedUsers(Comment comment) {
-
-        // find mentioned usernames, starting with @ like @myname
-        Matcher matcher = FIND_USER_REFERENCES.matcher(comment.getText());
-        Set<String> uqLogins = new HashSet<>();
-        while (matcher.find()) {
-            String login = matcher.group();
-            uqLogins.add(login);
-        }
-
-        for (String login : uqLogins) {
-            // notify @login
-            noticeService.notifyAsync(login, Notice.Type.MENTION, comment.getId());
-        }
     }
 }

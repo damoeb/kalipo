@@ -47,11 +47,16 @@ public class Comment {
 
     private Integer dislikes = 0;
 
+    // todo on delete: if no replies/likes/dislikes rm completely, otherwise ...
     @JsonIgnore
     private Boolean deleted;
 
+    // todo implement in front end
+    private Boolean hidden;
+
+    // todo replace by query
     @JsonIgnore
-    private Boolean reported;
+    private Integer reportedCount = 0;
 
     @JsonIgnore
     @NotNull(message = "{constraint.notnull.status}")
@@ -155,12 +160,20 @@ public class Comment {
         this.reviewerId = reviewerId;
     }
 
-    public Boolean getReported() {
-        return reported;
+    public Integer getReportedCount() {
+        return reportedCount;
     }
 
-    public void setReported(Boolean reported) {
-        this.reported = reported;
+    public void setReportedCount(Integer reportedCount) {
+        this.reportedCount = reportedCount;
+    }
+
+    public Boolean getHidden() {
+        return hidden;
+    }
+
+    public void setHidden(Boolean hidden) {
+        this.hidden = hidden;
     }
 
     /**
