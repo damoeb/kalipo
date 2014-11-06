@@ -53,9 +53,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Field("reputation")
     private int reputation;
 
-    // todo implement
-    private int approvedCommentCount;
-
     @Field
     @JsonIgnore
     private boolean banned;
@@ -151,14 +148,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setBanned(boolean banned) {
         this.banned = banned;
-    }
-
-    public int getApprovedCommentCount() {
-        return approvedCommentCount;
-    }
-
-    public void setApprovedCommentCount(int approvedCommentCount) {
-        this.approvedCommentCount = approvedCommentCount;
     }
 
     @Override

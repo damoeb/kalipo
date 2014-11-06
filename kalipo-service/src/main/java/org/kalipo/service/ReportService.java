@@ -24,11 +24,10 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 /**
- * todo: on approve: reputation + 5 for every reporter, reputation - 100 for author
- * todo: on reject: reputation - 50 for author
- * todo: on report: iff count > 5 comment will become deleted until peer review
+ * on approve: reputation + 5 for every reporter, reputation - 100 for author
+ * on reject: reputation - 50 for author
+ * on report: iff report count > 5 comment will become hidden until reviewed
  * todo: peer review reports of users with reputation >= author
- * todo: support updates for approve, reject
  */
 @Service
 @KalipoExceptionHandler
@@ -65,7 +64,22 @@ public class ReportService {
         report.setStatus(Report.Status.PENDING);
         report.setThreadId(comment.getThreadId());
 
-        return reportRepository.save(report);
+        report = reportRepository.save(report);
+
+        // todo replace by query
+        comment.setReportedCount(comment.getReportedCount() + 1);
+
+        // todo async
+        if (comment.getReportedCount() == 1) {
+            noticeService.notifyModsOfThread(comment.getThreadId(), report);
+        }
+        if (comment.getReportedCount() == 3) {
+            comment.setHidden(true);
+            noticeService.notifySuperMods(comment);
+        }
+        commentRepository.save(comment);
+
+        return report;
     }
 
     @RolesAllowed(Privileges.CLOSE_REPORT)
@@ -80,6 +94,7 @@ public class ReportService {
         approveOrReject(getPendingReport(id).setStatus(Report.Status.REJECTED));
     }
 
+    // todo can be removed?
     // todo add RolesAllowed
     @Async
     public Future<List<Report>> getAll() {
@@ -103,6 +118,7 @@ public class ReportService {
      * @param id the report id
      * @throws org.kalipo.web.rest.KalipoException
      */
+    // todo add RolesAllowed
     public void delete(String id) throws KalipoException {
 
         getPendingReport(id); // will fail if not pending or existing
@@ -113,19 +129,27 @@ public class ReportService {
     // --
 
     private void approveOrReject(Report report) throws KalipoException {
-        reputationService.approveOrRejectReport(report);
 
         report.setReviewerId(SecurityUtils.getCurrentLogin());
 
         Comment comment = commentRepository.findOne(report.getCommentId());
 
         if (report.getStatus() == Report.Status.APPROVED) {
-            noticeService.notify(comment.getAuthorId(), Notice.Type.DELETION, comment.getId());
+            comment.setDeleted(true);
+            commentRepository.save(comment);
+
+            noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.DELETION, comment.getId());
+
         } else {
-            noticeService.notify(comment.getAuthorId(), Notice.Type.APPROVAL, comment.getId());
+            if (comment.getHidden()) {
+                comment.setHidden(true);
+                commentRepository.save(comment);
+            }
+
+            noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.APPROVAL, comment.getId());
         }
 
-        reportRepository.save(report);
+        reputationService.onReportApprovalOrRejection(reportRepository.save(report));
     }
 
     private Report getPendingReport(String id) throws KalipoException {

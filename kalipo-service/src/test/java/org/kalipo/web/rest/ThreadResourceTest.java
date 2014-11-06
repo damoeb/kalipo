@@ -146,6 +146,7 @@ public class ThreadResourceTest {
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
 
+        // todo test modIds
     }
 
     @Test

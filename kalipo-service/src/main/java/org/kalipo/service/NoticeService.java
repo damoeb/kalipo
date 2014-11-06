@@ -1,8 +1,12 @@
 package org.kalipo.service;
 
 import org.kalipo.aop.Throttled;
+import org.kalipo.domain.Comment;
 import org.kalipo.domain.Notice;
+import org.kalipo.domain.Report;
+import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.NoticeRepository;
+import org.kalipo.repository.ThreadRepository;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
 import org.kalipo.web.rest.KalipoException;
@@ -13,19 +17,66 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class NoticeService {
 
     private static final int PAGE_SIZE = 20;
+    private static final Pattern FIND_USER_REFERENCES = Pattern.compile("@[a-z0-9]+"); //todo fix pattern to not match email addresses
+
     private final Logger log = LoggerFactory.getLogger(NoticeService.class);
 
     @Inject
     private NoticeRepository noticeRepository;
 
+    @Inject
+    private ThreadRepository threadRepository;
+
+    @Inject
+    private CommentRepository commentRepository;
+
     //    todo @Async
-    public void notify(String recipientId, Notice.Type type, String commentId) {
+    public void notifyMentionedUsers(Comment comment) {
+        if (comment.getStatus() == Comment.Status.APPROVED) {
+            // find mentioned usernames, starting with @ like @myname
+            Matcher matcher = FIND_USER_REFERENCES.matcher(comment.getText());
+            Set<String> uqLogins = new HashSet<String>();
+            while (matcher.find()) {
+                String login = matcher.group();
+                uqLogins.add(login);
+            }
+
+            for (String login : uqLogins) {
+                // notify @login
+                notifyAsync(login, Notice.Type.MENTION, comment.getId());
+            }
+        }
+    }
+
+    //    todo @Async
+    public void notifyModsOfThread(String threadId, Report report) {
+        for (String modId : threadRepository.findOne(threadId).getModIds()) {
+            notifyAsync(modId, Notice.Type.REPORT, report.getCommentId());
+        }
+    }
+
+    //    todo @Async
+    public void notifyAuthorOfParent(Comment comment) {
+        if (comment.getParentId() != null) {
+            Comment parent = commentRepository.findOne(comment.getParentId());
+            if (parent != null) {
+                notifyAsync(parent.getAuthorId(), Notice.Type.REPLY, comment.getId());
+            }
+        }
+    }
+
+    //    todo @Async
+    public void notifyAsync(String recipientId, Notice.Type type, String commentId) {
 
         try {
             Asserts.isNotNull(recipientId, "recipientId");
@@ -77,5 +128,9 @@ public class NoticeService {
         notice.setCreatedDate(original.getCreatedDate());
 
         return noticeRepository.save(notice);
+    }
+
+    public void notifySuperMods(Comment comment) {
+//          todo implement: bad comment, add supermod field to user
     }
 }

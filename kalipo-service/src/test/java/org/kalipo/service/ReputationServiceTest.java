@@ -9,6 +9,7 @@ import org.kalipo.Application;
 import org.kalipo.config.MongoConfiguration;
 import org.kalipo.domain.*;
 import org.kalipo.domain.Thread;
+import org.kalipo.repository.ReportRepository;
 import org.kalipo.repository.ReputationDefinitionRepository;
 import org.kalipo.repository.UserRepository;
 import org.kalipo.security.Privileges;
@@ -53,6 +54,9 @@ public class ReputationServiceTest {
     private ReputationService reputationService;
 
     @Inject
+    private ReportRepository reportRepository;
+
+    @Inject
     private CommentService commentService;
 
     @Inject
@@ -78,7 +82,7 @@ public class ReputationServiceTest {
         User userBefore = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
 //        exception.expect(KalipoException.class);
-        reputationService.initUser(userBefore);
+        reputationService.onUserCreation(userBefore);
 
         // get user reputation
         User userAfter = userRepository.findOne(SecurityUtils.getCurrentLogin());
@@ -101,7 +105,7 @@ public class ReputationServiceTest {
         newVote.setIsLike(true);
         newVote.setCommentId(comment.getId());
 
-        reputationService.likeOrDislikeComment(newVote);
+        reputationService.onCommentVoting(newVote);
 
         User userAfter = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
@@ -121,7 +125,7 @@ public class ReputationServiceTest {
         newVote.setIsLike(false);
         newVote.setCommentId(comment.getId());
 
-        reputationService.likeOrDislikeComment(newVote);
+        reputationService.onCommentVoting(newVote);
 
         User userAfter = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
@@ -139,10 +143,14 @@ public class ReputationServiceTest {
 
         Report newReport = new Report();
         newReport.setCommentId(comment.getId());
+        newReport.setThreadId(comment.getThreadId());
         newReport.setStatus(Report.Status.APPROVED);
         newReport.setAuthorId(SecurityUtils.getCurrentLogin());
+        newReport.setReason("something");
 
-        reputationService.approveOrRejectReport(newReport);
+        newReport = reportRepository.save(newReport);
+
+        reputationService.onReportApprovalOrRejection(newReport);
 
         User userAfter = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
@@ -161,10 +169,14 @@ public class ReputationServiceTest {
         Report newReport = new Report();
         newReport.setAbused(true);
         newReport.setCommentId(comment.getId());
+        newReport.setThreadId(comment.getThreadId());
         newReport.setStatus(Report.Status.REJECTED);
         newReport.setAuthorId(SecurityUtils.getCurrentLogin());
+        newReport.setReason("something");
 
-        reputationService.approveOrRejectReport(newReport);
+        newReport = reportRepository.save(newReport);
+
+        reputationService.onReportApprovalOrRejection(newReport);
 
         User userAfter = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
@@ -179,7 +191,7 @@ public class ReputationServiceTest {
 
         User userBefore = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
-        reputationService.punishDeletingComment(comment);
+        reputationService.onCommentDeletion(comment);
 
         User userAfter = userRepository.findOne(SecurityUtils.getCurrentLogin());
 

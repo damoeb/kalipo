@@ -29,6 +29,7 @@ public class Comment {
     @ModelExistsConstraint(Comment.class)
     private String parentId;
 
+    @JsonIgnore
     @NotNull(message = "{constraint.notnull.reputation}")
     private Integer reputation = 0;
 
@@ -46,11 +47,22 @@ public class Comment {
 
     private Integer dislikes = 0;
 
+    // todo on delete: if no replies/likes/dislikes rm completely, otherwise ...
     @JsonIgnore
     private Boolean deleted;
 
+    // todo implement in front end
+    private Boolean hidden;
+
+    // todo replace by query
+    @JsonIgnore
+    private Integer reportedCount = 0;
+
+    @JsonIgnore
     @NotNull(message = "{constraint.notnull.status}")
     private Status status;
+
+    private String reviewerId;
 
     public String getId() {
         return id;
@@ -138,6 +150,30 @@ public class Comment {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public String getReviewerId() {
+        return reviewerId;
+    }
+
+    public void setReviewerId(String reviewerId) {
+        this.reviewerId = reviewerId;
+    }
+
+    public Integer getReportedCount() {
+        return reportedCount;
+    }
+
+    public void setReportedCount(Integer reportedCount) {
+        this.reportedCount = reportedCount;
+    }
+
+    public Boolean getHidden() {
+        return hidden;
+    }
+
+    public void setHidden(Boolean hidden) {
+        this.hidden = hidden;
     }
 
     /**

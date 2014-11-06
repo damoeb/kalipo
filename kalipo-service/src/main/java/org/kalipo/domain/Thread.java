@@ -13,6 +13,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Thread.
@@ -51,18 +53,17 @@ public class Thread implements Serializable {
 
     @JsonIgnore
     @NotNull
-    @Field("author_id")
-    private String authorId;
+    private Set<String> modIds = new HashSet<String>();
 
     private String leadCommentId;
 
     /**
-     * Sum of all comment likes plus thread likes
+     * Sum of all comment likes in discussion
      */
     private Integer likes = 0;
 
     /**
-     * Sum of all comment dislikes plus thread dislikes
+     * Sum of all comment dislikes in discussion
      */
     private Integer dislikes = 0;
 
@@ -128,12 +129,12 @@ public class Thread implements Serializable {
         this.commentCount = commentCount;
     }
 
-    public String getAuthorId() {
-        return authorId;
+    public Set<String> getModIds() {
+        return modIds;
     }
 
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
+    public void setModIds(Set<String> modIds) {
+        this.modIds = modIds;
     }
 
     public Integer getLikes() {
