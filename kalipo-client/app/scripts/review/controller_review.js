@@ -2,23 +2,26 @@
 
 kalipoApp.controller('ReviewCommentController', function ($scope, resolvedComment, Comment) {
 
-        $scope.comments = resolvedComment;
+    $scope.comments = resolvedComment;
 
-        $scope.update = function (id) {
-            $scope.comment = Comment.get({id: id});
-            $('#saveCommentModal').modal('show');
-        };
+    $scope.approve = function (id) {
+        Comment.approve({id: id},
+            function () {
+                // todo remove
+            });
+    };
 
-        $scope.delete = function (id) {
-            Comment.delete({id: id},
-                function () {
-                    $scope.comments = Comment.query();
-                });
-        };
+    $scope.reject = function (id) {
+        Comment.reject({id: id},
+            function () {
+                // todo remove
+            });
+    };
 
-    // todo approve, reject
-
-        $scope.clear = function () {
-            $scope.comment = {id: null, threadId: null, parentId: null, text: null};
-        };
-    });
+    $scope.delete = function (id) {
+        Comment.delete({id: id},
+            function () {
+                $scope.comments = Comment.query();
+            });
+    };
+});

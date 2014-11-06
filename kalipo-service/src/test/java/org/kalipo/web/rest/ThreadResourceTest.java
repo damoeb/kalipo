@@ -55,7 +55,7 @@ public class ThreadResourceTest {
 
     private static final String UPD_SAMPLE_TITLE_ATTR = "sampleTitleAttributeUpt";
     private static final Boolean UPD_SAMPLE_READONLY_ATTR = true;
-    public static final List<String> DEFAULT_PRIVILEGES = Arrays.asList(Privileges.CREATE_THREAD, Privileges.MODERATE_THREAD, Privileges.CREATE_COMMENT);
+    public static final List<String> DEFAULT_PRIVILEGES = Arrays.asList(Privileges.CREATE_THREAD, Privileges.CREATE_COMMENT);
 
     @Rule
     public ExpectedException exception = ExpectedException.none();

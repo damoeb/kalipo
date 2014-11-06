@@ -71,7 +71,7 @@ public class CommentResourceTest {
 
         this.restCommentMockMvc = MockMvcBuilders.standaloneSetup(commentResource).build();
 
-        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_COMMENT, Privileges.CREATE_THREAD, Privileges.MODERATE_THREAD));
+        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_COMMENT, Privileges.CREATE_THREAD));
 
         Thread thread = ThreadResourceTest.newThread();
         threadService.create(thread);

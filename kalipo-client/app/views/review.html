@@ -1,4 +1,4 @@
-<h2>Comments Under Review</h2>
+<h2>Review</h2>
 
 <div class="row">
     <div class="col-md-push-9 col-md-3">
@@ -21,26 +21,38 @@
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="comment in comments">
 
-            <div class="row">
-
-                <div class="col-md-1">
-                    <strong>{{comment.type}}</strong>
-                </div>
-
-                <div class="col-md-9">
-                    for
-                    {{comment.commentId}}
-
-                    by
-                    <strong>{{comment.initiatorId}}</strong>
-                </div>
-
-                <div class="col-md-2 text-right">
-                    {{comment.createdDate | fromNow}}
-                </div>
-
-            </div>
+            <div ng-include="'comment_renderer.template'"></div>
 
         </li>
     </ul>
 </div>
+
+
+<script type="text/ng-template" id="comment_renderer.template">
+    <div>
+
+        <div class="post">
+            <span class="menu">
+                <a href="javascript:void(0)"
+                   ng-click="comment.$maximized = !comment.$maximized" title="Click to minimize">
+                    <span class="glyphicon glyphicon-chevron-up"></span></a>
+            </span>
+
+            <a href="#/users/{{comment.authorId}}"><strong>{{comment.authorId}}</strong></a>
+            <span style="color: grey; font-size: smaller" title="{{comment.createdDate | dateString }}">{{comment.createdDate | fromNow }}</span>
+
+            <div style="white-space: pre-line">{{comment.text}}</div>
+        </div>
+
+        <div class="btn-toolbar" style="margin-top: 10px">
+            <button type="button" class="btn btn-default btn-sm" ng-click="approve(comment.id)"><span
+                    class="glyphicon glyphicon-ok"></span> Approve
+            </button>
+            <button type="button" class="btn btn-default btn-sm" ng-click="reject(comment.id)"><span
+                    class="glyphicon glyphicon-remove"></span> Delete
+            </button>
+            <!--<button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-exclamation-sign"></span> Spam</button>-->
+        </div>
+
+    </div>
+</script>

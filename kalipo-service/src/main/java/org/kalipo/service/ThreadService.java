@@ -3,10 +3,12 @@ package org.kalipo.service;
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
+import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.ThreadRepository;
+import org.kalipo.repository.UserRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
@@ -40,6 +42,9 @@ public class ThreadService {
     @Inject
     private CommentService commentService;
 
+    @Inject
+    private UserRepository userRepository;
+
     @RolesAllowed(Privileges.CREATE_THREAD)
     @Throttled
     public Thread create(Thread thread) throws KalipoException {
@@ -70,7 +75,7 @@ public class ThreadService {
         return thread;
     }
 
-    @RolesAllowed(Privileges.MODERATE_THREAD)
+    @RolesAllowed(Privileges.CREATE_THREAD)
     @Throttled
     public Thread update(Thread thread) throws KalipoException {
         Asserts.isNotNull(thread, "thread");
@@ -79,8 +84,15 @@ public class ThreadService {
         Thread original = threadRepository.findOne(thread.getId());
         Asserts.isNotNull(original, "thread");
 
-        // mod rule: add any user with MODERATE_THREAD, remove only self, iff not empty
         Set<String> originalModIds = original.getModIds();
+
+        // Permissions
+        boolean isMod = originalModIds.contains(SecurityUtils.getCurrentLogin());
+        if (!isMod && !isSuperMod()) {
+            throw new KalipoException(ErrorCode.PERMISSION_DENIED);
+        }
+
+        // mod rule: add any user with MODERATE_THREAD, remove only self, iff not empty
         if(thread.getModIds()==null || originalModIds.containsAll(thread.getModIds())) {
             thread.setModIds(originalModIds);
         } else {
@@ -92,7 +104,7 @@ public class ThreadService {
             Set<String> added = thread.getModIds().stream().filter(uid -> original.getModIds().contains(uid)).collect(Collectors.toSet());
 
             for(String userId : added) {
-//                todo Asserts.hasPrivilege(Privileges.MODERATE_THREAD);
+//                todo Asserts.hasPrivilege(Privileges.CREATE_THREAD);
             }
 
             for(String userId : removed) {
@@ -115,6 +127,10 @@ public class ThreadService {
         thread.setDislikes(original.getDislikes());
 
         return save(thread);
+    }
+
+    private boolean isSuperMod() {
+        return userRepository.findOne(SecurityUtils.getCurrentLogin()).isSuperMod();
     }
 
     private Thread save(Thread thread) throws KalipoException {

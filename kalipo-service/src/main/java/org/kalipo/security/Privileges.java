@@ -6,9 +6,16 @@ package org.kalipo.security;
  * Created by damoeb on 16.09.14.
  */
 public class Privileges {
+
+    /**
+     * Review all pending comments in this thread
+     */
     public static final String CREATE_THREAD = "CREATE_THREAD";
-    public static final String MODERATE_THREAD = "MODERATE_THREAD";
     public static final String CREATE_COMMENT = "CREATE_COMMENT";
+
+    /**
+     * Review all pending comments
+     */
     public static final String REVIEW_COMMENT = "REVIEW_COMMENT";
     public static final String CREATE_VOTE = "CREATE_VOTE";
     public static final String CREATE_PRIVILEGE = "CREATE_PRIVILEGE";

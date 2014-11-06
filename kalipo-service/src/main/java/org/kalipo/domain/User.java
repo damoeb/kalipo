@@ -57,6 +57,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     private boolean banned;
 
+    @Field
+    private boolean superMod;
+
     @JsonIgnore
     private Set<Authority> authorities = new HashSet<>();
 
@@ -148,6 +151,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setBanned(boolean banned) {
         this.banned = banned;
+    }
+
+    public boolean isSuperMod() {
+        return superMod;
+    }
+
+    public void setSuperMod(boolean superMod) {
+        this.superMod = superMod;
     }
 
     @Override

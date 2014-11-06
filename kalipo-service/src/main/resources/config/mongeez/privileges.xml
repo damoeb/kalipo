@@ -10,13 +10,6 @@
 
             db.T_PRIVILEGE.insert(
             {
-            "_id" : "2",
-            "name": "MODERATE_THREAD",
-            "reputation": 0
-            });
-
-            db.T_PRIVILEGE.insert(
-            {
             "_id" : "3",
             "name": "CREATE_COMMENT",
             "reputation": 0
