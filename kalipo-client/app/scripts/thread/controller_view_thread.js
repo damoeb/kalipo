@@ -25,13 +25,20 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
 
         Thread.getComments({id: threadId}, function (comments) {
 
+            $scope.comments = [];
+            $scope.pending = [];
 
-            $scope.comments = _cluster(comments);
+            var groups = _.groupBy(_.sortBy(comments, function(comment){return -comment.createdDate}), function(comment) {
+                return comment.status;
+            });
 
-            if (commentId) {
-                noty({text: 'Go to comment ' + commentId});
-                $scope.scrollTo(commentId);
-            }
+            $scope.comments = _hierarchical(groups.APPROVED);
+            $scope.pending = groups.PENDING;
+
+//            if (commentId) {
+//                noty({text: 'Go to comment ' + commentId});
+//                $scope.scrollTo(commentId);
+//            }
         });
 
         $scope.toggleShareComponent = function () {
@@ -52,21 +59,13 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
                 });
         };
 
-        var _cluster = function (comments) {
+        var _hierarchical = function (comments) {
+//        order by createdDate ASC
 
-            var map = {};
-            var roots = [];
-
-            for (var i in comments) {
-                var comment = comments[i];
-
-//                if(comment.status !== 'APPROVED') {
-//                    continue;
-//                }
-
-                map[comment.id] = comment;
-                comment.subcomments = [];
+            var map = _.groupBy(comments, function(comment) {
+                comment.children = [];
                 comment.$report = false;
+                comment.$commentCount = 1;
 
                 // todo minimize negative-only comments, hell-banned subthreads
 
@@ -75,33 +74,26 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
                 var total = comment.likes + comment.dislikes;
                 comment.$likes = comment.likes / total * 100;
                 comment.$dislikes = comment.dislikes / total * 100;
-            }
 
-            $.each(comments, function (index, comment) {
-                if (comment.parentId == null) {
-                    roots.push(comment);
-                } else {
-                    var _parent = map[comment.parentId];
-                    _parent.subcomments.push(comment);
-                }
+                return comment.id;
             });
 
-            var get$commentCount = function (index, comment) {
+            return _.filter(comments, function(comment) {
+                if (comment.parentId == null) {
+                    return true;
+                } else {
+                    var parent = map[comment.parentId][0];
+                    parent.children.push(comment);
 
-                comment.$commentCount = 1;
-
-                for(var i=0; i < comment.subcomments.length; i++) {
-                    var subcomment = comment.subcomments[i];
-                    comment.$commentCount += get$commentCount(0, subcomment);
+                    // push commentCount to parents
+                    var child = comment;
+                    while(child.parentId) {
+                        parent = map[child.parentId][0];
+                        parent.$commentCount += 1;
+                        child = parent;
+                    }
                 }
-
-                return comment.$commentCount;
-            };
-
-            $.each(roots, get$commentCount);
-
-            return roots;
-
+            });
         };
 
         $scope.toggleReplyForm = function (comment) {

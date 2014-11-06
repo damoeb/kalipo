@@ -58,7 +58,7 @@
             </div>
 
             <dl style="margin:0;">
-                <dd ng-repeat="comment in comments | orderBy:createdDate" ng-include="'comment_renderer.html'">
+                <dd ng-repeat="comment in comments" ng-include="'comment_renderer.html'">
 
                 </dd>
             </dl>
@@ -226,9 +226,9 @@
                     </div>
 
                     <!-- sub comments -->
-                    <div ng-hide="comment.subcomments.length == 0">
+                    <div ng-hide="comment.children.length == 0">
                         <dl style="margin:0;">
-                            <dd ng-repeat="comment in comment.subcomments | orderBy:createdDate"
+                            <dd ng-repeat="comment in comment.children"
                                 ng-include="'comment_renderer.html'"></dd>
                         </dl>
                     </div>
