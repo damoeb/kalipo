@@ -2,12 +2,11 @@
 
 kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootScope', 'Thread', 'Comment', 'Report', 'Vote', '$log', '$location', '$anchorScroll',
     function ($scope, $routeParams, $rootScope, Thread, Comment, Report, Vote, $log, $location, $anchorScroll) {
-//          todo fix this endsWith
-//        if ($location.path().endsWith('share')) {
-//            $scope.share = 'social';
-//        } else {
-//            $scope.share = null;
-//        }
+        if ($location.path().endsWith('share')) {
+            $scope.more = 'social';
+        } else {
+            $scope.more = null;
+        }
 
         $scope.textCommentHere = 'Add a comment...';
 
@@ -42,10 +41,10 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         });
 
         $scope.toggleShareComponent = function () {
-            if ($scope.share == null) {
-                $scope.share = 'social';
+            if ($scope.more == null) {
+                $scope.more = 'social';
             } else {
-                $scope.share = null;
+                $scope.more = null;
             }
         };
 

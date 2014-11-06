@@ -166,6 +166,14 @@
 
 <!-- build:js scripts/scripts.js -->
 <script src="bower_components/modernizr/modernizr.js"></script>
+
+<script type="application/javascript">
+    if (typeof String.prototype.endsWith !== 'function') {
+        String.prototype.endsWith = function (suffix) {
+            return this.indexOf(suffix, this.length - suffix.length) !== -1;
+        };
+    }
+</script>
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/momentjs/min/moment.min.js"></script>
 <script src="bower_components/angular/angular.js"></script>

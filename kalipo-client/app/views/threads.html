@@ -19,11 +19,6 @@
                             Submitted {{thread.createdDate | fromNow}}
                         </div>
                     </div>
-                    <div ng-show="thread.tags!=null && thread.tags.length>0">
-                        <a href="#/tags/{{tag.name}}" ng-repeat="tag in thread.tags" class="badge">
-                            {{tag.name}}
-                        </a>
-                    </div>
                 </div>
             </div>
         </li>
