@@ -1,0 +1,46 @@
+<h2>Comments Under Review</h2>
+
+<div class="row">
+    <div class="col-md-push-9 col-md-3">
+        <div class="pull-right">
+            <span class="text-muted"><b>1</b>&ndash;<b>50</b> of <b>277</b></span>
+
+            <div class="btn-group btn-group-sm">
+                <button class="btn btn-default" type="button">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </button>
+                <button class="btn btn-default" type="button">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="box">
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="comment in comments">
+
+            <div class="row">
+
+                <div class="col-md-1">
+                    <strong>{{comment.type}}</strong>
+                </div>
+
+                <div class="col-md-9">
+                    for
+                    {{comment.commentId}}
+
+                    by
+                    <strong>{{comment.initiatorId}}</strong>
+                </div>
+
+                <div class="col-md-2 text-right">
+                    {{comment.createdDate | fromNow}}
+                </div>
+
+            </div>
+
+        </li>
+    </ul>
+</div>

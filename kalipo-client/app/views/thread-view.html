@@ -3,13 +3,7 @@
 <div class="row box box-padding">
 
     <div>
-        <span ng-show="thread.commentCount == 1">{{thread.commentCount}} comment</span>
-        <span ng-show="thread.commentCount != 1">{{thread.commentCount}} comments</span>
-
-        by
-
-        <span ng-show="thread.authorCount == 1">{{thread.authorCount}} authors</span>
-        <span ng-show="thread.authorCount != 1">{{thread.authorCount}} authors</span>
+        Submitted
 
         {{thread.createdDate | fromNow}}
     </div>

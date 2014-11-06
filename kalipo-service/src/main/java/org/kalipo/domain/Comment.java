@@ -1,6 +1,7 @@
 package org.kalipo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.joda.time.DateTime;
 import org.kalipo.validation.ModelExistsConstraint;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,8 +14,8 @@ import javax.validation.constraints.Size;
 /**
  * A Comment.
  */
-
 @Document(collection = "T_COMMENT")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Comment {
 
     public static final int LEN_TEXT = 2048;
@@ -58,7 +59,7 @@ public class Comment {
     @JsonIgnore
     private Integer reportedCount = 0;
 
-    @JsonIgnore
+    //    @JsonIgnore
     @NotNull(message = "{constraint.notnull.status}")
     private Status status;
 

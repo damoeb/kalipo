@@ -2,6 +2,7 @@ package org.kalipo.service;
 
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
+import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Notice;
 import org.kalipo.domain.Thread;
@@ -141,6 +142,11 @@ public class CommentService {
     private Comment save(Comment comment, boolean isNew) throws KalipoException {
 
         Asserts.isNotNull(comment.getThreadId(), "threadId");
+
+        // reply only to approved comments
+        if (isNew && comment.getParentId() != null && commentRepository.findOne(comment.getParentId()).getStatus() != Comment.Status.APPROVED) {
+            throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "Invalid status of parent. It is not approved yet");
+        }
 
         Thread thread = threadRepository.findOne(comment.getThreadId());
         Asserts.isNotNull(thread, "threadId");

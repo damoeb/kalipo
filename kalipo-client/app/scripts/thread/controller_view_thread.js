@@ -2,7 +2,7 @@
 
 kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootScope', 'Thread', 'Comment', 'Report', 'Vote', '$log', '$location', '$anchorScroll',
     function ($scope, $routeParams, $rootScope, Thread, Comment, Report, Vote, $log, $location, $anchorScroll) {
-
+//          todo fix this endsWith
 //        if ($location.path().endsWith('share')) {
 //            $scope.share = 'social';
 //        } else {
@@ -14,9 +14,6 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         $scope.draft = {};
         $scope.thread = {};
         $scope.reportModel = {};
-        $scope.pendingCount = 0;
-        $scope.commentCount = 0;
-        $scope.reportCount = 0;
         $scope.$doComment = false;
 
         var threadId = $routeParams.threadId;
@@ -27,6 +24,8 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         });
 
         Thread.getComments({id: threadId}, function (comments) {
+
+
             $scope.comments = _cluster(comments);
 
             if (commentId) {
@@ -60,6 +59,11 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
 
             for (var i in comments) {
                 var comment = comments[i];
+
+//                if(comment.status !== 'APPROVED') {
+//                    continue;
+//                }
+
                 map[comment.id] = comment;
                 comment.subcomments = [];
                 comment.$report = false;
