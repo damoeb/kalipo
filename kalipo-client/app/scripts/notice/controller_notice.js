@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('NoticeController', function ($scope, resolvedNotice, Notice) {
+kalipoApp.controller('NoticeController', function ($scope, resolvedNotice, Notice) {
 
         $scope.notices = resolvedNotice;
 

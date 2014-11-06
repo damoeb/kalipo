@@ -1,70 +1,48 @@
-<div>
+<h2>Notices</h2>
 
-    <h2>Notices</h2>
+<div class="row">
+    <div class="col-md-push-9 col-md-3">
+        <div class="pull-right">
+            <span class="text-muted"><b>1</b>&ndash;<b>50</b> of <b>277</b></span>
 
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveNoticeModal" ng-click="clear()">
-        <span class="glyphicon glyphicon-flash"></span> Create a new Notice
-    </button>
-    <div class="modal fade" id="saveNoticeModal" tabindex="-1" role="dialog" aria-labelledby="myNoticeLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form name="form" role="form" novalidate
-                      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
-                      ng-submit="create()">
-
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                ng-click="clear()">&times;</button>
-                        <h4 class="modal-title" id="myNoticeLabel">Create or edit a Notice</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>ID</label>
-                            <input type="text" class="form-control" name="id"
-                                   ng-model="notice.id" readonly>
-                        </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
-                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-                        </button>
-                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-save"></span> Save
-                        </button>
-                    </div>
-                </form>
+            <div class="btn-group btn-group-sm">
+                <button class="btn btn-default" type="button">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </button>
+                <button class="btn btn-default" type="button">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </button>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="notice in notices">
-                <td>{{notice.id}}</td>
-                <td>
-                    <button type="submit"
-                            ng-click="update(notice.id)"
-                            class="btn btn-default">
-                        <span class="glyphicon glyphicon-pencil"></span> Edit
-                    </button>
-                    <button type="submit"
-                            ng-click="delete(notice.id)"
-                            class="btn btn-danger">
-                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="box">
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="notice in notices">
+
+            <!-- todo if notice.read -> gray line -->
+
+            <div class="row">
+
+                <div class="col-md-1">
+                    <strong>{{notice.type}}</strong>
+                </div>
+
+                <div class="col-md-9">
+                    for
+                    {{notice.commentId}}
+
+                    by
+                    <strong>{{notice.initiatorId}}</strong>
+                </div>
+
+                <div class="col-md-2 text-right">
+                    {{thread.createdDate | fromNow}}
+                </div>
+
+            </div>
+
+        </li>
+    </ul>
 </div>

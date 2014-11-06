@@ -61,6 +61,7 @@ public class VoteService {
             noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.LIKE, comment.getId());
         } else {
             comment.setDislikes(comment.getDislikes() + 1);
+            // don't notify about dislikes, it's bad for the motivation and feeds a troll
         }
         commentRepository.save(comment);
 

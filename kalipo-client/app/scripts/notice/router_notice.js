@@ -1,9 +1,8 @@
 'use strict';
 
-App
-    .config(function ($routeProvider, $httpProvider, $translateProvider, USER_ROLES) {
+kalipoApp.config(function ($routeProvider, $httpProvider, $translateProvider, USER_ROLES) {
             $routeProvider
-                .when('/notice', {
+                .when('/notices', {
                     templateUrl: 'views/notices.html',
                     controller: 'NoticeController',
                     resolve:{
