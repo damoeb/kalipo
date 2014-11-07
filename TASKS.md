@@ -1,3 +1,5 @@
+propper logging
+
 review comments
 like a comment -> follow this comment?
 dislike a comment -> minimize this thread?

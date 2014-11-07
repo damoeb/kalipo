@@ -134,6 +134,7 @@ public class ReputationService {
 
     /**
      * Punish comment deleting by ReputationDefinition.Type.RM_COMMENT
+     *
      * @param comment the comment
      * @throws KalipoException
      */
@@ -168,7 +169,11 @@ public class ReputationService {
 
     private void updateUserReputation(RepRevision revision) {
         User u = userRepository.findOne(revision.getUserId());
-        u.setReputation(u.getReputation() + reputationDefinitionRepository.findByType(revision.getType()).getReputation());
+        ReputationDefinition definition = reputationDefinitionRepository.findByType(revision.getType());
+
+        log.info(String.format("%s gets %s reputation after %s (rev %s)", revision.getUserId(), definition.getReputation(), revision.getType(), revision.getId()));
+
+        u.setReputation(u.getReputation() + definition.getReputation());
         userRepository.save(u);
     }
 

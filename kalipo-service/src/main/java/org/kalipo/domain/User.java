@@ -2,6 +2,7 @@ package org.kalipo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
+import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -53,11 +54,20 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Field("reputation")
     private int reputation;
 
-    @Field
     @JsonIgnore
     private boolean banned;
 
-    @Field
+    private DateTime bannedUntilDate;
+
+    private int strikes;
+
+    @JsonIgnore
+    private DateTime lastStrikeDate;
+
+    @JsonIgnore
+    private int banCount;
+
+    // todo protect these fields
     private boolean superMod;
 
     @JsonIgnore
@@ -153,12 +163,44 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.banned = banned;
     }
 
+    public int getBanCount() {
+        return banCount;
+    }
+
+    public void setBanCount(int banCount) {
+        this.banCount = banCount;
+    }
+
     public boolean isSuperMod() {
         return superMod;
     }
 
     public void setSuperMod(boolean superMod) {
         this.superMod = superMod;
+    }
+
+    public int getStrikes() {
+        return strikes;
+    }
+
+    public void setStrikes(int strikes) {
+        this.strikes = strikes;
+    }
+
+    public DateTime getBannedUntilDate() {
+        return bannedUntilDate;
+    }
+
+    public void setBannedUntilDate(DateTime bannedUntilDate) {
+        this.bannedUntilDate = bannedUntilDate;
+    }
+
+    public DateTime getLastStrikeDate() {
+        return lastStrikeDate;
+    }
+
+    public void setLastStrikeDate(DateTime lastStrikeDate) {
+        this.lastStrikeDate = lastStrikeDate;
     }
 
     @Override

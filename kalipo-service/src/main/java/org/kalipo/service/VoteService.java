@@ -57,9 +57,11 @@ public class VoteService {
 //        todo replace by scheduled job, with delay to prevent bandwaggon effect
 
         if (vote.getIsLike()) {
+            log.info(String.format("%s likes comment %s", SecurityUtils.getCurrentLogin(), comment.getId()));
             comment.setLikes(comment.getLikes() + 1);
             noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.LIKE, comment.getId());
         } else {
+            log.info(String.format("%s dislikes comment %s", SecurityUtils.getCurrentLogin(), comment.getId()));
             comment.setDislikes(comment.getDislikes() + 1);
             // don't notify about dislikes, it's bad for the motivation and feeds a troll
         }
@@ -79,6 +81,7 @@ public class VoteService {
     }
 
     public void delete(String id) throws KalipoException {
+        // todo remove
         voteRepository.delete(id);
     }
 }

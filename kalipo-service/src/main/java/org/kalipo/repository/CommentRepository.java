@@ -22,4 +22,7 @@ public interface CommentRepository extends MongoRepository<Comment, String> {
 
     @Query(value = "{'authorId': ?0, 'status': 'APPROVED'}", count = true)
     Long getApprovedCommentCountOfUser(String userId);
+
+    @Query(value = "{'parentId': ?0}", count = true)
+    Long getReplyCount(String commentId);
 }

@@ -91,6 +91,6 @@ public class Notice implements Serializable {
     }
 
     public static enum Type {
-        LIKE, MENTION, REPLY, DELETION, REPORT, APPROVAL
+        LIKE, MENTION, REPLY, DELETION, REPORT, REVIEW, APPROVAL
     }
 }

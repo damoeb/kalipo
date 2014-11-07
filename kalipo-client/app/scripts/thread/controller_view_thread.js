@@ -28,12 +28,13 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
             $scope.pending = [];
 
             var groups = _.groupBy(_.sortBy(comments, function(comment){return -comment.createdDate}), function(comment) {
-                return comment.status;
+                return comment.status == 'PENDING' ? 'PENDING' : 'OTHERS';
             });
 
-            $scope.comments = _hierarchical(groups.APPROVED);
+            $scope.comments = _hierarchical(groups.OTHERS);
             $scope.pending = groups.PENDING;
 
+//            todo enable scrollTo
 //            if (commentId) {
 //                noty({text: 'Go to comment ' + commentId});
 //                $scope.scrollTo(commentId);
@@ -59,12 +60,24 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         };
 
         var _hierarchical = function (comments) {
-//        order by createdDate ASC
 
             var map = _.groupBy(comments, function(comment) {
                 comment.children = [];
                 comment.$report = false;
                 comment.$commentCount = 1;
+
+                if (comment.hidden) {
+                    comment.text = 'Content hidden';
+                    comment.dislikes = 0;
+                    comment.likes = 0;
+                }
+
+                if (comment.status == 'DELETED') {
+                    comment.authorId = 'Deleted';
+                    comment.text = 'Content deleted';
+                    comment.dislikes = 0;
+                    comment.likes = 0;
+                }
 
                 // todo minimize negative-only comments, hell-banned subthreads
 

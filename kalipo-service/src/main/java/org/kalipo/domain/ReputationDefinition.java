@@ -8,7 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotNull;
 
 /**
- * A ReputationDefinition defines reputation modifiers for specific Types. A Type can be seen as an action. Reputation is a positive or negative number that is added to the current user reputation
+ * A ReputationDefinition defines reputation modifiers for specific Types.
+ * A Type can be seen as an action. Reputation is a positive or negative number that is added to the current user reputation
  */
 
 @Document(collection = "T_REPUTATION_DEFINITION")

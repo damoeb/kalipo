@@ -5,6 +5,7 @@ import org.kalipo.aop.Throttled;
 import org.kalipo.domain.Privilege;
 import org.kalipo.repository.PrivilegeRepository;
 import org.kalipo.security.Privileges;
+import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
@@ -31,7 +32,8 @@ public class PrivilegeService {
     @Throttled
     public Privilege create(Privilege privilege) throws KalipoException {
         Asserts.isNotNull(privilege, "privilege");
-        return save(privilege);
+        log.info(String.format("%s creates privilege %s", SecurityUtils.getCurrentLogin(), privilege));
+        return privilegeRepository.save(privilege);
     }
 
     @RolesAllowed(Privileges.CREATE_PRIVILEGE)
@@ -39,10 +41,7 @@ public class PrivilegeService {
     public Privilege update(Privilege privilege) throws KalipoException {
         Asserts.isNotNull(privilege, "privilege");
         Asserts.isNotNull(privilege.getId(), "id");
-        return save(privilege);
-    }
-
-    private Privilege save(Privilege privilege) throws KalipoException {
+        log.info(String.format("%s updates privilege %s to %s", SecurityUtils.getCurrentLogin(), privilege.getId(), privilege));
         return privilegeRepository.save(privilege);
     }
 

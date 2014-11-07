@@ -4,6 +4,7 @@ import org.kalipo.aop.Throttled;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Notice;
 import org.kalipo.domain.Report;
+import org.kalipo.domain.Thread;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.NoticeRepository;
 import org.kalipo.repository.ThreadRepository;
@@ -107,7 +108,7 @@ public class NoticeService {
         Asserts.isNotNull(notice, "notice");
         Asserts.isNotNull(notice.getId(), "id");
 
-        // just read field can be changed
+        // just field <read> can be changed
 
         Notice original = noticeRepository.findOne(notice.getId());
         Asserts.isCurrentLogin(original.getRecipientId());
@@ -132,5 +133,11 @@ public class NoticeService {
 
     public void notifySuperMods(Comment comment) {
 //          todo implement: bad comment, add supermod field to user
+    }
+
+    public void notifyModsOfThread(Thread thread, Comment comment) {
+        for (String modId : thread.getModIds()) {
+            notifyAsync(modId, Notice.Type.REVIEW, comment.getId());
+        }
     }
 }

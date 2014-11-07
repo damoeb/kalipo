@@ -33,6 +33,7 @@ import java.util.concurrent.Future;
 @KalipoExceptionHandler
 public class ReportService {
 
+    public static final int CRITICAL_REPORT_COUNT = 3;
     private final Logger log = LoggerFactory.getLogger(ReportService.class);
 
     @Inject
@@ -43,6 +44,9 @@ public class ReportService {
 
     @Inject
     private ReputationService reputationService;
+
+    @Inject
+    private CommentService commentService;
 
     @Inject
     private NoticeService noticeService;
@@ -60,11 +64,22 @@ public class ReportService {
 
         Asserts.isNotNull(comment, "commentId");
 
-        report.setAuthorId(SecurityUtils.getCurrentLogin());
+        final String currentLogin = SecurityUtils.getCurrentLogin();
+
+        final boolean exists = reportRepository.findByCommentIdAndAuthorId(comment.getId(), currentLogin) != null;
+        if (exists) {
+            throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "Already reported");
+        }
+
+        log.info(String.format("Report of comment %s by %s", comment.getId(), currentLogin));
+
+        report.setAuthorId(currentLogin);
         report.setStatus(Report.Status.PENDING);
         report.setThreadId(comment.getThreadId());
 
         report = reportRepository.save(report);
+
+        // todo unique report (reporter, comment), reject reports on already approved comment
 
         // todo replace by query
         comment.setReportedCount(comment.getReportedCount() + 1);
@@ -73,7 +88,8 @@ public class ReportService {
         if (comment.getReportedCount() == 1) {
             noticeService.notifyModsOfThread(comment.getThreadId(), report);
         }
-        if (comment.getReportedCount() == 3) {
+        if (comment.getReportedCount() == CRITICAL_REPORT_COUNT) {
+            log.info(String.format("Hiding comment %s after %s reports", comment.getId(), CRITICAL_REPORT_COUNT));
             comment.setHidden(true);
             noticeService.notifySuperMods(comment);
         }
@@ -120,7 +136,7 @@ public class ReportService {
      */
     // todo add RolesAllowed
     public void delete(String id) throws KalipoException {
-
+        // todo delete replaces reject
         getPendingReport(id); // will fail if not pending or existing
 
         reportRepository.delete(id);
@@ -128,22 +144,27 @@ public class ReportService {
 
     // --
 
+    // todo delete replaces reject
     private void approveOrReject(Report report) throws KalipoException {
 
-        report.setReviewerId(SecurityUtils.getCurrentLogin());
+        final String currentLogin = SecurityUtils.getCurrentLogin();
+
+        report.setReviewerId(currentLogin);
 
         Comment comment = commentRepository.findOne(report.getCommentId());
 
         if (report.getStatus() == Report.Status.APPROVED) {
-            comment.setDeleted(true);
-            commentRepository.save(comment);
-
-            noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.DELETION, comment.getId());
+            log.info(String.format("%s approves report %s and triggers delete-comment", currentLogin, report.getId()));
+            commentService.delete(comment);
 
         } else {
+
             if (comment.getHidden()) {
-                comment.setHidden(true);
+                log.info(String.format("%s rejects report %s - comment is visible again", currentLogin, report.getId()));
+                comment.setHidden(false);
                 commentRepository.save(comment);
+            } else {
+                log.info(String.format("%s rejects report %s", currentLogin, report.getId()));
             }
 
             noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.APPROVAL, comment.getId());

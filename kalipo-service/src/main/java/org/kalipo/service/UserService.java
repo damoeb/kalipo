@@ -133,7 +133,6 @@ public class UserService {
 
     /**
      * Not activated users should be automatically deleted after 3 days.
-     * <p/>
      * <p>
      * This is scheduled to get fired everyday, at 01:00 (am).
      * </p>
@@ -162,4 +161,9 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+    public boolean isSuperMod(String userId) {
+        return userRepository.findOne(userId).isSuperMod();
+    }
+
 }

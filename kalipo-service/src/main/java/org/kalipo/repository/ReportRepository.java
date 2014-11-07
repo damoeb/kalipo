@@ -11,4 +11,6 @@ import java.util.List;
 public interface ReportRepository extends MongoRepository<Report, String> {
 
     List<Report> findByStatus(Report.Status status);
+
+    Report findByCommentIdAndAuthorId(String commentId, String authorId);
 }

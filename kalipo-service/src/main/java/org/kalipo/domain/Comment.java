@@ -48,10 +48,6 @@ public class Comment {
 
     private Integer dislikes = 0;
 
-    // todo on delete: if no replies/likes/dislikes rm completely, otherwise ...
-    @JsonIgnore
-    private Boolean deleted;
-
     // todo implement in front end
     private Boolean hidden;
 
@@ -137,14 +133,6 @@ public class Comment {
         this.dislikes = dislikes;
     }
 
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
-    }
-
     public Status getStatus() {
         return status;
     }
@@ -181,6 +169,6 @@ public class Comment {
      * Created by damoeb on 7/28/14.
      */
     public static enum Status {
-        APPROVED, PENDING, REJECTED, SPAM, DELETED
+        APPROVED, PENDING, SPAM, DELETED
     }
 }
