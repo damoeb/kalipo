@@ -3,7 +3,7 @@
 kalipoApp
     .config(function ($routeProvider, $httpProvider, $translateProvider, USER_ROLES) {
         $routeProvider
-            .when('/report', {
+            .when('/reports', {
                 templateUrl: 'views/reports.html',
                 controller: 'ReportController',
                 resolve: {

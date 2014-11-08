@@ -1,9 +1,9 @@
 'use strict';
 
-kalipoApp.controller('NoticeController', function ($scope, $rootScope, Notice) {
+kalipoApp.controller('NoticeController', function ($scope, Session, Notice) {
 
     // todo $rootScope.login is undefined on first load
-    Notice.query({id: $rootScope.login, opt2: 0}, function (notices) {
+    Notice.query({id: Session.login, opt2: 0}, function (notices) {
         $scope.notices = notices;
     });
 

@@ -1,6 +1,8 @@
 package org.kalipo.security;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -20,7 +22,9 @@ import java.io.IOException;
 @Component
 public class AjaxLogoutSuccessHandler extends AbstractAuthenticationTargetUrlRequestHandler
         implements LogoutSuccessHandler {
-    
+
+    private final Logger log = LoggerFactory.getLogger(AjaxLogoutSuccessHandler.class);
+
     public static final String BEARER_AUTHENTICATION = "Bearer ";
     @Inject
     private TokenStore tokenStore;
@@ -29,7 +33,7 @@ public class AjaxLogoutSuccessHandler extends AbstractAuthenticationTargetUrlReq
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
                                 Authentication authentication)
             throws IOException, ServletException {
-        
+
         // Request the token
         final String token = request.getHeader("authorization");
 
@@ -37,6 +41,7 @@ public class AjaxLogoutSuccessHandler extends AbstractAuthenticationTargetUrlReq
             final OAuth2AccessToken oAuth2AccessToken = tokenStore.readAccessToken(StringUtils.substringAfter(token, BEARER_AUTHENTICATION));
 
             if (oAuth2AccessToken != null) {
+                log.info(String.format("logout %s", SecurityUtils.getCurrentLogin()));
                 tokenStore.removeAccessToken(oAuth2AccessToken);
             }
         }

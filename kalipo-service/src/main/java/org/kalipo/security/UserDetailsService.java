@@ -36,7 +36,7 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Override
     @Transactional
     public UserDetails loadUserByUsername(final String login) {
-        log.debug("Authenticating {}", login);
+        log.info("Authenticating {}", login);
         String lowercaseLogin = login.toLowerCase();
 
         User userFromDatabase = userRepository.findOne(lowercaseLogin);
@@ -52,13 +52,9 @@ public class UserDetailsService implements org.springframework.security.core.use
         }
 
         // append privileges according to reputation
-        // todo write query findByReputationLowerThan
-//        List<Privilege> privileges = privilegeRepository.findByReputationLowerThanOrEqual(userFromDatabase.getReputation());
-        List<Privilege> privileges = privilegeRepository.findAll();
+        List<Privilege> privileges = privilegeRepository.findByReputationLowerThanOrEqual(userFromDatabase.getReputation());
         for (Privilege privilege : privileges) {
-            if (privilege.getReputation() <= userFromDatabase.getReputation()) {
-                grantedAuthorities.add(new SimpleGrantedAuthority(privilege.getName()));
-            }
+            grantedAuthorities.add(new SimpleGrantedAuthority(privilege.getName()));
         }
 
         return new org.springframework.security.core.userdetails.User(lowercaseLogin, userFromDatabase.getPassword(),

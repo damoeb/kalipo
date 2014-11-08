@@ -171,4 +171,17 @@ public class Comment {
     public static enum Status {
         APPROVED, PENDING, SPAM, DELETED
     }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id='" + id + '\'' +
+                ", threadId='" + threadId + '\'' +
+                ", parentId='" + parentId + '\'' +
+                ", text='" + text + '\'' +
+                ", authorId='" + authorId + '\'' +
+                ", status=" + status +
+                ", reviewerId='" + reviewerId + '\'' +
+                '}';
+    }
 }

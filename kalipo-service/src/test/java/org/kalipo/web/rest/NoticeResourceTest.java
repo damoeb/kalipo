@@ -86,7 +86,7 @@ public class NoticeResourceTest {
 //        notice.setName(DEFAULT_SAMPLE_NAME_ATTR);
 
 
-        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_COMMENT, Privileges.CREATE_THREAD));
+        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_COMMENT, Privileges.REVIEW_COMMENT, Privileges.CREATE_THREAD));
 
         /*
          create comment,
