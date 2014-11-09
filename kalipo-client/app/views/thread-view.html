@@ -53,9 +53,26 @@
                 </div>
             </div>
 
-            <div style="padding: 0 10px 10px 10px; color: gray">
-                2 users are typing...
+
+            <div style="padding: 0 10px 10px 10px; color: gray" ng-switch on="typing.length">
+
+                <div ng-switch-when="0"></div>
+                <div ng-switch-when="1">
+                    <strong>{{typing[0]}}</strong> is typing
+                </div>
+                <div ng-switch-default>
+                    <span ng-repeat="user in typing">
+
+                        <span ng-if="!$first && !$last">, </span>
+                        <span ng-if="$last"> and </span>
+                        <strong>{{user}}</strong>
+
+                    </span>
+                    are typing...
+                </div>
+
             </div>
+
 
             <dl style="margin:0;">
                 <dd ng-repeat="comment in comments" ng-include="'comment_renderer.html'">
@@ -92,7 +109,7 @@
     <div style="padding: 10px; margin-bottom: 10px;">
         <form name="form" role="form" novalidate ng-submit="draft.parentId = null; create()">
             <div><textarea class="form-control" placeholder="{{textCommentHere}}" ng-model="draft.text"
-                           ng-minlength=1 ng-maxlength=2048 required></textarea></div>
+                           ng-minlength=1 ng-maxlength=2048 required ng-keypress="onTyping()"></textarea></div>
 
             <div class="pull-right">
                 Posting as <strong>{{login}}</strong>
@@ -126,7 +143,7 @@
 
             <div class="clearfix">
                 <textarea class="form-control" placeholder="{{textCommentHere}}" ng-model="draft.text"
-                          ng-minlength=1 ng-maxlength=2048 required></textarea>
+                          ng-minlength=1 ng-maxlength=2048 required ng-keypress="onTyping()"></textarea>
             </div>
 
             <div class="clearfix">

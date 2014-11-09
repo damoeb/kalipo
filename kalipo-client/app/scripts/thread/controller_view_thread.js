@@ -41,6 +41,25 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
 //            }
         });
 
+        var isTyping = false;
+        var stoppedTypingTimer = 0;
+        $scope.onTyping = function () {
+            if (!isTyping) {
+                console.log('started typing');
+                isTyping = true;
+                $rootScope.liveRequest.sendMessage(isTyping, threadId);
+            }
+
+            if (stoppedTypingTimer) {
+                clearInterval(stoppedTypingTimer);
+            }
+            stoppedTypingTimer = setTimeout(function () {
+                isTyping = false;
+                console.log('stopped typing');
+                $rootScope.liveRequest.sendMessage(isTyping, threadId);
+            }, 10000);
+        };
+
         $scope.toggleShareComponent = function () {
             if ($scope.more == null) {
                 $scope.more = 'social';
@@ -109,8 +128,6 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         };
 
         $scope.toggleReplyForm = function (comment) {
-
-            $scope.draft.title = comment.title;
             comment.reply = !comment.reply;
             comment.report = false;
         };
@@ -158,6 +175,49 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         $scope.clear = function () {
             $scope.draft = {id: null, text: null};
         };
+
+        // --
+
+        $scope.typing = [];
+
+        $scope.threadEventSocket = atmosphere;
+        $scope.threadEventSubSocket;
+        $scope.threadEventTransport = 'websocket';
+
+        $scope.threadEventRequest = { url: 'websocket/live/channel',
+            contentType: "application/json",
+            transport: $scope.threadEventTransport,
+            trackMessageLength: true,
+            reconnectInterval: 5000,
+            enableXDR: true,
+            timeout: 60000 };
+
+        $scope.threadEventRequest.onOpen = function (response) {
+            $scope.threadEventTransport = response.transport;
+            $scope.threadEventRequest.uuid = response.request.uuid;
+        };
+
+        $scope.threadEventRequest.onMessage = function (response) {
+            var message = response.responseBody;
+            var event = atmosphere.util.parseJSON(message);
+
+            if (event.threadId == threadId) {
+                if (event.typing) {
+                    $scope.typing.push(event.userLogin);
+                    $scope.typing = _.sortBy(_.compact($scope.typing), 'user');
+                } else {
+                    $scope.typing = _.remove($scope.typing, function (userLogin) {
+                        return userLogin != event.userLogin;
+                    })
+                }
+            }
+
+            $scope.$apply();
+        };
+
+        $scope.threadEventSubSocket = $scope.threadEventSocket.subscribe($scope.threadEventRequest);
+
+        // --
 
         $scope.scrollTo = function (id) {
             var old = $location.hash();

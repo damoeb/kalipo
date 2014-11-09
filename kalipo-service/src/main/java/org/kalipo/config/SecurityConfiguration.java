@@ -36,36 +36,36 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Inject
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .userDetailsService(userDetailsService)
+                .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-            .antMatchers("/bower_components/**")
-            .antMatchers("/fonts/**")
-            .antMatchers("/images/**")
-            .antMatchers("/scripts/**")
-            .antMatchers("/styles/**")
-            .antMatchers("/views/**")
-            .antMatchers("/i18n/**")
-            .antMatchers("/swagger-ui/**")
-            .antMatchers("/app/rest/register")
-            .antMatchers("/app/rest/activate")
-            // API getters do not require authentication
+                .antMatchers("/bower_components/**")
+                .antMatchers("/fonts/**")
+                .antMatchers("/images/**")
+                .antMatchers("/scripts/**")
+                .antMatchers("/styles/**")
+                .antMatchers("/views/**")
+                .antMatchers("/i18n/**")
+                .antMatchers("/swagger-ui/**")
+                .antMatchers("/app/rest/register")
+                .antMatchers("/app/rest/activate")
+                        // API getters do not require authentication
                 .regexMatchers(HttpMethod.GET, "/app/rest/threads.*")
+                .regexMatchers(HttpMethod.GET, "/websocket/.*")
         ;
     }
-    
-    
-    
-	@Override
-	@Bean
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
-	
+
+
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
     @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
     private static class GlobalSecurityConfiguration extends GlobalMethodSecurityConfiguration {
 
