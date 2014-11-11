@@ -44,5 +44,4 @@ Please see the file called LICENSE.
 
 Contacts
 --------
-list of authors or "Read AUTHORS"
-instructions to submit bugs, feature requests, submit patches, join mailing list, get announcements, or join the user or dev community in other forms
+Markus Ruepp @damoeb
