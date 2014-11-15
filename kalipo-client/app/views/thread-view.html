@@ -1,12 +1,14 @@
 <h2>{{thread.title}}</h2>
 
-<div class="row box box-padding">
+<div class="row col-lg-12">
 
-    <div>
-        Submitted
+    Submitted
 
-        {{thread.createdDate | fromNow}}
-    </div>
+    {{thread.createdDate | fromNow}}
+
+</div>
+
+<div class="row">
 
     <ul class="nav nav-pills" style="border-top: 1px solid #e2e2e2; padding-top: 5px">
         <li role="presentation"><a href="javascript:void(0)" ng-click="toggleShareComponent()">Details</a></li>
@@ -14,8 +16,8 @@
 </div>
 
 <!-- more box -->
-<div class="row box box-padding" ng-show="more != null">
-    <ul class="nav nav-tabs" role="tablist">
+<div class="row" ng-show="more != null">
+<ul class="nav nav-tabs" role="tablist">
         <li ng-class="{active: more=='social'}"><a href="javascript:void(0)" ng-click="more = 'social'">Social</a>
         </li>
         <li ng-class="{active: more=='embed'}"><a href="javascript:void(0)" ng-click="more = 'embed'">Embed</a></li>
@@ -40,49 +42,45 @@
 </div>
 
 <div class="row">
-    <div class="box col-lg-12">
 
     <div style="margin-top: 15px">
 
-            <div ng-include="'create_comment_renderer.html'">
+        <div ng-include="'create_comment.html'">
+        </div>
+
+        <div style="padding: 0 10px 10px 10px; color: gray" ng-switch on="typing.length">
+
+            <div ng-switch-when="0"></div>
+            <div ng-switch-when="1">
+                <strong>{{typing[0]}}</strong> is typing
+            </div>
+            <div ng-switch-default>
+                <span ng-repeat="user in typing">
+
+                    <span ng-if="!$first && !$last">, </span>
+                    <span ng-if="$last"> and </span>
+                    <strong>{{user}}</strong>
+
+                </span>
+                are typing...
             </div>
 
-
-            <div style="padding: 0 10px 10px 10px; color: gray" ng-switch on="typing.length">
-
-                <div ng-switch-when="0"></div>
-                <div ng-switch-when="1">
-                    <strong>{{typing[0]}}</strong> is typing
-                </div>
-                <div ng-switch-default>
-                    <span ng-repeat="user in typing">
-
-                        <span ng-if="!$first && !$last">, </span>
-                        <span ng-if="$last"> and </span>
-                        <strong>{{user}}</strong>
-
-                    </span>
-                    are typing...
-                </div>
-
-            </div>
+        </div>
 
 
-            <dl style="margin:0;">
-                <dd ng-repeat="comment in comments" ng-include="'comment_renderer.html'">
+        <dl style="margin:0;">
+            <dd ng-repeat="comment in comments" ng-include="'comment.html'">
 
-                </dd>
-            </dl>
+            </dd>
+        </dl>
 
-            <div ng-show="comments.length > 10" style="margin-top: 10px">
-                <div ng-include="'create_comment_renderer.html'"></div>
-            </div>
-
+        <div ng-show="comments.length > 10" style="margin-top: 10px">
+            <div ng-include="'create_comment.html'"></div>
         </div>
     </div>
 </div>
 
-<script type="text/ng-template" id="likes_renderer.html">
+<script type="text/ng-template" id="likes.html">
     <div ng-show="comment.likes > 0 || comment.dislikes > 0" style="line-height: 5px" class="pull-right">
 
     <div style="width: 100px" title="{{comment.likes}} likes {{comment.dislikes}} dislikes">
@@ -94,11 +92,11 @@
     </div>
 </script>
 
-<script type="text/ng-template" id="create_comment_renderer.html">
+<script type="text/ng-template" id="create_comment.html">
 
     <div style="padding: 10px; margin-bottom: 10px;">
         <form name="form" role="form" novalidate ng-submit="draft.parentId = null; create()">
-            <div><textarea class="form-control" placeholder="{{textCommentHere}}" ng-model="draft.text"
+            <div><textarea class="form-control" placeholder="Wanna Say Something?" ng-model="draft.text"
                            ng-minlength=1 ng-maxlength=2048 required ng-keypress="onTyping()"
                            ng-focus="$doComment=true"></textarea></div>
 
@@ -115,26 +113,46 @@
 
 </script>
 
-<script type="text/ng-template" id="replyto_comment_renderer.html">
+<script type="text/ng-template" id="replyto_comment.html">
 
     <div style="padding: 10px;" class="clearfix post">
 
-        <form name="form" role="form" novalidate ng-submit="draft.parentId = comment.id; create()">
+        <div class="row" ng-show="$multiline == false">
+            <form novalidate ng-submit="draft.parentId = comment.id; create()">
+                <div class="col-md-11 col-sm-10 col-xs-10">
+
+                    <input class="form-control" placeholder="Talk Back" ng-model="draft.text"
+                           ng-minlength=1 ng-maxlength=2048 required ng-keypress="onTyping()">
+
+                    <a href="javascript:void(0)" ng-click="$multiline = !$multiline"
+                       title="Toggle Multiline">Multiline</a>
+                </div>
+                <div class="col-md-1 col-sm-2 col-xs-2">
+                    <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary"
+                            style="display: block; width: 100%;">
+                        Send
+                    </button>
+
+                </div>
+            </form>
+        </div>
+
+        <form name="form" role="form" novalidate ng-show="$multiline == true"
+              ng-submit="draft.parentId = comment.id; create()">
 
             <div class="clearfix">
-                <textarea class="form-control" placeholder="{{textCommentHere}}" ng-model="draft.text"
-                          ng-minlength=1 ng-maxlength=2048 required ng-keypress="onTyping()"></textarea>
+                <textarea class="form-control" placeholder="Talk Back" ng-model="draft.text"
+                          ng-minlength=1 ng-maxlength=2048 required ng-keypress="onTyping()"
+                          style="resize: vertical"></textarea>
             </div>
 
-            <div class="clearfix" ng-show="commentNow">
-            <button type="button" class="btn btn-default btn-sm" ng-click="comment.reply = false" title="Cancel">
-                    <span class="glyphicon glyphicon-remove"></span>
-                    Close
-                </button>
+            <div class="clearfix">
+                <a href="javascript:void(0)" ng-click="$multiline = !$multiline" title="Toggle Multiline">Singleline</a>
+
                 <div class="pull-right">
                     Posting as <strong>{{login}}</strong>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary btn-sm">
-                        Comment
+                        Send
                     </button>
                 </div>
             </div>
@@ -142,15 +160,15 @@
 
     </div>
 
-    <div class="alert alert-success alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span
-                class="sr-only">Close</span></button>
-        <strong>Comment has been saved. </strong>
-    </div>
+    <!--<div class="alert alert-success alert-dismissible" role="alert">-->
+    <!--<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span-->
+    <!--class="sr-only">Close</span></button>-->
+    <!--<strong>Comment has been saved. </strong>-->
+    <!--</div>-->
 
 </script>
 
-<script type="text/ng-template" id="comment_renderer.html">
+<script type="text/ng-template" id="comment.html">
 
     <div>
 
@@ -164,7 +182,7 @@
 
                     <div>
 
-                        <div ng-include="'likes_renderer.html'"></div>
+                        <div ng-include="'likes.html'"></div>
 
                         <span class="menu">
                             <a href="javascript:void(0)"
@@ -224,15 +242,15 @@
                 <!-- /input-group -->
 
                 <div style="border-left: 10px solid #dedede; background-color: #fcf8e5;">
-                    <div ng-show="comment.reply">
-                        <div ng-include="'replyto_comment_renderer.html'"></div>
+                    <div ng-show="$replyTo == comment.id">
+                        <div ng-include="'replyto_comment.html'"></div>
                     </div>
 
                     <!-- sub comments -->
                     <div ng-hide="comment.children.length == 0">
                         <dl style="margin:0;">
                             <dd ng-repeat="comment in comment.children"
-                                ng-include="'comment_renderer.html'"></dd>
+                                ng-include="'comment.html'"></dd>
                         </dl>
                     </div>
 
@@ -249,7 +267,7 @@
                     <div style="overflow: hidden; max-height:3em; min-height:1.8em;"
                          ng-click="comment.$maximized = !comment.$maximized">
 
-                        <div ng-include="'likes_renderer.html'"></div>
+                        <div ng-include="'likes.html'"></div>
 
                         <div style="float: left; margin-right:5px;">
                             <a href="javascript:void(0)">

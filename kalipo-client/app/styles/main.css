@@ -1,5 +1,5 @@
 body {
-    background: #e5e5e5;
+    /*background: #e5e5e5;*/
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;
 }
@@ -212,22 +212,6 @@ ul#strength {
     color: #31708f;
 }
 
-.box {
-    background-color: #fefefe;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-    color: #303030;
-    margin-bottom: 20px;
-}
-
-.box-padding {
-    padding: 10px 20px;
-}
-
-.box-row {
-    margin-bottom: 10px;
-}
-
 /* field validation */
 .ng-pristine {
 }
@@ -261,4 +245,18 @@ form .error-container {
 
 .flash-info {
     background-color: #bfd9f5;
+}
+
+nav {
+    background-color: #13c7a8;
+    color: white;
+    padding: 10px 0 10px 0;
+}
+
+nav a {
+    color: #efefef;
+}
+
+nav .nav-pills a:hover {
+    color: gray;
 }

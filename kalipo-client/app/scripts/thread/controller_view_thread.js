@@ -8,12 +8,11 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
             $scope.more = null;
         }
 
-        $scope.textCommentHere = 'Add a comment...';
-
         $scope.draft = {};
         $scope.thread = {};
         $scope.reportModel = {};
         $scope.$doComment = false;
+        $scope.$multiline = false;
 
         var threadId = $routeParams.threadId;
         var commentId = $routeParams.commentId;
@@ -128,12 +127,12 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         };
 
         $scope.toggleReplyForm = function (comment) {
-            comment.reply = !comment.reply;
+            $scope.$replyTo = comment.id;
             comment.report = false;
         };
 
         $scope.toggleReportForm = function (comment) {
-            comment.reply = false;
+            $scope.$replyTo = null;
             comment.report = !comment.report;
         };
 
