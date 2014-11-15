@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.QueryParam;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
@@ -90,15 +91,15 @@ public class CommentResource {
     /**
      * GET  /rest/comments/review -> get all the comments, that have to be reviewed.
      */
-    @RequestMapping(value = "/rest/comments/review/{page}",
+    @RequestMapping(value = "/rest/comments/review",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @ApiOperation(value = "Get all the comments, that have to be reviewed")
-    public List<Comment> getAllUnderReview(@PathVariable Integer page) throws ExecutionException, InterruptedException {
+    @ApiOperation(value = "Get all the comments for {user}, that it can review")
+    public List<Comment> getAllUnderReview(@QueryParam("userId") String userId, @QueryParam("page") Integer page) throws ExecutionException, InterruptedException {
         log.debug("REST request to get all Comments, that have to be reviewed");
 
-        return commentService.findAllUnderReview(page).get();
+        return commentService.findAllUnderReview(page).get();//.stream().filter(Comment::getHidden).collect(Collectors.toList());
     }
 
     /**

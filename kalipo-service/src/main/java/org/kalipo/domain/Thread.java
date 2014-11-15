@@ -1,6 +1,5 @@
 package org.kalipo.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.URL;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
@@ -51,7 +50,6 @@ public class Thread implements Serializable {
     private Integer authorCount = 0;
     private Integer views = 0;
 
-    @JsonIgnore
     @NotNull
     private Set<String> modIds = new HashSet<String>();
 

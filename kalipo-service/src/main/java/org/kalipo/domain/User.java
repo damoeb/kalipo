@@ -70,10 +70,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
     // todo protect these fields
     private boolean superMod;
 
-    @JsonIgnore
-    private Set<Authority> authorities = new HashSet<>();
+    // todo prevent brute force login attacks
 
-    private Set<PersistentToken> persistentTokens = new HashSet<>();
+    @JsonIgnore
+    private Set<Authority> authorities = new HashSet<Authority>();
+
+    private Set<PersistentToken> persistentTokens = new HashSet<PersistentToken>();
 
     public String getLogin() {
         return login;

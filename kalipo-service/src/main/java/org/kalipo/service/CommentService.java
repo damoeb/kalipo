@@ -104,6 +104,10 @@ public class CommentService {
 
         Asserts.isNotNull(comment, "id");
 
+        if (comment.getStatus() == Comment.Status.APPROVED) {
+            return comment;
+        }
+
         if (comment.getStatus() != Comment.Status.PENDING) {
             throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "must be pending to be approved");
         }

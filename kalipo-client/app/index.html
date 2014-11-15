@@ -51,22 +51,23 @@
                     </a>
                 </li>
                 <li class="dropdown pointer" ng-switch-when="true">
-                    <a href="#/notices" title="Notices">
-                        Notices
-                        <span class="label label-danger">4</span>
+                    <a href="#/notices/my" title="Notices">
+                        <span class="glyphicon glyphicon-comment"></span>
+                        <!--Notices-->
+                        <!--<span class="label label-danger">4</span>-->
                         <!-- todo better use a simple dot to mark there is something new, like soundcloud does it -->
                     </a>
                 </li>
-                <li class="dropdown pointer" ng-switch-when="true">
-                    <a href="#/review" title="Pending Comments">
-                        Review
-                    </a>
-                </li>
-                <li class="dropdown pointer" ng-switch-when="true">
-                    <a href="#/reports" title="Reports">
-                        Reports
-                    </a>
-                </li>
+                <!--<li class="dropdown pointer" ng-switch-when="true">-->
+                <!--<a href="#/review" title="Pending Comments">-->
+                <!--Review-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--<li class="dropdown pointer" ng-switch-when="true">-->
+                <!--<a href="#/reports" title="Reports">-->
+                <!--Reports-->
+                <!--</a>-->
+                <!--</li>-->
                 <li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer"
                     ng-controller="AdminController">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
@@ -88,61 +89,110 @@
                             &#xA0;<span translate="global.menu.account.apidocs">API Docs</span></a></li>
                     </ul>
                 </li>
-                <li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer"
-                    ng-controller="AdminController">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-                                <span>
-                                    <span class="hidden-tablet">Models</span>
-                                    <b class="caret"></b>
-                                </span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#/privilege">
-                            &#xA0;<span>Privileges</span></a></li>
-                        <li><a href="#/report">
-                            &#xA0;<span>Reports</span></a></li>
-                        <li><a href="#/reputation">
-                            &#xA0;<span>Reputations</span></a></li>
-                        <li><a href="#/tag">
-                            &#xA0;<span>Tags</span></a></li>
-                        <li><a href="#/thread">
-                            &#xA0;<span>Threads</span></a></li>
-                        <li><a href="#/vote">
-                            &#xA0;<span>Votes</span></a></li>
-                    </ul>
-                </li>
-                <li class="dropdown pointer">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-                                <span>
-                                    <span class="glyphicon glyphicon-user"></span>
-                                    <span ng-switch-when="true">
-                                        {{login}}
-                                    </span>
-                                    <span ng-switch-when="false">
-                                        Account
-                                    </span>
-                                    <b class="caret"></b>
-                                </span>
-                    </a>
-                    <ul class="dropdown-menu" ng-controller="MenuController">
-                        <li ng-switch-when="true"><a href="#/settings"><span class="glyphicon glyphicon-wrench"></span>
-                            &#xA0;<span translate="global.menu.account.settings">Settings</span></a></li>
-                        <li ng-switch-when="true"><a href="#/password"><span class="glyphicon glyphicon-lock"></span>
-                            &#xA0;<span translate="global.menu.account.password">Password</span></a></li>
-                        <li ng-switch-when="true"><a href="#/sessions"><span class="glyphicon glyphicon-cloud"></span>
-                            &#xA0;<span translate="global.menu.account.sessions">Sessions</span></a></li>
-                        <li ng-switch-when="true"><a href="#/logout"><span class="glyphicon glyphicon-log-out"></span>
-                            &#xA0;<span translate="global.menu.account.logout">Log out</span></a></li>
-                        <li ng-switch-when="false"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span>
-                            &#xA0;<span translate="global.menu.account.login">Authenticate</span></a></li>
-
-                        <li ng-switch-when="false"><a href="#/register"><span
-                                class="glyphicon glyphicon-plus-sign"></span>
-                            &#xA0;<span translate="global.menu.account.register">Register</span></a></li>
-                    </ul>
-                </li>
+                <!--<li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer"-->
+                <!--ng-controller="AdminController">-->
+                <!--<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">-->
+                <!--<span>-->
+                <!--<span class="hidden-tablet">Models</span>-->
+                <!--<b class="caret"></b>-->
+                <!--</span>-->
+                <!--</a>-->
+                <!--<ul class="dropdown-menu">-->
+                <!--<li><a href="#/privilege">-->
+                <!--&#xA0;<span>Privileges</span></a></li>-->
+                <!--<li><a href="#/report">-->
+                <!--&#xA0;<span>Reports</span></a></li>-->
+                <!--<li><a href="#/reputation">-->
+                <!--&#xA0;<span>Reputations</span></a></li>-->
+                <!--<li><a href="#/tag">-->
+                <!--&#xA0;<span>Tags</span></a></li>-->
+                <!--<li><a href="#/thread">-->
+                <!--&#xA0;<span>Threads</span></a></li>-->
+                <!--<li><a href="#/vote">-->
+                <!--&#xA0;<span>Votes</span></a></li>-->
                 <!--</ul>-->
                 <!--</li>-->
+                <li ng-switch-when="false">
+                    <a href="#/login">
+                        <span>
+                            Login
+                        </span>
+                    </a>
+                </li>
+                <li ng-switch-when="false">
+                    <a href="#/register">
+                        <span>
+                            Register
+                        </span>
+                    </a>
+                </li>
+                <li class="dropdown pointer" ng-switch-when="true">
+
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+                        <span>
+                            <span class="glyphicon glyphicon-user"></span>
+                            <span ng-switch-when="true">
+                                {{login}}
+                            </span>
+                            <b class="caret"></b>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu" ng-controller="MenuController">
+                        <li ng-switch-when="true">
+                            <a href="#/comments/my">
+                                &#xA0;
+                                <span>My Comments</span>
+                            </a>
+                            <a href="#/notices/my">
+                                &#xA0;
+                                <span>My Notifications</span>
+                            </a>
+                            <a href="#/threads/my">
+                                &#xA0;
+                                <span>My Threads</span>
+                            </a>
+                        </li>
+
+                        <li role="presentation" class="divider"></li>
+
+                        <li>
+                            <a href="#/settings">
+                                <span class="glyphicon glyphicon-wrench"></span>
+                                &#xA0;
+                                <span translate="global.menu.account.settings">Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/password">
+                                <span class="glyphicon glyphicon-lock"></span>
+                                &#xA0;
+                                <span translate="global.menu.account.password">Password</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/sessions">
+                                <span class="glyphicon glyphicon-cloud"></span>
+                                &#xA0;
+                                <span translate="global.menu.account.sessions">Sessions</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/logout">
+                                <span class="glyphicon glyphicon-log-out"></span>
+                                &#xA0;
+                                <span translate="global.menu.account.logout">Log out</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li ng-switch-when="false">
+
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search..">
+                        </div>
+                    </form>
+                </li>
             </ul>
         </div>
     </div>

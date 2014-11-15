@@ -40,17 +40,11 @@
 </div>
 
 <div class="row">
-    <div class="box col-lg-8">
+    <div class="box col-lg-12">
 
-        <div style="margin-top: 15px">
+    <div style="margin-top: 15px">
 
-            <div ng-show="!$doComment" ng-click="$doComment = true">
-            <div ng-include="'pre_create_comment_renderer.html'">
-                </div>
-            </div>
-            <div ng-show="$doComment">
             <div ng-include="'create_comment_renderer.html'">
-                </div>
             </div>
 
 
@@ -86,10 +80,6 @@
 
         </div>
     </div>
-
-    <div class="col-lg-push-1 col-lg-3">
-        Some stuff
-    </div>
 </div>
 
 <script type="text/ng-template" id="likes_renderer.html">
@@ -109,27 +99,17 @@
     <div style="padding: 10px; margin-bottom: 10px;">
         <form name="form" role="form" novalidate ng-submit="draft.parentId = null; create()">
             <div><textarea class="form-control" placeholder="{{textCommentHere}}" ng-model="draft.text"
-                           ng-minlength=1 ng-maxlength=2048 required ng-keypress="onTyping()"></textarea></div>
+                           ng-minlength=1 ng-maxlength=2048 required ng-keypress="onTyping()"
+                           ng-focus="$doComment=true"></textarea></div>
 
-            <div class="pull-right">
-                Posting as <strong>{{login}}</strong>
+            <div class="pull-right" ng-show="$doComment">
+            Posting as <strong>{{login}}</strong>
                 <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary btn-sm">
                     Comment
                 </button>
             </div>
 
         </form>
-
-    </div>
-
-</script>
-
-<script type="text/ng-template" id="pre_create_comment_renderer.html">
-
-    <div style="padding: 10px; margin-bottom: 10px;">
-
-        <textarea class="form-control" placeholder="{{textCommentHere}}" ng-model="draft.text"
-                  ng-minlength=1 ng-maxlength=2048 required rows="1"></textarea>
 
     </div>
 
@@ -146,8 +126,8 @@
                           ng-minlength=1 ng-maxlength=2048 required ng-keypress="onTyping()"></textarea>
             </div>
 
-            <div class="clearfix">
-                <button type="button" class="btn btn-default btn-sm" ng-click="comment.reply = false" title="Cancel">
+            <div class="clearfix" ng-show="commentNow">
+            <button type="button" class="btn btn-default btn-sm" ng-click="comment.reply = false" title="Cancel">
                     <span class="glyphicon glyphicon-remove"></span>
                     Close
                 </button>
@@ -160,6 +140,12 @@
             </div>
         </form>
 
+    </div>
+
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span
+                class="sr-only">Close</span></button>
+        <strong>Comment has been saved. </strong>
     </div>
 
 </script>

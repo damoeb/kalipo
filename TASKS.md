@@ -1,6 +1,7 @@
-propper logging
+assume everybody is nice and focus on comment usability
+all links with klipo.org/out the count clicks
 
-review comments
+extend live websocket for new comments
 like a comment -> follow this comment?
 dislike a comment -> minimize this thread?
 rechts oben: reputation increases +2 upvoted wie in einem spiel
@@ -14,7 +15,6 @@ Monthly Newsletter
 delete comment without reporting
 
 fix todos
-fix atmosphere
 Support quotes
 tabs: discussion/authors/stats
 Realtime: 2 typing... oder Armin is typing..

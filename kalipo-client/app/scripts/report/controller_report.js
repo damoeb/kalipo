@@ -1,29 +1,21 @@
 'use strict';
 
-kalipoApp.controller('ReportController', function ($scope, resolvedReport, Report) {
+kalipoApp.controller('ReportController', function ($scope, resolvedReport, Report, Comment) {
 
-    $scope.reports = resolvedReport;
+    var reports = resolvedReport;
 
-    $scope.create = function () {
-        Report.save($scope.report,
-            function () {
-                $scope.reports = Report.query();
-                $('#saveReportModal').modal('hide');
-                $scope.clear();
-            });
-    };
+    $scope.comments = [];
 
-    $scope.update = function (id) {
-        $scope.report = Report.get({id: id});
-        $('#saveReportModal').modal('show');
-    };
+    var byCommentId = _.groupBy(reports, function (report) {
+        return report.commentId;
+    });
 
-    $scope.delete = function (id) {
-        Report.delete({id: id},
-            function () {
-                $scope.reports = Report.query();
-            });
-    };
+    _.each(byCommentId, function (reports, commentId) {
+        Comment.get({id: commentId}, function (comment) {
+            comment.rreports = reports;
+            $scope.comments.push(comment);
+        });
+    });
 
     $scope.clear = function () {
         $scope.report = {id: null, commentId: null, threadId: null, reason: null, status: null};

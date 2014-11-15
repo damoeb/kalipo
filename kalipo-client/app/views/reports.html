@@ -1,101 +1,82 @@
-<div>
+<h2>Reports</h2>
 
-    <h2>Reports</h2>
+<div class="box container">
+    <div ng-switch on="comments.length == 0">
+        <div ng-switch-default>
+            <div class="alert alert-info" role="alert">Nothing to review</div>
+        </div>
+        <div ng-switch-when="false">
+            <div class="row">
+                <div class="col-md-push-9 col-md-3">
+                    <div class="pull-right">
+                        <span class="text-muted"><b>1</b>&ndash;<b>50</b> of <b>277</b></span>
 
-    <!-- todo see http://bootsnipp.com/snippets/featured/recent-comments-admin-panel -->
-
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveReportModal" ng-click="clear()">
-        <span class="glyphicon glyphicon-flash"></span> Create a new Report
-    </button>
-    <div class="modal fade" id="saveReportModal" tabindex="-1" role="dialog" aria-labelledby="myReportLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form name="form" role="form" novalidate
-                      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
-                      ng-submit="create()">
-
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                ng-click="clear()">&times;</button>
-                        <h4 class="modal-title" id="myReportLabel">Create or edit a Report</h4>
+                        <div class="btn-group btn-group-sm">
+                            <button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </button>
+                            <button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>ID</label>
-                            <input type="text" class="form-control" name="id"
-                                   ng-model="report.id" readonly>
-                        </div>
+                </div>
+            </div>
+            <div class="row">
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="comment in comments">
 
-                        <div class="form-group">
-                            <label>commentId</label>
-                            <input type="text" class="form-control" name="commentId"
-                                   ng-model="report.commentId" required>
-                        </div>
+                        <div ng-include="'comment_renderer.template'"></div>
 
-                        <div class="form-group">
-                            <label>threadId</label>
-                            <input type="text" class="form-control" name="threadId"
-                                   ng-model="report.threadId">
-                        </div>
-
-                        <div class="form-group">
-                            <label>reason</label>
-                            <input type="text" class="form-control" name="reason"
-                                   ng-model="report.reason" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>status</label>
-                            <input type="text" class="form-control" name="status"
-                                   ng-model="report.status">
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
-                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-                        </button>
-                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-save"></span> Save
-                        </button>
-                    </div>
-                </form>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
 
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>commentId</th>
-                <th>Reason</th>
-                <th>Status</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="report in reports">
-                <td>{{report.id}}</td>
-                <td>{{report.commentId}}</td>
-                <td>{{report.reason}}</td>
-                <td>{{report.status}}</td>
-                <td>
-                    <button type="submit"
-                            ng-click="update(report.id)"
-                            class="btn">
-                        <span class="glyphicon glyphicon-pencil"></span> Edit
-                    </button>
-                    <button type="submit"
-                            ng-click="delete(report.id)"
-                            class="btn btn-danger">
-                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
 </div>
+
+
+<script type="text/ng-template" id="comment_renderer.template">
+    <div>
+
+        <div class="post">
+            <span class="menu">
+                <a href="javascript:void(0)"
+                   ng-click="comment.$maximized = !comment.$maximized" title="Click to minimize">
+                    <span class="glyphicon glyphicon-chevron-up"></span></a>
+            </span>
+
+            <a href="#/users/{{comment.authorId}}"><strong>{{comment.authorId}}</strong></a>
+            <span style="color: grey; font-size: smaller" title="{{comment.createdDate | dateString }}">{{comment.createdDate | fromNow }}</span>
+
+            <div style="white-space: pre-line">{{comment.text}}</div>
+        </div>
+
+        <!--{{comment.reports}}-->
+        <div ng-repeat="report in comment.rreports">
+            <div ng-include="'report_renderer.html'"></div>
+        </div>
+
+        <div class="btn-toolbar" style="margin-top: 10px">
+            <button type="button" class="btn btn-default btn-sm" ng-click="approve(comment.id)"><span
+                    class="glyphicon glyphicon-ok"></span> Approve
+            </button>
+            <button type="button" class="btn btn-default btn-sm" ng-click="reject(comment.id)"><span
+                    class="glyphicon glyphicon-remove"></span> Delete
+            </button>
+        </div>
+
+    </div>
+</script>
+
+<script type="text/ng-template" id="report_renderer.html">
+    <div ng-class="{true:'abused-report', false:'report'}[report.abused]">
+        <div>
+            <span style="white-space: pre-line">{{report.reason}}</span> -- <a href="#/users/{{comment.authorId}}">
+            {{report.authorId}} </a>
+            <span style="color: grey"
+                  title="{{report.createdDate | dateString }}">{{report.createdDate | fromNow }}</span>
+        </div>
+    </div>
+</script>

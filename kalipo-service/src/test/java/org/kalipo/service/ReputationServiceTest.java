@@ -45,6 +45,12 @@ public class ReputationServiceTest {
     public ExpectedException exception = ExpectedException.none();
 
     @Inject
+    private CommentService commentService;
+
+    @Inject
+    private ThreadService threadService;
+
+    @Inject
     private UserRepository userRepository;
 
     @Inject
@@ -55,12 +61,6 @@ public class ReputationServiceTest {
 
     @Inject
     private ReportRepository reportRepository;
-
-    @Inject
-    private CommentService commentService;
-
-    @Inject
-    private ThreadService threadService;
 
     private Comment comment;
 

@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -41,7 +42,7 @@ public class NoticeService {
     @Inject
     private CommentRepository commentRepository;
 
-    //    todo @Async
+    @Async
     public void notifyMentionedUsers(Comment comment) {
         if (comment.getStatus() == Comment.Status.APPROVED) {
             // find mentioned usernames, starting with @ like @myname
@@ -59,14 +60,14 @@ public class NoticeService {
         }
     }
 
-    //    todo @Async
+    @Async
     public void notifyModsOfThread(String threadId, Report report) {
         for (String modId : threadRepository.findOne(threadId).getModIds()) {
             notifyAsync(modId, Notice.Type.REPORT, report.getCommentId());
         }
     }
 
-    //    todo @Async
+    @Async
     public void notifyAuthorOfParent(Comment comment) {
         if (comment.getParentId() != null) {
             Comment parent = commentRepository.findOne(comment.getParentId());
@@ -76,7 +77,7 @@ public class NoticeService {
         }
     }
 
-    //    todo @Async
+    @Async
     public void notifyAsync(String recipientId, Notice.Type type, String commentId) {
 
         try {

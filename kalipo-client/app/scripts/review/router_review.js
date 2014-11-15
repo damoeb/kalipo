@@ -8,7 +8,7 @@ kalipoApp
                 controller: 'ReviewCommentController',
                 resolve: {
                     resolvedComment: ['Comment', function (Comment) {
-                        return Comment.reviewList();
+                        return Comment.reviewList({userId: 'admin'});
                     }]
                 },
                 access: {
