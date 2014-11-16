@@ -1,31 +1,28 @@
 <h2>{{thread.title}}</h2>
 
-<div class="row col-lg-12">
-
-    Submitted
-
-    {{thread.createdDate | fromNow}}
-
-</div>
-
 <div class="row">
 
-    <ul class="nav nav-pills" style="border-top: 1px solid #e2e2e2; padding-top: 5px">
-        <li role="presentation"><a href="javascript:void(0)" ng-click="toggleShareComponent()">Details</a></li>
-    </ul>
-</div>
-
-<!-- more box -->
-<div class="row" ng-show="more != null">
-<ul class="nav nav-tabs" role="tablist">
-        <li ng-class="{active: more=='social'}"><a href="javascript:void(0)" ng-click="more = 'social'">Social</a>
+    <!--<ul class="nav nav-pills" style="border-top: 1px solid #e2e2e2; padding-top: 5px">-->
+    <!--<li role="presentation"><a href="javascript:void(0)" ng-click="toggleShareComponent()">Details</a></li>-->
+    <!--</ul>-->
+    <ul class="nav nav-tabs" role="tablist">
+        <li ng-class="{active: more=='details'}"><a href="javascript:void(0)" ng-click="more = 'details'">Details</a>
         </li>
+        <li ng-class="{active: more=='social'}"><a href="javascript:void(0)" ng-click="more = 'social'">Share</a></li>
         <li ng-class="{active: more=='embed'}"><a href="javascript:void(0)" ng-click="more = 'embed'">Embed</a></li>
         <li ng-class="{active: more=='email'}"><a href="javascript:void(0)" ng-click="more = 'email'">E-Mail</a></li>
         <li ng-class="{active: more=='stats'}"><a href="javascript:void(0)" ng-click="more = 'stats'">Stats</a></li>
     </ul>
 
+</div>
+
+<!-- more box -->
+<div class="row" ng-show="more != null">
+
     <div style="margin-top: 10px">
+        <div ng-show="more == 'details'">
+            <div ng-include="'more_details.template'"></div>
+        </div>
         <div ng-show="more == 'social'">
             <div ng-include="'more_social.template'"></div>
         </div>
@@ -94,38 +91,14 @@
 
 <script type="text/ng-template" id="create_comment.html">
 
-    <div style="padding: 10px; margin-bottom: 10px;">
-        <form name="form" role="form" novalidate ng-submit="draft.parentId = null; create()">
-            <div><textarea class="form-control" placeholder="Wanna Say Something?" ng-model="draft.text"
-                           ng-minlength=1 ng-maxlength=2048 required ng-keypress="onTyping()"
-                           ng-focus="$doComment=true"></textarea></div>
-
-            <div class="pull-right" ng-show="$doComment">
-            Posting as <strong>{{login}}</strong>
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary btn-sm">
-                    Comment
-                </button>
-            </div>
-
-        </form>
-
-    </div>
-
-</script>
-
-<script type="text/ng-template" id="replyto_comment.html">
-
     <div style="padding: 10px;" class="clearfix post">
 
         <div class="row" ng-show="$multiline == false">
             <form novalidate ng-submit="draft.parentId = comment.id; create()">
                 <div class="col-md-11 col-sm-10 col-xs-10">
 
-                    <input class="form-control" placeholder="Talk Back" ng-model="draft.text"
-                           ng-minlength=1 ng-maxlength=2048 required ng-keypress="onTyping()">
-
-                    <a href="javascript:void(0)" ng-click="$multiline = !$multiline"
-                       title="Toggle Multiline">Multiline</a>
+                    <textarea class="form-control field-comment" placeholder="Say Something" ng-model="draft.text"
+                              ng-minlength=1 ng-maxlength=2048 required ng-keypress="onTyping()" rows="1"></textarea>
                 </div>
                 <div class="col-md-1 col-sm-2 col-xs-2">
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary"
@@ -141,14 +114,11 @@
               ng-submit="draft.parentId = comment.id; create()">
 
             <div class="clearfix">
-                <textarea class="form-control" placeholder="Talk Back" ng-model="draft.text"
-                          ng-minlength=1 ng-maxlength=2048 required ng-keypress="onTyping()"
-                          style="resize: vertical"></textarea>
+                <textarea class="form-control field-comment" placeholder="Say Something" ng-model="draft.text"
+                          ng-minlength=1 ng-maxlength=2048 required ng-keypress="onTyping()"></textarea>
             </div>
 
             <div class="clearfix">
-                <a href="javascript:void(0)" ng-click="$multiline = !$multiline" title="Toggle Multiline">Singleline</a>
-
                 <div class="pull-right">
                     Posting as <strong>{{login}}</strong>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary btn-sm">
@@ -159,12 +129,6 @@
         </form>
 
     </div>
-
-    <!--<div class="alert alert-success alert-dismissible" role="alert">-->
-    <!--<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span-->
-    <!--class="sr-only">Close</span></button>-->
-    <!--<strong>Comment has been saved. </strong>-->
-    <!--</div>-->
 
 </script>
 
@@ -180,49 +144,67 @@
                 <div class="post">
                     <a id="{{comment.id}}"></a>
 
-                    <div>
+                    <div class="row">
 
-                        <div ng-include="'likes.html'"></div>
+                        <!-- content -->
+                        <div class="col-lg-11 col-xs-10">
+                            <div>
 
-                        <span class="menu">
-                            <a href="javascript:void(0)"
-                               ng-click="comment.$maximized = !comment.$maximized" title="Click to minimize">
-                                <span class="glyphicon glyphicon-chevron-up"></span></a>
-                        </span>
+                                <!--<div ng-include="'likes.html'"></div>-->
 
-                        <a href="#/users/{{comment.authorId}}"><strong>{{comment.authorId}}</strong></a>
-                        <span style="color: grey; font-size: smaller" title="{{comment.createdDate | dateString }}">{{comment.createdDate | fromNow }}</span>
+                                <a href="#/users/{{comment.authorId}}"><strong>{{comment.authorId}}</strong></a>
+                                <span style="color: grey; font-size: smaller"
+                                      title="{{comment.createdDate | dateString }}">{{comment.createdDate | fromNow }}</span>
+                                <a style="padding-left:10px; font-size: smaller" href="javascript:void(0)"
+                                   ng-click="comment.$maximized = !comment.$maximized" title="Click to minimize">minimize</a>
 
-                        <div style="white-space: pre-line">{{comment.text}}</div>
-                    </div>
+                                <div style="white-space: pre-line">{{comment.text}}</div>
+                            </div>
 
-                    <div class="menu" style="border-top: 1px solid #efefef;">
-                        <a href="javascript:void(0)" ng-click="toggleReplyForm(comment)">
-                            Reply
-                        </a>
-                        <a class="voteUp" href="javascript:void(0)" ng-click="like(comment)">
-                            <span class="glyphicon glyphicon-thumbs-up"></span>
-                            <span ng-show="comment.likes>0">{{comment.likes}}</span>
-                        </a>
-                        <a class="voteDown" href="javascript:void(0)" ng-click="dislike(comment)">
-                            <span class="glyphicon glyphicon-thumbs-down"></span>
-                            <span ng-show="comment.dislikes>0">{{comment.dislikes}}</span>
-                        </a>
-                        <a ng-show="comment.parentId != null" href="javascript:void(0)"
-                           ng-click="scrollTo(comment.parentId)">
-                            Parent
-                        </a>
-                        <a href="#/thread/{{comment.threadId}}/{{comment.id}}" title="Permalink">
-                            <span class="glyphicon glyphicon-link"></span>
-                        </a>
+                            <div class="menu">
+                                <a href="javascript:void(0)" ng-click="toggleReplyForm(comment)">Reply</a>
+                                <a class="voteUp" href="javascript:void(0)" ng-click="like(comment)">
+                                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                                    <span ng-show="comment.likes>0" class="voteUp">{{comment.likes}}</span>
+                                </a>
+                                <a class="voteDown" href="javascript:void(0)" ng-click="dislike(comment)">
+                                    <span class="glyphicon glyphicon-thumbs-down"></span>
+                                    <span ng-show="comment.dislikes>0" class="voteDown">{{comment.dislikes}}</span>
+                                </a>
+                                <a ng-show="comment.parentId != null" href="javascript:void(0)"
+                                   ng-click="scrollTo(comment.parentId)">
+                                    Parent</a>
+                                <a href="#/thread/{{comment.threadId}}/{{comment.id}}" title="Permalink">
+                                    <span class="glyphicon glyphicon-link"></span>
+                                </a>
 
-                        <div class="flag pull-right">
-                            <a href="javascript:void(0)"
-                               ng-click="toggleReportForm(comment)"
-                               title="Report this comment">
-                                <span class="glyphicon glyphicon-flag"></span>
-                            </a>
+                                <div class="flag pull-right">
+                                    <a href="javascript:void(0)"
+                                       ng-click="toggleReportForm(comment)"
+                                       title="Report this comment">
+                                        <span class="glyphicon glyphicon-flag"></span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
+
+                        <!-- voting and votes -->
+                        <div class="col-lg-1 col-xs-2 text-center">
+                            <div class="btn-group-vertical" role="group">
+                                <a href="javascript:void(0)" ng-click="like(comment)" class="btn btn-default btn-sm"
+                                   style="border-width: 0">
+                                    <span class="glyphicon glyphicon-chevron-up"></span>
+                                </a>
+
+                                <div class="votes">{{comment.likes - comment.dislikes}}</div>
+                                <a href="javascript:void(0)" ng-click="dislike(comment)" class="btn btn-default btn-sm"
+                                   style="border-width: 0">
+                                    <span class="glyphicon glyphicon-chevron-down"></span>
+                                </a>
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -241,9 +223,9 @@
                 </div>
                 <!-- /input-group -->
 
-                <div style="border-left: 10px solid #dedede; background-color: #fcf8e5;">
+                <div style="border-left: 10px solid #dedede;">
                     <div ng-show="$replyTo == comment.id">
-                        <div ng-include="'replyto_comment.html'"></div>
+                        <div ng-include="'create_comment.html'"></div>
                     </div>
 
                     <!-- sub comments -->
@@ -267,16 +249,17 @@
                     <div style="overflow: hidden; max-height:3em; min-height:1.8em;"
                          ng-click="comment.$maximized = !comment.$maximized">
 
-                        <div ng-include="'likes.html'"></div>
+                        <!--<div ng-include="'likes.html'"></div>-->
 
                         <div style="float: left; margin-right:5px;">
-                            <a href="javascript:void(0)">
-                                <span class="glyphicon glyphicon-chevron-down"></span></a>
+                            <!--<a href="javascript:void(0)">-->
+                            <!--<span class="glyphicon glyphicon-chevron-down"></span></a>-->
 
                             <strong><a href="javascript:void(0)" ng-click="scrollTo(comment.parentId)"
                                        ng-show="{{comment.parentId != null}}">Re:</a></strong>
 
-                            <span style="color: grey" ng-show="comment.$commentCount > 1">({{comment.$commentCount}} comments)</span>
+                            <span style="color: grey" ng-show="comment.$commentCount > 1">(<a href="javascript:void(0)">{{comment.$commentCount}}
+                                comments</a>)</span>
                         </div>
 
                         <div style="white-space: nowrap; cursor: pointer; color: grey;">
@@ -307,6 +290,13 @@
 
 <script type="text/ng-template" id="more_stats.template">
     some stats
+</script>
+
+<script type="text/ng-template" id="more_details.template">
+    Submitted
+
+    {{thread.createdDate | fromNow}}
+
 </script>
 
 <script type="text/ng-template" id="more_social.template">

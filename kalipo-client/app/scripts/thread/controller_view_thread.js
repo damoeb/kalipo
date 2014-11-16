@@ -5,7 +5,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         if ($location.path().endsWith('share')) {
             $scope.more = 'social';
         } else {
-            $scope.more = null;
+            $scope.more = 'details';
         }
 
         $scope.draft = {};
@@ -99,7 +99,9 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
 
                 // todo minimize negative-only comments, hell-banned subthreads
 
-                comment.$maximized = !(comment.dislikes > 5 && comment.dislikes > comment.likes);
+                comment.$maximized = !(comment.dislikes > 2 && comment.dislikes > comment.likes);
+
+                // todo wenn mehr als 3 kommentare zeige nur die relevaten 3 an all "23 kommentare anzeigen"
 
                 var total = comment.likes + comment.dislikes;
                 comment.$likes = comment.likes / total * 100;

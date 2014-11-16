@@ -161,14 +161,14 @@ ul#strength {
 }
 
 .post {
-    border-bottom: 1px solid #d7d7d7;
+    /*border-bottom: 1px solid #d7d7d7;*/
 }
 
 .post:hover {
     /*background: none repeat scroll 0 0 #ffffff;*/
-    -moz-box-shadow: 2px 1px 2px 0px #ccc;
-    -webkit-box-shadow: 2px 1px 2px 0px #ccc;
-    box-shadow: 2px 1px 2px 0px #ccc;
+    -moz-box-shadow: 0px 0px 2px 0px #ccc;
+    -webkit-box-shadow: 0px 0px 2px 0px #ccc;
+    box-shadow: 0px 0px 2px 0px #ccc;
 }
 
 .post .flag a {
@@ -180,7 +180,8 @@ ul#strength {
     visibility: visible;
 }
 
-.post:hover .voteUp {
+.post:hover .voteUp,
+.post SPAN.voteUp {
     color: green;
 }
 
@@ -225,7 +226,7 @@ ul#strength {
 .ng-invalid {
 }
 
-input.ng-invalid {
+input.ng-invalid.ng-dirty {
     border: 1px solid red;
 }
 
@@ -259,4 +260,14 @@ nav a {
 
 nav .nav-pills a:hover {
     color: gray;
+}
+
+.field-comment {
+    resize: vertical;
+    min-height: 30px;
+}
+
+.votes {
+    font-size: 14px;
+    font-weight: bold;
 }
