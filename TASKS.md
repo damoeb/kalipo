@@ -20,6 +20,7 @@ tabs: discussion/authors/stats
 Realtime: 2 typing... oder Armin is typing..
 ? Allow Anonymous Posts: will be reviewed.
 
+spam: crossposts/multiple posts
 monitoring
 
 profile activities the standard user:
