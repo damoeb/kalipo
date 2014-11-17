@@ -4,7 +4,7 @@ kalipo
 What is it?
 -----------
 
-Kalipo is a realtime mobile-first? commenting web application with a strong focus on transparency.
+Kalipo is a realtime mobile-first? commenting web application with a strong focus on transparency. (Screenshot http://i58.tinypic.com/5efh4o.jpg)
 
 Features
 --------
