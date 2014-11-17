@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <meta charset="utf-8">
+    <title>kalipo</title>
+    <meta name="viewport" content="width=475">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <style>
+        .green {
+            background-color: #1abc9c;
+            color: white;
+            margin: 0;
+        }
+
+        .green a {
+            color: #eaeaea !important;
+        }
+
+        .green a:hover {
+            color: white !important;
+        }
+
+        .gray {
+            background-color: #efefef;
+            padding: 20px 0 20px 0;
+        }
+
+        h1 {
+            font-family: Times New Roman, Times, serif;
+        }
+    </style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-default green" role="navigation" ng-switch="authenticated">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <span class="glyphicon glyphicon-chevron-right"
+                      style="color: #E84B56; text-shadow: 2px 2px #9D2D36;"></span>
+                <span translate="global.title" style="font-weight: 900;">kalipo</span>
+            </a>
+
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <ul class="nav navbar-nav nav-pills navbar-right">
+            <li class="dropdown pointer" ng-switch-when="true">
+                <a href="#/thread/create">
+                    <span>
+                        Create Discussion
+                    </span>
+                </a>
+            </li>
+            <li ng-switch-when="false">
+                <a href="#/register">
+                    <span>
+                        Register
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+
+<div class="container-fluid gray">
+    <div class="container">
+        <div class="row" style="margin-top: 50px; margin-bottom: 50px">
+            <div class="col-sm-push-1 col-sm-1">
+                <a class="btn"><h2>&lt;</h2></a>
+            </div>
+            <div class="col-sm-push-1 col-sm-8 text-center">
+                <h1>“If freedom of speech is taken away, then dumb and silent we may be led, like sheep to the
+                    slaughter.”</h1>
+                George Washington
+            </div>
+            <div class="col-sm-push-1 col-sm-1">
+                <a class="btn"><h2>&gt;</h2></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-push-2 col-sm-8 col-md-push-4 col-md-6">
+                <form class="form-inline" role="form"><input style="width: 300px" class="form-control" type="text"
+                                                             placeholder="Input your email to stay in touch"> <a
+                        href="#" class="btn btn-danger">Notify Me</a></form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row" style="margin-top: 50px">
+        <div class="col-md-12">
+            <h2>What is it?</h2>
+            <!--<p>The Kalipo Project (HGP) is swiss based open source project with the goal of building an open and transparent virtual comment platform to enable and support public discussion.</p>-->
+            <p>Das Kalipo Projekt ist eine Nonprofit, digitale und quell-offene Diskussionplattform mit dem Ziel, einen
+                transparenten, &ouml;ffentlichen Diskurs zu erm&ouml;glichen.
+                <br>
+                Diskussionen - <i>Threads</i> - werden kontextbezogen gef&uuml;hrt und von mindestens einem User
+                moderiert, die die Aufgabe haben, Kommentare die den Kalipo Regeln widersprechen, zu entfernen.</p>
+        </div>
+    </div>
+</div>
+
+
+<!--ist ein auf Open Source Software basiertes swiss based open source project with the goal of building an open and transparent virtual comment platform to enable and support public discussion.</p>-->
+<!--<p>Freedom of expression has become under pressure these days, even in western countries. There are huge ongoing <a href="http://www.heise.de/tp/artikel/43/43237/1.html">battles</a> between mainstream news publisher and consumers about the common narrative (e.g. Ukraine). Some choose drastic measures started to censor and even <a href="https://www.freitag.de/autoren/jan-jasper-kosok/die-sz-schliesst-ihre-kommentarfunktion">close</a> the discussion boards.-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Motivation und Ziele</h2>
+
+            <p>Freedom of expression has become under pressure these days, even in western countries. There are huge
+                ongoing <a href="http://www.heise.de/tp/artikel/43/43237/1.html">battles</a> between mainstream news
+                publisher and consumers about the common narrative (e.g. Ukraine). Some choose drastic measures started
+                to censor and even <a
+                        href="https://www.freitag.de/autoren/jan-jasper-kosok/die-sz-schliesst-ihre-kommentarfunktion">close</a>
+                the discussion boards.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Features</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Transparenz</h3>
+
+            <p></p>
+        </div>
+        <div class="col-md-6">
+            <h3>Url Hooks</h3>
+
+            <p>Um das finden von Threads zu erleichtern, k&ouml;nnen Urls einer belibigen Seite im Internet verwendet
+                werden. M&ouml;chte ich die Diskussion zur URL <i>http://derstandard.at/2000008220460</i> finden, kann
+                ich einfach kalipo.org/http://derstandard.at/2000008220460 aufrufen und werde zum entsprechenden Thread
+                weitergeleitet.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Timeline</h2>
+
+            <p></p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
