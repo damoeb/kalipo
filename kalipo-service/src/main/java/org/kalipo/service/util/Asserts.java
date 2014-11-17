@@ -2,6 +2,7 @@ package org.kalipo.service.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.config.ErrorCode;
+import org.kalipo.domain.Comment;
 import org.kalipo.domain.Thread;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.web.rest.KalipoException;
