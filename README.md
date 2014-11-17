@@ -44,4 +44,4 @@ Please see the file called LICENSE.
 
 Contacts
 --------
-Markus Ruepp @damoeb
+@damoeb
