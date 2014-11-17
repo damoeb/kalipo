@@ -6,7 +6,7 @@ What is it?
 
 Kalipo is a realtime commenting web application with a strong focus on transparency.
 
-Features (selection)
+Features
 --------
 - Reputation: We try to minimize the need for moderation by implementing a
 strong reputation based privilege system, which you may know from stackoverflow.
