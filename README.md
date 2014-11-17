@@ -14,7 +14,7 @@ strong reputation based privilege system, which you may know from stackoverflow.
 e.g. assume http://derstandard.at/2000008228049 is hooked by thread 1, then a user on that external page can simply use our domain as prefix kalipo.org/http://derstandard.at/2000008228049 to get redirected to the thread 1.
 - Livecycle: track your comment livecycle all the time
 - Notifications: many transient actions trigger notifications to keep you informed
-- Moderation: mods can choose from a range of actions (similar to the IRC: k-List, g-List or z-Line) to keep discussion same and vital
+- Moderation: mods can choose from a range of actions (similar to the IRC: k-List, g-List or z-Line) to keep discussion sane and vital
 - Ugly duckling: threads that do not attrack a number of commentors within a certain time limit after creation will be suffer deletion
 - Sanity: Apply best practices for well known threats like sock puppets, trolls, spamming (see https://github.com/damoeb/kalipo/wiki/Frauds)
 
