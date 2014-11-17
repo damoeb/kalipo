@@ -1,6 +1,7 @@
 package org.kalipo.service;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
 import org.kalipo.config.ErrorCode;
@@ -18,6 +19,7 @@ import org.kalipo.service.util.Asserts;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
@@ -54,6 +56,9 @@ public class ThreadService {
     @Inject
     private UserService userService;
 
+    @Inject
+    private Environment env;
+
     @RolesAllowed(Privileges.CREATE_THREAD)
     @Throttled
     public Thread create(Thread thread) throws KalipoException {
@@ -65,6 +70,9 @@ public class ThreadService {
         thread.setCommentCount(0);
         thread.setLikes(0);
         thread.setDislikes(0);
+
+        // todo implement + get 48h from properties
+        thread.setUglyDucklingSurvivalEndDate(DateTime.now().plusHours(48));
 
         thread = save(thread);
 
@@ -112,10 +120,68 @@ public class ThreadService {
             throw new KalipoException(ErrorCode.INVALID_PARAMETER, "Set of mods cannot be empty");
         }
 
+        assignModIds(thread, original);
+        assignkLine(thread, original);
+
+        // read only values
+        Asserts.nullOrEqual(thread.getLeadCommentId(), original.getLeadCommentId(), "leadCommentId");
+        thread.setLeadCommentId(original.getLeadCommentId());
+
+        Asserts.nullOrEqual(thread.getCommentCount(), original.getCommentCount(), "commentCount");
+        thread.setCommentCount(original.getCommentCount());
+
+        Asserts.nullOrEqual(thread.getLikes(), original.getLikes(), "likes");
+        thread.setLikes(original.getLikes());
+
+        Asserts.nullOrEqual(thread.getDislikes(), original.getDislikes(), "dislikes");
+        thread.setDislikes(original.getDislikes());
+
+        Asserts.nullOrEqual(thread.getUglyDucklingSurvivalEndDate(), original.getUglyDucklingSurvivalEndDate(), "uglyDucklingSurvivalEndDate");
+        thread.setUglyDucklingSurvivalEndDate(original.getUglyDucklingSurvivalEndDate());
+
+        return save(thread);
+    }
+
+    private void assignkLine(Thread thread, Thread original) throws KalipoException {
+        final String currentLogin = SecurityUtils.getCurrentLogin();
+        final Set<String> originalkLine = original.getkLine();
+
+        if (thread.getkLine() == null || originalkLine.containsAll(thread.getkLine())) {
+            thread.setkLine(originalkLine);
+        } else {
+            // validate kLine changes from update
+
+            // original.getkLine() - thread.getkLine()
+            Set<String> removed = originalkLine.stream().filter(uid -> thread.getkLine().contains(uid)).collect(Collectors.toSet());
+
+            // thread.getkLine() - original.getkLine();
+            Set<String> added = thread.getkLine().stream().filter(uid -> original.getkLine().contains(uid)).collect(Collectors.toSet());
+
+            for (String userId : added) {
+                if (!userRepository.exists(userId)) {
+                    throw new KalipoException(ErrorCode.INVALID_PARAMETER, String.format("User %s does not exist", userId));
+                }
+
+                log.info(String.format("%s puts %s on k-Line of thread %s", currentLogin, userId, thread.getId()));
+            }
+
+            if (removed != null) {
+                for (String userId : removed) {
+                    log.info(String.format("%s removes %s from k-Line of thread %s", currentLogin, userId, thread.getId()));
+                }
+            }
+        }
+
+    }
+
+    private void assignModIds(Thread thread, Thread original) throws KalipoException {
+        final String currentLogin = SecurityUtils.getCurrentLogin();
+        final Set<String> originalModIds = original.getModIds();
+
         if (thread.getModIds() == null || originalModIds.containsAll(thread.getModIds())) {
             thread.setModIds(originalModIds);
         } else {
-            // validate modIds from update
+            // validate modIds changes from update
 
             // original.getModIds() - thread.getModIds()
             Set<String> removed = originalModIds.stream().filter(uid -> thread.getModIds().contains(uid)).collect(Collectors.toSet());
@@ -151,27 +217,14 @@ public class ThreadService {
                 }
             }
         }
-
-        // keep final values
-        Asserts.nullOrEqual(thread.getLeadCommentId(), original.getLeadCommentId(), "leadCommentId");
-        thread.setLeadCommentId(original.getLeadCommentId());
-
-        Asserts.nullOrEqual(thread.getCommentCount(), original.getCommentCount(), "commentCount");
-        thread.setCommentCount(original.getCommentCount());
-
-        Asserts.nullOrEqual(thread.getLikes(), original.getLikes(), "likes");
-        thread.setLikes(original.getLikes());
-
-        Asserts.nullOrEqual(thread.getDislikes(), original.getDislikes(), "dislikes");
-        thread.setDislikes(original.getDislikes());
-
-        return save(thread);
     }
 
     private Thread save(Thread thread) throws KalipoException {
 
         if (StringUtils.isNotBlank(thread.getUriHook())) {
             Asserts.hasPrivilege(Privileges.HOOK_THREAD_TO_URL);
+            // todo set property
+            Asserts.isTrue(!StringUtils.startsWithIgnoreCase(thread.getUriHook(), env.getProperty("domain")), "You cannot hook kalipo");
         }
 
         return threadRepository.save(thread);

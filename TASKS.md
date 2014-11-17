@@ -25,6 +25,8 @@ monitoring
 profile activities the standard user:
 -
 
+stats example http://www.mixcloud.com/stats/
+
 --
 
 License

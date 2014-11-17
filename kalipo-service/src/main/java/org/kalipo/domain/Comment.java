@@ -48,8 +48,13 @@ public class Comment {
 
     private Integer dislikes = 0;
 
-    // todo implement in front end
     private Boolean hidden;
+
+    /**
+     * Stay on top of list in ui
+     */
+//   todo implement in ui
+    private Boolean sticky;
 
     // todo replace by query
     @JsonIgnore
@@ -163,6 +168,14 @@ public class Comment {
 
     public void setHidden(Boolean hidden) {
         this.hidden = hidden;
+    }
+
+    public Boolean getSticky() {
+        return sticky;
+    }
+
+    public void setSticky(Boolean sticky) {
+        this.sticky = sticky;
     }
 
     /**

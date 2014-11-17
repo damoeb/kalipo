@@ -44,14 +44,32 @@ public class Thread implements Serializable {
 
     private Integer commentCount = 0;
 
-    /**
-     * Number of distinct authors in the discussion
-     */
-    private Integer authorCount = 0;
+    // todo implement
     private Integer views = 0;
 
     @NotNull
     private Set<String> modIds = new HashSet<String>();
+
+    // todo implement
+    private Set<String> authors = new HashSet<String>();
+
+    /**
+     * Bans on username level
+     * Similar to IRC K-line see https://en.wikipedia.org/wiki/IRCd#K-line
+     */
+    private Set<String> kLine = new HashSet<String>();
+
+    /**
+     * todo should be done on page level
+     * Bans on IP range level
+     * Similar to IRC Z-line see https://en.wikipedia.org/wiki/IRCd#Z-line
+     */
+//    private Set<String> zLine = new HashSet<String>();
+
+    /**
+     * Threads must reach 5 or more authors within 48h to avoid deletion
+     */
+    private DateTime uglyDucklingSurvivalEndDate;
 
     private String leadCommentId;
 
@@ -72,6 +90,8 @@ public class Thread implements Serializable {
     private Boolean readOnly = false;
 
     private Status status;
+
+    // --
 
     /**
      * used to transfer text for the mandatory lead comment
@@ -181,6 +201,30 @@ public class Thread implements Serializable {
 
     public void setLeadCommentId(String leadCommentId) {
         this.leadCommentId = leadCommentId;
+    }
+
+    public Set<String> getkLine() {
+        return kLine;
+    }
+
+    public void setkLine(Set<String> kLine) {
+        this.kLine = kLine;
+    }
+
+    public DateTime getUglyDucklingSurvivalEndDate() {
+        return uglyDucklingSurvivalEndDate;
+    }
+
+    public void setUglyDucklingSurvivalEndDate(DateTime uglyDucklingSurvivalEndDate) {
+        this.uglyDucklingSurvivalEndDate = uglyDucklingSurvivalEndDate;
+    }
+
+    public Set<String> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<String> authors) {
+        this.authors = authors;
     }
 
     /**

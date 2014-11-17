@@ -58,4 +58,10 @@ public final class Asserts {
             throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, String.format("%s cannot be modified", fieldName));
         }
     }
+
+    public static void isTrue(boolean trueOrFalse, String errMessage) throws KalipoException {
+        if (trueOrFalse) {
+            throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, errMessage);
+        }
+    }
 }

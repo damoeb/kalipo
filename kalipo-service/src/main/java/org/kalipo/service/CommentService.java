@@ -60,7 +60,7 @@ public class CommentService {
         Asserts.isNotNull(comment, "comment");
         Asserts.isNull(comment.getId(), "id");
 
-        return save(comment, true);
+        return save(comment, null);
     }
 
     @RolesAllowed(Privileges.CREATE_COMMENT)
@@ -84,7 +84,7 @@ public class CommentService {
         Asserts.nullOrEqual(comment.getCreatedDate(), original.getCreatedDate(), "createdDate");
         comment.setCreatedDate(original.getCreatedDate());
 
-        return save(comment, false);
+        return save(comment, original);
     }
 
     @RolesAllowed(Privileges.REVIEW_COMMENT)
@@ -111,6 +111,19 @@ public class CommentService {
         if (comment.getStatus() != Comment.Status.PENDING) {
             throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "must be pending to be approved");
         }
+
+        // -- Comment Count
+
+        Thread thread = threadRepository.findOne(comment.getThreadId());
+
+        Asserts.isNotNull(thread, "threadId");
+
+        thread.setCommentCount(thread.getCommentCount() + 1);
+        threadRepository.save(thread);
+
+        noticeService.notifyAuthorOfParent(comment);
+
+        // --
 
         log.info(String.format("%s approves comment %s ", SecurityUtils.getCurrentLogin(), comment.getId()));
 
@@ -206,8 +219,9 @@ public class CommentService {
             author.setStrikes(0);
             author.setBanned(true);
             author.setBanCount(author.getBanCount() + 1);
-            author.setBannedUntilDate(DateTime.now().plusDays(30 * author.getBanCount()));
-            log.info("User {} is banned until "); // todo
+            DateTime bannedUntilDate = DateTime.now().plusDays(30 * author.getBanCount());
+            author.setBannedUntilDate(bannedUntilDate);
+            log.info("User {} is banned until ", author.getLogin(), bannedUntilDate);
         }
 
         userRepository.save(author);
@@ -219,7 +233,9 @@ public class CommentService {
         return threadRepository.findOne(threadId).getModIds().contains(currentLogin);
     }
 
-    private Comment save(Comment comment, boolean isNew) throws KalipoException {
+    private Comment save(Comment comment, Comment original) throws KalipoException {
+
+        final boolean isNew = original == null;
 
         Asserts.isNotNull(comment.getThreadId(), "threadId");
 
@@ -236,7 +252,6 @@ public class CommentService {
         comment.setAuthorId(currentLogin);
 
         // todo this part should be async. A separate process analyzes the comment and decides whether it is approved/review-required/spam
-        // todo test this call
         final boolean isMod = thread.getModIds().contains(currentLogin);
         final boolean isSuperMod = userService.isSuperMod(currentLogin);
 
@@ -248,21 +263,46 @@ public class CommentService {
             log.info(String.format("%s creates pending comment %s ", currentLogin, comment.toString()));
         }
 
+        assignSticky(comment, original, isNew, isMod, isSuperMod);
+
+        // --
+
         comment = commentRepository.save(comment);
-
-        if (isNew) {
-            thread.setCommentCount(thread.getCommentCount() + 1);
-            threadRepository.save(thread);
-
-            noticeService.notifyAuthorOfParent(comment);
-        }
 
         if (comment.getStatus() == Comment.Status.PENDING) {
             noticeService.notifyModsOfThread(thread, comment);
+        } else {
+
+            if (isNew) {
+                thread.setCommentCount(thread.getCommentCount() + 1);
+                threadRepository.save(thread);
+
+                noticeService.notifyAuthorOfParent(comment);
+            }
         }
 
         noticeService.notifyMentionedUsers(comment);
 
         return comment;
+    }
+
+    private void assignSticky(Comment comment, Comment original, boolean isNew, boolean isMod, boolean isSuperMod) throws KalipoException {
+        if (isNew) {
+
+            // only mods may set sticky = true
+            if (comment.getSticky() != null && comment.getSticky() && !(isMod || isSuperMod)) {
+                throw new KalipoException(ErrorCode.PERMISSION_DENIED, "You may not set sticky flag");
+            }
+
+        } else {
+
+            // only mods may change flag
+            if (!(isMod || isSuperMod)) {
+                Asserts.nullOrEqual(comment.getSticky(), original.getSticky(), "sticky");
+//                throw new KalipoException(ErrorCode.PERMISSION_DENIED, "You may not alter sticky flag");
+            }
+
+            comment.setSticky(original.getSticky());
+        }
     }
 }
