@@ -8,6 +8,7 @@ Kalipo is a realtime mobile-first? commenting web application with a strong focu
 
 Features
 --------
+- Pseudonymity
 - Reputation: We try to minimize the need for moderation by implementing a
 strong reputation based privilege system, which you may know from stackoverflow.
 - Webhooks: Hook extern urls to a specific thread, that will forward you to the particular thread
