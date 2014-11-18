@@ -1,5 +1,6 @@
 assume everybody is nice and focus on comment usability
 all links with klipo.org/out the count clicks
+"Show pending comments" like gawker does
 
 extend live websocket for new comments
 like a comment -> follow this comment?
@@ -27,6 +28,8 @@ profile activities the standard user:
 -
 
 stats example http://www.mixcloud.com/stats/
+
+Rage Thread: no implications on reputation? non-public, invitation only
 
 --
 
