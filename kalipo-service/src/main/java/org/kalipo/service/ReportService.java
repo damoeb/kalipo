@@ -91,7 +91,7 @@ public class ReportService {
         if (comment.getReportedCount() == CRITICAL_REPORT_COUNT) {
             log.info(String.format("Hiding comment %s after %s reports", comment.getId(), CRITICAL_REPORT_COUNT));
             comment.setHidden(true);
-            noticeService.notifySuperMods(comment);
+            noticeService.notifySuperModsOfFraudulentComment(comment);
         }
         commentRepository.save(comment);
 

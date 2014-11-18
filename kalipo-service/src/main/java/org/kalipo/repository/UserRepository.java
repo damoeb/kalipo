@@ -18,4 +18,6 @@ public interface UserRepository extends MongoRepository<User, String> {
     @Query("{activation_key: 'false', createdDate: {$gt: ?0}}")
     List<User> findNotActivatedUsersByCreationDateBefore(DateTime dateTime);
 
+    @Query("{superMod: 'true'}")
+    List<User> findSuperMods();
 }

@@ -216,12 +216,13 @@ public class CommentService {
         author.setStrikes(author.getStrikes() + 1);
 
         if (author.getStrikes() > 4) {
-            author.setStrikes(0);
-            author.setBanned(true);
-            author.setBanCount(author.getBanCount() + 1);
-            DateTime bannedUntilDate = DateTime.now().plusDays(30 * author.getBanCount());
-            author.setBannedUntilDate(bannedUntilDate);
-            log.info("User {} is banned until ", author.getLogin(), bannedUntilDate);
+//            author.setStrikes(0);
+//            author.setBanned(true);
+//            author.setBanCount(author.getBanCount() + 1);
+//            DateTime bannedUntilDate = DateTime.now().plusDays(30 * author.getBanCount());
+//            author.setBannedUntilDate(bannedUntilDate);
+//            log.info("User {} is banned until ", author.getLogin(), bannedUntilDate);
+            noticeService.notifySuperModsOfFraudulentUser(author);
         }
 
         userRepository.save(author);
@@ -240,8 +241,14 @@ public class CommentService {
         Asserts.isNotNull(comment.getThreadId(), "threadId");
 
         // reply only to approved comments
-        if (isNew && comment.getParentId() != null && commentRepository.findOne(comment.getParentId()).getStatus() != Comment.Status.APPROVED) {
-            throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "Invalid status of parent. It is not approved yet");
+        if (isNew && comment.getParentId() != null) {
+            Comment parent = commentRepository.findOne(comment.getParentId());
+            if (parent == null) {
+                throw new KalipoException(ErrorCode.INVALID_PARAMETER, "parentId");
+            }
+            if (parent.getStatus() != Comment.Status.APPROVED) {
+                throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "Invalid status of parent. It is not approved yet");
+            }
         }
 
         Thread thread = threadRepository.findOne(comment.getThreadId());

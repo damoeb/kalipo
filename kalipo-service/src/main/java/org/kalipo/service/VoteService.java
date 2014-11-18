@@ -47,7 +47,7 @@ public class VoteService {
 
         Asserts.isNull(vote.getId(), "id");
 
-        Comment comment = commentRepository.findOne(vote.getCommentId());
+        final Comment comment = commentRepository.findOne(vote.getCommentId());
         Asserts.isNotNull(comment, "commentId");
 
         reputationService.onCommentVoting(vote);
@@ -82,6 +82,6 @@ public class VoteService {
 
     public void delete(String id) throws KalipoException {
         // todo remove
-        voteRepository.delete(id);
+//        voteRepository.delete(id);
     }
 }
