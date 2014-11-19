@@ -194,7 +194,7 @@ public class CommentService {
             log.info(String.format("Comment %s deleted by owner %s", comment.getId(), currentLogin));
         }
 
-        Long replies = commentRepository.getReplyCount(comment.getId());
+        Long replies = commentRepository.countReplies(comment.getId());
 
         // 1. delete if no replies
         // 2. clear and leave replies
@@ -237,8 +237,17 @@ public class CommentService {
     private Comment save(Comment comment, Comment original) throws KalipoException {
 
         final boolean isNew = original == null;
+        final String currentLogin = SecurityUtils.getCurrentLogin();
+        final boolean isSuperMod = userService.isSuperMod(currentLogin);
 
         Asserts.isNotNull(comment.getThreadId(), "threadId");
+
+        // check quota
+        int count = commentRepository.countWithinDateRange(SecurityUtils.getCurrentLogin(), DateTime.now().minusDays(1), DateTime.now());
+        int dailyLimit = 100; // todo senseful quota
+        if (count >= dailyLimit || isSuperMod) {
+            throw new KalipoException(ErrorCode.USER_REQUEST_LIMIT_REACHED, "daily quota is " + dailyLimit);
+        }
 
         // reply only to approved comments
         if (isNew && comment.getParentId() != null) {
@@ -255,12 +264,10 @@ public class CommentService {
         Asserts.isNotNull(thread, "threadId");
         Asserts.isNotReadOnly(thread);
 
-        final String currentLogin = SecurityUtils.getCurrentLogin();
         comment.setAuthorId(currentLogin);
 
         // todo this part should be async. A separate process analyzes the comment and decides whether it is approved/review-required/spam
         final boolean isMod = thread.getModIds().contains(currentLogin);
-        final boolean isSuperMod = userService.isSuperMod(currentLogin);
 
         if (isMod || isSuperMod || commentRepository.getApprovedCommentCountOfUser(currentLogin) > 4) {
             comment.setStatus(Comment.Status.APPROVED);

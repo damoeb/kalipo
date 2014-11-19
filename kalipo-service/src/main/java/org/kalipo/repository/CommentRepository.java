@@ -1,5 +1,6 @@
 package org.kalipo.repository;
 
+import org.joda.time.DateTime;
 import org.kalipo.domain.Comment;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -24,5 +25,8 @@ public interface CommentRepository extends MongoRepository<Comment, String> {
     Long getApprovedCommentCountOfUser(String userId);
 
     @Query(value = "{'parentId': ?0}", count = true)
-    Long getReplyCount(String commentId);
+    Long countReplies(String commentId);
+
+    @Query(value = "{'authorId': ?0, 'createdDate': {$gte: ?1, $lt: ?2}}", count = true)
+    int countWithinDateRange(String currentLogin, DateTime from, DateTime to);
 }
