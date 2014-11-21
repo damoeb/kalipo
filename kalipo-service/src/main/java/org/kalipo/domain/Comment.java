@@ -34,6 +34,7 @@ public class Comment {
     @NotNull(message = "{constraint.notnull.reputation}")
     private Integer reputation = 0;
 
+    // todo rename to createdOn
     @CreatedDate
     private DateTime createdDate;
 

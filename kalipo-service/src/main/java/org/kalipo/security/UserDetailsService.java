@@ -1,5 +1,6 @@
 package org.kalipo.security;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Authority;
 import org.kalipo.domain.Privilege;
 import org.kalipo.domain.User;
@@ -18,6 +19,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Authenticate a user from the database.
@@ -52,10 +54,13 @@ public class UserDetailsService implements org.springframework.security.core.use
         }
 
         // append privileges according to reputation
-        List<Privilege> privileges = privilegeRepository.findByReputationLowerThanOrEqual(userFromDatabase.getReputation());
+        // todo negative reputation wont get punished by now
+        List<Privilege> privileges = privilegeRepository.findByReputationLowerThanOrEqual(Math.max(0, userFromDatabase.getReputation()));
         for (Privilege privilege : privileges) {
             grantedAuthorities.add(new SimpleGrantedAuthority(privilege.getName()));
         }
+
+        log.info(String.format("User %s has %s grants", login, StringUtils.join(privileges.stream().map(Privilege::getName).collect(Collectors.toList()), ", ")));
 
         return new org.springframework.security.core.userdetails.User(lowercaseLogin, userFromDatabase.getPassword(),
                 grantedAuthorities);

@@ -13,6 +13,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         $scope.reportModel = {};
         $scope.$doComment = false;
         $scope.$multiline = false;
+        $scope.$showPending = true;
 
         var threadId = $routeParams.threadId;
         var commentId = $routeParams.commentId;
@@ -24,14 +25,10 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         Thread.getComments({id: threadId}, function (comments) {
 
             $scope.comments = [];
-            $scope.pending = [];
 
-            var groups = _.groupBy(_.sortBy(comments, function(comment){return -comment.createdDate}), function(comment) {
-                return comment.status == 'PENDING' ? 'PENDING' : 'OTHERS';
-            });
-
-            $scope.comments = _hierarchical(groups.OTHERS);
-            $scope.pending = groups.PENDING;
+            $scope.comments = _sort(_hierarchical(_.sortBy(comments, function (comment) {
+                return -comment.createdDate
+            })));
 
 //            todo enable scrollTo
 //            if (commentId) {
@@ -77,6 +74,12 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
                 });
         };
 
+        var _sort = function (comments) {
+            return _.sortBy(comments, function (comment) {
+                return comment.$score
+            })
+        };
+
         var _hierarchical = function (comments) {
 
             var map = _.groupBy(comments, function(comment) {
@@ -97,9 +100,12 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
                     comment.likes = 0;
                 }
 
+                comment.$pending = comment.status == 'PENDING';
+
                 // todo minimize negative-only comments, hell-banned subthreads
 
-                comment.$maximized = !(comment.dislikes > 2 && comment.dislikes > comment.likes);
+                comment.$maximized = !(comment.dislikes > 3 && comment.dislikes > comment.likes);
+                comment.$score = (comment.likes - comment.dislikes) / comment.createdDate;
 
                 // todo wenn mehr als 3 kommentare zeige nur die relevaten 3 an all "23 kommentare anzeigen"
 
