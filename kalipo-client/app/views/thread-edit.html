@@ -1,4 +1,4 @@
-<h2>Create a Discussion</h2>
+<h2>Edit Thread</h2>
 
 <div>
     <form name="form" role="form" novalidate ng-submit="create()">
@@ -8,6 +8,8 @@
                 You will become mod for this thread and approve posts
             </div>
         </div>
+
+        <!-- todo fields disable, delete, k-list-->
 
         <div class="row box-row">
             <div class="col-md-3"><h4>Title*</h4></div>
@@ -32,16 +34,19 @@
         </div>
 
         <div class="row box-row">
-            <div class="col-md-3"><h4>Additional Mods</h4></div>
-            <div class="col-md-9">
-                <input name="title" class="form-control" ng-model="thread.$mods"
-                       placeholder="Other mods beyond you"
-                       ng-maxlength="64">
+            <div class="col-md-3"><h4>Hooks</h4></div>
+            <div class="col-md-9"><input name="url" class="form-control" ng-model="thread.uriHook" type="url"
+                                         placeholder="If not in the comment, place the most important URL here"></div>
+            <div class="error-container"
+                 ng-show="form.url.$dirty && form.url.$invalid">
+                <small ng-show="form.url.$error.url">
+                    Sure, this is is a Url?
+                </small>
             </div>
         </div>
 
         <div class="row box-row">
-            <div class="col-md-3"><h4>Ripper*</h4></div>
+            <div class="col-md-3"><h4>Mods*</h4></div>
             <div class="col-md-9">
                 <textarea name="text" class="form-control" placeholder="For the lead comment, brevity is the key."
                           ng-model="thread.text"
@@ -63,27 +68,10 @@
         </div>
 
         <div class="row box-row">
-            <div class="col-md-3"><h4><a href="#/faq/webhook">Web Hooks</a></h4></div>
-            <div class="col-md-9">
-                <textarea name="text" class="form-control" placeholder="Space separated urls"
-                          ng-model="thread.$hooks"
-                          ng-minlength=2 ng-maxlength=2048></textarea>
-
-                <div class="error-container"
-                     ng-show="form.text.$dirty && form.text.$invalid">
-                    <small ng-show="form.text.$error.maxlength">
-                        Text cannot be longer than 2048 characters
-                    </small>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row box-row">
             <div class="col-md-push-3 col-md-9">
                 <a href="#/threads" ng-disabled="form.$invalid" class="btn">Cancel</a>
                 <button type="submit" class="btn btn-primary">
-                    Create
+                    Save
                 </button>
             </div>
         </div>

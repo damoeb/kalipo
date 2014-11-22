@@ -1,6 +1,5 @@
 package org.kalipo.domain;
 
-import org.hibernate.validator.constraints.URL;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -28,9 +27,7 @@ public class Thread implements Serializable {
     /**
      * todo should be a set of urls, the amount of url is defined via Roles
      */
-    @Size(min = 1, max = 512)
-    @URL
-    private String uriHook;
+    private Set<String> uriHooks = new HashSet<>();
 
     @NotNull
     @Size(min = 10, max = 64)
@@ -67,7 +64,7 @@ public class Thread implements Serializable {
 //    private Set<String> zLine = new HashSet<String>();
 
     /**
-     * Threads must reach 5 or more authors within 48h to avoid deletion
+     * Threads must reach 5 or more authors within 48h to avoid deletion (this can be seen as a garbage collection)
      */
     private DateTime uglyDucklingSurvivalEndDate;
 
@@ -107,12 +104,20 @@ public class Thread implements Serializable {
         this.id = id;
     }
 
-    public String getUriHook() {
-        return uriHook;
+    public Set<String> getUriHooks() {
+        return uriHooks;
     }
 
-    public void setUriHook(String uriHook) {
-        this.uriHook = uriHook;
+    public void setUriHooks(Set<String> uriHooks) {
+        this.uriHooks = uriHooks;
+    }
+
+    public Integer getViews() {
+        return views;
+    }
+
+    public void setViews(Integer views) {
+        this.views = views;
     }
 
     public String getTitle() {

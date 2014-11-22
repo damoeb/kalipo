@@ -2,7 +2,6 @@ package org.kalipo.service.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.config.ErrorCode;
-import org.kalipo.domain.Comment;
 import org.kalipo.domain.Thread;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.web.rest.KalipoException;
@@ -61,7 +60,7 @@ public final class Asserts {
     }
 
     public static void isTrue(boolean trueOrFalse, String errMessage) throws KalipoException {
-        if (trueOrFalse) {
+        if (!trueOrFalse) {
             throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, errMessage);
         }
     }

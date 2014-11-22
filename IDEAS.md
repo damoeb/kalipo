@@ -1,5 +1,8 @@
-Rule engine fuer Reputation
+like a comment -> follow this comment?
+dislike a comment -> minimize this thread?
+rechts oben: reputation increases +2 upvoted wie in einem spiel
 
+Rage Thread: no implications on reputation? non-public, invitation only
 
 Monitor/Watch
 =============

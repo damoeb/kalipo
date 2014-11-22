@@ -1,5 +1,6 @@
 package org.kalipo.service;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
@@ -242,12 +243,23 @@ public class CommentService {
 
         Asserts.isNotNull(comment.getThreadId(), "threadId");
 
-        // check quota
+        // -- Quota
         int count = commentRepository.countWithinDateRange(SecurityUtils.getCurrentLogin(), DateTime.now().minusDays(1), DateTime.now());
         int dailyLimit = 100; // todo senseful quota
-        if (count >= dailyLimit || isSuperMod) {
-            throw new KalipoException(ErrorCode.USER_REQUEST_LIMIT_REACHED, "daily quota is " + dailyLimit);
+        if (count >= dailyLimit && !isSuperMod) {
+            throw new KalipoException(ErrorCode.METHOD_REQUEST_LIMIT_REACHED, "daily comment quota is " + dailyLimit);
         }
+
+        // -- Display name
+
+        if (BooleanUtils.isTrue(comment.getAnonymous())) {
+            comment.setDisplayName(null);
+
+        } else {
+            comment.setDisplayName(currentLogin);
+        }
+
+        // --
 
         // reply only to approved comments
         if (isNew && comment.getParentId() != null) {

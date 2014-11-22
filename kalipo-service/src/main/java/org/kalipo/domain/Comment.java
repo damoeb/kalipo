@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 import org.kalipo.validation.ModelExistsConstraint;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
@@ -46,7 +47,7 @@ public class Comment {
     private String authorId;
 
     // todo add displayName to support Anonymous posts, make authorId @JsonIgnore
-//    private String displayName;
+    private String displayName;
 
     private Integer likes = 0;
 
@@ -69,6 +70,18 @@ public class Comment {
     private Status status;
 
     private String reviewerId;
+
+    // Publish post as anonymous
+    @Transient
+    private Boolean anonymous;
+
+    public Boolean getAnonymous() {
+        return anonymous;
+    }
+
+    public void setAnonymous(Boolean anonymous) {
+        this.anonymous = anonymous;
+    }
 
     public String getId() {
         return id;
@@ -180,6 +193,14 @@ public class Comment {
 
     public void setSticky(Boolean sticky) {
         this.sticky = sticky;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     /**

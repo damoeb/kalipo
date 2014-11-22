@@ -16,17 +16,21 @@ import org.kalipo.repository.UserRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
+import org.kalipo.service.util.URLNormalizer;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
+import org.springframework.security.web.util.UrlUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import java.net.MalformedURLException;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Future;
@@ -74,6 +78,9 @@ public class ThreadService {
         // todo implement + get 48h from properties
         thread.setUglyDucklingSurvivalEndDate(DateTime.now().plusHours(48));
 
+        final String currentLogin = SecurityUtils.getCurrentLogin();
+        thread.getModIds().add(currentLogin);
+
         thread = save(thread);
 
         // create lead comment
@@ -85,10 +92,6 @@ public class ThreadService {
         comment = commentService.approve(comment);
 
         thread.setLeadCommentId(comment.getId());
-
-        final String currentLogin = SecurityUtils.getCurrentLogin();
-
-        thread.getModIds().add(currentLogin);
 
         save(thread);
 
@@ -221,13 +224,45 @@ public class ThreadService {
 
     private Thread save(Thread thread) throws KalipoException {
 
-        if (StringUtils.isNotBlank(thread.getUriHook())) {
+        // url hooks validation
+        if (thread.getUriHooks() != null && !thread.getUriHooks().isEmpty()) {
             Asserts.hasPrivilege(Privileges.HOOK_THREAD_TO_URL);
-            // todo set property
-            Asserts.isTrue(!StringUtils.startsWithIgnoreCase(thread.getUriHook(), env.getProperty("domain")), "You cannot hook kalipo");
+
+            Set<String> normedUriHooks = new HashSet<>();
+
+            for (String uri : thread.getUriHooks()) {
+                if (!UrlUtils.isAbsoluteUrl(uri)) {
+                    throw new KalipoException(ErrorCode.INVALID_PARAMETER, String.format("urlHook %s must be an absolute url", uri));
+                }
+
+                // todo set property via env.getProperty("domain")
+                Asserts.isTrue(!StringUtils.containsIgnoreCase(uri, "kalipo.org"), "You cannot hook kalipo");
+
+                // -- Assure that hooked urls has not been used anywhere else
+                final String normed;
+                try {
+                    normed = URLNormalizer.normalize(uri);
+                    normedUriHooks.add(normed);
+
+                } catch (MalformedURLException e) {
+                    throw new KalipoException(ErrorCode.INVALID_PARAMETER, String.format("urlHook %s looks nasty", uri));
+                }
+
+                Thread conflictingThread = threadRepository.findByUriHook(normed);
+
+                if (conflictingThread != null && (thread.getId() == null || !StringUtils.equals(conflictingThread.getId(), thread.getId()))) {
+                    throw new KalipoException(ErrorCode.INVALID_PARAMETER, String.format("urlHook %s is already in use in thread %s", normed, thread.getId()));
+                }
+            }
+
+            thread.setUriHooks(normedUriHooks);
         }
 
         return threadRepository.save(thread);
+    }
+
+    private String lo(String s) {
+        return StringUtils.lowerCase(s);
     }
 
     @Async

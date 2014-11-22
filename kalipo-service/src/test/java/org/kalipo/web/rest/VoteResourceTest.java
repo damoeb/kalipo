@@ -124,10 +124,10 @@ public class VoteResourceTest {
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 
-        // Read nonexisting Vote
-        restVoteMockMvc.perform(get("/app/rest/votes/{id}", voteId)
-                .accept(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(status().isNotFound());
+//        // Read nonexisting Vote
+//        restVoteMockMvc.perform(get("/app/rest/votes/{id}", voteId)
+//                .accept(TestUtil.APPLICATION_JSON_UTF8))
+//                .andExpect(status().isNotFound());
 
     }
 }

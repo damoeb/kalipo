@@ -5,6 +5,11 @@
 <!--</div>-->
 <!-- todo see http://bootsnipp.com/snippets/featured/e-mail-interface -->
 <div class="box">
+
+    <div ng-show="threads.length == 0" class="alert alert-info" role="alert">No threads exist. <a href="#/login">Please
+        login</a> to create some.
+    </div>
+
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="thread in threads">
 

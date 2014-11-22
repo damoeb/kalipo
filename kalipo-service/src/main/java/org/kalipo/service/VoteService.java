@@ -1,7 +1,9 @@
 package org.kalipo.service;
 
+import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
+import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Notice;
 import org.kalipo.domain.Vote;
@@ -36,6 +38,9 @@ public class VoteService {
     private ReputationService reputationService;
 
     @Inject
+    private UserService userService;
+
+    @Inject
     private NoticeService noticeService;
 
     @Inject
@@ -46,6 +51,19 @@ public class VoteService {
     public Vote create(@Valid Vote vote) throws KalipoException {
 
         Asserts.isNull(vote.getId(), "id");
+
+        final String currentLogin = SecurityUtils.getCurrentLogin();
+        final boolean isSuperMod = userService.isSuperMod(currentLogin);
+
+        // -- Quota
+
+        int count = voteRepository.countWithinDateRange(SecurityUtils.getCurrentLogin(), DateTime.now().minusDays(1), DateTime.now());
+        int dailyLimit = 100; // todo senseful quota
+        if (count >= dailyLimit && !isSuperMod) {
+            throw new KalipoException(ErrorCode.METHOD_REQUEST_LIMIT_REACHED, "daily vote quota is " + dailyLimit);
+        }
+
+        // --
 
         final Comment comment = commentRepository.findOne(vote.getCommentId());
         Asserts.isNotNull(comment, "commentId");

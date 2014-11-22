@@ -154,7 +154,7 @@ public class ThreadResourceTest {
     public void test_UrlHooksWithoutPermission() throws Exception {
 
         thread = newThread();
-        thread.setUriHook("http://example.com");
+        thread.getUriHooks().add("http://example.com");
 
         restThreadMockMvc.perform(post("/app/rest/threads")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -166,7 +166,7 @@ public class ThreadResourceTest {
     public void test_UrlHooksWithPermission() throws Exception {
 
         thread = newThread();
-        thread.setUriHook("http://example.com");
+        thread.getUriHooks().add("http://example.com");
 
         List<String> privileges = new LinkedList<>();
         privileges.add(Privileges.HOOK_THREAD_TO_URL);

@@ -79,7 +79,7 @@ public class ReportService {
 
         report = reportRepository.save(report);
 
-        // todo unique report (reporter, comment), reject reports on already approved comment
+        // todo reject reports on already approved comment
 
         // todo replace by query
         comment.setReportedCount(comment.getReportedCount() + 1);

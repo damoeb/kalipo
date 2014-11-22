@@ -11,9 +11,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         $scope.draft = {};
         $scope.thread = {};
         $scope.reportModel = {};
-        $scope.$doComment = false;
-        $scope.$multiline = false;
-        $scope.$showPending = true;
+        $scope.$showPending = false;
 
         var threadId = $routeParams.threadId;
         var commentId = $routeParams.commentId;
@@ -67,6 +65,8 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         $scope.create = function () {
 
             $scope.draft.threadId = threadId;
+            // todo support anon flag in view
+            $scope.draft.anonymous = false;
 
             Comment.save($scope.draft,
                 function () {
@@ -94,7 +94,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
                 }
 
                 if (comment.status == 'DELETED') {
-                    comment.authorId = 'Deleted';
+                    comment.displayName = 'Deleted';
                     comment.text = 'Content deleted';
                     comment.dislikes = 0;
                     comment.likes = 0;
@@ -108,6 +108,11 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
                 comment.$score = (comment.likes - comment.dislikes) / comment.createdDate;
 
                 // todo wenn mehr als 3 kommentare zeige nur die relevaten 3 an all "23 kommentare anzeigen"
+
+                // author chose to hide his name
+                if (_.isEmpty(comment.displayName) || _.isUndefined(comment.displayName)) {
+                    comment.displayName = 'Anonymous';
+                }
 
                 var total = comment.likes + comment.dislikes;
                 comment.$likes = comment.likes / total * 100;
