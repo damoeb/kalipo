@@ -4,6 +4,9 @@ all links with klipo.org/out the count clicks
 remove tracker, currently typing websockets
 Daily Quota of 100?
 
+edit thread = create thread
+
+
 extend live websocket for new comments
 like a comment -> follow this comment?
 dislike a comment -> minimize this thread?
