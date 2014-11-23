@@ -1,16 +1,26 @@
+- Moderate Thread (with Reports, Pending)
 - Edit Thread
 - Details of Thread with Stats e.g. http://www.mixcloud.com/stats/
-- Moderate Thread (with Reports, Pending)
-- Superuser View/Monitoring, Fraud warnings via mail
+- Monitoring for Superuser/Mods?, Fraud warnings via mail
+    - mods: approvals/deletions/k-listing, (automated) thread deletions
+    - users: live activity, reports, critical activity -> lock
+    - review popular comments/links
+    - system: spam detection, resource consumption
 - All links with <domain>/out to get stats
 - Notifications (websocket?) for replied, mentioned, upvoted
 - Clean old Votes, Notices
+- Audit logs
 - Comment
+    - Mod can pin/sticky a comment to be first in list
     - @name messages
     - #hashtags in comment
     - quotations
+    - allow embeds, images
 - Clean: remove tracker (jhipster corps), currently typing websockets
 - Async, maybe event driven via akka
     @Scheduled
     - Thread stats like commentCount/likes/dislikes
     - Reputation
+- Anomaly detection for
+    - users: account hijacking
+    - comment flooding
