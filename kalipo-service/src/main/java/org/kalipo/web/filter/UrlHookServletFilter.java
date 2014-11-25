@@ -1,7 +1,9 @@
 package org.kalipo.web.filter;
 
 import org.apache.commons.lang3.StringUtils;
+import org.kalipo.domain.Thread;
 import org.kalipo.repository.ThreadRepository;
+import org.kalipo.service.util.URLNormalizer;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -37,16 +39,16 @@ public class UrlHookServletFilter implements Filter {
             WebApplicationContext context = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
 
             ThreadRepository threadRepository = context.getBean(ThreadRepository.class);
-            // todo find thread by exact string comparison
-//            Thread thread = threadRepository.findByUri(forwardUri);
+            Thread thread = threadRepository.findByUriHook(URLNormalizer.normalize(forwardUri));
 //
-//            if (thread == null) {
+            if (thread == null) {
+                // todo find suggestions
 //                Document document = Jsoup.parse(new URL(forwardUri), 400);
 //                httpResponse.sendRedirect(String.format("/#/threads/create?title=%s&uri=%s", URLEncoder.encode(document.title(), "UTF-8"), URLEncoder.encode(forwardUri, "UTF-8")));
-//
-//            } else {
-//                httpResponse.sendRedirect("/#/thread/" + thread.getId());
-//            }
+
+            } else {
+                httpResponse.sendRedirect("/#/thread/" + thread.getId());
+            }
 
 
         } else {

@@ -59,23 +59,30 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     private DateTime bannedUntilDate;
 
+    // Count violations
     private int strikes;
 
     @JsonIgnore
     private DateTime lastStrikeDate;
 
-    @JsonIgnore
-    private int banCount;
-
-    // todo protect these fields
+    // todo protect these fieldsn
     private boolean superMod;
 
     // todo prevent brute force login attacks
+    private DateTime lockoutEndDate;
 
     @JsonIgnore
     private Set<Authority> authorities = new HashSet<Authority>();
 
     private Set<PersistentToken> persistentTokens = new HashSet<PersistentToken>();
+
+    public DateTime getLockoutEndDate() {
+        return lockoutEndDate;
+    }
+
+    public void setLockoutEndDate(DateTime lockoutEndDate) {
+        this.lockoutEndDate = lockoutEndDate;
+    }
 
     public String getLogin() {
         return login;
@@ -163,14 +170,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setBanned(boolean banned) {
         this.banned = banned;
-    }
-
-    public int getBanCount() {
-        return banCount;
-    }
-
-    public void setBanCount(int banCount) {
-        this.banCount = banCount;
     }
 
     public boolean isSuperMod() {

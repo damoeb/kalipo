@@ -1,7 +1,9 @@
 package org.kalipo.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Authority;
 import org.kalipo.domain.PersistentToken;
 import org.kalipo.domain.User;
@@ -163,7 +165,103 @@ public class UserService {
     }
 
     public boolean isSuperMod(String userId) {
-        return userRepository.findOne(userId).isSuperMod();
+        User one = userRepository.findOne(userId);
+        return one != null && one.isSuperMod();
     }
 
+    public User updateUser(User user) throws KalipoException {
+        Asserts.isNotNull(user, "payload");
+
+        final String login = user.getLogin();
+        final User original = userRepository.findOne(login);
+        final String operator = SecurityUtils.getCurrentLogin();
+        final User self = userRepository.findOne(operator);
+        final boolean isSuperMod = self.isSuperMod();
+        final boolean isAdmin = StringUtils.equals(self.getLogin(), "admin");
+
+        if (!isSuperMod && !isAdmin) {
+            log.warn(String.format("%s tried to alter user %s", operator, login));
+            throw new KalipoException(ErrorCode.PERMISSION_DENIED, "Superpowers required");
+        }
+
+
+        // update only fields that are set
+        if (dirty(user.getFirstName(), original.getFirstName())) {
+            original.setFirstName(user.getFirstName());
+            logFieldChange(operator, login, "firstName", user.getFirstName());
+        }
+        if (dirty(user.getLastName(), original.getLastName())) {
+            original.setLastName(user.getLastName());
+            logFieldChange(operator, login, "lastName", user.getLastName());
+        }
+        if (dirty(user.getEmail(), original.getEmail())) {
+            original.setEmail(user.getEmail());
+            logFieldChange(operator, login, "email", user.getEmail());
+        }
+        if (dirty(user.isBanned(), original.isBanned())) {
+            original.setBanned(user.isBanned());
+            if (user.getBannedUntilDate() == null) {
+                throw new KalipoException(ErrorCode.INVALID_PARAMETER, "BannedUntilDate is missing");
+            }
+            original.setBannedUntilDate(user.getBannedUntilDate());
+
+            logFieldChange(operator, login, "banned", user.isBanned());
+            logFieldChange(operator, login, "bannedUntilDate", user.getBannedUntilDate());
+        }
+        if (dirty(user.getStrikes(), original.getStrikes())) {
+            original.setStrikes(user.getStrikes());
+            logFieldChange(operator, login, "strikes", user.getStrikes());
+        }
+        if (dirty(user.getLastStrikeDate(), original.getLastStrikeDate())) {
+            original.setLastStrikeDate(user.getLastStrikeDate());
+            logFieldChange(operator, login, "lastStrikeDate", user.getLastStrikeDate());
+        }
+        if (dirty(user.getLockoutEndDate(), original.getLockoutEndDate())) {
+            original.setLockoutEndDate(user.getLockoutEndDate());
+            logFieldChange(operator, login, "lockoutEndDate", user.getLockoutEndDate());
+        }
+
+        if (isAdmin) {
+            if (dirty(user.getActivated(), original.getActivated())) {
+                original.setActivated(user.getActivated());
+                logFieldChange(operator, login, "activated", user.getActivated());
+            }
+            if (dirty(original.getReputation(), user.getReputation())) {
+                original.setReputation(user.getReputation());
+                logFieldChange(operator, login, "reputation", user.getReputation());
+            }
+            if (dirty(original.isSuperMod(), user.isSuperMod())) {
+                original.setSuperMod(user.isSuperMod());
+                logFieldChange(operator, login, "superMod", user.isSuperMod());
+            }
+
+        } else {
+            // must not be changed by supermods
+            Asserts.nullOrEqual(user.getActivated(), original.getActivated(), "activated");
+            Asserts.nullOrEqual(user.getReputation(), original.getReputation(), "reputation");
+            Asserts.nullOrEqual(user.isSuperMod(), original.isSuperMod(), "superMod");
+        }
+
+        return userRepository.save(user);
+    }
+
+    private void logFieldChange(String operator, String login, String fieldName, Object fieldValue) {
+        log.info(String.format("%s changes %s value of %s to '%s'", operator, login, fieldValue, fieldName));
+    }
+
+    private boolean dirty(int dirty, int original) {
+        return dirty != original;
+    }
+
+    private boolean dirty(boolean dirty, boolean original) {
+        return dirty != original;
+    }
+
+    private boolean dirty(DateTime dirty, DateTime original) {
+        return dirty != null && !dirty.equals(original);
+    }
+
+    private boolean dirty(String dirty, String original) {
+        return StringUtils.isNotBlank(dirty) && !StringUtils.equals(dirty, original);
+    }
 }
