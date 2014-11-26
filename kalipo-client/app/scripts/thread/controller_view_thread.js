@@ -8,6 +8,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
             $scope.more = 'details';
         }
 
+        $scope.$view = false;
         $scope.draft = {};
         $scope.thread = {};
         $scope.reportModel = {};
@@ -17,6 +18,9 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         var commentId = $routeParams.commentId;
 
         Thread.get({id: threadId}, function (thread) {
+            thread.uglyDucklingSurvivalEndDate = null;
+            thread.$kLine = thread.kLine.join(', ');
+            thread.$uriHooks = thread.uriHooks.join(', ');
             $scope.thread = thread;
         });
 
@@ -60,6 +64,16 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
             } else {
                 $scope.more = null;
             }
+        };
+
+        $scope.updateThread = function () {
+
+            $scope.thread.kLine = _.compact($scope.thread.$kLine.split(' '));
+            $scope.thread.uriHooks = _.compact($scope.thread.$uriHooks.split(' '));
+
+            Thread.update($scope.thread, function() {
+                // done
+            });
         };
 
         $scope.create = function () {

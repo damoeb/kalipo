@@ -1,105 +1,115 @@
-<div style="margin-bottom: 10px">
-    <h2 style="display: inline">{{thread.title}}</h2> [<a href="javascript:void(0)">Edit</a>]
-</div>
+<div ng-show="$view">
 
-<div>
-
-    Submitted
-
-    {{thread.createdDate | fromNow}},
-
-    moderated by <span ng-repeat="modId in thread.modIds">{{modId}} </span>
+    <div ng-include="'views/thread-edit.html'"></div>
 
 </div>
 
-<div ng-show="thread.uriHooks!=null && thread.uriHooks.length>0">
-    Hooks
-    <ul>
-        <li ng-repeat="hook in thread.uriHooks"><a href="/out?url={{hook}}">{{hook}}</a></li>
-    </ul>
+<div ng-show="!$view">
 
-</div>
+    <div style="margin-bottom: 10px">
+        <h2 style="display: inline">{{thread.title}}</h2> [<a href="javascript:void(0)" ng-click="$view = !$view">Edit</a>]
+    </div>
 
+    <div>
 
-<!--<div class="row">-->
+        Submitted
 
-<!--<ul class="nav nav-tabs" role="tablist">-->
-<!--<li ng-class="{active: more=='details'}"><a href="javascript:void(0)" ng-click="more = 'details'">Details</a>-->
-<!--</li>-->
-<!--<li ng-class="{active: more=='social'}"><a href="javascript:void(0)" ng-click="more = 'social'">Share</a></li>-->
-<!--<li ng-class="{active: more=='embed'}"><a href="javascript:void(0)" ng-click="more = 'embed'">Embed</a></li>-->
-<!--<li ng-class="{active: more=='email'}"><a href="javascript:void(0)" ng-click="more = 'email'">E-Mail</a></li>-->
-<!--<li ng-class="{active: more=='stats'}"><a href="javascript:void(0)" ng-click="more = 'stats'">Stats</a></li>-->
-<!--</ul>-->
+        {{thread.createdDate | fromNow}},
 
-<!--</div>-->
+        moderated by <span ng-repeat="modId in thread.modIds">{{modId}} </span>
 
-<!--&lt;!&ndash; more box &ndash;&gt;-->
-<!--<div ng-show="more != null">-->
+    </div>
 
-<!--<div style="margin-top: 10px">-->
-<!--<div ng-show="more == 'social'">-->
-<!--<div ng-include="'more_social.template'"></div>-->
-<!--</div>-->
-<!--<div ng-show="more == 'embed'">-->
-<!--<div ng-include="'more_embed.template'"></div>-->
-<!--</div>-->
-<!--<div ng-show="more == 'email'">-->
-<!--<div ng-include="'more_email.template'"></div>-->
-<!--</div>-->
-<!--<div ng-show="more == 'stats'">-->
-<!--<div ng-include="'more_stats.template'"></div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
+    <div ng-show="thread.uriHooks!=null && thread.uriHooks.length>0">
+        Hooks
+        <ul>
+            <li ng-repeat="hook in thread.uriHooks"><a href="/out?url={{hook}}">{{hook}}</a></li>
+        </ul>
+
+    </div>
 
 
-<div class="row">
+    <!--<div class="row">-->
 
-    <div style="margin-top: 15px">
+    <!--<ul class="nav nav-tabs" role="tablist">-->
+    <!--<li ng-class="{active: more=='details'}"><a href="javascript:void(0)" ng-click="more = 'details'">Details</a>-->
+    <!--</li>-->
+    <!--<li ng-class="{active: more=='social'}"><a href="javascript:void(0)" ng-click="more = 'social'">Share</a></li>-->
+    <!--<li ng-class="{active: more=='embed'}"><a href="javascript:void(0)" ng-click="more = 'embed'">Embed</a></li>-->
+    <!--<li ng-class="{active: more=='email'}"><a href="javascript:void(0)" ng-click="more = 'email'">E-Mail</a></li>-->
+    <!--<li ng-class="{active: more=='stats'}"><a href="javascript:void(0)" ng-click="more = 'stats'">Stats</a></li>-->
+    <!--</ul>-->
 
-        <div class="row">
-            <a href="javascript:void(0)" ng-click="$showPending = !$showPending">
-                <span class="btn btn-default btn-sm pull-right">
-                    <span ng-show="!$showPending">Show</span>
-                    <span ng-show="$showPending">Hide</span>
-                    Pending Comments
-                </span>
-            </a>
-        </div>
+    <!--</div>-->
 
-        <div ng-include="'create_comment.html'">
-        </div>
+    <!--&lt;!&ndash; more box &ndash;&gt;-->
+    <!--<div ng-show="more != null">-->
 
-        <div style="padding: 0 10px 10px 10px; color: gray" ng-switch on="typing.length">
+    <!--<div style="margin-top: 10px">-->
+    <!--<div ng-show="more == 'social'">-->
+    <!--<div ng-include="'more_social.template'"></div>-->
+    <!--</div>-->
+    <!--<div ng-show="more == 'embed'">-->
+    <!--<div ng-include="'more_embed.template'"></div>-->
+    <!--</div>-->
+    <!--<div ng-show="more == 'email'">-->
+    <!--<div ng-include="'more_email.template'"></div>-->
+    <!--</div>-->
+    <!--<div ng-show="more == 'stats'">-->
+    <!--<div ng-include="'more_stats.template'"></div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
 
-            <div ng-switch-when="0"></div>
-            <div ng-switch-when="1">
-                <strong>{{typing[0]}}</strong> is typing
-            </div>
-            <div ng-switch-default>
-                <span ng-repeat="user in typing">
 
-                    <span ng-if="!$first && !$last">, </span>
-                    <span ng-if="$last"> and </span>
-                    <strong>{{user}}</strong>
+    <div class="row">
 
-                </span>
-                are typing...
+        <div style="margin-top: 15px">
+
+            <div class="row">
+                <a href="javascript:void(0)" ng-click="$showPending = !$showPending">
+            <span class="btn btn-default btn-sm pull-right">
+                <span ng-show="!$showPending">Show</span>
+                <span ng-show="$showPending">Hide</span>
+                Pending Comments
+            </span>
+                </a>
             </div>
 
-        </div>
+            <div ng-include="'create_comment.html'">
+            </div>
 
-        <dl style="margin:0;">
-            <dd ng-repeat="comment in comments track by $index" ng-include="'comment.html'">
+            <div style="padding: 0 10px 10px 10px; color: gray" ng-switch on="typing.length">
 
-            </dd>
-        </dl>
+                <div ng-switch-when="0"></div>
+                <div ng-switch-when="1">
+                    <strong>{{typing[0]}}</strong> is typing
+                </div>
+                <div ng-switch-default>
+            <span ng-repeat="user in typing">
 
-        <div ng-show="comments.length > 10" style="margin-top: 10px">
-            <div ng-include="'create_comment.html'"></div>
+                <span ng-if="!$first && !$last">, </span>
+                <span ng-if="$last"> and </span>
+                <strong>{{user}}</strong>
+
+            </span>
+                    are typing...
+                </div>
+
+            </div>
+
+            <dl style="margin:0;">
+                <dd ng-repeat="comment in comments track by $index" ng-include="'comment.html'">
+
+                </dd>
+            </dl>
+
+            <div ng-show="comments.length > 10" style="margin-top: 10px">
+                <div ng-include="'create_comment.html'"></div>
+            </div>
         </div>
     </div>
+
 </div>
 
 

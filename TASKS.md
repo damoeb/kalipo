@@ -1,11 +1,11 @@
 - Moderate Thread (with Reports, Pending)
-- Edit Thread
 - Details of Thread with Stats e.g. http://www.mixcloud.com/stats/
 - Monitoring for Superuser/Mods?, Fraud warnings via mail
     - mods: approvals/deletions/k-listing, (automated) thread deletions
     - users: live activity, reports, critical activity -> lock
     - review popular comments/links
     - system: spam detection, resource consumption
+- Elastic Search
 - All links with <domain>/out to get stats
 - Notifications (websocket?) for replied, mentioned, upvoted
 - Clean old Votes, Notices

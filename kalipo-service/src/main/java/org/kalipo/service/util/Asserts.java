@@ -1,6 +1,7 @@
 package org.kalipo.service.util;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Thread;
 import org.kalipo.security.SecurityUtils;
@@ -55,6 +56,12 @@ public final class Asserts {
 
     public static void nullOrEqual(Object found, Object expected, String fieldName) throws KalipoException {
         if (found != null && !found.equals(expected)) {
+            throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, String.format("%s cannot be modified", fieldName));
+        }
+    }
+
+    public static void nullOrEqual(DateTime found, DateTime expected, String fieldName) throws KalipoException {
+        if (found != null && !found.isEqual(expected)) {
             throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, String.format("%s cannot be modified", fieldName));
         }
     }
