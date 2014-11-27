@@ -18,8 +18,9 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         var commentId = $routeParams.commentId;
 
         Thread.get({id: threadId}, function (thread) {
-            thread.uglyDucklingSurvivalEndDate = null;
+//            thread.uglyDucklingSurvivalEndDate = null;
             thread.$kLine = thread.kLine.join(', ');
+//            todo $uriHooks is no longer used, but create a $modIds
             thread.$uriHooks = thread.uriHooks.join(', ');
             $scope.thread = thread;
         });

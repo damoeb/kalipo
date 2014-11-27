@@ -3,86 +3,145 @@
 <div>
     <form name="form" role="form" novalidate ng-submit="updateThread()">
 
-        <!-- todo fields disable, delete, k-list-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">Properties</div>
+            </div>
+            <div class="panel-body">
 
-        <div class="row box-row">
-            <div class="col-md-3"><h4>Title*</h4></div>
-            <div class="col-md-9">
-                <input name="title" class="form-control" ng-model="thread.title"
-                       placeholder="6-10 words is the magic headline range!" required ng-minlength="10"
-                       ng-maxlength="64">
+                <div class="row">
+                    <div class="col-md-3"><h4>Title*</h4></div>
+                    <div class="col-md-9">
+                        <input name="title" class="form-control" ng-model="thread.title"
+                               placeholder="6-10 words is the magic headline range!" required ng-minlength="10"
+                               ng-maxlength="64">
 
-                <div class="error-container"
-                     ng-show="form.title.$dirty && form.title.$invalid">
-                    <small ng-show="form.title.$error.required">
-                        Title is required.
-                    </small>
-                    <small ng-show="form.title.$error.minlength">
-                        Title is required to be at least 10 characters
-                    </small>
-                    <small ng-show="form.title.$error.maxlength">
-                        Title cannot be longer than 64 characters
-                    </small>
+                        <div class="error-container"
+                             ng-show="form.title.$dirty && form.title.$invalid">
+                            <small ng-show="form.title.$error.required">
+                                Title is required.
+                            </small>
+                            <small ng-show="form.title.$error.minlength">
+                                Title is required to be at least 10 characters
+                            </small>
+                            <small ng-show="form.title.$error.maxlength">
+                                Title cannot be longer than 64 characters
+                            </small>
+                        </div>
+                    </div>
                 </div>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-3"><h4><a href="#/faq/webhook">Web Hooks</a></h4></div>
+                    <div class="col-md-9">
+
+                        <div ng-show="thread.uriHooks.length==0">
+                            No hooks defined
+                        </div>
+                        <div ng-show="thread.uriHooks.length > 0">
+                            <ul class="list-group">
+                                <li class="list-group-item" ng-repeat="uriHook in thread.uriHooks">
+                                    {{uriHook}}
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="New uri">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary">Add</button>
+                                    </span>
+                        </div>
+
+                        <div class="error-container"
+                             ng-show="form.text.$dirty && form.text.$invalid">
+                            <small ng-show="form.text.$error.maxlength">
+                                Text cannot be longer than 2048 characters
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
-        <div class="row box-row">
-            <div class="col-md-3"><h4><a href="#/faq/webhook">Web Hooks</a></h4></div>
-            <div class="col-md-9">
-                <textarea name="text" class="form-control" placeholder="Space separated urls"
-                          ng-model="thread.$uriHooks"
-                          ng-minlength=2 ng-maxlength=2048></textarea>
 
-                <div class="error-container"
-                     ng-show="form.text.$dirty && form.text.$invalid">
-                    <small ng-show="form.text.$error.maxlength">
-                        Text cannot be longer than 2048 characters
-                    </small>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">Administration</div>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-3"><h4><a href="#/faq/k-line">Kill Line</a></h4></div>
+                    <div class="col-md-9">
+                        <input name="text" class="form-control" placeholder="Users that should be killed on this thread"
+                               ng-model="thread.$kLine"
+                               ng-minlength=2 ng-maxlength=256/>
+
+                        <div class="error-container"
+                             ng-show="form.text.$dirty && form.text.$invalid">
+                            <small ng-show="form.text.$error.maxlength">
+                                Text cannot be longer than 256 characters
+                            </small>
+                        </div>
+                    </div>
                 </div>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-3"><h4>Mods*</h4></div>
+                    <div class="col-md-9">
+                        <input name="text" class="form-control" placeholder="Guys who supervise this thread."
+                               ng-model="thread.$modIds"
+                               ng-minlength=2 ng-maxlength=256 required/>
+
+                        <div class="error-container"
+                             ng-show="form.text.$dirty && form.text.$invalid">
+                            <small ng-show="form.text.$error.required">
+                                Text is required.
+                            </small>
+                            <small ng-show="form.text.$error.minlength">
+                                Text is required to be at least 2 characters
+                            </small>
+                            <small ng-show="form.text.$error.maxlength">
+                                Text cannot be longer than 256 characters
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
-        <div class="row box-row">
-            <div class="col-md-3"><h4><a href="#/faq/k-line">Kill Line</a></h4></div>
-            <div class="col-md-9">
-                <input name="text" class="form-control" placeholder="Users that should be killed on this thread"
-                          ng-model="thread.$kLine"
-                          ng-minlength=2 ng-maxlength=256 />
 
-                <div class="error-container"
-                     ng-show="form.text.$dirty && form.text.$invalid">
-                    <small ng-show="form.text.$error.maxlength">
-                        Text cannot be longer than 256 characters
-                    </small>
-                </div>
+        <!-- DANGER-->
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <div class="panel-title">Danger Zone</div>
+            </div>
+            <div class="panel-body">
+                <h4>Lock Thread</h4>
+
+                <p>
+                    Manually lock thread to disable any activity
+                    <a class="btn btn-danger pull-right" href="javascript:void(0)">Disable</a>
+                </p>
+                <hr>
+                <h4>Delete Thread</h4>
+
+                <p>
+                    Manually lock thread to disable any activity
+                    <a class="btn btn-danger pull-right" href="javascript:void(0)">Delete this thread</a>
+                </p>
             </div>
         </div>
 
-        <div class="row box-row">
-            <div class="col-md-3"><h4>Mods*</h4></div>
-            <div class="col-md-9">
-                <input name="text" class="form-control" placeholder="For the lead comment, brevity is the key."
-                          ng-model="thread.modIds"
-                          ng-minlength=2 ng-maxlength=256 required />
-
-                <div class="error-container"
-                     ng-show="form.text.$dirty && form.text.$invalid">
-                    <small ng-show="form.text.$error.required">
-                        Text is required.
-                    </small>
-                    <small ng-show="form.text.$error.minlength">
-                        Text is required to be at least 2 characters
-                    </small>
-                    <small ng-show="form.text.$error.maxlength">
-                        Text cannot be longer than 256 characters
-                    </small>
-                </div>
-            </div>
-        </div>
-
-        <div class="row box-row">
-            <div class="col-md-push-3 col-md-9">
+        <div class="row">
+        <div class="col-md-push-3 col-md-9">
                 <a href="javascript:void(0)" class="btn" ng-click="$view = !$view">Cancel</a>
                 <button type="submit" class="btn btn-primary">
                     Save
