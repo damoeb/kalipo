@@ -44,6 +44,20 @@
                 <span translate="global.title" style="font-weight: 900;">kalipo</span>
             </a>
 
+            <div class="input-group navbar-left">
+                <form class="navbar-form" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Type..">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="#">Browse</a></li>
+                <li><a href="#/thread/create">Create Discussion</a></li>
+
+            </ul>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -109,16 +123,16 @@
                 <!--</ul>-->
                 <!--</li>-->
                 <li ng-switch-when="false">
-                    <a href="#/login">
+                    <a href="#/register">
                         <span>
-                            Login
+                            Create Account
                         </span>
                     </a>
                 </li>
                 <li ng-switch-when="false">
-                    <a href="#/register">
+                    <a href="#/login">
                         <span>
-                            Register
+                            Sign in
                         </span>
                     </a>
                 </li>
@@ -181,13 +195,7 @@
                         </li>
                     </ul>
                 </li>
-                <li ng-switch-when="false">
-                    <form class="navbar-form" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search..">
-                        </div>
-                    </form>
-                </li>
+
             </ul>
         </div>
         <!-- /.navbar-collapse -->
