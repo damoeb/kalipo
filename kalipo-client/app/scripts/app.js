@@ -119,7 +119,7 @@ kalipoApp
                 }
             })
             .otherwise({
-                templateUrl: 'views/threads.html',
+                templateUrl: 'views/browse.html',
                 controller: 'ThreadController',
                 resolve: {
                     resolvedThread: ['Thread', function (Thread) {

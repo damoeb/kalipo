@@ -32,16 +32,7 @@
         </div>
 
         <div class="row box-row">
-            <div class="col-md-3"><h4>Additional Mods</h4></div>
-            <div class="col-md-9">
-                <input name="title" class="form-control" ng-model="thread.$mods"
-                       placeholder="Other mods beyond you"
-                       ng-maxlength="64">
-            </div>
-        </div>
-
-        <div class="row box-row">
-            <div class="col-md-3"><h4>Ripper*</h4></div>
+            <div class="col-md-3"><h4>First Comment*</h4></div>
             <div class="col-md-9">
                 <textarea name="text" class="form-control" placeholder="For the lead comment, brevity is the key."
                           ng-model="thread.text"
@@ -78,10 +69,19 @@
             </div>
         </div>
 
+        <div ng-show="$advanced">
+            <div class="row box-row">
+                <div class="col-md-3"><h4>Additional Mods</h4></div>
+                <div class="col-md-9">
+                    <input name="title" class="form-control" ng-model="thread.$mods"
+                           placeholder="Other mods beyond you"
+                           ng-maxlength="64">
+                </div>
+            </div>
+        </div>
 
         <div class="row box-row">
             <div class="col-md-push-3 col-md-9">
-                <a href="#/threads" ng-disabled="form.$invalid" class="btn">Cancel</a>
                 <button type="submit" class="btn btn-primary">
                     Create
                 </button>

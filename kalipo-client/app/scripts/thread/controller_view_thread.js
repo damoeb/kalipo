@@ -13,6 +13,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         $scope.thread = {};
         $scope.reportModel = {};
         $scope.$showPending = false;
+        $scope.$hasPending = false;
 
         var threadId = $routeParams.threadId;
         var commentId = $routeParams.commentId;
@@ -29,6 +30,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
             $scope.comments = [];
 
             $scope.comments = _sort(_hierarchical(_.sortBy(comments, function (comment) {
+                $scope.$hasPending = $scope.$hasPending || comment.status == 'PENDING';
                 return -comment.createdDate
             })));
 
