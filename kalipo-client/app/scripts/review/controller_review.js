@@ -1,6 +1,6 @@
 'use strict';
 
-kalipoApp.controller('ReviewCommentController', function ($scope, resolvedComment, Comment) {
+kalipoApp.controller('ReviewController', function ($scope, resolvedComment, Comment) {
 
     $scope.comments = resolvedComment;
 

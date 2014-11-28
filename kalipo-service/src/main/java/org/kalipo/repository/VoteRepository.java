@@ -12,4 +12,7 @@ public interface VoteRepository extends MongoRepository<Vote, String> {
 
     @Query(value = "{'authorId': ?0, 'createdDate': {$gte: ?1, $lt: ?2}}", count = true)
     int countWithinDateRange(String currentLogin, DateTime from, DateTime to);
+
+    @Query(value = "{'threadId': ?0, 'isLike' : true}", count = true)
+    Integer countLikesOfThread(String threadId);
 }

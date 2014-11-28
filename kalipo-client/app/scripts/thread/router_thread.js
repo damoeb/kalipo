@@ -24,9 +24,9 @@ kalipoApp
                     authorizedRoles: [USER_ROLES.all]
                 }
             })
-            .when('/thread/:threadId/edit', {
-                templateUrl: 'views/thread-edit.html',
-                controller: 'EditThreadController',
+            .when('/thread/:threadId/review', {
+                templateUrl: 'views/review.html',
+                controller: 'ViewThreadController',
                 access: {
                     authorizedRoles: [USER_ROLES.all]
                 }

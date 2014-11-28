@@ -13,7 +13,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         $scope.thread = {};
         $scope.reportModel = {};
         $scope.$showPending = false;
-        $scope.$hasPending = false;
+        $scope.$pendingCount = 0;
 
         var threadId = $routeParams.threadId;
         var commentId = $routeParams.commentId;
@@ -21,8 +21,9 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         Thread.get({id: threadId}, function (thread) {
 //            thread.uglyDucklingSurvivalEndDate = null;
             thread.$kLine = thread.kLine.join(', ');
-//            todo $uriHooks is no longer used, but create a $modIds
-            thread.$uriHooks = thread.uriHooks.join(', ');
+//          todo create a $modIds
+            thread.$uriHooks = thread.uriHooks.join('\n');
+            thread.$modIds = thread.modIds.join(' ').trim();
             $scope.thread = thread;
         });
 
@@ -31,7 +32,9 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
             $scope.comments = [];
 
             $scope.comments = _sort(_hierarchical(_.sortBy(comments, function (comment) {
-                $scope.$hasPending = $scope.$hasPending || comment.status == 'PENDING';
+                if (comment.status == 'PENDING') {
+                    $scope.$pendingCount++;
+                }
                 return -comment.createdDate
             })));
 
@@ -71,8 +74,13 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
 
         $scope.updateThread = function () {
 
-            $scope.thread.kLine = _.compact($scope.thread.$kLine.split(' '));
-            $scope.thread.uriHooks = _.compact($scope.thread.$uriHooks.split(' '));
+            var re = new RegExp('[, \n\t]+', 'g');
+
+            if ($scope.thread.$modIds) {
+                $scope.thread.modIds = _.compact($scope.thread.$modIds.replace(re, ' ').split(' '));
+            }
+            $scope.thread.kLine = _.compact($scope.thread.$kLine.replace(re, ' ').split(' '));
+            $scope.thread.uriHooks = _.compact($scope.thread.$uriHooks.replace(re, ' ').split(' '));
 
             Thread.update($scope.thread, function() {
                 // done

@@ -29,4 +29,7 @@ public interface CommentRepository extends MongoRepository<Comment, String> {
 
     @Query(value = "{'authorId': ?0, 'createdDate': {$gte: ?1, $lt: ?2}}", count = true)
     int countWithinDateRange(String currentLogin, DateTime from, DateTime to);
+
+    @Query(value = "{'threadId': ?0, 'status' : 'APPROVED'}", count = true)
+    int countApprovedInThread(String threadId);
 }

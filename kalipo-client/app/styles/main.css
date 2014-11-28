@@ -271,3 +271,9 @@ nav .nav-pills a:hover {
     font-size: 14px;
     font-weight: bold;
 }
+
+.klp-header {
+    padding-bottom: 7px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e5e5e5;
+}

@@ -64,41 +64,35 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav nav-pills navbar-right">
                 <li class="dropdown pointer" ng-switch-when="true">
-                    <a href="#/thread/create">
-                        <span>
-                            Create Discussion
-                        </span>
-                    </a>
-                </li>
-                <li class="dropdown pointer" ng-switch-when="true">
-                    <a href="#/notices/my" title="Notices">
-                        <span class="glyphicon glyphicon-comment"></span>
+                    <a href="#/notices/my" class="disabled" title="Notices">
+                    <span class="glyphicon glyphicon-comment"></span>
                         <!--Notices-->
                         <!--<span class="label label-danger">4</span>-->
                         <!-- todo better use a simple dot to mark there is something new, like soundcloud does it -->
                     </a>
                 </li>
-                <li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer"
-                    ng-controller="AdminController">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-                                <span>
-                                    <span class="hidden-tablet" translate="global.menu.admin">Admin</span>
-                                    <b class="caret"></b>
-                                </span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#/tracker"><span class="glyphicon glyphicon-eye-open"></span>
-                            &#xA0;<span translate="global.menu.account.tracker">User tracking</span></a></li>
-                        <li><a href="#/metrics"><span class="glyphicon glyphicon-dashboard"></span>
-                            &#xA0;<span translate="global.menu.account.metrics">Metrics</span></a></li>
-                        <li><a href="#/audits"><span class="glyphicon glyphicon-bell"></span>
-                            &#xA0;<span translate="global.menu.account.audits">Audits</span></a></li>
-                        <li><a href="#/logs"><span class="glyphicon glyphicon-tasks"></span>
-                            &#xA0;<span translate="global.menu.account.logs">Logs</span></a></li>
-                        <li><a href="#/docs"><span class="glyphicon glyphicon-book"></span>
-                            &#xA0;<span translate="global.menu.account.apidocs">API Docs</span></a></li>
-                    </ul>
-                </li>
+                <!--<li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer"-->
+                <!--ng-controller="AdminController">-->
+                <!--<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">-->
+                <!--<span>-->
+                <!--<span class="hidden-tablet" translate="global.menu.admin">Admin</span>-->
+                <!--<b class="caret"></b>-->
+                <!--</span>-->
+                <!--</a>-->
+                <!--<ul class="dropdown-menu">-->
+                <!--<li><a href="#/tracker"><span class="glyphicon glyphicon-eye-open"></span>-->
+                <!--&#xA0;<span translate="global.menu.account.tracker">User tracking</span></a></li>-->
+                <!--<li><a href="#/metrics"><span class="glyphicon glyphicon-dashboard"></span>-->
+                <!--&#xA0;<span translate="global.menu.account.metrics">Metrics</span></a></li>-->
+                <!--<li><a href="#/audits"><span class="glyphicon glyphicon-bell"></span>-->
+                <!--&#xA0;<span translate="global.menu.account.audits">Audits</span></a></li>-->
+                <!--<li><a href="#/logs"><span class="glyphicon glyphicon-tasks"></span>-->
+                <!--&#xA0;<span translate="global.menu.account.logs">Logs</span></a></li>-->
+                <!--<li><a href="#/docs"><span class="glyphicon glyphicon-book"></span>-->
+                <!--&#xA0;<span translate="global.menu.account.apidocs">API Docs</span></a></li>-->
+                <!--</ul>-->
+                <!--</li>-->
+
                 <!--<li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer"-->
                 <!--ng-controller="AdminController">-->
                 <!--<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">-->
@@ -140,7 +134,7 @@
 
                     <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
                         <span>
-                            <span class="glyphicon glyphicon-user"></span>
+                            <!--<span class="glyphicon glyphicon-user"></span>-->
                             <span ng-switch-when="true">
                                 {{login}}
                             </span>
@@ -148,30 +142,36 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu" ng-controller="MenuController">
-                        <li ng-switch-when="true">
-                            <a href="#/comments/my">
-                                &#xA0;
-                                <span>My Comments</span>
-                            </a>
-                            <a href="#/notices/my">
-                                &#xA0;
-                                <span>My Notifications</span>
-                            </a>
-                            <a href="#/threads/my">
-                                &#xA0;
-                                <span>My Threads</span>
-                            </a>
-                        </li>
-
-                        <li role="presentation" class="divider"></li>
-
                         <li>
                             <a href="#/settings">
-                                <span class="glyphicon glyphicon-wrench"></span>
+                                <!--<span class="glyphicon glyphicon-user"></span>-->
                                 &#xA0;
                                 <span translate="global.menu.account.settings">Settings</span>
                             </a>
                         </li>
+
+                        <li ng-switch-when="true">
+
+                            <a href="#/likes">
+                                <!--<span class="glyphicon glyphicon-thumbs-up"></span>-->
+                                &#xA0;
+                                <span>Likes</span>
+                            </a>
+
+                        </li>
+
+                        <li ng-switch-when="true">
+
+                            <a href="#/likes">
+                                <!--<span class="glyphicon glyphicon-thumbs-up"></span>-->
+                                &#xA0;
+                                <span>Threads</span>
+                            </a>
+
+                        </li>
+
+                        <li role="presentation" class="divider"></li>
+
                         <li>
                             <a href="#/password">
                                 <span class="glyphicon glyphicon-lock"></span>

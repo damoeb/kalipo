@@ -5,7 +5,7 @@ kalipoApp
         $routeProvider
             .when('/review', {
                 templateUrl: 'views/review.html',
-                controller: 'ReviewCommentController',
+                controller: 'ReviewController',
                 resolve: {
                     resolvedComment: ['Comment', function (Comment) {
                         return Comment.reviewList({userId: 'admin'});

@@ -66,26 +66,26 @@ public class CommentService {
 
     @RolesAllowed(Privileges.CREATE_COMMENT)
     @Throttled
-    public Comment update(Comment comment) throws KalipoException {
-        Asserts.isNotNull(comment, "comment");
-        Asserts.isNotNull(comment.getId(), "id");
+    public Comment update(Comment modified) throws KalipoException {
+        Asserts.isNotNull(modified, "comment");
+        Asserts.isNotNull(modified.getId(), "id");
 
-        Comment original = commentRepository.findOne(comment.getId());
+        Comment original = commentRepository.findOne(modified.getId());
         Asserts.isCurrentLogin(original.getAuthorId());
 
-        Asserts.nullOrEqual(comment.getStatus(), original.getStatus(), "status");
-        comment.setStatus(original.getStatus());
+        Asserts.nullOrEqual(modified.getStatus(), original.getStatus(), "status");
+        modified.setStatus(original.getStatus());
 
-        Asserts.nullOrEqual(comment.getLikes(), original.getLikes(), "likes");
-        comment.setLikes(original.getLikes());
+        Asserts.nullOrEqual(modified.getLikes(), original.getLikes(), "likes");
+        modified.setLikes(original.getLikes());
 
-        Asserts.nullOrEqual(comment.getDislikes(), original.getDislikes(), "dislikes");
-        comment.setDislikes(original.getDislikes());
+        Asserts.nullOrEqual(modified.getDislikes(), original.getDislikes(), "dislikes");
+        modified.setDislikes(original.getDislikes());
 
-        Asserts.nullOrEqual(comment.getCreatedDate(), original.getCreatedDate(), "createdDate");
-        comment.setCreatedDate(original.getCreatedDate());
+        Asserts.nullOrEqual(modified.getCreatedDate(), original.getCreatedDate(), "createdDate");
+        modified.setCreatedDate(original.getCreatedDate());
 
-        return save(comment, original);
+        return save(modified, original);
     }
 
     @RolesAllowed(Privileges.REVIEW_COMMENT)
@@ -235,13 +235,13 @@ public class CommentService {
         return threadRepository.findOne(threadId).getModIds().contains(currentLogin);
     }
 
-    private Comment save(Comment comment, Comment original) throws KalipoException {
+    private Comment save(Comment dirty, Comment original) throws KalipoException {
 
         final boolean isNew = original == null;
         final String currentLogin = SecurityUtils.getCurrentLogin();
         final boolean isSuperMod = userService.isSuperMod(currentLogin);
 
-        Asserts.isNotNull(comment.getThreadId(), "threadId");
+        Asserts.isNotNull(dirty.getThreadId(), "threadId");
 
         // -- Quota
         int count = commentRepository.countWithinDateRange(SecurityUtils.getCurrentLogin(), DateTime.now().minusDays(1), DateTime.now());
@@ -252,18 +252,18 @@ public class CommentService {
 
         // -- Display name
 
-        if (BooleanUtils.isTrue(comment.getAnonymous())) {
-            comment.setDisplayName(null);
+        if (BooleanUtils.isTrue(dirty.getAnonymous())) {
+            dirty.setDisplayName(null);
 
         } else {
-            comment.setDisplayName(currentLogin);
+            dirty.setDisplayName(currentLogin);
         }
 
         // --
 
         // reply only to approved comments
-        if (isNew && comment.getParentId() != null) {
-            Comment parent = commentRepository.findOne(comment.getParentId());
+        if (isNew && dirty.getParentId() != null) {
+            Comment parent = commentRepository.findOne(dirty.getParentId());
             if (parent == null) {
                 throw new KalipoException(ErrorCode.INVALID_PARAMETER, "parentId");
             }
@@ -272,44 +272,44 @@ public class CommentService {
             }
         }
 
-        Thread thread = threadRepository.findOne(comment.getThreadId());
+        Thread thread = threadRepository.findOne(dirty.getThreadId());
         Asserts.isNotNull(thread, "threadId");
         Asserts.isNotReadOnly(thread);
 
-        comment.setAuthorId(currentLogin);
+        dirty.setAuthorId(currentLogin);
 
         // todo this part should be async. A separate process analyzes the comment and decides whether it is approved/review-required/spam
         final boolean isMod = thread.getModIds().contains(currentLogin);
 
         if (isMod || isSuperMod || commentRepository.getApprovedCommentCountOfUser(currentLogin) > 4) {
-            comment.setStatus(Comment.Status.APPROVED);
-            log.info(String.format("%s creates comment %s ", currentLogin, comment.toString()));
+            dirty.setStatus(Comment.Status.APPROVED);
+            log.info(String.format("%s creates comment %s ", currentLogin, dirty.toString()));
         } else {
-            comment.setStatus(Comment.Status.PENDING);
-            log.info(String.format("%s creates pending comment %s ", currentLogin, comment.toString()));
+            dirty.setStatus(Comment.Status.PENDING);
+            log.info(String.format("%s creates pending comment %s ", currentLogin, dirty.toString()));
         }
 
-        assignSticky(comment, original, isNew, isMod, isSuperMod);
+        assignSticky(dirty, original, isNew, isMod, isSuperMod);
 
         // --
 
-        comment = commentRepository.save(comment);
+        dirty = commentRepository.save(dirty);
 
-        if (comment.getStatus() == Comment.Status.PENDING) {
-            noticeService.notifyModsOfThread(thread, comment);
+        if (dirty.getStatus() == Comment.Status.PENDING) {
+            noticeService.notifyModsOfThread(thread, dirty);
         } else {
 
             if (isNew) {
                 thread.setCommentCount(thread.getCommentCount() + 1);
                 threadRepository.save(thread);
 
-                noticeService.notifyAuthorOfParent(comment);
+                noticeService.notifyAuthorOfParent(dirty);
             }
         }
 
-        noticeService.notifyMentionedUsers(comment);
+        noticeService.notifyMentionedUsers(dirty);
 
-        return comment;
+        return dirty;
     }
 
     private void assignSticky(Comment comment, Comment original, boolean isNew, boolean isMod, boolean isSuperMod) throws KalipoException {

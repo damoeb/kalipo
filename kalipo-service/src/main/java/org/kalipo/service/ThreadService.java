@@ -9,10 +9,7 @@ import org.kalipo.domain.Comment;
 import org.kalipo.domain.Privilege;
 import org.kalipo.domain.Thread;
 import org.kalipo.domain.User;
-import org.kalipo.repository.CommentRepository;
-import org.kalipo.repository.PrivilegeRepository;
-import org.kalipo.repository.ThreadRepository;
-import org.kalipo.repository.UserRepository;
+import org.kalipo.repository.*;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
@@ -21,8 +18,11 @@ import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.web.util.UrlUtils;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +44,9 @@ public class ThreadService {
 
     @Inject
     private ThreadRepository threadRepository;
+
+    @Inject
+    private VoteRepository voteRepository;
 
     @Inject
     private CommentRepository commentRepository;
@@ -103,99 +106,148 @@ public class ThreadService {
 
     @RolesAllowed(Privileges.CREATE_THREAD)
     @Throttled
-    public Thread update(Thread thread) throws KalipoException {
-        Asserts.isNotNull(thread, "thread");
-        Asserts.isNotNull(thread.getId(), "id");
+    public Thread update(Thread dirty) throws KalipoException {
+        Asserts.isNotNull(dirty, "thread");
+        Asserts.isNotNull(dirty.getId(), "id");
 
-        Thread original = threadRepository.findOne(thread.getId());
+        Thread original = threadRepository.findOne(dirty.getId());
         Asserts.isNotNull(original, "thread");
 
         Set<String> originalModIds = original.getModIds();
 
         // Permissions
-        String currentLogin = SecurityUtils.getCurrentLogin();
+        final String currentLogin = SecurityUtils.getCurrentLogin();
         boolean isMod = originalModIds.contains(currentLogin);
         if (!isMod && !userService.isSuperMod(currentLogin)) {
-            throw new KalipoException(ErrorCode.PERMISSION_DENIED);
+            throw new KalipoException(ErrorCode.PERMISSION_DENIED, "You must be mod or supermod");
         }
 
         // mod rule: add any user with MODERATE_THREAD, remove only self, iff not empty
-        if (thread.getModIds() != null && thread.getModIds().isEmpty()) {
+        if (dirty.getModIds() != null && dirty.getModIds().isEmpty()) {
             throw new KalipoException(ErrorCode.INVALID_PARAMETER, "Set of mods cannot be empty");
         }
 
         // read only values
 
-        // todo test this
-
-        Asserts.nullOrEqual(thread.getLeadCommentId(), original.getLeadCommentId(), "leadCommentId");
-        Asserts.nullOrEqual(thread.getCommentCount(), original.getCommentCount(), "commentCount");
-        Asserts.nullOrEqual(thread.getLikes(), original.getLikes(), "likes");
-        Asserts.nullOrEqual(thread.getDislikes(), original.getDislikes(), "dislikes");
-        Asserts.nullOrEqual(thread.getInitiatorId(), original.getInitiatorId(), "initiatorId");
-        Asserts.nullOrEqual(thread.getUglyDucklingSurvivalEndDate(), original.getUglyDucklingSurvivalEndDate(), "uglyDucklingSurvivalEndDate");
+        Asserts.nullOrEqual(dirty.getLeadCommentId(), original.getLeadCommentId(), "leadCommentId");
+        Asserts.nullOrEqual(dirty.getCommentCount(), original.getCommentCount(), "commentCount");
+        Asserts.nullOrEqual(dirty.getLikes(), original.getLikes(), "likes");
+        Asserts.nullOrEqual(dirty.getDislikes(), original.getDislikes(), "dislikes");
+        Asserts.nullOrEqual(dirty.getInitiatorId(), original.getInitiatorId(), "initiatorId");
+        Asserts.nullOrEqual(dirty.getUglyDucklingSurvivalEndDate(), original.getUglyDucklingSurvivalEndDate(), "uglyDucklingSurvivalEndDate");
 
         // update fields
 
-        original.setUriHooks(thread.getUriHooks());
-        original.setReadOnly(thread.getReadOnly());
-        original.setTitle(thread.getTitle());
+        original.setUriHooks(dirty.getUriHooks());
+        original.setReadOnly(dirty.getReadOnly());
+        original.setTitle(dirty.getTitle());
 
-        validateModIds(thread, original);
-        original.setModIds(thread.getModIds());
+        validateModIds(dirty, original);
+        original.setModIds(dirty.getModIds());
 
-        validateKLine(thread, original);
-        original.setkLine(thread.getkLine());
+        validateKLine(dirty, original);
+        original.setkLine(dirty.getkLine());
 
         return save(original);
     }
 
-    private void validateKLine(Thread thread, Thread original) throws KalipoException {
-        final String currentLogin = SecurityUtils.getCurrentLogin();
-        final Set<String> originalkLine = original.getkLine();
+    private String lo(String s) {
+        return StringUtils.lowerCase(s);
+    }
 
-        if (thread.getkLine() == null || originalkLine.containsAll(thread.getkLine())) {
-            thread.setkLine(originalkLine);
+    @Async
+    public Future<List<Thread>> getAll() {
+        return new AsyncResult<List<Thread>>(threadRepository.findAll());
+    }
+
+    @Async
+    public Future<Thread> get(String id) throws KalipoException {
+        return new AsyncResult<Thread>(threadRepository.findOne(id));
+    }
+
+    @Async
+    public Future<List<Comment>> getComments(String id) throws KalipoException {
+        return new AsyncResult<List<Comment>>(commentRepository.findByThreadIdAndStatus(id, Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING, Comment.Status.DELETED)));
+    }
+
+    public void delete(String id) throws KalipoException {
+        // todo check permissons
+
+//       threadRepository.delete(id);
+    }
+
+    // --
+
+    @Scheduled(fixedDelay = 5000)
+    public void updateThreadStats() {
+
+        Sort sort = new Sort(Sort.Direction.ASC, "lastModifiedDate");
+        PageRequest request = new PageRequest(0, 10, sort);
+
+        List<Thread> threads = threadRepository.findByStatusAndReadOnly(Thread.Status.OPEN, false, request);
+        for (Thread thread : threads) {
+            log.debug("Updating stats of thread {}", thread.getId());
+
+            thread.setLikes(voteRepository.countLikesOfThread(thread.getId()));
+            thread.setCommentCount(commentRepository.countApprovedInThread(thread.getId()));
+
+//                commentCount, likes, authors
+
+            threadRepository.save(thread);
+        }
+    }
+
+    // --
+
+    private void validateKLine(Thread dirty, Thread original) throws KalipoException {
+        final String currentLogin = SecurityUtils.getCurrentLogin();
+        final Set<String> orgKLine = original.getkLine();
+        final Set<String> dirtyKLine = dirty.getkLine();
+
+        if (dirtyKLine == null || (orgKLine.size() == dirtyKLine.size() && orgKLine.containsAll(dirtyKLine))) {
+            dirty.setkLine(orgKLine);
         } else {
             // validate kLine changes from update
 
             // original.getkLine() - thread.getkLine()
-            Set<String> removed = originalkLine.stream().filter(uid -> thread.getkLine().contains(uid)).collect(Collectors.toSet());
+            Set<String> removed = orgKLine.stream().filter(uid -> dirtyKLine.contains(uid)).collect(Collectors.toSet());
 
             // thread.getkLine() - original.getkLine();
-            Set<String> added = thread.getkLine().stream().filter(uid -> original.getkLine().contains(uid)).collect(Collectors.toSet());
+            Set<String> added = dirtyKLine.stream().filter(uid -> original.getkLine().contains(uid)).collect(Collectors.toSet());
 
             for (String userId : added) {
                 if (!userRepository.exists(userId)) {
                     throw new KalipoException(ErrorCode.INVALID_PARAMETER, String.format("User %s does not exist", userId));
                 }
 
-                log.info(String.format("%s puts %s on k-Line of thread %s", currentLogin, userId, thread.getId()));
+                log.info(String.format("%s puts %s on k-Line of thread %s", currentLogin, userId, dirty.getId()));
             }
 
             if (removed != null) {
                 for (String userId : removed) {
-                    log.info(String.format("%s removes %s from k-Line of thread %s", currentLogin, userId, thread.getId()));
+                    log.info(String.format("%s removes %s from k-Line of thread %s", currentLogin, userId, dirty.getId()));
                 }
             }
         }
 
     }
 
-    private void validateModIds(Thread thread, Thread original) throws KalipoException {
+    private void validateModIds(Thread dirty, Thread original) throws KalipoException {
         final String currentLogin = SecurityUtils.getCurrentLogin();
-        final Set<String> originalModIds = original.getModIds();
+        final Set<String> orgModIds = original.getModIds();
+        final Set<String> dirtyModIds = dirty.getModIds();
 
-        if (thread.getModIds() == null || originalModIds.containsAll(thread.getModIds())) {
-            thread.setModIds(originalModIds);
+        if (dirtyModIds == null || (orgModIds.size() == dirtyModIds.size() && orgModIds.containsAll(dirtyModIds))) {
+            dirty.setModIds(orgModIds);
+
         } else {
             // validate modIds changes from update
 
             // original.getModIds() - thread.getModIds()
-            Set<String> removed = originalModIds.stream().filter(uid -> thread.getModIds().contains(uid)).collect(Collectors.toSet());
+            Set<String> removed = orgModIds.stream().filter(uid -> dirtyModIds.contains(uid)).collect(Collectors.toSet());
 
             // thread.getModIds() - original.getModIds();
-            Set<String> added = thread.getModIds().stream().filter(uid -> original.getModIds().contains(uid)).collect(Collectors.toSet());
+            Set<String> added = dirtyModIds.stream().filter(uid -> original.getModIds().contains(uid)).collect(Collectors.toSet());
 
             Privilege priv = privilegeRepository.findByName(Privileges.CREATE_THREAD);
 
@@ -209,7 +261,7 @@ public class ThreadService {
                     throw new KalipoException(ErrorCode.PERMISSION_DENIED, String.format("User %s requires %s reputation to become mod", userId, priv.getReputation()));
                 }
 
-                log.info(String.format("%s adds %s to moderators of thread %s", currentLogin, userId, thread.getId()));
+                log.info(String.format("%s adds %s to moderators of thread %s", currentLogin, userId, dirty.getId()));
             }
 
             // Asserts.hasPrivilege(Privileges.SUPER_MODERATOR);
@@ -221,7 +273,7 @@ public class ThreadService {
                     if (!user.isSuperMod() && !StringUtils.equals(userId, currentLogin)) {
                         throw new KalipoException(ErrorCode.PERMISSION_DENIED, "User %s requires %s reputation to become mod");
                     }
-                    log.info(String.format("%s removes %s from moderators of thread %s", currentLogin, userId, thread.getId()));
+                    log.info(String.format("%s removes %s from moderators of thread %s", currentLogin, userId, dirty.getId()));
                 }
             }
         }
@@ -264,28 +316,5 @@ public class ThreadService {
         }
 
         return threadRepository.save(thread);
-    }
-
-    private String lo(String s) {
-        return StringUtils.lowerCase(s);
-    }
-
-    @Async
-    public Future<List<Thread>> getAll() {
-        return new AsyncResult<List<Thread>>(threadRepository.findAll());
-    }
-
-    @Async
-    public Future<Thread> get(String id) throws KalipoException {
-        return new AsyncResult<Thread>(threadRepository.findOne(id));
-    }
-
-    @Async
-    public Future<List<Comment>> getComments(String id) throws KalipoException {
-        return new AsyncResult<List<Comment>>(commentRepository.findByThreadIdAndStatus(id, Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING, Comment.Status.DELETED)));
-    }
-
-    public void delete(String id) throws KalipoException {
-        threadRepository.delete(id);
     }
 }

@@ -1,16 +1,16 @@
-<h2>Create a Discussion</h2>
+<h3 class="klp-header">Create a Discussion</h3>
 
 <div>
     <form name="form" role="form" novalidate ng-submit="create()">
 
-        <div class="row box-row">
-            <div class="col-md-push-3 col-md-9">
+        <div class="row form-group">
+        <div class="col-md-push-3 col-md-9">
                 You will become mod for this thread and approve posts
             </div>
         </div>
 
-        <div class="row box-row">
-            <div class="col-md-3"><h4>Title*</h4></div>
+        <div class="row form-group">
+            <div class="col-md-3 text-right">Title*</div>
             <div class="col-md-9">
                 <input name="title" class="form-control" ng-model="thread.title"
                        placeholder="6-10 words is the magic headline range!" required ng-minlength="10"
@@ -31,12 +31,12 @@
             </div>
         </div>
 
-        <div class="row box-row">
-            <div class="col-md-3"><h4>First Comment*</h4></div>
+        <div class="row form-group">
+            <div class="col-md-3 text-right">First Comment*</div>
             <div class="col-md-9">
                 <textarea name="text" class="form-control" placeholder="For the lead comment, brevity is the key."
                           ng-model="thread.text"
-                          ng-minlength=2 ng-maxlength=2048 required></textarea>
+                          ng-minlength=2 ng-maxlength=2048 required style="height: 170px"></textarea>
 
                 <div class="error-container"
                      ng-show="form.text.$dirty && form.text.$invalid">
@@ -53,11 +53,11 @@
             </div>
         </div>
 
-        <div class="row box-row">
-            <div class="col-md-3"><h4><a href="#/faq/webhook">Web Hooks</a></h4></div>
+        <div class="row form-group">
+            <div class="col-md-3 text-right"><a href="#/faq/webhook">Web Hooks</a></div>
             <div class="col-md-9">
                 <textarea name="text" class="form-control" placeholder="Space separated urls"
-                          ng-model="thread.$hooks"
+                          ng-model="thread.$uriHooks"
                           ng-minlength=2 ng-maxlength=2048></textarea>
 
                 <div class="error-container"
@@ -69,19 +69,27 @@
             </div>
         </div>
 
+        <div class="row form-group" ng-show="!$advanced">
+            <div class="col-md-push-3 col-md-9">
+                <a href="javascript:void(0)" ng-click="$advanced = !$advanced">Show advanced fields</a>
+            </div>
+        </div>
+
         <div ng-show="$advanced">
-            <div class="row box-row">
-                <div class="col-md-3"><h4>Additional Mods</h4></div>
+            <div class="row form-group">
+                <div class="col-md-3 text-right">Additional Mods</div>
                 <div class="col-md-9">
-                    <input name="title" class="form-control" ng-model="thread.$mods"
+                    <input name="title" class="form-control" ng-model="thread.$modIds"
                            placeholder="Other mods beyond you"
                            ng-maxlength="64">
                 </div>
             </div>
         </div>
 
-        <div class="row box-row">
-            <div class="col-md-push-3 col-md-9">
+        <hr>
+
+        <div class="row form-group">
+        <div class="col-md-push-3 col-md-9">
                 <button type="submit" class="btn btn-primary">
                     Create
                 </button>

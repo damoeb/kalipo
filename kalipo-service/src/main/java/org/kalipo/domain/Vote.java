@@ -28,11 +28,20 @@ public class Vote implements Serializable {
     @ModelExistsConstraint(Comment.class)
     private String commentId;
 
-    @Field("is_like")
+    private String threadId;
+
     private Boolean isLike;
 
     @CreatedDate
     private DateTime createdDate;
+
+    public String getThreadId() {
+        return threadId;
+    }
+
+    public void setThreadId(String threadId) {
+        this.threadId = threadId;
+    }
 
     public String getId() {
         return id;

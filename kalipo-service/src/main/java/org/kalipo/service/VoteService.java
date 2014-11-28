@@ -71,6 +71,7 @@ public class VoteService {
         reputationService.onCommentVoting(vote);
 
         vote.setAuthorId(SecurityUtils.getCurrentLogin());
+        vote.setThreadId(comment.getThreadId());
 
 //        todo replace by scheduled job, with delay to prevent bandwaggon effect
 
