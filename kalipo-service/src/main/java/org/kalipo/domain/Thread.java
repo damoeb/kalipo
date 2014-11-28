@@ -45,6 +45,9 @@ public class Thread implements Serializable {
     private Integer views = 0;
 
     @NotNull
+    private String initiatorId;
+
+    @NotNull
     private Set<String> modIds = new HashSet<String>();
 
     // todo implement
@@ -230,6 +233,14 @@ public class Thread implements Serializable {
 
     public void setAuthors(Set<String> authors) {
         this.authors = authors;
+    }
+
+    public String getInitiatorId() {
+        return initiatorId;
+    }
+
+    public void setInitiatorId(String initiatorId) {
+        this.initiatorId = initiatorId;
     }
 
     /**

@@ -80,6 +80,7 @@ public class ThreadService {
 
         final String currentLogin = SecurityUtils.getCurrentLogin();
         thread.getModIds().add(currentLogin);
+        thread.setInitiatorId(currentLogin);
 
         thread = save(thread);
 
@@ -123,29 +124,33 @@ public class ThreadService {
             throw new KalipoException(ErrorCode.INVALID_PARAMETER, "Set of mods cannot be empty");
         }
 
-        assignModIds(thread, original);
-        assignkLine(thread, original);
-
         // read only values
+
+        // todo test this
+
         Asserts.nullOrEqual(thread.getLeadCommentId(), original.getLeadCommentId(), "leadCommentId");
-        thread.setLeadCommentId(original.getLeadCommentId());
-
         Asserts.nullOrEqual(thread.getCommentCount(), original.getCommentCount(), "commentCount");
-        thread.setCommentCount(original.getCommentCount());
-
         Asserts.nullOrEqual(thread.getLikes(), original.getLikes(), "likes");
-        thread.setLikes(original.getLikes());
-
         Asserts.nullOrEqual(thread.getDislikes(), original.getDislikes(), "dislikes");
-        thread.setDislikes(original.getDislikes());
-
+        Asserts.nullOrEqual(thread.getInitiatorId(), original.getInitiatorId(), "initiatorId");
         Asserts.nullOrEqual(thread.getUglyDucklingSurvivalEndDate(), original.getUglyDucklingSurvivalEndDate(), "uglyDucklingSurvivalEndDate");
-        thread.setUglyDucklingSurvivalEndDate(original.getUglyDucklingSurvivalEndDate());
 
-        return save(thread);
+        // update fields
+
+        original.setUriHooks(thread.getUriHooks());
+        original.setReadOnly(thread.getReadOnly());
+        original.setTitle(thread.getTitle());
+
+        validateModIds(thread, original);
+        original.setModIds(thread.getModIds());
+
+        validateKLine(thread, original);
+        original.setkLine(thread.getkLine());
+
+        return save(original);
     }
 
-    private void assignkLine(Thread thread, Thread original) throws KalipoException {
+    private void validateKLine(Thread thread, Thread original) throws KalipoException {
         final String currentLogin = SecurityUtils.getCurrentLogin();
         final Set<String> originalkLine = original.getkLine();
 
@@ -177,7 +182,7 @@ public class ThreadService {
 
     }
 
-    private void assignModIds(Thread thread, Thread original) throws KalipoException {
+    private void validateModIds(Thread thread, Thread original) throws KalipoException {
         final String currentLogin = SecurityUtils.getCurrentLogin();
         final Set<String> originalModIds = original.getModIds();
 

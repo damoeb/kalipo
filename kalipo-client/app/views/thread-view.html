@@ -1,3 +1,28 @@
+<div style="margin-bottom: 20px; border-bottom: 1px solid #e5e5e5;">
+    <h3>
+        {{thread.title}}
+        <div class="pull-right">
+            <a href="javascript:void(0)" ng-click="$view = !$view">
+                <span class="glyphicon glyphicon-pencil" title="Edit"></span>
+            </a>
+            <a href="javascript:void(0)">
+                <span class="glyphicon glyphicon-stats" title="Stats"></span>
+            </a>
+            <a href="javascript:void(0)" ng-click="$showPending = !$showPending" ng-show="$hasPending">
+
+                <span ng-show="!$showPending"
+                      class="glyphicon glyphicon-eye-close" title="Show Pending Comments">
+                </span>
+                <span ng-show="$showPending"
+                      class="glyphicon glyphicon-eye-open" title="Hide Pending Comments"></span>
+
+            </a>
+
+        </div>
+
+    </h3>
+</div>
+
 <div ng-show="$view">
 
     <div ng-include="'views/thread-edit.html'"></div>
@@ -6,32 +31,8 @@
 
 <div ng-show="!$view">
 
-    <div style="margin-bottom: 20px; border-bottom: 1px solid #e5e5e5;">
-        <h3>
-            {{thread.title}}
-            <div class="pull-right">
-                <a href="javascript:void(0)" ng-click="$view = !$view">
-                    <span class="glyphicon glyphicon-pencil" title="Edit"></span>
-                </a>
-                <a href="javascript:void(0)">
-                    <span class="glyphicon glyphicon-stats" title="Stats"></span>
-                </a>
-                <a href="javascript:void(0)" ng-click="$showPending = !$showPending" ng-show="$hasPending">
 
-                    <span ng-show="!$showPending"
-                          class="glyphicon glyphicon-eye-close" title="Show Pending Comments">
-                    </span>
-                    <span ng-show="$showPending"
-                          class="glyphicon glyphicon-eye-open" title="Hide Pending Comments"></span>
-
-                </a>
-
-            </div>
-
-        </h3>
-    </div>
-
-    <div>
+<div>
 
         Submitted
 
