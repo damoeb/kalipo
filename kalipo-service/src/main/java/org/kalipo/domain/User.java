@@ -20,6 +20,7 @@ import java.util.Set;
 @Document(collection = "T_USER")
 public class User extends AbstractAuditingEntity implements Serializable {
 
+    // todo login for admin only from localhost
     @NotNull
     @Size(min = 0, max = 20)
     @Id
@@ -65,7 +66,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     private DateTime lastStrikeDate;
 
-    // todo protect these fieldsn
     private boolean superMod;
 
     // todo prevent brute force login attacks

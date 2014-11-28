@@ -169,10 +169,10 @@ public class UserService {
         return one != null && one.isSuperMod();
     }
 
-    public User updateUser(User user) throws KalipoException {
-        Asserts.isNotNull(user, "payload");
+    public User updateUser(User modified) throws KalipoException {
+        Asserts.isNotNull(modified, "payload");
 
-        final String login = user.getLogin();
+        final String login = modified.getLogin();
         final User original = userRepository.findOne(login);
         final String operator = SecurityUtils.getCurrentLogin();
         final User self = userRepository.findOne(operator);
@@ -186,63 +186,67 @@ public class UserService {
 
 
         // update only fields that are set
-        if (dirty(user.getFirstName(), original.getFirstName())) {
-            original.setFirstName(user.getFirstName());
-            logFieldChange(operator, login, "firstName", user.getFirstName());
+        if (dirty(modified.getFirstName(), original.getFirstName())) {
+            original.setFirstName(modified.getFirstName());
+            logFieldChange(operator, login, "firstName", modified.getFirstName());
         }
-        if (dirty(user.getLastName(), original.getLastName())) {
-            original.setLastName(user.getLastName());
-            logFieldChange(operator, login, "lastName", user.getLastName());
+        if (dirty(modified.getLastName(), original.getLastName())) {
+            original.setLastName(modified.getLastName());
+            logFieldChange(operator, login, "lastName", modified.getLastName());
         }
-        if (dirty(user.getEmail(), original.getEmail())) {
-            original.setEmail(user.getEmail());
-            logFieldChange(operator, login, "email", user.getEmail());
+        if (dirty(modified.getEmail(), original.getEmail())) {
+            original.setEmail(modified.getEmail());
+            logFieldChange(operator, login, "email", modified.getEmail());
         }
-        if (dirty(user.isBanned(), original.isBanned())) {
-            original.setBanned(user.isBanned());
-            if (user.getBannedUntilDate() == null) {
+        if (dirty(modified.isBanned(), original.isBanned())) {
+            original.setBanned(modified.isBanned());
+            if (modified.getBannedUntilDate() == null) {
                 throw new KalipoException(ErrorCode.INVALID_PARAMETER, "BannedUntilDate is missing");
             }
-            original.setBannedUntilDate(user.getBannedUntilDate());
+            original.setBannedUntilDate(modified.getBannedUntilDate());
 
-            logFieldChange(operator, login, "banned", user.isBanned());
-            logFieldChange(operator, login, "bannedUntilDate", user.getBannedUntilDate());
+            logFieldChange(operator, login, "banned", modified.isBanned());
+            logFieldChange(operator, login, "bannedUntilDate", modified.getBannedUntilDate());
         }
-        if (dirty(user.getStrikes(), original.getStrikes())) {
-            original.setStrikes(user.getStrikes());
-            logFieldChange(operator, login, "strikes", user.getStrikes());
+        if (dirty(modified.getStrikes(), original.getStrikes())) {
+            original.setStrikes(modified.getStrikes());
+            logFieldChange(operator, login, "strikes", modified.getStrikes());
         }
-        if (dirty(user.getLastStrikeDate(), original.getLastStrikeDate())) {
-            original.setLastStrikeDate(user.getLastStrikeDate());
-            logFieldChange(operator, login, "lastStrikeDate", user.getLastStrikeDate());
+        if (dirty(modified.getLastStrikeDate(), original.getLastStrikeDate())) {
+            original.setLastStrikeDate(modified.getLastStrikeDate());
+            logFieldChange(operator, login, "lastStrikeDate", modified.getLastStrikeDate());
         }
-        if (dirty(user.getLockoutEndDate(), original.getLockoutEndDate())) {
-            original.setLockoutEndDate(user.getLockoutEndDate());
-            logFieldChange(operator, login, "lockoutEndDate", user.getLockoutEndDate());
+        if (dirty(modified.getLockoutEndDate(), original.getLockoutEndDate())) {
+            original.setLockoutEndDate(modified.getLockoutEndDate());
+            logFieldChange(operator, login, "lockoutEndDate", modified.getLockoutEndDate());
         }
 
         if (isAdmin) {
-            if (dirty(user.getActivated(), original.getActivated())) {
-                original.setActivated(user.getActivated());
-                logFieldChange(operator, login, "activated", user.getActivated());
+            if (dirty(modified.getActivated(), original.getActivated())) {
+                original.setActivated(modified.getActivated());
+                logFieldChange(operator, login, "activated", modified.getActivated());
             }
-            if (dirty(original.getReputation(), user.getReputation())) {
-                original.setReputation(user.getReputation());
-                logFieldChange(operator, login, "reputation", user.getReputation());
+            if (dirty(original.getReputation(), modified.getReputation())) {
+                original.setReputation(modified.getReputation());
+                logFieldChange(operator, login, "reputation", modified.getReputation());
             }
-            if (dirty(original.isSuperMod(), user.isSuperMod())) {
-                original.setSuperMod(user.isSuperMod());
-                logFieldChange(operator, login, "superMod", user.isSuperMod());
+            if (dirty(original.isSuperMod(), modified.isSuperMod())) {
+                original.setSuperMod(modified.isSuperMod());
+                logFieldChange(operator, login, "superMod", modified.isSuperMod());
             }
 
         } else {
             // must not be changed by supermods
-            Asserts.nullOrEqual(user.getActivated(), original.getActivated(), "activated");
-            Asserts.nullOrEqual(user.getReputation(), original.getReputation(), "reputation");
-            Asserts.nullOrEqual(user.isSuperMod(), original.isSuperMod(), "superMod");
+            Asserts.nullOrEqual(modified.getActivated(), original.getActivated(), "activated");
+            Asserts.nullOrEqual(modified.getReputation(), original.getReputation(), "reputation");
+            Asserts.nullOrEqual(modified.isSuperMod(), original.isSuperMod(), "superMod");
         }
 
-        return userRepository.save(user);
+        if (!original.equals(modified)) {
+//        todo compare and if changes log new version, fix equals
+        }
+
+        return userRepository.save(original);
     }
 
     private void logFieldChange(String operator, String login, String fieldName, Object fieldValue) {
