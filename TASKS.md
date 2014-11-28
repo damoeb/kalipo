@@ -1,3 +1,4 @@
+- "No way to get in touch" http://www.smashingmagazine.com/2009/02/18/9-common-usability-blunders/
 - Moderate Thread (with Reports, Pending)
 - Details of Thread with Stats e.g. http://www.mixcloud.com/stats/
 - Monitoring for Superuser/Mods?, Fraud warnings via mail
@@ -5,6 +6,14 @@
     - users: live activity, reports, critical activity -> lock
     - review popular comments/links
     - system: spam detection, resource consumption
+    http://www.poweradmin.com/blog/server-monitoring-best-practices/
+
+    charts
+    http://cdn.soasta.com/wp/wp-content/uploads/2013/06/SOASTA-mPulse-WhatIf-Analysis1.png
+    https://segment.com/blog/announcing-pingdom-real-user-monitoring-integration/images/pingdom-rum-long-tail.png
+
+    - anomaly detection
+    - def metrics
 - Elastic Search
 - All links with <domain>/out to get stats
 - Notifications (websocket?) for replied, mentioned, upvoted
