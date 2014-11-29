@@ -5,7 +5,7 @@
     <div ng-switch-when="false">
         <div class="row" ng-repeat="comment in reportedComments">
 
-            <div ng-include="'comment_renderer.template'"></div>
+            <div ng-include="'reported_comment_renderer.template'"></div>
 
             <hr>
 
@@ -13,7 +13,7 @@
     </div>
 </div>
 
-<script type="text/ng-template" id="comment_renderer.template">
+<script type="text/ng-template" id="reported_comment_renderer.template">
     <div>
 
         <div class="post">
