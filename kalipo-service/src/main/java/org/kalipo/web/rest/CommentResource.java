@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
+import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Comment;
 import org.kalipo.service.CommentService;
 import org.kalipo.service.util.Asserts;
@@ -91,15 +92,25 @@ public class CommentResource {
     /**
      * GET  /rest/comments/review -> get all the comments, that have to be reviewed.
      */
-    @RequestMapping(value = "/rest/comments/review",
+    @RequestMapping(value = "/rest/comments/pending",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the comments for {user}, that it can review")
-    public List<Comment> getAllUnderReview(@QueryParam("userId") String userId, @QueryParam("page") Integer page) throws ExecutionException, InterruptedException {
+    public List<Comment> getAllUnderReview(@QueryParam("thread") String threadId, @QueryParam("page") Integer page) throws ExecutionException, InterruptedException {
         log.debug("REST request to get all Comments, that have to be reviewed");
 
-        return commentService.findAllUnderReview(page).get();//.stream().filter(Comment::getHidden).collect(Collectors.toList());
+        if (page == null || page < 0) {
+            page = 0;
+        }
+
+        if (StringUtils.isBlank(threadId)) {
+            return commentService.getPending(page).get();
+
+        } else {
+
+            return commentService.getPendingInThread(threadId, page).get();
+        }
     }
 
     /**

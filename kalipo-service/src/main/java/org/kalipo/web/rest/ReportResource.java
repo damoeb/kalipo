@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.QueryParam;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
@@ -104,10 +105,12 @@ public class ReportResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all pending reports")
-    public List<Report> getAllPending() throws ExecutionException, InterruptedException {
+    public List<Report> getPending(@QueryParam("threadId") String threadId) throws ExecutionException, InterruptedException {
         log.debug("REST request to get all Reports");
 
-        return reportService.getAllPending().get();
+        // todo use with threadId
+//        return reportService.getPending(threadId).get();
+        return reportService.getAll().get();
     }
 
     /**

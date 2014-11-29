@@ -119,8 +119,8 @@ public class ReportService {
 
     // todo add RolesAllowed
     @Async
-    public Future<List<Report>> getAllPending() {
-        return new AsyncResult<>(reportRepository.findByStatus(Report.Status.PENDING));
+    public Future<List<Report>> getPending(String threadId) {
+        return new AsyncResult<>(reportRepository.findByThreadIdAndStatus(threadId, Report.Status.PENDING));
     }
 
     @Async

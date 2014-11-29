@@ -167,6 +167,7 @@ public class ThreadService {
 
     @Async
     public Future<List<Comment>> getComments(String id) throws KalipoException {
+        // todo use pageable
         return new AsyncResult<List<Comment>>(commentRepository.findByThreadIdAndStatus(id, Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING, Comment.Status.DELETED)));
     }
 

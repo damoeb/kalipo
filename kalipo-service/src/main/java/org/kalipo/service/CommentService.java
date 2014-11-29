@@ -33,7 +33,7 @@ import java.util.concurrent.Future;
 @KalipoExceptionHandler
 public class CommentService {
 
-    private static final int PAGE_SIZE = 5;
+    private static final int PAGE_SIZE = 51;
     private final Logger log = LoggerFactory.getLogger(CommentService.class);
 
     @Inject
@@ -140,9 +140,15 @@ public class CommentService {
     }
 
     @Async
-    public Future<List<Comment>> findAllUnderReview(final int pageNumber) {
+    public Future<List<Comment>> getPending(final int pageNumber) {
         PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, "createdDate");
         return new AsyncResult<>(commentRepository.findByStatus(Comment.Status.PENDING, pageable));
+    }
+
+    @Async
+    public Future<List<Comment>> getPendingInThread(String threadId, final int pageNumber) {
+        PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, "createdDate");
+        return new AsyncResult<>(commentRepository.findByThreadIdAndStatus(threadId, Comment.Status.PENDING, pageable));
     }
 
     @Async

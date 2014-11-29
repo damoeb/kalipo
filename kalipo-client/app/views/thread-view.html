@@ -1,123 +1,125 @@
-<h3 class="klp-header">
-    {{thread.title}}
-    <div class="pull-right">
-        <a href="javascript:void(0)" ng-click="$view = !$view">
-            <span class="glyphicon glyphicon-pencil" title="Edit"></span>
-        </a>
-        <a href="javascript:void(0)">
-            <span class="glyphicon glyphicon-stats" title="Stats"></span>
-        </a>
+<div ng-controller="ThreadController">
+    <h3 class="klp-header">
+        {{thread.title}}
+        <div class="pull-right">
+            <a href="javascript:void(0)" ng-click="$view = !$view">
+                <span class="glyphicon glyphicon-pencil" title="Edit"></span>
+            </a>
+            <a href="javascript:void(0)">
+                <span class="glyphicon glyphicon-stats" title="Stats"></span>
+            </a>
 
-        <a href="#/moderate/{{$threadId}}" ng-show="$pendingCount > 0 || $hasReports" title="Review Thread">
+            <a href="#/moderate/{{$threadId}}" ng-show="$pendingCount > 0 || $hasReports" title="Review Thread">
 
-            <span class="glyphicon glyphicon-eye-open"></span>
+                <span class="glyphicon glyphicon-eye-open"></span>
 
-        </a>
+            </a>
 
-    </div>
-
-</h3>
-
-<div ng-show="$view">
-
-    <div ng-include="'views/thread-edit.html'"></div>
-
-</div>
-
-<div ng-show="!$view">
-
-
-<div>
-
-        Submitted
-
-        {{thread.createdDate | fromNow}}
-
-        by
-
-        {{thread.initiatorId}}
-
-    </div>
-
-    <!--<div class="row">-->
-
-    <!--<ul class="nav nav-tabs" role="tablist">-->
-    <!--<li ng-class="{active: more=='social'}"><a href="javascript:void(0)" ng-click="more = 'social'">Social</a>-->
-    <!--</li>-->
-    <!--<li ng-class="{active: more=='embed'}"><a href="javascript:void(0)" ng-click="more = 'embed'">Embed</a></li>-->
-    <!--<li ng-class="{active: more=='email'}"><a href="javascript:void(0)" ng-click="more = 'email'">E-Mail</a>-->
-    <!--</li>-->
-    <!--<li ng-class="{active: more=='stats'}"><a href="javascript:void(0)" ng-click="more = 'stats'">Stats</a></li>-->
-    <!--</ul>-->
-
-    <!--</div>-->
-
-    <!--&lt;!&ndash; more box &ndash;&gt;-->
-    <!--<div ng-show="more != null">-->
-
-    <!--<div style="margin-top: 10px">-->
-    <!--<div ng-show="more == 'social'">-->
-    <!--<div ng-include="'more_social.template'"></div>-->
-    <!--</div>-->
-    <!--<div ng-show="more == 'embed'">-->
-    <!--<div ng-include="'more_embed.template'"></div>-->
-    <!--</div>-->
-    <!--<div ng-show="more == 'email'">-->
-    <!--<div ng-include="'more_email.template'"></div>-->
-    <!--</div>-->
-    <!--<div ng-show="more == 'stats'">-->
-    <!--<div ng-include="'more_stats.template'"></div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-
-
-    <h4 style="margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid #e5e5e5; padding-bottom: 5px;">
-        {{thread.commentCount}} comments
-        <span ng-show="$pendingCount >0" style="color: gray">
-            (<a href="javascript:void(0)" ng-click="$showPending = !$showPending">{{$pendingCount}} pending</a>)
-        </span>
-    </h4>
-
-
-    <div class="row">
-
-        <div ng-include="'create_comment.html'">
         </div>
 
-        <div style="padding: 0 10px 10px 10px; color: gray" ng-switch on="typing.length">
+    </h3>
 
-            <div ng-switch-when="0"></div>
-            <div ng-switch-when="1">
-                <strong>{{typing[0]}}</strong> is typing
-            </div>
-            <div ng-switch-default>
-        <span ng-repeat="user in typing">
+    <div ng-show="$view">
 
-            <span ng-if="!$first && !$last">, </span>
-            <span ng-if="$last"> and </span>
-            <strong>{{user}}</strong>
+        <div ng-include="'views/thread-edit.html'"></div>
 
-        </span>
-                are typing...
+    </div>
+
+    <div ng-show="!$view">
+
+
+        <div>
+
+            Submitted
+
+            {{thread.createdDate | fromNow}}
+
+            by
+
+            {{thread.initiatorId}}
+
+        </div>
+
+        <!--<div class="row">-->
+
+        <!--<ul class="nav nav-tabs" role="tablist">-->
+        <!--<li ng-class="{active: more=='social'}"><a href="javascript:void(0)" ng-click="more = 'social'">Social</a>-->
+        <!--</li>-->
+        <!--<li ng-class="{active: more=='embed'}"><a href="javascript:void(0)" ng-click="more = 'embed'">Embed</a></li>-->
+        <!--<li ng-class="{active: more=='email'}"><a href="javascript:void(0)" ng-click="more = 'email'">E-Mail</a>-->
+        <!--</li>-->
+        <!--<li ng-class="{active: more=='stats'}"><a href="javascript:void(0)" ng-click="more = 'stats'">Stats</a></li>-->
+        <!--</ul>-->
+
+        <!--</div>-->
+
+        <!--&lt;!&ndash; more box &ndash;&gt;-->
+        <!--<div ng-show="more != null">-->
+
+        <!--<div style="margin-top: 10px">-->
+        <!--<div ng-show="more == 'social'">-->
+        <!--<div ng-include="'more_social.template'"></div>-->
+        <!--</div>-->
+        <!--<div ng-show="more == 'embed'">-->
+        <!--<div ng-include="'more_embed.template'"></div>-->
+        <!--</div>-->
+        <!--<div ng-show="more == 'email'">-->
+        <!--<div ng-include="'more_email.template'"></div>-->
+        <!--</div>-->
+        <!--<div ng-show="more == 'stats'">-->
+        <!--<div ng-include="'more_stats.template'"></div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+
+        <h4 style="margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid #e5e5e5; padding-bottom: 5px;">
+            {{thread.commentCount}} comments
+            <span ng-show="$pendingCount >0" style="color: gray">
+                (<a href="javascript:void(0)" ng-click="$showPending = !$showPending">{{$pendingCount}} pending</a>)
+            </span>
+        </h4>
+
+
+        <div class="row">
+
+            <div ng-include="'create_comment.html'">
             </div>
 
+            <div style="padding: 0 10px 10px 10px; color: gray" ng-switch on="typing.length">
+
+                <div ng-switch-when="0"></div>
+                <div ng-switch-when="1">
+                    <strong>{{typing[0]}}</strong> is typing
+                </div>
+                <div ng-switch-default>
+            <span ng-repeat="user in typing">
+
+                <span ng-if="!$first && !$last">, </span>
+                <span ng-if="$last"> and </span>
+                <strong>{{user}}</strong>
+
+            </span>
+                    are typing...
+                </div>
+
+            </div>
+
+            <dl style="margin:0;">
+                <dd ng-repeat="comment in comments track by $index" ng-include="'comment.html'">
+
+                </dd>
+            </dl>
+
+            <div ng-show="comments.length > 10" style="margin-top: 10px">
+                <div ng-include="'create_comment.html'"></div>
+            </div>
         </div>
 
-        <dl style="margin:0;">
-            <dd ng-repeat="comment in comments track by $index" ng-include="'comment.html'">
+        <hr>
 
-            </dd>
-        </dl>
-
-        <div ng-show="comments.length > 10" style="margin-top: 10px">
-            <div ng-include="'create_comment.html'"></div>
-        </div>
+        Moderated by <span ng-repeat="modId in thread.modIds">{{modId}} </span>
     </div>
-
-    <hr>
-
-    Moderated by <span ng-repeat="modId in thread.modIds">{{modId}} </span>
 </div>
 
 

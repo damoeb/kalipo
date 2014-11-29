@@ -1,74 +1,22 @@
-<h3 class="klp-header" ng-controller="ViewThreadController">
-    Moderate {{thread.title}}
-</h3>
+<div ng-controller="ThreadController">
 
-<ul class="nav nav-tabs">
-    <li role="presentation" class="active"><a href="#">Pending</a></li>
-    <li role="presentation"><a href="#">Reports</a></li>
-</ul>
+    <h3 class="klp-header">
+        Moderate {{thread.title}}
+    </h3>
 
-<div>
-    <div ng-switch on="comments.length == 0">
-        <div ng-switch-default>
-            <div class="alert alert-info" role="alert">Nothing to review</div>
-        </div>
-        <div ng-switch-when="false">
-            <div class="row">
-                <div class="col-md-push-9 col-md-3">
-                    <div class="pull-right">
-                        <span class="text-muted"><b>1</b>&ndash;<b>50</b> of <b>277</b></span>
+    <ul class="nav nav-tabs">
+        <li role="presentation" ng-class="($tab =='pending') ? 'active':''"><a href="javascript:void(0)"
+                                                                               ng-click="$tab ='pending'">Pending</a>
+        </li>
+        <li role="presentation" ng-class="($tab =='reports') ? 'active':''"><a href="javascript:void(0)"
+                                                                               ng-click="$tab ='reports'">Reports</a>
+        </li>
+    </ul>
 
-                        <div class="btn-group btn-group-sm">
-                            <button class="btn btn-default" type="button">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </button>
-                            <button class="btn btn-default" type="button">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="comment in comments">
+    <div style="margin-top: 20px">
 
-                        <div ng-include="'comment_renderer.template'"></div>
+        <div ng-include="'views/pending.html'"></div>
+        <div ng-include="'views/reports.html'"></div>
 
-                    </li>
-                </ul>
-            </div>
-        </div>
     </div>
-
 </div>
-
-
-<script type="text/ng-template" id="comment_renderer.template">
-    <div>
-
-        <div class="post">
-            <span class="menu">
-                <a href="javascript:void(0)"
-                   ng-click="comment.$maximized = !comment.$maximized" title="Click to minimize">
-                    <span class="glyphicon glyphicon-chevron-up"></span></a>
-            </span>
-
-            <a href="#/users/{{comment.authorId}}"><strong>{{comment.authorId}}</strong></a>
-            <span style="color: grey; font-size: smaller" title="{{comment.createdDate | dateString }}">{{comment.createdDate | fromNow }}</span>
-
-            <div style="white-space: pre-line">{{comment.text}}</div>
-        </div>
-
-        <div class="btn-toolbar" style="margin-top: 10px">
-            <button type="button" class="btn btn-default btn-sm" ng-click="approve(comment.id)"><span
-                    class="glyphicon glyphicon-ok"></span> Approve
-            </button>
-            <button type="button" class="btn btn-default btn-sm" ng-click="reject(comment.id)"><span
-                    class="glyphicon glyphicon-remove"></span> Delete
-            </button>
-            <!--<button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-exclamation-sign"></span> Spam</button>-->
-        </div>
-
-    </div>
-</script>

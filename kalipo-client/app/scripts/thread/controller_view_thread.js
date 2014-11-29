@@ -20,16 +20,6 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         $scope.$pendingCount = 0;
         $scope.$hasReports = false;
 
-        // todo load on demand?
-        Thread.get({id: threadId}, function (thread) {
-//            thread.uglyDucklingSurvivalEndDate = null;
-            thread.$kLine = thread.kLine.join(', ');
-//          todo create a $modIds
-            thread.$uriHooks = thread.uriHooks.join('\n');
-            thread.$modIds = thread.modIds.join(' ').trim();
-            $scope.thread = thread;
-        });
-
         Thread.discussion({id: threadId}, function (comments) {
 
             $scope.comments = [];
@@ -256,15 +246,5 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         };
 
         $scope.threadEventSubSocket = $scope.threadEventSocket.subscribe($scope.threadEventRequest);
-
-        // --
-
-        $scope.scrollTo = function (id) {
-            var old = $location.hash();
-            $location.hash(id);
-            $anchorScroll();
-            //reset to old to keep any additional routing logic from kicking in
-            $location.hash(old);
-        };
 
     }]);

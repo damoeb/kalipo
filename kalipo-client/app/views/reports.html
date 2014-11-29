@@ -1,51 +1,22 @@
-<h2>Reports</h2>
+<div ng-switch on="pending.length == 0" ng-show="$tab =='reports'" ng-controller="ReportController">
+    <div ng-switch-default>
+        No pending reports.
+    </div>
+    <div ng-switch-when="false">
+        <div class="row" ng-repeat="comment in reportedComments">
 
-<div class="box container">
-    <div ng-switch on="comments.length == 0">
-        <div ng-switch-default>
-            <div class="alert alert-info" role="alert">Nothing to review</div>
-        </div>
-        <div ng-switch-when="false">
-            <div class="row">
-                <div class="col-md-push-9 col-md-3">
-                    <div class="pull-right">
-                        <span class="text-muted"><b>1</b>&ndash;<b>50</b> of <b>277</b></span>
+            <div ng-include="'comment_renderer.template'"></div>
 
-                        <div class="btn-group btn-group-sm">
-                            <button class="btn btn-default" type="button">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </button>
-                            <button class="btn btn-default" type="button">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="comment in comments">
+            <hr>
 
-                        <div ng-include="'comment_renderer.template'"></div>
-
-                    </li>
-                </ul>
-            </div>
         </div>
     </div>
-
 </div>
-
 
 <script type="text/ng-template" id="comment_renderer.template">
     <div>
 
         <div class="post">
-            <span class="menu">
-                <a href="javascript:void(0)"
-                   ng-click="comment.$maximized = !comment.$maximized" title="Click to minimize">
-                    <span class="glyphicon glyphicon-chevron-up"></span></a>
-            </span>
 
             <a href="#/users/{{comment.authorId}}"><strong>{{comment.authorId}}</strong></a>
             <span style="color: grey; font-size: smaller" title="{{comment.createdDate | dateString }}">{{comment.createdDate | fromNow }}</span>
@@ -59,10 +30,10 @@
         </div>
 
         <div class="btn-toolbar" style="margin-top: 10px">
-            <button type="button" class="btn btn-default btn-sm" ng-click="approve(comment.id)"><span
+            <button type="button" class="btn btn-success btn-sm" ng-click="approveReports(comment.id)"><span
                     class="glyphicon glyphicon-ok"></span> Approve
             </button>
-            <button type="button" class="btn btn-default btn-sm" ng-click="reject(comment.id)"><span
+            <button type="button" class="btn btn-default btn-sm" ng-click="rejectReports(comment.id)"><span
                     class="glyphicon glyphicon-remove"></span> Delete
             </button>
         </div>
