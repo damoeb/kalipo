@@ -2,13 +2,9 @@
     Browse
 </h3>
 
-<!--<div class="flash flash-info">-->
-<!--There are some pending comments <a href="">review</a>-->
-<!--</div>-->
-<!-- todo see http://bootsnipp.com/snippets/featured/e-mail-interface -->
 <div>
 
-<div ng-show="threads.length == 0">No threads exist. <a href="#/thread/create">Start a discussion</a>.
+    <div ng-show="threads.length == 0">No threads exist. <a href="#/discuss">Start a discussion</a>.
     </div>
 
 
@@ -27,30 +23,10 @@
                         {{thread.initiatorId}}</p>
 
                     <p class="list-group-item-text">
-                        <a href="#/thread/{{thread.id}}">{{thread.commentCount}} comments</a> <a
-                            href="#/thread/{{thread.id}}/share">Share</a>
+                        <a href="#/thread/{{thread.id}}">{{thread.commentCount}} comments</a>
                     </p>
                 </div>
             </div>
         </div>
     </div>
-
-    <!--<ul class="list-group">-->
-    <!--<li class="list-group-item" ng-repeat="thread in threads">-->
-
-    <!--<div class="row">-->
-    <!--<div class="col-xs-2 col-md-1">-->
-    <!--<img alt="" class="img-circle img-responsive" src="http://placehold.it/80"></div>-->
-    <!--<div class="col-xs-10 col-md-11">-->
-    <!--<div>-->
-    <!--<a href="#/thread/{{thread.id}}">{{thread.title}}</a>-->
-
-    <!--<div style="color: gray">-->
-    <!--Submitted {{thread.createdDate | fromNow}}-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    </li>
-    </ul>
 </div>

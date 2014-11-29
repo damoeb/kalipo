@@ -120,7 +120,7 @@ kalipoApp
             })
             .otherwise({
                 templateUrl: 'views/browse.html',
-                controller: 'ThreadController',
+                controller: 'BrowseController',
                 resolve: {
                     resolvedThread: ['Thread', function (Thread) {
                         return Thread.query();

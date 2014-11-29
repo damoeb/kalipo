@@ -1,8 +1,7 @@
 'use strict';
 
-kalipoApp.controller('ReviewController', function ($scope, resolvedComment, Comment) {
-
-    $scope.comments = resolvedComment;
+kalipoApp.controller('ModerateController', ['$scope', '$routeParams', '$rootScope', 'Thread', 'Comment', 'Report', 'Vote', '$log', '$location', '$anchorScroll',
+    function ($scope, $routeParams, $rootScope, Thread, Comment, Report, Vote, $log, $location, $anchorScroll) {
 
     $scope.approve = function (id) {
         Comment.approve({id: id},
@@ -24,4 +23,5 @@ kalipoApp.controller('ReviewController', function ($scope, resolvedComment, Comm
                 $scope.comments = Comment.query();
             });
     };
-});
+
+    }]);

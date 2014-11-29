@@ -3,7 +3,7 @@
 kalipoApp
     .config(function ($routeProvider, $httpProvider, $translateProvider, USER_ROLES) {
         $routeProvider
-            .when('/thread/create', {
+            .when('/discuss', {
                 templateUrl: 'views/thread-create.html',
                 controller: 'CreateThreadController',
                 access: {
@@ -17,25 +17,18 @@ kalipoApp
                     authorizedRoles: [USER_ROLES.all]
                 }
             })
-            .when('/thread/:threadId/share', {
-                templateUrl: 'views/thread-view.html',
-                controller: 'ViewThreadController',
-                access: {
-                    authorizedRoles: [USER_ROLES.all]
-                }
-            })
-            .when('/thread/:threadId/review', {
-                templateUrl: 'views/review.html',
-                controller: 'ViewThreadController',
-                access: {
-                    authorizedRoles: [USER_ROLES.all]
-                }
-            })
-            .when('/thread/:threadId/:commentId', {
-                templateUrl: 'views/thread-view.html',
-                controller: 'ViewThreadController',
-                access: {
-                    authorizedRoles: [USER_ROLES.all]
-                }
-            })
+        //.when('/thread/:threadId/share', {
+        //    templateUrl: 'views/thread-view.html',
+        //    controller: 'ViewThreadController',
+        //    access: {
+        //        authorizedRoles: [USER_ROLES.all]
+        //    }
+        //})
+        //.when('/thread/:threadId/:commentId', {
+        //    templateUrl: 'views/thread-view.html',
+        //    controller: 'ViewThreadController',
+        //    access: {
+        //        authorizedRoles: [USER_ROLES.all]
+        //    }
+        //})
     });

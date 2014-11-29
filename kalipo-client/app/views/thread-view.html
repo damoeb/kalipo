@@ -7,13 +7,10 @@
         <a href="javascript:void(0)">
             <span class="glyphicon glyphicon-stats" title="Stats"></span>
         </a>
-        <a href="javascript:void(0)" ng-click="$showPending = !$showPending" ng-show="$pendingCount > 0">
 
-            <span ng-show="!$showPending"
-                  class="glyphicon glyphicon-eye-close" title="Show Pending Comments">
-            </span>
-            <span ng-show="$showPending"
-                  class="glyphicon glyphicon-eye-open" title="Hide Pending Comments"></span>
+        <a href="#/moderate/{{$threadId}}" ng-show="$pendingCount > 0 || $hasReports" title="Review Thread">
+
+            <span class="glyphicon glyphicon-eye-open"></span>
 
         </a>
 

@@ -5,6 +5,6 @@ kalipoApp.factory('Thread', function ($resource) {
         'query': { method: 'GET', isArray: true},
         'get': { method: 'GET'},
         'update': { method: 'PUT', params: {id: '@id'}},
-        'getComments': { method: 'GET', params: {selector: 'comments'}, isArray: true}
+        'discussion': {method: 'GET', params: {selector: 'comments'}, isArray: true}
     });
 });

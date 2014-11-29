@@ -44,6 +44,8 @@ public class Thread implements Serializable {
     // todo implement
     private Integer views = 0;
 
+    private int viewing;
+
     @NotNull
     private String initiatorId;
 
@@ -241,6 +243,14 @@ public class Thread implements Serializable {
 
     public void setInitiatorId(String initiatorId) {
         this.initiatorId = initiatorId;
+    }
+
+    public int getViewing() {
+        return viewing;
+    }
+
+    public void setViewing(int viewing) {
+        this.viewing = viewing;
     }
 
     /**

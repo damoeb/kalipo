@@ -2,22 +2,25 @@
 
 kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootScope', 'Thread', 'Comment', 'Report', 'Vote', '$log', '$location', '$anchorScroll',
     function ($scope, $routeParams, $rootScope, Thread, Comment, Report, Vote, $log, $location, $anchorScroll) {
-        if ($location.path().endsWith('share')) {
-            $scope.more = 'social';
-        } else {
-            $scope.more = 'details';
-        }
+//        if ($location.path().endsWith('share')) {
+//            $scope.more = 'social';
+//        } else {
+//            $scope.more = 'details';
+//        }
 
+        var threadId = $routeParams.threadId;
+        var commentId = $routeParams.commentId;
+
+        $scope.$threadId = threadId;
         $scope.$view = false;
         $scope.draft = {};
         $scope.thread = {};
         $scope.reportModel = {};
         $scope.$showPending = false;
         $scope.$pendingCount = 0;
+        $scope.$hasReports = false;
 
-        var threadId = $routeParams.threadId;
-        var commentId = $routeParams.commentId;
-
+        // todo load on demand?
         Thread.get({id: threadId}, function (thread) {
 //            thread.uglyDucklingSurvivalEndDate = null;
             thread.$kLine = thread.kLine.join(', ');
@@ -27,7 +30,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
             $scope.thread = thread;
         });
 
-        Thread.getComments({id: threadId}, function (comments) {
+        Thread.discussion({id: threadId}, function (comments) {
 
             $scope.comments = [];
 

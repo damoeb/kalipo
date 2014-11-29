@@ -1,6 +1,13 @@
-<h2>Review</h2>
+<h3 class="klp-header" ng-controller="ViewThreadController">
+    Moderate {{thread.title}}
+</h3>
 
-<div class="box">
+<ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="#">Pending</a></li>
+    <li role="presentation"><a href="#">Reports</a></li>
+</ul>
+
+<div>
     <div ng-switch on="comments.length == 0">
         <div ng-switch-default>
             <div class="alert alert-info" role="alert">Nothing to review</div>
