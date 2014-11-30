@@ -2,6 +2,7 @@
     <h3 class="klp-header">
         {{thread.title}}
         <div class="pull-right">
+            <!-- todo tabs reports/pending, stats hidden -->
             <a href="javascript:void(0)" ng-click="$view = !$view">
                 <span class="glyphicon glyphicon-pencil" title="Edit"></span>
             </a>
@@ -39,39 +40,6 @@
             {{thread.initiatorId}}
 
         </div>
-
-        <!--<div class="row">-->
-
-        <!--<ul class="nav nav-tabs" role="tablist">-->
-        <!--<li ng-class="{active: more=='social'}"><a href="javascript:void(0)" ng-click="more = 'social'">Social</a>-->
-        <!--</li>-->
-        <!--<li ng-class="{active: more=='embed'}"><a href="javascript:void(0)" ng-click="more = 'embed'">Embed</a></li>-->
-        <!--<li ng-class="{active: more=='email'}"><a href="javascript:void(0)" ng-click="more = 'email'">E-Mail</a>-->
-        <!--</li>-->
-        <!--<li ng-class="{active: more=='stats'}"><a href="javascript:void(0)" ng-click="more = 'stats'">Stats</a></li>-->
-        <!--</ul>-->
-
-        <!--</div>-->
-
-        <!--&lt;!&ndash; more box &ndash;&gt;-->
-        <!--<div ng-show="more != null">-->
-
-        <!--<div style="margin-top: 10px">-->
-        <!--<div ng-show="more == 'social'">-->
-        <!--<div ng-include="'more_social.template'"></div>-->
-        <!--</div>-->
-        <!--<div ng-show="more == 'embed'">-->
-        <!--<div ng-include="'more_embed.template'"></div>-->
-        <!--</div>-->
-        <!--<div ng-show="more == 'email'">-->
-        <!--<div ng-include="'more_email.template'"></div>-->
-        <!--</div>-->
-        <!--<div ng-show="more == 'stats'">-->
-        <!--<div ng-include="'more_stats.template'"></div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-
 
         <h4 style="margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid #e5e5e5; padding-bottom: 5px;">
             {{thread.commentCount}} comments

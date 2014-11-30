@@ -4,9 +4,8 @@ pageable for all lists
 
 - "No way to get in touch" http://www.smashingmagazine.com/2009/02/18/9-common-usability-blunders/
 - Live stats: 93 users viewing
-- Moderate Thread (with Reports, Pending)
 - Details of Thread with Stats e.g. http://www.mixcloud.com/stats/
-- Monitoring for Superuser/Mods?, Fraud warnings via mail
+- Monitoring for Superuser, Fraud warnings via mail
     - mods: approvals/deletions/k-listing, (automated) thread deletions
     - users: live activity, reports, critical activity -> lock
     - review popular comments/links
