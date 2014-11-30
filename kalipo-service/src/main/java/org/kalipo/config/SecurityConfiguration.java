@@ -52,6 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/i18n/**")
                 .antMatchers("/swagger-ui/**")
                 .antMatchers("/app/rest/register")
+                .antMatchers("/app/rest/feedbacks/**")
                 .antMatchers("/app/rest/activate")
                         // API getters do not require authentication
                 .regexMatchers(HttpMethod.GET, "/app/rest/threads.*")

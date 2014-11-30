@@ -1,7 +1,7 @@
 'use strict';
 
-kalipoApp.factory('Feedback', function ($resource) {
-    return $resource('app/rest/feedbacks/:id', {}, {
+kalipoApp.factory('Tag', function ($resource) {
+    return $resource('app/rest/tags/:id', {}, {
         'query': { method: 'GET', isArray: true},
         'get': { method: 'GET'}
     });
