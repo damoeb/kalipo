@@ -206,10 +206,59 @@
 <div class="container">
     <div ng-view=""></div>
 
-    <div class="footer">
-        <!-- todo <p translate="footer">This is your footer</p>-->
-    </div>
 </div>
+
+<footer class="footer" style="bottom: 0; position: absolute; width: 100%;" ng-controller="FeedbackController">
+    <div class="container">
+
+        <div class="pull-right">
+            Get in touch with us
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                Give Feedback
+            </button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <form name="form" role="form" novalidate
+                  class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                  ng-submit="submitFeedback()">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Feedback</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Please tell us what you think, any feedback is highly appreciated.</p>
+
+                            <div class="form-group">
+                                <textarea name="text" ng-model="feedback.text" class="form-control"
+                                          placeholder="Your feedback, question, ideas" ng-minlength=5 ng-maxlength=1024
+                                          required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input name="name" ng-model="feedback.name" type="text" class="form-control"
+                                       placeholder="Your name">
+                            </div>
+                            <div class="form-group">
+                                <input name="email" ng-model="feedback.email" type="email" class="form-control"
+                                       placeholder="Enter email">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Submit Feedback
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</footer>
 
 <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
 <script>
@@ -296,6 +345,8 @@
 <script src="scripts/vote/router_vote.js"></script>
 <script src="scripts/vote/controller_vote.js"></script>
 <script src="scripts/vote/service_vote.js"></script>
+<script src="scripts/feedback/controller_feedback.js"></script>
+<script src="scripts/feedback/service_feedback.js"></script>
 <!-- endbuild -->
 
 </body>
