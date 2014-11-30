@@ -2,7 +2,7 @@ discuss/moderate/monitor/notifications/browse
 vote/tag loeschen
 pageable for all lists
 
-- "No way to get in touch" http://www.smashingmagazine.com/2009/02/18/9-common-usability-blunders/
+- Done: "No way to get in touch" http://www.smashingmagazine.com/2009/02/18/9-common-usability-blunders/
 - Live stats: 93 users viewing
 - Moderate Thread (with Reports, Pending)
 - Details of Thread with Stats e.g. http://www.mixcloud.com/stats/
