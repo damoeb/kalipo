@@ -12,6 +12,9 @@ kalipoApp.controller('ReportController', ['$scope', '$routeParams', '$rootScope'
                 return report.commentId;
             });
 
+            // todo fix
+            $scope.$parent.$reportCount = byCommentId.length;
+
             _.each(byCommentId, function (reports, commentId) {
                 Comment.get({id: commentId}, function (comment) {
                     comment.rreports = reports;

@@ -5,6 +5,8 @@ kalipoApp.controller('PendingController', ['$scope', '$routeParams', '$rootScope
 
         Comment.pendingInThread({thread: $routeParams.threadId}, function (comments) {
             $scope.pending = comments;
+            // todo fix
+            //$scope.$parent.$pendingCount = comments.length;
         });
 
         $scope.approveComment = function (id) {

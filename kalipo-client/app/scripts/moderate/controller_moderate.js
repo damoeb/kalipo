@@ -8,6 +8,10 @@ kalipoApp.controller('ModerateController', ['$scope', '$routeParams',
 
         var tabs = ['pending', 'reports'];
 
+        // todo fix
+        $scope.$pendingCount = 0;
+        $scope.$reportCount = 0;
+
         for (var i = 0; i < tabs.length; i++) {
             if (tabs[i] == currentTab) {
                 $scope.$tab = tabs[i];

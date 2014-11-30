@@ -18,7 +18,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         $scope.reportModel = {};
         $scope.$showPending = false;
         $scope.$pendingCount = 0;
-        $scope.$reportsCount = 0;
+        $scope.$reportCount = 0;
         $scope.$hasReports = false;
 
         Thread.discussion({id: threadId}, function (comments) {
@@ -30,7 +30,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
                     $scope.$pendingCount++;
                 }
                 if (comment.reportedCount > 0) {
-                    $scope.$reportsCount++;
+                    $scope.$reportCount++;
                 }
                 return -comment.createdDate
             })));

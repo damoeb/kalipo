@@ -11,13 +11,17 @@
             <ul class="nav nav-pills pull-right">
                 <li role="presentation">
                     <a href="#/moderate/{{$threadId}}/pending">
-                        <!-- todo {{$pendingCount}}-->
-                        <span> Pending</span></a>
+                        {{$pendingCount}}
+                        Pending</a>
                 </li>
                 <li role="presentation">
                     <a href="#/moderate/{{$threadId}}/reports">
-                        <!-- todo {{$reportsCount}} -->
-                        <span>Reports</span></a>
+                        <div ng-switch on="$reportCount">
+
+                            <span ng-switch-when="1">One Report</span>
+                            <span ng-switch-default>{{$reportCount}} Reports</span>
+                        </div>
+                    </a>
                 </li>
                 <li role="presentation">
                     <a href="javascript:void(0)" ng-click="$viewMode = !$viewMode">
