@@ -17,7 +17,6 @@ import org.kalipo.service.util.URLNormalizer;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.env.Environment;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
@@ -62,9 +61,6 @@ public class ThreadService {
 
     @Inject
     private UserService userService;
-
-    @Inject
-    private Environment env;
 
     @RolesAllowed(Privileges.CREATE_THREAD)
     @Throttled

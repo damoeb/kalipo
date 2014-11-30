@@ -1,33 +1,42 @@
 <div ng-controller="ThreadController">
-    <h3 class="klp-header">
-        {{thread.title}}
-        <div class="pull-right">
 
+    <div class="clearfix klp-header">
 
-        <a href="javascript:void(0)" ng-click="$view = !$view">
-                <span class="glyphicon glyphicon-pencil" title="Edit"></span>
-            </a>
-            <a href="javascript:void(0)">
-                <span class="glyphicon glyphicon-stats" title="Stats"></span>
-            </a>
-
-            <a href="#/moderate/{{$threadId}}" ng-show="$pendingCount > 0 || $hasReports" title="Review Thread">
-
-                <span class="glyphicon glyphicon-eye-open"></span>
-
-            </a>
-
+        <div style="float: left">
+            <h3 style="display: inline">
+                {{thread.title}}
+            </h3>
         </div>
+        <div>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation">
+                    <a href="#/moderate/{{$threadId}}/pending">
+                        <!-- todo {{$pendingCount}}-->
+                        <span> Pending</span></a>
+                </li>
+                <li role="presentation">
+                    <a href="#/moderate/{{$threadId}}/reports">
+                        <!-- todo {{$reportsCount}} -->
+                        <span>Reports</span></a>
+                </li>
+                <li role="presentation">
+                    <a href="javascript:void(0)" ng-click="$viewMode = !$viewMode">
+                        <span ng-show="!$viewMode">Edit</span>
+                        <span ng-show="$viewMode">View</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
-    </h3>
 
-    <div ng-show="$view">
+    <div ng-show="$viewMode">
 
         <div ng-include="'views/thread-edit.html'"></div>
 
     </div>
 
-    <div ng-show="!$view">
+    <div ng-show="!$viewMode">
 
 
         <div>
@@ -96,7 +105,7 @@
     <div ng-show="comment.likes > 0 || comment.dislikes > 0" style="line-height: 5px" class="pull-right">
 
         <div style="width: 100px" title="{{comment.likes}} likes {{comment.dislikes}} dislikes">
-        <div class="post-bar-likes" style="width: {{comment.$likes}}%;">
+            <div class="post-bar-likes" style="width: {{comment.$likes}}%;">
             </div>
             <div class="pull-right post-bar-dislikes" style="width: {{comment.$dislikes}}%;">
             </div>
@@ -109,7 +118,7 @@
     <div style="padding: 10px;" class="clearfix row">
 
         <form novalidate ng-submit="draft.parentId = comment.id; create()">
-        <div class="col-md-11 col-sm-10 col-xs-10">
+            <div class="col-md-11 col-sm-10 col-xs-10">
 
                 <textarea class="form-control field-comment" placeholder="Say Something" ng-model="draft.text"
                           ng-minlength=1 ng-maxlength=2048 required ng-keypress="onTyping()" rows="1"></textarea>
@@ -214,7 +223,7 @@
                            class="form-control ng-valid ng-valid-maxlength ng-valid-minlength">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button" ng-click="comment.report = false" title="Cancel"><span
-                            class="glyphicon glyphicon-remove"></span></button>
+                        class="glyphicon glyphicon-remove"></span></button>
                     <button class="btn btn-primary" type="button" ng-click="report(comment)">Send Report
                     </button>
                 </span>

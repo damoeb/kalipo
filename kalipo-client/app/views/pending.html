@@ -1,8 +1,9 @@
 <div ng-switch on="pending.length == 0" ng-show="$tab =='pending'" ng-controller="PendingController">
+
     <div ng-switch-default>
         No pending reviews.
     </div>
-    <div ng-switch-when="false">
+    <div ng-switch-when="false" class="clearfix">
         <!--<div class="row">-->
         <!--<div class="col-md-push-9 col-md-3">-->
         <!--<div class="pull-right">-->

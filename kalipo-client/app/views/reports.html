@@ -1,9 +1,10 @@
 <div ng-switch on="pending.length == 0" ng-show="$tab =='reports'" ng-controller="ReportController">
+
     <div ng-switch-default>
         No pending reports.
     </div>
-    <div ng-switch-when="false">
-        <div class="row" ng-repeat="comment in reportedComments">
+    <div ng-switch-when="false" class="clearfix">
+        <div ng-repeat="comment in reportedComments">
 
             <div ng-include="'reported_comment_renderer.template'"></div>
 

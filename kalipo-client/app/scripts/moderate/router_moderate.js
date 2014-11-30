@@ -10,4 +10,11 @@ kalipoApp
                     authorizedRoles: [USER_ROLES.all]
                 }
             })
+            .when('/moderate/:threadId/:tab', {
+                templateUrl: 'views/moderate.html',
+                controller: 'ModerateController',
+                access: {
+                    authorizedRoles: [USER_ROLES.all]
+                }
+            })
     });

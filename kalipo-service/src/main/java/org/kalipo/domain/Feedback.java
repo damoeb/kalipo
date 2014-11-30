@@ -23,6 +23,8 @@ public class Feedback implements Serializable {
 
     private String name;
 
+    private String ip;
+
     @Email
     private String email;
 
@@ -56,5 +58,13 @@ public class Feedback implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 }

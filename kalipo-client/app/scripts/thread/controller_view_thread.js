@@ -1,7 +1,7 @@
 'use strict';
 
-kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootScope', 'Thread', 'Comment', 'Report', 'Vote', '$log', '$location', '$anchorScroll',
-    function ($scope, $routeParams, $rootScope, Thread, Comment, Report, Vote, $log, $location, $anchorScroll) {
+kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootScope', 'Thread', 'Comment', 'Report', 'Vote',
+    function ($scope, $routeParams, $rootScope, Thread, Comment, Report, Vote) {
 //        if ($location.path().endsWith('share')) {
 //            $scope.more = 'social';
 //        } else {
@@ -12,12 +12,13 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         var commentId = $routeParams.commentId;
 
         $scope.$threadId = threadId;
-        $scope.$view = false;
+        $scope.$viewMode = false;
         $scope.draft = {};
         $scope.thread = {};
         $scope.reportModel = {};
         $scope.$showPending = false;
         $scope.$pendingCount = 0;
+        $scope.$reportsCount = 0;
         $scope.$hasReports = false;
 
         Thread.discussion({id: threadId}, function (comments) {
@@ -27,6 +28,9 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
             $scope.comments = _sort(_hierarchical(_.sortBy(comments, function (comment) {
                 if (comment.status == 'PENDING') {
                     $scope.$pendingCount++;
+                }
+                if (comment.reportedCount > 0) {
+                    $scope.$reportsCount++;
                 }
                 return -comment.createdDate
             })));

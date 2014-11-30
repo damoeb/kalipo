@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +33,9 @@ public class FeedbackResource {
     @Inject
     private FeedbackService feedbackService;
 
+    @Inject
+    private HttpServletRequest request;
+
     /**
      * POST  /rest/tags -> Create a new tag.
      */
@@ -45,6 +49,8 @@ public class FeedbackResource {
         log.debug("REST request to save Feedback : {}", feedback);
 
         Asserts.isNull(feedback.getId(), "id");
+
+        feedback.setIp(request.getRemoteHost());
 
         return feedbackService.create(feedback);
     }

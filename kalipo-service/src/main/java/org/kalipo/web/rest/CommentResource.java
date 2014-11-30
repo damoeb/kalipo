@@ -90,6 +90,24 @@ public class CommentResource {
     }
 
     /**
+     * PUT  /rest/comments/{id}/reject -> Update existing comment.
+     */
+    @RequestMapping(value = "/rest/comments/{id}/reject",
+        method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Reject comment")
+    @ApiResponses(value = {
+        @ApiResponse(code = 400, message = "Invalid ID supplied"),
+        @ApiResponse(code = 404, message = "Comment not found")
+    })
+    public Comment reject(@PathVariable String id) throws KalipoException {
+        log.debug("REST request to reject Comment : {}", id);
+
+        return commentService.reject(id);
+    }
+
+    /**
      * GET  /rest/comments/review -> get all the comments, that have to be reviewed.
      */
     @RequestMapping(value = "/rest/comments/pending",

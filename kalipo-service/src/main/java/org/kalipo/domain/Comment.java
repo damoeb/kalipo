@@ -61,8 +61,6 @@ public class Comment {
 //   todo implement in ui
     private Boolean sticky;
 
-    // todo replace by query
-    @JsonIgnore
     private Integer reportedCount = 0;
 
     //    @JsonIgnore

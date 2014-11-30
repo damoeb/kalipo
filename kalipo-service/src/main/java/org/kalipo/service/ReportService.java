@@ -81,7 +81,6 @@ public class ReportService {
 
         // todo reject reports on already approved comment
 
-        // todo replace by query
         comment.setReportedCount(comment.getReportedCount() + 1);
 
         // todo async

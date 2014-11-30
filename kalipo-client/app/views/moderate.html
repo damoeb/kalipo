@@ -1,17 +1,33 @@
 <div ng-controller="ThreadController">
 
-    <h3 class="klp-header">
-        Moderate {{thread.title}}
-    </h3>
+    <div class="clearfix klp-header">
 
-    <ul class="nav nav-tabs">
-        <li role="presentation" ng-class="($tab =='pending') ? 'active':''"><a href="javascript:void(0)"
-                                                                               ng-click="$tab ='pending'">Pending</a>
-        </li>
-        <li role="presentation" ng-class="($tab =='reports') ? 'active':''"><a href="javascript:void(0)"
-                                                                               ng-click="$tab ='reports'">Reports</a>
-        </li>
-    </ul>
+        <div style="float: left">
+            <h3 style="display: inline">
+                <span ng-show="$tab =='pending'">Pending</span>
+                <span ng-show="$tab =='reports'">Reports</span>
+                : {{thread.title}}
+            </h3>
+        </div>
+        <div>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation">
+                    <a href="#/moderate/{{$threadId}}/pending">
+                        <span>{{$pendingCount}} Pending</span></a>
+                </li>
+                <li role="presentation">
+                    <a href="#/moderate/{{$threadId}}/reports">
+                        <span>{{$reportsCount}} Reports</span></a>
+                </li>
+                <li role="presentation">
+                    <a href="#/thread/{{$threadId}}">
+                        <span>View</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
 
     <div style="margin-top: 20px">
 

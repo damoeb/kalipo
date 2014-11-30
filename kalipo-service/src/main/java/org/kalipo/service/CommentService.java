@@ -139,6 +139,47 @@ public class CommentService {
         return comment;
     }
 
+    @RolesAllowed(Privileges.REVIEW_COMMENT)
+    @Throttled
+    public Comment reject(String id) throws KalipoException {
+
+        Asserts.isNotNull(id, "id");
+        Comment comment = commentRepository.findOne(id);
+        Asserts.isNotNull(comment, "id");
+
+        return reject(comment);
+    }
+
+    @RolesAllowed(Privileges.REVIEW_COMMENT)
+    @Throttled
+    public Comment reject(Comment comment) throws KalipoException {
+
+        // todo test, this is new
+
+        Asserts.isNotNull(comment, "id");
+
+        if (comment.getStatus() == Comment.Status.DELETED) {
+            return comment;
+        }
+
+        if (comment.getStatus() != Comment.Status.PENDING) {
+            throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "must be pending to be approved");
+        }
+
+        noticeService.notifyAuthorOfParent(comment);
+
+        // --
+
+        log.info(String.format("%s rejects comment %s ", SecurityUtils.getCurrentLogin(), comment.getId()));
+
+        comment.setStatus(Comment.Status.DELETED);
+        comment.setReviewerId(SecurityUtils.getCurrentLogin());
+
+        comment = commentRepository.save(comment);
+
+        return comment;
+    }
+
     @Async
     public Future<List<Comment>> getPending(final int pageNumber) {
         PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, "createdDate");
