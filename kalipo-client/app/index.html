@@ -32,7 +32,7 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
+                    data-target="#navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -43,79 +43,37 @@
                       style="color: #E84B56; text-shadow: 2px 2px #9D2D36;"></span>
                 <span translate="global.title" style="font-weight: 900;">kalipo</span>
             </a>
+        </div>
 
-            <div class="input-group navbar-left">
-                <form class="navbar-form" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Type..">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
-            </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+
+            <form class="navbar-form navbar-left" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="q">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+                <!-- /input-group -->
+            </form>
 
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="#">Browse</a></li>
                 <li><a href="#/discuss">Create Discussion</a></li>
-
             </ul>
-        </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav nav-pills navbar-right">
-                <li class="dropdown pointer" ng-switch-when="true" ng-controller="NoticeController"
-                    ng-init="hasUnseen()">
-                    <a href="#/notifications" title="Notices">
-                        Notifications
+                <li ng-switch-when="true" ng-controller="NoticeController" ng-init="hasUnseen()">
+                    <a href="#/notifications" title="Notifications">
                         <span class="glyphicon glyphicon-bell" style="color: #E84B56;"
                               ng-show="hasUnseenNotices"></span>
+                        <span class="glyphicon glyphicon-bell"
+                              ng-show="!hasUnseenNotices"></span>
                     </a>
                 </li>
-                <!--<li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer"-->
-                <!--ng-controller="AdminController">-->
-                <!--<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">-->
-                <!--<span>-->
-                <!--<span class="hidden-tablet" translate="global.menu.admin">Admin</span>-->
-                <!--<b class="caret"></b>-->
-                <!--</span>-->
-                <!--</a>-->
-                <!--<ul class="dropdown-menu">-->
-                <!--<li><a href="#/tracker"><span class="glyphicon glyphicon-eye-open"></span>-->
-                <!--&#xA0;<span translate="global.menu.account.tracker">User tracking</span></a></li>-->
-                <!--<li><a href="#/metrics"><span class="glyphicon glyphicon-dashboard"></span>-->
-                <!--&#xA0;<span translate="global.menu.account.metrics">Metrics</span></a></li>-->
-                <!--<li><a href="#/audits"><span class="glyphicon glyphicon-bell"></span>-->
-                <!--&#xA0;<span translate="global.menu.account.audits">Audits</span></a></li>-->
-                <!--<li><a href="#/logs"><span class="glyphicon glyphicon-tasks"></span>-->
-                <!--&#xA0;<span translate="global.menu.account.logs">Logs</span></a></li>-->
-                <!--<li><a href="#/docs"><span class="glyphicon glyphicon-book"></span>-->
-                <!--&#xA0;<span translate="global.menu.account.apidocs">API Docs</span></a></li>-->
-                <!--</ul>-->
-                <!--</li>-->
-
-                <!--<li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer"-->
-                <!--ng-controller="AdminController">-->
-                <!--<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">-->
-                <!--<span>-->
-                <!--<span class="hidden-tablet">Models</span>-->
-                <!--<b class="caret"></b>-->
-                <!--</span>-->
-                <!--</a>-->
-                <!--<ul class="dropdown-menu">-->
-                <!--<li><a href="#/privilege">-->
-                <!--&#xA0;<span>Privileges</span></a></li>-->
-                <!--<li><a href="#/report">-->
-                <!--&#xA0;<span>Reports</span></a></li>-->
-                <!--<li><a href="#/reputation">-->
-                <!--&#xA0;<span>Reputations</span></a></li>-->
-                <!--<li><a href="#/tag">-->
-                <!--&#xA0;<span>Tags</span></a></li>-->
-                <!--<li><a href="#/thread">-->
-                <!--&#xA0;<span>Threads</span></a></li>-->
-                <!--<li><a href="#/vote">-->
-                <!--&#xA0;<span>Votes</span></a></li>-->
-                <!--</ul>-->
-                <!--</li>-->
                 <li ng-switch-when="false">
                     <a href="#/register">
                         <span>
@@ -211,14 +169,12 @@
 <footer class="footer" style="bottom: 0; position: fixed; width: 100%" ng-controller="FeedbackController">
     <div class="container-fluid">
 
-        <div class="pull-right">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                Give Feedback
-            </button>
-        </div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#feedbackModal">
+            Give Feedback
+        </button>
 
         <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModal"
              aria-hidden="true">
             <form name="form" role="form" novalidate
                   class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
