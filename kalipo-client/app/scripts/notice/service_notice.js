@@ -1,9 +1,10 @@
 'use strict';
 
 kalipoApp.factory('Notice', function ($resource, $rootScope) {
-    return $resource('app/rest/notices/:id/:opt2', {}, {
-            // todo fix retrieve username from $rootScope
-        'query': { method: 'GET', isArray: true, params: {id: '@id', opt2: '@opt2'}},
+    return $resource('app/rest/notices/:userId/:filter', {}, {
+        'query': { method: 'GET', isArray: true, params: {userId: '@userId'}},
+        'hasUnseen': { method: 'GET', params: {userId: '@userId', 'filter': 'unseen'}},
+        'seenUntilNow': { method: 'PUT', params: {userId: '@userId'}},
             'get': { method: 'GET'}
         });
     });

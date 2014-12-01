@@ -2,7 +2,7 @@
 
 kalipoApp.config(function ($routeProvider, $httpProvider, $translateProvider, USER_ROLES) {
     $routeProvider
-        .when('/notices/my', {
+        .when('/notifications', {
             templateUrl: 'views/notices.html',
             controller: 'NoticeController',
             access: {

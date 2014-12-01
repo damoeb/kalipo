@@ -20,7 +20,7 @@ public class Notice implements Serializable {
     @CreatedDate
     private DateTime createdDate;
 
-    private boolean read;
+    private boolean seen;
 
     @NotNull
     private Type type;
@@ -50,12 +50,12 @@ public class Notice implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public boolean isRead() {
-        return read;
+    public boolean isSeen() {
+        return seen;
     }
 
-    public void setRead(boolean read) {
-        this.read = read;
+    public void setSeen(boolean seen) {
+        this.seen = seen;
     }
 
     public Type getType() {

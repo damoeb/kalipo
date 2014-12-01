@@ -68,7 +68,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     private boolean superMod;
 
-    // todo prevent brute force login attacks
+    // prevent brute force login attacks
+    private int loginTries;
+
+    private DateTime lastLoginTry;
+
     private DateTime lockoutEndDate;
 
     @JsonIgnore
@@ -202,6 +206,22 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setLastStrikeDate(DateTime lastStrikeDate) {
         this.lastStrikeDate = lastStrikeDate;
+    }
+
+    public int getLoginTries() {
+        return loginTries;
+    }
+
+    public void setLoginTries(int loginTries) {
+        this.loginTries = loginTries;
+    }
+
+    public DateTime getLastLoginTry() {
+        return lastLoginTry;
+    }
+
+    public void setLastLoginTry(DateTime lastLoginTry) {
+        this.lastLoginTry = lastLoginTry;
     }
 
     @Override

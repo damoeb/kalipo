@@ -34,6 +34,8 @@ import java.util.Set;
 @Service
 public class UserService {
 
+    public static final int FAILED_LOGIN_COOLDOWN = 3;
+
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Inject
@@ -148,6 +150,19 @@ public class UserService {
             userRepository.delete(user);
         }
     }
+
+    /**
+     * Reset loginTries to 0 after {FAILED_LOGIN_COOLDOWN} hours
+     */
+    @Scheduled(cron = "0 * * * * ?") // hourly
+    public void resetLoginTries() {
+        List<User> list = userRepository.findHavingLoginTries(new DateTime().minusHours(FAILED_LOGIN_COOLDOWN));
+        for (User user : list) {
+            user.setLoginTries(0);
+        }
+        userRepository.save(list);
+    }
+
 
     public User findOne(String login) {
         return userRepository.findOne(login);

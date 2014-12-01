@@ -63,12 +63,12 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav nav-pills navbar-right">
-                <li class="dropdown pointer" ng-switch-when="true">
-                    <a href="#/notices/my" class="disabled" title="Notices">
-                    <span class="glyphicon glyphicon-comment"></span>
-                        <!--Notices-->
-                        <!--<span class="label label-danger">4</span>-->
-                        <!-- todo better use a simple dot to mark there is something new, like soundcloud does it -->
+                <li class="dropdown pointer" ng-switch-when="true" ng-controller="NoticeController"
+                    ng-init="hasUnseen()">
+                    <a href="#/notifications" title="Notices">
+                        Notifications
+                        <span class="glyphicon glyphicon-bell" style="color: #E84B56;"
+                              ng-show="hasUnseenNotices"></span>
                     </a>
                 </li>
                 <!--<li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer"-->

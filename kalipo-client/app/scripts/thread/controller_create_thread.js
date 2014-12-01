@@ -12,7 +12,9 @@ kalipoApp.controller('CreateThreadController', function ($scope, $location, Thre
             $scope.thread.modIds = _.compact($scope.thread.$modIds.replace(re, ' ').split(' '));
         }
 
-        $scope.thread.uriHooks = _.compact($scope.thread.$uriHooks.replace(re, ' ').split(' '));
+        if ($scope.thread.$uriHooks) {
+            $scope.thread.uriHooks = _.compact($scope.thread.$uriHooks.replace(re, ' ').split(' '));
+        }
 
         Thread.save($scope.thread,
             function (data) {

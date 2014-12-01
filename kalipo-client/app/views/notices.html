@@ -1,55 +1,65 @@
-<h2>Notices</h2>
+<div ng-init="fetch()">
 
-<div class="box container">
+    <div class="clearfix klp-header">
+
+        <div style="float: left">
+            <h3 style="display: inline">
+                Notifications
+            </h3>
+        </div>
+        <div>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation">
+                    <a href="javascript:void(0)">
+                        Unread
+                        <span class="glyphicon glyphicon-bell" style="color: #E84B56;"
+                              ng-show="$pendingCount > 0"></span>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="javascript:void(0)">
+                        Read
+                        <span class="glyphicon glyphicon-bell" style="color: #E84B56;"
+                              ng-show="$reportCount > 0"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <div ng-switch on="notices.length == 0">
         <div ng-switch-default>
-            <div class="alert alert-info" role="alert">No notification found</div>
+            There are no notifications yet
         </div>
         <div ng-switch-when="false">
-            <div class="row">
-                <div class="pull-right">
-                    <span class="text-muted"><b>1</b>&ndash;<b>50</b> of <b>277</b></span>
 
-                    <div class="btn-group btn-group-sm">
-                        <button class="btn btn-default" type="button">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                        </button>
-                        <button class="btn btn-default" type="button">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="notice in notices">
 
-                <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="notice in notices">
+                    <!-- todo if notice.read -> gray line -->
 
-                        <!-- todo if notice.read -> gray line -->
+                    <div class="row">
 
-                        <div class="row">
-
-                            <div class="col-md-1">
-                                <strong>{{notice.type}}</strong>
-                            </div>
-
-                            <div class="col-md-9">
-                                for
-                                {{notice.commentId}}
-
-                                by
-                                <strong>{{notice.initiatorId}}</strong>
-                            </div>
-
-                            <div class="col-md-2 text-right">
-                                {{notice.createdDate | fromNow}}
-                            </div>
-
+                        <div class="col-md-1">
+                            <strong>{{notice.type}}</strong>
                         </div>
 
-                    </li>
-                </ul>
-            </div>
+                        <div class="col-md-9">
+                            for
+                            {{notice.commentId}}
+
+                            by
+                            <strong>{{notice.initiatorId}}</strong>
+                        </div>
+
+                        <div class="col-md-2 text-right">
+                            {{notice.createdDate | fromNow}}
+                        </div>
+
+                    </div>
+
+                </li>
+            </ul>
         </div>
     </div>
 </div>

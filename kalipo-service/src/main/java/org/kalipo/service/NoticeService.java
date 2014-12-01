@@ -1,15 +1,10 @@
 package org.kalipo.service;
 
-import org.kalipo.aop.Throttled;
 import org.kalipo.domain.*;
 import org.kalipo.domain.Thread;
-import org.kalipo.repository.CommentRepository;
-import org.kalipo.repository.NoticeRepository;
-import org.kalipo.repository.ThreadRepository;
-import org.kalipo.repository.UserRepository;
+import org.kalipo.repository.*;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
-import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
@@ -47,39 +42,12 @@ public class NoticeService {
     @Inject
     private UserRepository userRepository;
 
+    @Inject
+    private UserRepositoryCustom userRepositoryCustom;
+
     public List<Notice> findByUser(final String login, final int pageNumber) {
         PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, "createdDate");
         return noticeRepository.findByRecipientId(login, pageable);
-    }
-
-    //    @RolesAllowed(Privileges.CREATE_COMMENT)
-    // todo remove
-    @Throttled
-    public Notice update(Notice notice) throws KalipoException {
-        Asserts.isNotNull(notice, "notice");
-        Asserts.isNotNull(notice.getId(), "id");
-
-        // just field <read> can be changed
-
-        Notice original = noticeRepository.findOne(notice.getId());
-        Asserts.isCurrentLogin(original.getRecipientId());
-
-        Asserts.nullOrEqual(notice.getCommentId(), original.getCommentId(), "commentId");
-        notice.setCommentId(original.getCommentId());
-
-        Asserts.nullOrEqual(notice.getInitiatorId(), original.getInitiatorId(), "initiatorId");
-        notice.setInitiatorId(original.getInitiatorId());
-
-        Asserts.nullOrEqual(notice.getRecipientId(), original.getRecipientId(), "recipientId");
-        notice.setRecipientId(original.getRecipientId());
-
-        Asserts.nullOrEqual(notice.getType(), original.getType(), "type");
-        notice.setType(original.getType());
-
-        Asserts.nullOrEqual(notice.getCreatedDate(), original.getCreatedDate(), "createdDate");
-        notice.setCreatedDate(original.getCreatedDate());
-
-        return noticeRepository.save(notice);
     }
 
     // -- ASYNCHRONOUS CALLS -------------------------------------------------------------------------------------------
@@ -187,6 +155,23 @@ public class NoticeService {
         } catch (Exception e) {
             log.error(String.format("Unable to notify mods (thread %s) of comment %s. Reason: %s", thread, comment, e.getMessage()));
         }
+    }
+
+    @Async
+    public void setAllSeen(String userId) {
+        try {
+
+            Asserts.isCurrentLogin(userId);
+
+            userRepositoryCustom.setAllNoticesSeen(userId);
+
+        } catch (Exception e) {
+            log.error(String.format("Unable to set notices of user %s as seen. Reason: %s", userId, e.getMessage()));
+        }
+    }
+
+    public Boolean hasUnseen(String login) {
+        return userRepository.countUnseenOfUser(login) > 0;
     }
 
     // --

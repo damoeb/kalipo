@@ -13,11 +13,15 @@
             <ul class="nav nav-pills pull-right">
                 <li role="presentation">
                     <a href="#/moderate/{{$threadId}}/pending">
-                        <span>{{$pendingCount}} Pending</span></a>
+                        <span class="glyphicon glyphicon-bell" style="color: #E84B56;"
+                              ng-show="$pendingCount > 0"></span>
+                        Pending</a>
                 </li>
                 <li role="presentation">
                     <a href="#/moderate/{{$threadId}}/reports">
-                        <span>{{$reportCount}} Reports</span></a>
+                        <span class="glyphicon glyphicon-bell" style="color: #E84B56;"
+                              ng-show="$reportCount > 0"></span>
+                        Reports</a>
                 </li>
                 <li role="presentation">
                     <a href="#/thread/{{$threadId}}">

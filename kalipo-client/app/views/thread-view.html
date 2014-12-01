@@ -11,16 +11,17 @@
             <ul class="nav nav-pills pull-right">
                 <li role="presentation">
                     <a href="#/moderate/{{$threadId}}/pending">
-                        {{$pendingCount}}
-                        Pending</a>
+                        Pending
+                        <span class="glyphicon glyphicon-bell" style="color: #E84B56;"
+                              ng-show="$pendingCount > 0"></span>
+                        <!--<span style="color: #E84B56; font-weight: bolder">&diams;</span>-->
+                    </a>
                 </li>
                 <li role="presentation">
                     <a href="#/moderate/{{$threadId}}/reports">
-                        <div ng-switch on="$reportCount">
-
-                            <span ng-switch-when="1">One Report</span>
-                            <span ng-switch-default>{{$reportCount}} Reports</span>
-                        </div>
+                        Reports
+                        <span class="glyphicon glyphicon-bell" style="color: #E84B56;"
+                              ng-show="$reportCount > 0"></span>
                     </a>
                 </li>
                 <li role="presentation">
@@ -227,7 +228,7 @@
                            class="form-control ng-valid ng-valid-maxlength ng-valid-minlength">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button" ng-click="comment.report = false" title="Cancel"><span
-                        class="glyphicon glyphicon-remove"></span></button>
+                            class="glyphicon glyphicon-remove"></span></button>
                     <button class="btn btn-primary" type="button" ng-click="report(comment)">Send Report
                     </button>
                 </span>

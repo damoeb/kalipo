@@ -25,7 +25,7 @@ public class Thread implements Serializable {
     private String id;
 
     /**
-     * todo should be a set of urls, the amount of url is defined via Roles
+     * todo the amount of url is defined via Roles
      */
     private Set<String> uriHooks = new HashSet<>();
 

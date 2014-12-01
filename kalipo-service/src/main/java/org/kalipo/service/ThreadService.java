@@ -265,11 +265,19 @@ public class ThreadService {
             if (!removed.isEmpty()) {
                 User user = userRepository.findOne(currentLogin);
                 for (String userId : removed) {
+
                     // 1. currentUser removes himself
                     // 2. superMod removes anyone
                     if (!user.isSuperMod() && !StringUtils.equals(userId, currentLogin)) {
-                        throw new KalipoException(ErrorCode.PERMISSION_DENIED, "User %s requires %s reputation to become mod");
+                        throw new KalipoException(ErrorCode.PERMISSION_DENIED, "You have to be superMod or the user himself");
                     }
+
+                    // threadInitiator cannot remove himself from mod-list
+                    final boolean isThreadInitiator = StringUtils.equals(original.getInitiatorId(), currentLogin);
+                    if (StringUtils.equals(userId, currentLogin) && isThreadInitiator) {
+                        throw new KalipoException(ErrorCode.PERMISSION_DENIED, "SuperMod privileges required. You cannot remove yourself, since you are initiator");
+                    }
+
                     log.info(String.format("%s removes %s from moderators of thread %s", currentLogin, userId, dirty.getId()));
                 }
             }
