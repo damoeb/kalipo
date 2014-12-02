@@ -1,3 +1,5 @@
+- use docker, nginx, snort, elastic search
+
 discuss/moderate/monitor/notifications/browse
 vote/tag loeschen
 pageable for all lists
@@ -17,7 +19,6 @@ pageable for all lists
 
     - anomaly detection
     - def metrics
-- Elastic Search
 - All links with <domain>/out to get stats
 - Notifications (websocket?) for replied, mentioned, upvoted
 - Clean old Votes, Notices
