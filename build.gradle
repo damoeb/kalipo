@@ -66,6 +66,9 @@ war {
     version =  "$version"
 
     from('kalipo-client/dist/')
+
+    archiveName = 'ROOT.war'
+    destinationDir = file('build')
 }
 
 // webjar see http://fbflex.wordpress.com/2014/03/14/building-web-content-jars-for-spring-boot-with-gradle/

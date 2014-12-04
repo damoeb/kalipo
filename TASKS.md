@@ -1,4 +1,5 @@
 - use docker, nginx, snort, elastic search
+- Achievements: stackoverflow zeigt die die rep upgrades an wie soundcloud die notifications 
 
 discuss/moderate/monitor/notifications/browse
 vote/tag loeschen
@@ -20,7 +21,7 @@ pageable for all lists
     - anomaly detection
     - def metrics
 - All links with <domain>/out to get stats
-- Notifications (websocket?) for replied, mentioned, upvoted
+
 - Clean old Votes, Notices
 - Audit logs
 - Comment
