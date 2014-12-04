@@ -40,6 +40,7 @@ Installation
 ### Getting Started
 
     git clone https://github.com/damoeb/kalipo.git
+    ./gradlew build -info
     ./gradlew run
 
 This will start an embedded tomcat on http://localhost:8080 (as defined in kalipo-service/src/main/resources/config/application-[prod|dev].yml)

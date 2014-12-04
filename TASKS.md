@@ -1,4 +1,4 @@
-- use docker, nginx, snort, elastic search
+sys: docker, nginx, snort, nagios, elastic search
 - Achievements: stackoverflow zeigt die die rep upgrades an wie soundcloud die notifications 
 
 discuss/moderate/monitor/notifications/browse
