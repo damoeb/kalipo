@@ -1,4 +1,4 @@
-- use docker, nginx, snort, elastic search
+sys: docker, nginx, snort, nagios, elastic search
 
 discuss/moderate/monitor/notifications/browse
 vote/tag loeschen
