@@ -30,7 +30,7 @@ public class Vote implements Serializable {
 
     private String threadId;
 
-    private Boolean isLike;
+    private boolean like;
 
     @CreatedDate
     private DateTime createdDate;
@@ -67,12 +67,12 @@ public class Vote implements Serializable {
         this.commentId = commentId;
     }
 
-    public Boolean getIsLike() {
-        return isLike;
+    public boolean isLike() {
+        return like;
     }
 
-    public void setIsLike(Boolean isLike) {
-        this.isLike = isLike;
+    public void setLike(boolean like) {
+        this.like = like;
     }
 
     public DateTime getCreatedDate() {

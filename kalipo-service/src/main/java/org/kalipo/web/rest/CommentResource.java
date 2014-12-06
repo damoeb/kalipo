@@ -114,7 +114,7 @@ public class CommentResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @ApiOperation(value = "Get all the comments for {user}, that it can review")
+    @ApiOperation(value = "Get all the comments, that can be review")
     public List<Comment> getAllUnderReview(@QueryParam("thread") String threadId, @QueryParam("page") Integer page) throws ExecutionException, InterruptedException {
         log.debug("REST request to get all Comments, that have to be reviewed");
 

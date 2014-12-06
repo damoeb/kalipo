@@ -1,0 +1,40 @@
+<h3 class="klp-header">
+    Likes
+</h3>
+
+<div ng-init="fetchLikes()">
+
+    <div ng-switch on="likes.length == 0">
+
+        <div ng-switch-default>
+            No likes
+        </div>
+
+        <div ng-switch-when="false" class="clearfix">
+            <div ng-repeat="comment in likes | orderBy:createdVoteDate">
+                <div ng-include="'comment_renderer.template'"></div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+<script type="text/ng-template" id="comment_renderer.template">
+    <div>
+
+        <p>
+            {{comment.createdVoteDate|fromNow}}
+        </p>
+
+        <div class="post">
+
+            <a href="#/users/{{comment.authorId}}"><strong>{{comment.authorId}}</strong></a>
+            <span style="color: grey; font-size: smaller" title="{{comment.createdDate | dateString }}">{{comment.createdDate | fromNow }}</span>
+
+            <div style="white-space: pre-line">{{comment.text}}</div>
+        </div>
+
+    </div>
+</script>

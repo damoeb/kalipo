@@ -185,7 +185,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         $scope.like = function (comment) {
             comment.likes++;
 
-            var vote = {isLike: true, commentId: comment.id};
+            var vote = {like: true, commentId: comment.id};
 
             Vote.save(vote, function (updated) {
 //                noty({text: 'Liked', type: 'success'});
@@ -199,7 +199,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         $scope.dislike = function (comment) {
             comment.dislikes++;
 
-            var vote = {isLike: false, commentId: comment.id};
+            var vote = {like: false, commentId: comment.id};
 
             Vote.save(vote, function (updated) {
 //                noty({text: 'Disliked', type: 'success'});

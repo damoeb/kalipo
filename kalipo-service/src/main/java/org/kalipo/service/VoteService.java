@@ -15,6 +15,8 @@ import org.kalipo.service.util.Asserts;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
@@ -75,7 +77,7 @@ public class VoteService {
 
 //        todo replace by scheduled job, with delay to prevent bandwaggon effect
 
-        if (vote.getIsLike()) {
+        if (vote.isLike()) {
             log.info(String.format("%s likes comment %s", SecurityUtils.getCurrentLogin(), comment.getId()));
             comment.setLikes(comment.getLikes() + 1);
             noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.LIKE, comment.getId());
@@ -90,8 +92,11 @@ public class VoteService {
     }
 
     @Async
-    public Future<List<Vote>> getAll() {
-        return new AsyncResult<>(voteRepository.findAll());
+    public Future<List<Vote>> getVotes(String userId, int pageNumber) {
+        PageRequest pageable = new PageRequest(pageNumber, 10, Sort.Direction.DESC, "createdDate");
+        // todo this does not work
+//        return new AsyncResult<>(voteRepository.findByAuthorIdAndLike(userId, true, pageable));
+        return new AsyncResult<>(voteRepository.findByAuthorId(userId, pageable));
     }
 
     @Async
@@ -99,8 +104,4 @@ public class VoteService {
         return new AsyncResult<>(voteRepository.findOne(id));
     }
 
-    public void delete(String id) throws KalipoException {
-        // todo remove
-//        voteRepository.delete(id);
-    }
 }

@@ -19,8 +19,9 @@
                         <h4 class="list-group-item-heading">{{thread.title}}</h4>
                     </a>
 
-                    <p class="list-group-item-text">Submitted {{thread.createdDate | fromNow}} by
-                        {{thread.initiatorId}}</p>
+                    <p class="list-group-item-text pull-right">{{thread.createdDate | fromNow}}</p>
+
+                    <p class="list-group-item-text">by {{thread.initiatorId}}</p>
 
                     <p class="list-group-item-text">
                         <a href="#/thread/{{thread.id}}">{{thread.commentCount}} comments</a>

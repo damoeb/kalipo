@@ -1,5 +1,6 @@
 sys: docker, nginx, snort, nagios, elastic search
 - Achievements: stackoverflow zeigt die die rep upgrades an wie soundcloud die notifications 
+more consitent naming authorId/userId if possible
 
 discuss/moderate/monitor/notifications/browse
 vote/tag loeschen

@@ -26,6 +26,6 @@ kalipoApp.controller('VoteController', function ($scope, resolvedVote, Vote) {
     };
 
     $scope.clear = function () {
-        $scope.vote = {id: null, commentId: null, authorId: null, isLike: null};
+        $scope.vote = {id: null, commentId: null, authorId: null, like: null};
     };
 });

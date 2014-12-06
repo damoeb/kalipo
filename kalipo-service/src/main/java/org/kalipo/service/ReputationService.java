@@ -64,7 +64,7 @@ public class ReputationService {
 
         RepRevision rvForAuthor, rvForVoter;
 
-        if (vote.getIsLike()) {
+        if (vote.isLike()) {
             rvForAuthor = createRevision(authorId, resourceRef, ReputationDefinition.Type.LIKE);
             rvForVoter = createRevision(voterId, resourceRef, ReputationDefinition.Type.LIKED);
         } else {

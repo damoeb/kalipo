@@ -2,8 +2,11 @@ package org.kalipo.repository;
 
 import org.joda.time.DateTime;
 import org.kalipo.domain.Vote;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
+
+import java.util.List;
 
 /**
  * Spring Data MongoDB repository for the Vote entity.
@@ -15,4 +18,6 @@ public interface VoteRepository extends MongoRepository<Vote, String> {
 
     @Query(value = "{'threadId': ?0, 'isLike' : true}", count = true)
     Integer countLikesOfThread(String threadId);
+
+    List<Vote> findByAuthorId(String authorId, PageRequest pageable);
 }

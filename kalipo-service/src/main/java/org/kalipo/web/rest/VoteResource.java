@@ -7,6 +7,7 @@ import com.wordnik.swagger.annotations.ApiResponses;
 import org.kalipo.domain.Vote;
 import org.kalipo.service.VoteService;
 import org.kalipo.service.util.Asserts;
+import org.kalipo.service.util.OptParamFixerUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.QueryParam;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
@@ -48,17 +51,20 @@ public class VoteResource {
     }
 
     /**
-     * GET  /rest/votes -> get all the votes.
+     * GET  /rest/votes/:userId/like -> get all the votes.
      */
-    @RequestMapping(value = "/rest/votes",
+    @RequestMapping(value = "/rest/votes/{userId}/like",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @ApiOperation(value = "Get all the votes")
-    public List<Vote> getAll() throws ExecutionException, InterruptedException {
-        log.debug("REST request to get all Votes");
+    @ApiOperation(value = "Get all the (filtered) votes for {user}")
+    public List<Vote> getUsersVotes(@Valid @NotNull @PathVariable String userId, @QueryParam("page") Integer page) throws ExecutionException, InterruptedException {
 
-        return voteService.getAll().get();
+        log.debug("REST request to get all Comments of user, that it liked");
+
+        OptParamFixerUtil.fixPage(page);
+
+        return voteService.getVotes(userId, page).get();
     }
 
     /**
@@ -87,17 +93,17 @@ public class VoteResource {
     /**
      * DELETE  /rest/votes/:id -> delete the "id" vote.
      */
-    @RequestMapping(value = "/rest/votes/{id}",
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Delete the \"id\" vote")
-    public void delete(@PathVariable String id) throws KalipoException {
-        log.debug("REST request to delete Vote : {}", id);
-
-        Asserts.isNotNull(id, "id");
-
-        voteService.delete(id);
-    }
+//    @RequestMapping(value = "/rest/votes/{id}",
+//            method = RequestMethod.DELETE,
+//            produces = MediaType.APPLICATION_JSON_VALUE)
+//    @Timed
+//    @ResponseStatus(HttpStatus.OK)
+//    @ApiOperation(value = "Delete the \"id\" vote")
+//    public void delete(@PathVariable String id) throws KalipoException {
+//        log.debug("REST request to delete Vote : {}", id);
+//
+//        Asserts.isNotNull(id, "id");
+//
+//        voteService.delete(id);
+//    }
 }
