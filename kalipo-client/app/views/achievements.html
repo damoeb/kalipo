@@ -1,0 +1,33 @@
+<h3 class="klp-header">
+    Achievements
+</h3>
+
+<div ng-init="fetchAchievements()">
+
+    <div ng-switch on="achievements.length == 0">
+
+        <div ng-switch-default>
+            No Achievements
+        </div>
+
+        <div ng-switch-when="false" class="clearfix">
+            <div ng-repeat="achievement in achievements">
+                <div ng-include="'achievement_renderer.template'"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/ng-template" id="achievement_renderer.template">
+    <div>
+
+        <p>
+            <span class="label label-success" ng-show="reputations[achievement.type] >= 0">{{reputations[achievement.type]}}</span>
+            <span class="label label-danger" ng-show="reputations[achievement.type] < 0">{{reputations[achievement.type]}}</span>
+            {{achievement.type}}
+        </p>
+
+    </div>
+</script>

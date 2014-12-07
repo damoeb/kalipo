@@ -95,13 +95,12 @@ public class VoteService {
     public Future<List<Vote>> getVotes(String userId, int pageNumber) {
         PageRequest pageable = new PageRequest(pageNumber, 10, Sort.Direction.DESC, "createdDate");
         // todo this does not work
-//        return new AsyncResult<>(voteRepository.findByAuthorIdAndLike(userId, true, pageable));
         return new AsyncResult<>(voteRepository.findByAuthorId(userId, pageable));
     }
-
-    @Async
-    public Future<Vote> get(String id) throws KalipoException {
-        return new AsyncResult<>(voteRepository.findOne(id));
-    }
+//
+//    @Async
+//    public Future<Vote> get(String id) throws KalipoException {
+//        return new AsyncResult<>(voteRepository.findOne(id));
+//    }
 
 }

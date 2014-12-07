@@ -3,9 +3,9 @@
 kalipoApp
     .config(function ($routeProvider, $httpProvider, $translateProvider, USER_ROLES) {
         $routeProvider
-            .when('/reputation', {
-                templateUrl: 'views/reputations.html',
-                controller: 'ReputationController',
+            .when('/achievements', {
+                templateUrl: 'views/achievements.html',
+                controller: 'AchievementsController',
                 access: {
                     authorizedRoles: [USER_ROLES.all]
                 }

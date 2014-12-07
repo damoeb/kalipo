@@ -7,32 +7,30 @@ kalipoApp.controller('LikesController', ['$scope', '$rootScope', 'Vote', 'Commen
 
         $scope.$page = 0;
 
-        var doFetchLikes = function () {
-            console.log('Fetch likes of ' + $rootScope.login);
+        var doFetchVotes = function () {
+            console.log('Fetch votes of ' + $rootScope.login);
 
-            Vote.likes({'id': $rootScope.login, 'page': $scope.$page}, function (votes) {
+            Vote.byAuthor({'id': $rootScope.login, 'page': $scope.$page}, function (votes) {
 
-                console.log('Got ' + votes.length + ' votes');
+                console.log('Got ' + votes.length + ' votes on page ' + $scope.$page);
                 _.forEach(votes, function (vote) {
                     Comment.get({id: vote.commentId}, function (comment) {
-
-                        //console.log('Comment '+comment,id);
-                        comment.createdVoteDate = vote.createdDate;
-                        comment.voteAuthorId = vote.authorId;
+                        console.log('Resolved comment ' + comment.id);
+                        comment.$vote = vote;
                         $scope.likes.push(comment);
                     })
                 });
             })
         };
 
-        $scope.fetchLikes = function () {
+        $scope.fetchVotes = function () {
 
             if (typeof($rootScope.login) == 'undefined') {
                 console.log('wait');
-                $scope.$on('event:auth-authorized', doFetchLikes)
+                $scope.$on('event:auth-authorized', doFetchVotes)
             } else {
                 console.log($rootScope.login);
-                doFetchLikes();
+                doFetchVotes();
             }
         };
 

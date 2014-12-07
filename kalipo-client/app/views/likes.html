@@ -2,7 +2,7 @@
     Likes
 </h3>
 
-<div ng-init="fetchLikes()">
+<div ng-init="fetchVotes()">
 
     <div ng-switch on="likes.length == 0">
 
@@ -11,21 +11,25 @@
         </div>
 
         <div ng-switch-when="false" class="clearfix">
-            <div ng-repeat="comment in likes | orderBy:createdVoteDate">
+            <div ng-repeat="comment in likes | orderBy:$vote.createdDate">
                 <div ng-include="'comment_renderer.template'"></div>
             </div>
         </div>
-
 
     </div>
 
 </div>
 
 <script type="text/ng-template" id="comment_renderer.template">
-    <div>
+    <div style="margin-bottom: 15px">
 
         <p>
-            {{comment.createdVoteDate|fromNow}}
+
+            <span class="glyphicon glyphicon-thumbs-up" ng-show="comment.$vote.like" style="color:green;"></span>
+            <span class="glyphicon glyphicon-thumbs-down" ng-show="!comment.$vote.like" style="color:red;"></span>
+
+            {{comment.$vote.createdDate|fromNow}}
+
         </p>
 
         <div class="post">

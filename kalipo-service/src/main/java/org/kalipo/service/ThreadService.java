@@ -175,7 +175,7 @@ public class ThreadService {
 
     // --
 
-    @Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 50000)
     public void updateThreadStats() {
 
         Sort sort = new Sort(Sort.Direction.ASC, "lastModifiedDate");

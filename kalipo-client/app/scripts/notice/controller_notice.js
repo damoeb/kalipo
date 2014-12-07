@@ -19,7 +19,4 @@ kalipoApp.controller('NoticeController', function ($scope, Session, Notice) {
         Notice.seenUntilNow({userId: Session.login});
     };
 
-    $scope.clear = function () {
-        $scope.notice = {id: null};
-    };
 });
