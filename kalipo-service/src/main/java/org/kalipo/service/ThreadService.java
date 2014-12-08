@@ -164,7 +164,7 @@ public class ThreadService {
 
     @Async
     public Future<Page<Comment>> getCommentsWithPages(String id, Integer page) throws KalipoException {
-        PageRequest pageable = new PageRequest(page, 10, Sort.Direction.DESC, "createdDate");
+        PageRequest pageable = new PageRequest(page, 100, Sort.Direction.DESC, "createdDate");
         return new AsyncResult<Page<Comment>>(commentRepository.findByThreadIdAndStatusIn(id, Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING, Comment.Status.DELETED), pageable));
     }
 

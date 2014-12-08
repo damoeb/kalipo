@@ -16,6 +16,12 @@ kalipoApp.controller('LikesController', ['$scope', '$rootScope', 'Vote', 'Commen
                 _.forEach(votes, function (vote) {
                     Comment.get({id: vote.commentId}, function (comment) {
                         console.log('Resolved comment ' + comment.id);
+
+                        // author chose to hide his name
+                        if (_.isEmpty(comment.displayName) || _.isUndefined(comment.displayName)) {
+                            comment.displayName = 'Anonymous';
+                        }
+
                         comment.$vote = vote;
                         $scope.likes.push(comment);
                     })

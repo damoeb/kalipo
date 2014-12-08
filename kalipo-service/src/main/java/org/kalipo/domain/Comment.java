@@ -1,6 +1,5 @@
 package org.kalipo.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.joda.time.DateTime;
 import org.kalipo.validation.ModelExistsConstraint;
@@ -31,9 +30,9 @@ public class Comment {
     @ModelExistsConstraint(Comment.class)
     private String parentId;
 
-    @JsonIgnore
-    @NotNull(message = "{constraint.notnull.reputation}")
-    private Integer reputation = 0;
+//    @JsonIgnore
+//    @NotNull(message = "{constraint.notnull.reputation}")
+//    private Integer reputation = 0;
 
     // todo rename to createdOn
     @CreatedDate
@@ -43,6 +42,7 @@ public class Comment {
     @Size(min = 2, max = LEN_TEXT, message = "{constraint.length.text}")
     private String text;
 
+    @Transient
     @NotNull(message = "{constraint.notnull.authorId}")
     private String authorId;
 
@@ -60,9 +60,8 @@ public class Comment {
 //   todo implement in ui
     private Boolean sticky;
 
-    private Integer reportedCount = 0;
+    private Integer reportedCount;
 
-    //    @JsonIgnore
     @NotNull(message = "{constraint.notnull.status}")
     private Status status;
 
@@ -102,14 +101,6 @@ public class Comment {
 
     public void setParentId(String parentId) {
         this.parentId = parentId;
-    }
-
-    public Integer getReputation() {
-        return reputation;
-    }
-
-    public void setReputation(Integer reputation) {
-        this.reputation = reputation;
     }
 
     public DateTime getCreatedDate() {

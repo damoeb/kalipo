@@ -80,7 +80,6 @@ public class ReportService {
         report = reportRepository.save(report);
 
         // todo reject reports on already approved comment
-
         comment.setReportedCount(comment.getReportedCount() + 1);
 
         // todo async
