@@ -41,9 +41,6 @@ public class Thread implements Serializable {
 
     private Integer commentCount = 0;
 
-    // todo implement
-    private Integer views = 0;
-
     private int viewing;
 
     @NotNull
@@ -52,8 +49,6 @@ public class Thread implements Serializable {
     @NotNull
     private Set<String> modIds = new HashSet<String>();
 
-    // todo implement
-    private Set<String> authors = new HashSet<String>();
 
     /**
      * Bans on username level
@@ -115,14 +110,6 @@ public class Thread implements Serializable {
 
     public void setUriHooks(Set<String> uriHooks) {
         this.uriHooks = uriHooks;
-    }
-
-    public Integer getViews() {
-        return views;
-    }
-
-    public void setViews(Integer views) {
-        this.views = views;
     }
 
     public String getTitle() {
@@ -227,14 +214,6 @@ public class Thread implements Serializable {
 
     public void setUglyDucklingSurvivalEndDate(DateTime uglyDucklingSurvivalEndDate) {
         this.uglyDucklingSurvivalEndDate = uglyDucklingSurvivalEndDate;
-    }
-
-    public Set<String> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(Set<String> authors) {
-        this.authors = authors;
     }
 
     public String getInitiatorId() {

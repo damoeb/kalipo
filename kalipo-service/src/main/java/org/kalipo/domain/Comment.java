@@ -43,10 +43,10 @@ public class Comment {
     @Size(min = 2, max = LEN_TEXT, message = "{constraint.length.text}")
     private String text;
 
+    @JsonIgnore
     @NotNull(message = "{constraint.notnull.authorId}")
     private String authorId;
 
-    // todo add displayName to support Anonymous posts, make authorId @JsonIgnore
     private String displayName;
 
     private Integer likes = 0;

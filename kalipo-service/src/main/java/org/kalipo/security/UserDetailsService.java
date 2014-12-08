@@ -53,8 +53,7 @@ public class UserDetailsService implements org.springframework.security.core.use
             grantedAuthorities.add(new SimpleGrantedAuthority(authority.getName()));
         }
 
-        // append privileges according to reputation
-        // todo negative reputation wont get punished by now
+        // append privileges according to reputation - negative reputation wont get punished by now
         List<Privilege> privileges = privilegeRepository.findByReputationLowerThanOrEqual(Math.max(0, userFromDatabase.getReputation()));
         for (Privilege privilege : privileges) {
             grantedAuthorities.add(new SimpleGrantedAuthority(privilege.getName()));

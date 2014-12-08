@@ -263,7 +263,7 @@ public class CommentService {
         User author = userRepository.findOne(comment.getAuthorId());
         author.setStrikes(author.getStrikes() + 1);
 
-        if (author.getStrikes() > 4) {
+        if (author.getStrikes() > 2) {
 //            author.setStrikes(0);
 //            author.setBanned(true);
 //            author.setBanCount(author.getBanCount() + 1);

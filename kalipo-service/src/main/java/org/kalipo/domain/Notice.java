@@ -26,7 +26,7 @@ public class Notice implements Serializable {
     private Type type;
 
     @NotNull
-    private String commentId;
+    private String resourceId;
 
     @NotNull
     private String recipientId;
@@ -66,12 +66,12 @@ public class Notice implements Serializable {
         this.type = type;
     }
 
-    public String getCommentId() {
-        return commentId;
+    public String getResourceId() {
+        return resourceId;
     }
 
-    public void setCommentId(String commentId) {
-        this.commentId = commentId;
+    public void setResourceId(String resourceId) {
+        this.resourceId = resourceId;
     }
 
     public String getRecipientId() {
@@ -91,6 +91,6 @@ public class Notice implements Serializable {
     }
 
     public static enum Type {
-        LIKE, MENTION, REPLY, DELETION, REPORT, REVIEW, APPROVAL
+        LIKE, MENTION, REPLY, DELETION, REPORT, REVIEW, FRAUDULENT_USER, APPROVAL
     }
 }

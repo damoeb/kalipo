@@ -27,7 +27,6 @@ import java.util.concurrent.Future;
  * on approve: reputation + 5 for every reporter, reputation - 100 for author
  * on reject: reputation - 50 for author
  * on report: iff report count > 5 comment will become hidden until reviewed
- * todo: peer review reports of users with reputation >= author
  */
 @Service
 @KalipoExceptionHandler
@@ -79,7 +78,7 @@ public class ReportService {
 
         report = reportRepository.save(report);
 
-        // todo reject reports on already approved comment
+        // todo reject reports on already manually approved comments
 
         comment.setReportedCount(comment.getReportedCount() + 1);
 
