@@ -2,8 +2,8 @@ package org.kalipo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.ApiOperation;
-import org.kalipo.domain.RepRevision;
-import org.kalipo.service.RepRevisionService;
+import org.kalipo.domain.Achievement;
+import org.kalipo.service.AchievementService;
 import org.kalipo.service.util.OptParamFixerUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,12 +25,12 @@ import java.util.concurrent.ExecutionException;
  */
 @RestController
 @RequestMapping("/app")
-public class RepRevisionResource {
+public class AchievementResource {
 
-    private final Logger log = LoggerFactory.getLogger(RepRevisionResource.class);
+    private final Logger log = LoggerFactory.getLogger(AchievementResource.class);
 
     @Inject
-    private RepRevisionService repRevisionService;
+    private AchievementService achievementService;
 
     /**
      * GET  /rest/achievements/:userId -> get all the votes.
@@ -40,13 +40,13 @@ public class RepRevisionResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get reputation achievements for {user}")
-    public List<RepRevision> getUsersVotes(@Valid @NotNull @PathVariable String userId, @QueryParam("page") Integer page) throws ExecutionException, InterruptedException {
+    public List<Achievement> getUsersVotes(@Valid @NotNull @PathVariable String userId, @QueryParam("page") Integer page) throws ExecutionException, InterruptedException {
 
         log.debug("REST request to Achievement of user {}", userId);
 
         OptParamFixerUtil.fixPage(page);
 
-        return repRevisionService.getRevisions(userId, page).get();
+        return achievementService.getRevisions(userId, page).get();
     }
 
 }

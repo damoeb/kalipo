@@ -40,6 +40,8 @@ public class Thread implements Serializable {
     private DateTime lastModifiedDate;
 
     private Integer commentCount = 0;
+    private Integer pendingCount = 0;
+    private Integer reportedCount = 0;
 
     // todo implement
     private Integer views = 0;
@@ -251,6 +253,22 @@ public class Thread implements Serializable {
 
     public void setViewing(int viewing) {
         this.viewing = viewing;
+    }
+
+    public Integer getPendingCount() {
+        return pendingCount;
+    }
+
+    public void setPendingCount(Integer pendingCount) {
+        this.pendingCount = pendingCount;
+    }
+
+    public Integer getReportedCount() {
+        return reportedCount;
+    }
+
+    public void setReportedCount(Integer reportedCount) {
+        this.reportedCount = reportedCount;
     }
 
     /**

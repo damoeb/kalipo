@@ -21,26 +21,33 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         $scope.$reportCount = 0;
         $scope.$hasReports = false;
 
-        Thread.discussion({id: threadId}, function (comments) {
+        $scope.comments = [];
 
-            $scope.comments = [];
+        var $this = this;
 
-            $scope.comments = _sort(_hierarchical(_.sortBy(comments, function (comment) {
-                if (comment.status == 'PENDING') {
-                    $scope.$pendingCount++;
-                }
-                if (comment.reportedCount > 0) {
-                    $scope.$reportCount++;
-                }
-                return -comment.createdDate
-            })));
+        var currentPage = 0;
+
+        $scope.loadMore = function () {
+            currentPage++;
+            fetchComments();
+        };
+
+        var fetchComments = function () {
+            Thread.discussion({id: threadId, page: currentPage}, function (page) {
+
+                $scope.comments = _sort(_hierarchical(_.sortBy(page.content, function (comment) {
+                    return -comment.createdDate
+                })));
 
 //            todo enable scrollTo
 //            if (commentId) {
 //                noty({text: 'Go to comment ' + commentId});
 //                $scope.scrollTo(commentId);
 //            }
-        });
+            });
+        };
+
+        fetchComments();
 
         var isTyping = false;
         var stoppedTypingTimer = 0;

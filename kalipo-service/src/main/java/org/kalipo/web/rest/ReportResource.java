@@ -109,7 +109,7 @@ public class ReportResource {
         log.debug("REST request to get all Reports");
 
         // todo use with threadId
-//        return reportService.getPending(threadId).get();
+//        return reportService.getPendingWithPages(threadId).get();
         return reportService.getAll().get();
     }
 

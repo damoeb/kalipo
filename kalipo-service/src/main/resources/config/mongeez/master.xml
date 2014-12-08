@@ -2,5 +2,7 @@
     <file path="authorities.xml"/>
     <file path="users.xml"/>
     <file path="privileges.xml"/>
-    <file path="reputationDefinition.xml"/>
+    <file path="reputation.xml"/>
+    <file path="threads.xml"/>
+    <file path="comments.xml"/>
 </changeFiles>

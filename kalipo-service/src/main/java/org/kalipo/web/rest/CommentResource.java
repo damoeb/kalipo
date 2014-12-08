@@ -123,11 +123,11 @@ public class CommentResource {
         }
 
         if (StringUtils.isBlank(threadId)) {
-            return commentService.getPending(page).get();
+            return commentService.getPendingWithPages(page).get();
 
         } else {
 
-            return commentService.getPendingInThread(threadId, page).get();
+            return commentService.getPendingInThreadWithPages(threadId, page).get();
         }
     }
 

@@ -17,6 +17,7 @@ import org.kalipo.service.util.URLNormalizer;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
@@ -162,9 +163,9 @@ public class ThreadService {
     }
 
     @Async
-    public Future<List<Comment>> getComments(String id) throws KalipoException {
-        // todo use pageable
-        return new AsyncResult<List<Comment>>(commentRepository.findByThreadIdAndStatus(id, Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING, Comment.Status.DELETED)));
+    public Future<Page<Comment>> getCommentsWithPages(String id, Integer page) throws KalipoException {
+        PageRequest pageable = new PageRequest(page, 10, Sort.Direction.DESC, "createdDate");
+        return new AsyncResult<Page<Comment>>(commentRepository.findByThreadIdAndStatusIn(id, Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING, Comment.Status.DELETED), pageable));
     }
 
     public void delete(String id) throws KalipoException {
@@ -175,7 +176,7 @@ public class ThreadService {
 
     // --
 
-    @Scheduled(fixedDelay = 50000)
+    @Scheduled(fixedDelay = 20000)
     public void updateThreadStats() {
 
         Sort sort = new Sort(Sort.Direction.ASC, "lastModifiedDate");
@@ -187,6 +188,8 @@ public class ThreadService {
 
             thread.setLikes(voteRepository.countLikesOfThread(thread.getId()));
             thread.setCommentCount(commentRepository.countApprovedInThread(thread.getId()));
+            thread.setPendingCount(commentRepository.countPendingInThread(thread.getId()));
+            thread.setReportedCount(commentRepository.countReportedInThread(thread.getId()));
 
 //                commentCount, likes, authors
 

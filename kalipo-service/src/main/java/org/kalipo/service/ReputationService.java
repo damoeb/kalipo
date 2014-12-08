@@ -3,9 +3,9 @@ package org.kalipo.service;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
 import org.kalipo.domain.*;
+import org.kalipo.repository.AchievementRepository;
 import org.kalipo.repository.CommentRepository;
-import org.kalipo.repository.RepRevisionRepository;
-import org.kalipo.repository.ReputationDefinitionRepository;
+import org.kalipo.repository.ReputationRepository;
 import org.kalipo.repository.UserRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
@@ -37,10 +37,10 @@ public class ReputationService {
     private UserRepository userRepository;
 
     @Inject
-    private RepRevisionRepository repRevisionRepository;
+    private AchievementRepository achievementRepository;
 
     @Inject
-    private ReputationDefinitionRepository reputationDefinitionRepository;
+    private ReputationRepository reputationRepository;
 
     /**
      * Create a reputation revision for a vote
@@ -62,18 +62,18 @@ public class ReputationService {
         final String authorId = comment.getAuthorId();
         final String voterId = vote.getAuthorId();
 
-        RepRevision rvForAuthor, rvForVoter;
+        Achievement rvForAuthor, rvForVoter;
 
         if (vote.isLike()) {
-            rvForAuthor = createRevision(authorId, resourceRef, ReputationDefinition.Type.LIKE);
-            rvForVoter = createRevision(voterId, resourceRef, ReputationDefinition.Type.LIKED);
+            rvForAuthor = createRevision(authorId, resourceRef, Reputation.Type.LIKE);
+            rvForVoter = createRevision(voterId, resourceRef, Reputation.Type.LIKED);
         } else {
-            rvForAuthor = createRevision(authorId, resourceRef, ReputationDefinition.Type.DISLIKE);
-            rvForVoter = createRevision(voterId, resourceRef, ReputationDefinition.Type.DISLIKED);
+            rvForAuthor = createRevision(authorId, resourceRef, Reputation.Type.DISLIKE);
+            rvForVoter = createRevision(voterId, resourceRef, Reputation.Type.DISLIKED);
         }
 
-        repRevisionRepository.save(rvForAuthor);
-        repRevisionRepository.save(rvForVoter);
+        achievementRepository.save(rvForAuthor);
+        achievementRepository.save(rvForVoter);
 
         updateUserReputation(rvForAuthor);
         updateUserReputation(rvForVoter);
@@ -96,11 +96,11 @@ public class ReputationService {
             /**
              * report is ok, comment is rightly flagged
              */
-            RepRevision rvForAuthor = createRevision(authorId, resourceRef, ReputationDefinition.Type.REPORT);
-            repRevisionRepository.save(rvForAuthor);
+            Achievement rvForAuthor = createRevision(authorId, resourceRef, Reputation.Type.REPORT);
+            achievementRepository.save(rvForAuthor);
 
-            RepRevision rvForReporter = createRevision(reporterId, resourceRef, ReputationDefinition.Type.REPORTED);
-            repRevisionRepository.save(rvForReporter);
+            Achievement rvForReporter = createRevision(reporterId, resourceRef, Reputation.Type.REPORTED);
+            achievementRepository.save(rvForReporter);
 
             updateUserReputation(rvForAuthor);
             updateUserReputation(rvForReporter);
@@ -110,8 +110,8 @@ public class ReputationService {
              * report is invalid
              */
             if (report.isAbused()) {
-                RepRevision rvForReporter = createRevision(reporterId, resourceRef, ReputationDefinition.Type.ABUSED_REPORT);
-                repRevisionRepository.save(rvForReporter);
+                Achievement rvForReporter = createRevision(reporterId, resourceRef, Reputation.Type.ABUSED_REPORT);
+                achievementRepository.save(rvForReporter);
 
                 updateUserReputation(rvForReporter);
             }
@@ -125,15 +125,15 @@ public class ReputationService {
      */
     // todo async
     public void onUserCreation(@Valid @NotNull User user) {
-        RepRevision rvForNewUser = createRevision(user.getLogin(), user.getLogin(), ReputationDefinition.Type.WELCOME);
-        repRevisionRepository.save(rvForNewUser);
+        Achievement rvForNewUser = createRevision(user.getLogin(), user.getLogin(), Reputation.Type.WELCOME);
+        achievementRepository.save(rvForNewUser);
 
         updateUserReputation(rvForNewUser);
 
     }
 
     /**
-     * Punish comment deleting by ReputationDefinition.Type.RM_COMMENT
+     * Punish comment deleting by Reputation.Type.RM_COMMENT
      *
      * @param comment the comment
      * @throws KalipoException
@@ -142,34 +142,34 @@ public class ReputationService {
     public void onCommentDeletion(@Valid @NotNull Comment comment) throws KalipoException {
         Asserts.isNotNull(comment, "comment");
 
-        RepRevision rvForUser = createRevision(comment.getAuthorId(), comment.getId(), ReputationDefinition.Type.RM_COMMENT);
-        repRevisionRepository.save(rvForUser);
+        Achievement rvForUser = createRevision(comment.getAuthorId(), comment.getId(), Reputation.Type.RM_COMMENT);
+        achievementRepository.save(rvForUser);
 
         updateUserReputation(rvForUser);
     }
 
     @RolesAllowed(Privileges.CREATE_PRIVILEGE)
     @Throttled
-    public void update(ReputationDefinition reputationDefinition) throws KalipoException {
-        reputationDefinitionRepository.save(reputationDefinition);
+    public void update(Reputation reputation) throws KalipoException {
+        reputationRepository.save(reputation);
     }
 
     @Async
-    public Future<ReputationDefinition> get(String id) throws KalipoException {
-        return new AsyncResult<>(reputationDefinitionRepository.findOne(id));
+    public Future<Reputation> get(String id) throws KalipoException {
+        return new AsyncResult<>(reputationRepository.findOne(id));
     }
 
 
     @Async
-    public Future<List<ReputationDefinition>> getAll() {
-        return new AsyncResult<>(reputationDefinitionRepository.findAll());
+    public Future<List<Reputation>> getAll() {
+        return new AsyncResult<>(reputationRepository.findAll());
     }
 
     // --
 
-    private void updateUserReputation(RepRevision revision) {
+    private void updateUserReputation(Achievement revision) {
         User u = userRepository.findOne(revision.getUserId());
-        ReputationDefinition definition = reputationDefinitionRepository.findByType(revision.getType());
+        Reputation definition = reputationRepository.findByType(revision.getType());
 
         log.info(String.format("%s gets %s reputation after %s (rev %s)", revision.getUserId(), definition.getReputation(), revision.getType(), revision.getId()));
 
@@ -177,8 +177,8 @@ public class ReputationService {
         userRepository.save(u);
     }
 
-    private RepRevision createRevision(String authorId, String resourceRef, ReputationDefinition.Type type) {
-        RepRevision rv = new RepRevision();
+    private Achievement createRevision(String authorId, String resourceRef, Reputation.Type type) {
+        Achievement rv = new Achievement();
         rv.setUserId(authorId);
         rv.setResourceRef(resourceRef);
         rv.setType(type);

@@ -10,7 +10,7 @@ import org.kalipo.config.MongoConfiguration;
 import org.kalipo.domain.*;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.ReportRepository;
-import org.kalipo.repository.ReputationDefinitionRepository;
+import org.kalipo.repository.ReputationRepository;
 import org.kalipo.repository.UserRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
@@ -54,7 +54,7 @@ public class ReputationServiceTest {
     private UserRepository userRepository;
 
     @Inject
-    private ReputationDefinitionRepository reputationDefinitionRepository;
+    private ReputationRepository reputationRepository;
 
     @Inject
     private ReputationService reputationService;
@@ -87,7 +87,7 @@ public class ReputationServiceTest {
         // get user reputation
         User userAfter = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
-        assertThat(userBefore.getReputation()).isEqualTo(userAfter.getReputation() - reputationDefinitionRepository.findByType(ReputationDefinition.Type.WELCOME).getReputation());
+        assertThat(userBefore.getReputation()).isEqualTo(userAfter.getReputation() - reputationRepository.findByType(Reputation.Type.WELCOME).getReputation());
 
         // delete revision
 
@@ -102,15 +102,15 @@ public class ReputationServiceTest {
         User userBefore = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
         Vote newVote = new Vote();
-        newVote.setIsLike(true);
+        newVote.setLike(true);
         newVote.setCommentId(comment.getId());
 
         reputationService.onCommentVoting(newVote);
 
         User userAfter = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
-        int repLiked = reputationDefinitionRepository.findByType(ReputationDefinition.Type.LIKED).getReputation();
-        int repLike = reputationDefinitionRepository.findByType(ReputationDefinition.Type.LIKE).getReputation();
+        int repLiked = reputationRepository.findByType(Reputation.Type.LIKED).getReputation();
+        int repLike = reputationRepository.findByType(Reputation.Type.LIKE).getReputation();
 
         assertThat(userBefore.getReputation()).isEqualTo(userAfter.getReputation() - repLiked - repLike);
 
@@ -122,15 +122,15 @@ public class ReputationServiceTest {
         User userBefore = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
         Vote newVote = new Vote();
-        newVote.setIsLike(false);
+        newVote.setLike(false);
         newVote.setCommentId(comment.getId());
 
         reputationService.onCommentVoting(newVote);
 
         User userAfter = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
-        int repDisliked = reputationDefinitionRepository.findByType(ReputationDefinition.Type.DISLIKED).getReputation();
-        int repDislike = reputationDefinitionRepository.findByType(ReputationDefinition.Type.DISLIKE).getReputation();
+        int repDisliked = reputationRepository.findByType(Reputation.Type.DISLIKED).getReputation();
+        int repDislike = reputationRepository.findByType(Reputation.Type.DISLIKE).getReputation();
 
         assertThat(userBefore.getReputation()).isEqualTo(userAfter.getReputation() - repDisliked - repDislike);
 
@@ -154,8 +154,8 @@ public class ReputationServiceTest {
 
         User userAfter = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
-        int repReport = reputationDefinitionRepository.findByType(ReputationDefinition.Type.REPORT).getReputation();
-        int repReported = reputationDefinitionRepository.findByType(ReputationDefinition.Type.REPORTED).getReputation();
+        int repReport = reputationRepository.findByType(Reputation.Type.REPORT).getReputation();
+        int repReported = reputationRepository.findByType(Reputation.Type.REPORTED).getReputation();
 
         assertThat(userBefore.getReputation()).isEqualTo(userAfter.getReputation() - repReport - repReported);
 
@@ -180,7 +180,7 @@ public class ReputationServiceTest {
 
         User userAfter = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
-        int repAbusedReport = reputationDefinitionRepository.findByType(ReputationDefinition.Type.ABUSED_REPORT).getReputation();
+        int repAbusedReport = reputationRepository.findByType(Reputation.Type.ABUSED_REPORT).getReputation();
 
         assertThat(userBefore.getReputation()).isEqualTo(userAfter.getReputation() - repAbusedReport);
 
@@ -195,7 +195,7 @@ public class ReputationServiceTest {
 
         User userAfter = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
-        int repRmComment = reputationDefinitionRepository.findByType(ReputationDefinition.Type.RM_COMMENT).getReputation();
+        int repRmComment = reputationRepository.findByType(Reputation.Type.RM_COMMENT).getReputation();
 
         assertThat(userBefore.getReputation()).isEqualTo(userAfter.getReputation() - repRmComment);
     }

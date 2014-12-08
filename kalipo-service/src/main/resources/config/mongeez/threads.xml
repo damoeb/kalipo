@@ -1,0 +1,26 @@
+<mongoChangeLog>
+    <changeSet changeId="ChangeSet-threads" author="jhipster">
+        <script>
+            db.T_THREAD.insert(
+            {
+            "_id" : ObjectId("5484cc19c832000009108573"),
+            "uriHooks" : [],
+            "title" : "WAC und Rapid stolpern übereinander",
+            "commentCount" : 1,
+            "views" : 0,
+            "viewing" : 0,
+            "initiatorId" : "admin",
+            "modIds" : [ "admin" ],
+            "authors" : [],
+            "kLine" : [],
+            "leadCommentId" : "5484cc19c8301dc174baf451",
+            "likes" : 0,
+            "dislikes" : 0,
+            "read_only" : false,
+            "status" : "OPEN"
+            }
+            );
+
+        </script>
+    </changeSet>
+</mongoChangeLog>

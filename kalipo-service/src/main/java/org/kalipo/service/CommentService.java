@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Future;
 
@@ -181,15 +182,15 @@ public class CommentService {
     }
 
     @Async
-    public Future<List<Comment>> getPending(final int pageNumber) {
+    public Future<List<Comment>> getPendingWithPages(final int pageNumber) {
         PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, "createdDate");
         return new AsyncResult<>(commentRepository.findByStatus(Comment.Status.PENDING, pageable));
     }
 
     @Async
-    public Future<List<Comment>> getPendingInThread(String threadId, final int pageNumber) {
+    public Future<List<Comment>> getPendingInThreadWithPages(String threadId, final int pageNumber) {
         PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, "createdDate");
-        return new AsyncResult<>(commentRepository.findByThreadIdAndStatus(threadId, Comment.Status.PENDING, pageable));
+        return new AsyncResult<>(commentRepository.findByThreadIdAndStatusIn(threadId, Arrays.asList(Comment.Status.PENDING), pageable).getContent());
     }
 
     @Async

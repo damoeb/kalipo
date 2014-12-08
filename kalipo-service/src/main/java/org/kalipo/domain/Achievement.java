@@ -9,11 +9,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotNull;
 
 /**
- * A RepRevision.
+ * A Achievement.
  */
 
-@Document(collection = "T_REP_REVISION")
-public class RepRevision {
+@Document(collection = "T_ACHIEVEMENT")
+public class Achievement {
 
     @Id
     private String id;
@@ -26,7 +26,7 @@ public class RepRevision {
     private DateTime createdDate;
 
     @NotNull(message = "{constraint.notnull.type}")
-    private ReputationDefinition.Type type;
+    private Reputation.Type type;
 
     private String resourceRef;
 
@@ -42,7 +42,7 @@ public class RepRevision {
         return userId;
     }
 
-    public RepRevision setUserId(String userId) {
+    public Achievement setUserId(String userId) {
         this.userId = userId;
         return this;
     }
@@ -55,11 +55,11 @@ public class RepRevision {
         this.createdDate = createdDate;
     }
 
-    public ReputationDefinition.Type getType() {
+    public Reputation.Type getType() {
         return type;
     }
 
-    public RepRevision setType(ReputationDefinition.Type type) {
+    public Achievement setType(Reputation.Type type) {
         this.type = type;
         return this;
     }
@@ -68,7 +68,7 @@ public class RepRevision {
         return resourceRef;
     }
 
-    public RepRevision setResourceRef(String resourceRef) {
+    public Achievement setResourceRef(String resourceRef) {
         this.resourceRef = resourceRef;
         return this;
     }

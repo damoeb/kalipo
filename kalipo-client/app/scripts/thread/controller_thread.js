@@ -14,6 +14,10 @@ kalipoApp.controller('ThreadController', ['$scope', '$routeParams', 'Thread', '$
 //          todo create a $modIds
             thread.$uriHooks = thread.uriHooks.join('\n');
             thread.$modIds = thread.modIds.join(' ').trim();
+
+            $scope.$pendingCount = thread.pendingCount;
+            $scope.$reportCount = thread.reportedCount;
+
             $scope.thread = thread;
         });
 

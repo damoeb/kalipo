@@ -4,7 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
-import org.kalipo.domain.ReputationDefinition;
+import org.kalipo.domain.Reputation;
 import org.kalipo.service.ReputationService;
 import org.kalipo.service.util.Asserts;
 import org.slf4j.Logger;
@@ -25,9 +25,9 @@ import java.util.concurrent.ExecutionException;
  */
 @RestController
 @RequestMapping("/app/rest")
-public class ReputationDefinitionResource {
+public class ReputationResource {
 
-    private final Logger log = LoggerFactory.getLogger(ReputationDefinitionResource.class);
+    private final Logger log = LoggerFactory.getLogger(ReputationResource.class);
 
     @Inject
     private ReputationService reputationService;
@@ -44,7 +44,7 @@ public class ReputationDefinitionResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Reputation not found")
     })
-    public void update(@PathVariable String id, @NotNull @RequestBody ReputationDefinition reputation) throws KalipoException {
+    public void update(@PathVariable String id, @NotNull @RequestBody Reputation reputation) throws KalipoException {
         log.debug("REST request to update Reputation : {}", reputation);
 
         Asserts.isNotNull(id, "id");
@@ -61,7 +61,7 @@ public class ReputationDefinitionResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the reputations")
-    public List<ReputationDefinition> getAll() throws ExecutionException, InterruptedException {
+    public List<Reputation> getAll() throws ExecutionException, InterruptedException {
         log.debug("REST request to get all Reputations");
         return reputationService.getAll().get();
     }
@@ -78,7 +78,7 @@ public class ReputationDefinitionResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Reputation not found")
     })
-    public ResponseEntity<ReputationDefinition> get(@PathVariable String id) throws KalipoException, ExecutionException, InterruptedException {
+    public ResponseEntity<Reputation> get(@PathVariable String id) throws KalipoException, ExecutionException, InterruptedException {
         log.debug("REST request to get Reputation : {}", id);
         Asserts.isNotNull(id, "id");
 

@@ -8,8 +8,10 @@ import org.kalipo.domain.Comment;
 import org.kalipo.domain.Thread;
 import org.kalipo.service.ThreadService;
 import org.kalipo.service.util.Asserts;
+import org.kalipo.service.util.OptParamFixerUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.QueryParam;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
@@ -134,11 +137,13 @@ public class ThreadResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Thread not found")
     })
-    public ResponseEntity<List<Comment>> getComments(@PathVariable String id) throws KalipoException, ExecutionException, InterruptedException {
+    public ResponseEntity<Page<Comment>> getComments(@PathVariable String id, @QueryParam("page") Integer page) throws KalipoException, ExecutionException, InterruptedException {
         log.debug("REST request to get Comments of Thread : {}", id);
         Asserts.isNotNull(id, "id");
 
-        return Optional.ofNullable(threadService.getComments(id).get())
+        page = OptParamFixerUtil.fixPage(page);
+
+        return Optional.ofNullable(threadService.getCommentsWithPages(id, page).get())
                 .map(thread -> new ResponseEntity<>(
                         thread,
                         HttpStatus.OK))
