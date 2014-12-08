@@ -25,6 +25,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
 
         var $this = this;
 
+        // todo implement a comment retrieval, that supports pagination
         var currentPage = 0;
 
         $scope.loadMore = function () {

@@ -1,12 +1,8 @@
-rename RepRevision to Achievement
-rename ReputationDefinition to Reputation
-
 sys: docker, nginx, snort, nagios, elastic search
 - Achievements: stackoverflow zeigt die die rep upgrades an wie soundcloud die notifications 
 more consistent naming authorId/userId if possible
 
 discuss/moderate/monitor/notifications/browse
-vote/tag loeschen
 pageable for all lists
 
 - Live stats: 93 users viewing

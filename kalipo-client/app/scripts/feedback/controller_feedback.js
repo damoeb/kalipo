@@ -11,10 +11,8 @@ kalipoApp.controller('FeedbackController', function ($scope, Feedback) {
     $scope.submitFeedback = function () {
         Feedback.save($scope.feedback,
             function () {
-
                 $scope.clear();
             });
     };
-
 
 });
