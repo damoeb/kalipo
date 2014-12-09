@@ -98,5 +98,4 @@ public class VoteService {
         return new AsyncResult<>(voteRepository.findByAuthorId(userId, pageable));
     }
 
-
 }

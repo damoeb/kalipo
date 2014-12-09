@@ -177,15 +177,15 @@ public class NoticeService {
 
     // --
 
-    private void sendNotice(String recipientId, Notice.Type type, String commentId) {
+    private void sendNotice(String recipientId, Notice.Type type, String resourceId) {
 
         // todo should be debug
-        log.info(String.format("Notify %s of %s on resource %s", recipientId, type.name(), commentId));
+        log.info(String.format("Notify %s of %s on resource %s", recipientId, type.name(), resourceId));
 
         Notice notice = new Notice();
         notice.setRecipientId(recipientId);
         notice.setInitiatorId(SecurityUtils.getCurrentLogin());
-        notice.setResourceId(commentId);
+        notice.setResourceId(resourceId);
         notice.setType(type);
 
         noticeRepository.save(notice);
