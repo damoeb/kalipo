@@ -135,9 +135,10 @@ public class NoticeService {
     @Async
     public void notifySuperModsOfFraudulentUser(User user) {
         try {
-//          todo implement: fraud user
-//            Asserts.isNotNull(comment, "comment");
-//            userRepository.findSuperMods().forEach(user -> sendNotice(user.getLogin(), Notice.Type.REPORT, comment.getId()));
+
+            Asserts.isNotNull(user, "user");
+            userRepository.findSuperMods().forEach(mod -> sendNotice(mod.getLogin(), Notice.Type.FRAUDULENT_USER, user.getLogin()));
+
         } catch (Exception e) {
             log.error(String.format("Unable to notify superMods of fraud-user %s. Reason: %s", user, e.getMessage()));
         }
@@ -178,10 +179,13 @@ public class NoticeService {
 
     private void sendNotice(String recipientId, Notice.Type type, String commentId) {
 
+        // todo should be debug
+        log.info(String.format("Notify %s of %s on resource %s", recipientId, type.name(), commentId));
+
         Notice notice = new Notice();
         notice.setRecipientId(recipientId);
         notice.setInitiatorId(SecurityUtils.getCurrentLogin());
-        notice.setCommentId(commentId);
+        notice.setResourceId(commentId);
         notice.setType(type);
 
         noticeRepository.save(notice);

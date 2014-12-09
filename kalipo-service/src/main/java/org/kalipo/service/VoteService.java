@@ -97,10 +97,6 @@ public class VoteService {
         // todo this does not work
         return new AsyncResult<>(voteRepository.findByAuthorId(userId, pageable));
     }
-//
-//    @Async
-//    public Future<Vote> get(String id) throws KalipoException {
-//        return new AsyncResult<>(voteRepository.findOne(id));
-//    }
+
 
 }

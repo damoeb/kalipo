@@ -1,5 +1,6 @@
 package org.kalipo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.joda.time.DateTime;
 import org.kalipo.validation.ModelExistsConstraint;
@@ -42,7 +43,7 @@ public class Comment {
     @Size(min = 2, max = LEN_TEXT, message = "{constraint.length.text}")
     private String text;
 
-    @Transient
+    @JsonIgnore
     @NotNull(message = "{constraint.notnull.authorId}")
     private String authorId;
 
@@ -60,7 +61,7 @@ public class Comment {
 //   todo implement in ui
     private Boolean sticky;
 
-    private Integer reportedCount;
+    private Integer reportedCount = 0;
 
     @NotNull(message = "{constraint.notnull.status}")
     private Status status;
