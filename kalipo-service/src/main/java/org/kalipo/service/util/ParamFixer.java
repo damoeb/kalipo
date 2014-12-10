@@ -6,7 +6,7 @@ package org.kalipo.service.util;
 public final class ParamFixer {
 
     public static Integer fixPage(Integer page) {
-        final Integer MAX = 20;
+        final Integer MAX = 1000;
         final Integer DEF = 0;
 
         if (page == null || page < 0) {

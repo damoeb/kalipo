@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.kalipo.domain.Comment;
 import org.kalipo.service.CommentService;
 import org.kalipo.service.util.Asserts;
+import org.kalipo.service.util.ParamFixer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -118,9 +119,7 @@ public class CommentResource {
     public List<Comment> getAllUnderReview(@QueryParam("thread") String threadId, @QueryParam("page") Integer page) throws ExecutionException, InterruptedException {
         log.debug("REST request to get all Comments, that have to be reviewed");
 
-        if (page == null || page < 0) {
-            page = 0;
-        }
+        page = ParamFixer.fixPage(page);
 
         if (StringUtils.isBlank(threadId)) {
             return commentService.getPendingWithPages(page).get();

@@ -4,7 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.ApiOperation;
 import org.kalipo.domain.Vote;
 import org.kalipo.service.VoteService;
-import org.kalipo.service.util.OptParamFixerUtil;
+import org.kalipo.service.util.ParamFixer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -57,9 +57,7 @@ public class VoteResource {
 
         log.debug("REST request to get Votes of user");
 
-        OptParamFixerUtil.fixPage(page);
-
-        return voteService.getVotes(userId, page).get();
+        return voteService.getVotes(userId, ParamFixer.fixPage(page)).get();
     }
 
     /**

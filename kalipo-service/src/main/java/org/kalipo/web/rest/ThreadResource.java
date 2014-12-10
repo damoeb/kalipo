@@ -8,7 +8,7 @@ import org.kalipo.domain.Comment;
 import org.kalipo.domain.Thread;
 import org.kalipo.service.ThreadService;
 import org.kalipo.service.util.Asserts;
-import org.kalipo.service.util.OptParamFixerUtil;
+import org.kalipo.service.util.ParamFixer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -141,9 +141,7 @@ public class ThreadResource {
         log.debug("REST request to get Comments of Thread : {}", id);
         Asserts.isNotNull(id, "id");
 
-        page = OptParamFixerUtil.fixPage(page);
-
-        return Optional.ofNullable(threadService.getCommentsWithPages(id, page).get())
+        return Optional.ofNullable(threadService.getCommentsWithPages(id, ParamFixer.fixPage(page)).get())
                 .map(thread -> new ResponseEntity<>(
                         thread,
                         HttpStatus.OK))

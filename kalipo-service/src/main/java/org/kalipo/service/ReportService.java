@@ -1,5 +1,6 @@
 package org.kalipo.service;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
 import org.kalipo.config.ErrorCode;
@@ -11,6 +12,7 @@ import org.kalipo.repository.ReportRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
+import org.kalipo.service.util.NumUtils;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,13 +81,14 @@ public class ReportService {
         report = reportRepository.save(report);
 
         // todo reject reports on already manually approved comments
-        comment.setReportedCount(comment.getReportedCount() + 1);
+        Integer reportedCount = NumUtils.nullToZero(comment.getReportedCount()) + 1;
+        comment.setReportedCount(reportedCount);
 
         // todo async
-        if (comment.getReportedCount() == 1) {
+        if (reportedCount == 1) {
             noticeService.notifyModsOfThread(comment.getThreadId(), report);
         }
-        if (comment.getReportedCount() == CRITICAL_REPORT_COUNT) {
+        if (reportedCount == CRITICAL_REPORT_COUNT) {
             log.info(String.format("Hiding comment %s after %s reports", comment.getId(), CRITICAL_REPORT_COUNT));
             comment.setHidden(true);
             noticeService.notifySuperModsOfFraudulentComment(comment);

@@ -4,7 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.ApiOperation;
 import org.kalipo.domain.Achievement;
 import org.kalipo.service.AchievementService;
-import org.kalipo.service.util.OptParamFixerUtil;
+import org.kalipo.service.util.ParamFixer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -44,9 +44,7 @@ public class AchievementResource {
 
         log.debug("REST request to Achievement of user {}", userId);
 
-        OptParamFixerUtil.fixPage(page);
-
-        return achievementService.getRevisions(userId, page).get();
+        return achievementService.getRevisions(userId, ParamFixer.fixPage(page)).get();
     }
 
 }

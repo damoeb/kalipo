@@ -12,6 +12,7 @@ import org.kalipo.repository.VoteRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
+import org.kalipo.service.util.NumUtils;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,11 +80,11 @@ public class VoteService {
 
         if (vote.isLike()) {
             log.info(String.format("%s likes comment %s", SecurityUtils.getCurrentLogin(), comment.getId()));
-            comment.setLikes(comment.getLikes() + 1);
+            comment.setLikes(NumUtils.nullToZero(comment.getLikes()) + 1);
             noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.LIKE, comment.getId());
         } else {
             log.info(String.format("%s dislikes comment %s", SecurityUtils.getCurrentLogin(), comment.getId()));
-            comment.setDislikes(comment.getDislikes() + 1);
+            comment.setDislikes(NumUtils.nullToZero(comment.getDislikes()) + 1);
             // don't notify about dislikes, it's bad for the motivation and feeds a troll
         }
         commentRepository.save(comment);

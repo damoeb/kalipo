@@ -35,7 +35,6 @@ public class Comment {
 //    @NotNull(message = "{constraint.notnull.reputation}")
 //    private Integer reputation = 0;
 
-    // todo rename to createdOn
     @CreatedDate
     private DateTime createdDate;
 
@@ -49,6 +48,16 @@ public class Comment {
 
     private String displayName;
 
+    // todo create a related hash to order all comments close to their parents
+    @JsonIgnore
+    private String relatedness = "100001000010000100001000010000";
+
+    // todo implement
+//    private Integer childrenCount;
+
+    // todo implement level restriction, max limit is 5 (as defined by the relatedness hash)
+    private int level = 0;
+
     private Integer likes = 0;
 
     private Integer dislikes = 0;
@@ -61,7 +70,7 @@ public class Comment {
 //   todo implement in ui
     private Boolean sticky;
 
-    private Integer reportedCount = 0;
+    private Integer reportedCount;
 
     @NotNull(message = "{constraint.notnull.status}")
     private Status status;
@@ -142,6 +151,14 @@ public class Comment {
 
     public void setDislikes(Integer dislikes) {
         this.dislikes = dislikes;
+    }
+
+    public String getRelatedness() {
+        return relatedness;
+    }
+
+    public void setRelatedness(String relatedness) {
+        this.relatedness = relatedness;
     }
 
     public Status getStatus() {

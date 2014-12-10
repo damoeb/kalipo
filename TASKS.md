@@ -1,6 +1,8 @@
 hierarchical query of comment structure? http://docs.mongodb.org/manual/tutorial/model-tree-structures/
 - minimize comment json footprint: null instead of 0
 
+rename likes to likeCount, same for dislike...
+
 sys: docker, nginx, snort, nagios, elastic search
 - Achievements: stackoverflow zeigt die die rep upgrades an wie soundcloud die notifications 
 more consistent naming authorId/userId if possible

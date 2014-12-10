@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.query.Order;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -164,7 +165,11 @@ public class ThreadService {
 
     @Async
     public Future<Page<Comment>> getCommentsWithPages(String id, Integer page) throws KalipoException {
-        PageRequest pageable = new PageRequest(page, 100, Sort.Direction.DESC, "createdDate");
+        Sort sort = new Sort(
+            new Sort.Order(Sort.Direction.ASC, "relatedness"),
+            new Sort.Order(Sort.Direction.DESC, "createdDate")
+        );
+        PageRequest pageable = new PageRequest(page, 100, sort);
         return new AsyncResult<Page<Comment>>(commentRepository.findByThreadIdAndStatusIn(id, Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING, Comment.Status.DELETED), pageable));
     }
 
