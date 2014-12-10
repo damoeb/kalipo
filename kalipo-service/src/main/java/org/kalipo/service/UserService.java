@@ -80,6 +80,7 @@ public class UserService {
         newUser.setLastName(lastName);
         newUser.setEmail(email);
         newUser.setLangKey(langKey);
+        newUser.setRegistrationDate(DateTime.now());
         // new user is not active
         newUser.setActivated(false);
         // new user gets registration key

@@ -60,6 +60,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     private DateTime bannedUntilDate;
 
+    @NotNull
+    private DateTime registrationDate;
+
     // Count violations
     private int strikes;
 
@@ -222,6 +225,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setLastLoginTry(DateTime lastLoginTry) {
         this.lastLoginTry = lastLoginTry;
+    }
+
+    public DateTime getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(DateTime registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
     @Override
