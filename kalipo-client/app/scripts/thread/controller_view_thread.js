@@ -130,6 +130,13 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
                     comment.likes = 0;
                 }
 
+                if(_.isUndefined(comment.likes)) {
+                    comment.likes = 0;
+                }
+                if(_.isUndefined(comment.dislikes)) {
+                    comment.dislikes = 0;
+                }
+
                 comment.$pending = comment.status == 'PENDING';
 
                 // todo minimize negative-only comments, hell-banned subthreads

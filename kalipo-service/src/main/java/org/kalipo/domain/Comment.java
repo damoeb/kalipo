@@ -58,9 +58,9 @@ public class Comment {
     // todo implement level restriction, max limit is 5 (as defined by the fingerprint hash)
     private int level = 0;
 
-    private Integer likes = 0;
+    private Integer likes;
 
-    private Integer dislikes = 0;
+    private Integer dislikes;
 
     private Boolean hidden;
 
