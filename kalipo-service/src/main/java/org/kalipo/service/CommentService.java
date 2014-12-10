@@ -35,6 +35,7 @@ import java.util.concurrent.Future;
 public class CommentService {
 
     private static final int PAGE_SIZE = 51;
+    private static final int MAX_LEVEL = 8;
     private final Logger log = LoggerFactory.getLogger(CommentService.class);
 
     @Inject
@@ -309,22 +310,36 @@ public class CommentService {
 
         // --
 
+        Comment parent = null;
         // reply only to approved comments
-        if (isNew && dirty.getParentId() != null) {
-            Comment parent = commentRepository.findOne(dirty.getParentId());
-            if (parent == null) {
-                throw new KalipoException(ErrorCode.INVALID_PARAMETER, "parentId");
-            }
-            if (parent.getStatus() != Comment.Status.APPROVED) {
-                throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "Invalid status of parent. It is not approved yet");
+        if (isNew) {
+
+            if (dirty.getParentId() == null) {
+                dirty.setLevel(0);
+            } else {
+                parent = commentRepository.findOne(dirty.getParentId());
+                if (parent == null) {
+                    throw new KalipoException(ErrorCode.INVALID_PARAMETER, "parentId");
+                }
+
+                if (parent.getLevel() + 1 > MAX_LEVEL) {
+                    parent = commentRepository.findOne(parent.getParentId());
+                }
+
+                dirty.setLevel(parent.getLevel() + 1);
+
+                if (parent.getStatus() != Comment.Status.APPROVED) {
+                    throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "Invalid status of parent. It is not approved yet");
+                }
             }
         }
 
-        Thread thread = threadRepository.findOne(dirty.getThreadId());
+        final Thread thread = threadRepository.findOne(dirty.getThreadId());
         Asserts.isNotNull(thread, "threadId");
         Asserts.isNotReadOnly(thread);
 
         dirty.setAuthorId(currentLogin);
+        dirty.setFingerprint(getFingerprint(parent, thread));
 
         // todo this part should be async. A separate process analyzes the comment and decides whether it is approved/review-required/spam
         final boolean isMod = thread.getModIds().contains(currentLogin);
@@ -349,6 +364,7 @@ public class CommentService {
 
             if (isNew) {
                 thread.setCommentCount(thread.getCommentCount() + 1);
+
                 threadRepository.save(thread);
 
                 noticeService.notifyAuthorOfParent(dirty);
@@ -358,6 +374,11 @@ public class CommentService {
         noticeService.notifyMentionedUsers(dirty);
 
         return dirty;
+    }
+
+    private String getFingerprint(Comment parent, Thread thread) {
+        final String parentFp = parent == null ? "" : parent.getFingerprint();
+        return parentFp + String.format("%05d", thread.getCommentCount());
     }
 
     private void assignSticky(Comment comment, Comment original, boolean isNew, boolean isMod, boolean isSuperMod) throws KalipoException {

@@ -50,12 +50,12 @@ public class Comment {
 
     // todo create a related hash to order all comments close to their parents
     @JsonIgnore
-    private String relatedness = "100001000010000100001000010000";
+    private String fingerprint = "100001000010000100001000010000";
 
     // todo implement
 //    private Integer childrenCount;
 
-    // todo implement level restriction, max limit is 5 (as defined by the relatedness hash)
+    // todo implement level restriction, max limit is 5 (as defined by the fingerprint hash)
     private int level = 0;
 
     private Integer likes = 0;
@@ -153,12 +153,12 @@ public class Comment {
         this.dislikes = dislikes;
     }
 
-    public String getRelatedness() {
-        return relatedness;
+    public String getFingerprint() {
+        return fingerprint;
     }
 
-    public void setRelatedness(String relatedness) {
-        this.relatedness = relatedness;
+    public void setFingerprint(String fingerprint) {
+        this.fingerprint = fingerprint;
     }
 
     public Status getStatus() {
@@ -207,6 +207,14 @@ public class Comment {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     /**
