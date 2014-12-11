@@ -25,6 +25,8 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
 
         var $this = this;
 
+        $this.groupedByIdMaster = {};
+
         // todo implement a comment retrieval, that supports pagination
         var currentPage = 0;
 
@@ -35,10 +37,21 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
 
         var fetchComments = function () {
             Thread.discussion({id: threadId, page: currentPage}, function (page) {
+                //
+                //var sorted = _.sortBy(page.content, function (comment) {
+                //    return -comment.createdDate
+                //});
 
-                $scope.comments = _sort(_hierarchical(_.sortBy(page.content, function (comment) {
-                    return -comment.createdDate
-                })));
+                var comments = page.content;
+                var groupedById = _groupById(comments);
+
+                $this.groupedByIdMaster = _.merge(groupedById, $this.groupedByIdMaster);
+
+                _mergeIntoTree(comments);
+
+                $scope.comments = _sort(_.flatten(_.values($this.groupedByIdMaster)));
+
+                console.log($scope.comments.length);
 
 //            todo enable scrollTo
 //            if (commentId) {
@@ -110,9 +123,9 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
             })
         };
 
-        var _hierarchical = function (comments) {
+        var _groupById = function (comments) {
 
-            var map = _.groupBy(comments, function(comment) {
+            return _.groupBy(comments, function(comment) {
                 comment.children = [];
                 comment.$report = false;
                 comment.$commentCount = 1;
@@ -157,18 +170,21 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
 
                 return comment.id;
             });
+        };
+
+        var _mergeIntoTree = function (comments) {
 
             return _.filter(comments, function(comment) {
                 if (comment.parentId == null) {
                     return true;
                 } else {
-                    var parent = map[comment.parentId][0];
+                    var parent = $this.groupedByIdMaster[comment.parentId][0];
                     parent.children.push(comment);
 
                     // push commentCount to parents
                     var child = comment;
                     while(child.parentId) {
-                        parent = map[child.parentId][0];
+                        parent = $this.groupedByIdMaster[child.parentId][0];
                         parent.$commentCount += 1;
                         child = parent;
                     }
