@@ -7,7 +7,7 @@
             "text" : "http www.laola1.at de fussba... 8 7.html ein Artikel über die Zuschauerzahlen dieser buli saison",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00001",
+            "fingerprint" : "99998",
             "displayName" : "GedriteAlAlMg-Si-",
             "status" : "APPROVED"
             });
@@ -18,7 +18,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf451",
-            "fingerprint" : "0000100002",
+            "fingerprint" : "9999899997",
             "displayName" : "puppetmaster",
             "likes" : 1,
             "status" : "APPROVED"
@@ -29,7 +29,7 @@
             "text" : "so schlecht das Match  auf irregulärem Rasen  auch war  und   im direkten Vergleich war HSV vs. Mainz auch um nix besser  nur vor viel mehr Zusehern und wenigstens auf gscheitem terrain .   der Unterschied zum Spiel des WAC vor einer Woche in Salzburg war  dass dort den millionenschweren Bullen ein  zumindest  Elfer in der 93. geschenkt wurde   und Rapid ein Elfer  der noch viel klarer war als der 1. für die Bullen   vorenthalten wurde. not more or less. natürlich spielen wir nicht gut  genug  zumal auf solchem Rasen und bei solch einem   sogar daheim   destruktiven Gegner. a b e r .....",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00003",
+            "fingerprint" : "99996",
             "displayName" : "No Depression",
             "likes" : 5,
             "dislikes" : 7,
@@ -42,7 +42,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf453",
-            "fingerprint" : "0000300004",
+            "fingerprint" : "9999699995",
             "displayName" : "rpk",
             "likes" : 3,
             "dislikes" : 1,
@@ -55,7 +55,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf454",
-            "fingerprint" : "000030000400005",
+            "fingerprint" : "999969999599994",
             "displayName" : "Modjo",
             "likes" : 1,
             "status" : "APPROVED"
@@ -67,7 +67,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf455",
-            "fingerprint" : "00003000040000500006",
+            "fingerprint" : "99996999959999499993",
             "displayName" : "rpk",
             "status" : "APPROVED"
             });
@@ -78,7 +78,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf456",
-            "fingerprint" : "0000300004000050000600007",
+            "fingerprint" : "9999699995999949999399992",
             "displayName" : "puppetmaster",
             "status" : "APPROVED"
             });
@@ -89,7 +89,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf453",
-            "fingerprint" : "0000300008",
+            "fingerprint" : "9999699991",
             "displayName" : "Karl Graus 2,0",
             "likes" : 4,
             "dislikes" : 1,
@@ -102,7 +102,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf458",
-            "fingerprint" : "000030000800009",
+            "fingerprint" : "999969999199990",
             "displayName" : "Hr. Vorragend",
             "status" : "APPROVED"
             });
@@ -113,7 +113,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf459",
-            "fingerprint" : "00003000080000900010",
+            "fingerprint" : "99996999919999099989",
             "displayName" : "Karl Graus 2,0",
             "likes" : 2,
             "dislikes" : 1,
@@ -126,7 +126,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf410",
-            "fingerprint" : "0000300008000090001000011",
+            "fingerprint" : "9999699991999909998999988",
             "displayName" : "Hr. Vorragend",
             "status" : "APPROVED"
             });
@@ -137,7 +137,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf410",
-            "fingerprint" : "0000300008000090001000012",
+            "fingerprint" : "9999699991999909998999987",
             "displayName" : "minus für anglizismen",
             "likes" : 2,
             "dislikes" : 1,
@@ -150,7 +150,7 @@
             "authorId" : "admin",
             "level" : 5,
             "parentId" : "5484cc19c8301dc174baf412",
-            "fingerprint" : "000030000800009000100001200013",
+            "fingerprint" : "999969999199990999899998799986",
             "displayName" : "Karl Graus 2,0",
             "likes" : 1,
             "status" : "APPROVED"
@@ -162,7 +162,7 @@
             "authorId" : "admin",
             "level" : 5,
             "parentId" : "5484cc19c8301dc174baf412",
-            "fingerprint" : "000030000800009000100001200014",
+            "fingerprint" : "999969999199990999899998799985",
             "displayName" : "G.Steffl",
             "status" : "APPROVED"
             });
@@ -173,7 +173,7 @@
             "authorId" : "admin",
             "level" : 6,
             "parentId" : "5484cc19c8301dc174baf414",
-            "fingerprint" : "00003000080000900010000120001400015",
+            "fingerprint" : "99996999919999099989999879998599984",
             "displayName" : "minus für anglizismen",
             "status" : "APPROVED"
             });
@@ -184,7 +184,7 @@
             "authorId" : "admin",
             "level" : 7,
             "parentId" : "5484cc19c8301dc174baf415",
-            "fingerprint" : "0000300008000090001000012000140001500016",
+            "fingerprint" : "9999699991999909998999987999859998499983",
             "displayName" : "Karl Graus 2,0",
             "status" : "APPROVED"
             });
@@ -194,7 +194,7 @@
             "text" : "Also  nachdem es diese Runde schon ganz gut funktioniert hat  hier meine Wünsche für die nächste  Altach   Sturm Graz 0 4 Austria   Grödig 1 1 Ried   Wr. Neustadt 1 1 Admira   WAC 1 0 Salzburg   Rapid 3 1   live in ORF eins",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00017",
+            "fingerprint" : "99982",
             "displayName" : "irgendana",
             "likes" : 4,
             "dislikes" : 2,
@@ -207,7 +207,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf417",
-            "fingerprint" : "0001700018",
+            "fingerprint" : "9998299981",
             "displayName" : "GedriteAlAlMg-Si-",
             "status" : "APPROVED"
             });
@@ -218,7 +218,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf417",
-            "fingerprint" : "0001700019",
+            "fingerprint" : "9998299980",
             "displayName" : "Mr XY",
             "likes" : 4,
             "dislikes" : 3,
@@ -231,7 +231,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf419",
-            "fingerprint" : "000170001900020",
+            "fingerprint" : "999829998099979",
             "displayName" : "Schabbesgoi",
             "status" : "APPROVED"
             });
@@ -242,7 +242,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf417",
-            "fingerprint" : "0001700021",
+            "fingerprint" : "9998299978",
             "displayName" : "irgendana",
             "likes" : 1,
             "status" : "APPROVED"
@@ -254,7 +254,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf421",
-            "fingerprint" : "000170002100022",
+            "fingerprint" : "999829997899977",
             "displayName" : "haljô",
             "likes" : 1,
             "status" : "APPROVED"
@@ -266,7 +266,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf422",
-            "fingerprint" : "00017000210002200023",
+            "fingerprint" : "99982999789997799976",
             "displayName" : "tenminusthreeequalseven",
             "status" : "APPROVED"
             });
@@ -276,7 +276,7 @@
             "text" : "keine Ahnung  was ihr alle raunzt   ich hab mir grad die vierminütige Zusammanfassung auf laola angschaut und davon waren 2 Minuten ganz passabel...",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00024",
+            "fingerprint" : "99975",
             "displayName" : "Frizzl",
             "likes" : 3,
             "status" : "APPROVED"
@@ -288,7 +288,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf424",
-            "fingerprint" : "0002400025",
+            "fingerprint" : "9997599974",
             "displayName" : "DFRUKA",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -299,7 +299,7 @@
             "text" : "Ich wünsch mir ein X. Das hat natürlich keine Bedeutung fürs Spiel oder sonst wen aber ich wollt s nur loswerden ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00026",
+            "fingerprint" : "99973",
             "displayName" : "Mr.Niceguy",
             "likes" : 2,
             "status" : "APPROVED"
@@ -310,7 +310,7 @@
             "text" : "nüm. dann schauen wir mal.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00027",
+            "fingerprint" : "99972",
             "displayName" : "morgause",
             "status" : "APPROVED"
             });
@@ -321,7 +321,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf427",
-            "fingerprint" : "0002700028",
+            "fingerprint" : "9997299971",
             "displayName" : "florus silentius",
             "likes" : 9,
             "status" : "APPROVED"
@@ -333,7 +333,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf428",
-            "fingerprint" : "000270002800029",
+            "fingerprint" : "999729997199970",
             "displayName" : "morgause",
             "likes" : 2,
             "dislikes" : 1,
@@ -345,7 +345,7 @@
             "text" : "Ich hasse die Winterpause.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00030",
+            "fingerprint" : "99969",
             "displayName" : "Building Better Worlds",
             "status" : "APPROVED"
             });
@@ -356,7 +356,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf430",
-            "fingerprint" : "0003000031",
+            "fingerprint" : "9996999968",
             "displayName" : "sirion",
             "status" : "APPROVED"
             });
@@ -366,7 +366,7 @@
             "text" : "Ein echtes Spitzenspiel. Mich hält es kaum noch auf dem Sitz.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00032",
+            "fingerprint" : "99967",
             "displayName" : "Byb Dolan",
             "likes" : 1,
             "status" : "APPROVED"
@@ -377,7 +377,7 @@
             "text" : "Wenig Zuschauer wenig poster..i geh jetzt essen..aufwiederlesen",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00033",
+            "fingerprint" : "99966",
             "displayName" : "Uncle Samy",
             "status" : "APPROVED"
             });
@@ -387,7 +387,7 @@
             "text" : "Im winter anstosszeit noch dazu am sonntag 16 30 is ja auch besonders intelligent. .geschweige den samstag ankickzeitn.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00034",
+            "fingerprint" : "99965",
             "displayName" : "Uncle Samy",
             "status" : "APPROVED"
             });
@@ -397,7 +397,7 @@
             "text" : "mit König ist ORF zu 100  Oesterreichischer Rapid Funk xD",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00035",
+            "fingerprint" : "99964",
             "displayName" : "Ildefons Lima",
             "likes" : 3,
             "status" : "APPROVED"
@@ -409,7 +409,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf435",
-            "fingerprint" : "0003500036",
+            "fingerprint" : "9996499963",
             "displayName" : "Paul Platon",
             "status" : "APPROVED"
             });
@@ -420,7 +420,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf435",
-            "fingerprint" : "0003500037",
+            "fingerprint" : "9996499962",
             "displayName" : "Ardbeg Uigeadail",
             "status" : "APPROVED"
             });
@@ -431,7 +431,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf435",
-            "fingerprint" : "0003500038",
+            "fingerprint" : "9996499961",
             "displayName" : "minus für anglizismen",
             "status" : "APPROVED"
             });
@@ -441,7 +441,7 @@
             "text" : "Wow  Koller wird im Lavantal geadelt  Schön   ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00039",
+            "fingerprint" : "99960",
             "displayName" : "pure post still",
             "likes" : 2,
             "status" : "APPROVED"
@@ -452,7 +452,7 @@
             "text" : "So ein Hundskick  warum tu ich mir das immer wieder an",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00040",
+            "fingerprint" : "99959",
             "displayName" : "MrRowX",
             "likes" : 16,
             "status" : "APPROVED"
@@ -464,7 +464,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf440",
-            "fingerprint" : "0004000041",
+            "fingerprint" : "9995999958",
             "displayName" : "morgause",
             "status" : "APPROVED"
             });
@@ -475,7 +475,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf440",
-            "fingerprint" : "0004000042",
+            "fingerprint" : "9995999957",
             "displayName" : "pure post still",
             "status" : "APPROVED"
             });
@@ -486,7 +486,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf440",
-            "fingerprint" : "0004000043",
+            "fingerprint" : "9995999956",
             "displayName" : "Uncle Samy",
             "likes" : 2,
             "status" : "APPROVED"
@@ -497,7 +497,7 @@
             "text" : "Schaffer auf Weihnachtensurlaub ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00044",
+            "fingerprint" : "99955",
             "displayName" : "Uncle Samy",
             "status" : "APPROVED"
             });
@@ -508,7 +508,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf444",
-            "fingerprint" : "0004400045",
+            "fingerprint" : "9995599954",
             "displayName" : "fredsbg",
             "status" : "APPROVED"
             });
@@ -518,7 +518,7 @@
             "text" : "den könig geht wieder mal ein achterl ab ... unglaublich  für sowas muss man gebühren zahlen.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00046",
+            "fingerprint" : "99953",
             "displayName" : "hans.maulwurf@huegel.at",
             "status" : "APPROVED"
             });
@@ -528,7 +528,7 @@
             "text" : "Und i sauf schon 3 wochn kan alk..werd gleich rückfällig.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00047",
+            "fingerprint" : "99952",
             "displayName" : "Uncle Samy",
             "status" : "APPROVED"
             });
@@ -538,7 +538,7 @@
             "text" : "Da schaub hat 3 schritte zurück gemacht. .",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00048",
+            "fingerprint" : "99951",
             "displayName" : "Uncle Samy",
             "likes" : 1,
             "status" : "APPROVED"
@@ -549,7 +549,7 @@
             "text" : "haha wieso vergleicht da König das jetzt mim Salzburg Spiel  ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00049",
+            "fingerprint" : "99950",
             "displayName" : "plaphi",
             "likes" : 1,
             "status" : "APPROVED"
@@ -561,7 +561,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf449",
-            "fingerprint" : "0004900050",
+            "fingerprint" : "9995099949",
             "displayName" : "fredsbg",
             "likes" : 4,
             "status" : "APPROVED"
@@ -573,7 +573,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf449",
-            "fingerprint" : "0004900051",
+            "fingerprint" : "9995099948",
             "displayName" : "Uncle Samy",
             "likes" : 4,
             "status" : "APPROVED"
@@ -584,7 +584,7 @@
             "text" : "De lavantal arena ist aber auch ein bundesliga taugliches stadion   ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00052",
+            "fingerprint" : "99947",
             "displayName" : "Uncle Samy",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -596,7 +596,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf452",
-            "fingerprint" : "0005200053",
+            "fingerprint" : "9994799946",
             "displayName" : "pure post still",
             "likes" : 5,
             "status" : "APPROVED"
@@ -608,7 +608,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf453",
-            "fingerprint" : "000520005300054",
+            "fingerprint" : "999479994699945",
             "displayName" : "eMeLy ChAnG",
             "status" : "APPROVED"
             });
@@ -618,7 +618,7 @@
             "text" : "Wenn eine mannschaft so tief steht und mauert  müssen die stürmer raus aus dem strafraum und überzahlen in den schnittstellen schaffen  damit man sich dann über die halbpositionen schnell wieder rein kombinieren kann mMn. Stur vorne stehen bringt nichts.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00055",
+            "fingerprint" : "99944",
             "displayName" : "pure post still",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -630,7 +630,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf455",
-            "fingerprint" : "0005500056",
+            "fingerprint" : "9994499943",
             "displayName" : "Luke Lucky",
             "likes" : 2,
             "status" : "APPROVED"
@@ -642,7 +642,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf456",
-            "fingerprint" : "000550005600057",
+            "fingerprint" : "999449994399942",
             "displayName" : "pure post still",
             "status" : "APPROVED"
             });
@@ -652,7 +652,7 @@
             "text" : "Was verdient eigentlich da könig ca. im Monat ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00058",
+            "fingerprint" : "99941",
             "displayName" : "Uncle Samy",
             "status" : "APPROVED"
             });
@@ -663,7 +663,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf458",
-            "fingerprint" : "0005800059",
+            "fingerprint" : "9994199940",
             "displayName" : "Ildefons Lima",
             "likes" : 5,
             "status" : "APPROVED"
@@ -675,7 +675,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf458",
-            "fingerprint" : "0005800060",
+            "fingerprint" : "9994199939",
             "displayName" : "pure post still",
             "likes" : 16,
             "status" : "APPROVED"
@@ -687,7 +687,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf458",
-            "fingerprint" : "0005800061",
+            "fingerprint" : "9994199938",
             "displayName" : "local simpleton",
             "likes" : 1,
             "status" : "APPROVED"
@@ -698,7 +698,7 @@
             "text" : "Rapidfunk König fangt aber früh an mit den Ausreden.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00062",
+            "fingerprint" : "99937",
             "displayName" : "Herr Irgendwer",
             "likes" : 6,
             "status" : "APPROVED"
@@ -709,7 +709,7 @@
             "text" : "Wirklich viel konzept kann ich im offensivspiel von rapid leider nicht erkennen.. schade  es wär nämlich schon potenzial da.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00063",
+            "fingerprint" : "99936",
             "displayName" : "pure post still",
             "likes" : 1,
             "status" : "APPROVED"
@@ -720,7 +720,7 @@
             "text" : "Das ist ein absichtlicher Fehler ...posting anpeitscher quasi...",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00064",
+            "fingerprint" : "99935",
             "displayName" : "Uncle Samy",
             "status" : "APPROVED"
             });
@@ -730,7 +730,7 @@
             "text" : "Ich glaub heute ist der WAC fällig.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00065",
+            "fingerprint" : "99934",
             "displayName" : "Mr.Niceguy",
             "likes" : 1,
             "status" : "APPROVED"
@@ -742,7 +742,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf465",
-            "fingerprint" : "0006500066",
+            "fingerprint" : "9993499933",
             "displayName" : "eMeLy ChAnG",
             "likes" : 2,
             "status" : "APPROVED"
@@ -753,7 +753,7 @@
             "text" : "Ein 0 0 wäre mir lieb...natürlich ganz im Sinne meiner Schwoazn ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00067",
+            "fingerprint" : "99932",
             "displayName" : "Unterton",
             "likes" : 2,
             "status" : "APPROVED"
@@ -764,7 +764,7 @@
             "text" : "scho wieda so einen destruktive spielweise wie die altacher...nicht schön anzuschauen  wenn eine mannschaftt nur mauerst u. auf konter lauert... hoffe nicht  dass der wac auch noch belohnt dafür wird...",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00068",
+            "fingerprint" : "99931",
             "displayName" : "*westwind*",
             "likes" : 1,
             "dislikes" : 2,
@@ -776,7 +776,7 @@
             "text" : "0 9  was gibtsn da für quoten drauf  xD",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00069",
+            "fingerprint" : "99930",
             "displayName" : "Ildefons Lima",
             "status" : "APPROVED"
             });
@@ -786,7 +786,7 @@
             "text" : "Gähn...de partie faungt schon mal langweilig an",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00070",
+            "fingerprint" : "99929",
             "displayName" : "Uncle Samy",
             "likes" : 1,
             "status" : "APPROVED"
@@ -797,7 +797,7 @@
             "text" : "0 9  Da ist eher der Wunsch Vater des Gedankens  hm   D",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00071",
+            "fingerprint" : "99928",
             "displayName" : "Quargelbrot",
             "status" : "APPROVED"
             });
@@ -808,7 +808,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf471",
-            "fingerprint" : "0007100072",
+            "fingerprint" : "9992899927",
             "displayName" : "Mr.Niceguy",
             "likes" : 1,
             "status" : "APPROVED"
@@ -819,7 +819,7 @@
             "text" : "Wär ein geiles ergebnis",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00073",
+            "fingerprint" : "99926",
             "displayName" : "Uncle Samy",
             "status" : "APPROVED"
             });
@@ -829,7 +829,7 @@
             "text" : "Wolfsberger ac  sk rapid 0 9   Wasn das fürn standard Fauxpas ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00074",
+            "fingerprint" : "99925",
             "displayName" : "Uncle Samy",
             "status" : "APPROVED"
             });
@@ -839,7 +839,7 @@
             "text" : "Gestern Weihnachtsfeier gehabt   ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00075",
+            "fingerprint" : "99924",
             "displayName" : "Herr Irgendwer",
             "status" : "APPROVED"
             });
@@ -849,7 +849,7 @@
             "text" : "ich glaub  rapid liegt an fünfter Position und n icht an vierter wie in obigen Zeilen erwähnt.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00076",
+            "fingerprint" : "99923",
             "displayName" : "-HPS-",
             "likes" : 1,
             "status" : "APPROVED"
@@ -860,7 +860,7 @@
             "text" : "Da könig schon wieder...de elfer gschicht in Salzburg",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00077",
+            "fingerprint" : "99922",
             "displayName" : "Uncle Samy",
             "likes" : 3,
             "status" : "APPROVED"
@@ -871,7 +871,7 @@
             "text" : "Steht nur bei mir 0 9   Nein  nicht in der  berschrift  darunter ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00078",
+            "fingerprint" : "99921",
             "displayName" : "Dr.Leakey",
             "likes" : 3,
             "status" : "APPROVED"
@@ -883,7 +883,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf478",
-            "fingerprint" : "0007800079",
+            "fingerprint" : "9992199920",
             "displayName" : "captankarotte",
             "status" : "APPROVED"
             });
@@ -894,7 +894,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf478",
-            "fingerprint" : "0007800080",
+            "fingerprint" : "9992199919",
             "displayName" : "Byb Dolan",
             "status" : "APPROVED"
             });
@@ -905,7 +905,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf480",
-            "fingerprint" : "000780008000081",
+            "fingerprint" : "999219991999918",
             "displayName" : "florus silentius",
             "status" : "APPROVED"
             });
@@ -915,7 +915,7 @@
             "text" : "Um Menschen in Zukunft nicht mehr als Verlierer dastehen zu lassen  und so einen wichtigen pädagogischen Schritt in Richtung gesellschaftliche Wärme zu tun  schlagen wir vor  sämtliche Mannschaften  natürlich auch Frau  und Seilschaften  via Gesetzesbeschluss dazu zu verpflichten  jedes Match Unentschieden zu beenden. Zu diesem Thema starten starten wir in Kürze unsere Kampagne  Unentschieden   Give Peace a Chance .",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00082",
+            "fingerprint" : "99917",
             "displayName" : "Beste Partei Österreichs",
             "likes" : 3,
             "dislikes" : 1,
@@ -928,7 +928,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf482",
-            "fingerprint" : "0008200083",
+            "fingerprint" : "9991799916",
             "displayName" : "-HPS-",
             "status" : "APPROVED"
             });
@@ -939,7 +939,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf482",
-            "fingerprint" : "0008200084",
+            "fingerprint" : "9991799915",
             "displayName" : "fredsbg",
             "status" : "APPROVED"
             });
@@ -949,7 +949,7 @@
             "text" : "Alar  ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00085",
+            "fingerprint" : "99914",
             "displayName" : "Mr XY",
             "status" : "APPROVED"
             });
@@ -959,7 +959,7 @@
             "text" : "Ein Verhalten beim Kopfball wie zwei aufeinander angesetzte Stiere  ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00086",
+            "fingerprint" : "99913",
             "displayName" : "Chukche",
             "status" : "APPROVED"
             });
@@ -969,7 +969,7 @@
             "text" : "Schnell  hart  junge Mannschaften... Spielerisch nicht gut..",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00087",
+            "fingerprint" : "99912",
             "displayName" : "Mr XY",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -981,7 +981,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf487",
-            "fingerprint" : "0008700088",
+            "fingerprint" : "9991299911",
             "displayName" : "fredsbg",
             "status" : "APPROVED"
             });
@@ -992,7 +992,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf488",
-            "fingerprint" : "000870008800089",
+            "fingerprint" : "999129991199910",
             "displayName" : "Mr XY",
             "status" : "APPROVED"
             });
@@ -1003,7 +1003,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf489",
-            "fingerprint" : "00087000880008900090",
+            "fingerprint" : "99912999119991099909",
             "displayName" : "fredsbg",
             "status" : "APPROVED"
             });
@@ -1013,7 +1013,7 @@
             "text" : "zuerst fast einen Elfmeter verursacht  kurz darauf ein unnotwendiges leicht Rot angehauchtes Foul im Mittelfeld begangen. Um nicht beim nächsten Zweikampf vom Platz zu fliegen hat er sich sicherheitshalber selbst verletzt.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00091",
+            "fingerprint" : "99908",
             "displayName" : "Palavermittler",
             "likes" : 2,
             "dislikes" : 3,
@@ -1026,7 +1026,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf491",
-            "fingerprint" : "0009100092",
+            "fingerprint" : "9990899907",
             "displayName" : "pure post still",
             "status" : "APPROVED"
             });
@@ -1036,7 +1036,7 @@
             "text" : "OT.. Jacobo sieht ein bissl aus  wie das gemeinsame Kind von Khedira und Sergio Ramos.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00093",
+            "fingerprint" : "99906",
             "displayName" : "pure post still",
             "likes" : 1,
             "dislikes" : 1,
@@ -1048,7 +1048,7 @@
             "text" : "Heast  der Schiri is a Pfeifn. Sehr schwach seine Leistung heute.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00094",
+            "fingerprint" : "99905",
             "displayName" : "gwaumpatamaikäfer",
             "status" : "APPROVED"
             });
@@ -1058,7 +1058,7 @@
             "text" : "Der König ist akustisch auch nicht ganz einwandfrei.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00095",
+            "fingerprint" : "99904",
             "displayName" : "Korratte",
             "likes" : 2,
             "status" : "APPROVED"
@@ -1069,7 +1069,7 @@
             "text" : "Lets go Rapid  lets go  ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00096",
+            "fingerprint" : "99903",
             "displayName" : "Mr XY",
             "likes" : 1,
             "dislikes" : 2,
@@ -1082,19 +1082,8 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf496",
-            "fingerprint" : "0009600097",
+            "fingerprint" : "9990399902",
             "displayName" : "gwaumpatamaikäfer",
-            "status" : "APPROVED"
-            });
-            db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf498"),
-            "threadId" : "5484cc19c832000009108573",
-            "text" : "bin dafür   wolln eh alle hamgehn",
-            "authorId" : "admin",
-            "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf496",
-            "fingerprint" : "0009600098",
-            "displayName" : "neversleep",
             "status" : "APPROVED"
             });
             db.T_COMMENT.insert({
@@ -1103,7 +1092,7 @@
             "text" : "",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00099",
+            "fingerprint" : "99900",
             "displayName" : "kaiser von mühlen",
             "status" : "APPROVED"
             });
@@ -1113,7 +1102,7 @@
             "text" : "Palla a wonnsinn.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00100",
+            "fingerprint" : "99899",
             "displayName" : "Mr XY",
             "status" : "APPROVED"
             });
@@ -1123,7 +1112,7 @@
             "text" : "Wolfsberg macht das 1 0. Kommentator voller Trauer   Das ist bitter.  Ich würde auch gern mal ein Spiel von RBS kommentieren dürfen  ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00101",
+            "fingerprint" : "99898",
             "displayName" : "freedom call",
             "likes" : 11,
             "status" : "APPROVED"
@@ -1134,7 +1123,7 @@
             "text" : "ein x wär ma eh ned so unrecht..",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00102",
+            "fingerprint" : "99897",
             "displayName" : "irgendana",
             "likes" : 2,
             "status" : "APPROVED"
@@ -1145,7 +1134,7 @@
             "text" : "wenns so nicht geht für rapid muss halt der schiri helfen  D klassisches geschenktes tor",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00103",
+            "fingerprint" : "99896",
             "displayName" : "Ildefons Lima",
             "dislikes" : 8,
             "status" : "APPROVED"
@@ -1157,7 +1146,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf103",
-            "fingerprint" : "0010300104",
+            "fingerprint" : "9989699895",
             "displayName" : "Blechweckerl",
             "status" : "APPROVED"
             });
@@ -1168,7 +1157,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf103",
-            "fingerprint" : "0010300105",
+            "fingerprint" : "9989699894",
             "displayName" : "Mr XY",
             "likes" : 1,
             "dislikes" : 1,
@@ -1181,7 +1170,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf103",
-            "fingerprint" : "0010300106",
+            "fingerprint" : "9989699893",
             "displayName" : "Capsicum",
             "likes" : 2,
             "dislikes" : 1,
@@ -1194,7 +1183,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf106",
-            "fingerprint" : "001030010600107",
+            "fingerprint" : "998969989399892",
             "displayName" : "morgause",
             "likes" : 4,
             "status" : "APPROVED"
@@ -1206,7 +1195,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf107",
-            "fingerprint" : "00103001060010700108",
+            "fingerprint" : "99896998939989299891",
             "displayName" : "Capsicum",
             "likes" : 3,
             "status" : "APPROVED"
@@ -1217,7 +1206,7 @@
             "text" : "wenn ich mir die postings so durchlese schein ich ja nicht viel zu verpassen",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00109",
+            "fingerprint" : "99890",
             "displayName" : "dergrauestar",
             "status" : "APPROVED"
             });
@@ -1227,7 +1216,7 @@
             "text" : "na endlich trifft a",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00110",
+            "fingerprint" : "99889",
             "displayName" : "Blechweckerl",
             "status" : "APPROVED"
             });
@@ -1237,7 +1226,7 @@
             "text" : "ausgleich  immerhin.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00111",
+            "fingerprint" : "99888",
             "displayName" : "morgause",
             "likes" : 4,
             "dislikes" : 1,
@@ -1249,7 +1238,7 @@
             "text" : "Na endlich  So. Und jetzt gleich nachlegen.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00112",
+            "fingerprint" : "99887",
             "displayName" : "Capsicum",
             "likes" : 2,
             "dislikes" : 2,
@@ -1261,7 +1250,7 @@
             "text" : "Warum weist man auch nicht darauf hin  dass der verteidiger so einen Kopfball NIEMALS. vors Tor  abwehren  darf  das ist eine Vorlage. Der muss zur seite raus oder ins torout ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00113",
+            "fingerprint" : "99886",
             "displayName" : "pure post still",
             "status" : "APPROVED"
             });
@@ -1271,7 +1260,7 @@
             "text" : "Also soviel Pech ist echt schon mühsam...",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00114",
+            "fingerprint" : "99885",
             "displayName" : "Capsicum",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -1282,7 +1271,7 @@
             "text" : "Schwab entlassen  sofort. So ein Heisl",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00115",
+            "fingerprint" : "99884",
             "displayName" : "MrRowX",
             "dislikes" : 8,
             "status" : "APPROVED"
@@ -1294,7 +1283,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf115",
-            "fingerprint" : "0011500116",
+            "fingerprint" : "9988499883",
             "displayName" : "irgendana",
             "status" : "APPROVED"
             });
@@ -1305,7 +1294,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf115",
-            "fingerprint" : "0011500117",
+            "fingerprint" : "9988499882",
             "displayName" : "Mr XY",
             "status" : "APPROVED"
             });
@@ -1316,7 +1305,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf115",
-            "fingerprint" : "0011500118",
+            "fingerprint" : "9988499881",
             "displayName" : "*westwind*",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -1328,7 +1317,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf115",
-            "fingerprint" : "0011500119",
+            "fingerprint" : "9988499880",
             "displayName" : "Ender Wiggin",
             "likes" : 1,
             "status" : "APPROVED"
@@ -1340,7 +1329,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf115",
-            "fingerprint" : "0011500120",
+            "fingerprint" : "9988499879",
             "displayName" : "divis",
             "likes" : 2,
             "status" : "APPROVED"
@@ -1351,7 +1340,7 @@
             "text" : "So ein Antikick vom WAC  dann noch so ein Eiertürl mit dem ersten Schuss. SCR kann einem leidtun.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00121",
+            "fingerprint" : "99878",
             "displayName" : "Blechweckerl",
             "likes" : 2,
             "status" : "APPROVED"
@@ -1362,7 +1351,7 @@
             "text" : "König sympatisiert schon sehr mit Rapid.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00122",
+            "fingerprint" : "99877",
             "displayName" : "gwaumpatamaikäfer",
             "likes" : 1,
             "dislikes" : 2,
@@ -1374,7 +1363,7 @@
             "text" : "haha  wie der orf moderator fast zum weinen anfangt als der wac in führung geht ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00123",
+            "fingerprint" : "99876",
             "displayName" : "DaChief",
             "likes" : 6,
             "dislikes" : 1,
@@ -1386,7 +1375,7 @@
             "text" : "Das Tor passt zum Spiel sic    Slapstick in Reinform....",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00124",
+            "fingerprint" : "99875",
             "displayName" : "neversleep",
             "likes" : 1,
             "status" : "APPROVED"
@@ -1397,7 +1386,7 @@
             "text" : "Die Qualität des Tors passt zum Spiel.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00125",
+            "fingerprint" : "99874",
             "displayName" : "stormcrow",
             "likes" : 1,
             "status" : "APPROVED"
@@ -1408,7 +1397,7 @@
             "text" : "endlich diesen unfähigen tormann raus  jeder profigoli faustet den ball weg  aber nein dieser noob will ihn fangen  ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00126",
+            "fingerprint" : "99873",
             "displayName" : "gulba",
             "likes" : 2,
             "status" : "APPROVED"
@@ -1419,7 +1408,7 @@
             "text" : "Ich sympathisiere keineswegs mit dem WAC  aber wenn Rapid in die Krise stürtzt passiert wenigstens vielleicht mal was. Das ist nämlich eine peinliche Vorstellung und hat mit Pech nichts zu tun  sondern mit einem halbherzigen System.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00127",
+            "fingerprint" : "99872",
             "displayName" : "pure post still",
             "likes" : 1,
             "status" : "APPROVED"
@@ -1430,7 +1419,7 @@
             "text" : "Wielang müssen wir die Pfeife im Tor noch mit schleppen ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00128",
+            "fingerprint" : "99871",
             "displayName" : "HunterThompson",
             "likes" : 2,
             "status" : "APPROVED"
@@ -1441,7 +1430,7 @@
             "text" : "sichalich  tor",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00129",
+            "fingerprint" : "99870",
             "displayName" : "parteiisch",
             "status" : "APPROVED"
             });
@@ -1451,7 +1440,7 @@
             "text" : "Najo ... 1 0",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00130",
+            "fingerprint" : "99869",
             "displayName" : "gwaumpatamaikäfer",
             "status" : "APPROVED"
             });
@@ -1461,7 +1450,7 @@
             "text" : "Slapstick ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00131",
+            "fingerprint" : "99868",
             "displayName" : "Herr Irgendwer",
             "status" : "APPROVED"
             });
@@ -1471,7 +1460,7 @@
             "text" : "geeeeeeeeeeeh bitte.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00132",
+            "fingerprint" : "99867",
             "displayName" : "morgause",
             "status" : "APPROVED"
             });
@@ -1481,7 +1470,7 @@
             "text" : "Minuspunkte für Hundskicks wäre überlegenswert.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00133",
+            "fingerprint" : "99866",
             "displayName" : "Petuschki",
             "likes" : 6,
             "status" : "APPROVED"
@@ -1493,7 +1482,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf133",
-            "fingerprint" : "0013300134",
+            "fingerprint" : "9986699865",
             "displayName" : "santa clause",
             "status" : "APPROVED"
             });
@@ -1503,7 +1492,7 @@
             "text" : "Mein tipp 0 0 oder irgendwer nuldn zum 1 0 eini",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00135",
+            "fingerprint" : "99864",
             "displayName" : "Uncle Samy",
             "status" : "APPROVED"
             });
@@ -1513,7 +1502,7 @@
             "text" : "Ich find die partie wieder extrem schnell.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00136",
+            "fingerprint" : "99863",
             "displayName" : "Mr XY",
             "status" : "APPROVED"
             });
@@ -1524,7 +1513,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf136",
-            "fingerprint" : "0013600137",
+            "fingerprint" : "9986399862",
             "displayName" : "pure post still",
             "likes" : 6,
             "status" : "APPROVED"
@@ -1536,7 +1525,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf137",
-            "fingerprint" : "001360013700138",
+            "fingerprint" : "998639986299861",
             "displayName" : "Mr XY",
             "status" : "APPROVED"
             });
@@ -1546,7 +1535,7 @@
             "text" : "Bis auf die Rapidfans  die ja eh immer mit Rücken zum Spiel singen  sie werden ihre Gründe haben..  ist es jetzt relativ ruhig im Hexenkessel Lavantal Arena. Kann sein  dass die Hauptribüne längst aufgrund von Langeweile und niedrigem Blutdruck verstorben ist.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00139",
+            "fingerprint" : "99860",
             "displayName" : "pure post still",
             "likes" : 5,
             "status" : "APPROVED"
@@ -1557,7 +1546,7 @@
             "text" : "Wahnsinn was das für ein Häuslkick ist.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00140",
+            "fingerprint" : "99859",
             "displayName" : "mank hoody",
             "likes" : 6,
             "status" : "APPROVED"
@@ -1568,7 +1557,7 @@
             "text" : "Zruck vom essen hab ich irgendwas versäumt ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00141",
+            "fingerprint" : "99858",
             "displayName" : "Uncle Samy",
             "likes" : 1,
             "status" : "APPROVED"
@@ -1580,7 +1569,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf141",
-            "fingerprint" : "0014100142",
+            "fingerprint" : "9985899857",
             "displayName" : "gwaumpatamaikäfer",
             "status" : "APPROVED"
             });
@@ -1590,7 +1579,7 @@
             "text" : "Haxlt eam und markiert den Unschuldigen  herrlich.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00143",
+            "fingerprint" : "99856",
             "displayName" : "Herr Irgendwer",
             "status" : "APPROVED"
             });
@@ -1600,7 +1589,7 @@
             "text" : "",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00144",
+            "fingerprint" : "99855",
             "displayName" : "Yhoshi",
             "likes" : 1,
             "status" : "APPROVED"
@@ -1611,7 +1600,7 @@
             "text" : "haha der könig will schon wieder elfer für rapid aus rein gar nichts herbeizureden  D",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00145",
+            "fingerprint" : "99854",
             "displayName" : "Ildefons Lima",
             "likes" : 5,
             "dislikes" : 2,
@@ -1624,7 +1613,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf145",
-            "fingerprint" : "0014500146",
+            "fingerprint" : "9985499853",
             "displayName" : "Capsicum",
             "likes" : 1,
             "dislikes" : 1,
@@ -1636,7 +1625,7 @@
             "text" : "Zwei Elfer  Schaub in Form und Stangenschuss.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00147",
+            "fingerprint" : "99852",
             "displayName" : "Mr XY",
             "likes" : 2,
             "status" : "APPROVED"
@@ -1647,7 +1636,7 @@
             "text" : "Tja  pech muss man sich auch erst verdienen..  ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00148",
+            "fingerprint" : "99851",
             "displayName" : "pure post still",
             "status" : "APPROVED"
             });
@@ -1657,7 +1646,7 @@
             "text" : "HEARST  Das gibt s ja ned... Die Kärntner haben ja nur Glück...",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00149",
+            "fingerprint" : "99850",
             "displayName" : "Capsicum",
             "status" : "APPROVED"
             });
@@ -1667,7 +1656,7 @@
             "text" : "Wärs ned langsam Zeit dass die zum Fu ball spielen anfangen ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00150",
+            "fingerprint" : "99849",
             "displayName" : "don't follow me",
             "likes" : 1,
             "status" : "APPROVED"
@@ -1679,7 +1668,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf150",
-            "fingerprint" : "0015000151",
+            "fingerprint" : "9984999848",
             "displayName" : "morgause",
             "status" : "APPROVED"
             });
@@ -1690,7 +1679,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf151",
-            "fingerprint" : "001500015100152",
+            "fingerprint" : "998499984899847",
             "displayName" : "Korratte",
             "status" : "APPROVED"
             });
@@ -1701,7 +1690,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf152",
-            "fingerprint" : "00150001510015200153",
+            "fingerprint" : "99849998489984799846",
             "displayName" : "morgause",
             "likes" : 1,
             "status" : "APPROVED"
@@ -1712,7 +1701,7 @@
             "text" : "muss man sich erst ein dosenlogo auf die brust nähen um hier einen 11er zu bekommen",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00154",
+            "fingerprint" : "99845",
             "displayName" : "minus für anglizismen",
             "likes" : 7,
             "dislikes" : 2,
@@ -1724,7 +1713,7 @@
             "text" : "Unpackbar wie in   gespielt wird....da bekomm ich Augenkrebs  Deshalb Sat1 Herr der Ringe III ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00155",
+            "fingerprint" : "99844",
             "displayName" : "Ardbeg Uigeadail",
             "likes" : 1,
             "status" : "APPROVED"
@@ -1736,7 +1725,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf155",
-            "fingerprint" : "0015500156",
+            "fingerprint" : "9984499843",
             "displayName" : "-HPS-",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -1747,7 +1736,7 @@
             "text" : "zur 2. Halbzeit nach Hause gekommen  den Kommentaren nach werde ich mir eher Frankfurt  Bremen ansehen.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00157",
+            "fingerprint" : "99842",
             "displayName" : "Palavermittler",
             "likes" : 1,
             "status" : "APPROVED"
@@ -1759,7 +1748,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf157",
-            "fingerprint" : "0015700158",
+            "fingerprint" : "9984299841",
             "displayName" : "pure post still",
             "status" : "APPROVED"
             });
@@ -1769,7 +1758,7 @@
             "text" : "Die Tore des Monats sind ja alle  bel. damari weil gegen Rapid. sonst am Schönsten  Tor von Altach igitt. mayerhofer grässlich... Ich bin für das Sturm Tor.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00159",
+            "fingerprint" : "99840",
             "displayName" : "Mr XY",
             "status" : "APPROVED"
             });
@@ -1779,7 +1768,7 @@
             "text" : "Jetzt auch noch der  unvoreingenommene   Experte  Payer...",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00160",
+            "fingerprint" : "99839",
             "displayName" : "FC Hintertupfing",
             "likes" : 1,
             "status" : "APPROVED"
@@ -1790,7 +1779,7 @@
             "text" : "Die Mitte  Immer leer  ich sag ja ein stürmer muss sich fsllen lassen..",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00161",
+            "fingerprint" : "99838",
             "displayName" : "pure post still",
             "status" : "APPROVED"
             });
@@ -1800,7 +1789,7 @@
             "text" : "Das Wort  Hundskick  darf man für diese Begegnung durchaus verwenden.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00162",
+            "fingerprint" : "99837",
             "displayName" : "Petuschki",
             "likes" : 2,
             "status" : "APPROVED"
@@ -1811,7 +1800,7 @@
             "text" : "Ein beschmierter Sessel aus dem Loch  in dem die brasilianische patchwork familie wochenlsng gefsngengehalten wurde ...hm..   eine  berlegung wert ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00163",
+            "fingerprint" : "99836",
             "displayName" : "pure post still",
             "likes" : 1,
             "status" : "APPROVED"
@@ -1822,7 +1811,7 @@
             "text" : "pause  AUFWACHEN  15min was sinnvolles machen und dann wieder 45min pennen",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00164",
+            "fingerprint" : "99835",
             "displayName" : "Ildefons Lima",
             "likes" : 2,
             "status" : "APPROVED"
@@ -1833,7 +1822,7 @@
             "text" : "Wie schlecht san eigentlich grahovac bzw wydra  dass der petsos immer wieder spielen darf ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00165",
+            "fingerprint" : "99834",
             "displayName" : "G.Steffl",
             "status" : "APPROVED"
             });
@@ -1843,7 +1832,7 @@
             "text" : "War der Modus schon immer so  Pos. 1   2   Champions League Quali. Pos. 3   4   Europa League Quali. Pos. 10   Abstieg Hatte 1. CL  2 3 EL im Kopf...",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00166",
+            "fingerprint" : "99833",
             "displayName" : "DaRudl",
             "dislikes" : 2,
             "status" : "APPROVED"
@@ -1855,7 +1844,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf166",
-            "fingerprint" : "0016600167",
+            "fingerprint" : "9983399832",
             "displayName" : "Kenn mee Nedaus",
             "status" : "APPROVED"
             });
@@ -1866,7 +1855,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf166",
-            "fingerprint" : "0016600168",
+            "fingerprint" : "9983399831",
             "displayName" : "ttlive",
             "status" : "APPROVED"
             });
@@ -1877,7 +1866,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf166",
-            "fingerprint" : "0016600169",
+            "fingerprint" : "9983399830",
             "displayName" : "FC Hintertupfing",
             "likes" : 3,
             "status" : "APPROVED"
@@ -1889,7 +1878,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf166",
-            "fingerprint" : "0016600170",
+            "fingerprint" : "9983399829",
             "displayName" : "pure post still",
             "likes" : 2,
             "status" : "APPROVED"
@@ -1901,7 +1890,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf166",
-            "fingerprint" : "0016600171",
+            "fingerprint" : "9983399828",
             "displayName" : "Dr.Schuh",
             "likes" : 2,
             "status" : "APPROVED"
@@ -1913,7 +1902,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf171",
-            "fingerprint" : "001660017100172",
+            "fingerprint" : "998339982899827",
             "displayName" : "Proudhon",
             "likes" : 2,
             "status" : "APPROVED"
@@ -1925,7 +1914,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf171",
-            "fingerprint" : "001660017100173",
+            "fingerprint" : "998339982899826",
             "displayName" : "DaRudl",
             "likes" : 1,
             "status" : "APPROVED"
@@ -1937,7 +1926,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf173",
-            "fingerprint" : "00166001710017300174",
+            "fingerprint" : "99833998289982699825",
             "displayName" : "Dr.Schuh",
             "likes" : 1,
             "status" : "APPROVED"
@@ -1949,7 +1938,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf173",
-            "fingerprint" : "00166001710017300175",
+            "fingerprint" : "99833998289982699824",
             "displayName" : "ttlive",
             "likes" : 2,
             "status" : "APPROVED"
@@ -1961,7 +1950,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf175",
-            "fingerprint" : "0016600171001730017500176",
+            "fingerprint" : "9983399828998269982499823",
             "displayName" : "Dr.Schuh",
             "status" : "APPROVED"
             });
@@ -1972,7 +1961,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf175",
-            "fingerprint" : "0016600171001730017500177",
+            "fingerprint" : "9983399828998269982499822",
             "displayName" : "ttlive",
             "likes" : 2,
             "status" : "APPROVED"
@@ -1984,7 +1973,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf166",
-            "fingerprint" : "0016600178",
+            "fingerprint" : "9983399821",
             "displayName" : "Herr Irgendwer",
             "status" : "APPROVED"
             });
@@ -1994,7 +1983,7 @@
             "text" : "Schiri zeigt Gnade  pfeift pünktlich ab. MVP ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00179",
+            "fingerprint" : "99820",
             "displayName" : "Herr Irgendwer",
             "likes" : 1,
             "status" : "APPROVED"
@@ -2005,7 +1994,7 @@
             "text" : "Altherrenkick...",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00180",
+            "fingerprint" : "99819",
             "displayName" : "Olga Blosmaanova",
             "status" : "APPROVED"
             });
@@ -2015,7 +2004,7 @@
             "text" : "Es ist so extrem schwach was da gespielt wird. Erschütternd",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00181",
+            "fingerprint" : "99818",
             "displayName" : "Muus M.",
             "likes" : 6,
             "status" : "APPROVED"
@@ -2026,7 +2015,7 @@
             "text" : "er wuerds dir auch nicht sagen",
             "authorId" : "admin",
             "level" : 2,
-            "fingerprint" : "00182",
+            "fingerprint" : "99817",
             "displayName" : "sappydharma",
             "status" : "APPROVED"
             });
@@ -2036,7 +2025,7 @@
             "text" : "sollte die Bundesliga eine Minuspunkte Regelung überdenken. Dafür dass sich einige bedauernswerte Fans dieses Spiel tatsächlich live angesehen und auch Geld dafür investiert haben  sollten die Vereinein Zukunft mit  1 Punkten bestraft werden.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00183",
+            "fingerprint" : "99816",
             "displayName" : "Petuschki",
             "likes" : 4,
             "dislikes" : 6,
@@ -2049,7 +2038,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf183",
-            "fingerprint" : "0018300184",
+            "fingerprint" : "9981699815",
             "displayName" : "sirion",
             "likes" : 2,
             "dislikes" : 6,
@@ -2062,7 +2051,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf184",
-            "fingerprint" : "001830018400185",
+            "fingerprint" : "998169981599814",
             "displayName" : "Petuschki",
             "status" : "APPROVED"
             });
@@ -2073,7 +2062,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf184",
-            "fingerprint" : "001830018400186",
+            "fingerprint" : "998169981599813",
             "displayName" : "UR-Westler",
             "likes" : 1,
             "status" : "APPROVED"
@@ -2085,7 +2074,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf183",
-            "fingerprint" : "0018300187",
+            "fingerprint" : "9981699812",
             "displayName" : "sirion",
             "likes" : 1,
             "dislikes" : 1,
@@ -2098,7 +2087,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf187",
-            "fingerprint" : "001830018700188",
+            "fingerprint" : "998169981299811",
             "displayName" : "Petuschki",
             "likes" : 2,
             "status" : "APPROVED"
@@ -2110,7 +2099,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf188",
-            "fingerprint" : "00183001870018800189",
+            "fingerprint" : "99816998129981199810",
             "displayName" : "sirion",
             "status" : "APPROVED"
             });
@@ -2121,7 +2110,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf189",
-            "fingerprint" : "0018300187001880018900190",
+            "fingerprint" : "9981699812998119981099809",
             "displayName" : "Petuschki",
             "likes" : 2,
             "status" : "APPROVED"
@@ -2133,7 +2122,7 @@
             "authorId" : "admin",
             "level" : 5,
             "parentId" : "5484cc19c8301dc174baf190",
-            "fingerprint" : "001830018700188001890019000191",
+            "fingerprint" : "998169981299811998109980999808",
             "displayName" : "sirion",
             "likes" : 1,
             "status" : "APPROVED"
@@ -2145,7 +2134,7 @@
             "authorId" : "admin",
             "level" : 6,
             "parentId" : "5484cc19c8301dc174baf191",
-            "fingerprint" : "00183001870018800189001900019100192",
+            "fingerprint" : "99816998129981199810998099980899807",
             "displayName" : "Petuschki",
             "status" : "APPROVED"
             });
@@ -2155,7 +2144,7 @@
             "text" : "Stattdessen gibts 5 Stunden Schwimm WM.. Jetzt ist man bei der Heusltruppe schon so weit da  man trotz 2 möglichen Sendern die Bundesliga gar nicht mehr ins Fernsehen bringt. Von der Möglichkeit sowas einfach am Samstag in der Mediathek anzubieten red ma jetzt gar nicht. Denen ist ja eh schon alles wurscht  nach 2 Wochen wird jeglicher Content gelöscht  anstatt da über die Zeit eine riesen Mediensammlung anzubieten ala youtube  nur mit eigenem Content. Nein  der ORF pfeift drauf und geht freiwillig in den untergang. Zum Glück zahl ich für diese Nudelaugen keine Gebühren. Wär ja noch schöner.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00193",
+            "fingerprint" : "99806",
             "displayName" : "7d8e2d0c-23d9-47ab-a458-0babfced752d",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -2167,7 +2156,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf193",
-            "fingerprint" : "0019300194",
+            "fingerprint" : "9980699805",
             "displayName" : "defjak",
             "likes" : 3,
             "status" : "APPROVED"
@@ -2179,7 +2168,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf193",
-            "fingerprint" : "0019300195",
+            "fingerprint" : "9980699804",
             "displayName" : "hamflo",
             "likes" : 2,
             "dislikes" : 1,
@@ -2192,7 +2181,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf195",
-            "fingerprint" : "001930019500196",
+            "fingerprint" : "998069980499803",
             "displayName" : "7d8e2d0c-23d9-47ab-a458-0babfced752d",
             "status" : "APPROVED"
             });
@@ -2203,7 +2192,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf196",
-            "fingerprint" : "00193001950019600197",
+            "fingerprint" : "99806998049980399802",
             "displayName" : "Mr.FreshOpinion23",
             "status" : "APPROVED"
             });
@@ -2214,7 +2203,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf196",
-            "fingerprint" : "00193001950019600198",
+            "fingerprint" : "99806998049980399801",
             "displayName" : "hamflo",
             "status" : "APPROVED"
             });
@@ -2225,7 +2214,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf196",
-            "fingerprint" : "00193001950019600199",
+            "fingerprint" : "99806998049980399800",
             "displayName" : "Herr Irgendwer",
             "likes" : 1,
             "status" : "APPROVED"
@@ -2237,7 +2226,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf193",
-            "fingerprint" : "0019300200",
+            "fingerprint" : "9980699799",
             "displayName" : "alpentarzan",
             "status" : "APPROVED"
             });
@@ -2248,7 +2237,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf200",
-            "fingerprint" : "001930020000201",
+            "fingerprint" : "998069979999798",
             "displayName" : "Perjan",
             "status" : "APPROVED"
             });
@@ -2259,7 +2248,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf200",
-            "fingerprint" : "001930020000202",
+            "fingerprint" : "998069979999797",
             "displayName" : "7d8e2d0c-23d9-47ab-a458-0babfced752d",
             "status" : "APPROVED"
             });
@@ -2269,7 +2258,7 @@
             "text" : "dürfte ein sehr netter Mensch sein. Grü t bei jedem Freisto  Mitspieler  Gegner  Publikum und die TV Zuseher  sehr sympathisch.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00203",
+            "fingerprint" : "99796",
             "displayName" : "Yellow Cab",
             "likes" : 31,
             "dislikes" : 1,
@@ -2282,7 +2271,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf203",
-            "fingerprint" : "0020300204",
+            "fingerprint" : "9979699795",
             "displayName" : "Uncle Samy",
             "likes" : 2,
             "status" : "APPROVED"
@@ -2294,7 +2283,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf203",
-            "fingerprint" : "0020300205",
+            "fingerprint" : "9979699794",
             "displayName" : "FerdlGriesgram",
             "likes" : 2,
             "status" : "APPROVED"
@@ -2306,7 +2295,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf203",
-            "fingerprint" : "0020300206",
+            "fingerprint" : "9979699793",
             "displayName" : "Robert Seehund",
             "likes" : 11,
             "status" : "APPROVED"
@@ -2317,7 +2306,7 @@
             "text" : "X gewünscht und auch bekommen  ja ist denn heute schon weihnachten ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00207",
+            "fingerprint" : "99792",
             "displayName" : "Mr.Niceguy",
             "likes" : 5,
             "dislikes" : 1,
@@ -2329,7 +2318,7 @@
             "text" : "Es ist beruhigend  dass sich Rapid keinen Trainer leisten kann. Dadurch wiegt es nicht gar so schwer  dass die Austria mit Baumgartner wohl daneben gegriffen hat.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00208",
+            "fingerprint" : "99791",
             "displayName" : "Wo woar mei Leistung?",
             "likes" : 3,
             "status" : "APPROVED"
@@ -2340,7 +2329,7 @@
             "text" : "Perfekte Runde für Sturm  So kanns weitergehen  Platz 2 ist möglich ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00209",
+            "fingerprint" : "99790",
             "displayName" : "fossi1986",
             "likes" : 18,
             "status" : "APPROVED"
@@ -2352,7 +2341,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf209",
-            "fingerprint" : "0020900210",
+            "fingerprint" : "9979099789",
             "displayName" : "Kenn mee Nedaus",
             "status" : "APPROVED"
             });
@@ -2363,7 +2352,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf209",
-            "fingerprint" : "0020900211",
+            "fingerprint" : "9979099788",
             "displayName" : "7d8e2d0c-23d9-47ab-a458-0babfced752d",
             "likes" : 2,
             "status" : "APPROVED"
@@ -2375,7 +2364,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf211",
-            "fingerprint" : "002090021100212",
+            "fingerprint" : "997909978899787",
             "displayName" : "Mr.Niceguy",
             "likes" : 2,
             "status" : "APPROVED"
@@ -2387,7 +2376,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf209",
-            "fingerprint" : "0020900213",
+            "fingerprint" : "9979099786",
             "displayName" : "Mr.Niceguy",
             "status" : "APPROVED"
             });
@@ -2398,7 +2387,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf213",
-            "fingerprint" : "002090021300214",
+            "fingerprint" : "997909978699785",
             "displayName" : "Ernst Hemmingwei",
             "likes" : 1,
             "status" : "APPROVED"
@@ -2409,7 +2398,7 @@
             "text" : "Unglaublich  WAC schafft es Was ist nur aus Rapid geworden",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00215",
+            "fingerprint" : "99784",
             "displayName" : "science1",
             "likes" : 1,
             "status" : "APPROVED"
@@ -2420,7 +2409,7 @@
             "text" : "Nach dem heutigen Spiel mach ich mir keine Sorgen dass wir nächsten Sonntag keinen Heimsieg feiern",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00216",
+            "fingerprint" : "99783",
             "displayName" : "fredsbg",
             "likes" : 2,
             "status" : "APPROVED"
@@ -2431,7 +2420,7 @@
             "text" : "gibts eigentlich eine mannschaft die heuer weniger 11er bekommen hat als rapid  und den dosen schmeisst man einen ungerechten 11er nach dem andern nach",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00217",
+            "fingerprint" : "99782",
             "displayName" : "minus für anglizismen",
             "likes" : 5,
             "dislikes" : 16,
@@ -2444,7 +2433,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf217",
-            "fingerprint" : "0021700218",
+            "fingerprint" : "9978299781",
             "displayName" : "William Edgar Allen Wallace",
             "likes" : 4,
             "status" : "APPROVED"
@@ -2456,7 +2445,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf217",
-            "fingerprint" : "0021700219",
+            "fingerprint" : "9978299780",
             "displayName" : "herr_rechtsausleger",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -2468,7 +2457,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf219",
-            "fingerprint" : "002170021900220",
+            "fingerprint" : "997829978099779",
             "displayName" : "Capsicum",
             "status" : "APPROVED"
             });
@@ -2479,7 +2468,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf217",
-            "fingerprint" : "0021700221",
+            "fingerprint" : "9978299778",
             "displayName" : "Mr.Niceguy",
             "dislikes" : 2,
             "status" : "APPROVED"
@@ -2491,7 +2480,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf221",
-            "fingerprint" : "002170022100222",
+            "fingerprint" : "997829977899777",
             "displayName" : "minus für anglizismen",
             "likes" : 2,
             "status" : "APPROVED"
@@ -2503,7 +2492,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf222",
-            "fingerprint" : "00217002210022200223",
+            "fingerprint" : "99782997789977799776",
             "displayName" : "Mr.Niceguy",
             "status" : "APPROVED"
             });
@@ -2514,7 +2503,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf222",
-            "fingerprint" : "00217002210022200224",
+            "fingerprint" : "99782997789977799775",
             "displayName" : "irgendana",
             "likes" : 2,
             "status" : "APPROVED"
@@ -2526,7 +2515,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf217",
-            "fingerprint" : "0021700225",
+            "fingerprint" : "9978299774",
             "displayName" : "science1",
             "status" : "APPROVED"
             });
@@ -2537,7 +2526,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf217",
-            "fingerprint" : "0021700226",
+            "fingerprint" : "9978299773",
             "displayName" : "Korratte",
             "likes" : 7,
             "dislikes" : 2,
@@ -2550,7 +2539,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf217",
-            "fingerprint" : "0021700227",
+            "fingerprint" : "9978299772",
             "displayName" : "irgendana",
             "likes" : 2,
             "dislikes" : 1,
@@ -2563,7 +2552,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf217",
-            "fingerprint" : "0021700228",
+            "fingerprint" : "9978299771",
             "displayName" : "Kate Austen",
             "likes" : 1,
             "dislikes" : 1,
@@ -2575,7 +2564,7 @@
             "text" : "In der Regionalliga Mitte würde sich der WAC etwa zwischen Platz 5 und 10 einreihen. Nur in der völlig kaputten Bundesliga können die Wolfsberger oben mitspielen. Wer einmal ganz raufkommt  muss nie wieder runter  weil die Bundesliga die viertstärkste Regionalliga ist.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00229",
+            "fingerprint" : "99770",
             "displayName" : "m7x3d14",
             "likes" : 2,
             "dislikes" : 21,
@@ -2588,7 +2577,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf229",
-            "fingerprint" : "0022900230",
+            "fingerprint" : "9977099769",
             "displayName" : "Mr.Niceguy",
             "status" : "APPROVED"
             });
@@ -2599,7 +2588,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf229",
-            "fingerprint" : "0022900231",
+            "fingerprint" : "9977099768",
             "displayName" : "Petuschki",
             "likes" : 2,
             "status" : "APPROVED"
@@ -2610,7 +2599,7 @@
             "text" : "Naja Regionalliga Ost ist grob geschätzt noch etwas stärker als RL Mitte. Vielleicht könnte Rapid dort mit Glück dem Abstieg entkommen. Mit dem aktuellen Trainer natürlich nicht  das ist klar.",
             "authorId" : "admin",
             "level" : 2,
-            "fingerprint" : "00232",
+            "fingerprint" : "99767",
             "displayName" : "m7x3d14",
             "status" : "APPROVED"
             });
@@ -2620,7 +2609,7 @@
             "text" : "dann sollte die bundesliga vielleicht endlich mal was an der infrastrukturregeln machen dann wären grödig wac und altach alleine wegen dem acker den sie fu ballfeld nennen weg",
             "authorId" : "admin",
             "level" : 1,
-            "fingerprint" : "00233",
+            "fingerprint" : "99766",
             "displayName" : "minus für anglizismen",
             "likes" : 1,
             "dislikes" : 5,
@@ -2632,7 +2621,7 @@
             "text" : "sowie SR Drachta verhinderten einen Rapid Sieg.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00234",
+            "fingerprint" : "99765",
             "displayName" : "Mélodie",
             "likes" : 5,
             "dislikes" : 1,
@@ -2645,7 +2634,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf234",
-            "fingerprint" : "0023400235",
+            "fingerprint" : "9976599764",
             "displayName" : "sappydharma",
             "status" : "APPROVED"
             });
@@ -2655,7 +2644,7 @@
             "text" : "hab mir nach den letzten zwei 3 0 siegen gegen den WAC mehr erwartet... aber mit dem heutigen remis bin ich auch nicht ganz unzufrieden",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00236",
+            "fingerprint" : "99763",
             "displayName" : "sirion",
             "likes" : 1,
             "status" : "APPROVED"
@@ -2667,7 +2656,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf236",
-            "fingerprint" : "0023600237",
+            "fingerprint" : "9976399762",
             "displayName" : "science1",
             "status" : "APPROVED"
             });
@@ -2677,7 +2666,7 @@
             "text" : "von der Konkurrenz  dass man der Austria Zeit lässt. Und ich dachte schon die Austria hat ein Torwartproblem...",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00238",
+            "fingerprint" : "99761",
             "displayName" : "wassis anderer Nick",
             "likes" : 3,
             "status" : "APPROVED"
@@ -2688,7 +2677,7 @@
             "text" : "Sie haben immerhin einen Punkt vom Energiebündel Pellets mitgenommen.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00239",
+            "fingerprint" : "99760",
             "displayName" : "Karl Radekk",
             "likes" : 3,
             "status" : "APPROVED"
@@ -2699,7 +2688,7 @@
             "text" : "Vielleicht könnte man dem barisic an Wecker hinstellen  der ihn alle 10 min aufmerksam macht  dass man auch wechseln könnte... Und einmal sollte der novota fausten und da versucht er zu fangen   novota raus und hedl gleich mit ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00240",
+            "fingerprint" : "99759",
             "displayName" : "G.Steffl",
             "likes" : 1,
             "status" : "APPROVED"
@@ -2711,7 +2700,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf240",
-            "fingerprint" : "0024000241",
+            "fingerprint" : "9975999758",
             "displayName" : "unruly passenger",
             "likes" : 1,
             "status" : "APPROVED"
@@ -2722,7 +2711,7 @@
             "text" : "furchtbar was kühbauer für einen fu ball spielen lässt. den will ich nicht als trainer bei rapid sehen.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00242",
+            "fingerprint" : "99757",
             "displayName" : "kw9",
             "likes" : 5,
             "dislikes" : 5,
@@ -2735,7 +2724,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf242",
-            "fingerprint" : "0024200243",
+            "fingerprint" : "9975799756",
             "displayName" : "Aperol Blue",
             "likes" : 3,
             "status" : "APPROVED"
@@ -2747,7 +2736,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf242",
-            "fingerprint" : "0024200244",
+            "fingerprint" : "9975799755",
             "displayName" : "defjak",
             "status" : "APPROVED"
             });
@@ -2758,7 +2747,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf242",
-            "fingerprint" : "0024200245",
+            "fingerprint" : "9975799754",
             "displayName" : "science1",
             "status" : "APPROVED"
             });
@@ -2769,7 +2758,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf242",
-            "fingerprint" : "0024200246",
+            "fingerprint" : "9975799753",
             "displayName" : "Kate Austen",
             "likes" : 2,
             "status" : "APPROVED"
@@ -2781,7 +2770,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf242",
-            "fingerprint" : "0024200247",
+            "fingerprint" : "9975799752",
             "displayName" : "puppetmaster",
             "likes" : 10,
             "status" : "APPROVED"
@@ -2793,7 +2782,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf247",
-            "fingerprint" : "002420024700248",
+            "fingerprint" : "997579975299751",
             "displayName" : "kw9",
             "likes" : 1,
             "status" : "APPROVED"
@@ -2805,7 +2794,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf248",
-            "fingerprint" : "00242002470024800249",
+            "fingerprint" : "99757997529975199750",
             "displayName" : "puppetmaster",
             "likes" : 2,
             "status" : "APPROVED"
@@ -2817,7 +2806,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf242",
-            "fingerprint" : "0024200250",
+            "fingerprint" : "9975799749",
             "displayName" : "Mr XY",
             "status" : "APPROVED"
             });
@@ -2827,7 +2816,7 @@
             "text" : "Beinahe optimales Ergebnis für Sturm  ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00251",
+            "fingerprint" : "99748",
             "displayName" : "Unterton",
             "likes" : 8,
             "status" : "APPROVED"
@@ -2838,7 +2827,7 @@
             "text" : "Deni Alar ist viel zu spät gekommen  und Beric hat wieder mal gro artig gezeigt was er alles nicht kann.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00252",
+            "fingerprint" : "99747",
             "displayName" : "mononoke",
             "likes" : 3,
             "status" : "APPROVED"
@@ -2850,7 +2839,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf252",
-            "fingerprint" : "0025200253",
+            "fingerprint" : "9974799746",
             "displayName" : "Mr.Niceguy",
             "likes" : 1,
             "status" : "APPROVED"
@@ -2861,7 +2850,7 @@
             "text" : "In einem über weite Strecken schwachen Spiel hatte Rapid eindeutig die besseren Chancen und der WAC den besseren Goalie.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00254",
+            "fingerprint" : "99745",
             "displayName" : "Chukche",
             "likes" : 1,
             "status" : "APPROVED"
@@ -2872,7 +2861,7 @@
             "text" : "Diese Wirthaustruppn WAC ist nach Hälfte der Saison erster Sbg Verfolger. Erschütternd...  wenn auch offenbar verdient ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00255",
+            "fingerprint" : "99744",
             "displayName" : "neversleep",
             "likes" : 5,
             "dislikes" : 1,
@@ -2885,7 +2874,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf255",
-            "fingerprint" : "0025500256",
+            "fingerprint" : "9974499743",
             "displayName" : "Mr.Niceguy",
             "status" : "APPROVED"
             });
@@ -2895,7 +2884,7 @@
             "text" : "Wac so eine hundstruppe  grauslich ab in die zweite Liga.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00257",
+            "fingerprint" : "99742",
             "displayName" : "Mr XY",
             "dislikes" : 7,
             "status" : "APPROVED"
@@ -2907,7 +2896,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf257",
-            "fingerprint" : "0025700258",
+            "fingerprint" : "9974299741",
             "displayName" : "science1",
             "likes" : 1,
             "status" : "APPROVED"
@@ -2919,7 +2908,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf257",
-            "fingerprint" : "0025700259",
+            "fingerprint" : "9974299740",
             "displayName" : "irgendana",
             "likes" : 9,
             "dislikes" : 1,
@@ -2932,7 +2921,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf259",
-            "fingerprint" : "002570025900260",
+            "fingerprint" : "997429974099739",
             "displayName" : "Mr XY",
             "status" : "APPROVED"
             });
@@ -2943,7 +2932,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf260",
-            "fingerprint" : "00257002590026000261",
+            "fingerprint" : "99742997409973999738",
             "displayName" : "irgendana",
             "likes" : 3,
             "dislikes" : 1,
@@ -2956,7 +2945,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf260",
-            "fingerprint" : "00257002590026000262",
+            "fingerprint" : "99742997409973999737",
             "displayName" : "sl1der",
             "status" : "APPROVED"
             });
@@ -2966,7 +2955,7 @@
             "text" : "König   Am Schluss wackelt der WAC wieder . Die wogln scho seit ana Stund heast",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00263",
+            "fingerprint" : "99736",
             "displayName" : "Blechweckerl",
             "likes" : 2,
             "status" : "APPROVED"
@@ -2978,7 +2967,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf263",
-            "fingerprint" : "0026300264",
+            "fingerprint" : "9973699735",
             "displayName" : "pure post still",
             "likes" : 1,
             "dislikes" : 3,
@@ -2991,7 +2980,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf264",
-            "fingerprint" : "002630026400265",
+            "fingerprint" : "997369973599734",
             "displayName" : "Mr XY",
             "status" : "APPROVED"
             });
@@ -3002,7 +2991,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf265",
-            "fingerprint" : "00263002640026500266",
+            "fingerprint" : "99736997359973499733",
             "displayName" : "pure post still",
             "status" : "APPROVED"
             });
@@ -3013,7 +3002,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf266",
-            "fingerprint" : "0026300264002650026600267",
+            "fingerprint" : "9973699735997349973399732",
             "displayName" : "Brdlbrmft",
             "status" : "APPROVED"
             });
@@ -3024,7 +3013,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf264",
-            "fingerprint" : "002630026400268",
+            "fingerprint" : "997369973599731",
             "displayName" : "puppetmaster",
             "status" : "APPROVED"
             });
@@ -3035,7 +3024,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf268",
-            "fingerprint" : "00263002640026800269",
+            "fingerprint" : "99736997359973199730",
             "displayName" : "sappydharma",
             "status" : "APPROVED"
             });
@@ -3046,7 +3035,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf264",
-            "fingerprint" : "002630026400270",
+            "fingerprint" : "997369973599729",
             "displayName" : "Brdlbrmft",
             "likes" : 1,
             "status" : "APPROVED"
@@ -3058,7 +3047,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf270",
-            "fingerprint" : "00263002640027000271",
+            "fingerprint" : "99736997359972999728",
             "displayName" : "puppetmaster",
             "status" : "APPROVED"
             });
@@ -3069,7 +3058,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf271",
-            "fingerprint" : "0026300264002700027100272",
+            "fingerprint" : "9973699735997299972899727",
             "displayName" : "sappydharma",
             "status" : "APPROVED"
             });
@@ -3080,7 +3069,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf264",
-            "fingerprint" : "002630026400273",
+            "fingerprint" : "997369973599726",
             "displayName" : "Capsicum",
             "likes" : 4,
             "status" : "APPROVED"
@@ -3092,7 +3081,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf273",
-            "fingerprint" : "00263002640027300274",
+            "fingerprint" : "99736997359972699725",
             "displayName" : "pure post still",
             "status" : "APPROVED"
             });
@@ -3103,7 +3092,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf274",
-            "fingerprint" : "0026300264002730027400275",
+            "fingerprint" : "9973699735997269972599724",
             "displayName" : "Capsicum",
             "status" : "APPROVED"
             });
@@ -3114,7 +3103,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf274",
-            "fingerprint" : "0026300264002730027400276",
+            "fingerprint" : "9973699735997269972599723",
             "displayName" : "Brdlbrmft",
             "status" : "APPROVED"
             });
@@ -3124,7 +3113,7 @@
             "text" : "Seidl im Spiel. Wird Rapid noch Haneke bringen ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00277",
+            "fingerprint" : "99722",
             "displayName" : "pure post still",
             "likes" : 4,
             "status" : "APPROVED"
@@ -3136,7 +3125,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf277",
-            "fingerprint" : "0027700278",
+            "fingerprint" : "9972299721",
             "displayName" : "pure post still",
             "status" : "APPROVED"
             });
@@ -3146,7 +3135,7 @@
             "text" : "Geleck  König. Kanns ned sein  2 saustarke Szenen vom WAC   extrem wichtige Verteidigung vom Sollbauer   K. redet davon  dass da Kainz vmtl eh im Abseits wär.   Botznreflex vom Kofler  König  Mah schade  dass der Alar den nicht richtig platzieren konnte...",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00279",
+            "fingerprint" : "99720",
             "displayName" : "irgendana",
             "likes" : 1,
             "dislikes" : 1,
@@ -3159,7 +3148,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf279",
-            "fingerprint" : "0027900280",
+            "fingerprint" : "9972099719",
             "displayName" : "irgendana",
             "status" : "APPROVED"
             });
@@ -3170,7 +3159,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf279",
-            "fingerprint" : "0027900281",
+            "fingerprint" : "9972099718",
             "displayName" : "Ender Wiggin",
             "status" : "APPROVED"
             });
@@ -3180,7 +3169,7 @@
             "text" : "",
             "authorId" : "admin",
             "level" : 1,
-            "fingerprint" : "00282",
+            "fingerprint" : "99717",
             "displayName" : "barca11",
             "status" : "APPROVED"
             });
@@ -3190,7 +3179,7 @@
             "text" : "auf einzelne spieler hinpecken  aber was zum teufel macht der novota  normal musst den ball samt stürmer wegfausten und er will ihn fangen  normal faustet er alles nur gestern wennst fausten musst  macht ers nicht  das ist miniknaben niveau. gwg",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00283",
+            "fingerprint" : "99716",
             "displayName" : "Philipp B.",
             "likes" : 10,
             "status" : "APPROVED"
@@ -3202,7 +3191,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf283",
-            "fingerprint" : "0028300284",
+            "fingerprint" : "9971699715",
             "displayName" : "der Bastard, der dich nachhause bringt",
             "likes" : 4,
             "status" : "APPROVED"
@@ -3213,7 +3202,7 @@
             "text" : "General Goldi hatte mehr Glück als Verstand  als Milanic der Ruf nach England ereilte. Mit dem selben Kader ist Sturm unter Foda nun drauf und dran  den zweiten Platz einzufahren. Es ist kein Vergleich mehr mit den Leistungen unter Milanic. Warum schaffte es Foda  innerhalb kurzer Zeit eine spürbare Verbesserung herbei zu führen  und warum dilettieren Baumgartner und Barisic seit ewigen Zeiten dahin  ohne dass irgendeine Weiterentwicklung erkennbar ist  Dass Austria und Rapid in einer sportlichen Sackgasse sind  haben sich diese Vereine selbst zuzuschreiben. Und dass Zoki gestern auf seine Mannschaft stolz war  geht mich als Austria Anhänger zwar nichts an  aber wundern darf man sich trotzdem. Lebt er in einer Parallelwelt ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00285",
+            "fingerprint" : "99714",
             "displayName" : "Wo woar mei Leistung?",
             "likes" : 8,
             "dislikes" : 1,
@@ -3226,7 +3215,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf285",
-            "fingerprint" : "0028500286",
+            "fingerprint" : "9971499713",
             "displayName" : "Take your protein pills and put your helmet on",
             "status" : "APPROVED"
             });
@@ -3237,7 +3226,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf285",
-            "fingerprint" : "0028500287",
+            "fingerprint" : "9971499712",
             "displayName" : "Fürst N. Brunner",
             "dislikes" : 3,
             "status" : "APPROVED"
@@ -3249,7 +3238,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf287",
-            "fingerprint" : "002850028700288",
+            "fingerprint" : "997149971299711",
             "displayName" : "Wo woar mei Leistung?",
             "status" : "APPROVED"
             });
@@ -3259,7 +3248,7 @@
             "text" : "Na mit so einem Tormann wirst auch in der Bundesliga nicht zweiter. Das kann ja heiter in SBG werden. Vielleicht bringt Zoki ja den Maric  viel mehr auszeichnen als Novota in letzter Zeit kann er sich wohl auch nicht. Dazu noch ein SH  dem die Bundesliga wohl auch etwas zu schnell  sic  geworden scheint. Bitte in SBG Alar den 10er machen lassen und Hofmann in der 70. Minute bringen. Nur zu hoffen  da  SBG schon im Post EL Weihnachtsfeiermodus sein wird  könnte in die Hose gehen. Hoffentlich bleiben Schwab und Alar über den Winter fit  dann kann im Frühjahr mit Sturm um Platz 2 gerauft werden. PS  immer diese Rapidschirimafia ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00289",
+            "fingerprint" : "99710",
             "displayName" : "der Bastard, der dich nachhause bringt",
             "likes" : 2,
             "status" : "APPROVED"
@@ -3271,7 +3260,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf289",
-            "fingerprint" : "0028900290",
+            "fingerprint" : "9971099709",
             "displayName" : "Abdul",
             "status" : "APPROVED"
             });
@@ -3281,7 +3270,7 @@
             "text" : "Dann live stream barcelona derby  Das ist wirklich eine 8er bahnfahrt  Hatte wieder mal angst dass der ball 5 min liegen bleibt  weil ihn keiner trifft in A.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00291",
+            "fingerprint" : "99708",
             "displayName" : "Hauptfux",
             "likes" : 2,
             "dislikes" : 3,
@@ -3293,7 +3282,7 @@
             "text" : "Ich bin ja bekanntlich kein Zokifan  mir geht dieses monotone Gekicke eher schon am Socken  wenn sich jetzt aber der Jan bei jeder Partie einen selber reinhaut hat sie des mit n Zoki Gottseidank erledigt  dann schaffens nämlich net einmal in der Schwammerlliaga den 5. Platz  Und eigentlich ist ja diese Vertragsverlängerung ein bisschen so  als würde ich zu einem Taxler sagen   Jetzt fahrens einmal bis zu der Kreuzung da vorn   und wenns des schaffen dürfens no a Gassen weiterfahren  GwG",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00292",
+            "fingerprint" : "99707",
             "displayName" : "Kenn mee Nedaus",
             "likes" : 24,
             "dislikes" : 1,
@@ -3306,7 +3295,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf292",
-            "fingerprint" : "0029200293",
+            "fingerprint" : "9970799706",
             "displayName" : "schüssel die sau",
             "likes" : 10,
             "status" : "APPROVED"
@@ -3318,7 +3307,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf293",
-            "fingerprint" : "002920029300294",
+            "fingerprint" : "997079970699705",
             "displayName" : "e=2.72",
             "likes" : 7,
             "status" : "APPROVED"
@@ -3330,7 +3319,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf294",
-            "fingerprint" : "00292002930029400295",
+            "fingerprint" : "99707997069970599704",
             "displayName" : "Kenn mee Nedaus",
             "status" : "APPROVED"
             });
@@ -3341,7 +3330,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf292",
-            "fingerprint" : "0029200296",
+            "fingerprint" : "9970799703",
             "displayName" : "Wo woar mei Leistung?",
             "likes" : 2,
             "status" : "APPROVED"
@@ -3352,7 +3341,7 @@
             "text" : "Nach jedem schlechten Spiel ist er mit der Leistung seiner Mannschaft zufrieden. Das kann man nur seiner getrübten   wodurch auch immer   Sichtweise auf das Spielgeschehen zuschreiben. Um Rapid muss man sich Sorgen machen. Kein Geld  keine sportliche Weiterentwicklung  keinen Trainer  einen Politiker in eine Führungsposition gehievt. Wer in der Not Mitgliedschaften auf Lebenszeit anzubieten beginnt  wer dem Trainer die Latte so niedrig legt  dass sich der Vertrag automatisch verlängert  auch wenn die Leistungen katastrophal sind  der hat sich inzwischen schon Mitleid verdient. Die Violetten glänzen momentan auch nicht mit sportlicher Weitsicht  aber zumindest muss man sich wirtschaftlich keine gro en Sorgen machen.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00297",
+            "fingerprint" : "99702",
             "displayName" : "Wo woar mei Leistung?",
             "likes" : 5,
             "status" : "APPROVED"
@@ -3363,7 +3352,7 @@
             "text" : "Hehehehe Rapid ist halt nicht Salzburg  D",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00298",
+            "fingerprint" : "99701",
             "displayName" : "RedBullSoizburg",
             "dislikes" : 9,
             "status" : "APPROVED"
@@ -3375,7 +3364,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf298",
-            "fingerprint" : "0029800299",
+            "fingerprint" : "9970199700",
             "displayName" : "Kenn mee Nedaus",
             "likes" : 18,
             "status" : "APPROVED"
@@ -3386,7 +3375,7 @@
             "text" : "reicht in der  Bundesliga für einen Klub aus einer Provinzstadt für Rang 2  zwei    klingt nach ziemlich daneben....",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00300",
+            "fingerprint" : "99699",
             "displayName" : "Bauer Otto",
             "likes" : 4,
             "dislikes" : 1,
@@ -3399,7 +3388,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf300",
-            "fingerprint" : "0030000301",
+            "fingerprint" : "9969999698",
             "displayName" : "Take your protein pills and put your helmet on",
             "likes" : 3,
             "dislikes" : 2,
@@ -3412,7 +3401,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf301",
-            "fingerprint" : "003000030100302",
+            "fingerprint" : "996999969899697",
             "displayName" : "fredsbg",
             "dislikes" : 5,
             "status" : "APPROVED"
@@ -3424,7 +3413,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf302",
-            "fingerprint" : "00300003010030200303",
+            "fingerprint" : "99699996989969799696",
             "displayName" : "Taurus_RotWeissRot",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -3436,7 +3425,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf303",
-            "fingerprint" : "0030000301003020030300304",
+            "fingerprint" : "9969999698996979969699695",
             "displayName" : "Modjo",
             "status" : "APPROVED"
             });
@@ -3446,7 +3435,7 @@
             "text" : "der schiri hat 2 glasklare elfer nicht gegeben  der novota  der schön langsam payer  und königshoferniveau erreicht  hat schon wieder ein ei gelegt und der barisic hat den alar viel zu spät gebracht. das waren die fehler  weswegen das match nicht gewonnen wurde. die schiedsrichterentscheidungen kann man nicht beeinflussen   den rest schon ...",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00305",
+            "fingerprint" : "99694",
             "displayName" : "Gilgamesch",
             "likes" : 8,
             "dislikes" : 1,
@@ -3459,7 +3448,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf305",
-            "fingerprint" : "0030500306",
+            "fingerprint" : "9969499693",
             "displayName" : "G.Steffl",
             "likes" : 2,
             "status" : "APPROVED"
@@ -3470,7 +3459,7 @@
             "text" : "  ich bin ja bekanntlich kein Fan vom Zoki  des fade Spiel von ihm geht ma scho eher am Socken    wenn jetzt der Jan Runde für Runde sich praktisch selber einen reinhaut  löst er vielleicht mein Trainerproblem    also Zoki  Bitte nicht daran denken den Novota vielleicht einmal aufs Bankerl setzen  GwG",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00307",
+            "fingerprint" : "99692",
             "displayName" : "Kenn mee Nedaus",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -3481,7 +3470,7 @@
             "text" : "ein bisschen mehr dampf würde unserem spiel gut tun... dann wären solche spiele wie heute kein problem",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00308",
+            "fingerprint" : "99691",
             "displayName" : "sirion",
             "likes" : 1,
             "status" : "APPROVED"
@@ -3492,7 +3481,7 @@
             "text" : "Also Feuer oder Motivation ist beim derzeitigen Rapidspiel    kader nicht unbedingt zu beobachten. Alleine wie Hofmann jedesmal zum Eckball hinschleicht  dann zum zweihundersten Mal sein Handerl mühsam hebt und den Ball stereotyp in den 16er schupft. Tempo ...Fehlanzeige  intelligente Passes...nahezu keine  rennen....vereinzelt  Emotionen...fast gar keine. Irgendetwas passt hier nicht. Der Trainer wei  offensichtlich auch nicht was  sonst würde er es ändern. Aber eine motivierte junge Mannschaft  die etwas erreichen will und die sich in einen Spielrausch hineinsteigern kann  sieht anders aus.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00309",
+            "fingerprint" : "99690",
             "displayName" : "Keytho",
             "likes" : 11,
             "status" : "APPROVED"
@@ -3504,7 +3493,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf309",
-            "fingerprint" : "0030900310",
+            "fingerprint" : "9969099689",
             "displayName" : "Hi. Kennen sie Ted?",
             "status" : "APPROVED"
             });
@@ -3515,7 +3504,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf309",
-            "fingerprint" : "0030900311",
+            "fingerprint" : "9969099688",
             "displayName" : "Stephen Morrissey",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -3527,7 +3516,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf309",
-            "fingerprint" : "0030900312",
+            "fingerprint" : "9969099687",
             "displayName" : "linkslinker demokratiefeind",
             "likes" : 1,
             "status" : "APPROVED"
@@ -3538,7 +3527,7 @@
             "text" : "Nach dem Satz  nach 7 Runden sieglos aber noch immer auf Platz 2  wusste ich nicht ob ich lachen oder weinen sollte  so schwach sind grad alle anderen dahinter.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00313",
+            "fingerprint" : "99686",
             "displayName" : "Die kritische Kröte",
             "likes" : 4,
             "status" : "APPROVED"
@@ -3550,7 +3539,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf313",
-            "fingerprint" : "0031300314",
+            "fingerprint" : "9968699685",
             "displayName" : "Flash_ahaaa",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -3562,7 +3551,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf314",
-            "fingerprint" : "003130031400315",
+            "fingerprint" : "996869968599684",
             "displayName" : "Mr.Niceguy",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -3574,7 +3563,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf313",
-            "fingerprint" : "0031300316",
+            "fingerprint" : "9968699683",
             "displayName" : "schaber",
             "status" : "APPROVED"
             });
@@ -3584,7 +3573,7 @@
             "text" : "",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00317",
+            "fingerprint" : "99682",
             "displayName" : "derwachsame",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -3595,7 +3584,7 @@
             "text" : "Schade  WAC war klar die bessere Mannschaft und hätte den Sieg verdient gehabt.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00318",
+            "fingerprint" : "99681",
             "displayName" : "Drehimpulserhaltung",
             "status" : "APPROVED"
             });
@@ -3605,7 +3594,7 @@
             "text" : "So wird in  sterreich Meinung gemacht.  Topklub   Rekordmeister  usw. Das wirklich Schlimme daran ist nicht die Lächerlichkeit solcher Etiketten für den nun schon länger dahindümpelnden Mittelständler Rapid  nein  sondern dass die Herren in Grün Wei  einen solchen Blödsinn vermutlich auch noch glauben und meinen  wenn sie wo hinkommen  hätte der Gegner in Ehrfurcht vor einem Rekordmeister Topklub zu erstarren und sich dann wundern wenn sie   wieder einmal   gegen einen  Dorfklub  nichts rei en. Die heimischen Medien behandeln Rapid noch immer viel zu gut   und zwar aus Marketingüberlegungen  grö tes Anhänger Zuseher Leser Potential . Rapid wird erst dann besser  wenn sie  auch  medial einen Tritt in den Allerwertesten bekommen. Sorry.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00319",
+            "fingerprint" : "99680",
             "displayName" : "Dissident",
             "likes" : 56,
             "dislikes" : 1,
@@ -3618,7 +3607,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf319",
-            "fingerprint" : "0031900320",
+            "fingerprint" : "9968099679",
             "displayName" : "traditum",
             "dislikes" : 2,
             "status" : "APPROVED"
@@ -3630,7 +3619,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf319",
-            "fingerprint" : "0031900321",
+            "fingerprint" : "9968099678",
             "displayName" : "oidarapidla69",
             "dislikes" : 6,
             "status" : "APPROVED"
@@ -3642,7 +3631,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf319",
-            "fingerprint" : "0031900322",
+            "fingerprint" : "9968099677",
             "displayName" : "sirion",
             "likes" : 3,
             "dislikes" : 1,
@@ -3655,7 +3644,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf322",
-            "fingerprint" : "003190032200323",
+            "fingerprint" : "996809967799676",
             "displayName" : "Ernst Hemmingwei",
             "status" : "APPROVED"
             });
@@ -3665,7 +3654,7 @@
             "text" : "Hierzulande gilt beim Fu ball  Qual statt Qualität. Daher  Fu ballfelder umwidmen in Bauland oder Gewerbegebiet. Die Jugend soll sich sportlich ein wenig umorientieren. Nicht mehr Fu ball gehört gefördert  sondern Tennis  Schach oder was auch immer. Schade ums Geld  was bei uns da gemacht wird  und schade um die jungen Leute  die da ihre Zeit und jene ihrer Zuseher vergeuden. Ernstgemeinter Vorschlag  keine Ironie.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00324",
+            "fingerprint" : "99675",
             "displayName" : "gnadevorrecht",
             "likes" : 5,
             "dislikes" : 35,
@@ -3678,7 +3667,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf324",
-            "fingerprint" : "0032400325",
+            "fingerprint" : "9967599674",
             "displayName" : "Jügen Hampel",
             "likes" : 3,
             "status" : "APPROVED"
@@ -3690,7 +3679,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf324",
-            "fingerprint" : "0032400326",
+            "fingerprint" : "9967599673",
             "displayName" : "unschuldsvermuter",
             "likes" : 2,
             "status" : "APPROVED"
@@ -3702,7 +3691,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf324",
-            "fingerprint" : "0032400327",
+            "fingerprint" : "9967599672",
             "displayName" : "morgause",
             "likes" : 34,
             "dislikes" : 1,
@@ -3715,7 +3704,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf327",
-            "fingerprint" : "003240032700328",
+            "fingerprint" : "996759967299671",
             "displayName" : "trevor_francis",
             "likes" : 1,
             "status" : "APPROVED"
@@ -3727,7 +3716,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf328",
-            "fingerprint" : "00324003270032800329",
+            "fingerprint" : "99675996729967199670",
             "displayName" : "morgause",
             "status" : "APPROVED"
             });
@@ -3738,7 +3727,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf329",
-            "fingerprint" : "0032400327003280032900330",
+            "fingerprint" : "9967599672996719967099669",
             "displayName" : "sirion",
             "likes" : 1,
             "status" : "APPROVED"
@@ -3750,7 +3739,7 @@
             "authorId" : "admin",
             "level" : 5,
             "parentId" : "5484cc19c8301dc174baf330",
-            "fingerprint" : "003240032700328003290033000331",
+            "fingerprint" : "996759967299671996709966999668",
             "displayName" : "GeHa1967",
             "status" : "APPROVED"
             });
@@ -3760,7 +3749,7 @@
             "text" : "Barisic bü t derzeit m.E. für die Fehler der Vergangenheit  Wie soll er in ein paar Monaten einen ganzen   in der Vorsaison zuletzt gut funktionierenden   Angriff ersetzen. Dass er Spieler entwickeln kann  hat er doch in der Vorsaison bewiesen. Oder hätte den Wert von Terrence Boyd vor einem Jahr jemand auf 2 Mille geschätzt ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00332",
+            "fingerprint" : "99667",
             "displayName" : "Feher",
             "likes" : 1,
             "dislikes" : 2,
@@ -3773,7 +3762,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf332",
-            "fingerprint" : "0033200333",
+            "fingerprint" : "9966799666",
             "displayName" : "Schabbesgoi",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -3785,7 +3774,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf332",
-            "fingerprint" : "0033200334",
+            "fingerprint" : "9966799665",
             "displayName" : "Kenn mee Nedaus",
             "dislikes" : 3,
             "status" : "APPROVED"
@@ -3797,7 +3786,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf334",
-            "fingerprint" : "003320033400335",
+            "fingerprint" : "996679966599664",
             "displayName" : "Feher",
             "likes" : 3,
             "dislikes" : 1,
@@ -3810,7 +3799,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf335",
-            "fingerprint" : "00332003340033500336",
+            "fingerprint" : "99667996659966499663",
             "displayName" : "Kenn mee Nedaus",
             "status" : "APPROVED"
             });
@@ -3821,7 +3810,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf336",
-            "fingerprint" : "0033200334003350033600337",
+            "fingerprint" : "9966799665996649966399662",
             "displayName" : "Feher",
             "status" : "APPROVED"
             });
@@ -3831,7 +3820,7 @@
             "text" : "gibt es zum wac nähere informationen  nachdem einige wac anhänger erzählten  dass die wac mit erheblichen geldmangel zu kämpfen hätte und ein neuer sponsor gesucht wird  ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00338",
+            "fingerprint" : "99661",
             "displayName" : "so ein schöner tag",
             "status" : "APPROVED"
             });
@@ -3841,7 +3830,7 @@
             "text" : "http www.12termann.at legionare... abzonspor ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00339",
+            "fingerprint" : "99660",
             "displayName" : "eindeutig zweideutig",
             "likes" : 6,
             "status" : "APPROVED"
@@ -3852,7 +3841,7 @@
             "text" : "Die Lage Rapids ist gleich wie die Situation in  sterreich allgemein  beide ziemlich im A...  nur traut sichs keiner der Verantwortlichen eingestehen  oder will es nicht oder noch schlimmer   sie denken wirklich  dass eh alles super is . Konzepte wie man die Probleme lösen kann sich in Zukunft verbessern will sich zukunftsfit machen will   in beiden Fällen Fehlanzeige.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00340",
+            "fingerprint" : "99659",
             "displayName" : "feuer",
             "likes" : 3,
             "dislikes" : 1,
@@ -3864,7 +3853,7 @@
             "text" : "Aussagen die ich nicht verstehe. Zoran Barisic   Alles in allem muss ich der Mannschaft zur Leistung gratulieren   Meine Mannschaft hat es sogar geschafft  auf diesem Platz schön zu spielen  Steffen Hofmann   Wir haben als Mannschaft gut funktioniert und wenige Chancen zugelassen  jetzt frage ich mich   Was habe ich für ein Match gesehen ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00341",
+            "fingerprint" : "99658",
             "displayName" : "out of the dark",
             "likes" : 11,
             "status" : "APPROVED"
@@ -3876,7 +3865,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf341",
-            "fingerprint" : "0034100342",
+            "fingerprint" : "9965899657",
             "displayName" : "Ardbeg Uigeadail",
             "status" : "APPROVED"
             });
@@ -3887,7 +3876,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf341",
-            "fingerprint" : "0034100343",
+            "fingerprint" : "9965899656",
             "displayName" : "Karl Graus 2,0",
             "likes" : 2,
             "dislikes" : 1,
@@ -3900,7 +3889,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf343",
-            "fingerprint" : "003410034300344",
+            "fingerprint" : "996589965699655",
             "displayName" : "Feher",
             "status" : "APPROVED"
             });
@@ -3910,7 +3899,7 @@
             "text" : "Interessantes Phänomen  Spielt die eigene Mannschaft schlecht ist gleich die ganze Liga schlecht  ergo sind die Mannschaften die vor der eigenen Mannschaft liegen eh nur ein bisschen besser und überhaupt nur Einäugige unter Blinden. http de.wikipedia.org wiki Attr... onsprinzip",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00345",
+            "fingerprint" : "99654",
             "displayName" : "ML01",
             "likes" : 13,
             "status" : "APPROVED"
@@ -3922,7 +3911,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf345",
-            "fingerprint" : "0034500346",
+            "fingerprint" : "9965499653",
             "displayName" : "Modjo",
             "status" : "APPROVED"
             });
@@ -3933,7 +3922,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf345",
-            "fingerprint" : "0034500347",
+            "fingerprint" : "9965499652",
             "displayName" : "macdeer",
             "status" : "APPROVED"
             });
@@ -3943,7 +3932,7 @@
             "text" : "....aber so eine armselige Vorstellung mit einem Kader der immerhin dazu reichen muss  um Platz 2 zu spielen  weil die anderen auch so schwach sind  ist dennoch nicht zu akzeptieren   und schon gar nicht wenn man dann auch noch zufrieden ist mit der Leistung  Es ist super und logisch dass Rapid auf junge Spieler setzt   was sonst ohne Geld   aber es gibt dennoch einen gro en Unterschied  on jemand in der Lage ist  die Jungs weiter zu entwickeln und dabei auch Leistung einzufordern  oder alles  langfristig  angelegt ist und der aktuelle Hundskick wurscht. Sorry Zocki  aber da fehlt was   Co Trainer ist der optimale Job  Daher ZoBa 1 Stufe zurück ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00348",
+            "fingerprint" : "99651",
             "displayName" : "Hauptfux",
             "likes" : 11,
             "status" : "APPROVED"
@@ -3955,7 +3944,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf348",
-            "fingerprint" : "0034800349",
+            "fingerprint" : "9965199650",
             "displayName" : "minus für anglizismen",
             "likes" : 2,
             "dislikes" : 1,
@@ -3968,7 +3957,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf349",
-            "fingerprint" : "003480034900350",
+            "fingerprint" : "996519965099649",
             "displayName" : "Wo woar mei Leistung?",
             "likes" : 4,
             "dislikes" : 2,
@@ -3981,7 +3970,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf350",
-            "fingerprint" : "00348003490035000351",
+            "fingerprint" : "99651996509964999648",
             "displayName" : "minus für anglizismen",
             "likes" : 2,
             "status" : "APPROVED"
@@ -3993,7 +3982,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf349",
-            "fingerprint" : "003480034900352",
+            "fingerprint" : "996519965099647",
             "displayName" : "Hauptfux",
             "likes" : 1,
             "status" : "APPROVED"
@@ -4005,7 +3994,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf352",
-            "fingerprint" : "00348003490035200353",
+            "fingerprint" : "99651996509964799646",
             "displayName" : "minus für anglizismen",
             "likes" : 2,
             "dislikes" : 6,
@@ -4018,7 +4007,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf353",
-            "fingerprint" : "0034800349003520035300354",
+            "fingerprint" : "9965199650996479964699645",
             "displayName" : "Hauptfux",
             "likes" : 1,
             "status" : "APPROVED"
@@ -4030,7 +4019,7 @@
             "authorId" : "admin",
             "level" : 5,
             "parentId" : "5484cc19c8301dc174baf354",
-            "fingerprint" : "003480034900352003530035400355",
+            "fingerprint" : "996519965099647996469964599644",
             "displayName" : "macdeer",
             "status" : "APPROVED"
             });
@@ -4041,7 +4030,7 @@
             "authorId" : "admin",
             "level" : 6,
             "parentId" : "5484cc19c8301dc174baf355",
-            "fingerprint" : "00348003490035200353003540035500356",
+            "fingerprint" : "99651996509964799646996459964499643",
             "displayName" : "Hauptfux",
             "status" : "APPROVED"
             });
@@ -4052,7 +4041,7 @@
             "authorId" : "admin",
             "level" : 5,
             "parentId" : "5484cc19c8301dc174baf354",
-            "fingerprint" : "003480034900352003530035400357",
+            "fingerprint" : "996519965099647996469964599642",
             "displayName" : "minus für anglizismen",
             "likes" : 3,
             "dislikes" : 2,
@@ -4065,7 +4054,7 @@
             "authorId" : "admin",
             "level" : 6,
             "parentId" : "5484cc19c8301dc174baf357",
-            "fingerprint" : "00348003490035200353003540035700358",
+            "fingerprint" : "99651996509964799646996459964299641",
             "displayName" : "out of the dark",
             "status" : "APPROVED"
             });
@@ -4076,7 +4065,7 @@
             "authorId" : "admin",
             "level" : 7,
             "parentId" : "5484cc19c8301dc174baf358",
-            "fingerprint" : "0034800349003520035300354003570035800359",
+            "fingerprint" : "9965199650996479964699645996429964199640",
             "displayName" : "minus für anglizismen",
             "status" : "APPROVED"
             });
@@ -4087,7 +4076,7 @@
             "authorId" : "admin",
             "level" : 8,
             "parentId" : "5484cc19c8301dc174baf359",
-            "fingerprint" : "003480034900352003530035400357003580035900360",
+            "fingerprint" : "996519965099647996469964599642996419964099639",
             "displayName" : "out of the dark",
             "status" : "APPROVED"
             });
@@ -4098,7 +4087,7 @@
             "authorId" : "admin",
             "level" : 9,
             "parentId" : "5484cc19c8301dc174baf360",
-            "fingerprint" : "00348003490035200353003540035700358003590036000361",
+            "fingerprint" : "99651996509964799646996459964299641996409963999638",
             "displayName" : "minus für anglizismen",
             "status" : "APPROVED"
             });
@@ -4109,7 +4098,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf348",
-            "fingerprint" : "0034800362",
+            "fingerprint" : "9965199637",
             "displayName" : "der Bastard, der dich nachhause bringt",
             "likes" : 9,
             "status" : "APPROVED"
@@ -4121,7 +4110,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf362",
-            "fingerprint" : "003480036200363",
+            "fingerprint" : "996519963799636",
             "displayName" : "Das geläuterte gesuderte Übliche",
             "status" : "APPROVED"
             });
@@ -4132,7 +4121,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf362",
-            "fingerprint" : "003480036200364",
+            "fingerprint" : "996519963799635",
             "displayName" : "Hauptfux",
             "status" : "APPROVED"
             });
@@ -4143,7 +4132,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf364",
-            "fingerprint" : "00348003620036400365",
+            "fingerprint" : "99651996379963599634",
             "displayName" : "der Bastard, der dich nachhause bringt",
             "status" : "APPROVED"
             });
@@ -4154,7 +4143,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf365",
-            "fingerprint" : "0034800362003640036500366",
+            "fingerprint" : "9965199637996359963499633",
             "displayName" : "Modjo",
             "likes" : 1,
             "status" : "APPROVED"
@@ -4166,7 +4155,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf365",
-            "fingerprint" : "0034800362003640036500367",
+            "fingerprint" : "9965199637996359963499632",
             "displayName" : "traditum",
             "dislikes" : 2,
             "status" : "APPROVED"
@@ -4178,7 +4167,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf348",
-            "fingerprint" : "0034800368",
+            "fingerprint" : "9965199631",
             "displayName" : "marx graut scho",
             "likes" : 1,
             "status" : "APPROVED"
@@ -4189,7 +4178,7 @@
             "text" : "LOL",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00369",
+            "fingerprint" : "99630",
             "displayName" : "Klara Schnaps",
             "status" : "APPROVED"
             });
@@ -4199,7 +4188,7 @@
             "text" : "Als Grazer sag ich  DANKE  Bursch n ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00370",
+            "fingerprint" : "99629",
             "displayName" : "John S",
             "likes" : 12,
             "status" : "APPROVED"
@@ -4211,7 +4200,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf370",
-            "fingerprint" : "0037000371",
+            "fingerprint" : "9962999628",
             "displayName" : "Mr. Hankey, der Weihnachtskot",
             "status" : "APPROVED"
             });
@@ -4221,7 +4210,7 @@
             "text" : "Novata  das rapidgesicht 2014...",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00372",
+            "fingerprint" : "99627",
             "displayName" : "HunterThompson",
             "status" : "APPROVED"
             });
@@ -4231,7 +4220,7 @@
             "text" : "ZoBa raus ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00373",
+            "fingerprint" : "99626",
             "displayName" : "Links und Rechts sind Ansichtssache!!!",
             "likes" : 2,
             "dislikes" : 2,
@@ -4244,7 +4233,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf373",
-            "fingerprint" : "0037300374",
+            "fingerprint" : "9962699625",
             "displayName" : "DFRUKA",
             "likes" : 1,
             "status" : "APPROVED"
@@ -4255,7 +4244,7 @@
             "text" : "Wrestler Gonzales ist ein Fliegenfänger hat er auch schon sehr oft bewiesen. Leider gibt es ausser Stankovic und Dobnik  gefällt mir auch sehr gut  keine herausragenden Goalies. Gulasch Sbg  Heinzi Lindner  Novota  Gebauer leisten sich regelmä ig Schnitzer der Kategorie Steirer Goal.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00375",
+            "fingerprint" : "99624",
             "displayName" : "Uncle Samy",
             "likes" : 2,
             "status" : "APPROVED"
@@ -4266,7 +4255,7 @@
             "text" : "wen wollt der Koller beobachten ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00376",
+            "fingerprint" : "99623",
             "displayName" : "Ich bin Brian",
             "likes" : 13,
             "status" : "APPROVED"
@@ -4278,7 +4267,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf376",
-            "fingerprint" : "0037600377",
+            "fingerprint" : "9962399622",
             "displayName" : "Mr XY",
             "status" : "APPROVED"
             });
@@ -4289,7 +4278,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf376",
-            "fingerprint" : "0037600378",
+            "fingerprint" : "9962399621",
             "displayName" : "Mr.Niceguy",
             "likes" : 2,
             "status" : "APPROVED"
@@ -4301,7 +4290,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf376",
-            "fingerprint" : "0037600379",
+            "fingerprint" : "9962399620",
             "displayName" : "haljô",
             "likes" : 1,
             "status" : "APPROVED"
@@ -4313,7 +4302,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf376",
-            "fingerprint" : "0037600380",
+            "fingerprint" : "9962399619",
             "displayName" : "Abdul",
             "likes" : 3,
             "status" : "APPROVED"
@@ -4325,7 +4314,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf380",
-            "fingerprint" : "003760038000381",
+            "fingerprint" : "996239961999618",
             "displayName" : "Modjo",
             "likes" : 2,
             "dislikes" : 1,
@@ -4337,7 +4326,7 @@
             "text" : "Gibt auch welche die auf den fc bayern neidisch sind",
             "authorId" : "admin",
             "level" : 3,
-            "fingerprint" : "00382",
+            "fingerprint" : "99617",
             "displayName" : "FrankyZolano",
             "status" : "APPROVED"
             });
@@ -4348,7 +4337,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf382",
-            "fingerprint" : "0038200383",
+            "fingerprint" : "9961799616",
             "displayName" : "Schabbesgoi",
             "dislikes" : 2,
             "status" : "APPROVED"
@@ -4359,7 +4348,7 @@
             "text" : "WAC ist im Gegensatz zum RBS Spiel höher gestanden  und trotzdem hat Rapid nichts zusammen gebracht. Bei Rapid kann man kein System erkennen  alles nur auf Glück aufgebaut  der dzt. Tabellenplatz ist die Bestätigung dessen. Wenn im Frühjahr Altach und der WAC nur annähernd diese Leistung aus dem Herbst bringen  dann rutscht Rapid auf Platz 6   überholt von den violetten.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00384",
+            "fingerprint" : "99615",
             "displayName" : "out of the dark",
             "likes" : 2,
             "dislikes" : 1,
@@ -4372,7 +4361,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf384",
-            "fingerprint" : "0038400385",
+            "fingerprint" : "9961599614",
             "displayName" : "sappydharma",
             "dislikes" : 2,
             "status" : "APPROVED"
@@ -4384,7 +4373,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf385",
-            "fingerprint" : "003840038500386",
+            "fingerprint" : "996159961499613",
             "displayName" : "sirion",
             "status" : "APPROVED"
             });
@@ -4394,7 +4383,7 @@
             "text" : ".. die Spielweise des WAC ist eigentlich bei jedem Spiel extrem ermüdend. Die Punkte geben ihnen aber  leider  Recht.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00387",
+            "fingerprint" : "99612",
             "displayName" : "Aperol Blue",
             "likes" : 6,
             "dislikes" : 1,
@@ -4407,7 +4396,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf387",
-            "fingerprint" : "0038700388",
+            "fingerprint" : "9961299611",
             "displayName" : "Ernst Hemmingwei",
             "likes" : 1,
             "status" : "APPROVED"
@@ -4418,7 +4407,7 @@
             "text" : "nach 18 runden der wac mit 30 punkten zweiter nach sieben nicht gewonnen spielen. die bundesliga verantwortlichen sollten sich zuhause einsperren  sich in einer ecke auf einen holzscheit knien  weinen und bis zum ende der diesjährigen saison auch keinen fu  mehr vor die tür setzen. das gilt auch für sämtliche funktionäre und trainer inklusive salzburg. nur 8 punkte vorsprung bei dem kader und dem budget ist auch ein witz.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00389",
+            "fingerprint" : "99610",
             "displayName" : "FerdlGriesgram",
             "likes" : 13,
             "dislikes" : 8,
@@ -4431,7 +4420,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf389",
-            "fingerprint" : "0038900390",
+            "fingerprint" : "9961099609",
             "displayName" : "freedom call",
             "likes" : 1,
             "dislikes" : 5,
@@ -4444,7 +4433,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf389",
-            "fingerprint" : "0038900391",
+            "fingerprint" : "9961099608",
             "displayName" : "*westwind*",
             "likes" : 7,
             "dislikes" : 2,
@@ -4457,7 +4446,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf391",
-            "fingerprint" : "003890039100392",
+            "fingerprint" : "996109960899607",
             "displayName" : "Jack Oberweger",
             "dislikes" : 5,
             "status" : "APPROVED"
@@ -4469,7 +4458,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf392",
-            "fingerprint" : "00389003910039200393",
+            "fingerprint" : "99610996089960799606",
             "displayName" : "*westwind*",
             "likes" : 1,
             "dislikes" : 2,
@@ -4482,7 +4471,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf389",
-            "fingerprint" : "0038900394",
+            "fingerprint" : "9961099605",
             "displayName" : "Ernst Hemmingwei",
             "likes" : 9,
             "status" : "APPROVED"
@@ -4494,7 +4483,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf394",
-            "fingerprint" : "003890039400395",
+            "fingerprint" : "996109960599604",
             "displayName" : "Topfpflanze",
             "status" : "APPROVED"
             });
@@ -4505,7 +4494,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf394",
-            "fingerprint" : "003890039400396",
+            "fingerprint" : "996109960599603",
             "displayName" : "cjlpa",
             "likes" : 14,
             "status" : "APPROVED"
@@ -4517,7 +4506,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf396",
-            "fingerprint" : "00389003940039600397",
+            "fingerprint" : "99610996059960399602",
             "displayName" : "cjlpa",
             "likes" : 8,
             "status" : "APPROVED"
@@ -4529,7 +4518,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf396",
-            "fingerprint" : "00389003940039600398",
+            "fingerprint" : "99610996059960399601",
             "displayName" : "cjlpa",
             "status" : "APPROVED"
             });
@@ -4540,7 +4529,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf389",
-            "fingerprint" : "0038900399",
+            "fingerprint" : "9961099600",
             "displayName" : "Aperol Blue",
             "likes" : 1,
             "status" : "APPROVED"
@@ -4552,7 +4541,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf399",
-            "fingerprint" : "003890039900400",
+            "fingerprint" : "996109960099599",
             "displayName" : "FerdlGriesgram",
             "likes" : 1,
             "dislikes" : 6,
@@ -4565,7 +4554,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf400",
-            "fingerprint" : "00389003990040000401",
+            "fingerprint" : "99610996009959999598",
             "displayName" : "Aperol Blue",
             "likes" : 2,
             "status" : "APPROVED"
@@ -4577,7 +4566,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf401",
-            "fingerprint" : "0038900399004000040100402",
+            "fingerprint" : "9961099600995999959899597",
             "displayName" : "FerdlGriesgram",
             "status" : "APPROVED"
             });
@@ -4588,7 +4577,7 @@
             "authorId" : "admin",
             "level" : 5,
             "parentId" : "5484cc19c8301dc174baf402",
-            "fingerprint" : "003890039900400004010040200403",
+            "fingerprint" : "996109960099599995989959799596",
             "displayName" : "Aperol Blue",
             "likes" : 5,
             "status" : "APPROVED"
@@ -4600,7 +4589,7 @@
             "authorId" : "admin",
             "level" : 6,
             "parentId" : "5484cc19c8301dc174baf403",
-            "fingerprint" : "00389003990040000401004020040300404",
+            "fingerprint" : "99610996009959999598995979959699595",
             "displayName" : "FerdlGriesgram",
             "status" : "APPROVED"
             });
@@ -4611,7 +4600,7 @@
             "authorId" : "admin",
             "level" : 7,
             "parentId" : "5484cc19c8301dc174baf404",
-            "fingerprint" : "0038900399004000040100402004030040400405",
+            "fingerprint" : "9961099600995999959899597995969959599594",
             "displayName" : "Aperol Blue",
             "likes" : 1,
             "status" : "APPROVED"
@@ -4623,7 +4612,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf389",
-            "fingerprint" : "0038900406",
+            "fingerprint" : "9961099593",
             "displayName" : "Sonia Braga",
             "likes" : 1,
             "dislikes" : 3,
@@ -4636,7 +4625,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf389",
-            "fingerprint" : "0038900407",
+            "fingerprint" : "9961099592",
             "displayName" : "out of the dark",
             "likes" : 1,
             "status" : "APPROVED"
@@ -4648,7 +4637,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf407",
-            "fingerprint" : "003890040700408",
+            "fingerprint" : "996109959299591",
             "displayName" : "FerdlGriesgram",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -4660,7 +4649,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf389",
-            "fingerprint" : "0038900409",
+            "fingerprint" : "9961099590",
             "displayName" : "Gabi_Haslauer",
             "likes" : 11,
             "status" : "APPROVED"
@@ -4672,7 +4661,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf409",
-            "fingerprint" : "003890040900410",
+            "fingerprint" : "996109959099589",
             "displayName" : "kikkerikiii",
             "likes" : 1,
             "dislikes" : 2,
@@ -4684,7 +4673,7 @@
             "text" : "leider als weitaus bessere mannschaft nur einen punkt geholt   man scheiterte an einem hervorragenden kärntner tormann  an der stange und am eigenen unvermögen vor dem tor......aber das spiel hat gezeigt  dass rapid ganz klar auf den 2. platz gehört  wobei ich denke  dass heuer der 3. platz am ende besser wäre   dann erspart man sich die leidige cl quali..... alles in allem ein versöhnlicher abschluss der herbstsaison....",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00411",
+            "fingerprint" : "99588",
             "displayName" : "Jack Oberweger",
             "likes" : 2,
             "dislikes" : 8,
@@ -4697,7 +4686,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf411",
-            "fingerprint" : "0041100412",
+            "fingerprint" : "9958899587",
             "displayName" : "haljô",
             "likes" : 1,
             "status" : "APPROVED"
@@ -4709,7 +4698,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf412",
-            "fingerprint" : "004110041200413",
+            "fingerprint" : "995889958799586",
             "displayName" : "Jack Oberweger",
             "status" : "APPROVED"
             });
@@ -4720,7 +4709,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf411",
-            "fingerprint" : "0041100414",
+            "fingerprint" : "9958899585",
             "displayName" : "Das geläuterte gesuderte Übliche",
             "status" : "APPROVED"
             });
@@ -4731,7 +4720,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf411",
-            "fingerprint" : "0041100415",
+            "fingerprint" : "9958899584",
             "displayName" : "Mr.Niceguy",
             "likes" : 5,
             "status" : "APPROVED"
@@ -4743,7 +4732,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf415",
-            "fingerprint" : "004110041500416",
+            "fingerprint" : "995889958499583",
             "displayName" : "Jack Oberweger",
             "status" : "APPROVED"
             });
@@ -4754,7 +4743,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf416",
-            "fingerprint" : "00411004150041600417",
+            "fingerprint" : "99588995849958399582",
             "displayName" : "Mr.Niceguy",
             "status" : "APPROVED"
             });
@@ -4764,7 +4753,7 @@
             "text" : "Und wo ist der eine glasklare Elfer  der den Rapidlern vorenthalten wurde  von dem zweiten red  ich jetzt nicht  den haben andere Mannschaften auch schon bekommen ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00418",
+            "fingerprint" : "99581",
             "displayName" : "Capsicum",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -4775,7 +4764,7 @@
             "text" : "",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00419",
+            "fingerprint" : "99580",
             "displayName" : "Digitales_Zeitalter",
             "likes" : 3,
             "dislikes" : 1,
@@ -4788,7 +4777,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf419",
-            "fingerprint" : "0041900420",
+            "fingerprint" : "9958099579",
             "displayName" : "Schabbesgoi",
             "likes" : 3,
             "dislikes" : 7,
@@ -4801,7 +4790,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf420",
-            "fingerprint" : "004190042000421",
+            "fingerprint" : "995809957999578",
             "displayName" : "<!-- 42 -->",
             "likes" : 1,
             "status" : "APPROVED"
@@ -4813,7 +4802,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf420",
-            "fingerprint" : "004190042000422",
+            "fingerprint" : "995809957999577",
             "displayName" : "haljô",
             "likes" : 7,
             "dislikes" : 1,
@@ -4826,7 +4815,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf420",
-            "fingerprint" : "004190042000423",
+            "fingerprint" : "995809957999576",
             "displayName" : "Gandalf Il Grigio",
             "likes" : 24,
             "status" : "APPROVED"
@@ -4838,7 +4827,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf423",
-            "fingerprint" : "00419004200042300424",
+            "fingerprint" : "99580995799957699575",
             "displayName" : "wassis anderer Nick",
             "likes" : 2,
             "dislikes" : 18,
@@ -4851,7 +4840,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf424",
-            "fingerprint" : "0041900420004230042400425",
+            "fingerprint" : "9958099579995769957599574",
             "displayName" : "DerStandardName",
             "likes" : 7,
             "status" : "APPROVED"
@@ -4863,7 +4852,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf424",
-            "fingerprint" : "0041900420004230042400426",
+            "fingerprint" : "9958099579995769957599573",
             "displayName" : "sl1der",
             "likes" : 20,
             "status" : "APPROVED"
@@ -4875,7 +4864,7 @@
             "authorId" : "admin",
             "level" : 5,
             "parentId" : "5484cc19c8301dc174baf426",
-            "fingerprint" : "004190042000423004240042600427",
+            "fingerprint" : "995809957999576995759957399572",
             "displayName" : "wassis anderer Nick",
             "likes" : 1,
             "status" : "APPROVED"
@@ -4886,7 +4875,7 @@
             "text" : "dürfte kein besonders guter trainer sein. das 4 2 3 1 spielt er wohl sogar in der badewanne.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00428",
+            "fingerprint" : "99571",
             "displayName" : "defjak",
             "likes" : 11,
             "status" : "APPROVED"
@@ -4898,7 +4887,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf428",
-            "fingerprint" : "0042800429",
+            "fingerprint" : "9957199570",
             "displayName" : "Axel T",
             "dislikes" : 1,
             "status" : "APPROVED"
@@ -4910,7 +4899,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf428",
-            "fingerprint" : "0042800430",
+            "fingerprint" : "9957199569",
             "displayName" : "FerdlGriesgram",
             "likes" : 2,
             "status" : "APPROVED"
@@ -4922,7 +4911,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf430",
-            "fingerprint" : "004280043000431",
+            "fingerprint" : "995719956999568",
             "displayName" : "rpk",
             "likes" : 3,
             "status" : "APPROVED"
@@ -4933,7 +4922,7 @@
             "text" : "zeichen und wunder geschehen  sirion verteidigt vor mir  vor mir  den trevor. es weihnachtet schon sehr. ich wei  schon  wie er es gemeint hat  nachdem ich selber viel im otf poste  ging die spitze durchaus auch an meine adresse.",
             "authorId" : "admin",
             "level" : 5,
-            "fingerprint" : "00432",
+            "fingerprint" : "99567",
             "displayName" : "morgause",
             "status" : "APPROVED"
             });
@@ -4944,7 +4933,7 @@
             "authorId" : "admin",
             "level" : 6,
             "parentId" : "5484cc19c8301dc174baf432",
-            "fingerprint" : "0043200433",
+            "fingerprint" : "9956799566",
             "displayName" : "trevor_francis",
             "likes" : 2,
             "status" : "APPROVED"
@@ -4956,7 +4945,7 @@
             "authorId" : "admin",
             "level" : 6,
             "parentId" : "5484cc19c8301dc174baf432",
-            "fingerprint" : "0043200434",
+            "fingerprint" : "9956799565",
             "displayName" : "sirion",
             "likes" : 1,
             "status" : "APPROVED"
@@ -4968,7 +4957,7 @@
             "authorId" : "admin",
             "level" : 7,
             "parentId" : "5484cc19c8301dc174baf434",
-            "fingerprint" : "004320043400435",
+            "fingerprint" : "995679956599564",
             "displayName" : "morgause",
             "likes" : 1,
             "status" : "APPROVED"
@@ -4980,7 +4969,7 @@
             "authorId" : "admin",
             "level" : 7,
             "parentId" : "5484cc19c8301dc174baf434",
-            "fingerprint" : "004320043400436",
+            "fingerprint" : "995679956599563",
             "displayName" : "trevor_francis",
             "likes" : 1,
             "status" : "APPROVED"
@@ -4991,7 +4980,7 @@
             "text" : "",
             "authorId" : "admin",
             "level" : 1,
-            "fingerprint" : "00437",
+            "fingerprint" : "99562",
             "displayName" : "herr_strudl",
             "likes" : 1,
             "status" : "APPROVED"
@@ -5002,7 +4991,7 @@
             "text" : "Qual statt Qualität triffts ganz gut  ",
             "authorId" : "admin",
             "level" : 1,
-            "fingerprint" : "00438",
+            "fingerprint" : "99561",
             "displayName" : "Die kritische Kröte",
             "status" : "APPROVED"
             });
@@ -5012,7 +5001,7 @@
             "text" : "Salzburg seit zwei Jahren eine Klasse für sich in der Buli. Danach kommen Grödig und Sturm Graz  rein von der spielerischen Stärke. Dann lange nichts. Danach Altach  Wolfsberg und Neustadt. Dann länger nichts. Dann Ried  Rapid und Austria. Dann am längsten nichts. Den Abschluss bildet eine inferiore Admira  um welche es momentan nicht schade in der Liga wäre.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00439",
+            "fingerprint" : "99560",
             "displayName" : "freedom call",
             "dislikes" : 6,
             "status" : "APPROVED"
@@ -5024,7 +5013,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf439",
-            "fingerprint" : "0043900440",
+            "fingerprint" : "9956099559",
             "displayName" : "Viktor Huber",
             "status" : "APPROVED"
             });
@@ -5035,7 +5024,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf440",
-            "fingerprint" : "004390044000441",
+            "fingerprint" : "995609955999558",
             "displayName" : "Ernst Hemmingwei",
             "likes" : 1,
             "status" : "APPROVED"
@@ -5047,7 +5036,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf440",
-            "fingerprint" : "004390044000442",
+            "fingerprint" : "995609955999557",
             "displayName" : "Super Sharp Shooter",
             "likes" : 3,
             "dislikes" : 1,
@@ -5060,7 +5049,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf442",
-            "fingerprint" : "00439004400044200443",
+            "fingerprint" : "99560995599955799556",
             "displayName" : "morgause",
             "likes" : 1,
             "status" : "APPROVED"
@@ -5072,7 +5061,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf439",
-            "fingerprint" : "0043900444",
+            "fingerprint" : "9956099555",
             "displayName" : "sirion",
             "likes" : 3,
             "dislikes" : 4,
@@ -5085,7 +5074,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf444",
-            "fingerprint" : "004390044400445",
+            "fingerprint" : "995609955599554",
             "displayName" : "freedom call",
             "likes" : 1,
             "status" : "APPROVED"
@@ -5097,7 +5086,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf445",
-            "fingerprint" : "00439004440044500446",
+            "fingerprint" : "99560995559955499553",
             "displayName" : "sirion",
             "status" : "APPROVED"
             });
@@ -5108,7 +5097,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf446",
-            "fingerprint" : "0043900444004450044600447",
+            "fingerprint" : "9956099555995549955399552",
             "displayName" : "freedom call",
             "status" : "APPROVED"
             });
@@ -5118,7 +5107,7 @@
             "text" : "bin eingeschlafen .....",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00448",
+            "fingerprint" : "99551",
             "displayName" : "Monsterkontrolle",
             "likes" : 1,
             "status" : "APPROVED"
@@ -5130,7 +5119,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf448",
-            "fingerprint" : "0044800449",
+            "fingerprint" : "9955199550",
             "displayName" : "freedom call",
             "status" : "APPROVED"
             });
@@ -5140,7 +5129,7 @@
             "text" : "...da  wac zweiter ist. das sagt einiges über die sissiliga. von 800 zusehern bei einem erstligamatch ganz zu schweigen.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00450",
+            "fingerprint" : "99549",
             "displayName" : "edi piva",
             "likes" : 3,
             "dislikes" : 2,
@@ -5153,7 +5142,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf450",
-            "fingerprint" : "0045000451",
+            "fingerprint" : "9954999548",
             "displayName" : "rpk",
             "likes" : 10,
             "status" : "APPROVED"
@@ -5165,7 +5154,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf451",
-            "fingerprint" : "004500045100452",
+            "fingerprint" : "995499954899547",
             "displayName" : "DeineMama",
             "status" : "APPROVED"
             });
@@ -5175,7 +5164,7 @@
             "text" : "sieben runden ohne sieg und trotzdem den platz halten so wie der WAC ist auch eine kunst...",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00453",
+            "fingerprint" : "99546",
             "displayName" : "sirion",
             "status" : "APPROVED"
             });
@@ -5185,7 +5174,7 @@
             "text" : "Ich bin für die Abschaffung der 2. österr. Liga und die gleichzeitige Aufstockung der 1. Liga auf 18 Vereine. Altach  WAC  Grödig beweisen  dass es keinen Unterschied mehr gibt. Also aufstocken  dann gibt es nur noch 1 Hin  und Rückspiel gegen eine Mannschaft. Die Regionalliga wird aufgewertet  weil daraus die Aufsteiger kommen. Es wird auch spannender  weil noch mehr auf  hnlichem Niveau spielen. Ich bin kein Suderer sondern schätze den österr. Fussball besser ein als die allermeisten hier.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00454",
+            "fingerprint" : "99545",
             "displayName" : "samarealistoptimist",
             "likes" : 30,
             "dislikes" : 1,
@@ -5198,7 +5187,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf454",
-            "fingerprint" : "0045400455",
+            "fingerprint" : "9954599544",
             "displayName" : "steuerboykott",
             "likes" : 16,
             "dislikes" : 1,
@@ -5210,7 +5199,7 @@
             "text" : "Schwab  der einzige wos kickn koa bei Rapid ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00456",
+            "fingerprint" : "99543",
             "displayName" : "Fußballwisser",
             "likes" : 1,
             "dislikes" : 3,
@@ -5223,7 +5212,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf456",
-            "fingerprint" : "0045600457",
+            "fingerprint" : "9954399542",
             "displayName" : "morgause",
             "likes" : 4,
             "dislikes" : 1,
@@ -5236,7 +5225,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf457",
-            "fingerprint" : "004560045700458",
+            "fingerprint" : "995439954299541",
             "displayName" : "gerold wallner",
             "likes" : 1,
             "status" : "APPROVED"
@@ -5247,7 +5236,7 @@
             "text" : "Schwab ist im Moment das um und auf von Rapid  wenn man sich bedenkt  dass die Austria Spezialisten einen Leitgeb statt Schwab  noch dazu mit relativ hoher Ablöse holen  dann kann man sich im A...sch beissen  ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00459",
+            "fingerprint" : "99540",
             "displayName" : "thrylos",
             "status" : "APPROVED"
             });
@@ -5257,7 +5246,7 @@
             "text" : "hundskick. aber egal. rapid ist auf platz 5 gut aufgehoben.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00460",
+            "fingerprint" : "99539",
             "displayName" : "harald n.",
             "likes" : 2,
             "status" : "APPROVED"
@@ -5268,7 +5257,7 @@
             "text" : "schad drum  wär mehr drin gewesen.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00461",
+            "fingerprint" : "99538",
             "displayName" : "WilWil",
             "likes" : 2,
             "status" : "APPROVED"
@@ -5279,7 +5268,7 @@
             "text" : "Der GAK mitn didi fehlt heutzutage einfach in der bundesliga.",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00462",
+            "fingerprint" : "99537",
             "displayName" : "Versiles",
             "likes" : 3,
             "dislikes" : 1,
@@ -5292,7 +5281,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf462",
-            "fingerprint" : "0046200463",
+            "fingerprint" : "9953799536",
             "displayName" : "Flash_ahaaa",
             "status" : "APPROVED"
             });
@@ -5303,7 +5292,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf462",
-            "fingerprint" : "0046200464",
+            "fingerprint" : "9953799535",
             "displayName" : "Maximi",
             "likes" : 1,
             "status" : "APPROVED"
@@ -5314,7 +5303,7 @@
             "text" : "leider eine rapid  die nur ein system spielen kann. warum wechselt der zoki den alar in der 85 minute ein  da war beric schon 15 minuten kaum mehr aufgefallen. was soll alar in 5 minuten richten  naja  die ewige trainerfrage... wiener mafia will ich übrigens in dieser saison nicht mehr hören. wenn s heut 3 0 ausgeht  2 elfer pfeifen und 1 foul beim tor  braucht sich auch niemand beschweren. naja  hast kein glück  kommt pech auch noch dazu...",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00465",
+            "fingerprint" : "99534",
             "displayName" : "Clemens Forell",
             "likes" : 5,
             "dislikes" : 1,
@@ -5327,7 +5316,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf465",
-            "fingerprint" : "0046500466",
+            "fingerprint" : "9953499533",
             "displayName" : "Der Schakal",
             "likes" : 1,
             "dislikes" : 10,
@@ -5340,7 +5329,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf466",
-            "fingerprint" : "004650046600467",
+            "fingerprint" : "995349953399532",
             "displayName" : "morgause",
             "likes" : 5,
             "status" : "APPROVED"
@@ -5352,7 +5341,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf467",
-            "fingerprint" : "00465004660046700468",
+            "fingerprint" : "99534995339953299531",
             "displayName" : "Clemens Forell",
             "status" : "APPROVED"
             });
@@ -5363,7 +5352,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf468",
-            "fingerprint" : "0046500466004670046800469",
+            "fingerprint" : "9953499533995329953199530",
             "displayName" : "morgause",
             "status" : "APPROVED"
             });
@@ -5374,7 +5363,7 @@
             "authorId" : "admin",
             "level" : 5,
             "parentId" : "5484cc19c8301dc174baf469",
-            "fingerprint" : "004650046600467004680046900470",
+            "fingerprint" : "995349953399532995319953099529",
             "displayName" : "Mr.Niceguy",
             "likes" : 1,
             "status" : "APPROVED"
@@ -5386,7 +5375,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf465",
-            "fingerprint" : "0046500471",
+            "fingerprint" : "9953499528",
             "displayName" : "Rriotrradio",
             "likes" : 2,
             "status" : "APPROVED"
@@ -5397,7 +5386,7 @@
             "text" : "alle wiener oasch grün  wiener rot  antiwürschtel comment... ma wurscht ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00472",
+            "fingerprint" : "99527",
             "displayName" : "TexasTomBoe",
             "likes" : 1,
             "status" : "APPROVED"
@@ -5409,7 +5398,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf472",
-            "fingerprint" : "0047200473",
+            "fingerprint" : "9952799526",
             "displayName" : "Kenn mee Nedaus",
             "status" : "APPROVED"
             });
@@ -5419,7 +5408,7 @@
             "text" : "mit trainergott kühbauer ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00474",
+            "fingerprint" : "99525",
             "displayName" : "miles a head",
             "dislikes" : 3,
             "status" : "APPROVED"
@@ -5431,7 +5420,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf474",
-            "fingerprint" : "0047400475",
+            "fingerprint" : "9952599524",
             "displayName" : "meresi",
             "status" : "APPROVED"
             });
@@ -5442,7 +5431,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf474",
-            "fingerprint" : "0047400476",
+            "fingerprint" : "9952599523",
             "displayName" : "sl1der",
             "likes" : 6,
             "status" : "APPROVED"
@@ -5454,7 +5443,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf476",
-            "fingerprint" : "004740047600477",
+            "fingerprint" : "995259952399522",
             "displayName" : "miles a head",
             "likes" : 1,
             "dislikes" : 3,
@@ -5466,7 +5455,7 @@
             "text" : "eigentlich a wahnsinn dass sturm da oben is. da versteht man dann dass man das strohsack gold bricht um einen foda zu bringen   eh  egal  passt schon so  weiter machen sturm vorstand  jetzt seids wieda leiwauuund ",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00478",
+            "fingerprint" : "99521",
             "displayName" : "TexasTomBoe",
             "likes" : 2,
             "dislikes" : 14,
@@ -5479,7 +5468,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf478",
-            "fingerprint" : "0047800479",
+            "fingerprint" : "9952199520",
             "displayName" : "Mr.Niceguy",
             "likes" : 6,
             "dislikes" : 3,
@@ -5492,7 +5481,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf479",
-            "fingerprint" : "004780047900480",
+            "fingerprint" : "995219952099519",
             "displayName" : "sirion",
             "likes" : 6,
             "dislikes" : 4,
@@ -5505,7 +5494,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf480",
-            "fingerprint" : "00478004790048000481",
+            "fingerprint" : "99521995209951999518",
             "displayName" : "Mr.Niceguy",
             "likes" : 3,
             "dislikes" : 3,
@@ -5517,7 +5506,7 @@
             "text" : "http www.laola1.at de fussba... 8 7.html ein Artikel über die Zuschauerzahlen dieser buli saison",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00482",
+            "fingerprint" : "99517",
             "displayName" : "GedriteAlAlMg-Si-",
             "status" : "APPROVED"
             });
@@ -5528,7 +5517,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf482",
-            "fingerprint" : "0048200483",
+            "fingerprint" : "9951799516",
             "displayName" : "puppetmaster",
             "likes" : 1,
             "status" : "APPROVED"
@@ -5539,7 +5528,7 @@
             "text" : "so schlecht das Match  auf irregulärem Rasen  auch war  und   im direkten Vergleich war HSV vs. Mainz auch um nix besser  nur vor viel mehr Zusehern und wenigstens auf gscheitem terrain .   der Unterschied zum Spiel des WAC vor einer Woche in Salzburg war  dass dort den millionenschweren Bullen ein  zumindest  Elfer in der 93. geschenkt wurde   und Rapid ein Elfer  der noch viel klarer war als der 1. für die Bullen   vorenthalten wurde. not more or less. natürlich spielen wir nicht gut  genug  zumal auf solchem Rasen und bei solch einem   sogar daheim   destruktiven Gegner. a b e r .....",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00484",
+            "fingerprint" : "99515",
             "displayName" : "No Depression",
             "likes" : 5,
             "dislikes" : 7,
@@ -5552,7 +5541,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf484",
-            "fingerprint" : "0048400485",
+            "fingerprint" : "9951599514",
             "displayName" : "rpk",
             "likes" : 3,
             "dislikes" : 1,
@@ -5565,7 +5554,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf485",
-            "fingerprint" : "004840048500486",
+            "fingerprint" : "995159951499513",
             "displayName" : "Modjo",
             "likes" : 1,
             "status" : "APPROVED"
@@ -5577,7 +5566,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf486",
-            "fingerprint" : "00484004850048600487",
+            "fingerprint" : "99515995149951399512",
             "displayName" : "rpk",
             "status" : "APPROVED"
             });
@@ -5588,7 +5577,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf487",
-            "fingerprint" : "0048400485004860048700488",
+            "fingerprint" : "9951599514995139951299511",
             "displayName" : "puppetmaster",
             "status" : "APPROVED"
             });
@@ -5599,7 +5588,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf484",
-            "fingerprint" : "0048400489",
+            "fingerprint" : "9951599510",
             "displayName" : "Karl Graus 2,0",
             "likes" : 4,
             "dislikes" : 1,
@@ -5612,7 +5601,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf489",
-            "fingerprint" : "004840048900490",
+            "fingerprint" : "995159951099509",
             "displayName" : "Hr. Vorragend",
             "status" : "APPROVED"
             });
@@ -5623,7 +5612,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf490",
-            "fingerprint" : "00484004890049000491",
+            "fingerprint" : "99515995109950999508",
             "displayName" : "Karl Graus 2,0",
             "likes" : 2,
             "dislikes" : 1,
@@ -5636,7 +5625,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf491",
-            "fingerprint" : "0048400489004900049100492",
+            "fingerprint" : "9951599510995099950899507",
             "displayName" : "Hr. Vorragend",
             "status" : "APPROVED"
             });
@@ -5647,7 +5636,7 @@
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf491",
-            "fingerprint" : "0048400489004900049100493",
+            "fingerprint" : "9951599510995099950899506",
             "displayName" : "minus für anglizismen",
             "likes" : 2,
             "dislikes" : 1,
@@ -5660,7 +5649,7 @@
             "authorId" : "admin",
             "level" : 5,
             "parentId" : "5484cc19c8301dc174baf493",
-            "fingerprint" : "004840048900490004910049300494",
+            "fingerprint" : "995159951099509995089950699505",
             "displayName" : "Karl Graus 2,0",
             "likes" : 1,
             "status" : "APPROVED"
@@ -5672,7 +5661,7 @@
             "authorId" : "admin",
             "level" : 5,
             "parentId" : "5484cc19c8301dc174baf493",
-            "fingerprint" : "004840048900490004910049300495",
+            "fingerprint" : "995159951099509995089950699504",
             "displayName" : "G.Steffl",
             "status" : "APPROVED"
             });
@@ -5683,7 +5672,7 @@
             "authorId" : "admin",
             "level" : 6,
             "parentId" : "5484cc19c8301dc174baf495",
-            "fingerprint" : "00484004890049000491004930049500496",
+            "fingerprint" : "99515995109950999508995069950499503",
             "displayName" : "minus für anglizismen",
             "status" : "APPROVED"
             });
@@ -5694,7 +5683,7 @@
             "authorId" : "admin",
             "level" : 7,
             "parentId" : "5484cc19c8301dc174baf496",
-            "fingerprint" : "0048400489004900049100493004950049600497",
+            "fingerprint" : "9951599510995099950899506995049950399502",
             "displayName" : "Karl Graus 2,0",
             "status" : "APPROVED"
             });
@@ -5704,7 +5693,7 @@
             "text" : "Also  nachdem es diese Runde schon ganz gut funktioniert hat  hier meine Wünsche für die nächste  Altach   Sturm Graz 0 4 Austria   Grödig 1 1 Ried   Wr. Neustadt 1 1 Admira   WAC 1 0 Salzburg   Rapid 3 1   live in ORF eins",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00498",
+            "fingerprint" : "99501",
             "displayName" : "irgendana",
             "likes" : 4,
             "dislikes" : 2,
@@ -5717,7 +5706,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf498",
-            "fingerprint" : "0049800499",
+            "fingerprint" : "9950199500",
             "displayName" : "GedriteAlAlMg-Si-",
             "status" : "APPROVED"
             });
@@ -5728,7 +5717,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf498",
-            "fingerprint" : "0049800500",
+            "fingerprint" : "9950199499",
             "displayName" : "Mr XY",
             "likes" : 4,
             "dislikes" : 3,
@@ -5741,7 +5730,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf500",
-            "fingerprint" : "004980050000501",
+            "fingerprint" : "995019949999498",
             "displayName" : "Schabbesgoi",
             "status" : "APPROVED"
             });
@@ -5752,7 +5741,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf498",
-            "fingerprint" : "0049800502",
+            "fingerprint" : "9950199497",
             "displayName" : "irgendana",
             "likes" : 1,
             "status" : "APPROVED"
@@ -5764,7 +5753,7 @@
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf502",
-            "fingerprint" : "004980050200503",
+            "fingerprint" : "995019949799496",
             "displayName" : "haljô",
             "likes" : 1,
             "status" : "APPROVED"
@@ -5776,7 +5765,7 @@
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf503",
-            "fingerprint" : "00498005020050300504",
+            "fingerprint" : "99501994979949699495",
             "displayName" : "tenminusthreeequalseven",
             "status" : "APPROVED"
             });
@@ -5786,7 +5775,7 @@
             "text" : "keine Ahnung  was ihr alle raunzt   ich hab mir grad die vierminütige Zusammanfassung auf laola angschaut und davon waren 2 Minuten ganz passabel...",
             "authorId" : "admin",
             "level" : 0,
-            "fingerprint" : "00505",
+            "fingerprint" : "99494",
             "displayName" : "Frizzl",
             "likes" : 3,
             "status" : "APPROVED"
@@ -5798,7 +5787,7 @@
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf505",
-            "fingerprint" : "0050500506",
+            "fingerprint" : "9949499493",
             "displayName" : "DFRUKA",
             "dislikes" : 1,
             "status" : "APPROVED"

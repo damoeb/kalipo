@@ -12,20 +12,8 @@
             "lang_key": "en",
             "created_by": "system",
             "created_date": new Date(),
+            "registration_date": new Date(),
             "authorities": [{"_id": "ROLE_ADMIN"}, {"_id": "ROLE_USER"}]
-            });
-            db.T_USER.insert(
-            {
-            "_id" : "anonymousUser", "password" :
-            "4f54479f8290dfd503b72a654faf5d70593eab443993d87a79e14e5f7cda3eb7988423aa99090c9b",
-            "first_name": "Anonymous",
-            "last_name": "User",
-            "email": "anon@kalipo.org",
-            "activated": "true",
-            "lang_key": "en",
-            "created_by": "system",
-            "created_date": new Date(),
-            "authorities": []
             });
             db.T_USER.insert(
             {
@@ -38,6 +26,7 @@
             "lang_key": "en",
             "created_by": "system",
             "created_date": new Date(),
+            "registration_date": new Date(),
             "authorities": [{"_id": "ROLE_ADMIN"}, {"_id": "ROLE_USER"}]
             });
             db.T_USER.insert(
@@ -51,6 +40,7 @@
             "lang_key": "en",
             "created_by": "system",
             "created_date": new Date(),
+            "registration_date": new Date(),
             "authorities": [{"_id": "ROLE_USER"}]
             });
         </script>
