@@ -9,7 +9,8 @@
             "level" : 0,
             "fingerprint" : "99998",
             "displayName" : "GedriteAlAlMg-Si-",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf452"),
@@ -21,7 +22,8 @@
             "fingerprint" : "9999899997",
             "displayName" : "puppetmaster",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf453"),
@@ -33,7 +35,8 @@
             "displayName" : "No Depression",
             "likes" : 5,
             "dislikes" : 7,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf454"),
@@ -46,7 +49,8 @@
             "displayName" : "rpk",
             "likes" : 3,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf455"),
@@ -58,7 +62,8 @@
             "fingerprint" : "999969999599994",
             "displayName" : "Modjo",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf456"),
@@ -69,7 +74,8 @@
             "parentId" : "5484cc19c8301dc174baf455",
             "fingerprint" : "99996999959999499993",
             "displayName" : "rpk",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf457"),
@@ -80,7 +86,8 @@
             "parentId" : "5484cc19c8301dc174baf456",
             "fingerprint" : "9999699995999949999399992",
             "displayName" : "puppetmaster",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf458"),
@@ -93,7 +100,8 @@
             "displayName" : "Karl Graus 2,0",
             "likes" : 4,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf459"),
@@ -104,7 +112,8 @@
             "parentId" : "5484cc19c8301dc174baf458",
             "fingerprint" : "999969999199990",
             "displayName" : "Hr. Vorragend",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf410"),
@@ -117,7 +126,8 @@
             "displayName" : "Karl Graus 2,0",
             "likes" : 2,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf411"),
@@ -128,7 +138,8 @@
             "parentId" : "5484cc19c8301dc174baf410",
             "fingerprint" : "9999699991999909998999988",
             "displayName" : "Hr. Vorragend",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf412"),
@@ -141,7 +152,8 @@
             "displayName" : "minus für anglizismen",
             "likes" : 2,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf413"),
@@ -153,7 +165,8 @@
             "fingerprint" : "999969999199990999899998799986",
             "displayName" : "Karl Graus 2,0",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf414"),
@@ -164,7 +177,8 @@
             "parentId" : "5484cc19c8301dc174baf412",
             "fingerprint" : "999969999199990999899998799985",
             "displayName" : "G.Steffl",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf415"),
@@ -175,7 +189,8 @@
             "parentId" : "5484cc19c8301dc174baf414",
             "fingerprint" : "99996999919999099989999879998599984",
             "displayName" : "minus für anglizismen",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf416"),
@@ -186,7 +201,8 @@
             "parentId" : "5484cc19c8301dc174baf415",
             "fingerprint" : "9999699991999909998999987999859998499983",
             "displayName" : "Karl Graus 2,0",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf417"),
@@ -198,7 +214,8 @@
             "displayName" : "irgendana",
             "likes" : 4,
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf418"),
@@ -209,7 +226,8 @@
             "parentId" : "5484cc19c8301dc174baf417",
             "fingerprint" : "9998299981",
             "displayName" : "GedriteAlAlMg-Si-",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf419"),
@@ -222,7 +240,8 @@
             "displayName" : "Mr XY",
             "likes" : 4,
             "dislikes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf420"),
@@ -233,7 +252,8 @@
             "parentId" : "5484cc19c8301dc174baf419",
             "fingerprint" : "999829998099979",
             "displayName" : "Schabbesgoi",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf421"),
@@ -245,7 +265,8 @@
             "fingerprint" : "9998299978",
             "displayName" : "irgendana",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf422"),
@@ -257,7 +278,8 @@
             "fingerprint" : "999829997899977",
             "displayName" : "haljô",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf423"),
@@ -268,7 +290,8 @@
             "parentId" : "5484cc19c8301dc174baf422",
             "fingerprint" : "99982999789997799976",
             "displayName" : "tenminusthreeequalseven",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf424"),
@@ -279,7 +302,8 @@
             "fingerprint" : "99975",
             "displayName" : "Frizzl",
             "likes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf425"),
@@ -291,7 +315,8 @@
             "fingerprint" : "9997599974",
             "displayName" : "DFRUKA",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf426"),
@@ -302,7 +327,8 @@
             "fingerprint" : "99973",
             "displayName" : "Mr.Niceguy",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf427"),
@@ -312,7 +338,8 @@
             "level" : 0,
             "fingerprint" : "99972",
             "displayName" : "morgause",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf428"),
@@ -324,7 +351,8 @@
             "fingerprint" : "9997299971",
             "displayName" : "florus silentius",
             "likes" : 9,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf429"),
@@ -337,7 +365,8 @@
             "displayName" : "morgause",
             "likes" : 2,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf430"),
@@ -347,7 +376,8 @@
             "level" : 0,
             "fingerprint" : "99969",
             "displayName" : "Building Better Worlds",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf431"),
@@ -358,7 +388,8 @@
             "parentId" : "5484cc19c8301dc174baf430",
             "fingerprint" : "9996999968",
             "displayName" : "sirion",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf432"),
@@ -369,7 +400,8 @@
             "fingerprint" : "99967",
             "displayName" : "Byb Dolan",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf433"),
@@ -379,7 +411,8 @@
             "level" : 0,
             "fingerprint" : "99966",
             "displayName" : "Uncle Samy",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf434"),
@@ -389,7 +422,8 @@
             "level" : 0,
             "fingerprint" : "99965",
             "displayName" : "Uncle Samy",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf435"),
@@ -400,7 +434,8 @@
             "fingerprint" : "99964",
             "displayName" : "Ildefons Lima",
             "likes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf436"),
@@ -411,7 +446,8 @@
             "parentId" : "5484cc19c8301dc174baf435",
             "fingerprint" : "9996499963",
             "displayName" : "Paul Platon",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf437"),
@@ -422,7 +458,8 @@
             "parentId" : "5484cc19c8301dc174baf435",
             "fingerprint" : "9996499962",
             "displayName" : "Ardbeg Uigeadail",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf438"),
@@ -433,7 +470,8 @@
             "parentId" : "5484cc19c8301dc174baf435",
             "fingerprint" : "9996499961",
             "displayName" : "minus für anglizismen",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf439"),
@@ -444,7 +482,8 @@
             "fingerprint" : "99960",
             "displayName" : "pure post still",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf440"),
@@ -455,7 +494,8 @@
             "fingerprint" : "99959",
             "displayName" : "MrRowX",
             "likes" : 16,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf441"),
@@ -466,7 +506,8 @@
             "parentId" : "5484cc19c8301dc174baf440",
             "fingerprint" : "9995999958",
             "displayName" : "morgause",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf442"),
@@ -477,7 +518,8 @@
             "parentId" : "5484cc19c8301dc174baf440",
             "fingerprint" : "9995999957",
             "displayName" : "pure post still",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf443"),
@@ -489,7 +531,8 @@
             "fingerprint" : "9995999956",
             "displayName" : "Uncle Samy",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf444"),
@@ -499,7 +542,8 @@
             "level" : 0,
             "fingerprint" : "99955",
             "displayName" : "Uncle Samy",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf445"),
@@ -510,7 +554,8 @@
             "parentId" : "5484cc19c8301dc174baf444",
             "fingerprint" : "9995599954",
             "displayName" : "fredsbg",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf446"),
@@ -520,7 +565,8 @@
             "level" : 0,
             "fingerprint" : "99953",
             "displayName" : "hans.maulwurf@huegel.at",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf447"),
@@ -530,7 +576,8 @@
             "level" : 0,
             "fingerprint" : "99952",
             "displayName" : "Uncle Samy",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf448"),
@@ -541,7 +588,8 @@
             "fingerprint" : "99951",
             "displayName" : "Uncle Samy",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf449"),
@@ -552,7 +600,8 @@
             "fingerprint" : "99950",
             "displayName" : "plaphi",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf450"),
@@ -564,7 +613,8 @@
             "fingerprint" : "9995099949",
             "displayName" : "fredsbg",
             "likes" : 4,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf451"),
@@ -576,7 +626,8 @@
             "fingerprint" : "9995099948",
             "displayName" : "Uncle Samy",
             "likes" : 4,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf452"),
@@ -587,7 +638,8 @@
             "fingerprint" : "99947",
             "displayName" : "Uncle Samy",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf453"),
@@ -599,7 +651,8 @@
             "fingerprint" : "9994799946",
             "displayName" : "pure post still",
             "likes" : 5,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf454"),
@@ -610,7 +663,8 @@
             "parentId" : "5484cc19c8301dc174baf453",
             "fingerprint" : "999479994699945",
             "displayName" : "eMeLy ChAnG",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf455"),
@@ -621,7 +675,8 @@
             "fingerprint" : "99944",
             "displayName" : "pure post still",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf456"),
@@ -633,7 +688,8 @@
             "fingerprint" : "9994499943",
             "displayName" : "Luke Lucky",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf457"),
@@ -644,7 +700,8 @@
             "parentId" : "5484cc19c8301dc174baf456",
             "fingerprint" : "999449994399942",
             "displayName" : "pure post still",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf458"),
@@ -654,7 +711,8 @@
             "level" : 0,
             "fingerprint" : "99941",
             "displayName" : "Uncle Samy",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf459"),
@@ -666,7 +724,8 @@
             "fingerprint" : "9994199940",
             "displayName" : "Ildefons Lima",
             "likes" : 5,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf460"),
@@ -678,7 +737,8 @@
             "fingerprint" : "9994199939",
             "displayName" : "pure post still",
             "likes" : 16,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf461"),
@@ -690,7 +750,8 @@
             "fingerprint" : "9994199938",
             "displayName" : "local simpleton",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf462"),
@@ -701,7 +762,8 @@
             "fingerprint" : "99937",
             "displayName" : "Herr Irgendwer",
             "likes" : 6,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf463"),
@@ -712,7 +774,8 @@
             "fingerprint" : "99936",
             "displayName" : "pure post still",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf464"),
@@ -722,7 +785,8 @@
             "level" : 0,
             "fingerprint" : "99935",
             "displayName" : "Uncle Samy",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf465"),
@@ -733,7 +797,8 @@
             "fingerprint" : "99934",
             "displayName" : "Mr.Niceguy",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf466"),
@@ -745,7 +810,8 @@
             "fingerprint" : "9993499933",
             "displayName" : "eMeLy ChAnG",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf467"),
@@ -756,7 +822,8 @@
             "fingerprint" : "99932",
             "displayName" : "Unterton",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf468"),
@@ -768,7 +835,8 @@
             "displayName" : "*westwind*",
             "likes" : 1,
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf469"),
@@ -778,7 +846,8 @@
             "level" : 0,
             "fingerprint" : "99930",
             "displayName" : "Ildefons Lima",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf470"),
@@ -789,7 +858,8 @@
             "fingerprint" : "99929",
             "displayName" : "Uncle Samy",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf471"),
@@ -799,7 +869,8 @@
             "level" : 0,
             "fingerprint" : "99928",
             "displayName" : "Quargelbrot",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf472"),
@@ -811,7 +882,8 @@
             "fingerprint" : "9992899927",
             "displayName" : "Mr.Niceguy",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf473"),
@@ -821,7 +893,8 @@
             "level" : 0,
             "fingerprint" : "99926",
             "displayName" : "Uncle Samy",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf474"),
@@ -831,7 +904,8 @@
             "level" : 0,
             "fingerprint" : "99925",
             "displayName" : "Uncle Samy",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf475"),
@@ -841,7 +915,8 @@
             "level" : 0,
             "fingerprint" : "99924",
             "displayName" : "Herr Irgendwer",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf476"),
@@ -852,7 +927,8 @@
             "fingerprint" : "99923",
             "displayName" : "-HPS-",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf477"),
@@ -863,7 +939,8 @@
             "fingerprint" : "99922",
             "displayName" : "Uncle Samy",
             "likes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf478"),
@@ -874,7 +951,8 @@
             "fingerprint" : "99921",
             "displayName" : "Dr.Leakey",
             "likes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf479"),
@@ -885,7 +963,8 @@
             "parentId" : "5484cc19c8301dc174baf478",
             "fingerprint" : "9992199920",
             "displayName" : "captankarotte",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf480"),
@@ -896,7 +975,8 @@
             "parentId" : "5484cc19c8301dc174baf478",
             "fingerprint" : "9992199919",
             "displayName" : "Byb Dolan",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf481"),
@@ -907,7 +987,8 @@
             "parentId" : "5484cc19c8301dc174baf480",
             "fingerprint" : "999219991999918",
             "displayName" : "florus silentius",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf482"),
@@ -919,7 +1000,8 @@
             "displayName" : "Beste Partei Österreichs",
             "likes" : 3,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf483"),
@@ -930,7 +1012,8 @@
             "parentId" : "5484cc19c8301dc174baf482",
             "fingerprint" : "9991799916",
             "displayName" : "-HPS-",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf484"),
@@ -941,7 +1024,8 @@
             "parentId" : "5484cc19c8301dc174baf482",
             "fingerprint" : "9991799915",
             "displayName" : "fredsbg",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf485"),
@@ -951,7 +1035,8 @@
             "level" : 0,
             "fingerprint" : "99914",
             "displayName" : "Mr XY",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf486"),
@@ -961,7 +1046,8 @@
             "level" : 0,
             "fingerprint" : "99913",
             "displayName" : "Chukche",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf487"),
@@ -972,7 +1058,8 @@
             "fingerprint" : "99912",
             "displayName" : "Mr XY",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf488"),
@@ -983,7 +1070,8 @@
             "parentId" : "5484cc19c8301dc174baf487",
             "fingerprint" : "9991299911",
             "displayName" : "fredsbg",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf489"),
@@ -994,7 +1082,8 @@
             "parentId" : "5484cc19c8301dc174baf488",
             "fingerprint" : "999129991199910",
             "displayName" : "Mr XY",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf490"),
@@ -1005,7 +1094,8 @@
             "parentId" : "5484cc19c8301dc174baf489",
             "fingerprint" : "99912999119991099909",
             "displayName" : "fredsbg",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf491"),
@@ -1017,7 +1107,8 @@
             "displayName" : "Palavermittler",
             "likes" : 2,
             "dislikes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf492"),
@@ -1028,7 +1119,8 @@
             "parentId" : "5484cc19c8301dc174baf491",
             "fingerprint" : "9990899907",
             "displayName" : "pure post still",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf493"),
@@ -1040,7 +1132,8 @@
             "displayName" : "pure post still",
             "likes" : 1,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf494"),
@@ -1050,7 +1143,8 @@
             "level" : 0,
             "fingerprint" : "99905",
             "displayName" : "gwaumpatamaikäfer",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf495"),
@@ -1061,7 +1155,8 @@
             "fingerprint" : "99904",
             "displayName" : "Korratte",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf496"),
@@ -1073,7 +1168,8 @@
             "displayName" : "Mr XY",
             "likes" : 1,
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf497"),
@@ -1084,7 +1180,8 @@
             "parentId" : "5484cc19c8301dc174baf496",
             "fingerprint" : "9990399902",
             "displayName" : "gwaumpatamaikäfer",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf499"),
@@ -1094,7 +1191,8 @@
             "level" : 0,
             "fingerprint" : "99900",
             "displayName" : "kaiser von mühlen",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf100"),
@@ -1104,7 +1202,8 @@
             "level" : 0,
             "fingerprint" : "99899",
             "displayName" : "Mr XY",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf101"),
@@ -1115,7 +1214,8 @@
             "fingerprint" : "99898",
             "displayName" : "freedom call",
             "likes" : 11,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf102"),
@@ -1126,7 +1226,8 @@
             "fingerprint" : "99897",
             "displayName" : "irgendana",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf103"),
@@ -1137,7 +1238,8 @@
             "fingerprint" : "99896",
             "displayName" : "Ildefons Lima",
             "dislikes" : 8,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf104"),
@@ -1148,7 +1250,8 @@
             "parentId" : "5484cc19c8301dc174baf103",
             "fingerprint" : "9989699895",
             "displayName" : "Blechweckerl",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf105"),
@@ -1161,7 +1264,8 @@
             "displayName" : "Mr XY",
             "likes" : 1,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf106"),
@@ -1174,7 +1278,8 @@
             "displayName" : "Capsicum",
             "likes" : 2,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf107"),
@@ -1186,7 +1291,8 @@
             "fingerprint" : "998969989399892",
             "displayName" : "morgause",
             "likes" : 4,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf108"),
@@ -1198,7 +1304,8 @@
             "fingerprint" : "99896998939989299891",
             "displayName" : "Capsicum",
             "likes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf109"),
@@ -1208,7 +1315,8 @@
             "level" : 0,
             "fingerprint" : "99890",
             "displayName" : "dergrauestar",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf110"),
@@ -1218,7 +1326,8 @@
             "level" : 0,
             "fingerprint" : "99889",
             "displayName" : "Blechweckerl",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf111"),
@@ -1230,7 +1339,8 @@
             "displayName" : "morgause",
             "likes" : 4,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf112"),
@@ -1242,7 +1352,8 @@
             "displayName" : "Capsicum",
             "likes" : 2,
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf113"),
@@ -1252,7 +1363,8 @@
             "level" : 0,
             "fingerprint" : "99886",
             "displayName" : "pure post still",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf114"),
@@ -1263,7 +1375,8 @@
             "fingerprint" : "99885",
             "displayName" : "Capsicum",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf115"),
@@ -1274,7 +1387,8 @@
             "fingerprint" : "99884",
             "displayName" : "MrRowX",
             "dislikes" : 8,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf116"),
@@ -1285,7 +1399,8 @@
             "parentId" : "5484cc19c8301dc174baf115",
             "fingerprint" : "9988499883",
             "displayName" : "irgendana",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf117"),
@@ -1296,7 +1411,8 @@
             "parentId" : "5484cc19c8301dc174baf115",
             "fingerprint" : "9988499882",
             "displayName" : "Mr XY",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf118"),
@@ -1308,7 +1424,8 @@
             "fingerprint" : "9988499881",
             "displayName" : "*westwind*",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf119"),
@@ -1320,7 +1437,8 @@
             "fingerprint" : "9988499880",
             "displayName" : "Ender Wiggin",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf120"),
@@ -1332,7 +1450,8 @@
             "fingerprint" : "9988499879",
             "displayName" : "divis",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf121"),
@@ -1343,7 +1462,8 @@
             "fingerprint" : "99878",
             "displayName" : "Blechweckerl",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf122"),
@@ -1355,7 +1475,8 @@
             "displayName" : "gwaumpatamaikäfer",
             "likes" : 1,
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf123"),
@@ -1367,7 +1488,8 @@
             "displayName" : "DaChief",
             "likes" : 6,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf124"),
@@ -1378,7 +1500,8 @@
             "fingerprint" : "99875",
             "displayName" : "neversleep",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf125"),
@@ -1389,7 +1512,8 @@
             "fingerprint" : "99874",
             "displayName" : "stormcrow",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf126"),
@@ -1400,7 +1524,8 @@
             "fingerprint" : "99873",
             "displayName" : "gulba",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf127"),
@@ -1411,7 +1536,8 @@
             "fingerprint" : "99872",
             "displayName" : "pure post still",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf128"),
@@ -1422,7 +1548,8 @@
             "fingerprint" : "99871",
             "displayName" : "HunterThompson",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf129"),
@@ -1432,7 +1559,8 @@
             "level" : 0,
             "fingerprint" : "99870",
             "displayName" : "parteiisch",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf130"),
@@ -1442,7 +1570,8 @@
             "level" : 0,
             "fingerprint" : "99869",
             "displayName" : "gwaumpatamaikäfer",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf131"),
@@ -1452,7 +1581,8 @@
             "level" : 0,
             "fingerprint" : "99868",
             "displayName" : "Herr Irgendwer",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf132"),
@@ -1462,7 +1592,8 @@
             "level" : 0,
             "fingerprint" : "99867",
             "displayName" : "morgause",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf133"),
@@ -1473,7 +1604,8 @@
             "fingerprint" : "99866",
             "displayName" : "Petuschki",
             "likes" : 6,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf134"),
@@ -1484,7 +1616,8 @@
             "parentId" : "5484cc19c8301dc174baf133",
             "fingerprint" : "9986699865",
             "displayName" : "santa clause",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf135"),
@@ -1494,7 +1627,8 @@
             "level" : 0,
             "fingerprint" : "99864",
             "displayName" : "Uncle Samy",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf136"),
@@ -1504,7 +1638,8 @@
             "level" : 0,
             "fingerprint" : "99863",
             "displayName" : "Mr XY",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf137"),
@@ -1516,7 +1651,8 @@
             "fingerprint" : "9986399862",
             "displayName" : "pure post still",
             "likes" : 6,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf138"),
@@ -1527,7 +1663,8 @@
             "parentId" : "5484cc19c8301dc174baf137",
             "fingerprint" : "998639986299861",
             "displayName" : "Mr XY",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf139"),
@@ -1538,7 +1675,8 @@
             "fingerprint" : "99860",
             "displayName" : "pure post still",
             "likes" : 5,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf140"),
@@ -1549,7 +1687,8 @@
             "fingerprint" : "99859",
             "displayName" : "mank hoody",
             "likes" : 6,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf141"),
@@ -1560,7 +1699,8 @@
             "fingerprint" : "99858",
             "displayName" : "Uncle Samy",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf142"),
@@ -1571,7 +1711,8 @@
             "parentId" : "5484cc19c8301dc174baf141",
             "fingerprint" : "9985899857",
             "displayName" : "gwaumpatamaikäfer",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf143"),
@@ -1581,7 +1722,8 @@
             "level" : 0,
             "fingerprint" : "99856",
             "displayName" : "Herr Irgendwer",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf144"),
@@ -1592,7 +1734,8 @@
             "fingerprint" : "99855",
             "displayName" : "Yhoshi",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf145"),
@@ -1604,7 +1747,8 @@
             "displayName" : "Ildefons Lima",
             "likes" : 5,
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf146"),
@@ -1617,7 +1761,8 @@
             "displayName" : "Capsicum",
             "likes" : 1,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf147"),
@@ -1628,7 +1773,8 @@
             "fingerprint" : "99852",
             "displayName" : "Mr XY",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf148"),
@@ -1638,7 +1784,8 @@
             "level" : 0,
             "fingerprint" : "99851",
             "displayName" : "pure post still",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf149"),
@@ -1648,7 +1795,8 @@
             "level" : 0,
             "fingerprint" : "99850",
             "displayName" : "Capsicum",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf150"),
@@ -1659,7 +1807,8 @@
             "fingerprint" : "99849",
             "displayName" : "don't follow me",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf151"),
@@ -1670,7 +1819,8 @@
             "parentId" : "5484cc19c8301dc174baf150",
             "fingerprint" : "9984999848",
             "displayName" : "morgause",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf152"),
@@ -1681,7 +1831,8 @@
             "parentId" : "5484cc19c8301dc174baf151",
             "fingerprint" : "998499984899847",
             "displayName" : "Korratte",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf153"),
@@ -1693,7 +1844,8 @@
             "fingerprint" : "99849998489984799846",
             "displayName" : "morgause",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf154"),
@@ -1705,7 +1857,8 @@
             "displayName" : "minus für anglizismen",
             "likes" : 7,
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf155"),
@@ -1716,7 +1869,8 @@
             "fingerprint" : "99844",
             "displayName" : "Ardbeg Uigeadail",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf156"),
@@ -1728,7 +1882,8 @@
             "fingerprint" : "9984499843",
             "displayName" : "-HPS-",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf157"),
@@ -1739,7 +1894,8 @@
             "fingerprint" : "99842",
             "displayName" : "Palavermittler",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf158"),
@@ -1750,7 +1906,8 @@
             "parentId" : "5484cc19c8301dc174baf157",
             "fingerprint" : "9984299841",
             "displayName" : "pure post still",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf159"),
@@ -1760,7 +1917,8 @@
             "level" : 0,
             "fingerprint" : "99840",
             "displayName" : "Mr XY",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf160"),
@@ -1771,7 +1929,8 @@
             "fingerprint" : "99839",
             "displayName" : "FC Hintertupfing",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf161"),
@@ -1781,7 +1940,8 @@
             "level" : 0,
             "fingerprint" : "99838",
             "displayName" : "pure post still",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf162"),
@@ -1792,7 +1952,8 @@
             "fingerprint" : "99837",
             "displayName" : "Petuschki",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf163"),
@@ -1803,7 +1964,8 @@
             "fingerprint" : "99836",
             "displayName" : "pure post still",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf164"),
@@ -1814,7 +1976,8 @@
             "fingerprint" : "99835",
             "displayName" : "Ildefons Lima",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf165"),
@@ -1824,7 +1987,8 @@
             "level" : 0,
             "fingerprint" : "99834",
             "displayName" : "G.Steffl",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf166"),
@@ -1835,7 +1999,8 @@
             "fingerprint" : "99833",
             "displayName" : "DaRudl",
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf167"),
@@ -1846,7 +2011,8 @@
             "parentId" : "5484cc19c8301dc174baf166",
             "fingerprint" : "9983399832",
             "displayName" : "Kenn mee Nedaus",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf168"),
@@ -1857,7 +2023,8 @@
             "parentId" : "5484cc19c8301dc174baf166",
             "fingerprint" : "9983399831",
             "displayName" : "ttlive",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf169"),
@@ -1869,7 +2036,8 @@
             "fingerprint" : "9983399830",
             "displayName" : "FC Hintertupfing",
             "likes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf170"),
@@ -1881,7 +2049,8 @@
             "fingerprint" : "9983399829",
             "displayName" : "pure post still",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf171"),
@@ -1893,7 +2062,8 @@
             "fingerprint" : "9983399828",
             "displayName" : "Dr.Schuh",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf172"),
@@ -1905,7 +2075,8 @@
             "fingerprint" : "998339982899827",
             "displayName" : "Proudhon",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf173"),
@@ -1917,7 +2088,8 @@
             "fingerprint" : "998339982899826",
             "displayName" : "DaRudl",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf174"),
@@ -1929,7 +2101,8 @@
             "fingerprint" : "99833998289982699825",
             "displayName" : "Dr.Schuh",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf175"),
@@ -1941,7 +2114,8 @@
             "fingerprint" : "99833998289982699824",
             "displayName" : "ttlive",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf176"),
@@ -1952,7 +2126,8 @@
             "parentId" : "5484cc19c8301dc174baf175",
             "fingerprint" : "9983399828998269982499823",
             "displayName" : "Dr.Schuh",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf177"),
@@ -1964,7 +2139,8 @@
             "fingerprint" : "9983399828998269982499822",
             "displayName" : "ttlive",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf178"),
@@ -1975,7 +2151,8 @@
             "parentId" : "5484cc19c8301dc174baf166",
             "fingerprint" : "9983399821",
             "displayName" : "Herr Irgendwer",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf179"),
@@ -1986,7 +2163,8 @@
             "fingerprint" : "99820",
             "displayName" : "Herr Irgendwer",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf180"),
@@ -1996,7 +2174,8 @@
             "level" : 0,
             "fingerprint" : "99819",
             "displayName" : "Olga Blosmaanova",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf181"),
@@ -2007,7 +2186,8 @@
             "fingerprint" : "99818",
             "displayName" : "Muus M.",
             "likes" : 6,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf182"),
@@ -2017,7 +2197,8 @@
             "level" : 2,
             "fingerprint" : "99817",
             "displayName" : "sappydharma",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf183"),
@@ -2029,7 +2210,8 @@
             "displayName" : "Petuschki",
             "likes" : 4,
             "dislikes" : 6,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf184"),
@@ -2042,7 +2224,8 @@
             "displayName" : "sirion",
             "likes" : 2,
             "dislikes" : 6,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf185"),
@@ -2053,7 +2236,8 @@
             "parentId" : "5484cc19c8301dc174baf184",
             "fingerprint" : "998169981599814",
             "displayName" : "Petuschki",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf186"),
@@ -2065,7 +2249,8 @@
             "fingerprint" : "998169981599813",
             "displayName" : "UR-Westler",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf187"),
@@ -2078,7 +2263,8 @@
             "displayName" : "sirion",
             "likes" : 1,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf188"),
@@ -2090,7 +2276,8 @@
             "fingerprint" : "998169981299811",
             "displayName" : "Petuschki",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf189"),
@@ -2101,7 +2288,8 @@
             "parentId" : "5484cc19c8301dc174baf188",
             "fingerprint" : "99816998129981199810",
             "displayName" : "sirion",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf190"),
@@ -2113,7 +2301,8 @@
             "fingerprint" : "9981699812998119981099809",
             "displayName" : "Petuschki",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf191"),
@@ -2125,7 +2314,8 @@
             "fingerprint" : "998169981299811998109980999808",
             "displayName" : "sirion",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf192"),
@@ -2136,7 +2326,8 @@
             "parentId" : "5484cc19c8301dc174baf191",
             "fingerprint" : "99816998129981199810998099980899807",
             "displayName" : "Petuschki",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf193"),
@@ -2147,7 +2338,8 @@
             "fingerprint" : "99806",
             "displayName" : "7d8e2d0c-23d9-47ab-a458-0babfced752d",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf194"),
@@ -2159,7 +2351,8 @@
             "fingerprint" : "9980699805",
             "displayName" : "defjak",
             "likes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf195"),
@@ -2172,7 +2365,8 @@
             "displayName" : "hamflo",
             "likes" : 2,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf196"),
@@ -2183,7 +2377,8 @@
             "parentId" : "5484cc19c8301dc174baf195",
             "fingerprint" : "998069980499803",
             "displayName" : "7d8e2d0c-23d9-47ab-a458-0babfced752d",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf197"),
@@ -2194,7 +2389,8 @@
             "parentId" : "5484cc19c8301dc174baf196",
             "fingerprint" : "99806998049980399802",
             "displayName" : "Mr.FreshOpinion23",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf198"),
@@ -2205,7 +2401,8 @@
             "parentId" : "5484cc19c8301dc174baf196",
             "fingerprint" : "99806998049980399801",
             "displayName" : "hamflo",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf199"),
@@ -2217,7 +2414,8 @@
             "fingerprint" : "99806998049980399800",
             "displayName" : "Herr Irgendwer",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf200"),
@@ -2228,7 +2426,8 @@
             "parentId" : "5484cc19c8301dc174baf193",
             "fingerprint" : "9980699799",
             "displayName" : "alpentarzan",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf201"),
@@ -2239,7 +2438,8 @@
             "parentId" : "5484cc19c8301dc174baf200",
             "fingerprint" : "998069979999798",
             "displayName" : "Perjan",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf202"),
@@ -2250,7 +2450,8 @@
             "parentId" : "5484cc19c8301dc174baf200",
             "fingerprint" : "998069979999797",
             "displayName" : "7d8e2d0c-23d9-47ab-a458-0babfced752d",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf203"),
@@ -2262,7 +2463,8 @@
             "displayName" : "Yellow Cab",
             "likes" : 31,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf204"),
@@ -2274,7 +2476,8 @@
             "fingerprint" : "9979699795",
             "displayName" : "Uncle Samy",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf205"),
@@ -2286,7 +2489,8 @@
             "fingerprint" : "9979699794",
             "displayName" : "FerdlGriesgram",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf206"),
@@ -2298,7 +2502,8 @@
             "fingerprint" : "9979699793",
             "displayName" : "Robert Seehund",
             "likes" : 11,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf207"),
@@ -2310,7 +2515,8 @@
             "displayName" : "Mr.Niceguy",
             "likes" : 5,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf208"),
@@ -2321,7 +2527,8 @@
             "fingerprint" : "99791",
             "displayName" : "Wo woar mei Leistung?",
             "likes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf209"),
@@ -2332,7 +2539,8 @@
             "fingerprint" : "99790",
             "displayName" : "fossi1986",
             "likes" : 18,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf210"),
@@ -2343,7 +2551,8 @@
             "parentId" : "5484cc19c8301dc174baf209",
             "fingerprint" : "9979099789",
             "displayName" : "Kenn mee Nedaus",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf211"),
@@ -2355,7 +2564,8 @@
             "fingerprint" : "9979099788",
             "displayName" : "7d8e2d0c-23d9-47ab-a458-0babfced752d",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf212"),
@@ -2367,7 +2577,8 @@
             "fingerprint" : "997909978899787",
             "displayName" : "Mr.Niceguy",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf213"),
@@ -2378,7 +2589,8 @@
             "parentId" : "5484cc19c8301dc174baf209",
             "fingerprint" : "9979099786",
             "displayName" : "Mr.Niceguy",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf214"),
@@ -2390,7 +2602,8 @@
             "fingerprint" : "997909978699785",
             "displayName" : "Ernst Hemmingwei",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf215"),
@@ -2401,7 +2614,8 @@
             "fingerprint" : "99784",
             "displayName" : "science1",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf216"),
@@ -2412,7 +2626,8 @@
             "fingerprint" : "99783",
             "displayName" : "fredsbg",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf217"),
@@ -2424,7 +2639,8 @@
             "displayName" : "minus für anglizismen",
             "likes" : 5,
             "dislikes" : 16,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf218"),
@@ -2436,7 +2652,8 @@
             "fingerprint" : "9978299781",
             "displayName" : "William Edgar Allen Wallace",
             "likes" : 4,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf219"),
@@ -2448,7 +2665,8 @@
             "fingerprint" : "9978299780",
             "displayName" : "herr_rechtsausleger",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf220"),
@@ -2459,7 +2677,8 @@
             "parentId" : "5484cc19c8301dc174baf219",
             "fingerprint" : "997829978099779",
             "displayName" : "Capsicum",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf221"),
@@ -2471,7 +2690,8 @@
             "fingerprint" : "9978299778",
             "displayName" : "Mr.Niceguy",
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf222"),
@@ -2483,7 +2703,8 @@
             "fingerprint" : "997829977899777",
             "displayName" : "minus für anglizismen",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf223"),
@@ -2494,7 +2715,8 @@
             "parentId" : "5484cc19c8301dc174baf222",
             "fingerprint" : "99782997789977799776",
             "displayName" : "Mr.Niceguy",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf224"),
@@ -2506,7 +2728,8 @@
             "fingerprint" : "99782997789977799775",
             "displayName" : "irgendana",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf225"),
@@ -2517,7 +2740,8 @@
             "parentId" : "5484cc19c8301dc174baf217",
             "fingerprint" : "9978299774",
             "displayName" : "science1",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf226"),
@@ -2530,7 +2754,8 @@
             "displayName" : "Korratte",
             "likes" : 7,
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf227"),
@@ -2543,7 +2768,8 @@
             "displayName" : "irgendana",
             "likes" : 2,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf228"),
@@ -2556,7 +2782,8 @@
             "displayName" : "Kate Austen",
             "likes" : 1,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf229"),
@@ -2568,7 +2795,8 @@
             "displayName" : "m7x3d14",
             "likes" : 2,
             "dislikes" : 21,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf230"),
@@ -2579,7 +2807,8 @@
             "parentId" : "5484cc19c8301dc174baf229",
             "fingerprint" : "9977099769",
             "displayName" : "Mr.Niceguy",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf231"),
@@ -2591,7 +2820,8 @@
             "fingerprint" : "9977099768",
             "displayName" : "Petuschki",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf232"),
@@ -2601,7 +2831,8 @@
             "level" : 2,
             "fingerprint" : "99767",
             "displayName" : "m7x3d14",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf233"),
@@ -2613,7 +2844,8 @@
             "displayName" : "minus für anglizismen",
             "likes" : 1,
             "dislikes" : 5,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf234"),
@@ -2625,7 +2857,8 @@
             "displayName" : "Mélodie",
             "likes" : 5,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf235"),
@@ -2636,7 +2869,8 @@
             "parentId" : "5484cc19c8301dc174baf234",
             "fingerprint" : "9976599764",
             "displayName" : "sappydharma",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf236"),
@@ -2647,7 +2881,8 @@
             "fingerprint" : "99763",
             "displayName" : "sirion",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf237"),
@@ -2658,7 +2893,8 @@
             "parentId" : "5484cc19c8301dc174baf236",
             "fingerprint" : "9976399762",
             "displayName" : "science1",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf238"),
@@ -2669,7 +2905,8 @@
             "fingerprint" : "99761",
             "displayName" : "wassis anderer Nick",
             "likes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf239"),
@@ -2680,7 +2917,8 @@
             "fingerprint" : "99760",
             "displayName" : "Karl Radekk",
             "likes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf240"),
@@ -2691,7 +2929,8 @@
             "fingerprint" : "99759",
             "displayName" : "G.Steffl",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf241"),
@@ -2703,7 +2942,8 @@
             "fingerprint" : "9975999758",
             "displayName" : "unruly passenger",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf242"),
@@ -2715,7 +2955,8 @@
             "displayName" : "kw9",
             "likes" : 5,
             "dislikes" : 5,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf243"),
@@ -2727,7 +2968,8 @@
             "fingerprint" : "9975799756",
             "displayName" : "Aperol Blue",
             "likes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf244"),
@@ -2738,7 +2980,8 @@
             "parentId" : "5484cc19c8301dc174baf242",
             "fingerprint" : "9975799755",
             "displayName" : "defjak",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf245"),
@@ -2749,7 +2992,8 @@
             "parentId" : "5484cc19c8301dc174baf242",
             "fingerprint" : "9975799754",
             "displayName" : "science1",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf246"),
@@ -2761,7 +3005,8 @@
             "fingerprint" : "9975799753",
             "displayName" : "Kate Austen",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf247"),
@@ -2773,7 +3018,8 @@
             "fingerprint" : "9975799752",
             "displayName" : "puppetmaster",
             "likes" : 10,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf248"),
@@ -2785,7 +3031,8 @@
             "fingerprint" : "997579975299751",
             "displayName" : "kw9",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf249"),
@@ -2797,7 +3044,8 @@
             "fingerprint" : "99757997529975199750",
             "displayName" : "puppetmaster",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf250"),
@@ -2808,7 +3056,8 @@
             "parentId" : "5484cc19c8301dc174baf242",
             "fingerprint" : "9975799749",
             "displayName" : "Mr XY",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf251"),
@@ -2819,7 +3068,8 @@
             "fingerprint" : "99748",
             "displayName" : "Unterton",
             "likes" : 8,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf252"),
@@ -2830,7 +3080,8 @@
             "fingerprint" : "99747",
             "displayName" : "mononoke",
             "likes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf253"),
@@ -2842,7 +3093,8 @@
             "fingerprint" : "9974799746",
             "displayName" : "Mr.Niceguy",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf254"),
@@ -2853,7 +3105,8 @@
             "fingerprint" : "99745",
             "displayName" : "Chukche",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf255"),
@@ -2865,7 +3118,8 @@
             "displayName" : "neversleep",
             "likes" : 5,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf256"),
@@ -2876,7 +3130,8 @@
             "parentId" : "5484cc19c8301dc174baf255",
             "fingerprint" : "9974499743",
             "displayName" : "Mr.Niceguy",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf257"),
@@ -2887,7 +3142,8 @@
             "fingerprint" : "99742",
             "displayName" : "Mr XY",
             "dislikes" : 7,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf258"),
@@ -2899,7 +3155,8 @@
             "fingerprint" : "9974299741",
             "displayName" : "science1",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf259"),
@@ -2912,7 +3169,8 @@
             "displayName" : "irgendana",
             "likes" : 9,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf260"),
@@ -2923,7 +3181,8 @@
             "parentId" : "5484cc19c8301dc174baf259",
             "fingerprint" : "997429974099739",
             "displayName" : "Mr XY",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf261"),
@@ -2936,7 +3195,8 @@
             "displayName" : "irgendana",
             "likes" : 3,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf262"),
@@ -2947,7 +3207,8 @@
             "parentId" : "5484cc19c8301dc174baf260",
             "fingerprint" : "99742997409973999737",
             "displayName" : "sl1der",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf263"),
@@ -2958,7 +3219,8 @@
             "fingerprint" : "99736",
             "displayName" : "Blechweckerl",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf264"),
@@ -2971,7 +3233,8 @@
             "displayName" : "pure post still",
             "likes" : 1,
             "dislikes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf265"),
@@ -2982,7 +3245,8 @@
             "parentId" : "5484cc19c8301dc174baf264",
             "fingerprint" : "997369973599734",
             "displayName" : "Mr XY",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf266"),
@@ -2993,7 +3257,8 @@
             "parentId" : "5484cc19c8301dc174baf265",
             "fingerprint" : "99736997359973499733",
             "displayName" : "pure post still",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf267"),
@@ -3004,7 +3269,8 @@
             "parentId" : "5484cc19c8301dc174baf266",
             "fingerprint" : "9973699735997349973399732",
             "displayName" : "Brdlbrmft",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf268"),
@@ -3015,7 +3281,8 @@
             "parentId" : "5484cc19c8301dc174baf264",
             "fingerprint" : "997369973599731",
             "displayName" : "puppetmaster",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf269"),
@@ -3026,7 +3293,8 @@
             "parentId" : "5484cc19c8301dc174baf268",
             "fingerprint" : "99736997359973199730",
             "displayName" : "sappydharma",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf270"),
@@ -3038,7 +3306,8 @@
             "fingerprint" : "997369973599729",
             "displayName" : "Brdlbrmft",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf271"),
@@ -3049,7 +3318,8 @@
             "parentId" : "5484cc19c8301dc174baf270",
             "fingerprint" : "99736997359972999728",
             "displayName" : "puppetmaster",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf272"),
@@ -3060,7 +3330,8 @@
             "parentId" : "5484cc19c8301dc174baf271",
             "fingerprint" : "9973699735997299972899727",
             "displayName" : "sappydharma",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf273"),
@@ -3072,7 +3343,8 @@
             "fingerprint" : "997369973599726",
             "displayName" : "Capsicum",
             "likes" : 4,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf274"),
@@ -3083,7 +3355,8 @@
             "parentId" : "5484cc19c8301dc174baf273",
             "fingerprint" : "99736997359972699725",
             "displayName" : "pure post still",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf275"),
@@ -3094,7 +3367,8 @@
             "parentId" : "5484cc19c8301dc174baf274",
             "fingerprint" : "9973699735997269972599724",
             "displayName" : "Capsicum",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf276"),
@@ -3105,7 +3379,8 @@
             "parentId" : "5484cc19c8301dc174baf274",
             "fingerprint" : "9973699735997269972599723",
             "displayName" : "Brdlbrmft",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf277"),
@@ -3116,7 +3391,8 @@
             "fingerprint" : "99722",
             "displayName" : "pure post still",
             "likes" : 4,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf278"),
@@ -3127,7 +3403,8 @@
             "parentId" : "5484cc19c8301dc174baf277",
             "fingerprint" : "9972299721",
             "displayName" : "pure post still",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf279"),
@@ -3139,7 +3416,8 @@
             "displayName" : "irgendana",
             "likes" : 1,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf280"),
@@ -3150,7 +3428,8 @@
             "parentId" : "5484cc19c8301dc174baf279",
             "fingerprint" : "9972099719",
             "displayName" : "irgendana",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf281"),
@@ -3161,7 +3440,8 @@
             "parentId" : "5484cc19c8301dc174baf279",
             "fingerprint" : "9972099718",
             "displayName" : "Ender Wiggin",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf282"),
@@ -3171,7 +3451,8 @@
             "level" : 1,
             "fingerprint" : "99717",
             "displayName" : "barca11",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf283"),
@@ -3182,7 +3463,8 @@
             "fingerprint" : "99716",
             "displayName" : "Philipp B.",
             "likes" : 10,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf284"),
@@ -3194,7 +3476,8 @@
             "fingerprint" : "9971699715",
             "displayName" : "der Bastard, der dich nachhause bringt",
             "likes" : 4,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf285"),
@@ -3206,7 +3489,8 @@
             "displayName" : "Wo woar mei Leistung?",
             "likes" : 8,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf286"),
@@ -3217,7 +3501,8 @@
             "parentId" : "5484cc19c8301dc174baf285",
             "fingerprint" : "9971499713",
             "displayName" : "Take your protein pills and put your helmet on",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf287"),
@@ -3229,7 +3514,8 @@
             "fingerprint" : "9971499712",
             "displayName" : "Fürst N. Brunner",
             "dislikes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf288"),
@@ -3240,7 +3526,8 @@
             "parentId" : "5484cc19c8301dc174baf287",
             "fingerprint" : "997149971299711",
             "displayName" : "Wo woar mei Leistung?",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf289"),
@@ -3251,7 +3538,8 @@
             "fingerprint" : "99710",
             "displayName" : "der Bastard, der dich nachhause bringt",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf290"),
@@ -3262,7 +3550,8 @@
             "parentId" : "5484cc19c8301dc174baf289",
             "fingerprint" : "9971099709",
             "displayName" : "Abdul",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf291"),
@@ -3274,7 +3563,8 @@
             "displayName" : "Hauptfux",
             "likes" : 2,
             "dislikes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf292"),
@@ -3286,7 +3576,8 @@
             "displayName" : "Kenn mee Nedaus",
             "likes" : 24,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf293"),
@@ -3298,7 +3589,8 @@
             "fingerprint" : "9970799706",
             "displayName" : "schüssel die sau",
             "likes" : 10,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf294"),
@@ -3310,7 +3602,8 @@
             "fingerprint" : "997079970699705",
             "displayName" : "e=2.72",
             "likes" : 7,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf295"),
@@ -3321,7 +3614,8 @@
             "parentId" : "5484cc19c8301dc174baf294",
             "fingerprint" : "99707997069970599704",
             "displayName" : "Kenn mee Nedaus",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf296"),
@@ -3333,7 +3627,8 @@
             "fingerprint" : "9970799703",
             "displayName" : "Wo woar mei Leistung?",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf297"),
@@ -3344,7 +3639,8 @@
             "fingerprint" : "99702",
             "displayName" : "Wo woar mei Leistung?",
             "likes" : 5,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf298"),
@@ -3355,7 +3651,8 @@
             "fingerprint" : "99701",
             "displayName" : "RedBullSoizburg",
             "dislikes" : 9,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf299"),
@@ -3367,7 +3664,8 @@
             "fingerprint" : "9970199700",
             "displayName" : "Kenn mee Nedaus",
             "likes" : 18,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf300"),
@@ -3379,7 +3677,8 @@
             "displayName" : "Bauer Otto",
             "likes" : 4,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf301"),
@@ -3392,7 +3691,8 @@
             "displayName" : "Take your protein pills and put your helmet on",
             "likes" : 3,
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf302"),
@@ -3404,7 +3704,8 @@
             "fingerprint" : "996999969899697",
             "displayName" : "fredsbg",
             "dislikes" : 5,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf303"),
@@ -3416,7 +3717,8 @@
             "fingerprint" : "99699996989969799696",
             "displayName" : "Taurus_RotWeissRot",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf304"),
@@ -3427,7 +3729,8 @@
             "parentId" : "5484cc19c8301dc174baf303",
             "fingerprint" : "9969999698996979969699695",
             "displayName" : "Modjo",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf305"),
@@ -3439,7 +3742,8 @@
             "displayName" : "Gilgamesch",
             "likes" : 8,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf306"),
@@ -3451,7 +3755,8 @@
             "fingerprint" : "9969499693",
             "displayName" : "G.Steffl",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf307"),
@@ -3462,7 +3767,8 @@
             "fingerprint" : "99692",
             "displayName" : "Kenn mee Nedaus",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf308"),
@@ -3473,7 +3779,8 @@
             "fingerprint" : "99691",
             "displayName" : "sirion",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf309"),
@@ -3484,7 +3791,8 @@
             "fingerprint" : "99690",
             "displayName" : "Keytho",
             "likes" : 11,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf310"),
@@ -3495,7 +3803,8 @@
             "parentId" : "5484cc19c8301dc174baf309",
             "fingerprint" : "9969099689",
             "displayName" : "Hi. Kennen sie Ted?",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf311"),
@@ -3507,7 +3816,8 @@
             "fingerprint" : "9969099688",
             "displayName" : "Stephen Morrissey",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf312"),
@@ -3519,7 +3829,8 @@
             "fingerprint" : "9969099687",
             "displayName" : "linkslinker demokratiefeind",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf313"),
@@ -3530,7 +3841,8 @@
             "fingerprint" : "99686",
             "displayName" : "Die kritische Kröte",
             "likes" : 4,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf314"),
@@ -3542,7 +3854,8 @@
             "fingerprint" : "9968699685",
             "displayName" : "Flash_ahaaa",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf315"),
@@ -3554,7 +3867,8 @@
             "fingerprint" : "996869968599684",
             "displayName" : "Mr.Niceguy",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf316"),
@@ -3565,7 +3879,8 @@
             "parentId" : "5484cc19c8301dc174baf313",
             "fingerprint" : "9968699683",
             "displayName" : "schaber",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf317"),
@@ -3576,7 +3891,8 @@
             "fingerprint" : "99682",
             "displayName" : "derwachsame",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf318"),
@@ -3586,7 +3902,8 @@
             "level" : 0,
             "fingerprint" : "99681",
             "displayName" : "Drehimpulserhaltung",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf319"),
@@ -3598,7 +3915,8 @@
             "displayName" : "Dissident",
             "likes" : 56,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf320"),
@@ -3610,7 +3928,8 @@
             "fingerprint" : "9968099679",
             "displayName" : "traditum",
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf321"),
@@ -3622,7 +3941,8 @@
             "fingerprint" : "9968099678",
             "displayName" : "oidarapidla69",
             "dislikes" : 6,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf322"),
@@ -3635,7 +3955,8 @@
             "displayName" : "sirion",
             "likes" : 3,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf323"),
@@ -3646,7 +3967,8 @@
             "parentId" : "5484cc19c8301dc174baf322",
             "fingerprint" : "996809967799676",
             "displayName" : "Ernst Hemmingwei",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf324"),
@@ -3658,7 +3980,8 @@
             "displayName" : "gnadevorrecht",
             "likes" : 5,
             "dislikes" : 35,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf325"),
@@ -3670,7 +3993,8 @@
             "fingerprint" : "9967599674",
             "displayName" : "Jügen Hampel",
             "likes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf326"),
@@ -3682,7 +4006,8 @@
             "fingerprint" : "9967599673",
             "displayName" : "unschuldsvermuter",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf327"),
@@ -3695,7 +4020,8 @@
             "displayName" : "morgause",
             "likes" : 34,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf328"),
@@ -3707,7 +4033,8 @@
             "fingerprint" : "996759967299671",
             "displayName" : "trevor_francis",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf329"),
@@ -3718,7 +4045,8 @@
             "parentId" : "5484cc19c8301dc174baf328",
             "fingerprint" : "99675996729967199670",
             "displayName" : "morgause",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf330"),
@@ -3730,7 +4058,8 @@
             "fingerprint" : "9967599672996719967099669",
             "displayName" : "sirion",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf331"),
@@ -3741,7 +4070,8 @@
             "parentId" : "5484cc19c8301dc174baf330",
             "fingerprint" : "996759967299671996709966999668",
             "displayName" : "GeHa1967",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf332"),
@@ -3753,7 +4083,8 @@
             "displayName" : "Feher",
             "likes" : 1,
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf333"),
@@ -3765,7 +4096,8 @@
             "fingerprint" : "9966799666",
             "displayName" : "Schabbesgoi",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf334"),
@@ -3777,7 +4109,8 @@
             "fingerprint" : "9966799665",
             "displayName" : "Kenn mee Nedaus",
             "dislikes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf335"),
@@ -3790,7 +4123,8 @@
             "displayName" : "Feher",
             "likes" : 3,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf336"),
@@ -3801,7 +4135,8 @@
             "parentId" : "5484cc19c8301dc174baf335",
             "fingerprint" : "99667996659966499663",
             "displayName" : "Kenn mee Nedaus",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf337"),
@@ -3812,7 +4147,8 @@
             "parentId" : "5484cc19c8301dc174baf336",
             "fingerprint" : "9966799665996649966399662",
             "displayName" : "Feher",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf338"),
@@ -3822,7 +4158,8 @@
             "level" : 0,
             "fingerprint" : "99661",
             "displayName" : "so ein schöner tag",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf339"),
@@ -3833,7 +4170,8 @@
             "fingerprint" : "99660",
             "displayName" : "eindeutig zweideutig",
             "likes" : 6,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf340"),
@@ -3845,7 +4183,8 @@
             "displayName" : "feuer",
             "likes" : 3,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf341"),
@@ -3856,7 +4195,8 @@
             "fingerprint" : "99658",
             "displayName" : "out of the dark",
             "likes" : 11,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf342"),
@@ -3867,7 +4207,8 @@
             "parentId" : "5484cc19c8301dc174baf341",
             "fingerprint" : "9965899657",
             "displayName" : "Ardbeg Uigeadail",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf343"),
@@ -3880,7 +4221,8 @@
             "displayName" : "Karl Graus 2,0",
             "likes" : 2,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf344"),
@@ -3891,7 +4233,8 @@
             "parentId" : "5484cc19c8301dc174baf343",
             "fingerprint" : "996589965699655",
             "displayName" : "Feher",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf345"),
@@ -3902,7 +4245,8 @@
             "fingerprint" : "99654",
             "displayName" : "ML01",
             "likes" : 13,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf346"),
@@ -3913,7 +4257,8 @@
             "parentId" : "5484cc19c8301dc174baf345",
             "fingerprint" : "9965499653",
             "displayName" : "Modjo",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf347"),
@@ -3924,7 +4269,8 @@
             "parentId" : "5484cc19c8301dc174baf345",
             "fingerprint" : "9965499652",
             "displayName" : "macdeer",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf348"),
@@ -3935,7 +4281,8 @@
             "fingerprint" : "99651",
             "displayName" : "Hauptfux",
             "likes" : 11,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf349"),
@@ -3948,7 +4295,8 @@
             "displayName" : "minus für anglizismen",
             "likes" : 2,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf350"),
@@ -3961,7 +4309,8 @@
             "displayName" : "Wo woar mei Leistung?",
             "likes" : 4,
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf351"),
@@ -3973,7 +4322,8 @@
             "fingerprint" : "99651996509964999648",
             "displayName" : "minus für anglizismen",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf352"),
@@ -3985,7 +4335,8 @@
             "fingerprint" : "996519965099647",
             "displayName" : "Hauptfux",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf353"),
@@ -3998,7 +4349,8 @@
             "displayName" : "minus für anglizismen",
             "likes" : 2,
             "dislikes" : 6,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf354"),
@@ -4010,7 +4362,8 @@
             "fingerprint" : "9965199650996479964699645",
             "displayName" : "Hauptfux",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf355"),
@@ -4021,7 +4374,8 @@
             "parentId" : "5484cc19c8301dc174baf354",
             "fingerprint" : "996519965099647996469964599644",
             "displayName" : "macdeer",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf356"),
@@ -4032,7 +4386,8 @@
             "parentId" : "5484cc19c8301dc174baf355",
             "fingerprint" : "99651996509964799646996459964499643",
             "displayName" : "Hauptfux",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf357"),
@@ -4045,7 +4400,8 @@
             "displayName" : "minus für anglizismen",
             "likes" : 3,
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf358"),
@@ -4056,7 +4412,8 @@
             "parentId" : "5484cc19c8301dc174baf357",
             "fingerprint" : "99651996509964799646996459964299641",
             "displayName" : "out of the dark",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf359"),
@@ -4067,7 +4424,8 @@
             "parentId" : "5484cc19c8301dc174baf358",
             "fingerprint" : "9965199650996479964699645996429964199640",
             "displayName" : "minus für anglizismen",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf360"),
@@ -4078,7 +4436,8 @@
             "parentId" : "5484cc19c8301dc174baf359",
             "fingerprint" : "996519965099647996469964599642996419964099639",
             "displayName" : "out of the dark",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf361"),
@@ -4089,7 +4448,8 @@
             "parentId" : "5484cc19c8301dc174baf360",
             "fingerprint" : "99651996509964799646996459964299641996409963999638",
             "displayName" : "minus für anglizismen",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf362"),
@@ -4101,7 +4461,8 @@
             "fingerprint" : "9965199637",
             "displayName" : "der Bastard, der dich nachhause bringt",
             "likes" : 9,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf363"),
@@ -4112,7 +4473,8 @@
             "parentId" : "5484cc19c8301dc174baf362",
             "fingerprint" : "996519963799636",
             "displayName" : "Das geläuterte gesuderte Übliche",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf364"),
@@ -4123,7 +4485,8 @@
             "parentId" : "5484cc19c8301dc174baf362",
             "fingerprint" : "996519963799635",
             "displayName" : "Hauptfux",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf365"),
@@ -4134,7 +4497,8 @@
             "parentId" : "5484cc19c8301dc174baf364",
             "fingerprint" : "99651996379963599634",
             "displayName" : "der Bastard, der dich nachhause bringt",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf366"),
@@ -4146,7 +4510,8 @@
             "fingerprint" : "9965199637996359963499633",
             "displayName" : "Modjo",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf367"),
@@ -4158,7 +4523,8 @@
             "fingerprint" : "9965199637996359963499632",
             "displayName" : "traditum",
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf368"),
@@ -4170,7 +4536,8 @@
             "fingerprint" : "9965199631",
             "displayName" : "marx graut scho",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf369"),
@@ -4180,7 +4547,8 @@
             "level" : 0,
             "fingerprint" : "99630",
             "displayName" : "Klara Schnaps",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf370"),
@@ -4191,7 +4559,8 @@
             "fingerprint" : "99629",
             "displayName" : "John S",
             "likes" : 12,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf371"),
@@ -4202,7 +4571,8 @@
             "parentId" : "5484cc19c8301dc174baf370",
             "fingerprint" : "9962999628",
             "displayName" : "Mr. Hankey, der Weihnachtskot",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf372"),
@@ -4212,7 +4582,8 @@
             "level" : 0,
             "fingerprint" : "99627",
             "displayName" : "HunterThompson",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf373"),
@@ -4224,7 +4595,8 @@
             "displayName" : "Links und Rechts sind Ansichtssache!!!",
             "likes" : 2,
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf374"),
@@ -4236,7 +4608,8 @@
             "fingerprint" : "9962699625",
             "displayName" : "DFRUKA",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf375"),
@@ -4247,7 +4620,8 @@
             "fingerprint" : "99624",
             "displayName" : "Uncle Samy",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf376"),
@@ -4258,7 +4632,8 @@
             "fingerprint" : "99623",
             "displayName" : "Ich bin Brian",
             "likes" : 13,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf377"),
@@ -4269,7 +4644,8 @@
             "parentId" : "5484cc19c8301dc174baf376",
             "fingerprint" : "9962399622",
             "displayName" : "Mr XY",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf378"),
@@ -4281,7 +4657,8 @@
             "fingerprint" : "9962399621",
             "displayName" : "Mr.Niceguy",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf379"),
@@ -4293,7 +4670,8 @@
             "fingerprint" : "9962399620",
             "displayName" : "haljô",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf380"),
@@ -4305,7 +4683,8 @@
             "fingerprint" : "9962399619",
             "displayName" : "Abdul",
             "likes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf381"),
@@ -4318,7 +4697,8 @@
             "displayName" : "Modjo",
             "likes" : 2,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf382"),
@@ -4328,7 +4708,8 @@
             "level" : 3,
             "fingerprint" : "99617",
             "displayName" : "FrankyZolano",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf383"),
@@ -4340,7 +4721,8 @@
             "fingerprint" : "9961799616",
             "displayName" : "Schabbesgoi",
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf384"),
@@ -4352,7 +4734,8 @@
             "displayName" : "out of the dark",
             "likes" : 2,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf385"),
@@ -4364,7 +4747,8 @@
             "fingerprint" : "9961599614",
             "displayName" : "sappydharma",
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf386"),
@@ -4375,7 +4759,8 @@
             "parentId" : "5484cc19c8301dc174baf385",
             "fingerprint" : "996159961499613",
             "displayName" : "sirion",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf387"),
@@ -4387,7 +4772,8 @@
             "displayName" : "Aperol Blue",
             "likes" : 6,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf388"),
@@ -4399,7 +4785,8 @@
             "fingerprint" : "9961299611",
             "displayName" : "Ernst Hemmingwei",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf389"),
@@ -4411,7 +4798,8 @@
             "displayName" : "FerdlGriesgram",
             "likes" : 13,
             "dislikes" : 8,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf390"),
@@ -4424,7 +4812,8 @@
             "displayName" : "freedom call",
             "likes" : 1,
             "dislikes" : 5,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf391"),
@@ -4437,7 +4826,8 @@
             "displayName" : "*westwind*",
             "likes" : 7,
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf392"),
@@ -4449,7 +4839,8 @@
             "fingerprint" : "996109960899607",
             "displayName" : "Jack Oberweger",
             "dislikes" : 5,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf393"),
@@ -4462,7 +4853,8 @@
             "displayName" : "*westwind*",
             "likes" : 1,
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf394"),
@@ -4474,7 +4866,8 @@
             "fingerprint" : "9961099605",
             "displayName" : "Ernst Hemmingwei",
             "likes" : 9,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf395"),
@@ -4485,7 +4878,8 @@
             "parentId" : "5484cc19c8301dc174baf394",
             "fingerprint" : "996109960599604",
             "displayName" : "Topfpflanze",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf396"),
@@ -4497,7 +4891,8 @@
             "fingerprint" : "996109960599603",
             "displayName" : "cjlpa",
             "likes" : 14,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf397"),
@@ -4509,7 +4904,8 @@
             "fingerprint" : "99610996059960399602",
             "displayName" : "cjlpa",
             "likes" : 8,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf398"),
@@ -4520,7 +4916,8 @@
             "parentId" : "5484cc19c8301dc174baf396",
             "fingerprint" : "99610996059960399601",
             "displayName" : "cjlpa",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf399"),
@@ -4532,7 +4929,8 @@
             "fingerprint" : "9961099600",
             "displayName" : "Aperol Blue",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf400"),
@@ -4545,7 +4943,8 @@
             "displayName" : "FerdlGriesgram",
             "likes" : 1,
             "dislikes" : 6,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf401"),
@@ -4557,7 +4956,8 @@
             "fingerprint" : "99610996009959999598",
             "displayName" : "Aperol Blue",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf402"),
@@ -4568,7 +4968,8 @@
             "parentId" : "5484cc19c8301dc174baf401",
             "fingerprint" : "9961099600995999959899597",
             "displayName" : "FerdlGriesgram",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf403"),
@@ -4580,7 +4981,8 @@
             "fingerprint" : "996109960099599995989959799596",
             "displayName" : "Aperol Blue",
             "likes" : 5,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf404"),
@@ -4591,7 +4993,8 @@
             "parentId" : "5484cc19c8301dc174baf403",
             "fingerprint" : "99610996009959999598995979959699595",
             "displayName" : "FerdlGriesgram",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf405"),
@@ -4603,7 +5006,8 @@
             "fingerprint" : "9961099600995999959899597995969959599594",
             "displayName" : "Aperol Blue",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf406"),
@@ -4616,7 +5020,8 @@
             "displayName" : "Sonia Braga",
             "likes" : 1,
             "dislikes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf407"),
@@ -4628,7 +5033,8 @@
             "fingerprint" : "9961099592",
             "displayName" : "out of the dark",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf408"),
@@ -4640,7 +5046,8 @@
             "fingerprint" : "996109959299591",
             "displayName" : "FerdlGriesgram",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf409"),
@@ -4652,7 +5059,8 @@
             "fingerprint" : "9961099590",
             "displayName" : "Gabi_Haslauer",
             "likes" : 11,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf410"),
@@ -4665,7 +5073,8 @@
             "displayName" : "kikkerikiii",
             "likes" : 1,
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf411"),
@@ -4677,7 +5086,8 @@
             "displayName" : "Jack Oberweger",
             "likes" : 2,
             "dislikes" : 8,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf412"),
@@ -4689,7 +5099,8 @@
             "fingerprint" : "9958899587",
             "displayName" : "haljô",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf413"),
@@ -4700,7 +5111,8 @@
             "parentId" : "5484cc19c8301dc174baf412",
             "fingerprint" : "995889958799586",
             "displayName" : "Jack Oberweger",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf414"),
@@ -4711,7 +5123,8 @@
             "parentId" : "5484cc19c8301dc174baf411",
             "fingerprint" : "9958899585",
             "displayName" : "Das geläuterte gesuderte Übliche",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf415"),
@@ -4723,7 +5136,8 @@
             "fingerprint" : "9958899584",
             "displayName" : "Mr.Niceguy",
             "likes" : 5,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf416"),
@@ -4734,7 +5148,8 @@
             "parentId" : "5484cc19c8301dc174baf415",
             "fingerprint" : "995889958499583",
             "displayName" : "Jack Oberweger",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf417"),
@@ -4745,7 +5160,8 @@
             "parentId" : "5484cc19c8301dc174baf416",
             "fingerprint" : "99588995849958399582",
             "displayName" : "Mr.Niceguy",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf418"),
@@ -4756,7 +5172,8 @@
             "fingerprint" : "99581",
             "displayName" : "Capsicum",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf419"),
@@ -4768,7 +5185,8 @@
             "displayName" : "Digitales_Zeitalter",
             "likes" : 3,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf420"),
@@ -4781,7 +5199,8 @@
             "displayName" : "Schabbesgoi",
             "likes" : 3,
             "dislikes" : 7,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf421"),
@@ -4793,7 +5212,8 @@
             "fingerprint" : "995809957999578",
             "displayName" : "<!-- 42 -->",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf422"),
@@ -4806,7 +5226,8 @@
             "displayName" : "haljô",
             "likes" : 7,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf423"),
@@ -4818,7 +5239,8 @@
             "fingerprint" : "995809957999576",
             "displayName" : "Gandalf Il Grigio",
             "likes" : 24,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf424"),
@@ -4831,7 +5253,8 @@
             "displayName" : "wassis anderer Nick",
             "likes" : 2,
             "dislikes" : 18,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf425"),
@@ -4843,7 +5266,8 @@
             "fingerprint" : "9958099579995769957599574",
             "displayName" : "DerStandardName",
             "likes" : 7,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf426"),
@@ -4855,7 +5279,8 @@
             "fingerprint" : "9958099579995769957599573",
             "displayName" : "sl1der",
             "likes" : 20,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf427"),
@@ -4867,7 +5292,8 @@
             "fingerprint" : "995809957999576995759957399572",
             "displayName" : "wassis anderer Nick",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf428"),
@@ -4878,7 +5304,8 @@
             "fingerprint" : "99571",
             "displayName" : "defjak",
             "likes" : 11,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf429"),
@@ -4890,7 +5317,8 @@
             "fingerprint" : "9957199570",
             "displayName" : "Axel T",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf430"),
@@ -4902,7 +5330,8 @@
             "fingerprint" : "9957199569",
             "displayName" : "FerdlGriesgram",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf431"),
@@ -4914,7 +5343,8 @@
             "fingerprint" : "995719956999568",
             "displayName" : "rpk",
             "likes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf432"),
@@ -4924,7 +5354,8 @@
             "level" : 5,
             "fingerprint" : "99567",
             "displayName" : "morgause",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf433"),
@@ -4936,7 +5367,8 @@
             "fingerprint" : "9956799566",
             "displayName" : "trevor_francis",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf434"),
@@ -4948,7 +5380,8 @@
             "fingerprint" : "9956799565",
             "displayName" : "sirion",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf435"),
@@ -4960,7 +5393,8 @@
             "fingerprint" : "995679956599564",
             "displayName" : "morgause",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf436"),
@@ -4972,7 +5406,8 @@
             "fingerprint" : "995679956599563",
             "displayName" : "trevor_francis",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf437"),
@@ -4983,7 +5418,8 @@
             "fingerprint" : "99562",
             "displayName" : "herr_strudl",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf438"),
@@ -4993,7 +5429,8 @@
             "level" : 1,
             "fingerprint" : "99561",
             "displayName" : "Die kritische Kröte",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf439"),
@@ -5004,7 +5441,8 @@
             "fingerprint" : "99560",
             "displayName" : "freedom call",
             "dislikes" : 6,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf440"),
@@ -5015,7 +5453,8 @@
             "parentId" : "5484cc19c8301dc174baf439",
             "fingerprint" : "9956099559",
             "displayName" : "Viktor Huber",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf441"),
@@ -5027,7 +5466,8 @@
             "fingerprint" : "995609955999558",
             "displayName" : "Ernst Hemmingwei",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf442"),
@@ -5040,7 +5480,8 @@
             "displayName" : "Super Sharp Shooter",
             "likes" : 3,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf443"),
@@ -5052,7 +5493,8 @@
             "fingerprint" : "99560995599955799556",
             "displayName" : "morgause",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf444"),
@@ -5065,7 +5507,8 @@
             "displayName" : "sirion",
             "likes" : 3,
             "dislikes" : 4,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf445"),
@@ -5077,7 +5520,8 @@
             "fingerprint" : "995609955599554",
             "displayName" : "freedom call",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf446"),
@@ -5088,7 +5532,8 @@
             "parentId" : "5484cc19c8301dc174baf445",
             "fingerprint" : "99560995559955499553",
             "displayName" : "sirion",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf447"),
@@ -5099,7 +5544,8 @@
             "parentId" : "5484cc19c8301dc174baf446",
             "fingerprint" : "9956099555995549955399552",
             "displayName" : "freedom call",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf448"),
@@ -5110,7 +5556,8 @@
             "fingerprint" : "99551",
             "displayName" : "Monsterkontrolle",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf449"),
@@ -5121,7 +5568,8 @@
             "parentId" : "5484cc19c8301dc174baf448",
             "fingerprint" : "9955199550",
             "displayName" : "freedom call",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf450"),
@@ -5133,7 +5581,8 @@
             "displayName" : "edi piva",
             "likes" : 3,
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf451"),
@@ -5145,7 +5594,8 @@
             "fingerprint" : "9954999548",
             "displayName" : "rpk",
             "likes" : 10,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf452"),
@@ -5156,7 +5606,8 @@
             "parentId" : "5484cc19c8301dc174baf451",
             "fingerprint" : "995499954899547",
             "displayName" : "DeineMama",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf453"),
@@ -5166,7 +5617,8 @@
             "level" : 0,
             "fingerprint" : "99546",
             "displayName" : "sirion",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf454"),
@@ -5178,7 +5630,8 @@
             "displayName" : "samarealistoptimist",
             "likes" : 30,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf455"),
@@ -5191,7 +5644,8 @@
             "displayName" : "steuerboykott",
             "likes" : 16,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf456"),
@@ -5203,7 +5657,8 @@
             "displayName" : "Fußballwisser",
             "likes" : 1,
             "dislikes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf457"),
@@ -5216,7 +5671,8 @@
             "displayName" : "morgause",
             "likes" : 4,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf458"),
@@ -5228,7 +5684,8 @@
             "fingerprint" : "995439954299541",
             "displayName" : "gerold wallner",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf459"),
@@ -5238,7 +5695,8 @@
             "level" : 0,
             "fingerprint" : "99540",
             "displayName" : "thrylos",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf460"),
@@ -5249,7 +5707,8 @@
             "fingerprint" : "99539",
             "displayName" : "harald n.",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf461"),
@@ -5260,7 +5719,8 @@
             "fingerprint" : "99538",
             "displayName" : "WilWil",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf462"),
@@ -5272,7 +5732,8 @@
             "displayName" : "Versiles",
             "likes" : 3,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf463"),
@@ -5283,7 +5744,8 @@
             "parentId" : "5484cc19c8301dc174baf462",
             "fingerprint" : "9953799536",
             "displayName" : "Flash_ahaaa",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf464"),
@@ -5295,7 +5757,8 @@
             "fingerprint" : "9953799535",
             "displayName" : "Maximi",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf465"),
@@ -5307,7 +5770,8 @@
             "displayName" : "Clemens Forell",
             "likes" : 5,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf466"),
@@ -5320,7 +5784,8 @@
             "displayName" : "Der Schakal",
             "likes" : 1,
             "dislikes" : 10,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf467"),
@@ -5332,7 +5797,8 @@
             "fingerprint" : "995349953399532",
             "displayName" : "morgause",
             "likes" : 5,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf468"),
@@ -5343,7 +5809,8 @@
             "parentId" : "5484cc19c8301dc174baf467",
             "fingerprint" : "99534995339953299531",
             "displayName" : "Clemens Forell",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf469"),
@@ -5354,7 +5821,8 @@
             "parentId" : "5484cc19c8301dc174baf468",
             "fingerprint" : "9953499533995329953199530",
             "displayName" : "morgause",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf470"),
@@ -5366,7 +5834,8 @@
             "fingerprint" : "995349953399532995319953099529",
             "displayName" : "Mr.Niceguy",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf471"),
@@ -5378,7 +5847,8 @@
             "fingerprint" : "9953499528",
             "displayName" : "Rriotrradio",
             "likes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf472"),
@@ -5389,7 +5859,8 @@
             "fingerprint" : "99527",
             "displayName" : "TexasTomBoe",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf473"),
@@ -5400,7 +5871,8 @@
             "parentId" : "5484cc19c8301dc174baf472",
             "fingerprint" : "9952799526",
             "displayName" : "Kenn mee Nedaus",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf474"),
@@ -5411,7 +5883,8 @@
             "fingerprint" : "99525",
             "displayName" : "miles a head",
             "dislikes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf475"),
@@ -5422,7 +5895,8 @@
             "parentId" : "5484cc19c8301dc174baf474",
             "fingerprint" : "9952599524",
             "displayName" : "meresi",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf476"),
@@ -5434,7 +5908,8 @@
             "fingerprint" : "9952599523",
             "displayName" : "sl1der",
             "likes" : 6,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf477"),
@@ -5447,7 +5922,8 @@
             "displayName" : "miles a head",
             "likes" : 1,
             "dislikes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf478"),
@@ -5459,7 +5935,8 @@
             "displayName" : "TexasTomBoe",
             "likes" : 2,
             "dislikes" : 14,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf479"),
@@ -5472,7 +5949,8 @@
             "displayName" : "Mr.Niceguy",
             "likes" : 6,
             "dislikes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf480"),
@@ -5485,7 +5963,8 @@
             "displayName" : "sirion",
             "likes" : 6,
             "dislikes" : 4,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf481"),
@@ -5498,7 +5977,8 @@
             "displayName" : "Mr.Niceguy",
             "likes" : 3,
             "dislikes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf482"),
@@ -5508,7 +5988,8 @@
             "level" : 0,
             "fingerprint" : "99517",
             "displayName" : "GedriteAlAlMg-Si-",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf483"),
@@ -5520,7 +6001,8 @@
             "fingerprint" : "9951799516",
             "displayName" : "puppetmaster",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf484"),
@@ -5532,7 +6014,8 @@
             "displayName" : "No Depression",
             "likes" : 5,
             "dislikes" : 7,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf485"),
@@ -5545,7 +6028,8 @@
             "displayName" : "rpk",
             "likes" : 3,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf486"),
@@ -5557,7 +6041,8 @@
             "fingerprint" : "995159951499513",
             "displayName" : "Modjo",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf487"),
@@ -5568,7 +6053,8 @@
             "parentId" : "5484cc19c8301dc174baf486",
             "fingerprint" : "99515995149951399512",
             "displayName" : "rpk",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf488"),
@@ -5579,7 +6065,8 @@
             "parentId" : "5484cc19c8301dc174baf487",
             "fingerprint" : "9951599514995139951299511",
             "displayName" : "puppetmaster",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf489"),
@@ -5592,7 +6079,8 @@
             "displayName" : "Karl Graus 2,0",
             "likes" : 4,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf490"),
@@ -5603,7 +6091,8 @@
             "parentId" : "5484cc19c8301dc174baf489",
             "fingerprint" : "995159951099509",
             "displayName" : "Hr. Vorragend",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf491"),
@@ -5616,7 +6105,8 @@
             "displayName" : "Karl Graus 2,0",
             "likes" : 2,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf492"),
@@ -5627,7 +6117,8 @@
             "parentId" : "5484cc19c8301dc174baf491",
             "fingerprint" : "9951599510995099950899507",
             "displayName" : "Hr. Vorragend",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf493"),
@@ -5640,7 +6131,8 @@
             "displayName" : "minus für anglizismen",
             "likes" : 2,
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf494"),
@@ -5652,7 +6144,8 @@
             "fingerprint" : "995159951099509995089950699505",
             "displayName" : "Karl Graus 2,0",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf495"),
@@ -5663,7 +6156,8 @@
             "parentId" : "5484cc19c8301dc174baf493",
             "fingerprint" : "995159951099509995089950699504",
             "displayName" : "G.Steffl",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf496"),
@@ -5674,7 +6168,8 @@
             "parentId" : "5484cc19c8301dc174baf495",
             "fingerprint" : "99515995109950999508995069950499503",
             "displayName" : "minus für anglizismen",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf497"),
@@ -5685,7 +6180,8 @@
             "parentId" : "5484cc19c8301dc174baf496",
             "fingerprint" : "9951599510995099950899506995049950399502",
             "displayName" : "Karl Graus 2,0",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf498"),
@@ -5697,7 +6193,8 @@
             "displayName" : "irgendana",
             "likes" : 4,
             "dislikes" : 2,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf499"),
@@ -5708,7 +6205,8 @@
             "parentId" : "5484cc19c8301dc174baf498",
             "fingerprint" : "9950199500",
             "displayName" : "GedriteAlAlMg-Si-",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf500"),
@@ -5721,7 +6219,8 @@
             "displayName" : "Mr XY",
             "likes" : 4,
             "dislikes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf501"),
@@ -5732,7 +6231,8 @@
             "parentId" : "5484cc19c8301dc174baf500",
             "fingerprint" : "995019949999498",
             "displayName" : "Schabbesgoi",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf502"),
@@ -5744,7 +6244,8 @@
             "fingerprint" : "9950199497",
             "displayName" : "irgendana",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf503"),
@@ -5756,7 +6257,8 @@
             "fingerprint" : "995019949799496",
             "displayName" : "haljô",
             "likes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf504"),
@@ -5767,7 +6269,8 @@
             "parentId" : "5484cc19c8301dc174baf503",
             "fingerprint" : "99501994979949699495",
             "displayName" : "tenminusthreeequalseven",
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf505"),
@@ -5778,7 +6281,8 @@
             "fingerprint" : "99494",
             "displayName" : "Frizzl",
             "likes" : 3,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf506"),
@@ -5790,7 +6294,8 @@
             "fingerprint" : "9949499493",
             "displayName" : "DFRUKA",
             "dislikes" : 1,
-            "status" : "APPROVED"
+            "status" : "APPROVED",
+            "createdDate": new Date()
             });
         </script>
     </changeSet>

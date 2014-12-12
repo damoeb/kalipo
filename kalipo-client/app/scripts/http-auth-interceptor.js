@@ -42,33 +42,70 @@
      * On 401 response (without 'ignoreAuthModule' option) stores the request
      * and broadcasts 'event:auth-loginRequired'.
      */
-        .config(function($httpProvider) {
+        //.config(function($httpProvider) {
+        //
+        //    var interceptor = ['$rootScope', '$q', 'httpBuffer', function($rootScope, $q, httpBuffer) {
+        //        function success(response) {
+        //            return response;
+        //        }
+        //
+        //        function error(response) {
+        //            if (response.status === 401 && !response.config.ignoreAuthModule) {
+        //                var deferred = $q.defer();
+        //                httpBuffer.append(response.config, deferred);
+        //                $rootScope.$broadcast('event:auth-loginRequired', response);
+        //                return deferred.promise;
+        //            } else if (response.status === 403 && !response.config.ignoreAuthModule) {
+        //                $rootScope.$broadcast('event:auth-notAuthorized', response);
+        //            }
+        //            // otherwise, default behaviour
+        //            return $q.reject(response);
+        //        }
+        //
+        //        return function(promise) {
+        //            return promise.then(success, error);
+        //        };
+        //
+        //    }];
+        //    $httpProvider.responseInterceptors.push(interceptor);
+        //})
 
-            var interceptor = ['$rootScope', '$q', 'httpBuffer', function($rootScope, $q, httpBuffer) {
-                function success(response) {
-                    return response;
-                }
+    //    .factory('myHttpInterceptor', function($q, $rootScope, httpBuffer) {
+    //    return {
+    //        // optional method
+    //        'request': function(config) {
+    //            // do something on success
+    //            return config;
+    //        },
+    //
+    //        // optional method
+    //        'requestError': function(rejection) {
+    //            // do something on error
+    //            if (canRecover(rejection)) {
+    //                return responseOrNewPromise
+    //            }
+    //            return $q.reject(rejection);
+    //        },
+    //
+    //        // optional method
+    //        'response': function(response) {
+    //            // do something on success
+    //            return response;
+    //        },
+    //
+    //        // optional method
+    //        'responseError': function(rejection) {
+    //            // do something on error
+    //            //if (canRecover(rejection)) {
+    //            //    return responseOrNewPromise
+    //            //}
+    //            return $q.reject(rejection);
+    //        }
+    //    };
+    //})
+    ;
 
-                function error(response) {
-                    if (response.status === 401 && !response.config.ignoreAuthModule) {
-                        var deferred = $q.defer();
-                        httpBuffer.append(response.config, deferred);
-                        $rootScope.$broadcast('event:auth-loginRequired', response);
-                        return deferred.promise;
-                    } else if (response.status === 403 && !response.config.ignoreAuthModule) {
-                        $rootScope.$broadcast('event:auth-notAuthorized', response);
-                    }
-                    // otherwise, default behaviour
-                    return $q.reject(response);
-                }
-
-                return function(promise) {
-                    return promise.then(success, error);
-                };
-
-            }];
-            $httpProvider.responseInterceptors.push(interceptor);
-        });
+    //$httpProvider.interceptors.push('myHttpInterceptor');
 
     /**
      * Private module, a utility, required internally by 'http-auth-interceptor'.

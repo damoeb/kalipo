@@ -8,7 +8,7 @@
     } else if (typeof exports === 'object') {
         module.exports = factory(require('../moment')); // Node
     } else {
-        factory(window.moment); // Browser global
+        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
     }
 }(function (moment) {
     var suffixes = {
@@ -37,42 +37,43 @@
         90: '-ıncı'
     };
     return moment.defineLocale('az', {
-        months: 'yanvar_fevral_mart_aprel_may_iyun_iyul_avqust_sentyabr_oktyabr_noyabr_dekabr'.split('_'),
-        monthsShort: 'yan_fev_mar_apr_may_iyn_iyl_avq_sen_okt_noy_dek'.split('_'),
-        weekdays: 'Bazar_Bazar ertəsi_Çərşənbə axşamı_Çərşənbə_Cümə axşamı_Cümə_Şənbə'.split('_'),
-        weekdaysShort: 'Baz_BzE_ÇAx_Çər_CAx_Cüm_Şən'.split('_'),
-        weekdaysMin: 'Bz_BE_ÇA_Çə_CA_Cü_Şə'.split('_'),
-        longDateFormat: {
-            LT: 'HH:mm',
-            L: 'DD.MM.YYYY',
-            LL: 'D MMMM YYYY',
-            LLL: 'D MMMM YYYY LT',
-            LLLL: 'dddd, D MMMM YYYY LT'
+        months : 'yanvar_fevral_mart_aprel_may_iyun_iyul_avqust_sentyabr_oktyabr_noyabr_dekabr'.split('_'),
+        monthsShort : 'yan_fev_mar_apr_may_iyn_iyl_avq_sen_okt_noy_dek'.split('_'),
+        weekdays : 'Bazar_Bazar ertəsi_Çərşənbə axşamı_Çərşənbə_Cümə axşamı_Cümə_Şənbə'.split('_'),
+        weekdaysShort : 'Baz_BzE_ÇAx_Çər_CAx_Cüm_Şən'.split('_'),
+        weekdaysMin : 'Bz_BE_ÇA_Çə_CA_Cü_Şə'.split('_'),
+        longDateFormat : {
+            LT : 'HH:mm',
+            LTS : 'LT:ss',
+            L : 'DD.MM.YYYY',
+            LL : 'D MMMM YYYY',
+            LLL : 'D MMMM YYYY LT',
+            LLLL : 'dddd, D MMMM YYYY LT'
         },
-        calendar: {
-            sameDay: '[bugün saat] LT',
-            nextDay: '[sabah saat] LT',
-            nextWeek: '[gələn həftə] dddd [saat] LT',
-            lastDay: '[dünən] LT',
-            lastWeek: '[keçən həftə] dddd [saat] LT',
-            sameElse: 'L'
+        calendar : {
+            sameDay : '[bugün saat] LT',
+            nextDay : '[sabah saat] LT',
+            nextWeek : '[gələn həftə] dddd [saat] LT',
+            lastDay : '[dünən] LT',
+            lastWeek : '[keçən həftə] dddd [saat] LT',
+            sameElse : 'L'
         },
-        relativeTime: {
-            future: '%s sonra',
-            past: '%s əvvəl',
-            s: 'birneçə saniyyə',
-            m: 'bir dəqiqə',
-            mm: '%d dəqiqə',
-            h: 'bir saat',
-            hh: '%d saat',
-            d: 'bir gün',
-            dd: '%d gün',
-            M: 'bir ay',
-            MM: '%d ay',
-            y: 'bir il',
-            yy: '%d il'
+        relativeTime : {
+            future : '%s sonra',
+            past : '%s əvvəl',
+            s : 'birneçə saniyyə',
+            m : 'bir dəqiqə',
+            mm : '%d dəqiqə',
+            h : 'bir saat',
+            hh : '%d saat',
+            d : 'bir gün',
+            dd : '%d gün',
+            M : 'bir ay',
+            MM : '%d ay',
+            y : 'bir il',
+            yy : '%d il'
         },
-        meridiem: function (hour, minute, isLower) {
+        meridiem : function (hour, minute, isLower) {
             if (hour < 4) {
                 return 'gecə';
             } else if (hour < 12) {
@@ -83,7 +84,8 @@
                 return 'axşam';
             }
         },
-        ordinal: function (number) {
+        ordinalParse: /\d{1,2}-(ıncı|inci|nci|üncü|ncı|uncu)/,
+        ordinal : function (number) {
             if (number === 0) {  // special case for zero
                 return number + '-ıncı';
             }
@@ -93,9 +95,9 @@
 
             return number + (suffixes[a] || suffixes[b] || suffixes[c]);
         },
-        week: {
-            dow: 1, // Monday is the first day of the week.
-            doy: 7  // The week that contains Jan 1st is the first week of the year.
+        week : {
+            dow : 1, // Monday is the first day of the week.
+            doy : 7  // The week that contains Jan 1st is the first week of the year.
         }
     });
 }));
