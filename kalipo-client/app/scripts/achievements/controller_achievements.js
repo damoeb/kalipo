@@ -24,22 +24,30 @@ kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 
 
                 console.log('Got ' + achievements.length + ' achievements on page ' + $scope.$page);
 
-                // todo groupBy resourceRef to avoid multiple requests on same resource
+                var resources = {};
 
-                _.forEach(achievements, function (achievement) {
+                var groupedByRef = _.groupBy(achievements, function (achievement) {
+                    return achievement.resourceRef;
+                });
 
-                    $scope.achievements.push(achievement);
+                var distinctResources = _.keys(groupedByRef);
 
-                    switch (achievement.type) {
+                console.log('Fetching ' + distinctResources.length + ' resources');
+
+                _.forEach(distinctResources, function(resourceRef){
+
+                    var first = groupedByRef[resourceRef][0];
+
+                    switch (first.type) {
                         case 'LIKE':
                         case 'LIKED':
                         case 'DISLIKE':
                         case 'DISLIKED':
                         case 'RM_COMMENT':
 
-                            Comment.get({id: achievement.resourceRef}, function (comment) {
+                            Comment.get({id: resourceRef}, function (comment) {
                                 console.log('Resolved comment ' + comment.id);
-                                achievement.$resource = comment;
+                                resources[resourceRef] = comment;
                             });
 
                             break;
@@ -47,16 +55,26 @@ kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 
                         case 'REPORTED':
                         case 'ABUSED_REPORT':
 
-                            Report.get({id: achievement.resourceRef}, function (report) {
+                            Report.get({id: resourceRef}, function (report) {
                                 console.log('Resolved report ' + report.id);
-                                achievement.$resource = report;
+                                resources[resourceRef] = report;
                             });
 
                             break;
                         case 'WELCOME':
                             // no resource
                             break;
+
                     }
+                });
+
+
+                // attach resource to achievement
+                _.forEach(achievements, function (achievement) {
+
+                    $scope.achievements.push(achievement);
+                    achievement.$resource = resources[achievement.resourceRef];
+
                 });
             })
         };
@@ -65,8 +83,8 @@ kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 
 
             if (typeof($rootScope.login) == 'undefined') {
                 console.log('wait');
-                $scope.$on('event:auth-authorized', doFetchAchievements)
-                $scope.$on('event:auth-authorized', doFetchReputations)
+                $scope.$on('event:auth-authorized', doFetchAchievements);
+                $scope.$on('event:auth-authorized', doFetchReputations);
             } else {
                 console.log($rootScope.login);
                 doFetchAchievements();

@@ -1,3 +1,6 @@
+basic comment renderer template (file) to be used in achievements and likes
+improve notifications (link to referred resource)
+
 use reactjs to improve rendering speed 
 -> http://www.mono-software.com/blog/post/Mono/242/Improving-AngularJS-long-list-rendering-performance-using-ReactJS/
 angular optimizations 
