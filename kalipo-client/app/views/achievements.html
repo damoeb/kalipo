@@ -24,9 +24,9 @@
     <div>
 
         <p>
-            <span class="label label-success" ng-show="reputations[achievement.type] >= 0">{{reputations[achievement.type]}}</span>
-            <span class="label label-danger" ng-show="reputations[achievement.type] < 0">{{reputations[achievement.type]}}</span>
-            {{achievement.type}}
+            <span class="label label-success" ng-if="reputations[achievement.type] >= 0">{{::reputations[achievement.type]}}</span>
+            <span class="label label-danger" ng-if="reputations[achievement.type] < 0">{{::reputations[achievement.type]}}</span>
+            {{::achievement.type}}
         </p>
 
     </div>

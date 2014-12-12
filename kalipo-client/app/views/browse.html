@@ -12,19 +12,19 @@
         <div class="list-group-item" ng-repeat="thread in threads">
             <div class="row">
                 <div class="col-sm-1 col-xs-1 text-center">
-                    <h4>{{thread.likes}}</h4>
+                    <h4>{{::thread.likes}}</h4>
                 </div>
                 <div class="col-sm-11 col-xs-11">
-                    <a href="#/thread/{{thread.id}}">
-                        <h4 class="list-group-item-heading">{{thread.title}}</h4>
+                    <a href="#/thread/{{::thread.id}}">
+                        <h4 class="list-group-item-heading">{{::thread.title}}</h4>
                     </a>
 
-                    <p class="list-group-item-text pull-right">{{thread.createdDate | fromNow}}</p>
+                    <p class="list-group-item-text pull-right">{{::thread.createdDate | fromNow}}</p>
 
-                    <p class="list-group-item-text">by {{thread.initiatorId}}</p>
+                    <p class="list-group-item-text">by {{::thread.initiatorId}}</p>
 
                     <p class="list-group-item-text">
-                        <a href="#/thread/{{thread.id}}">{{thread.commentCount}} comments</a>
+                        <a href="#/thread/{{thread.id}}">{{::thread.commentCount}} comments</a>
                     </p>
                 </div>
             </div>

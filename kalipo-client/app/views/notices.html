@@ -41,19 +41,19 @@
                     <div class="row">
 
                         <div class="col-md-1">
-                            <strong>{{notice.type}}</strong>
+                            <strong>{{::notice.type}}</strong>
                         </div>
 
                         <div class="col-md-9">
                             for
-                            {{notice.resourceId}}
+                            {{::notice.resourceId}}
 
                             by
-                            <strong>{{notice.initiatorId}}</strong>
+                            <strong>{{::notice.initiatorId}}</strong>
                         </div>
 
                         <div class="col-md-2 text-right">
-                            {{notice.createdDate | fromNow}}
+                            {{::notice.createdDate | fromNow}}
                         </div>
 
                     </div>

@@ -10,8 +10,8 @@ kalipoApp.controller('ThreadController', ['$scope', '$routeParams', 'Thread', '$
         // todo load on demand?
         Thread.get({id: threadId}, function (thread) {
 //            thread.uglyDucklingSurvivalEndDate = null;
+
             thread.$kLine = thread.kLine.join(', ');
-//          todo create a $modIds
             thread.$uriHooks = thread.uriHooks.join('\n');
             thread.$modIds = thread.modIds.join(' ').trim();
 

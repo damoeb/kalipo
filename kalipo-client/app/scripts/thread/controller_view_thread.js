@@ -93,12 +93,15 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
 
             var re = new RegExp('[, \n\t]+', 'g');
 
-            if ($scope.thread.$modIds) {
+            if (!_.isUndefined($scope.thread.$modIds)) {
                 $scope.thread.modIds = _.compact($scope.thread.$modIds.replace(re, ' ').split(' '));
             }
-            $scope.thread.kLine = _.compact($scope.thread.$kLine.replace(re, ' ').split(' '));
-            $scope.thread.uriHooks = _.compact($scope.thread.$uriHooks.replace(re, ' ').split(' '));
-
+            if (!_.isUndefined($scope.thread.$kLine)) {
+                $scope.thread.kLine = _.compact($scope.thread.$kLine.replace(re, ' ').split(' '));
+            }
+            if (!_.isUndefined($scope.thread.$uriHooks)) {
+                $scope.thread.uriHooks = _.compact($scope.thread.$uriHooks.replace(re, ' ').split(' '));
+            }
             Thread.update($scope.thread, function() {
                 // done
             });
@@ -154,7 +157,9 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
                 // todo minimize negative-only comments, hell-banned subthreads
 
                 comment.$maximized = !(comment.dislikes > 3 && comment.dislikes > comment.likes);
-                comment.$score = (comment.likes - comment.dislikes) / comment.createdDate;
+                comment.$score = Math.max(comment.likes - comment.dislikes, 1) / comment.createdDate;
+
+                console.log(comment.$score);
 
                 // todo wenn mehr als 3 kommentare zeige nur die relevaten 3 an all "23 kommentare anzeigen"
 

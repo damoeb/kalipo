@@ -4,30 +4,30 @@
 
         <div style="float: left">
             <h3 style="display: inline">
-                {{thread.title}}
+                {{ ::thread.title}}
             </h3>
         </div>
         <div>
             <ul class="nav nav-pills pull-right">
-                <li role="presentation" ng-show="mainCtrl.authenticated">
-                    <a href="#/moderate/{{$threadId}}/pending">
+                <li role="presentation" ng-if="mainCtrl.authenticated">
+                    <a href="#/moderate/{{::$threadId}}/pending">
                     Pending
                         <span class="glyphicon glyphicon-bell" style="color: #E84B56;"
-                              ng-show="$pendingCount > 0"></span>
+                              ng-if="$pendingCount > 0"></span>
                         <!--<span style="color: #E84B56; font-weight: bolder">&diams;</span>-->
                     </a>
                 </li>
-                <li role="presentation" ng-show="mainCtrl.authenticated">
-                    <a href="#/moderate/{{$threadId}}/reports">
+                <li role="presentation" ng-if="mainCtrl.authenticated">
+                    <a href="#/moderate/{{::$threadId}}/reports">
                     Reports
                         <span class="glyphicon glyphicon-bell" style="color: #E84B56;"
-                              ng-show="$reportCount > 0"></span>
+                              ng-if="$reportCount > 0"></span>
                     </a>
                 </li>
                 <li role="presentation">
                     <a href="javascript:void(0)" ng-click="$viewMode = !$viewMode">
-                        <span ng-show="!$viewMode">Edit</span>
-                        <span ng-show="$viewMode">View</span>
+                        <span ng-if="!$viewMode">Edit</span>
+                        <span ng-if="$viewMode">View</span>
                     </a>
                 </li>
             </ul>
@@ -35,22 +35,22 @@
     </div>
 
 
-    <div ng-show="$viewMode">
+    <div ng-if="$viewMode">
 
         <div ng-include="'views/thread-edit.html'"></div>
 
     </div>
 
-    <div ng-show="!$viewMode">
+    <div ng-if="!$viewMode">
 
-        Submitted {{thread.createdDate | fromNow}}
+        Submitted {{::thread.createdDate | fromNow}}
 
-        by {{thread.initiatorId}}
+        by {{::thread.initiatorId}}
 
         <h4 style="margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid #e5e5e5; padding-bottom: 5px;">
-            {{thread.commentCount}} comments
-            <span ng-show="$pendingCount >0" style="color: gray">
-                (<a href="javascript:void(0)" ng-click="$showPending = !$showPending">{{$pendingCount}} pending</a>)
+            {{::thread.commentCount}} comments
+            <span ng-if="$pendingCount >0" style="color: gray">
+                (<a href="javascript:void(0)" ng-click="$showPending = !$showPending">{{::$pendingCount}} pending</a>)
             </span>
         </h4>
 
@@ -92,24 +92,24 @@
 
         <hr>
 
-        Moderated by <span ng-repeat="modId in thread.modIds">{{modId}} </span>
+        Moderated by <span ng-repeat="modId in thread.modIds">{{::modId}} </span>
     </div>
 </div>
 
 
 <div style="position: fixed; bottom:0; background-color: #efefef; border-top:1px solid #cccccc; z-index: 1" class="row"
-     ng-show="mainCtrl.authenticated && !$viewMode">
+     ng-if="mainCtrl.authenticated && !$viewMode">
     <div class="container" ng-include="'create_comment_bottom.html'"></div>
 </div>
 
 
 <script type="text/ng-template" id="likes.html">
-    <div ng-show="comment.likes > 0 || comment.dislikes > 0" style="line-height: 5px" class="pull-right">
+    <div ng-if="comment.likes > 0 || comment.dislikes > 0" style="line-height: 5px" class="pull-right">
 
-        <div style="width: 100px" title="{{comment.likes}} likes {{comment.dislikes}} dislikes">
-            <div class="post-bar-likes" style="width: {{comment.$likes}}%;">
+        <div style="width: 100px" title="{{::comment.likes}} likes {{::comment.dislikes}} dislikes">
+            <div class="post-bar-likes" style="width: {{::comment.$likes}}%;">
             </div>
-            <div class="pull-right post-bar-dislikes" style="width: {{comment.$dislikes}}%;">
+            <div class="pull-right post-bar-dislikes" style="width: {{::comment.$dislikes}}%;">
             </div>
         </div>
     </div>
@@ -117,7 +117,7 @@
 
 <script type="text/ng-template" id="create_comment.html">
 
-    <div style="padding: 10px;" class="clearfix row" ng-show="mainCtrl.authenticated">
+    <div style="padding: 10px;" class="clearfix row" ng-if="mainCtrl.authenticated">
 
         <form novalidate ng-submit="draft.parentId = comment.id; create()">
         <div class="col-md-11 col-sm-10 col-xs-10">
@@ -159,7 +159,7 @@
 
 <script type="text/ng-template" id="comment.html">
 
-    <div ng-show="!comment.$pending || $showPending">
+    <div ng-if="!comment.$pending || $showPending">
 
         <div ng-switch on="comment.$maximized">
 
@@ -167,7 +167,7 @@
             <div ng-switch-default>
 
                 <div class="post">
-                    <a id="{{comment.id}}"></a>
+                    <a id="{{::comment.id}}"></a>
 
                     <div class="row">
 
@@ -177,32 +177,32 @@
 
                                 <!--<div ng-include="'likes.html'"></div>-->
 
-                                <a href="#/users/{{comment.displayName}}"><strong>{{comment.displayName}}</strong></a>
+                                <a href="#/users/{{::comment.displayName}}"><strong>{{::comment.displayName}}</strong></a>
                                 <span style="color: grey; font-size: smaller"
-                                      title="{{comment.createdDate | dateString }}">{{comment.createdDate | fromNow }}</span>
+                                      title="{{::comment.createdDate | dateString }}">{{::comment.createdDate | fromNow }}</span>
                                 <a style="padding-left:10px; font-size: smaller" href="javascript:void(0)"
                                    ng-click="comment.$maximized = !comment.$maximized" title="Click to minimize">minimize</a>
 
                                 <span class="label label-warning pull-right"
-                                      ng-show="comment.$pending">PENDING APPROVAL</span>
+                                      ng-if="comment.$pending">PENDING APPROVAL</span>
 
-                                <div style="white-space: pre-line">{{comment.text}}</div>
+                                <div style="white-space: pre-line">{{::comment.text}}</div>
                             </div>
 
                             <div class="menu">
                                 <a href="javascript:void(0)" ng-click="toggleReplyForm(comment)">Reply</a>
                                 <a class="voteUp" href="javascript:void(0)" ng-click="like(comment)">
                                     <span class="glyphicon glyphicon-thumbs-up"></span>
-                                    <span ng-show="comment.likes>0" class="voteUp">{{comment.likes}}</span>
+                                    <span ng-show="comment.likes>0" class="voteUp">{{::comment.likes}}</span>
                                 </a>
                                 <a class="voteDown" href="javascript:void(0)" ng-click="dislike(comment)">
                                     <span class="glyphicon glyphicon-thumbs-down"></span>
-                                    <span ng-show="comment.dislikes>0" class="voteDown">{{comment.dislikes}}</span>
+                                    <span ng-show="comment.dislikes>0" class="voteDown">{{::comment.dislikes}}</span>
                                 </a>
                                 <a ng-show="comment.parentId != null" href="javascript:void(0)"
                                    ng-click="scrollTo(comment.parentId)">
                                     Parent</a>
-                                <a href="#/thread/{{comment.threadId}}/{{comment.id}}" title="Permalink">
+                                <a href="#/thread/{{::comment.threadId}}/{{::comment.id}}" title="Permalink">
                                     <span class="glyphicon glyphicon-link"></span>
                                 </a>
 
@@ -224,7 +224,7 @@
                                     <span class="glyphicon glyphicon-chevron-up"></span>
                                 </a>
 
-                                <div class="votes">{{comment.likes - comment.dislikes}}</div>
+                                <div class="votes">{{::comment.likes - comment.dislikes}}</div>
                                 <a href="javascript:void(0)" ng-click="dislike(comment)" class="btn btn-default btn-sm"
                                    style="border-width: 0">
                                     <span class="glyphicon glyphicon-chevron-down"></span>
@@ -284,14 +284,14 @@
                             <!--<span class="glyphicon glyphicon-chevron-down"></span></a>-->
 
                             <strong><a href="javascript:void(0)" ng-click="scrollTo(comment.parentId)"
-                                       ng-show="{{comment.parentId != null}}">Re:</a></strong>
+                                       ng-if="comment.parentId != null">Re:</a></strong>
 
-                            <span style="color: grey" ng-show="comment.$commentCount > 1">(<a href="javascript:void(0)">{{comment.$commentCount}}
+                            <span style="color: grey" ng-show="comment.$commentCount > 1">(<a href="javascript:void(0)">{{::comment.$commentCount}}
                                 comments</a>)</span>
                         </div>
 
                         <div style="white-space: nowrap; cursor: pointer; color: grey;">
-                            <span>{{comment.text}}</span>
+                            <span>{{::comment.text}}</span>
                         </div>
 
                     </div>

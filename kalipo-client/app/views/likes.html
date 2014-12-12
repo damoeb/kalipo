@@ -25,19 +25,19 @@
 
         <p>
 
-            <span class="glyphicon glyphicon-thumbs-up" ng-show="comment.$vote.like" style="color:green;"></span>
-            <span class="glyphicon glyphicon-thumbs-down" ng-show="!comment.$vote.like" style="color:red;"></span>
+            <span class="glyphicon glyphicon-thumbs-up" ng-if="comment.$vote.like" style="color:green;"></span>
+            <span class="glyphicon glyphicon-thumbs-down" ng-if="!comment.$vote.like" style="color:red;"></span>
 
-            {{comment.$vote.createdDate|fromNow}}
+            {{::comment.$vote.createdDate|fromNow}}
 
         </p>
 
         <div class="post">
 
-            <a href="javascript:void(0)"><strong>{{comment.displayName}}</strong></a>
-            <span style="color: grey; font-size: smaller" title="{{comment.createdDate | dateString }}">{{comment.createdDate | fromNow }}</span>
+            <a href="javascript:void(0)"><strong>{{::comment.displayName}}</strong></a>
+            <span style="color: grey; font-size: smaller" title="{{comment.createdDate | dateString }}">{{::comment.createdDate | fromNow }}</span>
 
-            <div style="white-space: pre-line">{{comment.text}}</div>
+            <div style="white-space: pre-line">{{::comment.text}}</div>
         </div>
 
     </div>
