@@ -86,7 +86,7 @@ public class VoteResourceTest {
 
         vote = new Vote();
         vote.setCommentId(commentId);
-        vote.setIsLike(DEFAULT_SAMPLE_ISLIKE_ATTR);
+        vote.setLike(DEFAULT_SAMPLE_ISLIKE_ATTR);
     }
 
     @Test

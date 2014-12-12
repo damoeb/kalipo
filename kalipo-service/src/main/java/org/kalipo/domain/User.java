@@ -60,7 +60,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     private DateTime bannedUntilDate;
 
-    @NotNull
+//   todo @NotNull
     private DateTime registrationDate;
 
     // Count violations

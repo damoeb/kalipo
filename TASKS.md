@@ -1,11 +1,5 @@
-hierarchical query of comment structure? http://docs.mongodb.org/manual/tutorial/model-tree-structures/
-- minimize comment json footprint: null instead of 0
-
-rename likes to likeCount, same for dislike...
-
 sys: docker, nginx, snort, nagios, elastic search
 - Achievements: stackoverflow zeigt die die rep upgrades an wie soundcloud die notifications 
-more consistent naming authorId/userId if possible
 
 discuss/moderate/monitor/notifications/browse
 pageable for all lists
@@ -27,7 +21,6 @@ pageable for all lists
     - def metrics
 - All links with <domain>/out to get stats
 
-- Clean old Votes, Notices
 - Audit logs
 - Comment
     - Mod can pin/sticky a comment to be first in list

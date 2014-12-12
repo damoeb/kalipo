@@ -115,6 +115,8 @@ public class CommentService {
             throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "must be pending to be approved");
         }
 
+        final String currentLogin = SecurityUtils.getCurrentLogin();
+
         // -- Comment Count
 
         Thread thread = threadRepository.findOne(comment.getThreadId());
@@ -124,19 +126,19 @@ public class CommentService {
         thread.setCommentCount(thread.getCommentCount() + 1);
         threadRepository.save(thread);
 
-        noticeService.notifyAuthorOfParent(comment);
+        noticeService.notifyAuthorOfParent(comment, currentLogin);
 
         // --
 
-        log.info(String.format("%s approves comment %s ", SecurityUtils.getCurrentLogin(), comment.getId()));
+        log.info(String.format("%s approves comment %s ", currentLogin, comment.getId()));
 
         comment.setStatus(Comment.Status.APPROVED);
-        comment.setReviewerId(SecurityUtils.getCurrentLogin());
+        comment.setReviewerId(currentLogin);
 
         comment = commentRepository.save(comment);
 
-        noticeService.notifyMentionedUsers(comment);
-        noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.APPROVAL, comment.getId());
+        noticeService.notifyMentionedUsers(comment, currentLogin);
+        noticeService.notifyAsync(comment.getAuthorId(), currentLogin, Notice.Type.APPROVAL, comment.getId());
 
         return comment;
     }
@@ -168,14 +170,16 @@ public class CommentService {
             throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "must be pending to be approved");
         }
 
-        noticeService.notifyAuthorOfParent(comment);
+        final String currentLogin = SecurityUtils.getCurrentLogin();
+
+        noticeService.notifyAuthorOfParent(comment, currentLogin);
 
         // --
 
-        log.info(String.format("%s rejects comment %s ", SecurityUtils.getCurrentLogin(), comment.getId()));
+        log.info(String.format("%s rejects comment %s ", currentLogin, comment.getId()));
 
         comment.setStatus(Comment.Status.DELETED);
-        comment.setReviewerId(SecurityUtils.getCurrentLogin());
+        comment.setReviewerId(currentLogin);
 
         comment = commentRepository.save(comment);
 
@@ -239,7 +243,7 @@ public class CommentService {
             // todo distinguish report approval vs pending (=learning) -> notification
             reputationService.onCommentDeletion(comment);
             // todo notification will encourage trolls?
-            noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.DELETION, comment.getId());
+            noticeService.notifyAsync(comment.getAuthorId(), currentLogin, Notice.Type.DELETION, comment.getId());
         } else {
             log.info(String.format("Comment %s deleted by owner %s", comment.getId(), currentLogin));
         }
@@ -272,7 +276,7 @@ public class CommentService {
 //            DateTime bannedUntilDate = DateTime.now().plusDays(30 * author.getBanCount());
 //            author.setBannedUntilDate(bannedUntilDate);
 //            log.info("User {} is banned until ", author.getLogin(), bannedUntilDate);
-            noticeService.notifySuperModsOfFraudulentUser(author);
+            noticeService.notifySuperModsOfFraudulentUser(author, currentLogin);
         }
 
         userRepository.save(author);
@@ -359,7 +363,7 @@ public class CommentService {
         dirty = commentRepository.save(dirty);
 
         if (dirty.getStatus() == Comment.Status.PENDING) {
-            noticeService.notifyModsOfThread(thread, dirty);
+            noticeService.notifyModsOfThread(thread, dirty, currentLogin);
         } else {
 
             if (isNew) {
@@ -367,11 +371,11 @@ public class CommentService {
 
                 threadRepository.save(thread);
 
-                noticeService.notifyAuthorOfParent(dirty);
+                noticeService.notifyAuthorOfParent(dirty, currentLogin);
             }
         }
 
-        noticeService.notifyMentionedUsers(dirty);
+        noticeService.notifyMentionedUsers(dirty, currentLogin);
 
         return dirty;
     }

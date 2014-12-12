@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  * A Type can be seen as an action. Reputation is a positive or negative number that is added to the current user reputation
  */
 
-@Document(collection = "T_REPUTATION_DEFINITION")
+@Document(collection = "T_REPUTATION")
 public class Reputation {
 
     @Id

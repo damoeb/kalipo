@@ -3,7 +3,6 @@ package org.kalipo.service;
 import org.kalipo.domain.*;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.*;
-import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +52,7 @@ public class NoticeService {
     // -- ASYNCHRONOUS CALLS -------------------------------------------------------------------------------------------
 
     @Async
-    public void notifyMentionedUsers(Comment comment) {
+    public void notifyMentionedUsers(Comment comment, String initiatorId) {
         try {
             Asserts.isNotNull(comment, "comment");
 
@@ -68,7 +67,7 @@ public class NoticeService {
 
                 for (String login : uqLogins) {
                     // notify @login
-                    sendNotice(login, Notice.Type.MENTION, comment.getId());
+                    sendNotice(login, initiatorId, Notice.Type.MENTION, comment.getId());
                 }
             }
         } catch (Exception e) {
@@ -77,7 +76,7 @@ public class NoticeService {
     }
 
     @Async
-    public void notifyModsOfThread(String threadId, Report report) {
+    public void notifyModsOfThread(String threadId, Report report, String initiatorId) {
         try {
             Asserts.isNotNull(threadId, "threadId");
             Asserts.isNotNull(report, "report");
@@ -85,7 +84,7 @@ public class NoticeService {
             Thread thread = threadRepository.findOne(threadId);
             Asserts.isNotNull(thread, "threadId");
 
-            thread.getModIds().forEach(modId -> sendNotice(modId, Notice.Type.REPORT, report.getCommentId()));
+            thread.getModIds().forEach(modId -> sendNotice(modId, initiatorId, Notice.Type.REPORT, report.getCommentId()));
 
         } catch (Exception e) {
             log.error(String.format("Unable to notify mods of thread %s with report %s. Reason: %s", threadId, report, e.getMessage()));
@@ -93,14 +92,14 @@ public class NoticeService {
     }
 
     @Async
-    public void notifyAuthorOfParent(Comment comment) {
+    public void notifyAuthorOfParent(Comment comment, String initiatorId) {
         try {
             Asserts.isNotNull(comment, "comment");
 
             if (comment.getParentId() != null) {
                 Comment parent = commentRepository.findOne(comment.getParentId());
                 if (parent != null) {
-                    sendNotice(parent.getAuthorId(), Notice.Type.REPLY, comment.getId());
+                    sendNotice(parent.getAuthorId(), initiatorId, Notice.Type.REPLY, comment.getId());
                 }
             }
         } catch (Exception e) {
@@ -109,13 +108,13 @@ public class NoticeService {
     }
 
     @Async
-    public void notifyAsync(String recipientId, Notice.Type type, String commentId) {
+    public void notifyAsync(String recipientId, String initiatorId, Notice.Type type, String commentId) {
         try {
             Asserts.isNotNull(recipientId, "recipientId");
             Asserts.isNotNull(type, "type");
             Asserts.isNotNull(commentId, "commentId");
 
-            sendNotice(recipientId, type, commentId);
+            sendNotice(recipientId, initiatorId, type, commentId);
 
         } catch (Exception e) {
             log.error(String.format("Unable to notify %s with %s of %s. Reason: %s", recipientId, type, commentId, e.getMessage()));
@@ -123,21 +122,21 @@ public class NoticeService {
     }
 
     @Async
-    public void notifySuperModsOfFraudulentComment(Comment comment) {
+    public void notifySuperModsOfFraudulentComment(Comment comment, String initiatorId) {
         try {
             Asserts.isNotNull(comment, "comment");
-            userRepository.findSuperMods().forEach(user -> sendNotice(user.getLogin(), Notice.Type.REPORT, comment.getId()));
+            userRepository.findSuperMods().forEach(user -> sendNotice(user.getLogin(), initiatorId, Notice.Type.REPORT, comment.getId()));
         } catch (Exception e) {
             log.error(String.format("Unable to notify superMods of fraud-comment %s. Reason: %s", comment, e.getMessage()));
         }
     }
 
     @Async
-    public void notifySuperModsOfFraudulentUser(User user) {
+    public void notifySuperModsOfFraudulentUser(User user, String initiatorId) {
         try {
 
             Asserts.isNotNull(user, "user");
-            userRepository.findSuperMods().forEach(mod -> sendNotice(mod.getLogin(), Notice.Type.FRAUDULENT_USER, user.getLogin()));
+            userRepository.findSuperMods().forEach(mod -> sendNotice(mod.getLogin(), initiatorId, Notice.Type.FRAUDULENT_USER, user.getLogin()));
 
         } catch (Exception e) {
             log.error(String.format("Unable to notify superMods of fraud-user %s. Reason: %s", user, e.getMessage()));
@@ -145,13 +144,13 @@ public class NoticeService {
     }
 
     @Async
-    public void notifyModsOfThread(Thread thread, Comment comment) {
+    public void notifyModsOfThread(Thread thread, Comment comment, String initiatorId) {
         try {
             Asserts.isNotNull(thread, "thread");
             Asserts.isNotNull(thread.getModIds(), "modIds");
             Asserts.isNotNull(comment, "comment");
 
-            thread.getModIds().forEach(modId -> sendNotice(modId, Notice.Type.REVIEW, comment.getId()));
+            thread.getModIds().forEach(modId -> sendNotice(modId, initiatorId, Notice.Type.REVIEW, comment.getId()));
 
         } catch (Exception e) {
             log.error(String.format("Unable to notify mods (thread %s) of comment %s. Reason: %s", thread, comment, e.getMessage()));
@@ -177,14 +176,14 @@ public class NoticeService {
 
     // --
 
-    private void sendNotice(String recipientId, Notice.Type type, String resourceId) {
+    private void sendNotice(String recipientId, String initiatorId, Notice.Type type, String resourceId) {
 
         // todo should be debug
         log.info(String.format("Notify %s of %s on resource %s", recipientId, type.name(), resourceId));
 
         Notice notice = new Notice();
         notice.setRecipientId(recipientId);
-        notice.setInitiatorId(SecurityUtils.getCurrentLogin());
+        notice.setInitiatorId(initiatorId);
         notice.setResourceId(resourceId);
         notice.setType(type);
 

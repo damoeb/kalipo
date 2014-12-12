@@ -71,6 +71,11 @@ public class VoteService {
         final Comment comment = commentRepository.findOne(vote.getCommentId());
         Asserts.isNotNull(comment, "commentId");
 
+        // todo enable
+//        if(currentLogin.equals(comment.getAuthorId())) {
+//            throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "You can't vote on your comment");
+//        }
+
         reputationService.onCommentVoting(vote);
 
         vote.setAuthorId(SecurityUtils.getCurrentLogin());
@@ -81,7 +86,7 @@ public class VoteService {
         if (vote.isLike()) {
             log.info(String.format("%s likes comment %s", SecurityUtils.getCurrentLogin(), comment.getId()));
             comment.setLikes(NumUtils.nullToZero(comment.getLikes()) + 1);
-            noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.LIKE, comment.getId());
+            noticeService.notifyAsync(comment.getAuthorId(), currentLogin, Notice.Type.LIKE, comment.getId());
         } else {
             log.info(String.format("%s dislikes comment %s", SecurityUtils.getCurrentLogin(), comment.getId()));
             comment.setDislikes(NumUtils.nullToZero(comment.getDislikes()) + 1);

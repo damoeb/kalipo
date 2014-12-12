@@ -1,6 +1,5 @@
 package org.kalipo.service;
 
-import org.apache.commons.lang3.math.NumberUtils;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.Throttled;
 import org.kalipo.config.ErrorCode;
@@ -86,12 +85,12 @@ public class ReportService {
 
         // todo async
         if (reportedCount == 1) {
-            noticeService.notifyModsOfThread(comment.getThreadId(), report);
+            noticeService.notifyModsOfThread(comment.getThreadId(), report, currentLogin);
         }
         if (reportedCount == CRITICAL_REPORT_COUNT) {
             log.info(String.format("Hiding comment %s after %s reports", comment.getId(), CRITICAL_REPORT_COUNT));
             comment.setHidden(true);
-            noticeService.notifySuperModsOfFraudulentComment(comment);
+            noticeService.notifySuperModsOfFraudulentComment(comment, currentLogin);
         }
         commentRepository.save(comment);
 
@@ -167,7 +166,7 @@ public class ReportService {
                 log.info(String.format("%s rejects report %s", currentLogin, report.getId()));
             }
 
-            noticeService.notifyAsync(comment.getAuthorId(), Notice.Type.APPROVAL, comment.getId());
+            noticeService.notifyAsync(comment.getAuthorId(), currentLogin, Notice.Type.APPROVAL, comment.getId());
         }
 
         reputationService.onReportApprovalOrRejection(reportRepository.save(report));

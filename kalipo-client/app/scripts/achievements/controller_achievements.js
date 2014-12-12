@@ -24,6 +24,8 @@ kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 
 
                 console.log('Got ' + achievements.length + ' achievements on page ' + $scope.$page);
 
+                // todo groupBy resourceRef to avoid multiple requests on same resource
+
                 _.forEach(achievements, function (achievement) {
 
                     $scope.achievements.push(achievement);
