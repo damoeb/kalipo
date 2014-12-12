@@ -382,7 +382,8 @@ public class CommentService {
 
     private String getFingerprint(Comment parent, Thread thread) {
         final String parentFp = parent == null ? "" : parent.getFingerprint();
-        return parentFp + String.format("%05d", thread.getCommentCount());
+        final int max = 99999;
+        return parentFp + String.format("%05d", max - thread.getCommentCount());
     }
 
     private void assignSticky(Comment comment, Comment original, boolean isNew, boolean isMod, boolean isSuperMod) throws KalipoException {

@@ -37,10 +37,8 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
 
         var fetchComments = function () {
             Thread.discussion({id: threadId, page: currentPage}, function (page) {
-                //
-                //var sorted = _.sortBy(page.content, function (comment) {
-                //    return -comment.createdDate
-                //});
+
+                var start = new Date().getTime();
 
                 var comments = page.content;
                 var groupedById = _groupById(comments);
@@ -49,9 +47,10 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
 
                 _mergeIntoTree(comments);
 
-                $scope.comments = _sort(_.flatten(_.values($this.groupedByIdMaster)));
+                $scope.comments = _sortByScore(_.flatten(_.values($this.groupedByIdMaster)));
 
-                console.log($scope.comments.length);
+                var end = new Date().getTime();
+                console.log('Execution time: ' + (end - start));
 
 //            todo enable scrollTo
 //            if (commentId) {
@@ -117,7 +116,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
                 });
         };
 
-        var _sort = function (comments) {
+        var _sortByScore = function (comments) {
             return _.sortBy(comments, function (comment) {
                 return comment.$score
             })
@@ -178,7 +177,11 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
                 if (comment.parentId == null) {
                     return true;
                 } else {
-                    var parent = $this.groupedByIdMaster[comment.parentId][0];
+                    var parents = $this.groupedByIdMaster[comment.parentId];
+                    if (_.isUndefined(parents) || parents == null) {
+                        throw 'cannot find ' + comment.parentId
+                    }
+                    var parent = parents[0];
                     parent.children.push(comment);
 
                     // push commentCount to parents

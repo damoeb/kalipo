@@ -20,7 +20,7 @@ public class Privilege implements Serializable {
     /**
      *
      */
-    @NotNull
+    @NotNull(message = "{constraint.notnull.name}")
     @Size(min = 1, max = 50)
     private String name;
 

@@ -13,7 +13,7 @@ Features
 - Reputation: We try to minimize the need for moderation by implementing a
 strong reputation based privilege system, which you may know from stackoverflow.
 - Webhooks: Hook extern urls to a specific thread, that will forward you to the particular thread
-e.g. assume http://derstandard.at/2000008228049 is hooked by thread 1, then a user on that external page can simply use our domain as prefix kalipo.org/http://derstandard.at/2000008228049 to get redirected to the thread 1.
+e.g. assume http://www.anyurl.com/2000008228049 is hooked by thread 1, then a user on that external page can simply use our domain as prefix kalipo.org/http://www.anyurl.com/2000008228049 to get redirected to the thread 1.
 - Livecycle: track your comment livecycle all the time
 - Notifications: many transient actions trigger notifications to keep you informed
 - Moderation: mods can choose from a range of actions (similar to the IRC: k-List, g-List or z-Line) to keep discussion sane and vital

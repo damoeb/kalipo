@@ -22,16 +22,16 @@ public class Notice implements Serializable {
 
     private boolean seen;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.noticeType}")
     private Type type;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.resourceId}")
     private String resourceId;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.recipientId}")
     private String recipientId;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.initiatorId}")
     private String initiatorId;
 
     public String getId() {

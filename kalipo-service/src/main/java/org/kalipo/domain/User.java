@@ -60,7 +60,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     private DateTime bannedUntilDate;
 
-//   todo @NotNull
+    @NotNull(message = "{constraint.notnull.registrationDate}")
+    @Field("registration_date")
     private DateTime registrationDate;
 
     // Count violations

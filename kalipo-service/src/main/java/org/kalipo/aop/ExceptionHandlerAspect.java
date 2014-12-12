@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,10 +35,11 @@ public class ExceptionHandlerAspect {
             return joinPoint.proceed();
 
         } catch (ConstraintViolationException e) {
-//            return handleConstraintViolationException(e);
 
             List<String> errors = new LinkedList<>();
-            e.getConstraintViolations().forEach(violation -> errors.add(violation.getMessage()));
+            for (ConstraintViolation violation : e.getConstraintViolations()) {
+                errors.add(violation.getMessage());
+            }
 
             throw new KalipoException(ErrorCode.INVALID_PARAMETER, StringUtils.join(errors, ", "));
 

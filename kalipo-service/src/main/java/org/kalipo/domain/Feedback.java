@@ -17,7 +17,7 @@ public class Feedback implements Serializable {
     @Id
     private String id;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.feebackText}")
     @Size(min = 1, max = 1024)
     private String text;
 

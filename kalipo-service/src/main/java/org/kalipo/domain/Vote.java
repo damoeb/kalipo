@@ -20,10 +20,10 @@ public class Vote implements Serializable {
     @Id
     private String id;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.authorId}")
     private String authorId;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.commentId}")
     @Field("comment_id")
     @ModelExistsConstraint(Comment.class)
     private String commentId;

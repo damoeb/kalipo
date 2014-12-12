@@ -48,9 +48,9 @@ public class Comment {
 
     private String displayName;
 
-    // todo create a related hash to order all comments close to their parents
+    // A related hash to order all comments close to their parents
     @JsonIgnore
-    private String fingerprint = "100001000010000100001000010000";
+    private String fingerprint;
 
     // todo implement
 //    private Integer childrenCount;

@@ -29,7 +29,7 @@ public class Thread implements Serializable {
      */
     private Set<String> uriHooks = new HashSet<>();
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.title}")
     @Size(min = 10, max = 64)
     private String title;
 
@@ -43,10 +43,10 @@ public class Thread implements Serializable {
     private Integer pendingCount = 0;
     private Integer reportedCount = 0;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.initiatorId}")
     private String initiatorId;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.modIds}")
     private Set<String> modIds = new HashSet<String>();
 
 

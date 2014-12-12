@@ -22,24 +22,24 @@ public class Report implements Serializable {
     @Id
     private String id;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.authorId}")
     @Field("author_id")
     private String authorId;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.reportReason}")
     @Size(min = 1, max = 512)
     private String reason;
 
     private Status status;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.commentId}")
     @Field("comment_id")
     @ModelExistsConstraint(Comment.class)
     private String commentId;
 
     private boolean abused;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.threadId}")
     @Field("thread_id")
     private String threadId;
 

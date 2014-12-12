@@ -1,3 +1,8 @@
+use reactjs to improve rendering speed 
+-> http://www.mono-software.com/blog/post/Mono/242/Improving-AngularJS-long-list-rendering-performance-using-ReactJS/
+angular optimizations 
+-> http://www.binpress.com/tutorial/speeding-up-angular-js-with-simple-optimizations/135
+
 sys: docker, nginx, snort, nagios, elastic search
 - Achievements: stackoverflow zeigt die die rep upgrades an wie soundcloud die notifications 
 
@@ -28,7 +33,7 @@ pageable for all lists
     - #hashtags in comment
     - quotations
     - allow embeds, images
-- Clean: remove tracker (jhipster corps), currently typing websockets
+- Clean: currently typing websockets
 - Async, maybe event driven via akka
     @Scheduled
     - Thread stats like commentCount/likes/dislikes
