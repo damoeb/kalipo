@@ -195,8 +195,7 @@
                                     <span class="glyphicon glyphicon-thumbs-down"></span>
                                     <span ng-show="comment.dislikes>0" class="voteDown">{{::comment.dislikes}}</span>
                                 </a>
-                                <a ng-show="comment.parentId != null" href="javascript:void(0)"
-                                   ng-click="scrollTo(comment.parentId)">
+                                <a ng-if="comment.parentId != null" href="#/threads/{{::comment.parentId}})">
                                     Parent</a>
                                 <a href="#/thread/{{::comment.threadId}}/{{::comment.id}}" title="Permalink">
                                     <span class="glyphicon glyphicon-link"></span>
@@ -209,23 +208,6 @@
                                         <span class="glyphicon glyphicon-flag"></span>
                                     </a>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- voting and votes -->
-                        <div class="col-lg-1 col-xs-2 text-center">
-                            <div class="btn-group-vertical" role="group">
-                                <a href="javascript:void(0)" ng-click="like(comment)" class="btn btn-default btn-sm"
-                                   style="border-width: 0">
-                                    <span class="glyphicon glyphicon-chevron-up"></span>
-                                </a>
-
-                                <div class="votes">{{::comment.likes - comment.dislikes}}</div>
-                                <a href="javascript:void(0)" ng-click="dislike(comment)" class="btn btn-default btn-sm"
-                                   style="border-width: 0">
-                                    <span class="glyphicon glyphicon-chevron-down"></span>
-                                </a>
-
                             </div>
                         </div>
 
@@ -251,6 +233,15 @@
                     <div ng-show="$replyTo == comment.id">
                         <div ng-include="'create_comment.html'"></div>
                     </div>
+
+                    <!-- sub comments -->
+                    <div ng-hide="comment.children.length == 0">
+                        <dl style="margin:0;">
+                            <dd ng-repeat="comment in comment.children"
+                                ng-include="'comment.html'"></dd>
+                        </dl>
+                    </div>
+
                 </div>
 
             </div>

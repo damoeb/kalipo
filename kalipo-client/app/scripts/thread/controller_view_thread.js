@@ -28,27 +28,34 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         $this.groupedByIdMaster = {};
 
         // todo implement a comment retrieval, that supports pagination
-        var currentPage = 0;
+        var currentPage = -1;
 
         $scope.loadMore = function () {
             console.log("load more");
             fetchComments();
-            currentPage++;
         };
 
-        var fetchComments = function (pageObj) {
+        var fetchComments = function () {
+
+            currentPage = currentPage + 1;
+
+            var start = new Date().getTime();
+
             Thread.discussion({id: threadId, page: currentPage}, function (pageData) {
 
-                var start = new Date().getTime();
+                var end = new Date().getTime();
+                console.log('Fetch time: ' + (end - start));
 
-                var comments = pageData.content;
+                start = new Date().getTime();
+
+                var comments = _postFetchComments(pageData.content);
 
                 $scope.pages.push({
                     id: currentPage,
-                    comments: pageData.content
+                    comments: comments
                 });
 
-                var end = new Date().getTime();
+                end = new Date().getTime();
                 console.log('Execution time: ' + (end - start));
 
 //            todo enable scrollTo
@@ -124,9 +131,9 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
             })
         };
 
-        var _groupById = function (comments) {
+        var _postFetchComments = function (comments) {
 
-            return _.groupBy(comments, function(comment) {
+            return _.forEach(comments, function(comment) {
                 comment.children = [];
                 comment.$report = false;
                 comment.$commentCount = 1;
@@ -158,7 +165,8 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
                 comment.$maximized = !(comment.dislikes > 3 && comment.dislikes > comment.likes);
                 comment.$score = Math.max(comment.likes - comment.dislikes, 1) / comment.createdDate;
 
-                console.log(comment.$score);
+//                console.log(comment.createdDate);
+//                console.log(comment.$score);
 
                 // todo wenn mehr als 3 kommentare zeige nur die relevaten 3 an all "23 kommentare anzeigen"
 
@@ -171,7 +179,6 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
                 comment.$likes = comment.likes / total * 100;
                 comment.$dislikes = comment.dislikes / total * 100;
 
-                return comment.id;
             });
         };
 
