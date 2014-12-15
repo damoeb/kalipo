@@ -21,7 +21,7 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         $scope.$reportCount = 0;
         $scope.$hasReports = false;
 
-        $scope.comments = [];
+        $scope.pages = [];
 
         var $this = this;
 
@@ -31,23 +31,22 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
         var currentPage = 0;
 
         $scope.loadMore = function () {
-            currentPage++;
+            console.log("load more");
             fetchComments();
+            currentPage++;
         };
 
-        var fetchComments = function () {
-            Thread.discussion({id: threadId, page: currentPage}, function (page) {
+        var fetchComments = function (pageObj) {
+            Thread.discussion({id: threadId, page: currentPage}, function (pageData) {
 
                 var start = new Date().getTime();
 
-                var comments = page.content;
-                var groupedById = _groupById(comments);
+                var comments = pageData.content;
 
-                $this.groupedByIdMaster = _.merge(groupedById, $this.groupedByIdMaster);
-
-                _mergeIntoTree(comments);
-
-                $scope.comments = _sortByScore(_.flatten(_.values($this.groupedByIdMaster)));
+                $scope.pages.push({
+                    id: currentPage,
+                    comments: pageData.content
+                });
 
                 var end = new Date().getTime();
                 console.log('Execution time: ' + (end - start));

@@ -77,14 +77,13 @@
 
             </div>
 
-            <dl style="margin:0;">
-                <dd ng-repeat="comment in comments track by $index" ng-include="'comment.html'">
+            <div ng-repeat="page in pages">
+                Page {{page.id}}: {{page.comments.length}} comments
+                <dl style="margin:0;">
+                    <dd ng-repeat="comment in page.comments track by $index" ng-include="'comment.html'">
 
-                </dd>
-            </dl>
-
-            <div ng-show="comments.length > 10" style="margin-top: 10px">
-                <div ng-include="'create_comment.html'"></div>
+                    </dd>
+                </dl>
             </div>
         </div>
 
@@ -166,7 +165,7 @@
             <!-- Maximized view -->
             <div ng-switch-default>
 
-                <div class="post">
+                <div class="post" style="border-left: {{comment.level * 10}}px solid #dedede;">
                     <a id="{{::comment.id}}"></a>
 
                     <div class="row">
@@ -180,9 +179,6 @@
                                 <a href="#/users/{{::comment.displayName}}"><strong>{{::comment.displayName}}</strong></a>
                                 <span style="color: grey; font-size: smaller"
                                       title="{{::comment.createdDate | dateString }}">{{::comment.createdDate | fromNow }}</span>
-                                <a style="padding-left:10px; font-size: smaller" href="javascript:void(0)"
-                                   ng-click="comment.$maximized = !comment.$maximized" title="Click to minimize">minimize</a>
-
                                 <span class="label label-warning pull-right"
                                       ng-if="comment.$pending">PENDING APPROVAL</span>
 
@@ -255,15 +251,6 @@
                     <div ng-show="$replyTo == comment.id">
                         <div ng-include="'create_comment.html'"></div>
                     </div>
-
-                    <!-- sub comments -->
-                    <div ng-hide="comment.children.length == 0">
-                        <dl style="margin:0;">
-                            <dd ng-repeat="comment in comment.children"
-                                ng-include="'comment.html'"></dd>
-                        </dl>
-                    </div>
-
                 </div>
 
             </div>
