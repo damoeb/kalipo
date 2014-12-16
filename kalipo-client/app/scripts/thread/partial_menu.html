@@ -1,0 +1,24 @@
+<div class="menu">
+    <a href="javascript:void(0)" ng-click="toggleReplyForm(comment)">Reply</a>
+    <a class="voteUp" href="javascript:void(0)" ng-click="like(comment)">
+        <span class="glyphicon glyphicon-thumbs-up"></span>
+        <span ng-show="comment.likes>0" class="voteUp">{{::comment.likes}}</span>
+    </a>
+    <a class="voteDown" href="javascript:void(0)" ng-click="dislike(comment)">
+        <span class="glyphicon glyphicon-thumbs-down"></span>
+        <span ng-show="comment.dislikes>0" class="voteDown">{{::comment.dislikes}}</span>
+    </a>
+    <a ng-if="comment.parentId != null" href="#/threads/{{::comment.parentId}})">
+        Parent</a>
+    <a href="#/thread/{{::comment.threadId}}/{{::comment.id}}" title="Permalink">
+        <span class="glyphicon glyphicon-link"></span>
+    </a>
+
+    <div class="flag pull-right">
+        <a href="javascript:void(0)"
+           ng-click="toggleReportForm(comment)"
+           title="Report this comment">
+            <span class="glyphicon glyphicon-flag"></span>
+        </a>
+    </div>
+</div>

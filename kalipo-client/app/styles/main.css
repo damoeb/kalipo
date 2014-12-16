@@ -193,9 +193,20 @@ ul#strength {
     color: #428bca;
 }
 
-.post-slim {
-    padding: 10px;
+
+/*
+    PENDING LABEL
+*/
+.label-pending {
+    display: none;
 }
+.pending .label-pending {
+    display: block;
+}
+
+
+
+
 
 .abused-report {
     /*border-radius: 4px;*/

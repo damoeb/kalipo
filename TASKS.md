@@ -1,3 +1,5 @@
+at first, render just a stub. create a directive that will render the full comment when visible 
+
 basic comment renderer template (file) to be used in achievements and likes
 improve notifications (link to referred resource)
 

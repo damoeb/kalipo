@@ -1,0 +1,31 @@
+<div class="post" style="border-left: {{comment.level * 10}}px solid #dedede;" ng-class="{pending:comment.$pending}">
+    <a id="{{::comment.id}}"></a>
+
+    <div class="row">
+
+        <!-- content -->
+        <div class="col-lg-12 col-xs-12">
+
+            <likes/>
+
+            <div>
+                <a href="jacascript:void(0)"><strong>{{::comment.displayName}}</strong></a>
+                    <span style="color: grey; font-size: smaller">
+                        {{::comment.likes-comment.dislikes }} points -
+                        {{::comment.createdDate | fromNow }}
+                    </span>
+                <span class="label label-warning label-pending">PENDING APPROVAL</span>
+
+                <div style="white-space: pre-line">{{::comment.text}}</div>
+            </div>
+
+            <comment-menu></comment-menu>
+
+        </div>
+
+    </div>
+
+    <comment-reply></comment-reply>
+    <comment-children></comment-children>
+
+</div>

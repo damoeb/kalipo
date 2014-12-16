@@ -80,8 +80,8 @@
             <div ng-repeat="page in pages">
                 Page {{page.id}}: {{page.comments.length}} comments
                 <dl style="margin:0;">
-                    <dd ng-repeat="comment in page.comments track by $index" ng-include="'comment.html'">
-
+                    <dd ng-repeat="comment in page.comments track by $index">
+                        <comment></comment>
                     </dd>
                 </dl>
             </div>
@@ -100,19 +100,6 @@
      ng-if="mainCtrl.authenticated && !$viewMode">
     <div class="container" ng-include="'create_comment_bottom.html'"></div>
 </div>
-
-
-<script type="text/ng-template" id="likes.html">
-    <div ng-if="comment.likes > 0 || comment.dislikes > 0" style="line-height: 5px" class="pull-right">
-
-        <div style="width: 100px" title="{{::comment.likes}} likes {{::comment.dislikes}} dislikes">
-            <div class="post-bar-likes" style="width: {{::comment.$likes}}%;">
-            </div>
-            <div class="pull-right post-bar-dislikes" style="width: {{::comment.$dislikes}}%;">
-            </div>
-        </div>
-    </div>
-</script>
 
 <script type="text/ng-template" id="create_comment.html">
 
@@ -151,134 +138,6 @@
             </div>
             <!-- /input-group -->
         </form>
-
-    </div>
-
-</script>
-
-<script type="text/ng-template" id="comment.html">
-
-    <div ng-if="!comment.$pending || $showPending">
-
-        <div ng-switch on="comment.$maximized">
-
-            <!-- Maximized view -->
-            <div ng-switch-default>
-
-                <div class="post" style="border-left: {{comment.level * 10}}px solid #dedede;">
-                    <a id="{{::comment.id}}"></a>
-
-                    <div class="row">
-
-                        <!-- content -->
-                        <div class="col-lg-11 col-xs-10">
-                            <div>
-
-                                <!--<div ng-include="'likes.html'"></div>-->
-
-                                <a href="#/users/{{::comment.displayName}}"><strong>{{::comment.displayName}}</strong></a>
-                                <span style="color: grey; font-size: smaller"
-                                      title="{{::comment.createdDate | dateString }}">{{::comment.createdDate | fromNow }}</span>
-                                <span class="label label-warning pull-right"
-                                      ng-if="comment.$pending">PENDING APPROVAL</span>
-
-                                <div style="white-space: pre-line">{{::comment.text}}</div>
-                            </div>
-
-                            <div class="menu">
-                                <a href="javascript:void(0)" ng-click="toggleReplyForm(comment)">Reply</a>
-                                <a class="voteUp" href="javascript:void(0)" ng-click="like(comment)">
-                                    <span class="glyphicon glyphicon-thumbs-up"></span>
-                                    <span ng-show="comment.likes>0" class="voteUp">{{::comment.likes}}</span>
-                                </a>
-                                <a class="voteDown" href="javascript:void(0)" ng-click="dislike(comment)">
-                                    <span class="glyphicon glyphicon-thumbs-down"></span>
-                                    <span ng-show="comment.dislikes>0" class="voteDown">{{::comment.dislikes}}</span>
-                                </a>
-                                <a ng-if="comment.parentId != null" href="#/threads/{{::comment.parentId}})">
-                                    Parent</a>
-                                <a href="#/thread/{{::comment.threadId}}/{{::comment.id}}" title="Permalink">
-                                    <span class="glyphicon glyphicon-link"></span>
-                                </a>
-
-                                <div class="flag pull-right">
-                                    <a href="javascript:void(0)"
-                                       ng-click="toggleReportForm(comment)"
-                                       title="Report this comment">
-                                        <span class="glyphicon glyphicon-flag"></span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="input-group"
-                     style="margin-bottom: 20px; padding: 10px; background-color: #cbdaef; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px"
-                     ng-show="comment.report">
-                    <input type="text" ng-maxlength=148 ng-minlength=1 ng-model="reportModel.reason"
-                           placeholder="Tell us, what is wrong with this comment"
-                           class="form-control ng-valid ng-valid-maxlength ng-valid-minlength">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" ng-click="comment.report = false" title="Cancel"><span
-                        class="glyphicon glyphicon-remove"></span></button>
-                    <button class="btn btn-primary" type="button" ng-click="report(comment)">Send Report
-                    </button>
-                </span>
-                </div>
-                <!-- /input-group -->
-
-                <div style="border-left: 10px solid #dedede;">
-                    <div ng-show="$replyTo == comment.id">
-                        <div ng-include="'create_comment.html'"></div>
-                    </div>
-
-                    <!-- sub comments -->
-                    <div ng-hide="comment.children.length == 0">
-                        <dl style="margin:0;">
-                            <dd ng-repeat="comment in comment.children"
-                                ng-include="'comment.html'"></dd>
-                        </dl>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- Minimized view -->
-
-            <div ng-switch-when="false">
-
-                <div class="minimized post" style="cursor: pointer;" title="Click to maximize">
-
-                    <div style="overflow: hidden; max-height:3em; min-height:1.8em;"
-                         ng-click="comment.$maximized = !comment.$maximized">
-
-                        <!--<div ng-include="'likes.html'"></div>-->
-
-                        <div style="float: left; margin-right:5px;">
-                            <!--<a href="javascript:void(0)">-->
-                            <!--<span class="glyphicon glyphicon-chevron-down"></span></a>-->
-
-                            <strong><a href="javascript:void(0)" ng-click="scrollTo(comment.parentId)"
-                                       ng-if="comment.parentId != null">Re:</a></strong>
-
-                            <span style="color: grey" ng-show="comment.$commentCount > 1">(<a href="javascript:void(0)">{{::comment.$commentCount}}
-                                comments</a>)</span>
-                        </div>
-
-                        <div style="white-space: nowrap; cursor: pointer; color: grey;">
-                            <span>{{::comment.text}}</span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
 
     </div>
 
