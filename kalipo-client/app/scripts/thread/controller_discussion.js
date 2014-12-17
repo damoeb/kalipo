@@ -15,6 +15,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         $scope.$pendingCount = 0;
         $scope.$reportCount = 0;
         $scope.$hasReports = false;
+        $scope.$isLastPage = true;
 
         $scope.pages = [];
 
@@ -45,6 +46,8 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
             var start = new Date().getTime();
 
             Thread.discussion({id: threadId, page: currentPage}, function (pageData) {
+
+                $scope.$isLastPage = pageData.lastPage;
 
                 var end = new Date().getTime();
                 console.log('Fetch time: ' + (end - start));

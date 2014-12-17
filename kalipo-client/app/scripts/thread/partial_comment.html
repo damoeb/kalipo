@@ -10,10 +10,12 @@
 
             <div>
                 <a href="jacascript:void(0)"><strong>{{::comment.displayName}}</strong></a>
-                    <span style="color: grey; font-size: smaller">
-                        {{::comment.likes-comment.dislikes }} points -
-                        {{::comment.createdDate | fromNow }}
-                    </span>
+                <span style="color: grey; padding-left:5px; padding-right:5px;">
+                    {{::comment.likes-comment.dislikes }} points
+                </span>
+                <span style="color: grey; font-size: smaller">
+                    {{::comment.createdDate | fromNow }}
+                </span>
                 <span class="label label-warning label-pending">PENDING APPROVAL</span>
 
                 <div style="white-space: pre-line">{{::comment.text}}</div>
