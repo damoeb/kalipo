@@ -11,8 +11,8 @@ kalipoApp
                 }
             })
             .when('/thread/:threadId', {
-                templateUrl: 'views/thread-view.html',
-                controller: 'ViewThreadController',
+                templateUrl: 'views/discussion.html',
+                controller: 'DiscussionController',
                 access: {
                     authorizedRoles: [USER_ROLES.all]
                 }

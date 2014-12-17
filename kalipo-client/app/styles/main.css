@@ -201,7 +201,7 @@ ul#strength {
     display: none;
 }
 .pending .label-pending {
-    display: block;
+    display: inline;
 }
 
 

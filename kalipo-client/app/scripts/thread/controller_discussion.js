@@ -1,12 +1,7 @@
 'use strict';
 
-kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootScope', 'Thread', 'Comment', 'Report', 'Vote',
-    function ($scope, $routeParams, $rootScope, Thread, Comment, Report, Vote) {
-//        if ($location.path().endsWith('share')) {
-//            $scope.more = 'social';
-//        } else {
-//            $scope.more = 'details';
-//        }
+kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$location', '$anchorScroll', '$rootScope', 'Thread', 'Comment', 'Report', 'Vote',
+    function ($scope, $routeParams, $location, $anchorScroll, $rootScope, Thread, Comment, Report, Vote) {
 
         var threadId = $routeParams.threadId;
         var commentId = $routeParams.commentId;
@@ -35,6 +30,14 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
             fetchComments();
         };
 
+        $scope.scrollTo = function (id) {
+            var old = $location.hash();
+            $location.hash(id);
+            $anchorScroll();
+            //reset to old to keep any additional routing logic from kicking in
+            $location.hash(old);
+        };
+
         var fetchComments = function () {
 
             currentPage = currentPage + 1;
@@ -58,11 +61,10 @@ kalipoApp.controller('ViewThreadController', ['$scope', '$routeParams', '$rootSc
                 end = new Date().getTime();
                 console.log('Execution time: ' + (end - start));
 
-//            todo enable scrollTo
-//            if (commentId) {
-//                noty({text: 'Go to comment ' + commentId});
-//                $scope.scrollTo(commentId);
-//            }
+                //console.log('scroll to ', comments[0].id);
+                //$scope.scrollTo(comments[0].id);
+                $scope.scrollTo('page-' + currentPage);
+                //$location.hash(currentPage);
             });
         };
 

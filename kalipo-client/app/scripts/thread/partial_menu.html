@@ -8,7 +8,7 @@
         <span class="glyphicon glyphicon-thumbs-down"></span>
         <span ng-show="comment.dislikes>0" class="voteDown">{{::comment.dislikes}}</span>
     </a>
-    <a ng-if="comment.parentId != null" href="#/threads/{{::comment.parentId}})">
+    <a ng-if="comment.parentId != null" href="#/thread/{{::comment.threadId}}?anchor={{::comment.parentId}}">
         Parent</a>
     <a href="#/thread/{{::comment.threadId}}/{{::comment.id}}" title="Permalink">
         <span class="glyphicon glyphicon-link"></span>

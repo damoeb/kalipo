@@ -91,7 +91,7 @@ public class OAuth2ServerConfiguration {
         private static final String PROP_TOKEN_VALIDITY_SECONDS = "tokenValidityInSeconds";
 
         private RelaxedPropertyResolver propertyResolver;
-        
+
 
         @Bean
         public TokenStore tokenStore() {
@@ -120,7 +120,7 @@ public class OAuth2ServerConfiguration {
                 .authorities(AuthoritiesConstants.ADMIN, AuthoritiesConstants.USER)
                 .authorizedGrantTypes("password")
                 .secret(propertyResolver.getProperty(PROP_SECRET))
-                .accessTokenValiditySeconds(propertyResolver.getProperty(PROP_TOKEN_VALIDITY_SECONDS, Integer.class, 1800));
+                .accessTokenValiditySeconds(propertyResolver.getProperty(PROP_TOKEN_VALIDITY_SECONDS, Integer.class, 43199)); // todo fix for prod
         }
 
         @Override

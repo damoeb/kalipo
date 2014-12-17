@@ -49,7 +49,7 @@
 
         <h4 style="margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid #e5e5e5; padding-bottom: 5px;">
             {{::thread.commentCount}} comments
-            <span ng-if="$pendingCount >0" style="color: gray">
+            <span ng-if="!$showPending && $pendingCount >0" style="color: gray">
                 (<a href="javascript:void(0)" ng-click="$showPending = !$showPending">{{::$pendingCount}} pending</a>)
             </span>
         </h4>
@@ -84,6 +84,7 @@
                         <comment></comment>
                     </dd>
                 </dl>
+                <a id="page-{{page.id +1}}"></a>
             </div>
         </div>
 
