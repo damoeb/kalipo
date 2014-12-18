@@ -81,7 +81,7 @@
                 Page {{page.id}}: {{page.comments.length}} comments
                 <dl style="margin:0;">
                     <dd ng-repeat="comment in page.comments track by $index">
-                        <comment></comment>
+                        <comment/>
                     </dd>
                 </dl>
                 <a id="page-{{page.id +1}}"></a>

@@ -21,7 +21,9 @@
 
                     <p class="list-group-item-text pull-right">{{::thread.createdDate | fromNow}}</p>
 
-                    <p class="list-group-item-text">by {{::thread.initiatorId}}</p>
+                    <p class="list-group-item-text" style="padding-top: 10px;padding-bottom: 10px;">
+                        <comment-slim ng-model="thread.leadComment">
+                    </p>
 
                     <p class="list-group-item-text">
                         <a href="#/thread/{{thread.id}}">{{::thread.commentCount}} comments</a>

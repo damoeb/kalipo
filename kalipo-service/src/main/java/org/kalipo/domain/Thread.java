@@ -1,5 +1,6 @@
 package org.kalipo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -43,6 +44,7 @@ public class Thread implements Serializable {
     private Integer pendingCount = 0;
     private Integer reportedCount = 0;
 
+    @JsonIgnore
     @NotNull(message = "{constraint.notnull.initiatorId}")
     private String initiatorId;
 

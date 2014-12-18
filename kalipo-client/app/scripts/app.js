@@ -121,11 +121,6 @@ kalipoApp
             .otherwise({
                 templateUrl: 'views/browse.html',
                 controller: 'BrowseController',
-                resolve: {
-                    resolvedThread: ['Thread', function (Thread) {
-                        return Thread.query();
-                    }]
-                },
                 access: {
                     authorizedRoles: [USER_ROLES.all]
                 }

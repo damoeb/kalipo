@@ -5,7 +5,8 @@ angular.module('kalipoApp')
     .directive('comment', function () {
     return {
         restrict: 'E',
+        replace: true,
 //        scope: {},
-        templateUrl: 'scripts/thread/partial_comment.html'
+        templateUrl: 'scripts/comment/partial_comment.html'
     }
 });
