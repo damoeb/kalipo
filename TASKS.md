@@ -10,6 +10,13 @@ comment relevance: {
         upvotes/downvotes
     }
 }
+
+visualization
+http://blog.revolutionanalytics.com/2009/09/hierarchical-clustering-in-r.html
+http://silenced.co/wp-content/uploads/2014/10/religions_tree.jpg
+http://bocoup.com/img/weblog/career-tree-obama.png
+http://visualizing.org/sites/default/files/imagecache/embedded_vis_medium/images/0023.png
+
 at first, render just a stub. create a directive that will render the full comment when visible 
 
 basic comment renderer template (file) to be used in achievements and likes
