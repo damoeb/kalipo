@@ -1,3 +1,15 @@
+discussion style like the jsonview plugin
+
+comment relevance: {
+    duration: {
+        from: createdAt
+        to: last upvote
+    },
+    attraction: {
+        replies,
+        upvotes/downvotes
+    }
+}
 at first, render just a stub. create a directive that will render the full comment when visible 
 
 basic comment renderer template (file) to be used in achievements and likes
