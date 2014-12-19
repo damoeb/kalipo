@@ -15,6 +15,7 @@ import org.kalipo.repository.UserRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
+import org.kalipo.service.util.NumUtils;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -326,9 +327,14 @@ public class CommentService {
                     throw new KalipoException(ErrorCode.INVALID_PARAMETER, "parentId");
                 }
 
-                if (parent.getLevel() + 1 > MAX_LEVEL) {
+                /*
+                 fault tolerant: if discussion becomes too deep, dig up until valid
+                */
+                while (parent.getLevel() + 1 > MAX_LEVEL) {
                     parent = commentRepository.findOne(parent.getParentId());
                 }
+
+                parent.setRepliesCount(NumUtils.nullToZero(parent.getRepliesCount()) + 1);
 
                 dirty.setLevel(parent.getLevel() + 1);
 

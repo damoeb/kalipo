@@ -2,7 +2,7 @@
  * Created by markus on 16.12.14.
  */
 angular.module('kalipoApp')
-    .directive('likes', function () {
+    .directive('comment-likes', function () {
     return {
         restrict: 'E',
 //        scope: {},

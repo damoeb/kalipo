@@ -167,7 +167,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
                 // todo minimize negative-only comments, hell-banned subthreads
 
-                comment.$maximized = !(comment.dislikes > 3 && comment.dislikes > comment.likes);
+                comment.$minimized = comment.dislikes > 3 && comment.dislikes > comment.likes;
                 comment.$score = Math.max(comment.likes - comment.dislikes, 1) / comment.createdDate;
 
 //                console.log(comment.createdDate);
@@ -187,29 +187,29 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
             });
         };
 
-        var _mergeIntoTree = function (comments) {
-
-            return _.filter(comments, function(comment) {
-                if (comment.parentId == null) {
-                    return true;
-                } else {
-                    var parents = $this.groupedByIdMaster[comment.parentId];
-                    if (_.isUndefined(parents) || parents == null) {
-                        throw 'cannot find ' + comment.parentId
-                    }
-                    var parent = parents[0];
-                    parent.children.push(comment);
-
-                    // push commentCount to parents
-                    var child = comment;
-                    while(child.parentId) {
-                        parent = $this.groupedByIdMaster[child.parentId][0];
-                        parent.$commentCount += 1;
-                        child = parent;
-                    }
-                }
-            });
-        };
+        //var _mergeIntoTree = function (comments) {
+        //
+        //    return _.filter(comments, function(comment) {
+        //        if (comment.parentId == null) {
+        //            return true;
+        //        } else {
+        //            var parents = $this.groupedByIdMaster[comment.parentId];
+        //            if (_.isUndefined(parents) || parents == null) {
+        //                throw 'cannot find ' + comment.parentId
+        //            }
+        //            var parent = parents[0];
+        //            parent.children.push(comment);
+        //
+        //            // push commentCount to parents
+        //            var child = comment;
+        //            while(child.parentId) {
+        //                parent = $this.groupedByIdMaster[child.parentId][0];
+        //                parent.$commentCount += 1;
+        //                child = parent;
+        //            }
+        //        }
+        //    });
+        //};
 
         $scope.report = function (comment) {
             comment.report = false;

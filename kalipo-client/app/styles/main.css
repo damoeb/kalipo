@@ -134,63 +134,68 @@ ul#strength {
 
 /* Customizations */
 
-.post {
+a {
+    color: blue;
+}
+
+.comment {
     padding: 5px 5px 5px 10px;
     /*border-bottom: 1px solid #cccccc;*/
 }
 
-.post-bar-likes {
+.comment-bar-likes {
     height: 2px;
     background: none repeat scroll 0 0 #167ac6;
     float: left;
 }
 
-.post-bar-dislikes {
+.comment-bar-dislikes {
     height: 2px;
     background: none repeat scroll 0 0 #ccc;
 }
 
-.post .menu {
+.comment .menu {
     color: #efefef;
     padding-top: 5px;
 }
 
-.post .menu a {
+.comment .menu a {
     margin-right: 5px;
     color: #ccc;
 }
 
-.post {
+.comment {
     /*border-bottom: 1px solid #d7d7d7;*/
 }
 
-.post:hover {
+.comment:hover {
     /*background: none repeat scroll 0 0 #ffffff;*/
     -moz-box-shadow: 0px 0px 2px 0px #ccc;
     -webkit-box-shadow: 0px 0px 2px 0px #ccc;
     box-shadow: 0px 0px 2px 0px #ccc;
 }
 
-.post .flag a {
+.comment .flag a {
     visibility: hidden;
 }
 
-.post:hover .flag a {
+.comment:hover .flag a {
     color: black;
     visibility: visible;
 }
 
-.post:hover .voteUp,
-.post SPAN.voteUp {
+.comment:hover .voteUp,
+.comment .voteUp.always {
     color: green;
 }
 
-.post:hover .voteDown {
+.comment:hover .voteDown,
+.comment .voteDown.always {
     color: red;
 }
 
-.post:hover a {
-    color: #428bca;
+.comment:hover a {
+    color: blue;
 }
 
 
@@ -204,8 +209,54 @@ ul#strength {
     display: inline;
 }
 
+.comment .name {
+    color: blue;
+    font-weight: bold;
+}
 
+.comment .points {
+    color: grey;
+    padding-left: 5px;
+    padding-right: 5px;
+}
 
+.comment .date {
+    color: grey;
+    font-size: smaller
+}
+
+.comment .label-pending {
+}
+
+.comment .text {
+    white-space: pre-line
+}
+
+.comment .menu {
+}
+
+.minimized.comment .name {
+}
+
+.minimized.comment .points {
+}
+
+.minimized.comment .date {
+    display: none;
+}
+
+.minimized.comment .label-pending {
+    display: none;
+}
+
+.minimized.comment .text {
+    white-space: nowrap;
+    overflow: hidden
+}
+
+.minimized.comment .menu {
+    display: none;
+}
 
 
 .abused-report {

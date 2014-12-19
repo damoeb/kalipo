@@ -15,7 +15,7 @@
             <ul class="nav nav-pills pull-right">
                 <li role="presentation" ng-if="mainCtrl.authenticated">
                     <a href="#/moderate/{{::$threadId}}/pending">
-                    Pending
+                        Pending
                         <span class="glyphicon glyphicon-bell" style="color: #E84B56;"
                               ng-if="$pendingCount > 0"></span>
                         <!--<span style="color: #E84B56; font-weight: bolder">&diams;</span>-->
@@ -46,56 +46,68 @@
     </div>
 
     <div ng-if="!$viewMode">
+        <div class="col-lg-8 col-md-8 col-xs-8">
 
-        {{::thread.text}}
-
-        <h4 style="margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid #e5e5e5; padding-bottom: 5px;">
-            {{::thread.commentCount}}
-            <a ng-if="!$showPending && $pendingCount >0" href="javascript:void(0)"
-               ng-click="$showPending = !$showPending" title="Show Pending">+{{::$pendingCount}}</a>
-            comments
-        </h4>
-
-        <div class="row">
-
-            <create-comment/>
-
-            <div style="padding: 0 10px 10px 10px; color: gray" ng-switch on="typing.length">
-
-                <div ng-switch-when="0"></div>
-                <div ng-switch-when="1">
-                    <strong>{{typing[0]}}</strong> is typing
-                </div>
-                <div ng-switch-default>
-                    <span ng-repeat="user in typing">
-
-                        <span ng-if="!$first && !$last">, </span>
-                        <span ng-if="$last"> and </span>
-                        <strong>{{user}}</strong>
-
-                    </span>
-                    are typing...
-                </div>
-
+            <div class="row">
+                {{::thread.text}}
             </div>
 
-            <div ng-repeat="page in pages">
-                Page {{page.id}}: {{page.comments.length}} comments
-                <dl style="margin:0;">
-                    <dd ng-repeat="comment in page.comments track by $index">
-                        <comment/>
-                    </dd>
-                </dl>
-                <a id="page-{{page.id +1}}"></a>
+            <h4 class="row"
+                style="margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid #e5e5e5; padding-bottom: 5px;">
+                {{::thread.commentCount}}
+                <a ng-if="!$showPending && $pendingCount >0" href="javascript:void(0)"
+                   ng-click="$showPending = !$showPending" title="Show Pending">+{{::$pendingCount}}</a>
+                comments
+            </h4>
+
+            <div class="row">
+
+                <create-comment></create-comment>
+
+                <div style="padding: 0 10px 10px 10px; color: gray" ng-switch on="typing.length">
+
+                    <div ng-switch-when="0"></div>
+                    <div ng-switch-when="1">
+                        <strong>{{typing[0]}}</strong> is typing
+                    </div>
+                    <div ng-switch-default>
+                        <span ng-repeat="user in typing">
+
+                            <span ng-if="!$first && !$last">, </span>
+                            <span ng-if="$last"> and </span>
+                            <strong>{{user}}</strong>
+
+                        </span>
+                        are typing...
+                    </div>
+
+                </div>
+
+                <div ng-repeat="page in pages">
+                    Page {{page.id}}: {{page.comments.length}} comments
+                    <dl style="margin:0;">
+                        <dd ng-repeat="comment in page.comments track by $index">
+                            <comment/>
+                        </dd>
+                    </dl>
+                    <a id="page-{{page.id +1}}"></a>
+                </div>
             </div>
+
+            <a href="javascript:void(0)" ng-click="loadMore()" class="btn btn-primary" ng-hide="$isLastPage"
+               style="margin-top:20px; width: 100%;">Load More</a>
+
+            <hr>
+
+            Moderated by <span ng-repeat="modId in thread.modIds">{{::modId}} </span>
         </div>
 
-        <a href="javascript:void(0)" ng-click="loadMore()" class="btn btn-primary" ng-hide="$isLastPage"
-           style="margin-top:20px; width: 100%;">Load More</a>
+        <div class="col-lg-2 col-md-2 col-xs-2">
 
-        <hr>
+            Thread overview
 
-        Moderated by <span ng-repeat="modId in thread.modIds">{{::modId}} </span>
+        </div>
+
     </div>
 </div>
 

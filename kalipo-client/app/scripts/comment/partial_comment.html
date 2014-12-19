@@ -1,4 +1,5 @@
-<div class="post" style="border-left: {{comment.level * 10}}px solid #dedede;" ng-class="{pending:comment.$pending}">
+<div class="comment" style="border-left: {{comment.level * 10}}px solid #dedede;"
+     ng-class="{'pending':comment.$pending, 'minimized':comment.$minimized}">
     <a id="{{::comment.id}}"></a>
 
     <div class="row">
@@ -6,28 +7,29 @@
         <!-- content -->
         <div class="col-lg-12 col-xs-12">
 
-            <likes/>
+            <comment-likes></comment-likes>
 
             <div>
-                <a href="jacascript:void(0)"><strong>{{::comment.displayName}}</strong></a>
-                <span style="color: grey; padding-left:5px; padding-right:5px;">
+                <a href="javascript:void(0)" class="name" ng-click="comment.$minimized = !comment.$minimized">{{::comment.displayName}}</a>
+                <!--<a class="show-full-comment">Show</a>-->
+                <span class="points">
                     {{::comment.likes-comment.dislikes }} points
                 </span>
-                <span style="color: grey; font-size: smaller">
+                <span class="date">
                     {{::comment.createdDate | fromNow }}
                 </span>
                 <span class="label label-warning label-pending">PENDING APPROVAL</span>
 
-                <div style="white-space: pre-line">{{::comment.text}}</div>
+                <div class="text">{{::comment.text}}</div>
             </div>
 
-            <comment-menu/>
+            <comment-menu></comment-menu>
 
         </div>
 
     </div>
 
-    <comment-reply ng-comment-id="comment.id" ng-render-if="comment.id == $replyTo"/>
+    <comment-reply ng-comment-id="comment.id" ng-render-if="comment.id == $replyTo"></comment-reply>
     <!--<comment-children></comment-children>-->
 
 </div>
