@@ -167,6 +167,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
                 // todo minimize negative-only comments, hell-banned subthreads
 
+                comment.$imploded = false;
                 comment.$minimized = comment.dislikes > 3 && comment.dislikes > comment.likes;
                 comment.$score = Math.max(comment.likes - comment.dislikes, 1) / comment.createdDate;
 
