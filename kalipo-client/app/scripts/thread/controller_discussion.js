@@ -211,16 +211,6 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
             });
         };
 
-        $scope.toggleReplyForm = function (comment) {
-            $scope.$replyTo = comment.id;
-            comment.report = false;
-        };
-
-        $scope.toggleReportForm = function (comment) {
-            $scope.$replyTo = null;
-            comment.report = !comment.report;
-        };
-
         $scope.report = function (comment) {
             comment.report = false;
 

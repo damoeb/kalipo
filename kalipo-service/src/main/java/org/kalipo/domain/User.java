@@ -72,6 +72,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     private boolean superMod;
 
+    private String displayName;
+
     // prevent brute force login attacks
     private int loginTries;
 
@@ -234,6 +236,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setRegistrationDate(DateTime registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     @Override

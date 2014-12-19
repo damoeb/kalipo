@@ -23,7 +23,9 @@
         },
         "form": {
             "username": "Login",
-            "username.placeholder": "Your login",
+            "username.placeholder": "Your invisible login",
+            "displayName": "Display Name",
+            "displayName.placeholder": "Your display name",
             "newpassword": "New password",
             "newpassword.placeholder": "New password",
             "confirmpassword": "New password confirmation",

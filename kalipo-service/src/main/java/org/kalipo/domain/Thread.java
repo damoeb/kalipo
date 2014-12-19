@@ -5,7 +5,6 @@ import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -37,6 +36,7 @@ public class Thread implements Serializable {
     @CreatedDate
     private DateTime createdDate;
 
+    @JsonIgnore
     @LastModifiedDate
     private DateTime lastModifiedDate;
 
@@ -47,6 +47,9 @@ public class Thread implements Serializable {
     @JsonIgnore
     @NotNull(message = "{constraint.notnull.initiatorId}")
     private String initiatorId;
+
+    @NotNull
+    private String displayName;
 
     @NotNull(message = "{constraint.notnull.modIds}")
     private Set<String> modIds = new HashSet<String>();
@@ -70,8 +73,6 @@ public class Thread implements Serializable {
      */
     private DateTime uglyDucklingSurvivalEndDate;
 
-    private String leadCommentId;
-
     /**
      * Sum of all comment likes in discussion
      */
@@ -90,13 +91,10 @@ public class Thread implements Serializable {
 
     private Status status;
 
-    // --
-
-    /**
-     * used to transfer text for the mandatory lead comment
-     */
-    @Transient
+    @NotNull
     private String text;
+
+    private String link;
 
     public String getId() {
         return id;
@@ -194,20 +192,28 @@ public class Thread implements Serializable {
         this.text = text;
     }
 
-    public String getLeadCommentId() {
-        return leadCommentId;
-    }
-
-    public void setLeadCommentId(String leadCommentId) {
-        this.leadCommentId = leadCommentId;
-    }
-
     public Set<String> getkLine() {
         return kLine;
     }
 
     public void setkLine(Set<String> kLine) {
         this.kLine = kLine;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     public DateTime getUglyDucklingSurvivalEndDate() {

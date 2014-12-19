@@ -1,4 +1,4 @@
-discussion style like the jsonview plugin
+FIX user.displayName
 
 comment relevance: {
     duration: {

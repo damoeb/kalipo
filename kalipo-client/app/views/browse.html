@@ -15,19 +15,26 @@
                     <h4>{{::thread.likes}}</h4>
                 </div>
                 <div class="col-sm-11 col-xs-11">
+
+                    <div class="pull-right">
+                        <span class="label label-primary">{{::thread.commentCount}} comments</span>
+                    </div>
+
                     <a href="#/thread/{{::thread.id}}">
                         <h4 class="list-group-item-heading">{{::thread.title}}</h4>
                     </a>
 
-                    <p class="list-group-item-text pull-right">{{::thread.createdDate | fromNow}}</p>
+                    <a href="#/thread/{{::thread.id}}" style="font-size: small">
+                        {{::thread.link}}
+                    </a>
+
+                    <div style="color:gray">Submitted {{::thread.createdDate | fromNow}}</div>
 
                     <p class="list-group-item-text" style="padding-top: 10px;padding-bottom: 10px;">
-                        <comment-slim ng-model="thread.leadComment">
+                        {{::thread.text}}
                     </p>
 
-                    <p class="list-group-item-text">
-                        <a href="#/thread/{{thread.id}}">{{::thread.commentCount}} comments</a>
-                    </p>
+
                 </div>
             </div>
         </div>

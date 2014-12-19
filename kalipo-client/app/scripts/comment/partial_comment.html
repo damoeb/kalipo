@@ -21,13 +21,13 @@
                 <div style="white-space: pre-line">{{::comment.text}}</div>
             </div>
 
-            <comment-menu></comment-menu>
+            <comment-menu/>
 
         </div>
 
     </div>
 
-    <comment-reply></comment-reply>
-    <comment-children></comment-children>
+    <comment-reply ng-comment-id="comment.id" ng-render-if="comment.id == $replyTo"/>
+    <!--<comment-children></comment-children>-->
 
 </div>

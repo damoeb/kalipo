@@ -3,16 +3,6 @@
 kalipoApp.controller('CommentMenuController', ['$scope', '$routeParams', 'Comment', 'Vote',
     function ($scope, $routeParams, Comment, Vote) {
 
-        $scope.toggleReplyForm = function (comment) {
-            $scope.$replyTo = comment.id;
-            comment.report = false;
-        };
-
-        $scope.toggleReportForm = function (comment) {
-            $scope.$replyTo = null;
-            comment.report = !comment.report;
-        };
-
         $scope.like = function (comment) {
             comment.likes++;
 

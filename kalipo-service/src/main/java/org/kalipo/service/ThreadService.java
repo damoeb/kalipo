@@ -52,9 +52,6 @@ public class ThreadService {
     private CommentRepository commentRepository;
 
     @Inject
-    private CommentService commentService;
-
-    @Inject
     private UserRepository userRepository;
 
     @Inject
@@ -83,18 +80,6 @@ public class ThreadService {
         thread.setInitiatorId(currentLogin);
 
         thread = save(thread);
-
-        // create lead comment
-        Comment comment = new Comment();
-        comment.setThreadId(thread.getId());
-        comment.setText(thread.getText());
-
-        comment = commentService.create(comment);
-        comment = commentService.approve(comment);
-
-        thread.setLeadCommentId(comment.getId());
-
-        save(thread);
 
         log.info(String.format("%s created thread %s", currentLogin, thread.getId()));
 
@@ -126,7 +111,6 @@ public class ThreadService {
 
         // read only values
 
-        Asserts.nullOrEqual(dirty.getLeadCommentId(), original.getLeadCommentId(), "leadCommentId");
         Asserts.nullOrEqual(dirty.getCommentCount(), original.getCommentCount(), "commentCount");
         Asserts.nullOrEqual(dirty.getLikes(), original.getLikes(), "likes");
         Asserts.nullOrEqual(dirty.getDislikes(), original.getDislikes(), "dislikes");
@@ -146,10 +130,6 @@ public class ThreadService {
         original.setkLine(dirty.getkLine());
 
         return save(original);
-    }
-
-    private String lo(String s) {
-        return StringUtils.lowerCase(s);
     }
 
     @Async
