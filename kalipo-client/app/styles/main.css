@@ -209,55 +209,19 @@ a {
     display: inline;
 }
 
-.comment .name {
-    color: blue;
-    font-weight: bold;
-}
+.comment .name {color: blue; font-weight: bold;}
+.comment .points {color: grey; padding-left: 5px; padding-right: 5px;}
+.comment .date { color: grey; font-size: smaller; }
+.comment .label-pending {}
+.comment .text {white-space: pre-line;}
+.comment .menu {}
 
-.comment .points {
-    color: grey;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-.comment .date {
-    color: grey;
-    font-size: smaller
-}
-
-.comment .label-pending {
-}
-
-.comment .text {
-    white-space: pre-line
-}
-
-.comment .menu {
-}
-
-.minimized.comment .name {
-}
-
-.minimized.comment .points {
-}
-
-.minimized.comment .date {
-    display: none;
-}
-
-.minimized.comment .label-pending {
-    display: none;
-}
-
-.minimized.comment .text {
-    white-space: nowrap;
-    overflow: hidden
-}
-
-.minimized.comment .menu {
-    display: none;
-}
-
+.minimized.comment .name {}
+.minimized.comment .points {}
+.minimized.comment .date { display: none; }
+.minimized.comment .label-pending { display: none; }
+.minimized.comment .text { white-space: nowrap; overflow: hidden}
+.minimized.comment .menu { display: none; }
 
 .abused-report {
     /*border-radius: 4px;*/
