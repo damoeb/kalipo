@@ -9,4 +9,8 @@ public final class NumUtils {
     public static Integer nullToZero(Integer num) {
         return num == null ? 0 : num;
     }
+
+    public static double nullToZero(Double num) {
+        return num == null ? 0 : num;
+    }
 }

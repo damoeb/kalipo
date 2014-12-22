@@ -52,8 +52,9 @@ public class Comment {
     @JsonIgnore
     private String fingerprint;
 
-    // todo implement level restriction, max limit is 5 (as defined by the fingerprint hash)
-    private int level = 0;
+    private int level;
+
+    private Double influence;
 
     private Integer likes;
 
@@ -222,6 +223,14 @@ public class Comment {
 
     public void setRepliesCount(Integer repliesCount) {
         this.repliesCount = repliesCount;
+    }
+
+    public Double getInfluence() {
+        return influence;
+    }
+
+    public void setInfluence(Double influence) {
+        this.influence = influence;
     }
 
     /**

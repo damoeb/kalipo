@@ -4,10 +4,12 @@ import org.joda.time.DateTime;
 import org.kalipo.domain.Comment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Spring Data MongoDB repository for the Comment entity.
@@ -35,4 +37,8 @@ public interface CommentRepository extends MongoRepository<Comment, String> {
     int countReportedInThread(String threadId);
 
     List<Comment> findByStatus(Comment.Status status, Pageable pageable);
+
+    List<Comment> findByThreadId(String threadId, Sort sort);
+
+    Set<Comment> findByParentId(String id);
 }

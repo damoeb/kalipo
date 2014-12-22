@@ -173,6 +173,7 @@ public class ThreadService {
             thread.setCommentCount(commentRepository.countApprovedInThread(thread.getId()));
             thread.setPendingCount(commentRepository.countPendingInThread(thread.getId()));
             thread.setReportedCount(commentRepository.countReportedInThread(thread.getId()));
+            thread.setLastModifiedDate(DateTime.now());
 
 //                commentCount, likes, authors
 

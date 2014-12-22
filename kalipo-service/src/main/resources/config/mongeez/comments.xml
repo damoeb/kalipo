@@ -118,7 +118,7 @@
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf410"),
             "threadId" : "5484cc19c832000009108573",
-            "text" : "",
+            "text" : "something",
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf459",
@@ -246,7 +246,7 @@
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf420"),
             "threadId" : "5484cc19c832000009108573",
-            "text" : "",
+            "text" : "something",
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf419",
@@ -1186,7 +1186,7 @@
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf499"),
             "threadId" : "5484cc19c832000009108573",
-            "text" : "",
+            "text" : "some",
             "authorId" : "admin",
             "level" : 0,
             "fingerprint" : "99900",
@@ -1430,7 +1430,7 @@
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf119"),
             "threadId" : "5484cc19c832000009108573",
-            "text" : "",
+            "text" : "something",
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf115",
@@ -1728,7 +1728,7 @@
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf144"),
             "threadId" : "5484cc19c832000009108573",
-            "text" : "",
+            "text" : "something",
             "authorId" : "admin",
             "level" : 0,
             "fingerprint" : "99855",
@@ -2595,7 +2595,7 @@
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf214"),
             "threadId" : "5484cc19c832000009108573",
-            "text" : "",
+            "text" : "something",
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf213",
@@ -2774,7 +2774,7 @@
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf228"),
             "threadId" : "5484cc19c832000009108573",
-            "text" : "",
+            "text" : "something",
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf217",
@@ -3446,7 +3446,7 @@
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf282"),
             "threadId" : "5484cc19c832000009108573",
-            "text" : "",
+            "text" : "something",
             "authorId" : "admin",
             "level" : 1,
             "fingerprint" : "99717",
@@ -3885,7 +3885,7 @@
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf317"),
             "threadId" : "5484cc19c832000009108573",
-            "text" : "",
+            "text" : "something",
             "authorId" : "admin",
             "level" : 0,
             "fingerprint" : "99682",
@@ -4714,7 +4714,7 @@
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf383"),
             "threadId" : "5484cc19c832000009108573",
-            "text" : "",
+            "text" : "something",
             "authorId" : "admin",
             "level" : 4,
             "parentId" : "5484cc19c8301dc174baf382",
@@ -5012,7 +5012,7 @@
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf406"),
             "threadId" : "5484cc19c832000009108573",
-            "text" : "",
+            "text" : "something",
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf389",
@@ -5178,7 +5178,7 @@
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf419"),
             "threadId" : "5484cc19c832000009108573",
-            "text" : "",
+            "text" : "something",
             "authorId" : "admin",
             "level" : 0,
             "fingerprint" : "99580",
@@ -5412,7 +5412,7 @@
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf437"),
             "threadId" : "5484cc19c832000009108573",
-            "text" : "",
+            "text" : "something",
             "authorId" : "admin",
             "level" : 1,
             "fingerprint" : "99562",
@@ -5459,7 +5459,7 @@
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf441"),
             "threadId" : "5484cc19c832000009108573",
-            "text" : "",
+            "text" : "something",
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf440",
@@ -5889,7 +5889,7 @@
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf475"),
             "threadId" : "5484cc19c832000009108573",
-            "text" : "",
+            "text" : "something",
             "authorId" : "admin",
             "level" : 1,
             "parentId" : "5484cc19c8301dc174baf474",
@@ -6097,7 +6097,7 @@
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf491"),
             "threadId" : "5484cc19c832000009108573",
-            "text" : "",
+            "text" : "something",
             "authorId" : "admin",
             "level" : 3,
             "parentId" : "5484cc19c8301dc174baf490",
@@ -6225,7 +6225,7 @@
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf501"),
             "threadId" : "5484cc19c832000009108573",
-            "text" : "",
+            "text" : "something",
             "authorId" : "admin",
             "level" : 2,
             "parentId" : "5484cc19c8301dc174baf500",

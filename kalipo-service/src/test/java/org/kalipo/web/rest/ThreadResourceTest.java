@@ -96,7 +96,6 @@ public class ThreadResourceTest {
                     public void handle(MvcResult result) throws Exception {
                         JSONObject json = TestUtil.toJson(result);
                         threadId = json.getString("id");
-                        thread.setLeadCommentId(json.getString("leadCommentId"));
                     }
                 });
 
