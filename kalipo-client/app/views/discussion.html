@@ -102,15 +102,9 @@
             Moderated by <span ng-repeat="modId in thread.modIds">{{::modId}} </span>
         </div>
 
-        <div class="col-lg-2 col-md-2 col-xs-2 col-lg-push-8" style="position: fixed">
-            <div ng-repeat="page in pages">
-                <div ng-repeat="comment in page.comments" class="clearfix">
-                    <div
-                        style="margin-top: {{::comment.level==0?8:2}}px; margin-left: {{::comment.level *5}}%; width: 30%; height: 2px; background-color: {{::comment.level==0?'blue':'gray'}}">
-                    </div>
-                </div>
-            </div>
-
+        <!--<div class="col-lg-2 col-md-2 col-xs-2 col-lg-push-8" style="position: fixed">-->
+        <div class="col-lg-2 col-md-2 col-xs-2">
+            <thread-outline></thread-outline>
         </div>
 
     </div>

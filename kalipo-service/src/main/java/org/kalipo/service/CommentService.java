@@ -316,29 +316,41 @@ public class CommentService {
                 // id to influence map
                 final Map<String, Double> influenceMap = new HashMap<>();
 
+                int changed = 0;
                 for(Comment comment:comments) {
 
                     // = replies
                     Set<Comment> i = commentRepository.findByParentId(comment.getId()); //iota - incoming influence
 
                     // = parent, linked
-                    Comment θ = comment.getParentId()==null ? null : commentRepository.findOne(comment.getParentId()); //theta - outgoing influence
+//                    Comment θ = comment.getParentId()==null ? null : commentRepository.findOne(comment.getParentId()); //theta - outgoing influence
 
-                    double transitiveInfluence = w_in.apply(influence_incoming(i, influenceMap)) - w_out.apply(NumUtils.nullToZero(θ == null ? null : θ.getInfluence()));
+                    double transitiveInfluence = w_in.apply(influence_incoming(i, influenceMap));// - w_out.apply(NumUtils.nullToZero(θ == null ? null : θ.getInfluence()));
 
                     double selfInfluence = w_likes.apply(NumUtils.nullToZero(comment.getLikes())) - w_dislikes.apply(NumUtils.nullToZero(comment.getDislikes()));
                     double influence = selfInfluence + transitiveInfluence;
 
-                    comment.setInfluence(influence);
-
                     influenceMap.put(comment.getId(), influence);
 
-                    commentRepository.save(comment);
-                    log.debug(String.format("comment %s has influence %s", comment.getId(), influence));
+                    if(comment.getInfluence() == null) {
+                        changed ++;
+                        log.debug(String.format("comment %s first influence %s", comment.getId(), influence));
+                    } else if(comment.getInfluence() != influence) {
+                        changed ++;
+                        log.debug(String.format("comment %s changed influence %s -> %s", comment.getId(), comment.getInfluence(), influence));
+                    }
+
+                    comment.setInfluence(influence);
                 }
+
+                if(changed > 0) {
+                    log.debug(String.format("influence changed in %s comments in thread %s", changed, thread.getId()));
+                }
+
+                commentRepository.save(comments);
             }
         } catch (Exception e){
-            e.printStackTrace();
+            log.error("Influence estimation failed.", e);
         }
     }
 

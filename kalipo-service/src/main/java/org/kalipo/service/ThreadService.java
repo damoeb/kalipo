@@ -157,6 +157,12 @@ public class ThreadService {
 //       threadRepository.delete(id);
     }
 
+    public Future<List<Comment>> getFullOutline(String threadId) {
+        List<Comment> outline = commentRepository.getInfluenceByThreadId(threadId);
+        outline.sort((c1, c2) -> c1.getFingerprint().compareTo(c2.getFingerprint()));
+        return new AsyncResult<List<Comment>>(outline);
+    }
+
     // --
 
     @Scheduled(fixedDelay = 20000)
