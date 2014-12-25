@@ -25,41 +25,36 @@ angular.module('kalipoApp')
 
                 Thread.outline({id: threadId}, function (comments) {
 
-                    //$(document).ready(function() {
-                    //    //Cache the Window object
-                    //
-                    //    $(window).scroll(function() {
-                    //
-                    //        var scrollTop = $(this).scrollTop();
-                    //
-                    //        // find first comment on viewport
-                    //        //var first = _.first($('.comment'), function(comment) {
-                    //        //    console.log($(comment), $(comment).offset().top, scrollTop, $(comment).offset().top > scrollTop);
-                    //        //    return $(comment).offset().top < scrollTop;
-                    //        //});
-                    //
-                    //        var $all = $('.comment');
-                    //        var $first;
-                    //        for(var i=0; i<$all.length; i++) {
-                    //            var $comment = $($all[i]);
-                    //            if($comment.offset().top > scrollTop) {
-                    //                $first = $comment;
-                    //                break;
-                    //            }
-                    //        }
-                    //
-                    //        var index = parseInt($first.attr('ng-data-index'));
-                    //        console.log('first', index);
-                    //
-                    //        var outline = $element.parent();
-                    //        if(index == 0) {
-                    //            outline.css({'position':'relative', 'top':0});
-                    //        } else {
-                    //            outline.css({'position':'fixed', 'top': -(conf.height + conf.yspace) * index + 100 + 'px'});
-                    //        }
-                    //
-                    //    });
-                    //});
+                    $(document).ready(function() {
+                        //Cache the Window object
+
+                        $(window).scroll(function() {
+
+                            var scrollTop = $(this).scrollTop();
+
+                            // find first comment on viewport
+                            var $all = $('.comment');
+                            var $firstOnViewport;
+                            for(var i=0; i<$all.length; i++) {
+                                var $comment = $($all[i]);
+                                if($comment.offset().top > scrollTop) {
+                                    $firstOnViewport = $comment;
+                                    break;
+                                }
+                            }
+
+                            //console.log('last', $element.parent().height(), scrollTop);
+                            var indexOfFirst = parseInt($firstOnViewport.attr('ng-data-index'));
+                            var outline = $element.parent();
+
+                            if(indexOfFirst == 0 || $element.parent().height() > scrollTop) {
+                                outline.css({'position':'relative', 'top':0});
+                            } else {
+                                outline.css({'position':'fixed', 'top': -(conf.height + conf.yspace) * indexOfFirst + 100 + 'px'});
+                            }
+
+                        });
+                    });
 
 
                     var outWidth = $element.width();
