@@ -18,6 +18,11 @@ angular.module('kalipoApp')
                     .interpolate(d3.interpolateRgb)
                     .range(['#d3d3d3', '#0000ff']); // lightgray - blue
 
+                var interpolateRootColor = d3.scale.linear()
+                    .domain([0, 1])
+                    .interpolate(d3.interpolateRgb)
+                    .range(['#d3d3d3', '#000000']); // lightgray - black
+
                 var conf = {
                     height: 7,
                     yspace: 3
@@ -50,7 +55,10 @@ angular.module('kalipoApp')
                             if(indexOfFirst == 0 || $element.parent().height() > scrollTop) {
                                 outline.css({'position':'relative', 'top':0});
                             } else {
-                                outline.css({'position':'fixed', 'top': -(conf.height + conf.yspace) * indexOfFirst + 100 + 'px'});
+                                outline.css({
+                                    'position': 'fixed',
+                                    'top': -(conf.height + conf.yspace) * indexOfFirst + $(window).height() / 2 + 'px'
+                                });
                             }
 
                         });
@@ -73,15 +81,17 @@ angular.module('kalipoApp')
 
                     console.log('minI',minI, 'maxI',maxI, 'iRange',iRange);
 
-                    d3.select('#klp-outline')
+                    var g = d3.select('#klp-outline')
                         .attr('width', outWidth)
                         .attr('height', outHeight)
-                        .append('g').selectAll('rect')
+                        .append('g');
+
+                    g.selectAll('rect')
                         .data(comments)
                         .enter()
                         .append('rect')
                         .attr('x', function (d, i) {
-                            return xScale(7 * d.level);
+                            return xScale(5 * d.level);
                         })
                         .attr('y', function (d, i) {
                             return yScale(i * 10);
@@ -93,7 +103,11 @@ angular.module('kalipoApp')
                             return yScale(conf.height);
                         })
                         .attr('fill', function (d, i) {
-                            return interpolateColor(Math.abs(d.influence) / iRange);
+                            if (d.level == 0) {
+                                return interpolateRootColor(Math.abs(d.influence) / iRange);
+                            } else {
+                                return interpolateColor(Math.abs(d.influence) / iRange);
+                            }
                         })
                         .attr('title', function (d, i) {
                             return 'Click to scroll - ' + d.id;
