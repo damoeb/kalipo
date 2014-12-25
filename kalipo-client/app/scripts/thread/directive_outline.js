@@ -39,7 +39,7 @@ angular.module('kalipoApp')
 
                             // find first comment on viewport
                             var $all = $('.comment');
-                            var $firstOnViewport;
+                            var $firstOnViewport = $($all[0]);
                             for(var i=0; i<$all.length; i++) {
                                 var $comment = $($all[i]);
                                 if($comment.offset().top > scrollTop) {

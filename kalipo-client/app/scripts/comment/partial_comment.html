@@ -22,7 +22,6 @@
                 <span class="label label-warning label-pending">PENDING APPROVAL</span>
 
                 <div class="text">{{::comment.text}}</div>
-                {{::comment.id}}
             </div>
 
             <comment-menu></comment-menu>
@@ -31,7 +30,8 @@
 
     </div>
 
-    <comment-reply ng-comment-id="comment.id" ng-render-if="comment.id == $replyTo"></comment-reply>
+    <comment-reply ng-render-if="comment.$reply"></comment-reply>
+    <comment-report ng-render-if="comment.$report"></comment-report>
 
     <comment-children></comment-children>
 

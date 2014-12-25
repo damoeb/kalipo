@@ -12,23 +12,16 @@ angular.module('kalipoApp')
 //        transclude: true,
         controller: function ($scope, $element) {
 
+            // todo replace by true/false
             $scope.toggleReplyForm = function (comment) {
-                $scope.$replyTo = comment.id;
-                comment.report = false;
+                comment.$reply = true;
+                comment.$report = false;
             };
 
             $scope.toggleReportForm = function (comment) {
-                $scope.$replyTo = null;
-                comment.report = !comment.report;
+                comment.$reply = false;
+                comment.$report = true;
             };
-
-            //$scope.replaceMe = function() {
-            //    var html = $templateCache.get('scripts/thread/partial_menu.html');
-            //    console.log(html);
-            //    html ='<div>I should not be red</div>';
-            //    var e = $compile(html)($scope);
-            //    $element.replaceWith(e);
-            //}
         }
     }
 });
