@@ -231,6 +231,9 @@ a {
     color: #8a832b;
 }
 
+#klp-outline rect {
+    cursor: pointer;
+}
 .report {
     /*border-radius: 4px;*/
     padding: 15px;

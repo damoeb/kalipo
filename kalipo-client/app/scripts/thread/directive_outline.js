@@ -16,15 +16,57 @@ angular.module('kalipoApp')
                 var interpolateColor = d3.scale.linear()
                     .domain([0,1])
                     .interpolate(d3.interpolateRgb)
-                    .range(["#d3d3d3", "#0000ff"]); // lightgray - blue
+                    .range(['#d3d3d3', '#0000ff']); // lightgray - blue
+
+                var conf = {
+                    height: 7,
+                    yspace: 3
+                };
 
                 Thread.outline({id: threadId}, function (comments) {
 
-                    var outWidth = 300;
-                    var outHeight = $(window).height() * 4;
+                    //$(document).ready(function() {
+                    //    //Cache the Window object
+                    //
+                    //    $(window).scroll(function() {
+                    //
+                    //        var scrollTop = $(this).scrollTop();
+                    //
+                    //        // find first comment on viewport
+                    //        //var first = _.first($('.comment'), function(comment) {
+                    //        //    console.log($(comment), $(comment).offset().top, scrollTop, $(comment).offset().top > scrollTop);
+                    //        //    return $(comment).offset().top < scrollTop;
+                    //        //});
+                    //
+                    //        var $all = $('.comment');
+                    //        var $first;
+                    //        for(var i=0; i<$all.length; i++) {
+                    //            var $comment = $($all[i]);
+                    //            if($comment.offset().top > scrollTop) {
+                    //                $first = $comment;
+                    //                break;
+                    //            }
+                    //        }
+                    //
+                    //        var index = parseInt($first.attr('ng-data-index'));
+                    //        console.log('first', index);
+                    //
+                    //        var outline = $element.parent();
+                    //        if(index == 0) {
+                    //            outline.css({'position':'relative', 'top':0});
+                    //        } else {
+                    //            outline.css({'position':'fixed', 'top': -(conf.height + conf.yspace) * index + 100 + 'px'});
+                    //        }
+                    //
+                    //    });
+                    //});
+
+
+                    var outWidth = $element.width();
+                    var outHeight = Math.max($(window).height(), comments.length * 6);
 
                     var yScale = d3.scale.linear()
-                        .domain([0, 2400])
+                        .domain([0, comments.length * (conf.height + conf.yspace)])
                         .range([0, outHeight]);
 
                     var xScale = d3.scale.linear()
@@ -37,36 +79,33 @@ angular.module('kalipoApp')
 
                     console.log('minI',minI, 'maxI',maxI, 'iRange',iRange);
 
-                    d3.select("#klp-outline")
-                        .attr("width", outWidth)
-                        .attr("height", outHeight)
-                        .append("g").selectAll("rect")
+                    d3.select('#klp-outline')
+                        .attr('width', outWidth)
+                        .attr('height', outHeight)
+                        .append('g').selectAll('rect')
                         .data(comments)
                         .enter()
-                        .append("rect")
-                        .attr("x", function (d, i) {
+                        .append('rect')
+                        .attr('x', function (d, i) {
                             return xScale(7 * d.level);
                         })
-                        .attr("y", function (d, i) {
-                            return yScale(i * 7);
+                        .attr('y', function (d, i) {
+                            return yScale(i * 10);
                         })
-                        .attr("width", function (d, i) {
+                        .attr('width', function (d, i) {
                             return xScale(15 + d.influence * 5);
                         })
-                        .attr("height", function (d, i) {
-                            return yScale(5);
+                        .attr('height', function (d, i) {
+                            return yScale(conf.height);
                         })
-                        .attr("fill", function (d, i) {
+                        .attr('fill', function (d, i) {
                             return interpolateColor(Math.abs(d.influence) / iRange);
                         })
-                        .attr("title", function (d, i) {
+                        .attr('title', function (d, i) {
                             return 'Click to scroll - ' + d.id;
                         })
-                        .on('mouseover', function(d, i) {
-                            d3.select(this).attr("fill", 'black');
-                        })
-                        .on('mouseout', function(d, i) {
-                            d3.select(this).attr("fill", interpolateColor(Math.abs(d.influence) / iRange));
+                        .on('click', function(d, i) {
+                            console.log('go to', d.id);
                         });
                 });
             }

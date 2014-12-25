@@ -1,4 +1,4 @@
-<div class="comment" style="border-left: {{comment.level * 10}}px solid #dedede;"
+<div class="comment" ng-data-index="{{::$index + page.id * 50}}" style="border-left: {{comment.level * 10}}px solid #dedede;"
      ng-class="{'pending':comment.$pending, 'minimized':comment.$minimized, 'imploded':comment.$imploded}">
     <a id="{{::comment.id}}"></a>
 
@@ -22,6 +22,7 @@
                 <span class="label label-warning label-pending">PENDING APPROVAL</span>
 
                 <div class="text">{{::comment.text}}</div>
+                {{::comment.id}}
             </div>
 
             <comment-menu></comment-menu>
