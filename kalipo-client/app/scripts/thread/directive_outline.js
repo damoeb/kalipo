@@ -56,7 +56,6 @@ angular.module('kalipoApp')
                         });
                     });
 
-
                     var outWidth = $element.width();
                     var outHeight = Math.max($(window).height(), comments.length * 6);
 
