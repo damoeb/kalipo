@@ -16,14 +16,16 @@ angular.module('kalipoApp')
 
                     if (render) {
                         var commentId = $scope.$eval($attributes.ngCommentId);
-                        console.log('render', commentId);
+                        console.log('reply', commentId);
 
-                        //var html = $templateCache.get('scripts/comment/partial_reply.html');
                         //var html = $http.get('scripts/comment/partial_reply.html', {cache: true});
-                        //    console.log(html);
-                        var html = '<div>I should not be read</div>';
-                        var e = $compile(html)($scope);
-                        $element.replaceWith(e);
+
+                        //var html = '<div>I should not be read</div>';
+                        //var html = $templateCache.get('scripts/comment/partial_reply.html');
+                        $http.get('scripts/comment/partial_reply.html', {cache:true}).success(function(html) {
+                            var e = $compile(html)($scope);
+                            $element.replaceWith(e);
+                        });
 
                     } else {
                         $element.empty();
