@@ -12,6 +12,8 @@ comment relevance: {
     }
 }
 
+Use @Cacheable with ehcache see http://viralpatel.net/blogs/cache-support-spring-3-1-m1/
+
 visualization
 http://blog.revolutionanalytics.com/2009/09/hierarchical-clustering-in-r.html
 http://silenced.co/wp-content/uploads/2014/10/religions_tree.jpg
