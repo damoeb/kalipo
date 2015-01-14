@@ -327,6 +327,8 @@ public class CommentService {
 
                     double transitiveInfluence = w_in.apply(influence_incoming(i, influenceMap));// - w_out.apply(NumUtils.nullToZero(θ == null ? null : θ.getInfluence()));
 
+                    comment.getQuality();
+
                     double selfInfluence = w_likes.apply(NumUtils.nullToZero(comment.getLikes())) - w_dislikes.apply(NumUtils.nullToZero(comment.getDislikes()));
                     double influence = selfInfluence + transitiveInfluence;
 
@@ -443,13 +445,13 @@ public class CommentService {
         // todo this part should be async. A separate process analyzes the comment and decides whether it is approved/review-required/spam
         final boolean isMod = thread.getModIds().contains(currentLogin);
 
-        if (isMod || isSuperMod || commentRepository.getApprovedCommentCountOfUser(currentLogin) > 4) {
-            dirty.setStatus(Comment.Status.APPROVED);
-            log.info(String.format("%s creates comment %s ", currentLogin, dirty.toString()));
-        } else {
+//        if (isMod || isSuperMod || commentRepository.getApprovedCommentCountOfUser(currentLogin) > 4) {
+//            dirty.setStatus(Comment.Status.APPROVED);
+//            log.info(String.format("%s creates comment %s ", currentLogin, dirty.toString()));
+//        } else {
             dirty.setStatus(Comment.Status.PENDING);
             log.info(String.format("%s creates pending comment %s ", currentLogin, dirty.toString()));
-        }
+//        }
 
         assignSticky(dirty, original, isNew, isMod, isSuperMod);
 

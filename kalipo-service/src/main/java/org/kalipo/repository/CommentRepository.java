@@ -21,6 +21,9 @@ public interface CommentRepository extends MongoRepository<Comment, String> {
     @Query(value = "{'authorId': ?0, 'status': 'APPROVED'}", count = true)
     Long getApprovedCommentCountOfUser(String userId);
 
+    @Query(value = "{'authorId': ?0, 'status': 'REJECTED'}", count = true)
+    Long getRejectedCommentCountOfUser(String login);
+
     @Query(value = "{'parentId': ?0}", count = true)
     Long countReplies(String commentId);
 
@@ -44,4 +47,7 @@ public interface CommentRepository extends MongoRepository<Comment, String> {
 
     @Query(value = "{'threadId': ?0}", fields = "{ 'id' : 1, 'influence' : 1, 'parentId' : 1, 'status' : 1, 'fingerprint' : 1, 'level' : 1}")
     List<Comment> getInfluenceByThreadId(String threadId);
+
+    @Query(value = "{'threadId': ?0, 'status': 'PENDING'}")
+    List<Comment> findPendingInThread(String id);
 }

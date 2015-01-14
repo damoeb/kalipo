@@ -54,6 +54,11 @@ public class Comment {
 
     private Integer level;
 
+    // generated - isolated comment quality
+    @JsonIgnore
+    private Double quality;
+
+    // generated - representing importance in discussion
     private Double influence;
 
     private Integer likes;
@@ -231,6 +236,14 @@ public class Comment {
 
     public void setInfluence(Double influence) {
         this.influence = influence;
+    }
+
+    public Double getQuality() {
+        return quality;
+    }
+
+    public void setQuality(Double quality) {
+        this.quality = quality;
     }
 
     /**

@@ -52,8 +52,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Field("activation_key")
     private String activationKey;
 
+    // todo rename to karma
     @Field("reputation")
     private int reputation;
+
+    private double trustworthiness;
 
     @JsonIgnore
     private boolean banned;
@@ -244,6 +247,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public double getTrustworthiness() {
+        return trustworthiness;
+    }
+
+    public void setTrustworthiness(double trustworthiness) {
+        this.trustworthiness = trustworthiness;
     }
 
     @Override
