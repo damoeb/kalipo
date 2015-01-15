@@ -35,6 +35,7 @@ public class UserAgent {
 
                 double rejectedCount = commentRepository.getRejectedCommentCountOfUser(user.getLogin());
                 double approvedCount = commentRepository.getApprovedCommentCountOfUser(user.getLogin());
+                // todo normalize
                 double trustworthiness = approvedCount / Math.max(1, rejectedCount);
 
                 log.debug(String.format("%s with %s approved, %s rejected => %s trustworthiness", user.getLogin(), approvedCount, rejectedCount, trustworthiness));

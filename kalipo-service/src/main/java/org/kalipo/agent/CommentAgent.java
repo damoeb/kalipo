@@ -57,11 +57,12 @@ public class CommentAgent {
                     double spam = 0d;
                     // todo find spam using a SVM
                     // todo weight 40/60
+                    // todo normalize
                     double quality = author.getTrustworthiness();
                     comment.setQuality(quality);
 
                     if (spam > 0.5d) {
-                        comment.setStatus(Comment.Status.APPROVED);
+                        comment.setStatus(Comment.Status.SPAM);
                         // todo fix comments
                         log.info(String.format("%s creates spam comment %s ", authorId, comment.toString()));
 

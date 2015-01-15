@@ -12,6 +12,12 @@ comment relevance: {
     }
 }
 
+normalize
+- see todos
+- upvotes/downvotes max 10 per comment
+- scores
+
+
 Use @Cacheable with ehcache see http://viralpatel.net/blogs/cache-support-spring-3-1-m1/
 
 visualization
