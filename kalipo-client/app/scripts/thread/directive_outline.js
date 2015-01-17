@@ -86,6 +86,8 @@ angular.module('kalipoApp')
                         .attr('height', outHeight)
                         .append('g');
 
+                    var yOffset = 0;
+
                     g.selectAll('rect')
                         .data(comments)
                         .enter()
@@ -94,7 +96,10 @@ angular.module('kalipoApp')
                             return xScale(5 * d.level);
                         })
                         .attr('y', function (d, i) {
-                            return yScale(i * 10);
+                            if (d.level == 0) {
+                                yOffset += 8;
+                            }
+                            return yScale(i * 10 + yOffset);
                         })
                         .attr('width', function (d, i) {
                             return xScale(15 + d.influence * 5);
