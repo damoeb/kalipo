@@ -48,6 +48,6 @@ public interface CommentRepository extends MongoRepository<Comment, String> {
     @Query(value = "{'threadId': ?0}", fields = "{ 'id' : 1, 'influence' : 1, 'parentId' : 1, 'status' : 1, 'fingerprint' : 1, 'level' : 1}")
     List<Comment> getInfluenceByThreadId(String threadId);
 
-    @Query(value = "{'threadId': ?0, 'status': 'PENDING'}")
-    List<Comment> findPendingInThread(String id);
+    //    @Query(value = "{'threadId': ?0, 'status': 'PENDING'}")
+    List<Comment> findByStatusAndThreadId(Comment.Status pending, String id);
 }

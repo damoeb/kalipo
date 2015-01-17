@@ -20,25 +20,30 @@ normalize
 
 Use @Cacheable with ehcache see http://viralpatel.net/blogs/cache-support-spring-3-1-m1/
 
-visualization
+
+Visualization
+=============
+
 http://blog.revolutionanalytics.com/2009/09/hierarchical-clustering-in-r.html
 http://silenced.co/wp-content/uploads/2014/10/religions_tree.jpg
 http://bocoup.com/img/weblog/career-tree-obama.png
 http://visualizing.org/sites/default/files/imagecache/embedded_vis_medium/images/0023.png
+
+Colors:
+    black: subthread
+    gray-blue: replies
+    gray-orange: mod-comment
+    gray-red: sticky-comment
+
+
+--
 
 at first, render just a stub. create a directive that will render the full comment when visible 
 
 basic comment renderer template (file) to be used in achievements and likes
 improve notifications (link to referred resource)
 
-use reactjs to improve rendering speed 
--> http://www.mono-software.com/blog/post/Mono/242/Improving-AngularJS-long-list-rendering-performance-using-ReactJS/
-angular optimizations 
--> http://www.binpress.com/tutorial/speeding-up-angular-js-with-simple-optimizations/135
-scroll forever
--> http://jsfiddle.net/vojtajina/U7Bz9/
-
-sys: docker, nginx, snort, nagios, elastic search
+sys: [docker, snort, nagios], elastic search
 - Achievements: stackoverflow zeigt die die rep upgrades an wie soundcloud die notifications 
 
 discuss/moderate/monitor/notifications/browse

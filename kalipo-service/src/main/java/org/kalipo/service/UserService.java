@@ -142,15 +142,15 @@ public class UserService {
      * This is scheduled to get fired everyday, at 01:00 (am).
      * </p>
      */
-    @Scheduled(cron = "0 0 1 * * ?")
-    public void removeNotActivatedUsers() {
-        DateTime now = new DateTime();
-        List<User> users = userRepository.findNotActivatedUsersByCreationDateBefore(now.minusDays(3));
-        for (User user : users) {
-            log.debug("Deleting not activated user {}", user.getLogin());
-            userRepository.delete(user);
-        }
-    }
+//    @Scheduled(cron = "0 0 1 * * ?")
+//    public void removeNotActivatedUsers() {
+//        DateTime now = new DateTime();
+//        List<User> users = userRepository.findNotActivatedUsersByCreationDateBefore(now.minusDays(3));
+//        for (User user : users) {
+//            log.debug("Deleting not activated user {}", user.getLogin());
+//            userRepository.delete(user);
+//        }
+//    }
 
     /**
      * Reset loginTries to 0 after {FAILED_LOGIN_COOLDOWN} hours
@@ -182,7 +182,7 @@ public class UserService {
 
     public boolean isSuperMod(String userId) {
         User one = userRepository.findOne(userId);
-        return one != null && one.isSuperMod();
+        return isAdmin(userId) || (one != null && one.isSuperMod());
     }
 
     public User updateUser(User modified) throws KalipoException {
@@ -193,13 +193,12 @@ public class UserService {
         final String operator = SecurityUtils.getCurrentLogin();
         final User self = userRepository.findOne(operator);
         final boolean isSuperMod = self.isSuperMod();
-        final boolean isAdmin = StringUtils.equals(self.getLogin(), "admin");
+        final boolean isAdmin = isAdmin(self.getLogin());
 
         if (!isSuperMod && !isAdmin) {
             log.warn(String.format("%s tried to alter user %s", operator, login));
             throw new KalipoException(ErrorCode.PERMISSION_DENIED, "Superpowers required");
         }
-
 
         // update only fields that are set
         if (dirty(modified.getFirstName(), original.getFirstName())) {
@@ -263,6 +262,10 @@ public class UserService {
         }
 
         return userRepository.save(original);
+    }
+
+    private boolean isAdmin(String userId) {
+        return StringUtils.equals(userId, "admin");
     }
 
     private void logFieldChange(String operator, String login, String fieldName, Object fieldValue) {

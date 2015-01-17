@@ -23,14 +23,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.Future;
-import java.util.function.DoubleFunction;
 
 @Service
 @KalipoExceptionHandler
@@ -284,95 +283,6 @@ public class CommentService {
         userRepository.save(author);
     }
 
-    @Scheduled(fixedDelay = 20000)
-    public void estimateCommentsInfluence() {
-
-        try {
-            /*
-            Notes from "Identifying the Influential Bloggers in a Community"
-            */
-            // weight incoming
-            final DoubleFunction<Double> w_in = influence -> log(influence) * 1.2;
-            // weight outgoing
-            final DoubleFunction<Double> w_out = influence -> log(influence) * 1.7;
-            // weight dislikes
-            final DoubleFunction<Double> w_dislikes = dislikes -> log(dislikes) *  1.2;
-            // weight likes
-            final DoubleFunction<Double> w_likes = likes -> log(likes) * 1.7;
-
-            Sort sortByDate = new Sort(Sort.Direction.ASC, "lastModifiedDate");
-            PageRequest request = new PageRequest(0, 10, sortByDate);
-
-            List<Thread> threads = threadRepository.findByStatusAndReadOnly(Thread.Status.OPEN, false, request);
-            for (Thread thread : threads) {
-                log.debug("Updating comment-influence of thread {}", thread.getId());
-
-                thread.setLastModifiedDate(DateTime.now());
-                threadRepository.save(thread);
-
-                Sort sortByLevel = new Sort(Sort.Direction.DESC, "level");
-                List<Comment> comments = commentRepository.findByThreadId(thread.getId(), sortByLevel);
-
-                // id to influence map
-                final Map<String, Double> influenceMap = new HashMap<>();
-
-                int changed = 0;
-                for(Comment comment:comments) {
-
-                    // = replies
-                    Set<Comment> i = commentRepository.findByParentId(comment.getId()); //iota - incoming influence
-
-                    // = parent, linked
-//                    Comment θ = comment.getParentId()==null ? null : commentRepository.findOne(comment.getParentId()); //theta - outgoing influence
-
-                    double transitiveInfluence = w_in.apply(influence_incoming(i, influenceMap));// - w_out.apply(NumUtils.nullToZero(θ == null ? null : θ.getInfluence()));
-
-                    comment.getQuality();
-
-                    double selfInfluence = w_likes.apply(NumUtils.nullToZero(comment.getLikes())) - w_dislikes.apply(NumUtils.nullToZero(comment.getDislikes()));
-                    double influence = selfInfluence + transitiveInfluence;
-
-                    influenceMap.put(comment.getId(), influence);
-
-                    if(comment.getInfluence() == null) {
-                        changed ++;
-                        log.debug(String.format("comment %s first influence %s", comment.getId(), influence));
-                    } else if(comment.getInfluence() != influence) {
-                        changed ++;
-                        log.debug(String.format("comment %s changed influence %s -> %s", comment.getId(), comment.getInfluence(), influence));
-                    }
-
-                    comment.setInfluence(influence);
-                }
-
-                if(changed > 0) {
-                    log.debug(String.format("influence changed in %s comments in thread %s", changed, thread.getId()));
-                }
-
-                commentRepository.save(comments);
-            }
-        } catch (Exception e){
-            log.error("Influence estimation failed.", e);
-        }
-    }
-
-    private Double influence_incoming(Set<Comment> incoming, Map<String, Double> influenceMap) {
-        if(incoming.isEmpty()) {
-            return 0d;
-        }
-
-        double total = 0d;
-        for(Comment comment:incoming) {
-            if(influenceMap.containsKey(comment.getId())) {
-                total += influenceMap.get(comment.getId());
-            }
-        }
-        return total;
-    }
-
-    private double log(Double num) {
-        return Math.log(Math.max(1, NumUtils.nullToZero(num) + 1));
-    }
 
     // --
 

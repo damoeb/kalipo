@@ -1,15 +1,14 @@
 package org.kalipo.service;
 
+import org.joda.time.LocalDate;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.kalipo.Application;
 import org.kalipo.config.MongoConfiguration;
 import org.kalipo.domain.PersistentToken;
 import org.kalipo.domain.User;
 import org.kalipo.repository.PersistentTokenRepository;
 import org.kalipo.repository.UserRepository;
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
@@ -18,9 +17,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.inject.Inject;
 
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test class for the UserResource REST controller.
@@ -53,14 +50,6 @@ public class UserServiceTest {
         assertThat(persistentTokenRepository.findByUser(admin)).hasSize(existingCount + 2);
         userService.removeOldPersistentTokens();
         assertThat(persistentTokenRepository.findByUser(admin)).hasSize(existingCount + 1);
-    }
-
-    @Test
-    public void testFindNotActivatedUsersByCreationDateBefore() {
-        userService.removeNotActivatedUsers();
-        DateTime now = new DateTime();
-        List<User> users = userRepository.findNotActivatedUsersByCreationDateBefore(now.minusDays(3));
-        assertThat(users).isEmpty();
     }
 
     private void generateUserToken(User user, String tokenSeries, LocalDate localDate) {

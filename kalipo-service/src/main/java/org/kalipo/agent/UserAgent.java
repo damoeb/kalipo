@@ -35,10 +35,12 @@ public class UserAgent {
 
                 double rejectedCount = commentRepository.getRejectedCommentCountOfUser(user.getLogin());
                 double approvedCount = commentRepository.getApprovedCommentCountOfUser(user.getLogin());
-                // todo normalize
-                double trustworthiness = approvedCount / Math.max(1, rejectedCount);
+                // todo include reputation?
 
-                log.debug(String.format("%s with %s approved, %s rejected => %s trustworthiness", user.getLogin(), approvedCount, rejectedCount, trustworthiness));
+                int boostRejected = 2;
+                double trustworthiness = log(approvedCount) / Math.max(1, boostRejected * log(rejectedCount));
+
+                log.info(String.format("%s with %s approved, %s rejected => %s trustworthiness", user.getLogin(), approvedCount, rejectedCount, trustworthiness));
 
                 user.setTrustworthiness(trustworthiness);
             }
@@ -48,6 +50,10 @@ public class UserAgent {
         } catch (Exception e) {
             log.error("Failed calculating reputation.", e);
         }
+    }
+
+    private double log(double v) {
+        return Math.log(Math.max(1, v));
     }
 
 }

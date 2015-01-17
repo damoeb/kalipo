@@ -17,6 +17,5 @@ public interface ThreadRepository extends MongoRepository<Thread, String> {
 
     List<Thread> findByStatusAndReadOnly(Thread.Status status, boolean readOnly, PageRequest sort);
 
-    // todo write query
-    List<Thread> findOpenWithPending(PageRequest request);
+    List<Thread> findByStatus(Thread.Status open, PageRequest request);
 }
