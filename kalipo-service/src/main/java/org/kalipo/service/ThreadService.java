@@ -71,6 +71,7 @@ public class ThreadService {
         thread.setCommentCount(0);
         thread.setLikes(0);
         thread.setDislikes(0);
+        thread.setDisplayName(SecurityUtils.getCurrentLogin());
 
         // todo implement + get 48h from properties
         thread.setUglyDucklingSurvivalEndDate(DateTime.now().plusHours(48));

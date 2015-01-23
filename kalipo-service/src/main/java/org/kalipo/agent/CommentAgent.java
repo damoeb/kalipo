@@ -83,10 +83,10 @@ public class CommentAgent {
 //
 //                        } else {
                         if (isMod || isSuperMod || quality > 0.5) {
-//                                comment.setStatus(Comment.Status.APPROVED);
+                            comment.setStatus(Comment.Status.APPROVED);
                             log.info(String.format("%s creates approved comment %s (q:%s)", authorId, comment.getId(), quality));
                         } else {
-//                                comment.setStatus(Comment.Status.PENDING);
+                            comment.setStatus(Comment.Status.PENDING);
                             log.info(String.format("%s creates pending comment %s  (q:%s)", authorId, comment.getId(), quality));
                         }
 //                        }
@@ -102,7 +102,7 @@ public class CommentAgent {
     }
 
 
-    @Scheduled(fixedDelay = 20000, initialDelay = 5000)
+    @Scheduled(fixedDelay = 5000, initialDelay = 5000)
     public void estimateCommentsInfluence() {
 
         try {
@@ -110,11 +110,11 @@ public class CommentAgent {
             Notes from "Identifying the Influential Bloggers in a Community"
             */
             // weight incoming
-            final DoubleFunction<Double> w_in = influence -> log(influence) * 1.2;
+            final DoubleFunction<Double> w_in = influence -> log(influence) * 1.7;
             // weight outgoing
             final DoubleFunction<Double> w_out = influence -> log(influence) * 1.7;
             // weight dislikes
-            final DoubleFunction<Double> w_dislikes = dislikes -> log(dislikes) * 1.2;
+            final DoubleFunction<Double> w_dislikes = dislikes -> log(dislikes) * 1.7;
             // weight likes
             final DoubleFunction<Double> w_likes = likes -> log(likes) * 1.7;
 
@@ -132,6 +132,9 @@ public class CommentAgent {
 
                 log.debug(String.format("Updating comment-influence of thread %s with %s comments", thread.getId(), comments.size()));
 
+//                Map<String,Comment> thisComments = new HashMap<>(comments.size() * 2);
+//                comments.forEach(c -> thisComments.put(c.getId(), c));
+
                 // id to influence map
                 final Map<String, Double> influenceMap = new HashMap<>();
 
@@ -142,10 +145,15 @@ public class CommentAgent {
                     Set<Comment> i = commentRepository.findByParentId(comment.getId()); //iota - incoming influence
 
                     // todo enable, but ensure a deterministic results aslong there are no changes, no oscillations
-                    // = parent, linked
-//                    Comment θ = comment.getParentId()==null ? null : commentRepository.findOne(comment.getParentId()); //theta - outgoing influence
 
-                    double transitiveInfluence = w_in.apply(influence_incoming(i, influenceMap));// - w_out.apply(NumUtils.nullToZero(θ == null ? null : θ.getInfluence()));
+//                    double transitiveInfluence = w_in.apply(influence_incoming(i, influenceMap));// - w_out.apply(NumUtils.nullToZero(θ == null ? null : θ.getInfluence()));
+
+                    // = parent, linked
+//                    Comment θ = comment.getParentId()==null ? null : thisComments.get(comment.getParentId()); //theta - outgoing influence
+                    Double i_out = 0d; //w_out.apply(NumUtils.nullToZero(θ == null ? null : θ.getInfluence()));
+                    int i_inCount = i.isEmpty() ? 0 : 1 + i.size();
+                    Double i_in = w_in.apply(i_inCount + influence_incoming(i, influenceMap));
+                    double transitiveInfluence = i_in - i_out;
 
                     // todo include comment.getQuality()
                     double selfInfluence = w_likes.apply(NumUtils.nullToZero(comment.getLikes())) - w_dislikes.apply(NumUtils.nullToZero(comment.getDislikes()));
@@ -158,7 +166,7 @@ public class CommentAgent {
                         log.debug(String.format("comment %s first influence %s", comment.getId(), influence));
                     } else if (comment.getInfluence() != influence) {
                         changed++;
-                        log.debug(String.format("comment %s changed influence %s -> %s", comment.getId(), comment.getInfluence(), influence));
+                        log.debug(String.format("comment %s changed influence (%s, %s) %s -> %s", comment.getId(), i_out, i_in, comment.getInfluence(), influence));
                     }
 
                     comment.setInfluence(influence);

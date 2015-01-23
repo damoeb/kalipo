@@ -38,7 +38,7 @@ public class ExceptionHandlerAspect {
 
             List<String> errors = new LinkedList<>();
             for (ConstraintViolation violation : e.getConstraintViolations()) {
-                errors.add(violation.getMessage());
+                errors.add(violation.getPropertyPath().toString() + "." + violation.getMessage());
             }
 
             throw new KalipoException(ErrorCode.INVALID_PARAMETER, StringUtils.join(errors, ", "));

@@ -13,6 +13,7 @@
                 <a href="javascript:void(0)" class="name" title="toggle"
                    ng-click="comment.$minimized = false; comment.$imploded = !comment.$imploded;">{{::comment.displayName}}</a>
                 <!--<a class="show-full-comment">Show</a>-->
+                {{::comment.influence}}
                 <span class="points">
                     {{::comment.likes-comment.dislikes }} points
                 </span>

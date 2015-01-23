@@ -62,7 +62,7 @@
 
             <div class="row">
 
-                <create-comment></create-comment>
+                <comment-create></comment-create>
 
                 <div style="padding: 0 10px 10px 10px; color: gray" ng-switch on="typing.length">
 
@@ -111,103 +111,3 @@
 
     </div>
 </div>
-
-<!-- todo create embed code-->
-<script type="text/ng-template" id="more_embed.template">
-    <input title="Code einbetten" class="form-control" placeholder="Some code">
-</script>
-
-<!-- todo create email code-->
-<script type="text/ng-template" id="more_email.template">
-    <textarea class="form-control"></textarea>
-</script>
-
-<script type="text/ng-template" id="more_stats.template">
-    some stats
-</script>
-
-<script type="text/ng-template" id="more_social.template">
-    <div>
-        <ul class="list-inline">
-            <li>
-                <button class="btn btn-default"
-                        onclick="yt.window.popup(&quot;http:\/\/www.facebook.com\/dialog\/feed?app_id=87741124305\u0026link=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026display=popup\u0026name=oOoOO%20-%20Seaww\u0026caption=\u0026description=Seaww%20was%20featured%20on%20a%20split%207%22%20with%20White%20Ring%20on%20Emotion%20%28sold%20out%29.%20Video%20by%20Daniel%20Lopatin.%0A%0Ahttp%3A\/\/www.eeemotion.se\/%0Ahttp%3A\/\/www.facebook.com\/eeemotion%0Ahttps%3A\/\/twitter.com\/eeemotion%0A%0ABuy%20on%20iTunes%3A%20http%3A\/\/itunes.apple.com\/se\/album\/roses-seaww-emotion-single\/id362308200%0AListen%20on%20Spotify%3A%20http%3A\/\/open.spotify.com\/album\/55h8qAZzI5Bxjsn6VJi4in\u0026picture=http%3A\/\/i.ytimg.com\/vi\/J0zYmPKAP18\/maxresdefault.jpg\u0026source=https%3A\/\/www.youtube.com\/v\/J0zYmPKAP18%3Fversion%3D3%26autohide%3D1%26showinfo%3D1%26autoplay%3D1%26autohide%3D1%26feature%3Dshare\u0026ref=share\u0026actions={\&quot;name\&quot;:\&quot;Auf YouTube abonnieren\&quot;, \&quot;link\&quot;:\&quot;http:\/\/www.youtube.com\/channel\/UC1SdPYp1tewxZdbaWpBgjLQ?sub_confirmation=1\&quot;}\u0026redirect_uri=https:\/\/www.youtube.com\/facebook_redirect&quot;, {'height': 306,'width': 650,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=FACEBOOK\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=10\u0026feature=share&quot;);return false;">
-                    <i class="fa fa-facebook"></i>
-                </button>
-            </li>
-
-            <li>
-                <button class="btn btn-default"
-                        onclick="yt.window.popup(&quot;http:\/\/twitter.com\/intent\/tweet?url=http%3A\/\/youtu.be\/J0zYmPKAP18\u0026text=oOoOO%20-%20Seaww:\u0026via=YouTube\u0026related=YouTube,YouTubeTrends,YTCreators&quot;, {'height': 420,'width': 550,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=TWITTER\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=31\u0026feature=share&quot;);return false;">
-                    <i class="fa fa-twitter"></i>
-                </button>
-            </li>
-
-            <li>
-                <button class="btn btn-default"
-                        data-service-name="GOOGLEPLUS"
-                        onclick="yt.window.popup(&quot;https:\/\/plus.google.com\/share?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026source=yt\u0026hl=de\u0026soc-platform=1\u0026soc-app=130&quot;, {'height': 620,'width': 620,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=GOOGLEPLUS\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=43\u0026feature=share&quot;);return false;">
-                    <i class="fa fa-google-plus"></i>
-                </button>
-            </li>
-
-            <!--<li>-->
-            <!--<button class="btn btn-default"-->
-            <!--onclick="yt.window.popup(&quot;http:\/\/www.blogger.com\/blog-this.g?n=oOoOO%20-%20Seaww\u0026source=youtube\u0026b=%3Ciframe%20width%3D%22480%22%20height%3D%22270%22%20src%3D%22https%3A\/\/www.youtube.com\/embed\/J0zYmPKAP18%22%20frameborder%3D%220%22%20allowfullscreen%3E%3C\/iframe%3E\u0026eurl=http%3A\/\/i.ytimg.com\/vi\/J0zYmPKAP18\/maxresdefault.jpg&quot;, {'height': 468,'width': 768,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=BLOGGER\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=34\u0026feature=share&quot;);return false;">-->
-            <!--<i class="fa fa-twitter"></i>-->
-            <!--</button>-->
-            <!--</li>-->
-
-            <li>
-                <button class="btn btn-default"
-                        onclick="yt.window.popup(&quot;http:\/\/reddit.com\/submit?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026title=oOoOO%20-%20Seaww&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=REDDIT\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=4\u0026feature=share&quot;);return false;">
-                    <i class="fa fa-reddit"></i>
-                </button>
-            </li>
-
-            <li>
-                <button class="btn btn-default"
-                        onclick="yt.window.popup(&quot;http:\/\/www.tumblr.com\/share\/video?embed=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026caption=oOoOO%20-%20Seaww&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=TUMBLR\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=40\u0026feature=share&quot;);return false;">
-                    <i class="fa fa-tumblr"></i>
-                </button>
-            </li>
-
-            <!--<li>-->
-            <!--<button class="btn btn-default"-->
-            <!--onclick="yt.window.popup(&quot;http:\/\/vkontakte.ru\/share.php?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=VKONTAKTE\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=36\u0026feature=share&quot;);return false;">-->
-            <!--<i class="fa fa-vkontakte"></i>-->
-            <!--</button>-->
-            <!--</li>-->
-
-            <li>
-                <button class="btn btn-default"
-                        onclick="yt.window.popup(&quot;http:\/\/www.linkedin.com\/shareArticle?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026title=oOoOO%20-%20Seaww\u0026summary=Seaww%20was%20featured%20on%20a%20split%207%22%20with%20White%20Ring%20on%20Emotion%20%28sold%20out%29.%20Video%20by%20Daniel%20Lopatin.%0A%0Ahttp%3A\/\/www.eeemotion.se\/%0Ahttp%3A\/\/www.facebook.com\/eeemotion%0Ahttps%3A\/\/twitter.com\/eeemotion%0A%0ABuy%20on%20iTunes%3A%20http%3A\/\/itunes.apple.com\/se\/album\/roses-seaww-emotion-single\/id362308200%0AListen%20on%20Spotify%3A%20http%3A\/\/open.spotify.com\/album\/55h8qAZzI5Bxjsn6VJi4in\u0026source=Youtube&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=LINKEDIN\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=42\u0026feature=share&quot;);return false;">
-                    <i class="fa fa-linkedin"></i>
-                </button>
-            </li>
-
-            <li>
-                <button class="btn btn-default"
-                        onclick="yt.window.popup(&quot;http:\/\/pinterest.com\/pin\/create\/button\/?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026description=oOoOO%20-%20Seaww\u0026is_video=true\u0026media=http%3A\/\/i.ytimg.com\/vi\/J0zYmPKAP18\/maxresdefault.jpg&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=PINTEREST\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=45\u0026feature=share&quot;);return false;">
-                    <i class="fa fa-pinterest"></i>
-                </button>
-            </li>
-
-            <li>
-                <button class="btn btn-default"
-                        onclick="yt.window.popup(&quot;http:\/\/digg.com\/submit?url=http%3A\/\/www.youtube.com\/watch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare&quot;, {'height': 650,'width': 1024,'scrollbars': true});yt.net.ping.send(&quot;\/sharing_services?name=DIGG\u0026v=J0zYmPKAP18\u0026relative_url=%2Fwatch%3Fv%3DJ0zYmPKAP18%26feature%3Dshare\u0026id=1\u0026feature=share&quot;);return false;">
-                    <i class="fa fa-digg"></i>
-                </button>
-            </li>
-
-        </ul>
-
-    </div>
-    <div>
-        <span>
-            <input title="Link teilen" value="http://youtu.be/J0zYmPKAP18" name="share_url" class="form-control"
-                   type="url">
-        </span>
-    </div>
-</script>
-

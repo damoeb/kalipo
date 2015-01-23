@@ -1,3 +1,6 @@
+kommentar schreiben -> eingabe ersetzen durch laden symbol
+goto comment: service methode mit load comments from commendId
+
 neue zeile
 FIX user.displayName
 
