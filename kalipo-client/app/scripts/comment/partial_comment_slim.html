@@ -2,6 +2,7 @@
 
     <a href="javascript:void(0)"><strong>{{::comment.displayName}}</strong></a>
     <span style="color: grey; font-size: smaller" title="{{comment.createdDate | dateString }}">{{::comment.createdDate | fromNow }}</span>
+    <a href="#/thread/{{::comment.threadId }}/{{::comment.id }}">to Thread</a>
 
     <div style="white-space: pre-line">{{::comment.text}}</div>
 </div>

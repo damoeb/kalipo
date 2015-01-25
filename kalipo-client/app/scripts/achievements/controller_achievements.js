@@ -3,13 +3,13 @@
 kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 'Comment', 'Achievement', 'Report', 'Reputation',
     function ($scope, $rootScope, Vote, Comment, Achievement, Report, Reputation) {
 
-        $scope.achievements = [];
+        $scope.pages = [];
 
         $scope.$page = 0;
 
         $scope.reputations = {};
 
-        var doFetchReputations = function () {
+        var __doFetchReputations = function () {
             Reputation.query(function (reputations) {
                 _.forEach(reputations, function (reputation) {
                     $scope.reputations[reputation.type] = reputation.reputation;
@@ -17,10 +17,15 @@ kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 
             });
         };
 
-        var doFetchAchievements = function () {
+        $scope.next = function () {
+            $scope.$page = 1;
+            __doFetchAchievements();
+        };
+
+        var __doFetchAchievements = function () {
             console.log('Fetch achievement of ' + $rootScope.login);
 
-            Achievement.latest({'id': $rootScope.login, 'page': $scope.$page}, function (achievements) {
+            Achievement.list({'id': $rootScope.login, 'page': $scope.$page}, function (achievements) {
 
                 console.log('Got ' + achievements.length + ' achievements on page ' + $scope.$page);
 
@@ -33,6 +38,19 @@ kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 
                 var distinctResources = _.keys(groupedByRef);
 
                 console.log('Fetching ' + distinctResources.length + ' resources');
+
+                var __refresh = function () {
+                    // attach resource to achievement
+                    _.forEach(achievements, function (achievement) {
+
+                        achievement.$resource = resources[achievement.resourceRef];
+                    });
+                };
+
+                $scope.pages.push({
+                    page: $scope.$page,
+                    achievements: achievements
+                });
 
                 _.forEach(distinctResources, function(resourceRef){
 
@@ -47,7 +65,9 @@ kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 
 
                             Comment.get({id: resourceRef}, function (comment) {
                                 console.log('Resolved comment ' + comment.id);
+                                comment.$isComment = true;
                                 resources[resourceRef] = comment;
+                                __refresh();
                             });
 
                             break;
@@ -57,7 +77,9 @@ kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 
 
                             Report.get({id: resourceRef}, function (report) {
                                 console.log('Resolved report ' + report.id);
+                                report.$isComment = false;
                                 resources[resourceRef] = report;
+                                __refresh();
                             });
 
                             break;
@@ -68,14 +90,6 @@ kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 
                     }
                 });
 
-
-                // attach resource to achievement
-                _.forEach(achievements, function (achievement) {
-
-                    $scope.achievements.push(achievement);
-                    achievement.$resource = resources[achievement.resourceRef];
-
-                });
             })
         };
 
@@ -83,12 +97,12 @@ kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 
 
             if (typeof($rootScope.login) == 'undefined') {
                 console.log('wait');
-                $scope.$on('event:auth-authorized', doFetchAchievements);
-                $scope.$on('event:auth-authorized', doFetchReputations);
+                $scope.$on('event:auth-authorized', __doFetchAchievements);
+                $scope.$on('event:auth-authorized', __doFetchReputations);
             } else {
                 console.log($rootScope.login);
-                doFetchAchievements();
-                doFetchReputations();
+                __doFetchAchievements();
+                __doFetchReputations();
             }
         };
 

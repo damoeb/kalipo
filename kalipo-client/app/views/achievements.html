@@ -11,8 +11,10 @@
         </div>
 
         <div ng-switch-when="false" class="clearfix">
-            <div ng-repeat="achievement in achievements">
-                <div ng-include="'achievement_renderer.template'"></div>
+            <div ng-repeat="page in pages">
+                <div ng-repeat="achievement in page.achievements">
+                    <div ng-include="'achievement_renderer.template'"></div>
+                </div>
             </div>
         </div>
 
@@ -21,13 +23,17 @@
 </div>
 
 <script type="text/ng-template" id="achievement_renderer.template">
-    <div>
-
-        <p>
+    <div style="margin-bottom: 20px">
+        <div>
             <span class="label label-success" ng-if="reputations[achievement.type] >= 0">{{::reputations[achievement.type]}}</span>
             <span class="label label-danger" ng-if="reputations[achievement.type] < 0">{{::reputations[achievement.type]}}</span>
             {{::achievement.type}}
-        </p>
+        </div>
+
+        <div ng-switch="achievement.$resource.$isComment">
+            <comment-slim ng-model="achievement.$resource" ng-switch-when="true"/>
+            <report ng-model="achievement.$resource" ng-switch-when="false"/>
+        </div>
 
     </div>
 </script>

@@ -28,7 +28,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
         $scope.loadMore = function () {
             console.log("load more");
-            fetchComments();
+            __fetchComments();
         };
 
         $scope.scrollTo = function (id) {
@@ -39,7 +39,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
             $location.hash(old);
         };
 
-        var fetchComments = function () {
+        var __fetchComments = function () {
 
             currentPage = currentPage + 1;
 
@@ -54,12 +54,14 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
                 start = new Date().getTime();
 
-                var comments = _postFetchComments(pageData.content);
+                var comments = __postFetchComments(pageData.content);
 
                 $scope.pages.push({
                     id: currentPage,
                     comments: comments
                 });
+
+                //__startLiveUpdates();
 
                 end = new Date().getTime();
                 console.log('Execution time: ' + (end - start));
@@ -71,7 +73,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
             });
         };
 
-        fetchComments();
+        __fetchComments();
 
         var isTyping = false;
         var stoppedTypingTimer = 0;
@@ -92,13 +94,25 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
             }, 10000);
         };
 
-        $scope.toggleShareComponent = function () {
-            if ($scope.more == null) {
-                $scope.more = 'social';
-            } else {
-                $scope.more = null;
-            }
-        };
+        //var timerId;
+        //var __startLiveUpdates = function() {
+        //    console.log('Starting live updates');
+        //    if(_.isUndefined(timerId)) {
+        //        timerId = setInterval(function() {
+        //
+        //            Thread.diff({id:threadId}, function(comments) {
+        //
+        //                console.log(comments.length + ' updates');
+        //
+        //            });
+        //
+        //        }, 3000);
+        //    }
+        //};
+        //var __stopLiveUpdates = function() {
+        //    console.log('Stopping live updates')
+        //    clearInterval(timerId)
+        //};
 
         $scope.updateThread = function () {
 
@@ -118,7 +132,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
             });
         };
 
-        $scope.create = function () {
+        $scope.submit = function () {
 
             $scope.draft.threadId = threadId;
             // todo support anon flag in view
@@ -129,14 +143,14 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                     $scope.clear();
                 });
         };
+        //
+        //var _sortByScore = function (comments) {
+        //    return _.sortBy(comments, function (comment) {
+        //        return comment.$score
+        //    })
+        //};
 
-        var _sortByScore = function (comments) {
-            return _.sortBy(comments, function (comment) {
-                return comment.$score
-            })
-        };
-
-        var _postFetchComments = function (comments) {
+        var __postFetchComments = function (comments) {
 
             return _.forEach(comments, function(comment) {
                 comment.children = [];

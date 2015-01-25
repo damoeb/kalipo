@@ -16,7 +16,7 @@ angular.module('kalipoApp')
                         console.log('reply', $scope.comment.id);
                         $http.get('scripts/comment/partial_reply.html', {cache:true}).success(function(html) {
                             var e = $compile(html)($scope);
-                            $element.replaceWith(e);
+                            $element.append(e);
                         });
 
                     } else {

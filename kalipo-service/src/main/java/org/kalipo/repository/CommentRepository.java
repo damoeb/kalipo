@@ -50,4 +50,6 @@ public interface CommentRepository extends MongoRepository<Comment, String> {
 
     //    @Query(value = "{'threadId': ?0, 'status': 'PENDING'}")
     List<Comment> findByStatusAndThreadId(Comment.Status pending, String id);
+
+    List<Comment> findByThreadIdAndCreatedDateAfter(String id, DateTime since);
 }

@@ -23,14 +23,14 @@
 <script type="text/ng-template" id="comment_renderer.template">
     <div style="margin-bottom: 15px">
 
-        <p>
+        <div>
 
             <span class="glyphicon glyphicon-thumbs-up" ng-if="comment.$vote.like" style="color:green;"></span>
             <span class="glyphicon glyphicon-thumbs-down" ng-if="!comment.$vote.like" style="color:red;"></span>
 
             {{::comment.$vote.createdDate|fromNow}}
 
-        </p>
+        </div>
 
         <comment-slim ng-model="comment"/>
 

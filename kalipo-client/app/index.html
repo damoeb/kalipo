@@ -106,13 +106,6 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu" ng-controller="MenuController">
-                        <li>
-                            <a href="#/settings">
-                                <!--<span class="glyphicon glyphicon-user"></span>-->
-                                &#xA0;
-                                <span translate="global.menu.account.settings">Settings</span>
-                            </a>
-                        </li>
 
                         <li>
 
@@ -126,10 +119,10 @@
 
                         <li>
 
-                            <a href="#/achievements">
+                            <a href="#/comments">
                                 <!--<span class="glyphicon glyphicon-thumbs-up"></span>-->
                                 &#xA0;
-                                <span>Achievements</span>
+                                <span>Comments</span>
                             </a>
 
                         </li>
@@ -145,6 +138,37 @@
                         </li>
 
                         <li role="presentation" class="divider"></li>
+
+                        <li>
+
+                        <a href="#/achievements">
+                                <!--<span class="glyphicon glyphicon-thumbs-up"></span>-->
+                                &#xA0;
+                                <span>Achievements</span>
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#/notifications">
+                                <!--<span class="glyphicon glyphicon-thumbs-up"></span>-->
+                                &#xA0;
+                                <span>Notifications</span>
+                            </a>
+
+                        </li>
+
+
+                        <li role="presentation" class="divider"></li>
+
+                        <li>
+                            <a href="#/settings">
+                                <!--<span class="glyphicon glyphicon-user"></span>-->
+                                &#xA0;
+                                <span translate="global.menu.account.settings">Settings</span>
+                            </a>
+                        </li>
 
                         <li>
                             <a href="#/password">
@@ -265,7 +289,7 @@
 <script src="bower_components/angular-dynamic-locale/src/tmhDinamicLocale.js"></script>
 <script src="bower_components/angular-momentjs/angular-momentjs.min.js"></script>
 <script src="bower_components/lodash/dist/lodash.min.js"></script>
-<script src="bower_components/d3/d3.js"></script>
+<script src="bower_components/d3/d3.min.js"></script>
 <script src="scripts/http-auth-interceptor.js"></script>
 <script src="scripts/truncate.js"></script>
 <script src="scripts/utils.js"></script>

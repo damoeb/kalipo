@@ -12,17 +12,20 @@ angular.module('kalipoApp')
             templateUrl: 'scripts/comment/partial_comment_slim.html',
             link: function ($scope, $element, $attributes) {
 
-                var model = $attributes.ngModel;
-                if (_.isUndefined($scope.$eval(model))) {
-                    $scope.$watch(model, function (comment) {
+                var ngModel = $attributes.ngModel;
+                var model = $scope.$eval(ngModel);
+                if (_.isUndefined(model)) {
+                    $scope.$watch(ngModel, function (comment) {
                         if (!_.isUndefined(comment)) {
                             $scope.comment = comment;
 
                             // deregister
-                            $scope.$watch(model, function () {
+                            $scope.$watch(ngModel, function () {
                             });
                         }
                     });
+                } else {
+                    $scope.comment = model;
                 }
             }
         }

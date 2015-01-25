@@ -22,6 +22,20 @@
                 </span>
                 <span class="label label-warning label-pending">PENDING APPROVAL</span>
 
+                <div class="dropdown pull-right" ng-if="isadmin">
+                    <a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li role="presentation"><a href="javascript:void(0)" tabindex="-1" role="menuitem">Mark as
+                            Spam</a></li>
+                        <li role="presentation"><a href="javascript:void(0)" tabindex="-1" role="menuitem">Delete</a>
+                        </li>
+                        <li role="presentation"><a href="javascript:void(0)" tabindex="-1" role="menuitem">Blacklist
+                            User</a></li>
+                    </ul>
+                </div>
+
                 <div class="text">{{::comment.text}}</div>
             </div>
 

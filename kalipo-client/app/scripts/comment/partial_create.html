@@ -1,17 +1,15 @@
 <!--ng-if="mainCtrl.authenticated"-->
-<div style="padding-top: 10px;" class="clearfix row">
+<div style="padding-top: 10px;" class="clearfix col-lg-12 col-xs-12">
 
-    <form novalidate ng-submit="draft.parentId = null; create()">
-        <div class="col-md-11 col-sm-10 col-xs-10">
-
+    <form novalidate ng-submit="draft.parentId = null; submit()">
+        <div class="row">
             <textarea class="form-control field-comment" placeholder="Say Something" ng-model="draft.text"
                       ng-minlength=1 ng-maxlength=2048 required rows="1"></textarea>
         </div>
-        <div class="col-md-1 col-sm-2 col-xs-2">
+        <div class="row">
             <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
-                Send
+                Submit
             </button>
-
         </div>
     </form>
 

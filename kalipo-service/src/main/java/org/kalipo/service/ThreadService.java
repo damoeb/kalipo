@@ -152,6 +152,11 @@ public class ThreadService {
         return new AsyncResult<Page<Comment>>(commentRepository.findByThreadIdAndStatusIn(id, Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING, Comment.Status.DELETED), pageable));
     }
 
+    @Async
+    public Future<List<Comment>> getCommentsSince(String id, DateTime since) throws KalipoException {
+        return new AsyncResult<List<Comment>>(commentRepository.findByThreadIdAndCreatedDateAfter(id, since));
+    }
+
     public void delete(String id) throws KalipoException {
         // todo check permissons
 

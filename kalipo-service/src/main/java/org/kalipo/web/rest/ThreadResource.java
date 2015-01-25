@@ -104,8 +104,8 @@ public class ThreadResource {
 
         return Optional.ofNullable(threadService.get(id).get())
                 .map(thread -> new ResponseEntity<>(
-                        thread,
-                        HttpStatus.OK))
+                    thread,
+                    HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
@@ -141,12 +141,39 @@ public class ThreadResource {
         log.debug("REST request to get Comments of Thread : {}", id);
         Asserts.isNotNull(id, "id");
 
+        // todo methode fuer comments from {id}
+
         return Optional.ofNullable(threadService.getCommentsWithPages(id, ParamFixer.fixPage(page)).get())
-                .map(thread -> new ResponseEntity<>(
-                        thread,
+            .map(comments -> new ResponseEntity<>(
+                comments,
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+//    /**
+//     * GET  /rest/threads/:id/diff -> get comments of the "id" thread.
+//     */
+//    @RequestMapping(value = "/threads/{id}/diff",
+//            method = RequestMethod.GET,
+//            produces = MediaType.APPLICATION_JSON_VALUE)
+//    @Timed
+//    @ApiOperation(value = "Get diff comments of the \"id\" thread.")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 400, message = "Invalid ID supplied"),
+//            @ApiResponse(code = 404, message = "Thread not found")
+//    })
+//    public ResponseEntity<List<Comment>> getDiff(@PathVariable String id) throws KalipoException, ExecutionException, InterruptedException {
+//        log.debug("REST request to get diff of Thread : {}", id);
+//        Asserts.isNotNull(id, "id");
+//
+//        DateTime since = DateTime.now().minusSeconds(30);
+//
+//        return Optional.ofNullable(threadService.getCommentsSince(id, since).get())
+//                .map(thread -> new ResponseEntity<>(
+//                        thread,
+//                        HttpStatus.OK))
+//                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//    }
 
     /**
      * GET  /rest/threads/:id/outline -> get outline of the "id" thread.

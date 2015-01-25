@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 import org.kalipo.validation.ModelExistsConstraint;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -37,6 +38,9 @@ public class Comment {
 
     @CreatedDate
     private DateTime createdDate;
+
+    @LastModifiedDate
+    private DateTime lastModifiedDate;
 
     @NotNull(message = "{constraint.notnull.text}")
     @Size(min = 2, max = LEN_TEXT, message = "{constraint.length.text}")
@@ -244,6 +248,14 @@ public class Comment {
 
     public void setQuality(Double quality) {
         this.quality = quality;
+    }
+
+    public DateTime getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(DateTime lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     /**
