@@ -3,10 +3,12 @@ package org.kalipo.agent;
 import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.domain.Comment;
+import org.kalipo.domain.Notice;
 import org.kalipo.domain.Thread;
 import org.kalipo.domain.User;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.ThreadRepository;
+import org.kalipo.service.NoticeService;
 import org.kalipo.service.UserService;
 import org.kalipo.service.util.NumUtils;
 import org.slf4j.Logger;
@@ -17,10 +19,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.DoubleFunction;
 
 @Service
@@ -37,6 +36,9 @@ public class CommentAgent {
 
     @Inject
     private UserService userService;
+
+    @Inject
+    private NoticeService noticeService;
 
     @Scheduled(fixedDelay = 20000)
     public void setStatusAndQuality() {
@@ -82,14 +84,36 @@ public class CommentAgent {
 //                            log.info(String.format("%s creates spam comment %s ", authorId, comment.toString()));
 //
 //                        } else {
+
+                        Notice.Type type = Notice.Type.APPROVAL;
+
                         if (isMod || isSuperMod || quality > 0.5) {
                             comment.setStatus(Comment.Status.APPROVED);
                             log.info(String.format("%s creates approved comment %s (q:%s)", authorId, comment.getId(), quality));
+
+                        } else if (quality > 0.5) {
+                            Comment.Status status;
+                            if (excessiveUpperCase(comment)) {
+                                type = Notice.Type.REJECTED;
+                                status = Comment.Status.REJECTED;
+                                comment.setReviewMsg("Excessive upper-case usage");
+                            } else if (excessiveSpecialChars(comment)) {
+                                type = Notice.Type.REJECTED;
+                                status = Comment.Status.REJECTED;
+                                comment.setReviewMsg("Excessive special-char usage");
+                            } else {
+                                status = Comment.Status.APPROVED;
+                            }
+
+                            comment.setStatus(status);
+                            log.info(String.format("%s creates %s comment %s (q:%s)", authorId, status.name().toLowerCase(), comment.getId(), quality));
                         } else {
+                            type = Notice.Type.PENDING;
                             comment.setStatus(Comment.Status.PENDING);
                             log.info(String.format("%s creates pending comment %s  (q:%s)", authorId, comment.getId(), quality));
                         }
-//                        }
+
+                        noticeService.notifyAsync(comment.getAuthorId(), "admin", type, comment.getId());
                     }
 
                     commentRepository.save(pendings);
@@ -99,6 +123,18 @@ public class CommentAgent {
         } catch (Exception e) {
             log.error("Influence estimation failed.", e);
         }
+    }
+
+    private boolean excessiveSpecialChars(Comment comment) {
+        // todo implement
+        return false;
+    }
+
+    private boolean excessiveUpperCase(Comment comment) {
+        String text = comment.getText();
+        long ucCount = text.chars().filter(Character::isUpperCase).count();
+        int len = text.length();
+        return len > 20 && ucCount > 15;
     }
 
 
@@ -152,7 +188,9 @@ public class CommentAgent {
 //                    Comment θ = comment.getParentId()==null ? null : thisComments.get(comment.getParentId()); //theta - outgoing influence
                     Double i_out = 0d; //w_out.apply(NumUtils.nullToZero(θ == null ? null : θ.getInfluence()));
                     int i_inCount = i.isEmpty() ? 0 : 1 + i.size();
-                    Double i_in = w_in.apply(i_inCount + influence_incoming(i, influenceMap));
+                    comment.setAuthorDiversityOfReplies(getAuthorDiversity(i));
+
+                    Double i_in = comment.getAuthorDiversityOfReplies() * w_in.apply(i_inCount + influence_incoming(i, influenceMap));
                     double transitiveInfluence = i_in - i_out;
 
                     // todo include comment.getQuality()
@@ -180,6 +218,27 @@ public class CommentAgent {
         } catch (Exception e) {
             log.error("Influence estimation failed.", e);
         }
+    }
+
+    private double getAuthorDiversity(Set<Comment> comments) {
+        if (comments.isEmpty()) {
+            return 0d;
+        }
+
+        Set<String> uniqueAuthor = new HashSet<>(comments.size());
+        double inheritedDiversity = 0d;
+
+        for (Comment c : comments) {
+            uniqueAuthor.add(c.getDisplayName());
+            inheritedDiversity += c.getAuthorDiversityOfReplies();
+        }
+
+        if (inheritedDiversity == 0) { // should never be 0
+            inheritedDiversity = 1d;
+        }
+
+        double size = (double) comments.size();
+        return inheritedDiversity / size * uniqueAuthor.size() / size;
     }
 
     private Double influence_incoming(Set<Comment> incoming, Map<String, Double> influenceMap) {

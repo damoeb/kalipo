@@ -86,6 +86,11 @@ public class Comment {
 
     private String reviewerId;
 
+    @JsonIgnore
+    private double authorDiversityOfReplies = 1d;
+
+    private String reviewMsg;
+
     // Publish post as anonymous
     @Transient
     private Boolean anonymous;
@@ -258,11 +263,27 @@ public class Comment {
         this.lastModifiedDate = lastModifiedDate;
     }
 
+    public double getAuthorDiversityOfReplies() {
+        return authorDiversityOfReplies;
+    }
+
+    public void setAuthorDiversityOfReplies(double authorDiversityOfReplies) {
+        this.authorDiversityOfReplies = authorDiversityOfReplies;
+    }
+
+    public String getReviewMsg() {
+        return reviewMsg;
+    }
+
+    public void setReviewMsg(String reviewMsg) {
+        this.reviewMsg = reviewMsg;
+    }
+
     /**
      * Created by damoeb on 7/28/14.
      */
     public static enum Status {
-        APPROVED, PENDING, SPAM, DELETED
+        APPROVED, PENDING, SPAM, REJECTED, DELETED
     }
 
     @Override

@@ -108,17 +108,22 @@ public class NoticeService {
     }
 
     @Async
-    public void notifyAsync(String recipientId, String initiatorId, Notice.Type type, String commentId) {
+    public void notifyAsync(String recipientId, String initiatorId, Notice.Type type, String commentId, String message) {
         try {
             Asserts.isNotNull(recipientId, "recipientId");
             Asserts.isNotNull(type, "type");
             Asserts.isNotNull(commentId, "commentId");
 
-            sendNotice(recipientId, initiatorId, type, commentId);
+            sendNotice(recipientId, initiatorId, type, commentId, message);
 
         } catch (Exception e) {
             log.error(String.format("Unable to notify %s with %s of %s. Reason: %s", recipientId, type, commentId, e.getMessage()));
         }
+    }
+
+    @Async
+    public void notifyAsync(String recipientId, String initiatorId, Notice.Type type, String commentId) {
+        notifyAsync(recipientId, initiatorId, type, commentId, null);
     }
 
     @Async
@@ -176,17 +181,22 @@ public class NoticeService {
 
     // --
 
-    private void sendNotice(String recipientId, String initiatorId, Notice.Type type, String resourceId) {
+    private void sendNotice(String recipientId, String initiatorId, Notice.Type type, String resourceId, String message) {
 
         // todo should be debug
         log.info(String.format("Notify %s of %s on resource %s", recipientId, type.name(), resourceId));
 
         Notice notice = new Notice();
+        notice.setMessage(message);
         notice.setRecipientId(recipientId);
         notice.setInitiatorId(initiatorId);
         notice.setResourceId(resourceId);
         notice.setType(type);
 
         noticeRepository.save(notice);
+    }
+
+    private void sendNotice(String recipientId, String initiatorId, Notice.Type type, String resourceId) {
+        sendNotice(recipientId, initiatorId, type, resourceId, null);
     }
 }

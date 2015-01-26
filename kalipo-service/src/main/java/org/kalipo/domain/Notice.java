@@ -34,6 +34,8 @@ public class Notice implements Serializable {
     @NotNull(message = "{constraint.notnull.initiatorId}")
     private String initiatorId;
 
+    private String message;
+
     public String getId() {
         return id;
     }
@@ -90,7 +92,15 @@ public class Notice implements Serializable {
         this.initiatorId = initiatorId;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public static enum Type {
-        LIKE, MENTION, REPLY, DELETION, REPORT, REVIEW, FRAUDULENT_USER, APPROVAL
+        LIKE, MENTION, REPLY, DELETION, REPORT, REVIEW, FRAUDULENT_USER, REJECTED, PENDING, APPROVAL
     }
 }
