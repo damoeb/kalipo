@@ -19,11 +19,12 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
         $scope.pages = [];
 
+        var tree = {};
+
         var $this = this;
 
         $this.groupedByIdMaster = {};
 
-        // todo implement a comment retrieval, that supports pagination
         var currentPage = -1;
 
         $scope.loadMore = function () {
@@ -56,9 +57,11 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
                 var comments = __postFetchComments(pageData.content);
 
+                var roots = __mergeWithTree(tree, comments);
+
                 $scope.pages.push({
                     id: currentPage,
-                    comments: comments
+                    comments: roots
                 });
 
                 //__startLiveUpdates();
@@ -93,26 +96,6 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 $rootScope.liveRequest.sendMessage(isTyping, threadId);
             }, 10000);
         };
-
-        //var timerId;
-        //var __startLiveUpdates = function() {
-        //    console.log('Starting live updates');
-        //    if(_.isUndefined(timerId)) {
-        //        timerId = setInterval(function() {
-        //
-        //            Thread.diff({id:threadId}, function(comments) {
-        //
-        //                console.log(comments.length + ' updates');
-        //
-        //            });
-        //
-        //        }, 3000);
-        //    }
-        //};
-        //var __stopLiveUpdates = function() {
-        //    console.log('Stopping live updates')
-        //    clearInterval(timerId)
-        //};
 
         $scope.updateThread = function () {
 
@@ -185,11 +168,6 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 comment.$minimized = comment.dislikes > 3 && comment.dislikes > comment.likes;
                 comment.$score = Math.max(comment.likes - comment.dislikes, 1) / comment.createdDate;
 
-//                console.log(comment.createdDate);
-//                console.log(comment.$score);
-
-                // todo wenn mehr als 3 kommentare zeige nur die relevaten 3 an all "23 kommentare anzeigen"
-
                 // author chose to hide his name
                 if (_.isEmpty(comment.displayName) || _.isUndefined(comment.displayName)) {
                     comment.displayName = 'Anonymous';
@@ -202,29 +180,26 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
             });
         };
 
-        //var _mergeIntoTree = function (comments) {
-        //
-        //    return _.filter(comments, function(comment) {
-        //        if (comment.parentId == null) {
-        //            return true;
-        //        } else {
-        //            var parents = $this.groupedByIdMaster[comment.parentId];
-        //            if (_.isUndefined(parents) || parents == null) {
-        //                throw 'cannot find ' + comment.parentId
-        //            }
-        //            var parent = parents[0];
-        //            parent.children.push(comment);
-        //
-        //            // push commentCount to parents
-        //            var child = comment;
-        //            while(child.parentId) {
-        //                parent = $this.groupedByIdMaster[child.parentId][0];
-        //                parent.$commentCount += 1;
-        //                child = parent;
-        //            }
-        //        }
-        //    });
-        //};
+        var __mergeWithTree = function (tree, comments) {
+
+            var roots = [];
+
+            _.forEach(comments, function (comment) {
+
+                tree[comment.id] = comment;
+
+                if (comment.level == 0 || _.isUndefined(comment.parentId)) {
+                    roots.push(comment);
+
+                } else {
+
+                    var children = tree[comment.parentId].children;
+                    children.push(comment);
+                }
+            });
+
+            return roots;
+        };
 
         $scope.report = function (comment) {
             comment.report = false;
