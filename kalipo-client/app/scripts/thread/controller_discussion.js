@@ -59,6 +59,8 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
                 var roots = __mergeWithTree(tree, comments);
 
+                __classifyByInfluence(roots);
+
                 $scope.pages.push({
                     id: currentPage,
                     comments: roots
@@ -136,7 +138,12 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         var __postFetchComments = function (comments) {
 
             return _.forEach(comments, function(comment) {
-                comment.children = [];
+                comment.replies = {
+                    $all: [],
+                    verbose: [],
+                    furthermore: []
+                };
+
                 comment.$report = false;
                 comment.$commentCount = 1;
 
@@ -180,6 +187,40 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
             });
         };
 
+        var __classifyByInfluence = function (comments) {
+            console.log('classify');
+            __classifyByInfluenceRc(comments, 1);
+        };
+
+        var __classifyByInfluenceRc = function (comments, level) {
+            _.forEach(comments, function (comment) {
+
+                var replies = comment.replies.$all;
+                var verbose = comment.replies.verbose;
+                var furthermore = comment.replies.furthermore;
+
+                __classifyByInfluenceRc(replies, level +1);
+
+                _.forEach(replies, function(reply, index) {
+                    if(comment.influence <= 0 || index > 4) { // todo && older than n views && not owner of comment
+
+                        if(replies.length < 3 || level > 1) {
+                            comment.$little = true;
+                            verbose.push(comment);
+                        } else {
+                            furthermore.push(comment.id);
+                        }
+
+                    } else {
+                        verbose.push(comment);
+                    }
+                });
+
+                delete comment.replies.$all;
+
+            });
+        };
+
         var __mergeWithTree = function (tree, comments) {
 
             var roots = [];
@@ -193,8 +234,9 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
                 } else {
 
-                    var children = tree[comment.parentId].children;
-                    children.push(comment);
+                    var replies = tree[comment.parentId].replies;
+
+                    replies.$all.push(comment);
                 }
             });
 
