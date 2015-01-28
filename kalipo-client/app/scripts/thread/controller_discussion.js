@@ -202,17 +202,17 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 __classifyByInfluenceRc(replies, level +1);
 
                 _.forEach(replies, function(reply, index) {
-                    if(comment.influence <= 0 || index > 4) { // todo && older than n views && not owner of comment
+                    if (reply.influence <= 0 || index > 4) { // todo && older than n views && not owner of comment
 
                         if(replies.length < 3 || level > 1) {
-                            comment.$little = true;
-                            verbose.push(comment);
+                            reply.$little = true;
+                            verbose.push(reply);
                         } else {
-                            furthermore.push(comment.id);
+                            furthermore.push(reply.id);
                         }
 
                     } else {
-                        verbose.push(comment);
+                        verbose.push(reply);
                     }
                 });
 

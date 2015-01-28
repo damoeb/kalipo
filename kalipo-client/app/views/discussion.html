@@ -86,9 +86,9 @@
                 <div ng-repeat="page in pages">
                     Page {{page.id}}: {{page.comments.length}} comments
                     <dl style="margin:0;">
-                        <dd ng-repeat="comment in page.comments track by $index">
-                            <comment/>
-                        </dd>
+
+                        <collection collection="page.comments"></collection>
+
                     </dl>
                     <a id="page-{{page.id +1}}"></a>
                 </div>
@@ -102,7 +102,6 @@
             Moderated by <span ng-repeat="modId in thread.modIds">{{::modId}} </span>
         </div>
 
-        <!--<div class="col-lg-2 col-md-2 col-xs-2 col-lg-push-8" style="position: fixed">-->
         <div class="col-lg-3 col-md-3 col-xs-3 col-lg-push-1 col-md-push-1 col-xs-push-1">
             <div style="overflow-y: auto; overflow-x: hidden;">
                 <thread-outline></thread-outline>
