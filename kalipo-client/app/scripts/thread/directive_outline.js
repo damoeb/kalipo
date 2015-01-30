@@ -35,39 +35,40 @@ angular.module('kalipoApp')
 
                 Thread.outline({id: threadId}, function (comments) {
 
-                    $(document).ready(function() {
-                        //Cache the Window object
-
-                        $(window).scroll(function() {
-
-                            var scrollTop = $(this).scrollTop();
-
-                            // find first comment on viewport
-                            var $all = $('.comment');
-                            var $firstOnViewport = $($all[0]);
-                            for(var i=0; i<$all.length; i++) {
-                                var $comment = $($all[i]);
-                                if($comment.offset().top > scrollTop) {
-                                    $firstOnViewport = $comment;
-                                    break;
-                                }
-                            }
-
-                            //console.log('last', $element.parent().height(), scrollTop);
-                            var indexOfFirst = parseInt($firstOnViewport.attr('ng-data-index'));
-                            var outline = $element.parent();
-
-                            if(indexOfFirst == 0 || $element.parent().height() > scrollTop) {
-                                outline.css({'position':'relative', 'top':0});
-                            } else {
-                                outline.css({
-                                    'position': 'fixed',
-                                    'top': -(conf.height + conf.yspace) * indexOfFirst + $(window).height() / 2 + 'px'
-                                });
-                            }
-
-                        });
-                    });
+                    // todo uncomment
+                    //$(document).ready(function() {
+                    //    //Cache the Window object
+                    //
+                    //    $(window).scroll(function() {
+                    //
+                    //        var scrollTop = $(this).scrollTop();
+                    //
+                    //        // find first comment on viewport
+                    //        var $all = $('.comment');
+                    //        var $firstOnViewport = $($all[0]);
+                    //        for(var i=0; i<$all.length; i++) {
+                    //            var $comment = $($all[i]);
+                    //            if($comment.offset().top > scrollTop) {
+                    //                $firstOnViewport = $comment;
+                    //                break;
+                    //            }
+                    //        }
+                    //
+                    //        //console.log('last', $element.parent().height(), scrollTop);
+                    //        var indexOfFirst = parseInt($firstOnViewport.attr('ng-data-index'));
+                    //        var outline = $element.parent();
+                    //
+                    //        if(indexOfFirst == 0 || $element.parent().height() > scrollTop) {
+                    //            outline.css({'position':'relative', 'top':0});
+                    //        } else {
+                    //            outline.css({
+                    //                'position': 'fixed',
+                    //                'top': -(conf.height + conf.yspace) * indexOfFirst + $(window).height() / 2 + 'px'
+                    //            });
+                    //        }
+                    //
+                    //    });
+                    //});
 
 
                     var yRootOffset = 8; // if a level=0 comment occurs

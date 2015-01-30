@@ -1,52 +1,66 @@
-<div class="comment" ng-data-index="<%= $index + page.id * 50 %>"
-     style="border-left: <%= comment.level * 10 %>px solid #dedede;"
-     ng-class="{'pending':comment.$pending, 'minimized':comment.$minimized, 'imploded':comment.$imploded}">
-    <a id="<%= comment.id %>"></a>
+<div>
+    <div
+        class="comment <% if(comment.$pending) { %><%='pending' %><% } %> <% if(comment.$little) { %><%='little'  %><% } %>"
+        ng-data-index="<%= comment.$index + page.id * 50 %>"
+        id="comment-<%= comment.id %>"
+        style="border-left: <%= comment.level * 10 %>px solid #dedede;">
+        <a id="<%= comment.id %>"></a>
 
-    <div class="row">
+        <div class="row">
 
-        <!-- content -->
-        <div class="col-lg-12 col-xs-12">
+            <!-- content -->
+            <div class="col-lg-12 col-xs-12">
 
-            <div>
-                <a href="javascript:void(0)" class="name" title="toggle"
-                   ng-click="comment.$minimized = false; comment.$imploded = !comment.$imploded;"><%=
-                    comment.displayName %></a>
-                <!--<a class="show-full-comment">Show</a>-->
-                <%= comment.influence %>
-                <span class="points">
-                    <%= comment.likes-comment.dislikes %> points
-                </span>
-                <span class="date">
-                    <%= moment(comment.createdDate).fromNow() %>
-                </span>
-                <span class="label label-warning label-pending">PENDING APPROVAL</span>
-
-                <div class="dropdown pull-right" ng-if="isadmin">
-                    <a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="caret"></span>
+                <div style="overflow: hidden">
+                    <a href="javascript:void(0)" class="toggle-subcomments" ng-click="toggle('<%= comment.id %>')">
+                        [<% if(comment.$minimized) { %>+<% } else { %>-<% } %>]
                     </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li role="presentation"><a href="javascript:void(0)" tabindex="-1" role="menuitem">Mark as
-                            Spam</a></li>
-                        <li role="presentation"><a href="javascript:void(0)" tabindex="-1" role="menuitem">Delete</a>
-                        </li>
-                        <li role="presentation"><a href="javascript:void(0)" tabindex="-1" role="menuitem">Blacklist
-                            User</a></li>
-                    </ul>
+                    <!--<a class="show-full-comment" href="javascript:void(0)" ng-click="toggleComment('<%= comment.id %>')">[+]</a>-->
+
+                    <a href="javascript:void(0)" class="name" title="toggle"><%=
+                        comment.displayName %></a>
+
+                    <!--<%= comment.influence %>-->
+                    <!--<%= comment.$little %>-->
+                    <span class="points">
+                        <%= comment.likes-comment.dislikes %> points
+                    </span>
+                    <span class="date">
+                        <%= moment(comment.createdDate).fromNow() %>
+                    </span>
+                    <span class="label label-warning label-pending">PENDING APPROVAL</span>
+
+                    <div class="dropdown pull-right" ng-if="isadmin">
+                        <a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="presentation"><a href="javascript:void(0)" tabindex="-1" role="menuitem">Mark as
+                                Spam</a></li>
+                            <li role="presentation"><a href="javascript:void(0)" tabindex="-1"
+                                                       role="menuitem">Delete</a>
+                            </li>
+                            <li role="presentation"><a href="javascript:void(0)" tabindex="-1" role="menuitem">Blacklist
+                                User</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="text"><%= comment.text %></div>
+
+                    <a class="show-full-comment" href="javascript:void(0)" ng-click="unLittle('<%= comment.id %>')"
+                       title="Show full comment">more</a>
                 </div>
 
-                <div class="text"><%= comment.text %></div>
-            </div>
+                <!--<comment-menu></comment-menu>-->
+                <%= fnRenderMenu({comment: comment}) %>
 
-            <!--<comment-menu></comment-menu>-->
-            <%= fnRenderMenu({comment: comment}) %>
+            </div>
 
         </div>
 
+
+        <!--<comment-reply ng-render-if="$reply == '<%= comment.id %>'" comment-id="<%= comment.id %>"></comment-reply>-->
+        <!--<comment-report ng-render-if="$report == '<%= comment.id %>'" comment-id="<%= comment.id %>"></comment-report>-->
+
     </div>
-
-    <comment-reply ng-render-if="$reply == '<%= comment.id %>'"></comment-reply>
-    <comment-report ng-render-if="$report == '<%= comment.id %>'"></comment-report>
-
 </div>

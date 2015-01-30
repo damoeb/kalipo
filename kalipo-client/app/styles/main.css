@@ -138,9 +138,10 @@ a {
     color: blue;
 }
 
+.comment-wrapper {
+}
 .comment {
     padding: 5px 5px 5px 10px;
-    /*border-bottom: 1px solid #cccccc;*/
 }
 
 .comment-bar-likes {
@@ -216,12 +217,72 @@ a {
 .comment .text {white-space: pre-line;}
 .comment .menu {}
 
-.minimized.comment .name {}
-.minimized.comment .points {}
-.minimized.comment .date { display: none; }
-.minimized.comment .label-pending { display: none; }
-.minimized.comment .text { white-space: nowrap; overflow: hidden}
+.comment .show-full-comment {
+    display: none;
+}
+
+.little.comment .name {
+    display: none;
+}
+
+.little.comment .points {
+    display: none;
+}
+
+.little.comment .date {
+    display: none;
+}
+
+.little.comment .label-pending {
+}
+
+.little.comment .toggle-subcomments {
+    display: none
+}
+
+.little.comment .text {
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    line-height: 12px
+}
+
+.little.comment .menu {
+    display: none;
+}
+
+.little.comment .show-full-comment {
+    display: inline-block;
+}
+
+.minimized.comment .name {
+}
+
+.minimized.comment .points {
+}
+
+.minimized.comment .date {
+}
+
+.minimized.comment .label-pending {
+}
+
+.minimized.comment .toggle-subcomments {
+    display: none;
+}
+
+.minimized.comment .text {
+    display: none;
+}
 .minimized.comment .menu { display: none; }
+
+.minimized.comment .show-full-comment {
+    display: none;
+}
+
+.minimized.comment .replies {
+    display: none;
+}
 
 .abused-report {
     /*border-radius: 4px;*/

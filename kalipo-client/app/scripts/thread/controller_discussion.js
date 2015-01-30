@@ -55,7 +55,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
                 start = new Date().getTime();
 
-                var comments = __postFetchComments(pageData.content);
+                var comments = __postFetchComments(pageData.content, currentPage);
 
                 var roots = __mergeWithTree(tree, comments);
 
@@ -128,23 +128,23 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                     $scope.clear();
                 });
         };
-        //
-        //var _sortByScore = function (comments) {
-        //    return _.sortBy(comments, function (comment) {
-        //        return comment.$score
-        //    })
-        //};
 
-        var __postFetchComments = function (comments) {
+        var __sortByInfluence = function (comments) {
+            return _.sortBy(comments, function (comment) {
+                return -comment.influence
+            })
+        };
 
-            return _.forEach(comments, function(comment) {
+        var __postFetchComments = function (comments, currentPage) {
+
+            return _.forEach(comments, function (comment, index) {
                 comment.replies = {
                     $all: [],
                     verbose: [],
                     furthermore: []
                 };
 
-                comment.$report = false;
+                comment.$index = currentPage * 200 + index;
                 comment.$commentCount = 1;
 
                 if (comment.hidden) {
@@ -216,6 +216,9 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                     }
                 });
 
+                // sort by score
+                comment.replies.verbose = __sortByInfluence(comment.replies.verbose);
+
                 delete comment.replies.$all;
 
             });
@@ -252,30 +255,6 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 function () {
                     $scope.report.reason = null;
                 });
-        };
-
-        $scope.like = function (comment) {
-            comment.likes++;
-
-            var vote = {like: true, commentId: comment.id};
-
-            Vote.save(vote, function (updated) {
-//                noty({text: 'Liked', type: 'success'});
-            });
-        };
-
-        $scope.cancelRelyTo = function () {
-            $scope.draft.parentId = null;
-        };
-
-        $scope.dislike = function (comment) {
-            comment.dislikes++;
-
-            var vote = {like: false, commentId: comment.id};
-
-            Vote.save(vote, function (updated) {
-//                noty({text: 'Disliked', type: 'success'});
-            });
         };
 
         $scope.clear = function () {

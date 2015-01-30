@@ -6,6 +6,9 @@ angular.module('kalipoApp')
         return {
             restrict: 'E',
             replace: false,
+            scope: {
+                commentId: '='
+            },
             link: function ($scope, $element, $attributes) {
 
                 var condition = $attributes.ngRenderIf;
@@ -13,7 +16,7 @@ angular.module('kalipoApp')
                 $scope.$watch(condition, function (render) {
 
                     if (render) {
-                        console.log('reply', $scope.comment.id);
+                        console.log('reply', $scope.commentId);
                         $http.get('scripts/comment/partial_reply.html', {cache:true}).success(function(html) {
                             var e = $compile(html)($scope);
                             $element.append(e);
