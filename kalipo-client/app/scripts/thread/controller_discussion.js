@@ -80,24 +80,24 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
         __fetchComments();
 
-        var isTyping = false;
-        var stoppedTypingTimer = 0;
-        $scope.onTyping = function () {
-            if (!isTyping) {
-                console.log('started typing');
-                isTyping = true;
-                $rootScope.liveRequest.sendMessage(isTyping, threadId);
-            }
-
-            if (stoppedTypingTimer) {
-                clearInterval(stoppedTypingTimer);
-            }
-            stoppedTypingTimer = setTimeout(function () {
-                isTyping = false;
-                console.log('stopped typing');
-                $rootScope.liveRequest.sendMessage(isTyping, threadId);
-            }, 10000);
-        };
+        //var isTyping = false;
+        //var stoppedTypingTimer = 0;
+        //$scope.onTyping = function () {
+        //    if (!isTyping) {
+        //        console.log('started typing');
+        //        isTyping = true;
+        //        $rootScope.liveRequest.sendMessage(isTyping, threadId);
+        //    }
+        //
+        //    if (stoppedTypingTimer) {
+        //        clearInterval(stoppedTypingTimer);
+        //    }
+        //    stoppedTypingTimer = setTimeout(function () {
+        //        isTyping = false;
+        //        console.log('stopped typing');
+        //        $rootScope.liveRequest.sendMessage(isTyping, threadId);
+        //    }, 10000);
+        //};
 
         $scope.updateThread = function () {
 
@@ -284,43 +284,43 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
         // --
 
-        $scope.typing = [];
-
-        $scope.threadEventSocket = atmosphere;
-        $scope.threadEventSubSocket;
-        $scope.threadEventTransport = 'websocket';
-
-        $scope.threadEventRequest = { url: 'websocket/live/channel',
-            contentType: "application/json",
-            transport: $scope.threadEventTransport,
-            trackMessageLength: true,
-            reconnectInterval: 5000,
-            enableXDR: true,
-            timeout: 60000 };
-
-        $scope.threadEventRequest.onOpen = function (response) {
-            $scope.threadEventTransport = response.transport;
-            $scope.threadEventRequest.uuid = response.request.uuid;
-        };
-
-        $scope.threadEventRequest.onMessage = function (response) {
-            var message = response.responseBody;
-            var event = atmosphere.util.parseJSON(message);
-
-            if (event.threadId == threadId) {
-                if (event.typing) {
-                    $scope.typing.push(event.userLogin);
-                    $scope.typing = _.sortBy(_.compact($scope.typing), 'user');
-                } else {
-                    $scope.typing = _.remove($scope.typing, function (userLogin) {
-                        return userLogin != event.userLogin;
-                    })
-                }
-            }
-
-            $scope.$apply();
-        };
-
-        $scope.threadEventSubSocket = $scope.threadEventSocket.subscribe($scope.threadEventRequest);
+        //$scope.typing = [];
+        //
+        //$scope.threadEventSocket = atmosphere;
+        //$scope.threadEventSubSocket;
+        //$scope.threadEventTransport = 'websocket';
+        //
+        //$scope.threadEventRequest = { url: 'websocket/live/channel',
+        //    contentType: "application/json",
+        //    transport: $scope.threadEventTransport,
+        //    trackMessageLength: true,
+        //    reconnectInterval: 5000,
+        //    enableXDR: true,
+        //    timeout: 60000 };
+        //
+        //$scope.threadEventRequest.onOpen = function (response) {
+        //    $scope.threadEventTransport = response.transport;
+        //    $scope.threadEventRequest.uuid = response.request.uuid;
+        //};
+        //
+        //$scope.threadEventRequest.onMessage = function (response) {
+        //    var message = response.responseBody;
+        //    var event = atmosphere.util.parseJSON(message);
+        //
+        //    if (event.threadId == threadId) {
+        //        if (event.typing) {
+        //            $scope.typing.push(event.userLogin);
+        //            $scope.typing = _.sortBy(_.compact($scope.typing), 'user');
+        //        } else {
+        //            $scope.typing = _.remove($scope.typing, function (userLogin) {
+        //                return userLogin != event.userLogin;
+        //            })
+        //        }
+        //    }
+        //
+        //    $scope.$apply();
+        //};
+        //
+        //$scope.threadEventSubSocket = $scope.threadEventSocket.subscribe($scope.threadEventRequest);
 
     }]);

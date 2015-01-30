@@ -11,10 +11,13 @@ angular.module('kalipoApp')
         },
         templateUrl: 'scripts/comment/partial_comment.html',
         link: function ($scope, $element, $attrs) {
-            console.log('parent', $scope.comment.id, 'comment', $scope.comment.replies.verbose);
             if (angular.isArray($scope.comment.replies.verbose)) {
                 $element.append("<collection collection='comment.replies.verbose'></collection>");
                 $compile($element.contents())($scope)
+            }
+            var furthermore = $scope.comment.replies.furthermore;
+            if (angular.isArray(furthermore) && furthermore.length > 0) {
+                $compile('<div><a href="javascript:void(0)">{{comment.replies.furthermore.length}} more comments</a></div>')($scope)
             }
         }
     }
