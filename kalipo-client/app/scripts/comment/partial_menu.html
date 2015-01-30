@@ -1,22 +1,24 @@
 <div class="menu">
-    <a href="javascript:void(0)" ng-click="toggleReplyForm(comment)">Reply</a>
-    <a class="voteUp" href="javascript:void(0)" ng-click="like(comment)" ng-class="{'always':comment.likes>0}">
+    <a href="javascript:void(0)" ng-click="toggleReplyForm('<%= comment.id %>')">Reply</a>
+    <a class="voteUp" href="javascript:void(0)" ng-click="like('<%= comment.id %>')"
+       class="<% if (comment.likes>0) { %><%= 'always' %><% } %>">
         <span class="glyphicon glyphicon-thumbs-up"></span>
-        {{::comment.likes}}
+        <%= comment.likes %>
     </a>
-    <a class="voteDown" href="javascript:void(0)" ng-click="dislike(comment)" ng-class="{'always':comment.dislikes>0}">
+    <a class="voteDown" href="javascript:void(0)" ng-click="dislike('<%= comment.id %>')"
+       class="<% if (comment.dislikes>0) { %><%= 'always' %><% } %>">
         <span class="glyphicon glyphicon-thumbs-down"></span>
-        {{::comment.dislikes}}
+        <%= comment.dislikes %>
     </a>
-    <a ng-if="comment.parentId != null" href="#/thread/{{::comment.threadId}}?anchor={{::comment.parentId}}">
+    <a ng-if="comment.parentId != null" href="#/thread/<%= comment.threadId %>?anchor=<%= comment.parentId %>">
         Parent</a>
-    <a href="#/thread/{{::comment.threadId}}?anchor={{::comment.id}}" title="Permalink">
+    <a href="#/thread/<%= comment.threadId %>?anchor=<%= comment.id %>" title="Permalink">
         <span class="glyphicon glyphicon-link"></span>
     </a>
 
     <div class="flag pull-right">
         <a href="javascript:void(0)"
-           ng-click="toggleReportForm(comment)"
+           ng-click="toggleReportForm('<%= comment.id %>')"
            title="Report this comment">
             <span class="glyphicon glyphicon-flag"></span>
         </a>

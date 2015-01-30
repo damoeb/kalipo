@@ -87,7 +87,7 @@
                     Page {{page.id}}: {{page.comments.length}} comments
                     <dl style="margin:0;">
 
-                        <collection collection="page.comments"></collection>
+                        <collection collection="page.comments" page="page"></collection>
 
                     </dl>
                     <a id="page-{{page.id +1}}"></a>

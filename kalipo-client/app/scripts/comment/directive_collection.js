@@ -2,50 +2,68 @@
  * Created by markus on 16.12.14.
  */
 angular.module('kalipoApp')
-    .directive('collection', function ($compile) {
+    .directive('collection', function ($compile, $templateCache, $http) {
         return {
             restrict: 'E',
             replace: true,
             scope: {
-                collection: '='
+                collection: '=',
+                page: '='
             },
-            //template: '<div><replies ng-repeat="comment in collection" comment="comment"></replies></div>',
             template: '',
             link: function ($scope, $element, $attrs) {
 
-                $scope.comment = {
-                    replies: {
-                        verbose: $scope.collection
-                    }
-                };
+                $http.get('scripts/comment/partial_comment.html', {cache: true}).success(function (tmpl_comment) {
+                    $http.get('scripts/comment/partial_menu.html', {cache: true}).success(function (tmpl_menu) {
 
-                var tmpl_reply = _.template('<subcomment collection="comment.replies.verbose" index="<%= index %>"> <div><%= comment.id %> vs {{comment.id}}</div> </subcomment>');
+                        var compiled_comment = _.template(tmpl_comment);
+                        var compiled_menu = _.template(tmpl_menu);
 
-                var $thread = $('<ul></ul>');
+                        var $thread = $('<div></div>');
 
-                var _render = function(comment, $sink, index) {
+                        var _render = function (comment, $sink, index) {
 
-                    var $comment = $(tmpl_reply({comment:comment, index:index})).appendTo($sink);
+                            var $comment = $(compiled_comment({
+                                comment: comment,
+                                $index: index,
+                                page: $scope.page,
+                                fnRenderMenu: compiled_menu
+                            })).appendTo($sink);
 
-                    if(_.isArray(comment.replies.verbose)) {
-                        var $replies = $('<ul></ul>').appendTo($comment);
+                            if (_.isArray(comment.replies.verbose)) {
+                                var $replies = $('<div></div>').appendTo($sink);
 
-                        _.forEach(comment.replies.verbose, function(reply, index) {
-                            _render(reply, $replies, index);
+                                _.forEach(comment.replies.verbose, function (reply, index) {
+                                    _render(reply, $replies, index);
+                                });
+                            }
+                        };
+
+                        _.forEach($scope.collection, function (comment, index) {
+                            _render(comment, $thread, index);
                         });
-                    }
-                };
 
-                _.forEach($scope.collection, function(comment, index) {
-                    _render(comment, $thread, index);
+                        //var rendered = _.template(t_collection, {variable: 'data'})({collection: $scope.collection});
+
+                        //$element.append($thread);
+                        $element.append($compile($thread.contents())($scope));
+
+                    });
                 });
 
-                //var rendered = _.template(t_collection, {variable: 'data'})({collection: $scope.collection});
 
-                //$element.append($thread);
-                $element.append($compile($thread.contents())($scope));
+                $scope.toggleReplyForm = function (commentId) {
+                    console.log('reply', commentId);
+                    $scope.$reply = commentId;
+                    //comment.$report = false;
+                };
 
-                //$compile('<div><a href="javascript:void(0)">{{comment.replies.furthermore.length}} more comments</a></div>')($scope);
+                $scope.toggleReportForm = function (commentId) {
+                    console.log('report', commentId)
+                    //comment.$reply = false;
+                    $scope.$report = commentId;
+                };
+
             }
         }
     });
