@@ -216,29 +216,13 @@ a {
 .comment .label-pending {}
 .comment .text {white-space: pre-line;}
 .comment .menu {}
+.comment .show-full-comment {display: none;}
 
-.comment .show-full-comment {
-    display: none;
-}
-
-.little .comment .name {
-    display: none;
-}
-
-.little .comment .points {
-    display: none;
-}
-
-.little .comment .date {
-    display: none;
-}
-
-.little .comment .label-pending {
-}
-
-.little .comment .toggle-subcomments {
-    display: none;
-}
+.little .comment .name {display: none;}
+.little .comment .points {display: none;}
+.little .comment .date {display: none;}
+.little .comment .label-pending {}
+.little .comment .toggle-subcomments {display: none;}
 
 .little .comment .text {
     white-space: nowrap;
@@ -247,43 +231,18 @@ a {
     line-height: 12px
 }
 
-.little .comment .menu {
-    display: none;
-}
+.little .comment .menu {display: none;}
+.little .comment .show-full-comment {display: inline-block;}
 
-.little .comment .show-full-comment {
-    display: inline-block;
-}
-
-.minimized .comment .name {
-}
-
-.minimized .comment .points {
-}
-
-.minimized .comment .date {
-}
-
-.minimized .comment .label-pending {
-}
-
-.minimized .comment .toggle-subcomments {
-}
-
-.minimized .comment .text {
-    display: none;
-}
-
-.minimized .comment .menu {
-    display: none;
-}
-
-.minimized .comment .show-full-comment {
-}
-
-.minimized.comment-wrapper .replies {
-    display: none;
-}
+.minimized .comment .name {}
+.minimized .comment .points {}
+.minimized .comment .date {}
+.minimized .comment .label-pending {}
+.minimized .comment .toggle-subcomments {}
+.minimized .comment .text {display: none;}
+.minimized .comment .menu {display: none;}
+.minimized .comment .show-full-comment {}
+.minimized.comment-wrapper .replies {display: none;}
 
 .abused-report {
     /*border-radius: 4px;*/
