@@ -221,66 +221,67 @@ a {
     display: none;
 }
 
-.little.comment .name {
+.little .comment .name {
     display: none;
 }
 
-.little.comment .points {
+.little .comment .points {
     display: none;
 }
 
-.little.comment .date {
+.little .comment .date {
     display: none;
 }
 
-.little.comment .label-pending {
+.little .comment .label-pending {
 }
 
-.little.comment .toggle-subcomments {
-    display: none
+.little .comment .toggle-subcomments {
+    display: none;
 }
 
-.little.comment .text {
+.little .comment .text {
     white-space: nowrap;
     overflow: hidden;
     display: inline-block;
     line-height: 12px
 }
 
-.little.comment .menu {
+.little .comment .menu {
     display: none;
 }
 
-.little.comment .show-full-comment {
+.little .comment .show-full-comment {
     display: inline-block;
 }
 
-.minimized.comment .name {
+.minimized .comment .name {
 }
 
-.minimized.comment .points {
+.minimized .comment .points {
 }
 
-.minimized.comment .date {
+.minimized .comment .date {
 }
 
-.minimized.comment .label-pending {
+.minimized .comment .label-pending {
 }
 
-.minimized.comment .toggle-subcomments {
+.minimized .comment .toggle-subcomments {
+}
+
+.minimized .comment .text {
     display: none;
 }
 
-.minimized.comment .text {
-    display: none;
-}
-.minimized.comment .menu { display: none; }
-
-.minimized.comment .show-full-comment {
+.minimized .comment .menu {
     display: none;
 }
 
-.minimized.comment .replies {
+.minimized .comment .show-full-comment {
+}
+
+.minimized.comment-wrapper .replies {
     display: none;
 }
 

@@ -1,8 +1,8 @@
-<div>
+<div id="comment-<%= comment.id %>"
+     class="comment-wrapper <% if(comment.$pending) { %><%='pending' %><% } %> <% if(comment.$little) { %><%='little'  %><% } %>">
     <div
-        class="comment <% if(comment.$pending) { %><%='pending' %><% } %> <% if(comment.$little) { %><%='little'  %><% } %>"
+        class="comment"
         ng-data-index="<%= comment.$index + page.id * 50 %>"
-        id="comment-<%= comment.id %>"
         style="border-left: <%= comment.level * 10 %>px solid #dedede;">
         <a id="<%= comment.id %>"></a>
 
