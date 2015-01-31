@@ -25,7 +25,9 @@ kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 
         var __doFetchAchievements = function () {
             console.log('Fetch achievement of ' + $rootScope.login);
 
-            Achievement.list({'id': $rootScope.login, 'page': $scope.$page}, function (achievements) {
+            Achievement.list({'id': $rootScope.login, 'page': $scope.$page}, function (response) {
+
+                var achievements = response.content;
 
                 console.log('Got ' + achievements.length + ' achievements on page ' + $scope.$page);
 

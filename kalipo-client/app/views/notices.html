@@ -1,30 +1,9 @@
 <div ng-init="fetch()">
 
     <div class="clearfix klp-header">
-
-        <div style="float: left">
-            <h3 style="display: inline">
-                Notifications
-            </h3>
-        </div>
-        <div>
-            <ul class="nav nav-pills pull-right">
-                <li role="presentation">
-                    <a href="javascript:void(0)">
-                        Unread
-                        <span class="glyphicon glyphicon-bell" style="color: #E84B56;"
-                              ng-show="$pendingCount > 0"></span>
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="javascript:void(0)">
-                        Read
-                        <span class="glyphicon glyphicon-bell" style="color: #E84B56;"
-                              ng-show="$reportCount > 0"></span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <h3 style="display: inline">
+            Notifications
+        </h3>
     </div>
 
     <div ng-switch on="notices.length == 0">

@@ -1,12 +1,23 @@
 'use strict';
 
-kalipoApp.controller('NoticeController', function ($scope, Session, Notice) {
+kalipoApp.controller('NoticeController', function ($rootScope, $scope, Session, Notice) {
 
     // todo $rootScope.login is undefined on first load
     $scope.fetch = function () {
-        Notice.query({userId: Session.login, page: 0}, function (notices) {
-            $scope.notices = notices;
-        });
+
+        var __doFetchNotices = function () {
+            Notice.query({userId: $rootScope.login, page: 0}, function (notices) {
+                $scope.notices = notices;
+            });
+        };
+
+        if (typeof($rootScope.login) == 'undefined') {
+            console.log('wait');
+            $scope.$on('event:auth-authorized', __doFetchNotices);
+        } else {
+            console.log($rootScope.login);
+            __doFetchNotices();
+        }
     };
 
     $scope.hasUnseen = function () {

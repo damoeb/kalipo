@@ -63,14 +63,17 @@ angular.module('kalipoApp')
 
                 $scope.toggleReplyForm = function (commentId) {
                     console.log('reply', commentId);
-                    $scope.$reply = commentId;
-                    //comment.$report = false;
+
+                    // todo show popover
+                    //$http.get('scripts/comment/partial_reply.html', {cache:true}).success(function(raw_tmpl) {
+                    //    var html = $compile(_.template(raw_tmpl)({commendId:commentId}))($scope);
+                    //    $('#mod-' + commentId).append(html);
+                    //});
                 };
 
                 $scope.toggleReportForm = function (commentId) {
-                    console.log('report', commentId)
-                    //comment.$reply = false;
-                    $scope.$report = commentId;
+                    console.log('report', commentId);
+                    // todo show popover
                 };
 
                 $scope.unLittle = function (commentId) {
