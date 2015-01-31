@@ -58,7 +58,6 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 var comments = __postFetchComments(pageData.content, currentPage);
 
                 var roots = __mergeWithTree(tree, comments);
-
                 __classifyByInfluence(roots);
 
                 $scope.pages.push({
@@ -195,6 +194,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         var __classifyByInfluenceRc = function (comments, level) {
             _.forEach(comments, function (comment) {
 
+                comment.$repliesCount = 0;
                 var replies = comment.replies.$all;
                 var verbose = comment.replies.verbose;
                 var furthermore = comment.replies.furthermore;
@@ -202,6 +202,11 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 __classifyByInfluenceRc(replies, level +1);
 
                 _.forEach(replies, function(reply, index) {
+
+                    // get reply count
+                    comment.$repliesCount += 1; // reply itself
+                    comment.$repliesCount += reply.$repliesCount; // its replies
+
                     if (reply.influence <= 0 || index > 4) { // todo && older than n views && not owner of comment
 
                         if(replies.length < 3 || level > 1) {

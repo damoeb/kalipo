@@ -18,11 +18,9 @@ angular.module('kalipoApp')
 
                         var compiled_comment = _.template(tmpl_comment);
                         var compiled_menu = _.template(tmpl_menu);
-                        var compiled_more = _.template('<a href="javascript:void(0)">Load <strong><%= count %></strong> <% if(count==1) { %>comment<% } else { %>comments<% } %></a>');
+                        var compiled_more = _.template('<div><a href="javascript:void(0)" ng-click="getGappingComments()">Load <strong><%= count %></strong> <% if(count==1) { %>comment<% } else { %>comments<% } %></a></div>');
 
                         var $thread = $('<div></div>');
-
-                        var index = 0;
 
                         var __render = function (comment, $sink) {
 
@@ -41,7 +39,11 @@ angular.module('kalipoApp')
                             }
 
                             if (comment.replies.furthermore.length > 0) {
-                                $comment.append(compiled_more({count: comment.replies.furthermore.length}));
+                                // todo fix ids
+                                $comment.append(compiled_more({
+                                    count: comment.$repliesCount,
+                                    ids: comment.replies.furthermore
+                                }));
                             }
 
                         };
