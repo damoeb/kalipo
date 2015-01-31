@@ -217,32 +217,32 @@ a {
 .comment .text {white-space: pre-line;}
 .comment .menu {}
 .comment .show-full-comment {display: none;}
+.comment .replies-count {display: none;color: grey; font-size: smaller;}
 
-.little .comment .name {display: none;}
-.little .comment .points {display: none;}
-.little .comment .date {display: none;}
-.little .comment .label-pending {}
-.little .comment .toggle-subcomments {display: none;}
+.little .name {display: none;}
+.little .points {display: none;}
+.little .date {display: none;}
+.little .label-pending {}
 
-.little .comment .text {
+.little .text {
     white-space: nowrap;
     overflow: hidden;
     display: inline-block;
     line-height: 12px
 }
 
-.little .comment .menu {display: none;}
-.little .comment .show-full-comment {display: inline-block;}
+.little .menu {display: none;}
+.little .show-full-comment {display: inline-block;}
 
-.minimized .comment .name {}
-.minimized .comment .points {}
-.minimized .comment .date {}
-.minimized .comment .label-pending {}
-.minimized .comment .toggle-subcomments {}
-.minimized .comment .text {display: none;}
-.minimized .comment .menu {display: none;}
-.minimized .comment .show-full-comment {}
-.minimized.comment-wrapper .replies {display: none;}
+.minimized .name {}
+.minimized .points {}
+.minimized .date {display: none;}
+.minimized .label-pending {}
+.minimized .text {display: none;}
+.minimized .menu {display: none;}
+.minimized .show-full-comment {}
+.minimized .replies {display: none;}
+.minimized .replies-count {display: inline-block;}
 
 .abused-report {
     /*border-radius: 4px;*/
