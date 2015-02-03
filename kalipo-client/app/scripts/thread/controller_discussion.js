@@ -268,43 +268,35 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
         // --
 
-        //$scope.typing = [];
-        //
-        //$scope.threadEventSocket = atmosphere;
+        $scope.threadEventSocket = atmosphere;
         //$scope.threadEventSubSocket;
-        //$scope.threadEventTransport = 'websocket';
-        //
-        //$scope.threadEventRequest = { url: 'websocket/live/channel',
-        //    contentType: "application/json",
-        //    transport: $scope.threadEventTransport,
-        //    trackMessageLength: true,
-        //    reconnectInterval: 5000,
-        //    enableXDR: true,
-        //    timeout: 60000 };
-        //
-        //$scope.threadEventRequest.onOpen = function (response) {
-        //    $scope.threadEventTransport = response.transport;
-        //    $scope.threadEventRequest.uuid = response.request.uuid;
-        //};
-        //
-        //$scope.threadEventRequest.onMessage = function (response) {
-        //    var message = response.responseBody;
-        //    var event = atmosphere.util.parseJSON(message);
-        //
-        //    if (event.threadId == threadId) {
-        //        if (event.typing) {
-        //            $scope.typing.push(event.userLogin);
-        //            $scope.typing = _.sortBy(_.compact($scope.typing), 'user');
-        //        } else {
-        //            $scope.typing = _.remove($scope.typing, function (userLogin) {
-        //                return userLogin != event.userLogin;
-        //            })
-        //        }
-        //    }
-        //
-        //    $scope.$apply();
-        //};
-        //
-        //$scope.threadEventSubSocket = $scope.threadEventSocket.subscribe($scope.threadEventRequest);
+        $scope.threadEventTransport = 'websocket';
+
+        $scope.threadEventRequest = {
+            url: 'websocket/live/channel',
+            contentType: "application/json",
+            transport: $scope.threadEventTransport,
+            trackMessageLength: true,
+            reconnectInterval: 5000,
+            enableXDR: true,
+            timeout: 60000
+        };
+
+        $scope.threadEventRequest.onOpen = function (response) {
+            $scope.threadEventTransport = response.transport;
+            $scope.threadEventRequest.uuid = response.request.uuid;
+        };
+
+        $scope.threadEventRequest.onMessage = function (response) {
+            var message = atmosphere.util.parseJSON(response.responseBody);
+
+            if (message.threadId == threadId) {
+                console.log(message);
+            }
+
+            $scope.$apply();
+        };
+
+        $scope.threadEventSubSocket = $scope.threadEventSocket.subscribe($scope.threadEventRequest);
 
     }]);
