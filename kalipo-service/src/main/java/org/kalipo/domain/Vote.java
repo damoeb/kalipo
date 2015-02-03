@@ -1,5 +1,6 @@
 package org.kalipo.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.joda.time.DateTime;
 import org.kalipo.validation.ModelExistsConstraint;
 import org.springframework.data.annotation.CreatedDate;
@@ -15,6 +16,7 @@ import java.io.Serializable;
  */
 
 @Document(collection = "T_VOTE")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Vote implements Serializable {
 
     @Id

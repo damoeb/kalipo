@@ -12,6 +12,7 @@ import org.kalipo.repository.VoteRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
+import org.kalipo.service.util.BroadcastUtils;
 import org.kalipo.service.util.NumUtils;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
@@ -93,6 +94,8 @@ public class VoteService {
             // don't notify about dislikes, it's bad for the motivation and feeds a troll
         }
         commentRepository.save(comment);
+
+        BroadcastUtils.broadcast(vote);
 
         return voteRepository.save(vote);
     }
