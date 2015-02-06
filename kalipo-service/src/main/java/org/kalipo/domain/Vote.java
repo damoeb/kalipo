@@ -3,6 +3,7 @@ package org.kalipo.domain;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.joda.time.DateTime;
 import org.kalipo.validation.ModelExistsConstraint;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -17,7 +18,7 @@ import java.io.Serializable;
 
 @Document(collection = "T_VOTE")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Vote implements Serializable {
+public class Vote implements Serializable, Anonymizable<Vote> {
 
     @Id
     private String id;
@@ -37,6 +38,7 @@ public class Vote implements Serializable {
     @CreatedDate
     private DateTime createdDate;
 
+    @Override
     public String getThreadId() {
         return threadId;
     }
@@ -83,5 +85,14 @@ public class Vote implements Serializable {
 
     public void setCreatedDate(DateTime createdDate) {
         this.createdDate = createdDate;
+    }
+
+    @Override
+    public Vote anonymized() {
+        Vote a = new Vote();
+        BeanUtils.copyProperties(this, a);
+        a.setAuthorId(null);
+        a.setCreatedDate(null);
+        return a;
     }
 }

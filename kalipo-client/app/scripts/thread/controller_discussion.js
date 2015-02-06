@@ -269,7 +269,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         // --
 
         $scope.threadEventSocket = atmosphere;
-        //$scope.threadEventSubSocket;
+        $scope.threadEventSubSocket;
         $scope.threadEventTransport = 'websocket';
 
         $scope.threadEventRequest = {
@@ -290,11 +290,11 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         $scope.threadEventRequest.onMessage = function (response) {
             var message = atmosphere.util.parseJSON(response.responseBody);
 
-            if (message.threadId == threadId) {
-                console.log(message);
-            }
+            console.log('event', message);
 
-            $scope.$apply();
+            if (message.threadId == threadId) {
+
+            }
         };
 
         $scope.threadEventSubSocket = $scope.threadEventSocket.subscribe($scope.threadEventRequest);

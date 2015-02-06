@@ -95,7 +95,7 @@ public class VoteService {
         }
         commentRepository.save(comment);
 
-        BroadcastUtils.broadcast(vote);
+        BroadcastUtils.broadcast("vote", vote.anonymized());
 
         return voteRepository.save(vote);
     }
