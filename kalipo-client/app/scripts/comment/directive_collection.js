@@ -13,12 +13,12 @@ angular.module('kalipoApp')
             template: '',
             link: function ($scope, $element, $attrs) {
 
-                $http.get('scripts/comment/partial_comment.html', {cache: true}).success(function (tmpl_comment) {
-                    $http.get('scripts/comment/partial_menu.html', {cache: true}).success(function (tmpl_menu) {
+                $http.get('views/partial_comment.html', {cache: true}).success(function (tmpl_comment) {
+                    $http.get('views/partial_menu.html', {cache: true}).success(function (tmpl_menu) {
 
                         var compiled_comment = _.template(tmpl_comment);
                         var compiled_menu = _.template(tmpl_menu);
-                        var compiled_more = _.template('<div><a href="javascript:void(0)" ng-click="getGappingComments()">Load <strong><%= count %></strong> <% if(count==1) { %>comment<% } else { %>comments<% } %></a></div>');
+                        var compiled_more = _.template('<div><a href="javascript:void(0)" ng-click="getMissingComments(\'<%= ids %>\')">Load <strong><%= count %></strong> <% if(count==1) { %>comment<% } else { %>comments<% } %></a></div>');
 
                         var $thread = $('<div></div>');
 
@@ -42,7 +42,7 @@ angular.module('kalipoApp')
                                 // todo fix ids
                                 $comment.append(compiled_more({
                                     count: comment.$repliesCount,
-                                    ids: comment.replies.furthermore
+                                    ids: comment.replies.furthermore.join(',')
                                 }));
                             }
 

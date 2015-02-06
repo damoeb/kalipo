@@ -15,7 +15,7 @@ angular.module('kalipoApp')
 
                     if (render) {
                         console.log('report', $scope.comment.id);
-                        $http.get('scripts/comment/partial_report.html', {cache:true}).success(function(html) {
+                        $http.get('views/partial_report.html', {cache: true}).success(function (html) {
                             var e = $compile(html)($scope);
                             $element.replaceWith(e);
                         });

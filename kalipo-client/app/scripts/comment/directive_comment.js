@@ -9,7 +9,7 @@ angular.module('kalipoApp')
         scope: {
             comment: '='
         },
-        templateUrl: 'scripts/comment/partial_comment.html',
+        templateUrl: 'views/partial_comment.html',
         link: function ($scope, $element, $attrs) {
             if (angular.isArray($scope.comment.replies.verbose)) {
                 $element.append("<collection collection='comment.replies.verbose'></collection>");
