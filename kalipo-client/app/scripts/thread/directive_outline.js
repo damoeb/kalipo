@@ -40,14 +40,25 @@ angular.module('kalipoApp')
                     $(document).ready(function () {
                         //Cache the Window object
 
+                        var $this = $(this);
+
+                        // scroll end listener
+                        $this.scroll(function(){
+                            if ($this.data('scrollTimeout')) {
+                                clearTimeout($this.data('scrollTimeout'));
+                            }
+                            $this.data('scrollTimeout', setTimeout(__scroll, 200));
+                        });
+
+
                         var lastScrollTop = 0;
 
-                        setInterval(function () {
+                        var __scroll = function () {
 
                             var scrollTop = $(this).scrollTop();
 
                             if (scrollTop == lastScrollTop) {
-                                console.log('skip scroll');
+                                //console.log('skip scroll');
                                 return;
                             }
 
@@ -66,23 +77,26 @@ angular.module('kalipoApp')
                                 }
                             }
 
-                            //console.log('last', $element.parent().height(), scrollTop);
                             var indexOfFirst = parseInt($firstOnViewport.attr('ng-data-index'));
-                            var outline = $element.parent();
+                            var $outline = $element.parent();
 
                             if (indexOfFirst == 0 || $element.parent().height() > scrollTop) {
-                                outline.css({'position': 'relative', 'top': 0});
+                                $outline.css({'position': 'relative', 'top': 0});
                             } else {
-                                outline.css({
-                                    'position': 'fixed',
-                                    'top': -(conf.height + conf.yspace) * indexOfFirst + 100 + 'px'
+
+                                var _top = -(conf.height + conf.yspace) * indexOfFirst + 100;
+                                $outline.css({
+                                    'position': 'fixed'
+                                    //'top': _top + 'px'
+                                }).animate({top: _top}, '500', 'swing', function() {
+                                    console.log('done scrolling')
                                 });
                             }
 
-                        }, 1000);
+                        };
                     });
 
-                    var __graph = function () {
+                    var __drawGraph = function () {
 
                         var yRootOffset = 8; // if a level=0 comment occurs
                         var elHeight = 10;
@@ -165,7 +179,7 @@ angular.module('kalipoApp')
                             });
                     };
 
-                    __graph();
+                    __drawGraph();
 
 
                     $scope.$watch($scope.pages, function (pages) {
