@@ -16,15 +16,18 @@ public final class BroadcastUtils {
 
     private static final Logger log = LoggerFactory.getLogger(BroadcastUtils.class);
 
+    public static enum Type {
+        COMMENT, VOTE
+    }
+
     private static ObjectMapper jsonMapper = new ObjectMapper();
 
-    public static void broadcast(String name, Anonymizable data) throws KalipoException {
+    public static void broadcast(Type type, Anonymizable data) throws KalipoException {
         try {
-            Asserts.isNotNull(name, "name");
+            Asserts.isNotNull(type, "type");
             Asserts.isNotNull(data, "data");
-            Wrapper wrapper = new Wrapper(name, data);
+            Wrapper wrapper = new Wrapper(type.name(), data);
 
-            // todo broadcast does not work as expected
             BroadcasterFactory.getDefault().lookup(LiveChannelService.URL, true).broadcast(jsonMapper.writeValueAsString(wrapper));
         } catch (JsonProcessingException e) {
             log.warn("Failed broadcasting: " + e.getMessage());

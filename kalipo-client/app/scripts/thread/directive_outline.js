@@ -2,7 +2,7 @@
  * Created by markus on 16.12.14.
  */
 angular.module('kalipoApp')
-    .directive('threadOutline', function ($compile, $routeParams, Thread) {
+    .directive('threadOutline', function ($compile, $routeParams, $rootScope, Thread) {
         return {
             restrict: 'E',
             scope: {
@@ -96,7 +96,7 @@ angular.module('kalipoApp')
                         };
                     });
 
-                    var __drawGraph = function () {
+                    var __draw = function () {
 
                         var yRootOffset = 8; // if a level=0 comment occurs
                         var elHeight = 10;
@@ -176,25 +176,70 @@ angular.module('kalipoApp')
                             })
                             .on('click', function (d, i) {
                                 console.log('go to', d.id);
+                                // todo fix this
+                                //$(document).animate({
+                                //    scrollTop: $('#54c4c6b4c830ed79f392b012').offset().top
+                                //    //scrollTop: $('#' + d.id).offset().top
+                                //}, 2000);
                             });
                     };
 
-                    __drawGraph();
+                    var paginated = {};
+                    var grouped = _.groupBy(comments, function(comment, index) {
+                        return parseInt(index / 200);
+                    });
+                    _.forEach(grouped, function(comments, page) {
+                        paginated[page] = _.flatten(comments);
+                    });
 
+                    //console.log('paginated', paginated);
 
-                    $scope.$watch($scope.pages, function (pages) {
+                    $rootScope.$on('event:fetched-page', function() {
+                        console.log('new page', $scope.pages);
 
-                        console.log('pages', $scope.pages);
+                        _.forEach($scope.pages, function(page){
+
+                            paginated[page.id] = [];
+                            __flat(paginated[page.id], page.comments);
+                            paginated[page.id] = _.flatten(paginated[page.id]);
+
+                            //console.log('page', paginated[page.id]);
+
+                            _.forEach(paginated[page.id], function(comment) {
+                                paginated[page.id].push(comment);
+                            });
+
+                            // refill comments
+                            comments = [];
+
+                            //console.log('paginated', paginated);
+                            __pushAll(comments, paginated);
+
+                            //console.log('comments', comments);
+                        });
+
+                        __draw();
 
                     });
 
-                    // todo partially replace <comments> with loaded pages using pagesize
+                    //__draw();
 
-                    //var oldcomments = comments;
-                    //comments = [];
-                    //_.forEach($scope.pages, function(page){
-                    //
-                    //});
+
+                    var __pushAll = function(sink, pages) {
+                        _.forEach(pages, function(comments, page) {
+                            _.forEach(comments, function(comment) {
+                                sink.push(comment);
+                            })
+                        })
+                    };
+
+                    var __flat = function(sink, deepComments) {
+                        _.forEach(deepComments, function(comment) {
+                            sink.push(comment);
+                            //console.log(comment.id, comment.level);
+                            __flat(sink, comment.replies.verbose);
+                        });
+                    };
 
                 });
             }

@@ -61,8 +61,11 @@ angular.module('kalipoApp')
                 });
 
 
-                $scope.toggleReplyForm = function (commentId) {
-                    console.log('reply', commentId);
+                $scope.showReplyModal = function (commentId, quote) {
+                    console.log('reply', commentId, quote);
+
+                    var $modal = $('$replModal');
+
 
                     // todo show popover
                     //$http.get('scripts/comment/partial_reply.html', {cache:true}).success(function(raw_tmpl) {
