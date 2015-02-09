@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.joda.time.DateTime;
 import org.kalipo.validation.ModelExistsConstraint;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -18,7 +19,7 @@ import javax.validation.constraints.Size;
  */
 @Document(collection = "T_COMMENT")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Comment {
+public class Comment implements Anonymizable<Comment> {
 
     public static final int LEN_TEXT = 2048;
 
@@ -109,6 +110,16 @@ public class Comment {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Override
+    public Comment anonymized() {
+        Comment a = new Comment();
+        BeanUtils.copyProperties(this, a);
+        a.setCreatedDate(null);
+        a.setAuthorId(null);
+        a.setFingerprint(null);
+        return a;
     }
 
     public String getThreadId() {

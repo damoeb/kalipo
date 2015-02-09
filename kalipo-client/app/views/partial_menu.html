@@ -1,5 +1,5 @@
 <div class="menu">
-    <a href="javascript:void(0)" ng-click="toggleReplyForm('<%= comment.id %>')">Reply</a>
+    <a href="javascript:void(0)" ng-click="showReplyModal('<%= comment.id %>', '<%= comment.text %>')">Reply</a>
     <a class="voteUp" href="javascript:void(0)" ng-click="like('<%= comment.id %>')"
        class="<% if (comment.likes>0) { %><%= 'always' %><% } %>">
         <span class="glyphicon glyphicon-thumbs-up"></span>

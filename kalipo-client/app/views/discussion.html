@@ -64,25 +64,6 @@
 
                 <comment-create></comment-create>
 
-                <div style="padding: 0 10px 10px 10px; color: gray" ng-switch on="typing.length">
-
-                    <div ng-switch-when="0"></div>
-                    <div ng-switch-when="1">
-                        <strong>{{typing[0]}}</strong> is typing
-                    </div>
-                    <div ng-switch-default>
-                        <span ng-repeat="user in typing">
-
-                            <span ng-if="!$first && !$last">, </span>
-                            <span ng-if="$last"> and </span>
-                            <strong>{{user}}</strong>
-
-                        </span>
-                        are typing...
-                    </div>
-
-                </div>
-
                 <div ng-repeat="page in pages">
                     Page {{page.id}}: {{page.comments.length}} comments
                     <dl style="margin:0;">

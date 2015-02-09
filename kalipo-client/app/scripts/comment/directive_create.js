@@ -6,6 +6,6 @@ angular.module('kalipoApp')
         return {
             restrict: 'E',
 //        scope: {},
-            templateUrl: 'scripts/comment/partial_create.html'
+            templateUrl: 'views/partial_create.html'
         }
     });

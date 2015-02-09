@@ -10,6 +10,7 @@ import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.ThreadRepository;
 import org.kalipo.service.NoticeService;
 import org.kalipo.service.UserService;
+import org.kalipo.service.util.BroadcastUtils;
 import org.kalipo.service.util.NumUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,6 +90,9 @@ public class CommentAgent {
 
                         if (isMod || isSuperMod || quality > 0.5) {
                             comment.setStatus(Comment.Status.APPROVED);
+
+                            BroadcastUtils.broadcast(BroadcastUtils.Type.COMMENT, comment);
+
                             log.info(String.format("%s creates approved comment %s (q:%s)", authorId, comment.getId(), quality));
 
                         } else if (quality > 0.5) {
@@ -126,7 +130,7 @@ public class CommentAgent {
     }
 
     private boolean excessiveSpecialChars(Comment comment) {
-        // todo implement
+        // todo implement: reject comments only written in UPPER CASE or so
         return false;
     }
 

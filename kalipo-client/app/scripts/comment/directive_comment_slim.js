@@ -9,7 +9,7 @@ angular.module('kalipoApp')
             //scope: {
             //    'comment': '=comment'
             //},
-            templateUrl: 'scripts/comment/partial_comment_slim.html',
+            templateUrl: 'views/partial_comment_slim.html',
             link: function ($scope, $element, $attributes) {
 
                 var ngModel = $attributes.ngModel;

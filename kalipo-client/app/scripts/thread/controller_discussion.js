@@ -1,7 +1,7 @@
 'use strict';
 
-kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$location', '$anchorScroll', '$rootScope', 'Thread', 'Comment', 'Report', 'Vote',
-    function ($scope, $routeParams, $location, $anchorScroll, $rootScope, Thread, Comment, Report, Vote) {
+kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$location', '$anchorScroll', '$rootScope', 'Thread', 'Comment', 'Report',
+    function ($scope, $routeParams, $location, $anchorScroll, $rootScope, Thread, Comment, Report) {
 
         var threadId = $routeParams.threadId;
         var commentId = $routeParams.commentId;
@@ -33,6 +33,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         };
 
         $scope.scrollTo = function (id) {
+            console.log('scroll to comment', id);
             var old = $location.hash();
             $location.hash(id);
             $anchorScroll();
@@ -60,15 +61,19 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 var roots = __mergeWithTree(tree, comments);
                 __classifyByInfluence(roots);
 
-                $scope.pages.push({
+                var page = {
                     id: currentPage,
                     comments: roots
-                });
+                };
+                $scope.pages.push(page);
 
                 //__startLiveUpdates();
 
                 end = new Date().getTime();
                 console.log('Execution time: ' + (end - start));
+
+                console.log('-> event:fetched-page');
+                $rootScope.$broadcast('event:fetched-page', page);
 
                 //console.log('scroll to ', comments[0].id);
                 //$scope.scrollTo(comments[0].id);
@@ -78,25 +83,6 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         };
 
         __fetchComments();
-
-        //var isTyping = false;
-        //var stoppedTypingTimer = 0;
-        //$scope.onTyping = function () {
-        //    if (!isTyping) {
-        //        console.log('started typing');
-        //        isTyping = true;
-        //        $rootScope.liveRequest.sendMessage(isTyping, threadId);
-        //    }
-        //
-        //    if (stoppedTypingTimer) {
-        //        clearInterval(stoppedTypingTimer);
-        //    }
-        //    stoppedTypingTimer = setTimeout(function () {
-        //        isTyping = false;
-        //        console.log('stopped typing');
-        //        $rootScope.liveRequest.sendMessage(isTyping, threadId);
-        //    }, 10000);
-        //};
 
         $scope.updateThread = function () {
 
@@ -269,7 +255,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         // --
 
         $scope.threadEventSocket = atmosphere;
-        //$scope.threadEventSubSocket;
+        $scope.threadEventSubSocket;
         $scope.threadEventTransport = 'websocket';
 
         $scope.threadEventRequest = {
@@ -290,11 +276,11 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         $scope.threadEventRequest.onMessage = function (response) {
             var message = atmosphere.util.parseJSON(response.responseBody);
 
-            if (message.threadId == threadId) {
-                console.log(message);
-            }
+            console.log('event', message);
 
-            $scope.$apply();
+            if (message.threadId == threadId) {
+
+            }
         };
 
         $scope.threadEventSubSocket = $scope.threadEventSocket.subscribe($scope.threadEventRequest);
