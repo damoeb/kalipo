@@ -5,7 +5,7 @@ add repliesCount to comment
 rename comment.children to replies
 gatling/jmeter for load tests
 
-score: include freshness if younger than 3 days
+score: include freshness for roots if younger than 3 days
 
 furthermore
 - score <= 0 comments, older than n views
@@ -16,26 +16,6 @@ little
 
 verbose
 - comment with replies
-
-
-comment {
-  replies {
-    verbose: [
-      {$little:true},
-      ..
-    ],
-    furthermore: [
-      {
-        count: 3,
-        children: [
-	  ..   	
-	]
-      },
-      ..
-    ]
-  }
-}
-
 
 kommentar schreiben -> eingabe ersetzen durch laden symbol
 goto comment: service methode mit load comments from commendId
