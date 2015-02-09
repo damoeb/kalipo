@@ -98,6 +98,8 @@ angular.module('kalipoApp')
 
                     var __draw = function () {
 
+                        console.log('drawing outline');
+
                         var yRootOffset = 8; // if a level=0 comment occurs
                         var elHeight = 10;
                         var outWidth = $element.width();
@@ -136,6 +138,8 @@ angular.module('kalipoApp')
                         var iRange = Math.abs(minI) + Math.abs(maxI);
 
                         console.log('minI', minI, 'maxI', maxI, 'iRange', iRange);
+
+                        d3.select('#klp-outline').select('g').remove()
 
                         var g = d3.select('#klp-outline')
                             .attr('width', outWidth)
@@ -195,7 +199,8 @@ angular.module('kalipoApp')
                     //console.log('paginated', paginated);
 
                     $rootScope.$on('event:fetched-page', function() {
-                        console.log('new page', $scope.pages);
+
+                        console.log('-> event:fetched-page', $scope.pages);
 
                         _.forEach($scope.pages, function(page){
 

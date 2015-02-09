@@ -72,7 +72,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 end = new Date().getTime();
                 console.log('Execution time: ' + (end - start));
 
-                console.log('-> event:fetched-page');
+                console.log('event:fetched-page -> ...');
                 $rootScope.$broadcast('event:fetched-page', page);
 
                 //console.log('scroll to ', comments[0].id);
@@ -199,6 +199,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                             reply.$little = true;
                             verbose.push(reply);
                         } else {
+                            console.log('dropping', reply.id);
                             furthermore.push(reply.id);
                         }
 
@@ -210,7 +211,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 // sort by score
                 comment.replies.verbose = __sortByInfluence(comment.replies.verbose);
 
-                delete comment.replies.$all;
+                //delete comment.replies.$all;
 
             });
         };
@@ -228,9 +229,14 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
                 } else {
 
-                    var replies = tree[comment.parentId].replies;
+                    var parent = tree[comment.parentId];
+                    if (_.isUndefined(parent)) {
+                        console.log('cannot find parent of', comment.parentId);
+                    } else {
+                        var replies = parent.replies;
 
-                    replies.$all.push(comment);
+                        replies.$all.push(comment);
+                    }
                 }
             });
 

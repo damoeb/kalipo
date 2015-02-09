@@ -1,4 +1,4 @@
-next page does not load
+comment data is messy and contains duplicate ids
 infinite scroll
 support images in comments
 support links in comment

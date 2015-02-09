@@ -679,7 +679,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf456"),
+            "_id" : ObjectId("5484cc19c8301dc174baf45a"),
             "threadId" : "5484cc19c832000009108573",
             "text" : " schnell reinkombinieren  klingt irgendwie lustig nach dem Konsum der ersten Halbzeit.  ",
             "authorId" : "admin",
@@ -692,19 +692,19 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf457"),
+            "_id" : ObjectId("5484cc19c8301dc174baf45a"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "  man kennt das vielleicht von früher  oder von den spielen an dienstagen  Mittwochen und donnerstagen. Doch  doch  das ist derselbe sport   ",
             "authorId" : "admin",
             "level" : 2,
-            "parentId" : "5484cc19c8301dc174baf456",
+            "parentId" : "5484cc19c8301dc174baf45a",
             "fingerprint" : "999449994399942",
             "displayName" : "pure post still",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf458"),
+            "_id" : ObjectId("5484cc19c8301dc174baf758"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Was verdient eigentlich da könig ca. im Monat ",
             "authorId" : "admin",
@@ -720,7 +720,7 @@
             "text" : "die fristlose...",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf458",
+            "parentId" : "5484cc19c8301dc174baf758",
             "fingerprint" : "9994199940",
             "displayName" : "Ildefons Lima",
             "likes" : 5,
@@ -733,7 +733,7 @@
             "text" : "Eigrntlich eine Kündigung.",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf458",
+            "parentId" : "5484cc19c8301dc174baf758",
             "fingerprint" : "9994199939",
             "displayName" : "pure post still",
             "likes" : 16,
@@ -5648,7 +5648,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf456"),
+            "_id" : ObjectId("5484cc19c8301dc174baf45c"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Schwab  der einzige wos kickn koa bei Rapid ",
             "authorId" : "admin",
@@ -5661,12 +5661,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf457"),
+            "_id" : ObjectId("5484cc19c8301dc174baf45b"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "blödsinn.",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf456",
+            "parentId" : "5484cc19c8301dc174baf45c",
             "fingerprint" : "9954399542",
             "displayName" : "morgause",
             "likes" : 4,
@@ -5675,12 +5675,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf458"),
+            "_id" : ObjectId("5484cc19c8301dc174baf958"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "tschuingscho  grün natürlich",
             "authorId" : "admin",
             "level" : 2,
-            "parentId" : "5484cc19c8301dc174baf457",
+            "parentId" : "5484cc19c8301dc174baf45b",
             "fingerprint" : "995439954299541",
             "displayName" : "gerold wallner",
             "likes" : 1,
