@@ -40,9 +40,10 @@ public class UserAgent {
                 int boostRejected = 2;
                 double trustworthiness = log(approvedCount) / Math.max(1, boostRejected * log(rejectedCount));
 
-                log.info(String.format("%s with %s approved, %s rejected => %s trustworthiness", user.getLogin(), approvedCount, rejectedCount, trustworthiness));
-
-                user.setTrustworthiness(trustworthiness);
+                if(user.getTrustworthiness() != trustworthiness) {
+                    log.debug(String.format("%s with %s approved, %s rejected => %s trustworthiness", user.getLogin(), approvedCount, rejectedCount, trustworthiness));
+                    user.setTrustworthiness(trustworthiness);
+                }
             }
 
             userRepository.save(users);
