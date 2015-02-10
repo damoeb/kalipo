@@ -1,13 +1,12 @@
 'use strict';
 
-kalipoApp.controller('ThreadController', ['$scope', '$routeParams', 'Thread', '$location', '$anchorScroll',
-    function ($scope, $routeParams, Thread, $location, $anchorScroll) {
+kalipoApp.controller('ThreadController', ['$scope', '$routeParams', 'Thread',
+    function ($scope, $routeParams, Thread) {
 
         var threadId = $routeParams.threadId;
 
         $scope.$threadId = threadId;
 
-        // todo load on demand?
         Thread.get({id: threadId}, function (thread) {
 //            thread.uglyDucklingSurvivalEndDate = null;
 

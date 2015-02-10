@@ -62,8 +62,6 @@ angular.module('kalipoApp')
                                 return;
                             }
 
-                            console.log('scroll to');
-
                             lastScrollTop = scrollTop;
 
                             // find first comment on viewport
@@ -79,6 +77,8 @@ angular.module('kalipoApp')
 
                             var indexOfFirst = parseInt($firstOnViewport.attr('ng-data-index'));
                             var $outline = $element.parent();
+
+                            console.log('scroll to', indexOfFirst);
 
                             if (indexOfFirst == 0 || $element.parent().height() > scrollTop) {
                                 $outline.css({'position': 'relative', 'top': 0});
@@ -98,7 +98,7 @@ angular.module('kalipoApp')
 
                     var __draw = function () {
 
-                        console.log('drawing outline');
+                        console.log('drawing');
 
                         var yRootOffset = 8; // if a level=0 comment occurs
                         var elHeight = 10;
@@ -139,7 +139,7 @@ angular.module('kalipoApp')
 
                         console.log('minI', minI, 'maxI', maxI, 'iRange', iRange);
 
-                        d3.select('#klp-outline').select('g').remove()
+                        d3.select('#klp-outline').select('g').remove();
 
                         var g = d3.select('#klp-outline')
                             .attr('width', outWidth)
@@ -198,17 +198,13 @@ angular.module('kalipoApp')
 
                     //console.log('paginated', paginated);
 
-                    $rootScope.$on('event:fetched-page', function() {
-
-                        console.log('-> event:fetched-page', $scope.pages);
-
+                    var __postFetchedPage = function() {
+                        console.log('prepare drawing');
                         _.forEach($scope.pages, function(page){
 
                             paginated[page.id] = [];
                             __flat(paginated[page.id], page.comments);
                             paginated[page.id] = _.flatten(paginated[page.id]);
-
-                            //console.log('page', paginated[page.id]);
 
                             _.forEach(paginated[page.id], function(comment) {
                                 paginated[page.id].push(comment);
@@ -217,18 +213,20 @@ angular.module('kalipoApp')
                             // refill comments
                             comments = [];
 
-                            //console.log('paginated', paginated);
                             __pushAll(comments, paginated);
-
-                            //console.log('comments', comments);
                         });
 
                         __draw();
+                    };
 
+                    var timeoutId = setTimeout(__postFetchedPage, 1000);
+
+                    $rootScope.$on('event:fetched-page', function() {
+
+                        clearTimeout(timeoutId);
+                        console.log('-> event:fetched-page', $scope.pages);
+                        __postFetchedPage();
                     });
-
-                    //__draw();
-
 
                     var __pushAll = function(sink, pages) {
                         _.forEach(pages, function(comments, page) {

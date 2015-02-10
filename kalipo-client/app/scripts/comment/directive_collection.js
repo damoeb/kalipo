@@ -18,7 +18,7 @@ angular.module('kalipoApp')
 
                         var compiled_comment = _.template(tmpl_comment);
                         var compiled_menu = _.template(tmpl_menu);
-                        var compiled_more = _.template('<div><a href="javascript:void(0)" ng-click="getMissingComments(\'<%= ids %>\')">Load <strong><%= count %></strong> <% if(count==1) { %>comment<% } else { %>comments<% } %></a></div>');
+                        var compiled_more = _.template('<div class="furthermore"><a href="javascript:void(0)" ng-click="getMissingComments(\'<%= ids %>\')">&rarr; load <strong><%= count %></strong> <% if(count==1) { %>comment<% } else { %>comments<% } %></a></div>');
 
                         var $thread = $('<div></div>');
 
@@ -60,6 +60,10 @@ angular.module('kalipoApp')
                     });
                 });
 
+
+                $scope.getMissingComments = function (commentIds) {
+                    console.log('fetch missing comments of', commentIds)
+                };
 
                 $scope.showReplyModal = function (commentId, quote) {
                     console.log('reply', commentId, quote);

@@ -8,7 +8,7 @@
             </h2>
 
             <div>
-                by {{::thread.displayName}}, {{:: thread.createdDate|dateString}} ({{:: thread.createdDate|fromNow}})
+                by {{::thread.displayName}}, {{:: thread.createdDate | dateString}} ({{:: thread.createdDate | fromNow}})
             </div>
         </div>
         <div>
@@ -65,7 +65,9 @@
                 <comment-create></comment-create>
 
                 <div ng-repeat="page in pages">
-                    Page {{page.id}}: {{page.comments.length}} comments
+                    <!--Page {{page.id}}: {{page.comments.length}} comments-->
+                    <hr size="1">
+
                     <dl style="margin:0;">
 
                         <collection collection="page.comments" page="page"></collection>

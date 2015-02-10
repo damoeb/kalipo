@@ -17,15 +17,18 @@
                     <!--</a>-->
 
                     <a href="javascript:void(0)" class="name" ng-click="toggle('<%= comment.id %>')">
-                        <%= comment.displayName %>
-                    </a>
+                        <%= comment.displayName %></a>
 
                     <!--<%= comment.influence %>-->
-                    <%= comment.id %>
+                    <!--<%= comment.id %>-->
                     <!--<%= comment.$little %>-->
+
+                    <% if(comment.likes-comment.dislikes > 0) { %>
                     <span class="points">
                         <%= comment.likes-comment.dislikes %> points
                     </span>
+                    <% } %>
+
                     <span class="date">
                         <%= moment(comment.createdDate).fromNow() %>
                     </span>

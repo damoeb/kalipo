@@ -1,15 +1,15 @@
 <div class="menu">
     <a href="javascript:void(0)" ng-click="showReplyModal('<%= comment.id %>', '<%= comment.text %>')">Reply</a>
-    <a class="voteUp" href="javascript:void(0)" ng-click="like('<%= comment.id %>')"
-       class="<% if (comment.likes>0) { %><%= 'always' %><% } %>">
+    <a class="voteUp <% if (comment.likes>0) { %><%= 'always' %><% } %>"
+       href="javascript:void(0)" ng-click="like('<%= comment.id %>')">
         <span class="glyphicon glyphicon-thumbs-up"></span>
-        <%= comment.likes %>
-    </a>
-    <a class="voteDown" href="javascript:void(0)" ng-click="dislike('<%= comment.id %>')"
-       class="<% if (comment.dislikes>0) { %><%= 'always' %><% } %>">
+        <%= comment.likes %></a>
+
+    <a class="voteDown"
+       href="javascript:void(0)" ng-click="dislike('<%= comment.id %>')">
         <span class="glyphicon glyphicon-thumbs-down"></span>
-        <%= comment.dislikes %>
-    </a>
+        <%= comment.dislikes %></a>
+
     <a ng-if="comment.parentId != null" href="#/thread/<%= comment.threadId %>?anchor=<%= comment.parentId %>">
         Parent</a>
     <a href="#/thread/<%= comment.threadId %>?anchor=<%= comment.id %>" title="Permalink">

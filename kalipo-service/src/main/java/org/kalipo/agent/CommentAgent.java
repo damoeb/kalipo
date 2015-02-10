@@ -107,17 +107,24 @@ public class CommentAgent {
                                 comment.setReviewMsg("Excessive special-char usage");
                             } else {
                                 status = Comment.Status.APPROVED;
+                                noticeService.notifyMentionedUsers(comment, authorId);
                             }
 
                             comment.setStatus(status);
                             log.info(String.format("%s creates %s comment %s (q:%s)", authorId, status.name().toLowerCase(), comment.getId(), quality));
+
                         } else {
                             type = Notice.Type.PENDING;
                             comment.setStatus(Comment.Status.PENDING);
                             log.info(String.format("%s creates pending comment %s  (q:%s)", authorId, comment.getId(), quality));
+
+                            noticeService.notifyModsOfThread(thread, comment, authorId);
+                            if(comment.getParentId() != null) {
+                                noticeService.notifyAuthorOfParent(comment, authorId);
+                            }
                         }
 
-                        noticeService.notifyAsync(comment.getAuthorId(), "admin", type, comment.getId());
+//                        noticeService.notifyAsync(comment.getAuthorId(), "admin", type, comment.getId());
                     }
 
                     commentRepository.save(pendings);

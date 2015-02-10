@@ -17,7 +17,8 @@ public class Privileges {
      * Review all pending comments
      */
     public static final String REVIEW_COMMENT = "REVIEW_COMMENT";
-    public static final String CREATE_VOTE = "CREATE_VOTE";
+    public static final String VOTE_UP = "VOTE_UP";
+    public static final String VOTE_DOWN = "VOTE_DOWN";
     public static final String CREATE_PRIVILEGE = "CREATE_PRIVILEGE";
     public static final String CREATE_TAG = "CREATE_TAG";
     public static final String CREATE_REPORT = "CREATE_REPORT";

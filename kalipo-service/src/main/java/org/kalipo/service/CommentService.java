@@ -353,37 +353,16 @@ public class CommentService {
         dirty.setAuthorId(currentLogin);
         dirty.setFingerprint(getFingerprint(parent, thread));
 
-        // todo this part should be async. A separate process analyzes the comment and decides whether it is approved/review-required/spam
         final boolean isMod = thread.getModIds().contains(currentLogin);
 
-//        if (isMod || isSuperMod || commentRepository.getApprovedCommentCountOfUser(currentLogin) > 4) {
-//            dirty.setStatus(Comment.Status.APPROVED);
-//            log.info(String.format("%s creates comment %s ", currentLogin, dirty.toString()));
-//        } else {
-            dirty.setStatus(Comment.Status.PENDING);
-            log.info(String.format("%s creates pending comment %s ", currentLogin, dirty.toString()));
-//        }
+        dirty.setStatus(Comment.Status.PENDING);
+        log.info(String.format("%s creates pending comment %s ", currentLogin, dirty.toString()));
 
         assignSticky(dirty, original, isNew, isMod, isSuperMod);
 
         // --
 
         dirty = commentRepository.save(dirty);
-
-        if (dirty.getStatus() == Comment.Status.PENDING) {
-            noticeService.notifyModsOfThread(thread, dirty, currentLogin);
-        } else {
-
-            if (isNew) {
-                thread.setCommentCount(thread.getCommentCount() + 1);
-
-                threadRepository.save(thread);
-
-                noticeService.notifyAuthorOfParent(dirty, currentLogin);
-            }
-        }
-
-        noticeService.notifyMentionedUsers(dirty, currentLogin);
 
         return dirty;
     }

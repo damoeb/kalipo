@@ -183,8 +183,7 @@ public class NoticeService {
 
     private void sendNotice(String recipientId, String initiatorId, Notice.Type type, String resourceId, String message) {
 
-        // todo should be debug
-        log.info(String.format("Notify %s of %s on resource %s", recipientId, type.name(), resourceId));
+        log.debug(String.format("-> notify %s of %s on resource %s", recipientId, type.name(), resourceId));
 
         Notice notice = new Notice();
         notice.setMessage(message);

@@ -23,7 +23,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import java.util.List;
@@ -50,11 +49,16 @@ public class VoteService {
     @Inject
     private CommentRepository commentRepository;
 
-    @RolesAllowed(Privileges.CREATE_VOTE)
     @Throttled
     public Vote create(@Valid Vote vote) throws KalipoException {
 
         Asserts.isNull(vote.getId(), "id");
+
+        if(vote.isLike()) {
+            Asserts.hasPrivilege(Privileges.VOTE_UP);
+        } else {
+            Asserts.hasPrivilege(Privileges.VOTE_DOWN);
+        }
 
         final String currentLogin = SecurityUtils.getCurrentLogin();
         final boolean isSuperMod = userService.isSuperMod(currentLogin);

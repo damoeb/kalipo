@@ -134,7 +134,9 @@ ul#strength {
 
 /* Customizations */
 
-a {
+a,
+a:focus,
+a:hover {
     color: blue;
 }
 
@@ -219,20 +221,20 @@ a {
 .comment .show-full-comment {display: none;}
 .comment .replies-count {display: none;color: grey; font-size: smaller;}
 
-.little .name {display: none;}
-.little .points {display: none;}
-.little .date {display: none;}
-.little .label-pending {}
+.little>.comment .name {display: none;}
+.little>.comment .points {display: none;}
+.little>.comment .date {display: none;}
+.little>.comment .label-pending {}
 
-.little .text {
+.little>.comment .text {
     white-space: nowrap;
     overflow: hidden;
     display: inline-block;
     line-height: 12px
 }
 
-.little .menu {display: none;}
-.little .show-full-comment {display: inline-block;}
+.little>.comment .menu {display: none;}
+.little>.comment .show-full-comment {display: inline-block;}
 
 .minimized .name {}
 .minimized .points {}
@@ -242,6 +244,7 @@ a {
 .minimized .menu {display: none;}
 .minimized .show-full-comment {}
 .minimized .replies {display: none;}
+.minimized .furthermore {display: none;}
 .minimized .replies-count {display: inline-block;}
 
 .abused-report {

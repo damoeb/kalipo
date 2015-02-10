@@ -185,6 +185,8 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 var verbose = comment.replies.verbose;
                 var furthermore = comment.replies.furthermore;
 
+//                comment.$little = comment.likes - comment.dislikes < -4;
+
                 __classifyByInfluenceRc(replies, level +1);
 
                 _.forEach(replies, function(reply, index) {
@@ -204,6 +206,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                         }
 
                     } else {
+//                        reply.$little = false;
                         verbose.push(reply);
                     }
                 });
