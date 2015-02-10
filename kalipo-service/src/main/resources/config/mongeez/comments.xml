@@ -2,7 +2,7 @@
     <changeSet changeId="ChangeSet-comments" author="jhipster">
         <script>
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf451"),
+            "_id" : ObjectId("5484cc19c8301dc174baf001"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "http www.laola1.at de fussba... 8 7.html ein Artikel über die Zuschauerzahlen dieser buli saison",
             "authorId" : "admin",
@@ -13,12 +13,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf452"),
+            "_id" : ObjectId("5484cc19c8301dc174baf002"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "http derstandard.at 200000917... bescheiden hier ein weiterer  o ",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf451",
+            "parentId" : "5484cc19c8301dc174baf001",
             "fingerprint" : "9999899997",
             "displayName" : "puppetmaster",
             "likes" : 1,
@@ -26,7 +26,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf453"),
+            "_id" : ObjectId("5484cc19c8301dc174baf003"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "so schlecht das Match  auf irregulärem Rasen  auch war  und   im direkten Vergleich war HSV vs. Mainz auch um nix besser  nur vor viel mehr Zusehern und wenigstens auf gscheitem terrain .   der Unterschied zum Spiel des WAC vor einer Woche in Salzburg war  dass dort den millionenschweren Bullen ein  zumindest  Elfer in der 93. geschenkt wurde   und Rapid ein Elfer  der noch viel klarer war als der 1. für die Bullen   vorenthalten wurde. not more or less. natürlich spielen wir nicht gut  genug  zumal auf solchem Rasen und bei solch einem   sogar daheim   destruktiven Gegner. a b e r .....",
             "authorId" : "admin",
@@ -39,12 +39,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf454"),
+            "_id" : ObjectId("5484cc19c8301dc174baf004"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Wenn du schon den Elfer monierst  dann bitte auch das irreguläre zweite Tor für den WAC. Soviel Fairness sollte dann schon sein ... Und der WAC war in Salzburg mindestens genauso destruktiv. Da wurde es aber allerorts als taktische Meisterleistung gefeiert. Alleine das Foul an Kampl in der 20 Minuten von der Seite mit gestrecktem Bein wäre umgekehrt glatt Rot gewesen.",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf453",
+            "parentId" : "5484cc19c8301dc174baf003",
             "fingerprint" : "9999699995",
             "displayName" : "rpk",
             "likes" : 3,
@@ -53,12 +53,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf455"),
+            "_id" : ObjectId("5484cc19c8301dc174baf005"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Das ist richtig. Vom Taktischen her ist der WAC in Salzburg ganz ähnlich aufgetreten  wie gegen Rapid. Nur das eine war halt ein Auswärtsspiel beim übermächtigen Tabellenführer  während das andere daheim war. Die gefühlt nur zwei Torchancen  die der WAC in diesem Spiel hatte  sind bezeichnend.",
             "authorId" : "admin",
             "level" : 2,
-            "parentId" : "5484cc19c8301dc174baf454",
+            "parentId" : "5484cc19c8301dc174baf004",
             "fingerprint" : "999969999599994",
             "displayName" : "Modjo",
             "likes" : 1,
@@ -66,36 +66,36 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf456"),
+            "_id" : ObjectId("5484cc19c8301dc174baf006"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Da hatten sie in Salzburg auch nicht mehr  nur ist unsere Verteidigung im Moment so derma en dämlich  dass es schon nicht mehr lustig ist.",
             "authorId" : "admin",
             "level" : 3,
-            "parentId" : "5484cc19c8301dc174baf455",
+            "parentId" : "5484cc19c8301dc174baf005",
             "fingerprint" : "99996999959999499993",
             "displayName" : "rpk",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf457"),
+            "_id" : ObjectId("5484cc19c8301dc174baf007"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "An die 7 waren es in Salzburg. sogar 3 Hochkaräter darunter   o ",
             "authorId" : "admin",
             "level" : 4,
-            "parentId" : "5484cc19c8301dc174baf456",
+            "parentId" : "5484cc19c8301dc174baf006",
             "fingerprint" : "9999699995999949999399992",
             "displayName" : "puppetmaster",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf458"),
+            "_id" : ObjectId("5484cc19c8301dc174baf008"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "schwächsten gegner aller zeiten in der EL quali scheitert kann man nur als desaströs bezeichnen........aber der zocke ist sicher zufrieden  ",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf453",
+            "parentId" : "5484cc19c8301dc174baf003",
             "fingerprint" : "9999699991",
             "displayName" : "Karl Graus 2,0",
             "likes" : 4,
@@ -104,24 +104,24 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf459"),
+            "_id" : ObjectId("5484cc19c8301dc174baf009"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Die Saison geht noch ein bissl länger und Dila Gori letztes Jahr war definitiv noch 1 2 Klassen schwächer als Helsinki. Die haben in der EL Gruppe übrigens 6 Punkte gemacht und damit 3 von 4 Rapid Teilnahmen getoppt.",
             "authorId" : "admin",
             "level" : 2,
-            "parentId" : "5484cc19c8301dc174baf458",
+            "parentId" : "5484cc19c8301dc174baf008",
             "fingerprint" : "999969999199990",
             "displayName" : "Hr. Vorragend",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf410"),
+            "_id" : ObjectId("5484cc19c8301dc174baf010"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "something",
             "authorId" : "admin",
             "level" : 3,
-            "parentId" : "5484cc19c8301dc174baf459",
+            "parentId" : "5484cc19c8301dc174baf009",
             "fingerprint" : "99996999919999099989",
             "displayName" : "Karl Graus 2,0",
             "likes" : 2,
@@ -130,24 +130,24 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf411"),
+            "_id" : ObjectId("5484cc19c8301dc174baf011"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Ich halte von Schönreden genausowenig wie von panischem Herumsudern  habe nur meine Einschätzung abgegeben und mit ein paar Fakten untermalt.",
             "authorId" : "admin",
             "level" : 4,
-            "parentId" : "5484cc19c8301dc174baf410",
+            "parentId" : "5484cc19c8301dc174baf010",
             "fingerprint" : "9999699991999909998999988",
             "displayName" : "Hr. Vorragend",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf412"),
+            "_id" : ObjectId("5484cc19c8301dc174baf012"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "ein ausscheiden gegen düdelingen ist noch viel peinlicher ungefähr so peinlich für aston villa sich 2x von rapid raushaun lassen so etwas passiert eben im fu ball und rapid hatte diese saison sehr viel pech angefangen von sehr vielen vernebelten chancen  über schiri entscheidungen die gro teils gegen rapid waren bis zu den verletzungen  behrendt ist der einzige 6er den rapid hat und schimpelsberger hoffentlich der bessere RV  dibon  alar und schwab  letztes jahr hat rapid auch in den letzten 11 spielen einen lauf gestartet  vlt gelingts ja wieder",
             "authorId" : "admin",
             "level" : 4,
-            "parentId" : "5484cc19c8301dc174baf410",
+            "parentId" : "5484cc19c8301dc174baf010",
             "fingerprint" : "9999699991999909998999987",
             "displayName" : "minus für anglizismen",
             "likes" : 2,
@@ -156,12 +156,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf413"),
+            "_id" : ObjectId("5484cc19c8301dc174baf013"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "und nach 18 spielen platz 5 ist EINDEUTIG zu wenig   man kann nicht die hälfte der spiele pech haben etc.........und ich als grüner habe die ständigen ausreden jetzt schon satt   wenn man in hütteldorf nicht in der lage ist  eine mannschaft zusammenzustellen  die es mit fu ballmächten wie altach  wolfsberg oder grödig aufnehmen kann  dann läuft dort was gewaltig falsch   aber anscheinend hat man das leistungsdenken dort schon abgeschafft  sonst würde man ein bissl druck machen........aber der zocke ist ja eh gemütlich und zufrieden  kein wunder wenn es dann auch die spieler sind........",
             "authorId" : "admin",
             "level" : 5,
-            "parentId" : "5484cc19c8301dc174baf412",
+            "parentId" : "5484cc19c8301dc174baf012",
             "fingerprint" : "999969999199990999899998799986",
             "displayName" : "Karl Graus 2,0",
             "likes" : 1,
@@ -169,43 +169,43 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf414"),
+            "_id" : ObjectId("5484cc19c8301dc174baf014"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "I find den Pavelic gar nit so schlecht... der Tormann gehört ausgetauscht ",
             "authorId" : "admin",
             "level" : 5,
-            "parentId" : "5484cc19c8301dc174baf412",
+            "parentId" : "5484cc19c8301dc174baf012",
             "fingerprint" : "999969999199990999899998799985",
             "displayName" : "G.Steffl",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf415"),
+            "_id" : ObjectId("5484cc19c8301dc174baf015"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "er war trotzdem nur als ersatzspieler gedacht und schimpelsbergers 3 spiele letzte saison waren auch sehr gut. also wer wirklich besser ist kann ich so auch nicht sagen wei auch immer behrendt fehlt rapid sehr  den schwab ausfall hat man auch gespürt sowie die unnötigen sperren von beric und sonnleitner",
             "authorId" : "admin",
             "level" : 6,
-            "parentId" : "5484cc19c8301dc174baf414",
+            "parentId" : "5484cc19c8301dc174baf014",
             "fingerprint" : "99996999919999099989999879998599984",
             "displayName" : "minus für anglizismen",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf416"),
+            "_id" : ObjectId("5484cc19c8301dc174baf016"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "bereden muss.......im gegenteil ist es bezeichnend  welche .......sorry  hundskicker derzeit bei rapid ein leiberl haben.........die hätten früher sicher auch eines bekommen......im fanshop um 90 euro......dafür mit eigenem aufdruck  ",
             "authorId" : "admin",
             "level" : 7,
-            "parentId" : "5484cc19c8301dc174baf415",
+            "parentId" : "5484cc19c8301dc174baf015",
             "fingerprint" : "9999699991999909998999987999859998499983",
             "displayName" : "Karl Graus 2,0",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf417"),
+            "_id" : ObjectId("5484cc19c8301dc174baf017"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Also  nachdem es diese Runde schon ganz gut funktioniert hat  hier meine Wünsche für die nächste  Altach   Sturm Graz 0 4 Austria   Grödig 1 1 Ried   Wr. Neustadt 1 1 Admira   WAC 1 0 Salzburg   Rapid 3 1   live in ORF eins",
             "authorId" : "admin",
@@ -218,24 +218,24 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf418"),
+            "_id" : ObjectId("5484cc19c8301dc174baf018"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "da schlie  ich mich gern an  ",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf417",
+            "parentId" : "5484cc19c8301dc174baf017",
             "fingerprint" : "9998299981",
             "displayName" : "GedriteAlAlMg-Si-",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf419"),
+            "_id" : ObjectId("5484cc19c8301dc174baf019"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Altach sturm 2 2 Austria Grödig 0 3 Ried  Wr. Neustadt 2 0 Admira  Wac 3 2 Salzburg Rapid 0 1 Wär mir recht  wobei Ried gg Neustadt is ma wuascht.",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf417",
+            "parentId" : "5484cc19c8301dc174baf017",
             "fingerprint" : "9998299980",
             "displayName" : "Mr XY",
             "likes" : 4,
@@ -244,24 +244,24 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf420"),
+            "_id" : ObjectId("5484cc19c8301dc174baf020"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "something",
             "authorId" : "admin",
             "level" : 2,
-            "parentId" : "5484cc19c8301dc174baf419",
+            "parentId" : "5484cc19c8301dc174baf019",
             "fingerprint" : "999829998099979",
             "displayName" : "Schabbesgoi",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf421"),
+            "_id" : ObjectId("5484cc19c8301dc174baf021"),
             "threadId" : "5484cc19c832000009108573",
             "text" : " Ja  ich habs von orf.at kopiert  D die zeigen solche  bersichten nämlich ohne dass ich 10 mal klicken muss bis ich dort bin. ",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf417",
+            "parentId" : "5484cc19c8301dc174baf017",
             "fingerprint" : "9998299978",
             "displayName" : "irgendana",
             "likes" : 1,
@@ -269,12 +269,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf422"),
+            "_id" : ObjectId("5484cc19c8301dc174baf022"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "gibt s beim SchORF auch so nette Banner wie hier ",
             "authorId" : "admin",
             "level" : 2,
-            "parentId" : "5484cc19c8301dc174baf421",
+            "parentId" : "5484cc19c8301dc174baf021",
             "fingerprint" : "999829997899977",
             "displayName" : "haljô",
             "likes" : 1,
@@ -282,19 +282,19 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf423"),
+            "_id" : ObjectId("5484cc19c8301dc174baf023"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "muss dort auch die 7 n r durchgefüttert werden ",
             "authorId" : "admin",
             "level" : 3,
-            "parentId" : "5484cc19c8301dc174baf422",
+            "parentId" : "5484cc19c8301dc174baf022",
             "fingerprint" : "99982999789997799976",
             "displayName" : "tenminusthreeequalseven",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf424"),
+            "_id" : ObjectId("5484cc19c8301dc174baf024"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "keine Ahnung  was ihr alle raunzt   ich hab mir grad die vierminütige Zusammanfassung auf laola angschaut und davon waren 2 Minuten ganz passabel...",
             "authorId" : "admin",
@@ -306,12 +306,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf425"),
+            "_id" : ObjectId("5484cc19c8301dc174baf025"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "wenn nur 2 von 4min. in einer zusammenfassung passabel waren kannst dir ja vorstellen warum es die restlichen 86min.  nicht einmal dorthin geschafft haben  D",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf424",
+            "parentId" : "5484cc19c8301dc174baf024",
             "fingerprint" : "9997599974",
             "displayName" : "DFRUKA",
             "dislikes" : 1,
@@ -319,7 +319,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf426"),
+            "_id" : ObjectId("5484cc19c8301dc174baf026"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Ich wünsch mir ein X. Das hat natürlich keine Bedeutung fürs Spiel oder sonst wen aber ich wollt s nur loswerden ",
             "authorId" : "admin",
@@ -331,7 +331,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf427"),
+            "_id" : ObjectId("5484cc19c8301dc174baf027"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "nüm. dann schauen wir mal.",
             "authorId" : "admin",
@@ -342,12 +342,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf428"),
+            "_id" : ObjectId("5484cc19c8301dc174baf028"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "sei der Sieg gegönnt",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf427",
+            "parentId" : "5484cc19c8301dc174baf027",
             "fingerprint" : "9997299971",
             "displayName" : "florus silentius",
             "likes" : 9,
@@ -355,12 +355,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf429"),
+            "_id" : ObjectId("5484cc19c8301dc174baf029"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "du entschuldigst  ich seh das anders.",
             "authorId" : "admin",
             "level" : 2,
-            "parentId" : "5484cc19c8301dc174baf428",
+            "parentId" : "5484cc19c8301dc174baf028",
             "fingerprint" : "999729997199970",
             "displayName" : "morgause",
             "likes" : 2,
@@ -369,7 +369,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf430"),
+            "_id" : ObjectId("5484cc19c8301dc174baf030"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Ich hasse die Winterpause.",
             "authorId" : "admin",
@@ -380,19 +380,19 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf431"),
+            "_id" : ObjectId("5484cc19c8301dc174baf031"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "test  ",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf430",
+            "parentId" : "5484cc19c8301dc174baf030",
             "fingerprint" : "9996999968",
             "displayName" : "sirion",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf432"),
+            "_id" : ObjectId("5484cc19c8301dc174baf032"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Ein echtes Spitzenspiel. Mich hält es kaum noch auf dem Sitz.",
             "authorId" : "admin",
@@ -404,7 +404,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf433"),
+            "_id" : ObjectId("5484cc19c8301dc174baf033"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Wenig Zuschauer wenig poster..i geh jetzt essen..aufwiederlesen",
             "authorId" : "admin",
@@ -415,7 +415,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf434"),
+            "_id" : ObjectId("5484cc19c8301dc174baf034"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Im winter anstosszeit noch dazu am sonntag 16 30 is ja auch besonders intelligent. .geschweige den samstag ankickzeitn.",
             "authorId" : "admin",
@@ -426,7 +426,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf435"),
+            "_id" : ObjectId("5484cc19c8301dc174baf035"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "mit König ist ORF zu 100  Oesterreichischer Rapid Funk xD",
             "authorId" : "admin",
@@ -438,43 +438,43 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf436"),
+            "_id" : ObjectId("5484cc19c8301dc174baf036"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Rotfunk",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf435",
+            "parentId" : "5484cc19c8301dc174baf035",
             "fingerprint" : "9996499963",
             "displayName" : "Paul Platon",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf437"),
+            "_id" : ObjectId("5484cc19c8301dc174baf037"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Gähhhn",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf435",
+            "parentId" : "5484cc19c8301dc174baf035",
             "fingerprint" : "9996499962",
             "displayName" : "Ardbeg Uigeadail",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf438"),
+            "_id" : ObjectId("5484cc19c8301dc174baf038"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "darum auch die 1899 anspielungen aufs sbg spiel",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf435",
+            "parentId" : "5484cc19c8301dc174baf035",
             "fingerprint" : "9996499961",
             "displayName" : "minus für anglizismen",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf439"),
+            "_id" : ObjectId("5484cc19c8301dc174baf039"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Wow  Koller wird im Lavantal geadelt  Schön   ",
             "authorId" : "admin",
@@ -486,7 +486,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf440"),
+            "_id" : ObjectId("5484cc19c8301dc174baf040"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "So ein Hundskick  warum tu ich mir das immer wieder an",
             "authorId" : "admin",
@@ -498,36 +498,36 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf441"),
+            "_id" : ObjectId("5484cc19c8301dc174baf041"),
             "threadId" : "5484cc19c832000009108573",
             "text" : " singt rapid dasistmeinleben ",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf440",
+            "parentId" : "5484cc19c8301dc174baf040",
             "fingerprint" : "9995999958",
             "displayName" : "morgause",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf442"),
+            "_id" : ObjectId("5484cc19c8301dc174baf042"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Ich  weil ich ein Nachmittagsschläfchen halten wollt. Aber irgendwie geht das dann doch zu weit..  ",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf440",
+            "parentId" : "5484cc19c8301dc174baf040",
             "fingerprint" : "9995999957",
             "displayName" : "pure post still",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf443"),
+            "_id" : ObjectId("5484cc19c8301dc174baf043"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Is a guada grund zum saufn ",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf440",
+            "parentId" : "5484cc19c8301dc174baf040",
             "fingerprint" : "9995999956",
             "displayName" : "Uncle Samy",
             "likes" : 2,
@@ -535,7 +535,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf444"),
+            "_id" : ObjectId("5484cc19c8301dc174baf044"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Schaffer auf Weihnachtensurlaub ",
             "authorId" : "admin",
@@ -546,19 +546,19 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf445"),
+            "_id" : ObjectId("5484cc19c8301dc174baf045"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Ich hoffe doch auf einen Schaffer Ticker am Donnerstag",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf444",
+            "parentId" : "5484cc19c8301dc174baf044",
             "fingerprint" : "9995599954",
             "displayName" : "fredsbg",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf446"),
+            "_id" : ObjectId("5484cc19c8301dc174baf046"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "den könig geht wieder mal ein achterl ab ... unglaublich  für sowas muss man gebühren zahlen.",
             "authorId" : "admin",
@@ -569,7 +569,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf447"),
+            "_id" : ObjectId("5484cc19c8301dc174baf047"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Und i sauf schon 3 wochn kan alk..werd gleich rückfällig.",
             "authorId" : "admin",
@@ -580,7 +580,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf448"),
+            "_id" : ObjectId("5484cc19c8301dc174baf048"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Da schaub hat 3 schritte zurück gemacht. .",
             "authorId" : "admin",
@@ -592,7 +592,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf449"),
+            "_id" : ObjectId("5484cc19c8301dc174baf049"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "haha wieso vergleicht da König das jetzt mim Salzburg Spiel  ",
             "authorId" : "admin",
@@ -604,12 +604,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf450"),
+            "_id" : ObjectId("5484cc19c8301dc174baf050"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Der versucht jetzt schon sich Rapid fuer naechste Woche schoen zu reden",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf449",
+            "parentId" : "5484cc19c8301dc174baf049",
             "fingerprint" : "9995099949",
             "displayName" : "fredsbg",
             "likes" : 4,
@@ -617,12 +617,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf451"),
+            "_id" : ObjectId("5484cc19c8301dc174baf051"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Weils da könig ist",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf449",
+            "parentId" : "5484cc19c8301dc174baf049",
             "fingerprint" : "9995099948",
             "displayName" : "Uncle Samy",
             "likes" : 4,
@@ -630,7 +630,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf452"),
+            "_id" : ObjectId("5484cc19c8301dc174baf052"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "De lavantal arena ist aber auch ein bundesliga taugliches stadion   ",
             "authorId" : "admin",
@@ -642,12 +642,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf453"),
+            "_id" : ObjectId("5484cc19c8301dc174baf053"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Schaut eher aus wie der Betriebsparkplatz vom regionalen Skoda Händler..  ",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf452",
+            "parentId" : "5484cc19c8301dc174baf052",
             "fingerprint" : "9994799946",
             "displayName" : "pure post still",
             "likes" : 5,
@@ -655,19 +655,19 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf454"),
+            "_id" : ObjectId("5484cc19c8301dc174baf054"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "drum haben due rabidhöhle gleich abgrissn",
             "authorId" : "admin",
             "level" : 2,
-            "parentId" : "5484cc19c8301dc174baf453",
+            "parentId" : "5484cc19c8301dc174baf053",
             "fingerprint" : "999479994699945",
             "displayName" : "eMeLy ChAnG",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf455"),
+            "_id" : ObjectId("5484cc19c8301dc174baf055"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Wenn eine mannschaft so tief steht und mauert  müssen die stürmer raus aus dem strafraum und überzahlen in den schnittstellen schaffen  damit man sich dann über die halbpositionen schnell wieder rein kombinieren kann mMn. Stur vorne stehen bringt nichts.",
             "authorId" : "admin",
@@ -679,12 +679,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf45a"),
+            "_id" : ObjectId("5484cc19c8301dc174baf056"),
             "threadId" : "5484cc19c832000009108573",
             "text" : " schnell reinkombinieren  klingt irgendwie lustig nach dem Konsum der ersten Halbzeit.  ",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf455",
+            "parentId" : "5484cc19c8301dc174baf055",
             "fingerprint" : "9994499943",
             "displayName" : "Luke Lucky",
             "likes" : 2,
@@ -692,19 +692,19 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf45a"),
+            "_id" : ObjectId("5484cc19c8301dc174baf057"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "  man kennt das vielleicht von früher  oder von den spielen an dienstagen  Mittwochen und donnerstagen. Doch  doch  das ist derselbe sport   ",
             "authorId" : "admin",
             "level" : 2,
-            "parentId" : "5484cc19c8301dc174baf45a",
+            "parentId" : "5484cc19c8301dc174baf056",
             "fingerprint" : "999449994399942",
             "displayName" : "pure post still",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf758"),
+            "_id" : ObjectId("5484cc19c8301dc174baf058"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Was verdient eigentlich da könig ca. im Monat ",
             "authorId" : "admin",
@@ -715,12 +715,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf459"),
+            "_id" : ObjectId("5484cc19c8301dc174baf059"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "die fristlose...",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf758",
+            "parentId" : "5484cc19c8301dc174baf058",
             "fingerprint" : "9994199940",
             "displayName" : "Ildefons Lima",
             "likes" : 5,
@@ -728,12 +728,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf460"),
+            "_id" : ObjectId("5484cc19c8301dc174baf060"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Eigrntlich eine Kündigung.",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf758",
+            "parentId" : "5484cc19c8301dc174baf058",
             "fingerprint" : "9994199939",
             "displayName" : "pure post still",
             "likes" : 16,
@@ -741,12 +741,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf461"),
+            "_id" : ObjectId("5484cc19c8301dc174baf061"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "entweder zu viel oder nicht genug...",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf458",
+            "parentId" : "5484cc19c8301dc174baf058",
             "fingerprint" : "9994199938",
             "displayName" : "local simpleton",
             "likes" : 1,
@@ -754,7 +754,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf462"),
+            "_id" : ObjectId("5484cc19c8301dc174baf062"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Rapidfunk König fangt aber früh an mit den Ausreden.",
             "authorId" : "admin",
@@ -766,7 +766,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf463"),
+            "_id" : ObjectId("5484cc19c8301dc174baf063"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Wirklich viel konzept kann ich im offensivspiel von rapid leider nicht erkennen.. schade  es wär nämlich schon potenzial da.",
             "authorId" : "admin",
@@ -778,7 +778,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf464"),
+            "_id" : ObjectId("5484cc19c8301dc174baf064"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Das ist ein absichtlicher Fehler ...posting anpeitscher quasi...",
             "authorId" : "admin",
@@ -789,7 +789,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf465"),
+            "_id" : ObjectId("5484cc19c8301dc174baf065"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Ich glaub heute ist der WAC fällig.",
             "authorId" : "admin",
@@ -801,12 +801,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf466"),
+            "_id" : ObjectId("5484cc19c8301dc174baf066"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "ich glaub rabid ist heute wieder fällig",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf465",
+            "parentId" : "5484cc19c8301dc174baf065",
             "fingerprint" : "9993499933",
             "displayName" : "eMeLy ChAnG",
             "likes" : 2,
@@ -814,7 +814,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf467"),
+            "_id" : ObjectId("5484cc19c8301dc174baf067"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Ein 0 0 wäre mir lieb...natürlich ganz im Sinne meiner Schwoazn ",
             "authorId" : "admin",
@@ -826,7 +826,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf468"),
+            "_id" : ObjectId("5484cc19c8301dc174baf068"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "scho wieda so einen destruktive spielweise wie die altacher...nicht schön anzuschauen  wenn eine mannschaftt nur mauerst u. auf konter lauert... hoffe nicht  dass der wac auch noch belohnt dafür wird...",
             "authorId" : "admin",
@@ -839,7 +839,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf469"),
+            "_id" : ObjectId("5484cc19c8301dc174baf069"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "0 9  was gibtsn da für quoten drauf  xD",
             "authorId" : "admin",
@@ -850,7 +850,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf470"),
+            "_id" : ObjectId("5484cc19c8301dc174baf070"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Gähn...de partie faungt schon mal langweilig an",
             "authorId" : "admin",
@@ -862,7 +862,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf471"),
+            "_id" : ObjectId("5484cc19c8301dc174baf071"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "0 9  Da ist eher der Wunsch Vater des Gedankens  hm   D",
             "authorId" : "admin",
@@ -873,12 +873,12 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf472"),
+            "_id" : ObjectId("5484cc19c8301dc174baf072"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Hat Rapid überhaupt schon in Summe 9tore gegen den WAC erzielt ",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf471",
+            "parentId" : "5484cc19c8301dc174baf071",
             "fingerprint" : "9992899927",
             "displayName" : "Mr.Niceguy",
             "likes" : 1,
@@ -886,7 +886,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf473"),
+            "_id" : ObjectId("5484cc19c8301dc174baf073"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Wär ein geiles ergebnis",
             "authorId" : "admin",
@@ -897,7 +897,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf474"),
+            "_id" : ObjectId("5484cc19c8301dc174baf074"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Wolfsberger ac  sk rapid 0 9   Wasn das fürn standard Fauxpas ",
             "authorId" : "admin",
@@ -908,7 +908,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf475"),
+            "_id" : ObjectId("5484cc19c8301dc174baf075"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Gestern Weihnachtsfeier gehabt   ",
             "authorId" : "admin",
@@ -919,7 +919,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf476"),
+            "_id" : ObjectId("5484cc19c8301dc174baf076"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "ich glaub  rapid liegt an fünfter Position und n icht an vierter wie in obigen Zeilen erwähnt.",
             "authorId" : "admin",
@@ -931,7 +931,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf477"),
+            "_id" : ObjectId("5484cc19c8301dc174baf077"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Da könig schon wieder...de elfer gschicht in Salzburg",
             "authorId" : "admin",
@@ -943,7 +943,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf478"),
+            "_id" : ObjectId("5484cc19c8301dc174baf078"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Steht nur bei mir 0 9   Nein  nicht in der  berschrift  darunter ",
             "authorId" : "admin",
@@ -955,43 +955,43 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf479"),
+            "_id" : ObjectId("5484cc19c8301dc174baf079"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "wohl ein wunschtraum des autors",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf478",
+            "parentId" : "5484cc19c8301dc174baf078",
             "fingerprint" : "9992199920",
             "displayName" : "captankarotte",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf480"),
+            "_id" : ObjectId("5484cc19c8301dc174baf080"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Würde ich nehmen  ",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf478",
+            "parentId" : "5484cc19c8301dc174baf078",
             "fingerprint" : "9992199919",
             "displayName" : "Byb Dolan",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf481"),
+            "_id" : ObjectId("5484cc19c8301dc174baf081"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "jederzeit",
             "authorId" : "admin",
             "level" : 2,
-            "parentId" : "5484cc19c8301dc174baf480",
+            "parentId" : "5484cc19c8301dc174baf080",
             "fingerprint" : "999219991999918",
             "displayName" : "florus silentius",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf482"),
+            "_id" : ObjectId("5484cc19c8301dc174baf082"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Um Menschen in Zukunft nicht mehr als Verlierer dastehen zu lassen  und so einen wichtigen pädagogischen Schritt in Richtung gesellschaftliche Wärme zu tun  schlagen wir vor  sämtliche Mannschaften  natürlich auch Frau  und Seilschaften  via Gesetzesbeschluss dazu zu verpflichten  jedes Match Unentschieden zu beenden. Zu diesem Thema starten starten wir in Kürze unsere Kampagne  Unentschieden   Give Peace a Chance .",
             "authorId" : "admin",
@@ -1004,31 +1004,31 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf483"),
+            "_id" : ObjectId("5484cc19c8301dc174baf083"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "ein Spiel der zweiten Liga würdig  furchtbar.",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf482",
+            "parentId" : "5484cc19c8301dc174baf082",
             "fingerprint" : "9991799916",
             "displayName" : "-HPS-",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf484"),
+            "_id" : ObjectId("5484cc19c8301dc174baf084"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Hlflos gegen Unfähig",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf482",
+            "parentId" : "5484cc19c8301dc174baf082",
             "fingerprint" : "9991799915",
             "displayName" : "fredsbg",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf485"),
+            "_id" : ObjectId("5484cc19c8301dc174baf085"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Alar  ",
             "authorId" : "admin",
@@ -1039,7 +1039,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf486"),
+            "_id" : ObjectId("5484cc19c8301dc174baf086"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Ein Verhalten beim Kopfball wie zwei aufeinander angesetzte Stiere  ",
             "authorId" : "admin",
@@ -1050,7 +1050,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf487"),
+            "_id" : ObjectId("5484cc19c8301dc174baf087"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Schnell  hart  junge Mannschaften... Spielerisch nicht gut..",
             "authorId" : "admin",
@@ -1062,43 +1062,43 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf488"),
+            "_id" : ObjectId("5484cc19c8301dc174baf088"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Jung ",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf487",
+            "parentId" : "5484cc19c8301dc174baf087",
             "fingerprint" : "9991299911",
             "displayName" : "fredsbg",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf489"),
+            "_id" : ObjectId("5484cc19c8301dc174baf089"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Stimmt wac rentner truppe",
             "authorId" : "admin",
             "level" : 2,
-            "parentId" : "5484cc19c8301dc174baf488",
+            "parentId" : "5484cc19c8301dc174baf088",
             "fingerprint" : "999129991199910",
             "displayName" : "Mr XY",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf490"),
+            "_id" : ObjectId("5484cc19c8301dc174baf090"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "So jung wie immer getan wird ist die Rapid Elf auch ned",
             "authorId" : "admin",
             "level" : 3,
-            "parentId" : "5484cc19c8301dc174baf489",
+            "parentId" : "5484cc19c8301dc174baf089",
             "fingerprint" : "99912999119991099909",
             "displayName" : "fredsbg",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf491"),
+            "_id" : ObjectId("5484cc19c8301dc174baf091"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "zuerst fast einen Elfmeter verursacht  kurz darauf ein unnotwendiges leicht Rot angehauchtes Foul im Mittelfeld begangen. Um nicht beim nächsten Zweikampf vom Platz zu fliegen hat er sich sicherheitshalber selbst verletzt.",
             "authorId" : "admin",
@@ -1111,19 +1111,19 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf492"),
+            "_id" : ObjectId("5484cc19c8301dc174baf092"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Eieiei. Dabei war er doch kürzlich so gut  oder ",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf491",
+            "parentId" : "5484cc19c8301dc174baf091",
             "fingerprint" : "9990899907",
             "displayName" : "pure post still",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf493"),
+            "_id" : ObjectId("5484cc19c8301dc174baf093"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "OT.. Jacobo sieht ein bissl aus  wie das gemeinsame Kind von Khedira und Sergio Ramos.",
             "authorId" : "admin",
@@ -1136,7 +1136,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf494"),
+            "_id" : ObjectId("5484cc19c8301dc174baf094"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Heast  der Schiri is a Pfeifn. Sehr schwach seine Leistung heute.",
             "authorId" : "admin",
@@ -1147,7 +1147,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf495"),
+            "_id" : ObjectId("5484cc19c8301dc174baf095"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Der König ist akustisch auch nicht ganz einwandfrei.",
             "authorId" : "admin",
@@ -1159,7 +1159,7 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf496"),
+            "_id" : ObjectId("5484cc19c8301dc174baf096"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Lets go Rapid  lets go  ",
             "authorId" : "admin",
@@ -1172,19 +1172,19 @@
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf497"),
+            "_id" : ObjectId("5484cc19c8301dc174baf097"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "Das hilft heut nix mehr.",
             "authorId" : "admin",
             "level" : 1,
-            "parentId" : "5484cc19c8301dc174baf496",
+            "parentId" : "5484cc19c8301dc174baf096",
             "fingerprint" : "9990399902",
             "displayName" : "gwaumpatamaikäfer",
             "status" : "APPROVED",
             "createdDate": new Date()
             });
             db.T_COMMENT.insert({
-            "_id" : ObjectId("5484cc19c8301dc174baf499"),
+            "_id" : ObjectId("5484cc19c8301dc174baf099"),
             "threadId" : "5484cc19c832000009108573",
             "text" : "some",
             "authorId" : "admin",
