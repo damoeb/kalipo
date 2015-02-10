@@ -16,8 +16,12 @@
                     <!--[<% if(comment.$minimized) { %>+<% } else { %>-<% } %>]-->
                     <!--</a>-->
 
-                    <a href="javascript:void(0)" class="name" ng-click="toggle('<%= comment.id %>')">
-                        <%= comment.displayName %></a>
+                    <a href="javascript:void(0)" ng-click="toggle('<%= comment.id %>')" title="Toggle comment" class="icon">
+                        <span class="icon-implode glyphicon glyphicon-unchecked"></span>
+                        <span class="icon-expand glyphicon glyphicon-collapse-down"></span>
+                    </a>
+
+                    <strong class="name"><%= comment.displayName %></strong>
 
                     <!--<%= comment.influence %>-->
                     <!--<%= comment.id %>-->
@@ -59,8 +63,10 @@
                     <div class="text"><%= comment.text %></div>
 
                     <span class="show-full-comment">
-                        -- <a href="javascript:void(0)" ng-click="unLittle('<%= comment.id %>')"
-                              title="Show full comment">Expand</a>
+                         <a href="javascript:void(0)" ng-click="unLittle('<%= comment.id %>')"
+                              title="Show full comment">
+                            <span class="glyphicon glyphicon-chevron-right"></span> full
+                          </a>
                     </span>
                 </div>
 

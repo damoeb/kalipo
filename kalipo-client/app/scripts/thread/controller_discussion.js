@@ -185,7 +185,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 var verbose = comment.replies.verbose;
                 var furthermore = comment.replies.furthermore;
 
-//                comment.$little = comment.likes - comment.dislikes < -4;
+                comment.$little = comment.likes - comment.dislikes < -4; // todo can still be controversial
 
                 __classifyByInfluenceRc(replies, level +1);
 
@@ -206,7 +206,6 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                         }
 
                     } else {
-//                        reply.$little = false;
                         verbose.push(reply);
                     }
                 });

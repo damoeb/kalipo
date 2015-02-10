@@ -212,15 +212,19 @@ a:hover {
     display: inline;
 }
 
-.comment .name {color: blue; font-weight: bold;}
+.comment .name {}
 .comment .points {color: grey; padding-left: 5px; padding-right: 5px;}
 .comment .date { color: grey; font-size: smaller; }
 .comment .label-pending {}
+.icon {display: inline;}
+.icon-implode {}
+.icon-expand {display: none;}
 .comment .text {white-space: pre-line;}
 .comment .menu {}
 .comment .show-full-comment {display: none;}
 .comment .replies-count {display: none;color: grey; font-size: smaller;}
 
+.little>.comment .icon {display: none;}
 .little>.comment .name {display: none;}
 .little>.comment .points {display: none;}
 .little>.comment .date {display: none;}
@@ -239,6 +243,8 @@ a:hover {
 .minimized .name {}
 .minimized .points {}
 .minimized .date {display: none;}
+.minimized .icon-implode {display: none;}
+.minimized .icon-expand {display: block;}
 .minimized .label-pending {}
 .minimized .text {display: none;}
 .minimized .menu {display: none;}
