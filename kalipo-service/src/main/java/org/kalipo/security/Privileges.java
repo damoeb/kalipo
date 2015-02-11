@@ -11,16 +11,19 @@ public class Privileges {
      * Review all pending comments in this thread
      */
     public static final String CREATE_THREAD = "CREATE_THREAD";
-    public static final String CREATE_COMMENT = "CREATE_COMMENT";
+    public static final String CREATE_COMMENT_SOLO = "CREATE_COMMENT_SOLO";
+    public static final String CREATE_COMMENT_REPLY = "CREATE_COMMENT_REPLY";
+    public static final String EDIT_COMMENT = "EDIT_COMMENT";
 
     /**
      * Review all pending comments
      */
     public static final String REVIEW_COMMENT = "REVIEW_COMMENT";
+
     public static final String VOTE_UP = "VOTE_UP";
     public static final String VOTE_DOWN = "VOTE_DOWN";
+
     public static final String CREATE_PRIVILEGE = "CREATE_PRIVILEGE";
-    public static final String CREATE_TAG = "CREATE_TAG";
     public static final String CREATE_REPORT = "CREATE_REPORT";
     public static final String CLOSE_REPORT = "CLOSE_REPORT";
     public static final String HOOK_THREAD_TO_URL = "HOOK_THREAD_TO_URL";

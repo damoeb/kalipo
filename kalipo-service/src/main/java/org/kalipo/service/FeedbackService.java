@@ -6,7 +6,6 @@ import org.kalipo.aop.Throttled;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Feedback;
 import org.kalipo.repository.FeedbackRepository;
-import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
 import org.kalipo.web.rest.KalipoException;
@@ -16,7 +15,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import java.util.List;
 
@@ -46,7 +44,6 @@ public class FeedbackService {
         return feedbackRepository.save(feedback);
     }
 
-    @RolesAllowed(Privileges.CREATE_TAG)
     public Feedback get(String id) throws KalipoException {
         assertSupermodPrivilege();
         return feedbackRepository.findOne(id);

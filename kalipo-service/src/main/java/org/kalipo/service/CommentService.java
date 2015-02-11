@@ -15,7 +15,6 @@ import org.kalipo.repository.UserRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
-import org.kalipo.service.util.BroadcastUtils;
 import org.kalipo.service.util.NumUtils;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
@@ -58,17 +57,22 @@ public class CommentService {
     @Inject
     private UserService userService;
 
-    @RolesAllowed(Privileges.CREATE_COMMENT)
     @Throttled
     public Comment create(Comment comment) throws KalipoException {
 
         Asserts.isNotNull(comment, "comment");
         Asserts.isNull(comment.getId(), "id");
 
+        if (comment.getParentId() == null) {
+            Asserts.hasPrivilege(Privileges.CREATE_COMMENT_SOLO);
+        } else {
+            Asserts.hasPrivilege(Privileges.CREATE_COMMENT_REPLY);
+        }
+
         return save(comment, null);
     }
 
-    @RolesAllowed(Privileges.CREATE_COMMENT)
+    @RolesAllowed(Privileges.EDIT_COMMENT)
     @Throttled
     public Comment update(Comment modified) throws KalipoException {
         Asserts.isNotNull(modified, "comment");
@@ -79,6 +83,9 @@ public class CommentService {
 
         Asserts.nullOrEqual(modified.getStatus(), original.getStatus(), "status");
         modified.setStatus(original.getStatus());
+
+        Asserts.nullOrEqual(modified.getParentId(), original.getParentId(), "parentId");
+        modified.setParentId(original.getParentId());
 
         Asserts.nullOrEqual(modified.getLikes(), original.getLikes(), "likes");
         modified.setLikes(original.getLikes());
@@ -119,6 +126,8 @@ public class CommentService {
 
         final String currentLogin = SecurityUtils.getCurrentLogin();
 
+        // todo add status PRE_APPROVE to let CommentAgent do the approval
+
         // -- Comment Count
 
         Thread thread = threadRepository.findOne(comment.getThreadId());
@@ -127,8 +136,6 @@ public class CommentService {
 
         thread.setCommentCount(thread.getCommentCount() + 1);
         threadRepository.save(thread);
-
-        noticeService.notifyAuthorOfParent(comment, currentLogin);
 
         // --
 
@@ -301,8 +308,9 @@ public class CommentService {
 
         // -- Quota
         int count = commentRepository.countWithinDateRange(SecurityUtils.getCurrentLogin(), DateTime.now().minusDays(1), DateTime.now());
-        int dailyLimit = 100; // todo senseful quota
+        int dailyLimit = 100; // todo senseful quota, centralize conf params
         if (count >= dailyLimit && !isSuperMod) {
+            // todo send mail
             throw new KalipoException(ErrorCode.METHOD_REQUEST_LIMIT_REACHED, "daily comment quota is " + dailyLimit);
         }
 
@@ -353,6 +361,8 @@ public class CommentService {
         dirty.setAuthorId(currentLogin);
         dirty.setFingerprint(getFingerprint(parent, thread));
 
+        renderBody(dirty);
+
         final boolean isMod = thread.getModIds().contains(currentLogin);
 
         dirty.setStatus(Comment.Status.PENDING);
@@ -365,6 +375,10 @@ public class CommentService {
         dirty = commentRepository.save(dirty);
 
         return dirty;
+    }
+
+    private void renderBody(Comment comment) {
+
     }
 
     private String getFingerprint(Comment parent, Thread thread) {

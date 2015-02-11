@@ -108,6 +108,10 @@ public class CommentAgent {
                             } else {
                                 status = Comment.Status.APPROVED;
                                 noticeService.notifyMentionedUsers(comment, authorId);
+
+                                if (comment.getParentId() != null) {
+                                    noticeService.notifyAuthorOfParent(comment, authorId);
+                                }
                             }
 
                             comment.setStatus(status);
@@ -119,12 +123,9 @@ public class CommentAgent {
                             log.info(String.format("%s creates pending comment %s  (q:%s)", authorId, comment.getId(), quality));
 
                             noticeService.notifyModsOfThread(thread, comment, authorId);
-                            if(comment.getParentId() != null) {
-                                noticeService.notifyAuthorOfParent(comment, authorId);
-                            }
                         }
 
-//                        noticeService.notifyAsync(comment.getAuthorId(), "admin", type, comment.getId());
+                        noticeService.notifyAsync(comment.getAuthorId(), "admin", type, comment.getId());
                     }
 
                     commentRepository.save(pendings);

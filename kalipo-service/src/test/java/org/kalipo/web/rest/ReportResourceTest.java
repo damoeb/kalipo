@@ -73,7 +73,7 @@ public class ReportResourceTest {
 
         this.restReportMockMvc = MockMvcBuilders.standaloneSetup(reportResource).build();
 
-        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_REPORT, Privileges.CREATE_COMMENT, Privileges.REVIEW_COMMENT, Privileges.CREATE_THREAD));
+        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_REPORT, Privileges.CREATE_COMMENT_SOLO, Privileges.REVIEW_COMMENT, Privileges.CREATE_THREAD));
 
         Thread thread = ThreadResourceTest.newThread();
         threadService.create(thread);

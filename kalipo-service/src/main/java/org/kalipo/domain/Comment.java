@@ -21,7 +21,7 @@ import javax.validation.constraints.Size;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Comment implements Anonymizable<Comment> {
 
-    public static final int LEN_TEXT = 2048;
+    public static final int LEN_TEXT = 2048; // todo centralize constant
 
     @Id
     private String id;

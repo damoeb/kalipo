@@ -66,7 +66,7 @@ public class ReputationServiceTest {
 
     @Before
     public void test_before() throws KalipoException {
-        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_COMMENT, Privileges.REVIEW_COMMENT, Privileges.CREATE_THREAD));
+        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_COMMENT_SOLO, Privileges.REVIEW_COMMENT, Privileges.CREATE_THREAD));
 
         Thread thread = ThreadResourceTest.newThread();
         threadService.create(thread);

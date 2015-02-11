@@ -74,7 +74,7 @@ public class VoteResourceTest {
 
         this.restVoteMockMvc = MockMvcBuilders.standaloneSetup(voteResource).build();
 
-        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.VOTE_UP, Privileges.CREATE_THREAD, Privileges.CREATE_COMMENT, Privileges.REVIEW_COMMENT));
+        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.VOTE_UP, Privileges.CREATE_THREAD, Privileges.CREATE_COMMENT_SOLO, Privileges.REVIEW_COMMENT));
 
         Thread thread = ThreadResourceTest.newThread();
         threadService.create(thread);
