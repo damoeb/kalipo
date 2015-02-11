@@ -186,13 +186,12 @@ public class CommentAgent {
                 // id to influence map
                 final Map<String, Double> influenceMap = new HashMap<>();
 
+                // todo influence should be calculated in one loop, not several
                 int changed = 0;
                 for (Comment comment : comments) {
 
                     // = replies
                     Set<Comment> i = commentRepository.findByParentId(comment.getId()); //iota - incoming influence
-
-                    // todo enable, but ensure a deterministic results aslong there are no changes, no oscillations
 
 //                    double transitiveInfluence = w_in.apply(influence_incoming(i, influenceMap));// - w_out.apply(NumUtils.nullToZero(θ == null ? null : θ.getInfluence()));
 

@@ -66,6 +66,8 @@ angular.module('kalipoApp')
 
                             // find first comment on viewport
                             var $all = $('.comment');
+
+                            var __windowHeight = $(window).height();
                             var $firstOnViewport = $($all[0]);
                             for (var i = 0; i < $all.length; i++) {
                                 var $comment = $($all[i]);
@@ -75,10 +77,14 @@ angular.module('kalipoApp')
                                 }
                             }
 
-                            var indexOfFirst = parseInt($firstOnViewport.attr('ng-data-index'));
+                            var commentId = $firstOnViewport.attr('ng-comment-id');
                             var $outline = $element.parent();
 
-                            console.log('scroll to', indexOfFirst);
+                            var indexOfFirst = _.findIndex(comments, function (comment) {
+                                return comment.id == commentId;
+                            });
+
+                            console.log('scroll to ', commentId, '@', indexOfFirst);
 
                             if (indexOfFirst == 0 || $element.parent().height() > scrollTop) {
                                 $outline.css({'position': 'relative', 'top': 0});
