@@ -10,28 +10,42 @@
 
             db.T_PRIVILEGE.insert(
             {
+            "_id" : "2",
+            "name": "CREATE_COMMENT_SOLO",
+            "reputation": 0
+            });
+
+            db.T_PRIVILEGE.insert(
+            {
             "_id" : "3",
-            "name": "CREATE_COMMENT",
+            "name": "CREATE_COMMENT_REPLY",
             "reputation": 0
             });
 
             db.T_PRIVILEGE.insert(
             {
             "_id" : "4",
-            "name": "REVIEW_COMMENT",
+            "name": "EDIT_COMMENT",
             "reputation": 0
             });
 
             db.T_PRIVILEGE.insert(
             {
             "_id" : "5",
-            "name": "VOTE_UP",
+            "name": "REVIEW_COMMENT",
             "reputation": 0
             });
 
             db.T_PRIVILEGE.insert(
             {
             "_id" : "6",
+            "name": "VOTE_UP",
+            "reputation": 0
+            });
+
+            db.T_PRIVILEGE.insert(
+            {
+            "_id" : "7",
             "name": "VOTE_DOWN",
             "reputation": 0
             });
@@ -45,13 +59,6 @@
 
             db.T_PRIVILEGE.insert(
             {
-            "_id" : "8",
-            "name": "CREATE_TAG",
-            "reputation": 0
-            });
-
-            db.T_PRIVILEGE.insert(
-            {
             "_id" : "9",
             "name": "CREATE_REPORT",
             "reputation": 0
@@ -60,13 +67,20 @@
             db.T_PRIVILEGE.insert(
             {
             "_id" : "10",
-            "name": "HOOK_THREAD_TO_URL",
+            "name": "CLOSE_REPORT",
             "reputation": 0
             });
 
             db.T_PRIVILEGE.insert(
             {
             "_id" : "11",
+            "name": "HOOK_THREAD_TO_URL",
+            "reputation": 0
+            });
+
+            db.T_PRIVILEGE.insert(
+            {
+            "_id" : "12",
             "name": "BAN_USER",
             "reputation": 0
             });
