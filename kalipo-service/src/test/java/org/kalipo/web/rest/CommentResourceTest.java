@@ -110,7 +110,7 @@ public class CommentResourceTest {
         ;
 
 //        // Update Comment
-        comment.setText(UPD_SAMPLE_TEXT_ATTR);
+        comment.setBody(UPD_SAMPLE_TEXT_ATTR);
 //
         restCommentMockMvc.perform(put("/app/rest/comments/{id}", commentId)
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -159,7 +159,7 @@ public class CommentResourceTest {
 
     public static Comment newComment() {
         Comment comment = new Comment();
-        comment.setText(DEFAULT_TEXT);
+        comment.setBody(DEFAULT_TEXT);
         return comment;
     }
 }

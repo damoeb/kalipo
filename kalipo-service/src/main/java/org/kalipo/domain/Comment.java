@@ -40,12 +40,15 @@ public class Comment implements Anonymizable<Comment> {
     @CreatedDate
     private DateTime createdDate;
 
+    @JsonIgnore
     @LastModifiedDate
     private DateTime lastModifiedDate;
 
-    @NotNull(message = "{constraint.notnull.text}")
-    @Size(min = 2, max = LEN_TEXT, message = "{constraint.length.text}")
-    private String text;
+    @NotNull(message = "{constraint.notnull.body}")
+    @Size(min = 2, max = LEN_TEXT, message = "{constraint.length.body}")
+    private String body;
+
+    private String bodyHtml;
 
     @JsonIgnore
     @NotNull(message = "{constraint.notnull.authorId}")
@@ -146,12 +149,12 @@ public class Comment implements Anonymizable<Comment> {
         this.createdDate = createdDate;
     }
 
-    public String getText() {
-        return text;
+    public String getBody() {
+        return body;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public String getAuthorId() {
@@ -290,6 +293,14 @@ public class Comment implements Anonymizable<Comment> {
         this.reviewMsg = reviewMsg;
     }
 
+    public String getBodyHtml() {
+        return bodyHtml;
+    }
+
+    public void setBodyHtml(String bodyHtml) {
+        this.bodyHtml = bodyHtml;
+    }
+
     /**
      * Created by damoeb on 7/28/14.
      */
@@ -303,7 +314,7 @@ public class Comment implements Anonymizable<Comment> {
                 "id='" + id + '\'' +
                 ", threadId='" + threadId + '\'' +
                 ", parentId='" + parentId + '\'' +
-                ", text='" + text + '\'' +
+                ", body='" + body + '\'' +
                 ", authorId='" + authorId + '\'' +
                 ", status=" + status +
                 ", reviewerId='" + reviewerId + '\'' +

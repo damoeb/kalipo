@@ -31,7 +31,7 @@
                 <div class="col-md-3"><h4><a href="#/faq/webhook">Web Hooks</a></h4></div>
                 <div class="col-md-9">
 
-                    <textarea name="text" class="form-control" placeholder="Space separated urls"
+                    <textarea name="body" class="form-control" placeholder="Space separated urls"
                               ng-model="thread.$uriHooks"
                               ng-minlength=2 ng-maxlength=2048></textarea>
 
@@ -58,13 +58,13 @@
             <div class="row">
                 <div class="col-md-3"><h4><a href="#/faq/k-line">Kill Line</a></h4></div>
                 <div class="col-md-9">
-                    <input name="text" class="form-control" placeholder="Users that should be killed on this thread"
+                    <input name="body" class="form-control" placeholder="Users that should be killed on this thread"
                            ng-model="thread.$kLine"
                            ng-minlength=2 ng-maxlength=256/>
 
                     <div class="error-container"
-                         ng-show="form.text.$dirty && form.text.$invalid">
-                        <small ng-show="form.text.$error.maxlength">
+                         ng-show="form.body.$dirty && form.body.$invalid">
+                        <small ng-show="form.body.$error.maxlength">
                             Text cannot be longer than 256 characters
                         </small>
                     </div>
@@ -74,19 +74,19 @@
             <div class="row">
                 <div class="col-md-3"><h4>Mods*</h4></div>
                 <div class="col-md-9">
-                    <input name="text" class="form-control" placeholder="Guys who supervise this thread."
+                    <input name="body" class="form-control" placeholder="Guys who supervise this thread."
                            ng-model="thread.$modIds"
                            ng-minlength=2 ng-maxlength=256 required/>
 
                     <div class="error-container"
-                         ng-show="form.text.$dirty && form.text.$invalid">
-                        <small ng-show="form.text.$error.required">
+                         ng-show="form.body.$dirty && form.body.$invalid">
+                        <small ng-show="form.body.$error.required">
                             Text is required.
                         </small>
-                        <small ng-show="form.text.$error.minlength">
+                        <small ng-show="form.body.$error.minlength">
                             Text is required to be at least 2 characters
                         </small>
-                        <small ng-show="form.text.$error.maxlength">
+                        <small ng-show="form.body.$error.maxlength">
                             Text cannot be longer than 256 characters
                         </small>
                     </div>

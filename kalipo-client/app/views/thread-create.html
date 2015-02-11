@@ -34,19 +34,19 @@
         <div class="row form-group">
             <div class="col-md-3 text-right">First Comment*</div>
             <div class="col-md-9">
-                <textarea name="text" class="form-control" placeholder="For the lead comment, brevity is the key."
-                          ng-model="thread.text"
+                <textarea name="body" class="form-control" placeholder="For the lead comment, brevity is the key."
+                          ng-model="thread.body"
                           ng-minlength=2 ng-maxlength=2048 required style="height: 170px"></textarea>
 
                 <div class="error-container"
-                     ng-show="form.text.$dirty && form.text.$invalid">
-                    <small ng-show="form.text.$error.required">
+                     ng-show="form.body.$dirty && form.body.$invalid">
+                    <small ng-show="form.body.$error.required">
                         Text is required.
                     </small>
-                    <small ng-show="form.text.$error.minlength">
+                    <small ng-show="form.body.$error.minlength">
                         Text is required to be at least 2 characters
                     </small>
-                    <small ng-show="form.text.$error.maxlength">
+                    <small ng-show="form.body.$error.maxlength">
                         Text cannot be longer than 2048 characters
                     </small>
                 </div>
@@ -61,8 +61,8 @@
                           ng-minlength=2 ng-maxlength=2048></textarea>
 
                 <div class="error-container"
-                     ng-show="form.text.$dirty && form.text.$invalid">
-                    <small ng-show="form.text.$error.maxlength">
+                     ng-show="form.body.$dirty && form.body.$invalid">
+                    <small ng-show="form.body.$error.maxlength">
                         Text cannot be longer than 2048 characters
                     </small>
                 </div>

@@ -22,7 +22,7 @@
             <a href="#/users/{{::comment.authorId}}"><strong>{{::comment.authorId}}</strong></a>
             <span style="color: grey; font-size: smaller" title="{{::comment.createdDate | dateString }}">{{::comment.createdDate | fromNow }}</span>
 
-            <div style="white-space: pre-line">{{::comment.text}}</div>
+            <div style="white-space: pre-line">{{::comment.body}}</div>
         </div>
 
         <!--{{comment.reports}}-->

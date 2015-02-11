@@ -213,6 +213,8 @@ a:hover {
 }
 
 .comment .name {}
+.comment .body { margin-top:5px; margin-bottom: 5px;}
+.comment .show-full-comment { margin:5px; }
 .comment .points {color: grey; padding-left: 5px; padding-right: 5px;}
 .comment .date { color: grey; font-size: smaller; }
 .comment .label-pending {}
@@ -226,6 +228,7 @@ a:hover {
 
 .little>.comment .icon {display: none;}
 .little>.comment .name {display: none;}
+.little>.comment .body-wrapper {white-space: nowrap; overflow: hidden;}
 .little>.comment .points {display: none;}
 .little>.comment .date {display: none;}
 .little>.comment .label-pending {}
@@ -244,7 +247,7 @@ a:hover {
 .minimized .points {}
 .minimized .date {display: none;}
 .minimized .icon-implode {display: none;}
-.minimized .icon-expand {display: block;}
+.minimized .icon-expand {display: inline-block;}
 .minimized .label-pending {}
 .minimized .text {display: none;}
 .minimized .menu {display: none;}

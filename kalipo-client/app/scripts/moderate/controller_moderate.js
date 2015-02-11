@@ -4,7 +4,7 @@ kalipoApp.controller('ModerateController', ['$scope', '$routeParams',
     function ($scope, $routeParams) {
 
         var currentTab = $routeParams.tab;
-        $scope.$threadId = $routeParams.threadId
+        $scope.$threadId = $routeParams.threadId;
 
         var tabs = ['pending', 'reports'];
 

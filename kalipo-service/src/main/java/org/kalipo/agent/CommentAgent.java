@@ -143,7 +143,7 @@ public class CommentAgent {
     }
 
     private boolean excessiveUpperCase(Comment comment) {
-        String text = comment.getText();
+        String text = comment.getBody();
         long ucCount = text.chars().filter(Character::isUpperCase).count();
         int len = text.length();
         return len > 20 && ucCount > 15;

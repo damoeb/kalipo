@@ -182,7 +182,7 @@ public class ThreadResourceTest {
     public static Thread newThread() {
         Thread thread = new Thread();
         thread.setTitle(DEFAULT_SAMPLE_TITLE_ATTR);
-        thread.setText(DEFAULT_SAMPLE_TEXT_ATTR);
+        thread.setBody(DEFAULT_SAMPLE_TEXT_ATTR);
         thread.setReadOnly(DEFAULT_SAMPLE_READONLY_ATTR);
         return thread;
     }

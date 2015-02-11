@@ -8,32 +8,29 @@
     </div>
 
 
-    <div class="list-group">
-        <div class="list-group-item" ng-repeat="thread in threads">
-            <div class="row">
-                <div class="col-sm-1 col-xs-1 text-center">
-                    <h4>{{::thread.likes}}</h4>
-                </div>
-                <div class="col-sm-11 col-xs-11">
+    <div>
+        <div ng-repeat="thread in threads">
+            <div class="row comment">
+                <div class="col-sm-12 col-xs-12">
 
-                    <div class="pull-right">
-                        <span class="label label-primary">{{::thread.commentCount}} comments</span>
-                    </div>
+                    <h4 class="voteUp always">
+                        {{::thread.likes}}
+                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                    </h4>
+
+                    <div class="pull-right" style="color:gray">{{::thread.createdDate | fromNow}}</div>
 
                     <a href="#/thread/{{::thread.id}}">
                         <h4 class="list-group-item-heading">{{::thread.title}}</h4>
                     </a>
 
-                    <a href="#/thread/{{::thread.id}}" style="font-size: small">
-                        {{::thread.link}}
-                    </a>
+                    <!--<a href="#/thread/{{::thread.id}}" style="font-size: small">-->
+                        <!--{{::thread.link}}-->
+                    <!--</a>-->
 
-                    <div style="color:gray">Submitted {{::thread.createdDate | fromNow}}</div>
-
-                    <p class="list-group-item-text" style="padding-top: 10px;padding-bottom: 10px;">
-                        {{::thread.text}}
+                    <p>
+                        {{::thread.body}} - <a href="#/thread/{{::thread.id}}">{{::thread.commentCount}} comments</a>
                     </p>
-
 
                 </div>
             </div>

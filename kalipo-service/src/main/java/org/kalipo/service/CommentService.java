@@ -266,7 +266,7 @@ public class CommentService {
             log.info(String.format("Comment %s is blanked out due to %s replies", comment.getId(), replies));
             comment.setStatus(Comment.Status.DELETED); // todo read deleted comments to during load
             comment.setAuthorId("");
-            comment.setText("");
+            comment.setBody("");
             commentRepository.save(comment);
 
         } else {
@@ -378,7 +378,7 @@ public class CommentService {
     }
 
     private void renderBody(Comment comment) {
-
+        comment.setBodyHtml(comment.getBody());
     }
 
     private String getFingerprint(Comment parent, Thread thread) {

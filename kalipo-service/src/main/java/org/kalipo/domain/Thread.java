@@ -92,7 +92,9 @@ public class Thread implements Serializable {
     private Status status;
 
     @NotNull
-    private String text;
+    private String body;
+
+    private String bodyHtml;
 
     private String link;
 
@@ -184,12 +186,12 @@ public class Thread implements Serializable {
         this.status = status;
     }
 
-    public String getText() {
-        return text;
+    public String getBody() {
+        return body;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public Set<String> getkLine() {
@@ -246,6 +248,14 @@ public class Thread implements Serializable {
 
     public void setReportedCount(Integer reportedCount) {
         this.reportedCount = reportedCount;
+    }
+
+    public String getBodyHtml() {
+        return bodyHtml;
+    }
+
+    public void setBodyHtml(String bodyHtml) {
+        this.bodyHtml = bodyHtml;
     }
 
     /**

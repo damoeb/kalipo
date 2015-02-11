@@ -177,6 +177,7 @@ angular.module('kalipoApp')
                             })
                             .attr('title', function (d, i) {
                                 return 'Click to scroll - ' + d.id;
+//                                return d.influence;
                             })
                             .on('click', function (d, i) {
                                 console.log('go to', d.id);

@@ -58,7 +58,7 @@ public class NoticeService {
 
             if (comment.getStatus() == Comment.Status.APPROVED) {
                 // find mentioned usernames, starting with @ like @myname
-                Matcher matcher = FIND_USER_REFERENCES.matcher(comment.getText());
+                Matcher matcher = FIND_USER_REFERENCES.matcher(comment.getBody());
                 Set<String> uqLogins = new HashSet<String>();
                 while (matcher.find()) {
                     String login = matcher.group();

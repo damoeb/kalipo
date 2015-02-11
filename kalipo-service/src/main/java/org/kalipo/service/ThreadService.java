@@ -285,11 +285,13 @@ public class ThreadService {
 
     private Thread save(Thread thread) throws KalipoException {
 
+        renderBody(thread);
+
         // url hooks validation
         if (thread.getUriHooks() != null && !thread.getUriHooks().isEmpty()) {
             Asserts.hasPrivilege(Privileges.HOOK_THREAD_TO_URL);
 
-            Set<String> normedUriHooks = new HashSet<>();
+            Set<String> normedUriHooks = new HashSet<String>();
 
             for (String uri : thread.getUriHooks()) {
                 if (!UrlUtils.isAbsoluteUrl(uri)) {
@@ -320,5 +322,10 @@ public class ThreadService {
         }
 
         return threadRepository.save(thread);
+    }
+
+    private void renderBody(Thread thread) {
+        // todo implement
+        thread.setBodyHtml(thread.getBody());
     }
 }
