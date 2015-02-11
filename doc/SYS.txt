@@ -1,0 +1,15 @@
+1. Disable Root Login via SSH
+2. Analyze running services using
+# netstat -tap | grep LISTEN
+$ nmap <IP>
+
+3. Disable all non-needed services
+4. Firewall with iptables, tcpwrappers
+5. tripwire/debsums to sign all sys files
+
+todo
+
+6. chkrootkit to check infection (cron job)
+7. snort or ethereal
+8. use different port for ssh
+9. mail alias for root
