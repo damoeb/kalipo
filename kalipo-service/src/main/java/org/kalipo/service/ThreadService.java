@@ -152,11 +152,6 @@ public class ThreadService {
         return new AsyncResult<Page<Comment>>(commentRepository.findByThreadIdAndStatusIn(id, Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING, Comment.Status.DELETED), pageable));
     }
 
-    @Async
-    public Future<List<Comment>> getCommentsSince(String id, DateTime since) throws KalipoException {
-        return new AsyncResult<List<Comment>>(commentRepository.findByThreadIdAndCreatedDateAfter(id, since));
-    }
-
     public void delete(String id) throws KalipoException {
         // todo check permissons
 
@@ -164,8 +159,10 @@ public class ThreadService {
     }
 
     public Future<List<Comment>> getFullOutline(String threadId) {
-        List<Comment> outline = commentRepository.getInfluenceByThreadId(threadId);
-        outline.sort((c1, c2) -> c1.getFingerprint().compareTo(c2.getFingerprint()));
+        Sort sort = new Sort(
+                new Sort.Order(Sort.Direction.ASC, "fingerprint")
+        );
+        List<Comment> outline = commentRepository.getInfluenceByThreadId(threadId, sort);
         return new AsyncResult<List<Comment>>(outline);
     }
 

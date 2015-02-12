@@ -12,26 +12,13 @@
             <div class="col-lg-12 col-xs-12">
 
                 <div style="overflow: hidden">
-                    <!--<a href="javascript:void(0)" class="toggle-subcomments" ng-click="toggle('<%= comment.id %>')">-->
-                    <!--[<% if(comment.$minimized) { %>+<% } else { %>-<% } %>]-->
-                    <!--</a>-->
 
                     <a href="javascript:void(0)" ng-click="toggle('<%= comment.id %>')" title="Toggle comment" class="icon">
-                        <span class="icon-implode glyphicon glyphicon-unchecked"></span>
-                        <span class="icon-expand glyphicon glyphicon-collapse-down"></span>
-                    </a>
+                        <span class="icon-implode glyphicon glyphicon-unchecked"></span><span class="icon-expand glyphicon glyphicon-collapse-down"></span></a>
 
                     <strong class="name"><%= comment.displayName %></strong>
 
-                    <!--<%= comment.influence %>-->
                     <!--<%= comment.id %>-->
-                    <!--<%= comment.$little %>-->
-
-                    <!--<% if(comment.likes-comment.dislikes > 0) { %>-->
-                    <!--<span class="points">-->
-                        <!--<%= comment.likes-comment.dislikes %> points-->
-                    <!--</span>-->
-                    <!--<% } %>-->
 
                     <span class="date">
                         <%= moment(comment.createdDate).fromNow() %>

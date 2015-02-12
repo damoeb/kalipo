@@ -25,10 +25,10 @@ angular.module('kalipoApp')
                 //    .interpolate(d3.interpolateRgb)
                 //    .range(['#ffd800', '#ff0000']); // orange - red
 
-                //var interpolateRootColor = d3.scale.linear()
-                //    .domain([0, 1])
-                //    .interpolate(d3.interpolateRgb)
-                //    .range(['#d3d3d3', '#000000']); // lightgray - black
+//                var interpolateRootColor = d3.scale.linear()
+//                    .domain([0, 1])
+//                    .interpolate(d3.interpolateRgb)
+//                    .range(['#d3d3d3', '#000000']); // lightgray - black
 
                 var conf = {
                     height: 7,
@@ -50,7 +50,7 @@ angular.module('kalipoApp')
                 var lastScrollTop = 0;
                 var $this = this;
 
-                var __scroll = function (comments) {
+                var __scroll = function () {
 
                     var scrollTop = $(this).scrollTop();
 
@@ -78,68 +78,53 @@ angular.module('kalipoApp')
                     var $lastOnViewport = $($all[1]);
                     _.forEach($all, function (comment) {
                         var $comment = $(comment);
-                        if ($comment.offset().top + $comment.height() > scrollTop + _windowHeight) {
+                        if ($comment.offset().top + $comment.height() < scrollTop + _windowHeight) {
                             $lastOnViewport = $comment;
-                            return false;
                         }
                     });
 
                     var firstCommentId = $firstOnViewport.attr('ng-comment-id');
                     var lastCommentId = $lastOnViewport.attr('ng-comment-id');
 
-                    console.log('from', firstCommentId, 'last', lastCommentId);
+                    console.log('viewport from', firstCommentId, 'last', lastCommentId);
 
-                    var indexOfFirst = _.findIndex(comments, function (comment) {
+                    var indexOfFirst = _.findIndex($this.comments, function (comment) {
                         return comment.id == firstCommentId;
                     });
-                    var indexOfLast = _.findIndex(comments, function (comment) {
+                    var indexOfLast = _.findIndex($this.comments, function (comment) {
                         return comment.id == lastCommentId;
                     });
 
-                    var __rootsUntilIndex = function (untilIndex) {
+                    var __rootsUntilIndex = function (fromIndex, untilIndex) {
                         var rootCount = 0;
                         _.forEach(comments, function (comment, index) {
-                            if (comment.level == 0) {
+                            if (fromIndex<=index && comment.level == 0) {
                                 rootCount++;
                             }
-                            return index < untilIndex;
+                            return index <= untilIndex;
                         });
                         return rootCount;
                     };
 
-                    console.log('scroll to ', firstCommentId, '@', indexOfFirst);
+                    var _top = -((conf.height + conf.yspace) * indexOfFirst + conf.yRootOffset * __rootsUntilIndex(0, indexOfFirst));
+                    var _height = conf.yspace * (indexOfLast - indexOfFirst +1) + conf.yRootOffset * (__rootsUntilIndex(indexOfFirst, indexOfLast) +1);
 
-                    var _roots = __rootsUntilIndex(indexOfFirst);
-                    console.log('roots', _roots);
-                    var _top = -((conf.height + conf.yspace) * indexOfFirst + conf.yRootOffset * _roots);
-                    var _height = 200;//conf.yspace * (indexOfFirst-indexOfLast);
-
-                    console.log('top', _top, 'height', _height);
-
-                    //$('#outline-viewport').css({
-                    //    'position': 'fixed',
-                    //    'top': _top + 'px',
-                    //    'height': _height + 'px'
-                    //});
+                    $('#outline-viewport').animate({height: _height}, '200', 'swing');
 
                     var $outline = $element.parent();
-                    //if (indexOfFirst == 0 || $element.parent().height() > scrollTop) {
-                    //    $outline.css({'position': 'relative', 'top': 0});
-                    //} else {
+                    if (indexOfFirst == 0) { // || $element.parent().height() > scrollTop) {
+                        $outline.css({'position': 'relative', 'top': 0});
+                    } else {
 
-                    $outline.css({
-                        'position': 'fixed'
-                        //'top': _top + 'px'
-                    }).animate({top: $this.yScale(_top)}, '500', 'swing', function () {
-                        console.log('done scrolling')
-                    });
-                    //}
-
+                        $outline.css({
+                            'position': 'fixed'
+                        }).animate({top: $this.yScale(_top)}, '500', 'swing');
+                    }
                 };
 
-                var __init = function (comments) {
-                    var outHeight = comments.length * conf.elHeight;
-                    var domainHeight = comments.length * (conf.height + conf.yspace) + __lvl0CommentCount(comments) * conf.yRootOffset;
+                var __init = function () {
+                    var outHeight = $this.comments.length * conf.elHeight;
+                    var domainHeight = $this.comments.length * (conf.height + conf.yspace) + __lvl0CommentCount($this.comments) * conf.yRootOffset;
                     console.log('domain-height', domainHeight);
 
                     $this.yScale = d3.scale.linear()
@@ -147,20 +132,20 @@ angular.module('kalipoApp')
                         .range([0, outHeight]);
                 };
 
-                var __draw = function (comments) {
+                var __draw = function () {
 
                     console.log('drawing');
 
                     var outWidth = $element.width();
-                    var outHeight = comments.length * conf.elHeight;
+                    var outHeight = $this.comments.length * conf.elHeight;
 
-                    var minI = _.min(comments, function (c) {
+                    var minI = _.min($this.comments, function (c) {
                         return c.influence;
                     }).influence;
-                    var maxI = _.max(comments, function (c) {
+                    var maxI = _.max($this.comments, function (c) {
                         return c.influence;
                     }).influence;
-                    var maxLevel = _.max(comments, function (c) {
+                    var maxLevel = _.max($this.comments, function (c) {
                         return c.level;
                     }).level;
 
@@ -185,7 +170,7 @@ angular.module('kalipoApp')
                     var yOffsetTotal = 0;
 
                     g.selectAll('rect')
-                        .data(comments)
+                        .data($this.comments)
                         .enter()
                         .append('rect')
                         .attr('x', function (d, i) {
@@ -205,11 +190,11 @@ angular.module('kalipoApp')
                             return $this.yScale(conf.height);
                         })
                         .attr('fill', function (d, i) {
-                            //if (d.level == 0) {
-                            //    return interpolateRootColor(Math.abs(d.influence) / iRange);
-                            //} else {
-                            return interpolateColor(Math.abs(d.influence) / iRange);
-                            //}
+//                            if (d.level == 0) {
+//                                return interpolateRootColor(Math.abs(d.influence) / iRange);
+//                            } else {
+                                return interpolateColor(Math.abs(d.influence) / iRange);
+//                            }
                         })
                         .attr('title', function (d, i) {
                             return 'Click to scroll - ' + d.id;
@@ -227,6 +212,8 @@ angular.module('kalipoApp')
 
                 Thread.outline({id: threadId}, function (comments) {
 
+                    $this.comments = comments;
+
                     $(document).ready(function () {
                         //Cache the Window object
 
@@ -238,23 +225,20 @@ angular.module('kalipoApp')
                                 clearTimeout($this.data('scrollTimeout'));
                             }
                             $this.data('scrollTimeout', setTimeout(function () {
-                                __scroll(comments)
+                                __scroll()
                             }, 200));
                         });
                     });
 
-
                     var paginated = {};
-                    var grouped = _.groupBy(comments, function(comment, index) {
+                    var grouped = _.groupBy($this.comments, function(comment, index) {
                         return parseInt(index / conf.commentsOnPage);
                     });
-                    _.forEach(grouped, function(comments, page) {
-                        paginated[page] = _.flatten(comments);
+                    _.forEach(grouped, function(_comments, page) {
+                        paginated[page] = _.flatten(_comments);
                     });
 
-                    //console.log('paginated', paginated);
-
-                    var __postFetchedPage = function (comments) {
+                    var __postFetchedPage = function () {
                         console.log('prepare drawing');
                         _.forEach($scope.pages, function(page){
 
@@ -267,13 +251,13 @@ angular.module('kalipoApp')
                             });
 
                             // refill comments
-                            comments = [];
+                            $this.comments = [];
 
-                            __pushAll(comments, paginated);
+                            __pushAll($this.comments, paginated);
                         });
 
-                        __init(comments);
-                        __draw(comments);
+                        __init();
+                        __draw();
                     };
 
                     var timeoutId = setTimeout(__postFetchedPage, 1000);
@@ -282,12 +266,12 @@ angular.module('kalipoApp')
 
                         clearTimeout(timeoutId);
                         console.log('-> event:fetched-page', $scope.pages);
-                        __postFetchedPage(comments);
+                        __postFetchedPage();
                     });
 
                     var __pushAll = function(sink, pages) {
-                        _.forEach(pages, function(comments, page) {
-                            _.forEach(comments, function(comment) {
+                        _.forEach(pages, function(_comments, page) {
+                            _.forEach(_comments, function(comment) {
                                 sink.push(comment);
                             })
                         })

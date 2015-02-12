@@ -58,16 +58,14 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
                 var comments = __postFetchComments(pageData.content, currentPage);
 
-                var roots = __mergeWithTree(tree, comments);
-                __classifyByInfluence(roots);
+                var roots = __sort(__mergeWithTree(tree, comments));
+                __shape(roots);
 
                 var page = {
                     id: currentPage,
                     comments: roots
                 };
                 $scope.pages.push(page);
-
-                //__startLiveUpdates();
 
                 end = new Date().getTime();
                 console.log('Execution time: ' + (end - start));
@@ -114,9 +112,9 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 });
         };
 
-        var __sortByInfluence = function (comments) {
+        var __sort = function (comments) {
             return _.sortBy(comments, function (comment) {
-                return -comment.influence
+                return -1 * comment.$score
             })
         };
 
@@ -156,9 +154,8 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
                 // todo minimize negative-only comments, hell-banned subthreads
 
-                comment.$imploded = false;
                 comment.$minimized = comment.dislikes > 3 && comment.dislikes > comment.likes;
-                comment.$score = Math.max(comment.likes - comment.dislikes, 1) / comment.createdDate;
+                comment.$score = comment.influence / comment.createdDate;
 
                 // author chose to hide his name
                 if (_.isEmpty(comment.displayName) || _.isUndefined(comment.displayName)) {
@@ -172,12 +169,13 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
             });
         };
 
-        var __classifyByInfluence = function (comments) {
-            console.log('classify');
-            __classifyByInfluenceRc(comments, 1);
+        var __shape = function (comments) {
+            console.log('shape');
+            __shapeRc(comments, 1);
         };
 
-        var __classifyByInfluenceRc = function (comments, level) {
+        var __shapeRc = function (comments, level) {
+
             _.forEach(comments, function (comment) {
 
                 comment.$repliesCount = 0;
@@ -185,9 +183,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 var verbose = comment.replies.verbose;
                 var furthermore = comment.replies.furthermore;
 
-                comment.$little = comment.likes - comment.dislikes < -4; // todo can still be controversial
-
-                __classifyByInfluenceRc(replies, level +1);
+                __shapeRc(replies, level +1);
 
                 _.forEach(replies, function(reply, index) {
 
@@ -210,8 +206,10 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                     }
                 });
 
-                // sort by score
-                comment.replies.verbose = __sortByInfluence(comment.replies.verbose);
+                comment.$little = comment.likes - comment.dislikes < -4; // todo can still be controversial
+
+
+                comment.replies.verbose = __sort(comment.replies.verbose);
 
                 //delete comment.replies.$all;
 
