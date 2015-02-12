@@ -199,9 +199,9 @@ public class CommentAgent {
 //                    Comment θ = comment.getParentId()==null ? null : thisComments.get(comment.getParentId()); //theta - outgoing influence
                     Double i_out = 0d; //w_out.apply(NumUtils.nullToZero(θ == null ? null : θ.getInfluence()));
                     int i_inCount = i.isEmpty() ? 0 : 1 + i.size();
-                    comment.setAuthorDiversityOfReplies(getAuthorDiversity(i));
+                    comment.setAuthorDiversity(getAuthorDiversity(comment, i));
 
-                    Double i_in = comment.getAuthorDiversityOfReplies() * w_in.apply(i_inCount + influence_incoming(i, influenceMap));
+                    Double i_in = comment.getAuthorDiversity() * w_in.apply(i_inCount + influence_incoming(i, influenceMap));
                     double transitiveInfluence = i_in - i_out;
 
                     // todo include comment.getQuality()
@@ -231,25 +231,28 @@ public class CommentAgent {
         }
     }
 
-    private double getAuthorDiversity(Set<Comment> comments) {
-        if (comments.isEmpty()) {
-            return 0d;
-        }
-
-        Set<String> uniqueAuthor = new HashSet<>(comments.size());
-        double inheritedDiversity = 0d;
-
-        for (Comment c : comments) {
-            uniqueAuthor.add(c.getDisplayName());
-            inheritedDiversity += c.getAuthorDiversityOfReplies();
-        }
-
-        if (inheritedDiversity == 0) { // should never be 0
-            inheritedDiversity = 1d;
-        }
-
-        double size = (double) comments.size();
-        return inheritedDiversity / size * uniqueAuthor.size() / size;
+    private double getAuthorDiversity(Comment comment, Set<Comment> replies) {
+        // todo does not work without knowing all sub-authors
+//        if (replies.isEmpty()) {
+            return 1d;
+//        }
+//
+//        Set<String> uniqueAuthor = new HashSet<>(replies.size());
+//        uniqueAuthor.add(comment.getDisplayName());
+//
+//        double inheritedDiversity = 0d;
+//
+//        for (Comment c : replies) {
+//            uniqueAuthor.add(c.getDisplayName());
+//            inheritedDiversity += c.getAuthorDiversity();
+//        }
+//
+//        if (inheritedDiversity == 0) { // should never be 0
+//            inheritedDiversity = replies.size();
+//        }
+//
+//        double size = (double) replies.size() +1;
+//        return inheritedDiversity / size * uniqueAuthor.size() / (size +1);
     }
 
     private Double influence_incoming(Set<Comment> incoming, Map<String, Double> influenceMap) {

@@ -191,23 +191,20 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                     comment.$repliesCount += 1; // reply itself
                     comment.$repliesCount += reply.$repliesCount; // its replies
 
-                    if (reply.influence <= 0 || index > 4) { // todo && older than n views && not owner of comment
+                    var isHidden = index >= 1 && reply.$repliesCount == 0 && reply.$little;
 
-                        if(replies.length < 3 || level > 1) {
-                            reply.$little = true;
-                            verbose.push(reply);
-                        } else {
-                            console.log('dropping', reply.id);
-                            furthermore.push(reply.id);
-                        }
+                    // todo && older than n views && not owner of comment
+                    if( isHidden ) {
+                        console.log('dropping', reply.id);
+                        furthermore.push(reply.id);
 
                     } else {
                         verbose.push(reply);
                     }
                 });
 
-                comment.$little = comment.likes - comment.dislikes < -4; // todo can still be controversial
-
+                // todo can still be controversial
+                comment.$little = (comment.likes > 1 || comment.dislikes > 1) && (comment.likes - comment.dislikes) < -1;
 
                 comment.replies.verbose = __sort(comment.replies.verbose);
 

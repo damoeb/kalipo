@@ -90,8 +90,7 @@ public class Comment implements Anonymizable<Comment> {
 
     private String reviewerId;
 
-    @JsonIgnore
-    private double authorDiversityOfReplies = 1d;
+    private double authorDiversity = 1d;
 
     private String reviewMsg;
 
@@ -277,12 +276,12 @@ public class Comment implements Anonymizable<Comment> {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public double getAuthorDiversityOfReplies() {
-        return authorDiversityOfReplies;
+    public double getAuthorDiversity() {
+        return authorDiversity;
     }
 
-    public void setAuthorDiversityOfReplies(double authorDiversityOfReplies) {
-        this.authorDiversityOfReplies = authorDiversityOfReplies;
+    public void setAuthorDiversity(double authorDiversity) {
+        this.authorDiversity = authorDiversity;
     }
 
     public String getReviewMsg() {

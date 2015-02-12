@@ -18,7 +18,7 @@ angular.module('kalipoApp')
 
                         var compiled_comment = _.template(tmpl_comment);
                         var compiled_menu = _.template(tmpl_menu);
-                        var compiled_more = _.template('<div class="furthermore"><a href="javascript:void(0)" ng-click="getMissingComments(\'<%= ids %>\')">View <strong><%= count %></strong> <% if(count==1) { %>reply<% } else { %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span></div>');
+                        var compiled_more = _.template('<div class="furthermore" style="border-left: <%= level * 10 %>px solid #ececec;"><a href="javascript:void(0)" ng-click="getMissingComments(\'<%= ids %>\')">View <strong><%= count %></strong> <% if(count==1) { %>reply<% } else { %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span></div>');
 
                         var $thread = $('<div></div>');
 
@@ -42,6 +42,7 @@ angular.module('kalipoApp')
                                 // todo fix ids
                                 $comment.append(compiled_more({
                                     count: comment.$repliesCount,
+                                    level: comment.level,
                                     ids: comment.replies.furthermore.join(',')
                                 }));
                             }
@@ -68,8 +69,7 @@ angular.module('kalipoApp')
                 $scope.showReplyModal = function (commentId, quote) {
                     console.log('reply', commentId, quote);
 
-                    var $modal = $('$replModal');
-
+//                    var $modal = $('$replModal');
 
                     // todo show popover
                     //$http.get('scripts/comment/partial_reply.html', {cache:true}).success(function(raw_tmpl) {
