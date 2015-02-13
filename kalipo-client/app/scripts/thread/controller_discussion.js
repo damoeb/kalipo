@@ -154,7 +154,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
                 // todo minimize negative-only comments, hell-banned subthreads
 
-                comment.$minimized = comment.dislikes > 3 && comment.dislikes > comment.likes;
+                comment.$hiddenreplies = comment.dislikes > 3 && comment.dislikes > comment.likes;
                 comment.$score = comment.influence / comment.createdDate;
 
                 // author chose to hide his name
@@ -186,7 +186,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
                  .) normal discussions
                  - furthermore index > 4
-                 - level 0 are not minimized
+                 - level 0 are not hiddenreplies
 
                  .) general rules
                  - minimize bad comments
@@ -207,7 +207,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                     comment.$repliesCount += 1; // reply itself
                     comment.$repliesCount += reply.$repliesCount; // its replies
 
-                    var isHidden = index >= 1 && reply.$repliesCount == 0 && reply.$little;
+                    var isHidden = index >= 1 && reply.$repliesCount == 0 && reply.$oneline;
 
                     // todo && older than n views && not owner of comment
                     if( isHidden ) {
@@ -220,7 +220,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 });
 
                 // todo can still be controversial
-                comment.$little = (comment.likes > 1 || comment.dislikes > 1) && (comment.likes - comment.dislikes) < -1;
+                comment.$oneline = (comment.likes > 1 || comment.dislikes > 1) && (comment.likes - comment.dislikes) < -1;
 
                 comment.replies.verbose = __sort(comment.replies.verbose);
 

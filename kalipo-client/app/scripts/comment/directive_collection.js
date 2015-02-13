@@ -99,12 +99,12 @@ angular.module('kalipoApp')
                         });
                 };
 
-                $scope.unLittle = function (commentId) {
-                    $('#comment-' + commentId).removeClass('little');
+                $scope.verbose = function (commentId) {
+                    $('#comment-' + commentId).removeClass('oneline');
                 };
 
                 $scope.toggle = function (commentId) {
-                    $('#comment-' + commentId).toggleClass('minimized');
+                    $('#comment-' + commentId).toggleClass('hiddenreplies');
                 };
 
                 $scope.like = function (commentId) {

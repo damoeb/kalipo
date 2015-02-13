@@ -2,8 +2,6 @@ comment data is messy and contains duplicate ids
 infinite scroll
 support images in comments
 support links in comment
-add repliesCount to comment
-rename comment.children to replies
 gatling/jmeter for load tests
 
 score: include freshness for roots if younger than 3 days
@@ -12,7 +10,7 @@ furthermore
 - score <= 0 comments, older than n views
 - replies.position() > 5
 
-little
+oneline
 - hide.length <= 2
 
 verbose

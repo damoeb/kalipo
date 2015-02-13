@@ -222,39 +222,40 @@ a:hover {
 .icon-implode {}
 .icon-expand {display: none;}
 .comment .text {white-space: pre-line;}
-.comment .menu {}
+.comment .menu {font-size: smaller}
+.comment .menu A {margin-right:8px;}
 .comment .show-full-comment {display: none;}
-.comment .replies-count {display: none;color: grey; font-size: smaller;}
+.comment .replies-count {display: none; margin-top:10px;}
 
-.little>.comment .icon {display: none;}
-.little>.comment .name {display: none;}
-.little>.comment .body-wrapper {white-space: nowrap; overflow: hidden;}
-.little>.comment .points {display: none;}
-.little>.comment .date {display: none;}
-.little>.comment .label-pending {}
+.oneline>.comment .icon {display: none;}
+.oneline>.comment .name {display: none;}
+.oneline>.comment .body-wrapper {white-space: nowrap; overflow: hidden;}
+.oneline>.comment .points {display: none;}
+.oneline>.comment .date {display: none;}
+.oneline>.comment .label-pending {}
 
-.little>.comment .text {
+.oneline>.comment .text {
     white-space: nowrap;
     overflow: hidden;
     display: inline-block;
     line-height: 12px
 }
 
-.little>.comment .menu {display: none;}
-.little>.comment .show-full-comment {display: inline-block;}
+.oneline>.comment .menu {display: none;}
+.oneline>.comment .show-full-comment {display: inline-block;}
 
-.minimized .name {}
-.minimized .points {}
-.minimized .date {display: none;}
-.minimized .icon-implode {display: none;}
-.minimized .icon-expand {display: inline-block;}
-.minimized .label-pending {}
-.minimized .text {display: none;}
-.minimized .menu {display: none;}
-.minimized .show-full-comment {}
-.minimized .replies {display: none;}
-.minimized .furthermore {display: none;}
-.minimized .replies-count {display: inline-block;}
+.hiddenreplies .name {}
+.hiddenreplies .points {}
+.hiddenreplies .date {display: none;}
+.hiddenreplies .icon-implode {display: none;}
+.hiddenreplies .icon-expand {display: inline-block;}
+.hiddenreplies .label-pending {}
+.hiddenreplies .text {display: none;}
+.hiddenreplies .menu {}
+.hiddenreplies .show-full-comment {}
+.hiddenreplies .replies {display: none;}
+.hiddenreplies .furthermore {display: none;}
+.hiddenreplies .replies-count {display: inline-block;}
 
 .abused-report {
     /*border-radius: 4px;*/

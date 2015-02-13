@@ -3,13 +3,13 @@
        ng-click="showReplyModal('<%= comment.id %>', '<%= comment.displayName %>', '<%= comment.threadId %>', '<%= comment.body %>')">Reply</a>
     <a class="voteUp <% if (comment.likes>0) { %><%= 'always' %><% } %>"
        href="javascript:void(0)" ng-click="like('<%= comment.id %>')">
-        <span class="glyphicon glyphicon-thumbs-up"></span>
-        <%= comment.likes %></a>
+        <%= comment.likes %>
+        <span class="glyphicon glyphicon-thumbs-up"></span></a>
 
     <a class="voteDown"
        href="javascript:void(0)" ng-click="dislike('<%= comment.id %>')">
-        <span class="glyphicon glyphicon-thumbs-down"></span>
-        <%= comment.dislikes %></a>
+        <%= comment.dislikes %>
+        <span class="glyphicon glyphicon-thumbs-down"></span></a>
 
     <a ng-if="comment.parentId != null" href="#/thread/<%= comment.threadId %>?anchor=<%= comment.parentId %>">
         Parent</a>

@@ -1,5 +1,5 @@
 <div id="comment-<%= comment.id %>"
-     class="comment-wrapper <% if(comment.$pending) { %><%='pending' %><% } %> <% if(comment.$little) { %><%='little'  %><% } %>">
+     class="comment-wrapper <% if(comment.$pending) { %><%='pending' %><% } %> <% if(comment.$oneline) { %><%='oneline'  %><% } %>">
     <div
         class="comment"
         ng-comment-id="<%= comment.id %>"
@@ -24,9 +24,9 @@
                         <%= moment(comment.createdDate).fromNow() %>
                     </span>
                     <span class="label label-warning label-pending">PENDING APPROVAL</span>
-                    <span class="replies-count">
-                        with <%= comment.$repliesCount %> replies
-                    </span>
+                    <!--<span class="replies-count">-->
+                        <!--with <%= comment.$repliesCount %> replies-->
+                    <!--</span>-->
 
                     <div class="dropdown pull-right" ng-if="isadmin">
                         <a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="show-full-comment" style="float:right">
-                        <a title="Show full comment" ng-click="unLittle('<%= comment.id %>')"
+                        <a title="Show full comment" ng-click="verbose('<%= comment.id %>')"
                            href="javascript:void(0)">
                             <span class="glyphicon glyphicon-chevron-right"></span>
                         </a>
@@ -57,9 +57,14 @@
                     <div class="body-wrapper">
                         <div class="body"><%= comment.body %></div>
                     </div>
+
                 </div>
 
                 <%= fnRenderMenu({comment: comment}) %>
+
+                <% if(comment.$repliesCount > 0) { %>
+                <div class="replies-count"><a href="javascript:void(0)" ng-click="toggle('<%= comment.id %>')">View <strong><%= comment.$repliesCount %></strong> <% if(comment.$repliesCount==1) { %>reply<% } else { %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span></div>
+                <% } %>
 
             </div>
 
