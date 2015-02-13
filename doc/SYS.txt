@@ -1,3 +1,6 @@
+0. Check logs
+$ tail /var/log/auth.log
+
 1. Disable Root Login via SSH
 2. Analyze running services using
 # netstat -tap | grep LISTEN
@@ -13,3 +16,26 @@ todo
 7. snort or ethereal
 8. use different port for ssh
 9. mail alias for root
+
+Tomcat 7
+========
+http://webcache.googleusercontent.com/search?q=cache:https://www.owasp.org/index.php/Securing_tomcat&strip=1
+
+
+Apache SelfSigned Certificate
+=============================
+
+http://httpd.apache.org/docs/2.4/ssl/ssl_howto.html
+http://www.linux.com/learn/tutorials/392099-creating-self-signed-ssl-certificates-for-apache-on-linux
+
+.) create certificate
+
+mkdir -p /etc/ssl/localcerts
+openssl req -new -x509 -days 365 -nodes -out /etc/ssl/localcerts/apache.pem -keyout /etc/ssl/localcerts/apache.key
+chmod 600 /etc/ssl/localcerts/apache*
+
+.)
+a2enmod ssl
+
+.)
+https://wiki.debian.org/Self-Signed_Certificate
