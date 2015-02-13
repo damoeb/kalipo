@@ -255,10 +255,6 @@ angular.module('kalipoApp')
                             __flat(paginated[page.id], page.comments);
                             paginated[page.id] = _.flatten(paginated[page.id]);
 
-                            _.forEach(paginated[page.id], function(comment) {
-                                paginated[page.id].push(comment);
-                            });
-
                             // refill comments
                             $this.comments = [];
 

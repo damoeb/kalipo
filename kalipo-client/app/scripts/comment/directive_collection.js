@@ -95,7 +95,7 @@ angular.module('kalipoApp')
 
                     Comment.save($scope.draft,
                         function () {
-                            $scope.clear();
+                            // todo notification
                         });
                 };
 

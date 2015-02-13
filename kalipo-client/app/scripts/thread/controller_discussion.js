@@ -304,4 +304,9 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
         $scope.threadEventSubSocket = $scope.threadEventSocket.subscribe($scope.threadEventRequest);
 
+        $scope.$on("$destroy", function () {
+            console.log('unsubscribe');
+            $scope.threadEventSocket.unsubscribe();
+        });
+
     }]);
