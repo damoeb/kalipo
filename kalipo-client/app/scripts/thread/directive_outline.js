@@ -133,6 +133,8 @@ angular.module('kalipoApp')
                         .range([0, outHeight]);
                 };
 
+                var $doc = $('html, body');
+
                 var __draw = function () {
 
                     console.log('drawing');
@@ -206,11 +208,10 @@ angular.module('kalipoApp')
                         })
                         .on('click', function (d, i) {
                             console.log('go to', d.id);
-                            // todo fix this
-                            //$(document).animate({
-                            //    scrollTop: $('#54c4c6b4c830ed79f392b012').offset().top
-                            //    //scrollTop: $('#' + d.id).offset().top
-                            //}, 2000);
+                            // todo check if comment is there, otherwise try to load it
+                            $doc.animate({
+                                scrollTop: $('#' + d.id).offset().top
+                            }, 500);
                         });
                 };
 
