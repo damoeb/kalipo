@@ -178,6 +178,22 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
             _.forEach(comments, function (comment) {
 
+                /*
+                 3 rule sets
+                 .) huge discussions
+                 - only level 0 comments
+                 - furthermore level 0 comments
+
+                 .) normal discussions
+                 - furthermore index > 4
+                 - level 0 are not minimized
+
+                 .) general rules
+                 - minimize bad comments
+                 - show full comment if user is the author
+
+                 */
+
                 comment.$repliesCount = 0;
                 var replies = comment.replies.$all;
                 var verbose = comment.replies.verbose;

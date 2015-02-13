@@ -1,19 +1,39 @@
-<!--ng-if="mainCtrl.authenticated"-->
-<div style="padding-top: 10px;" class="clearfix col-lg-12 col-xs-12">
+<!-- Modal -->
+<div class="modal fade" id="createCommentModal" tabindex="-1" role="dialog" aria-labelledby="createCommentModal"
+     aria-hidden="true">
+    <form name="form" role="form" novalidate
+          class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+          ng-submit="submitComment()">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Reply to <strong>{{displayName}}</strong></h4>
+                </div>
+                <div class="modal-body">
+                    <p>You can use <a href="http://en.wikipedia.org/wiki/Markdown">markdown</a>, if you want.</p>
 
-    <form novalidate ng-submit="draft.parentId = comment.id; submit(); comment.$reply = false;">
-        <div class="row">
-            <textarea class="form-control field-comment" placeholder="Say Something" ng-model="draft.body"
-                      ng-minlength=1 ng-maxlength=2048 required rows="1"></textarea>
-        </div>
-        <div class="row">
-            <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
-                Send
-            </button>
-            <button type="button" ng-click="comment.$reply = false" class="btn btn-default">
-                Cancel
-            </button>
+                    <div class="form-group">
+                        <textarea name="body" ng-model="draft.body" class="form-control"
+                                  ng-minlength=5 ng-maxlength=1024 rows="10"
+                                  required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input name="name" ng-model="draft.name" type="text" class="form-control"
+                               placeholder="Your name">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">
+                        Send
+                    </button>
+                </div>
+            </div>
         </div>
     </form>
-
 </div>

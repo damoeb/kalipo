@@ -2,7 +2,7 @@
  * Created by markus on 16.12.14.
  */
 angular.module('kalipoApp')
-    .directive('collection', function ($compile, $templateCache, $http, Vote) {
+    .directive('collection', function ($compile, $templateCache, $http, Vote, Comment) {
         return {
             restrict: 'E',
             replace: true,
@@ -12,6 +12,13 @@ angular.module('kalipoApp')
             },
             template: '',
             link: function ($scope, $element, $attrs) {
+
+                $scope.draft = {};
+
+                // modal to create comments
+                $http.get('views/partial_reply.html', {cache: true}).success(function (tmpl_reply) {
+                    $element.append($compile(tmpl_reply)($scope));
+                });
 
                 $http.get('views/partial_comment.html', {cache: true}).success(function (tmpl_comment) {
                     $http.get('views/partial_menu.html', {cache: true}).success(function (tmpl_menu) {
@@ -66,22 +73,33 @@ angular.module('kalipoApp')
                     console.log('fetch missing comments of', commentIds)
                 };
 
-                $scope.showReplyModal = function (commentId, quote) {
-                    console.log('reply', commentId, quote);
+                $scope.showReplyModal = function (commentId, displayName, threadId, quote) {
+                    $('#createCommentModal').modal();
+                    $scope.displayName = displayName;
 
-//                    var $modal = $('$replModal');
-
-                    // todo show popover
-                    //$http.get('scripts/comment/partial_reply.html', {cache:true}).success(function(raw_tmpl) {
-                    //    var html = $compile(_.template(raw_tmpl)({commendId:commentId}))($scope);
-                    //    $('#mod-' + commentId).append(html);
-                    //});
+                    $scope.draft.threadId = threadId;
+                    $scope.draft.body = '>' + quote.replace(/\n/g, '>\n');
+                    $scope.draft.parentId = commentId;
                 };
 
                 $scope.toggleReportForm = function (commentId) {
                     console.log('report', commentId);
                     // todo show popover
                 };
+
+                $scope.submitComment = function () {
+
+                    console.log('submit comment', $scope.draft);
+                    // todo support anon flag in view
+                    $scope.draft.anonymous = false;
+
+                    Comment.save($scope.draft,
+                        function () {
+                            $scope.clear();
+                        });
+                };
+
+
 
                 $scope.unLittle = function (commentId) {
                     $('#comment-' + commentId).removeClass('little');

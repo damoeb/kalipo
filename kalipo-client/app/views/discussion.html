@@ -38,7 +38,6 @@
         </div>
     </div>
 
-
     <div ng-if="$viewMode">
 
         <div ng-include="'views/thread-edit.html'"></div>
@@ -66,10 +65,9 @@
                 Page {{page.id}}: {{page.comments.length}} comments
 
                 <dl style="margin:0;">
-
                     <collection collection="page.comments" page="page"></collection>
-
                 </dl>
+
                 <a id="page-{{page.id +1}}"></a>
             </div>
 

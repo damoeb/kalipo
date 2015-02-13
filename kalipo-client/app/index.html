@@ -63,6 +63,7 @@
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="#">Browse</a></li>
                 <li><a href="#/discuss">Create Discussion</a></li>
+                <li><a href="javascript:void(0)" data-toggle="modal" data-target="#feedbackModal">Give Feedback</a></li>
             </ul>
 
             <ul class="nav navbar-nav nav-pills navbar-right">
@@ -209,10 +210,6 @@
 <footer class="footer" style="bottom: 0; position: fixed; width: 100%" ng-controller="FeedbackController">
     <div class="container-fluid">
 
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#feedbackModal">
-            Give Feedback
-        </button>
-
         <!-- Modal -->
         <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModal"
              aria-hidden="true">
@@ -227,7 +224,7 @@
                             <h4 class="modal-title" id="myModalLabel">Feedback</h4>
                         </div>
                         <div class="modal-body">
-                            <p>Please tell us what you think, any feedback is highly appreciated.</p>
+                            <p>Tell us what you think, and help us improve. Thx ;)</p>
 
                             <div class="form-group">
                                 <textarea name="text" ng-model="feedback.text" class="form-control"
