@@ -99,8 +99,6 @@ angular.module('kalipoApp')
                         });
                 };
 
-
-
                 $scope.unLittle = function (commentId) {
                     $('#comment-' + commentId).removeClass('little');
                 };

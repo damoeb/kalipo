@@ -109,15 +109,23 @@ angular.module('kalipoApp')
                     var _top = -((conf.bar_height + conf.bar_marginBottom) * indexOfFirst + conf.yOffsetForRoots * __rootsUntilIndex(0, indexOfFirst));
                     var _height = (conf.bar_height + conf.bar_marginBottom) * (indexOfLast - indexOfFirst) + conf.yOffsetForRoots * (__rootsUntilIndex(indexOfFirst, indexOfLast));
 
+                    //console.log($element.parent().offset().top, scrollTop);
+
                     var $outline = $element.parent();
-                    if (indexOfFirst == 0) { // || $element.parent().height() > scrollTop) {
+                    //if (indexOfFirst == 0) { // || $element.parent().height() > scrollTop) {
+                    if ($element.parent().offset().top > scrollTop || scrollTop < 200) { // || $element.parent().height() > scrollTop) {
                         $outline.css({'position': 'relative', 'top': 0});
                         $viewport.hide()
                     } else {
 
-                        $outline.css({
-                            'position': 'fixed'
-                        }).animate({top: $this.yScale(_top)}, '300', 'swing');
+                        if ($outline.css('position') == 'relative') {
+                            $outline.css({
+                                'position': 'fixed',
+                                'top': -50
+                            });
+                        }
+
+                        $outline.animate({top: $this.yScale(_top)}, '300', 'swing');
 
                         $viewport.show().animate({height: _height}, '200', 'swing');
                     }
@@ -225,7 +233,7 @@ angular.module('kalipoApp')
                             }
                             $this.data('scrollTimeout', setTimeout(function () {
                                 __scroll()
-                            }, 200));
+                            }, 50));
                         });
 
                         // remove scroll listener
