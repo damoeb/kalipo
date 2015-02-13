@@ -275,6 +275,19 @@ a:hover {
     color: #31708f;
 }
 
+.kalert {
+    background-color: #ffd24e;
+    border-radius: 2px;
+    clear: left;
+    line-height: 1.5;
+    margin: 15px 0;
+    overflow: visible;
+    padding: 6px 18px;
+    position: relative;
+    margin: auto;
+    width: 300px;
+}
+
 /* field validation */
 .ng-pristine {
 }
