@@ -196,15 +196,10 @@ angular.module('kalipoApp')
                             return $this.yScale(conf.bar_height);
                         })
                         .attr('fill', function (d, i) {
-//                            if (d.level == 0) {
-//                                return interpolateRootColor(Math.abs(d.influence) / iRange);
-//                            } else {
-                                return interpolateColor(Math.abs(d.influence) / iRange);
-//                            }
+                            return interpolateColor(Math.abs(d.influence) / iRange);
                         })
                         .attr('title', function (d, i) {
                             return 'Click to scroll - ' + d.id;
-//                                return d.influence;
                         })
                         .on('click', function (d, i) {
                             console.log('go to', d.id);
@@ -286,7 +281,6 @@ angular.module('kalipoApp')
                     var __flat = function(sink, deepComments) {
                         _.forEach(deepComments, function(comment) {
                             sink.push(comment);
-                            //console.log(comment.id, comment.level);
                             __flat(sink, comment.replies.verbose);
                         });
                     };
