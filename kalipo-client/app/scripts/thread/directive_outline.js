@@ -31,14 +31,13 @@ angular.module('kalipoApp')
 //                    .range(['#d3d3d3', '#000000']); // lightgray - black
 
                 var conf = {
-                    height: 7,
-                    yspace: 3,
-                    yRootOffset: 8, // if a level=0 comment occurs
+                    bar_height: 7,
+                    bar_marginBottom: 3,
+                    yOffsetForRoots: 8, // if a level=0 comment occurs
                     commentsOnPage: 200,
-                    elHeight: 10,
-                    xLevelOffset: 5,
-                    width: 15,
-                    inflBoost: 5
+                    level_xOffset: 5,
+                    bar_width: 15,
+                    bar_influenceBoost: 5
                 };
 
                 var __lvl0CommentCount = function (comments) {
@@ -49,6 +48,8 @@ angular.module('kalipoApp')
 
                 var lastScrollTop = 0;
                 var $this = this;
+
+                var $viewport = $('#outline-viewport');
 
                 var __scroll = function () {
 
@@ -63,7 +64,6 @@ angular.module('kalipoApp')
 
                     // find first comment on viewport
                     var $all = $('.comment');
-
 
                     var $firstOnViewport = $($all[0]);
                     _.forEach($all, function (comment) {
@@ -101,30 +101,31 @@ angular.module('kalipoApp')
                             if (fromIndex<=index && comment.level == 0) {
                                 rootCount++;
                             }
-                            return index <= untilIndex;
+                            return index < untilIndex;
                         });
                         return rootCount;
                     };
 
-                    var _top = -((conf.height + conf.yspace) * indexOfFirst + conf.yRootOffset * __rootsUntilIndex(0, indexOfFirst));
-                    var _height = conf.yspace * (indexOfLast - indexOfFirst +1) + conf.yRootOffset * (__rootsUntilIndex(indexOfFirst, indexOfLast) +1);
-
-                    $('#outline-viewport').animate({height: _height}, '200', 'swing');
+                    var _top = -((conf.bar_height + conf.bar_marginBottom) * indexOfFirst + conf.yOffsetForRoots * __rootsUntilIndex(0, indexOfFirst));
+                    var _height = (conf.bar_height + conf.bar_marginBottom) * (indexOfLast - indexOfFirst) + conf.yOffsetForRoots * (__rootsUntilIndex(indexOfFirst, indexOfLast));
 
                     var $outline = $element.parent();
                     if (indexOfFirst == 0) { // || $element.parent().height() > scrollTop) {
                         $outline.css({'position': 'relative', 'top': 0});
+                        $viewport.hide()
                     } else {
 
                         $outline.css({
                             'position': 'fixed'
-                        }).animate({top: $this.yScale(_top)}, '500', 'swing');
+                        }).animate({top: $this.yScale(_top)}, '300', 'swing');
+
+                        $viewport.show().animate({height: _height}, '200', 'swing');
                     }
                 };
 
                 var __init = function () {
-                    var outHeight = $this.comments.length * conf.elHeight;
-                    var domainHeight = $this.comments.length * (conf.height + conf.yspace) + __lvl0CommentCount($this.comments) * conf.yRootOffset;
+                    var outHeight = $this.comments.length * (conf.bar_height + conf.bar_marginBottom);
+                    var domainHeight = $this.comments.length * (conf.bar_height + conf.bar_marginBottom) + __lvl0CommentCount($this.comments) * conf.yOffsetForRoots;
                     console.log('domain-height', domainHeight);
 
                     $this.yScale = d3.scale.linear()
@@ -136,29 +137,32 @@ angular.module('kalipoApp')
 
                     console.log('drawing');
 
-                    var outWidth = $element.width();
-                    var outHeight = $this.comments.length * conf.elHeight;
+                    var outWidth = $element.width() - 30;
+                    var outHeight = $this.comments.length * (conf.bar_height + conf.bar_marginBottom);
 
-                    var minI = _.min($this.comments, function (c) {
+                    var minInfluence = _.min($this.comments, function (c) {
                         return c.influence;
                     }).influence;
-                    var maxI = _.max($this.comments, function (c) {
+
+                    var maxInfluence = _.max($this.comments, function (c) {
                         return c.influence;
                     }).influence;
+
+                    // lowest level is 0
                     var maxLevel = _.max($this.comments, function (c) {
                         return c.level;
                     }).level;
 
-                    var domainWidth = (maxLevel * conf.xLevelOffset + conf.width + maxI * conf.inflBoost);
+                    var domainWidth = (maxLevel * conf.level_xOffset + conf.bar_width + maxInfluence * 0.8 * conf.bar_influenceBoost);
                     console.log('domain-width', domainWidth);
 
                     var xScale = d3.scale.linear()
                         .domain([0, domainWidth])
                         .range([0, outWidth]);
 
-                    var iRange = Math.abs(minI) + Math.abs(maxI);
+                    var iRange = Math.abs(minInfluence) + Math.abs(maxInfluence);
 
-                    console.log('minI', minI, 'maxI', maxI, 'iRange', iRange);
+                    console.log('minInfluence', minInfluence, 'maxInfluence', maxInfluence, 'iRange', iRange);
 
                     d3.select('#klp-outline').select('g').remove();
 
@@ -174,20 +178,20 @@ angular.module('kalipoApp')
                         .enter()
                         .append('rect')
                         .attr('x', function (d, i) {
-                            return xScale(conf.xLevelOffset * d.level);
+                            return xScale(conf.level_xOffset * d.level);
                         })
                         .attr('y', function (d, i) {
                             if (d.level == 0) {
-                                yOffsetTotal += conf.yRootOffset;
+                                yOffsetTotal += conf.yOffsetForRoots;
                             }
-                            return $this.yScale(i * conf.elHeight + yOffsetTotal);
+                            return $this.yScale(i * (conf.bar_height + conf.bar_marginBottom) + yOffsetTotal);
                         })
                         .attr('width', function (d, i) {
                             // influence can be <0
-                            return xScale(conf.width + Math.max(0, d.influence) * conf.inflBoost);
+                            return xScale(conf.bar_width + Math.max(0, d.influence) * conf.bar_influenceBoost);
                         })
                         .attr('height', function (d, i) {
-                            return $this.yScale(conf.height);
+                            return $this.yScale(conf.bar_height);
                         })
                         .attr('fill', function (d, i) {
 //                            if (d.level == 0) {
@@ -215,11 +219,10 @@ angular.module('kalipoApp')
                     $this.comments = comments;
 
                     $(document).ready(function () {
-                        //Cache the Window object
 
                         var $this = $(this);
 
-                        // scroll end listener
+                        // attach scroll end listener
                         $this.scroll(function () {
                             if ($this.data('scrollTimeout')) {
                                 clearTimeout($this.data('scrollTimeout'));
@@ -228,6 +231,12 @@ angular.module('kalipoApp')
                                 __scroll()
                             }, 200));
                         });
+
+                        // remove scroll listener
+                        $scope.$on('$destroy', function () {
+                            $this.off('scroll');
+                        });
+
                     });
 
                     var paginated = {};

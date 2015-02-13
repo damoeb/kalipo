@@ -46,7 +46,7 @@
     </div>
 
     <div ng-if="!$viewMode">
-        <div class="col-lg-8 col-md-8 col-xs-8">
+        <div class="col-lg-9 col-md-9 col-xs-9">
 
             <p>
                 {{::thread.body}}
@@ -81,9 +81,10 @@
             Moderated by <span ng-repeat="modId in thread.modIds">{{::modId}} </span>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-xs-3 col-lg-push-1 col-md-push-1 col-xs-push-1">
-            <div style="position: fixed; width: 2px; background-color: red; height: 100px; top:0; margin-left: -10px;"
-                 id="outline-viewport"></div>
+        <div class="col-lg-3 col-md-3 col-xs-3">
+            <div
+                style="position: fixed; width: 5px; background-color: black; height: 100px; top:0; margin-left: -10px; display: none"
+                id="outline-viewport" title="the comments you actually see"></div>
             <div style="overflow-y: auto; overflow-x: hidden;">
                 <thread-outline pages="pages"></thread-outline>
             </div>
