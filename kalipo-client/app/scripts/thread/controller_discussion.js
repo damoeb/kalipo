@@ -22,6 +22,9 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         var tree = {};
         var currentPage = 0;
 
+
+        // -- Initialization -- ----------------------------------------------------------------------------------------
+
         var onFetchedPage = function (result) {
             $scope.pages.push(result.page);
             $scope.$isLastPage = result.isLastPage;
@@ -32,7 +35,23 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
         Discussion.fetchPage(threadId, 0, tree, onFetchedPage);
 
-        // -------------------------------------------------------------------------------------------------------------
+
+        // -- Socket -- ------------------------------------------------------------------------------------------------
+
+        var socket = Websocket.subscribe(function (message) {
+            console.log('event', message);
+            if (message.threadId == threadId) {
+
+            }
+        });
+
+        $scope.$on("$destroy", function () {
+            console.log('unsubscribe');
+            Websocket.unsubscribe(socket);
+        });
+
+
+        // -- Scope Functions -- ---------------------------------------------------------------------------------------
 
         $scope.loadMore = function () {
             console.log("load more");
@@ -97,19 +116,5 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         $scope.clear = function () {
             $scope.draft = {id: null, text: null};
         };
-
-        // --
-
-        var socket = Websocket.subscribe(function (message) {
-            console.log('event', message);
-            if (message.threadId == threadId) {
-
-            }
-        });
-
-        $scope.$on("$destroy", function () {
-            console.log('unsubscribe');
-            Websocket.unsubscribe(socket);
-        });
 
     }]);

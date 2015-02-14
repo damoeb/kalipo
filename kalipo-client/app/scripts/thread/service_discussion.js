@@ -2,36 +2,7 @@
 
 kalipoApp.factory('Discussion', function (Thread) {
 
-    var d = {
-
-        fetchPage: function (threadId, pageId, tree, onSuccess) {
-
-            var start = new Date().getTime();
-
-            Thread.discussion({id: threadId, page: pageId}, function (pageData) {
-
-                var end = new Date().getTime();
-                console.log('Fetch time: ' + (end - start));
-
-                start = new Date().getTime();
-
-                var comments = d.postFetch(pageData.content, pageId);
-
-                var roots = d.sort(d.merge(tree, comments));
-
-                d.shape(roots, {totalElementCount: pageData.totalElements});
-
-                var page = {
-                    id: pageId,
-                    comments: roots
-                };
-                end = new Date().getTime();
-                console.log('Execution time: ' + (end - start));
-
-                onSuccess({page: page, isLastPage: pageData.lastPage});
-
-            });
-        },
+    var internal = {
 
         sort: function (comments) {
             return _.sortBy(comments, function (comment) {
@@ -92,7 +63,7 @@ kalipoApp.factory('Discussion', function (Thread) {
 
         shape: function (comments, attributes) {
             console.log('shape');
-            d.shapeRc(comments, 1, attributes);
+            internal.shapeRc(comments, 1, attributes);
         },
 
         shapeRc: function (comments, level, attributes) {
@@ -122,7 +93,7 @@ kalipoApp.factory('Discussion', function (Thread) {
                 var verbose = comment.replies.verbose;
                 var dropped = comment.replies.dropped;
 
-                d.shapeRc(replies, level + 1);
+                internal.shapeRc(replies, level + 1);
 
                 _.forEach(replies, function (reply, index) {
 
@@ -144,7 +115,7 @@ kalipoApp.factory('Discussion', function (Thread) {
                 // todo can still be controversial
                 comment.$oneline = (comment.likes > 1 || comment.dislikes > 1) && (comment.likes - comment.dislikes) < -1;
 
-                comment.replies.verbose = d.sort(comment.replies.verbose);
+                comment.replies.verbose = internal.sort(comment.replies.verbose);
 
                 //delete comment.replies.$all;
 
@@ -179,5 +150,34 @@ kalipoApp.factory('Discussion', function (Thread) {
         }
     };
 
-    return d;
+    return {
+        fetchPage: function (threadId, pageId, tree, onSuccess) {
+
+            var start = new Date().getTime();
+
+            Thread.discussion({id: threadId, page: pageId}, function (pageData) {
+
+                var end = new Date().getTime();
+                console.log('Fetch time: ' + (end - start));
+
+                start = new Date().getTime();
+
+                var comments = internal.postFetch(pageData.content, pageId);
+
+                var roots = internal.sort(internal.merge(tree, comments));
+
+                internal.shape(roots, {totalElementCount: pageData.totalElements});
+
+                var page = {
+                    id: pageId,
+                    comments: roots
+                };
+                end = new Date().getTime();
+                console.log('Execution time: ' + (end - start));
+
+                onSuccess({page: page, isLastPage: pageData.lastPage});
+
+            });
+        }
+    };
 });

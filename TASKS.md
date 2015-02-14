@@ -1,34 +1,11 @@
 raw rendered usergen texts in html e.g. showReplyModal
 
+unlimited scroll: http://engineering.linkedin.com/linkedin-ipad-5-techniques-smooth-infinite-scrolling-html5
+
 repliescount is mixed in hidden and dropped
-comment data is messy and contains duplicate ids
-infinite scroll
 support images in comments
 support links in comment
 gatling/jmeter for load tests
-
-score: include freshness for roots if younger than 3 days
-
-dropped
-- score <= 0 comments, older than n views
-- replies.position() > 5
-
-oneline
-- hide.length <= 2
-
-verbose
-- comment with replies
-
-comment relevance: {
-    duration: {
-        from: createdAt
-        to: last upvote
-    },
-    attraction: {
-        replies,
-        upvotes/downvotes
-    }
-}
 
 normalize
 - see todos
@@ -56,16 +33,7 @@ Colors:
 
 --
 
-at first, render just a stub. create a directive that will render the full comment when visible 
-
-basic comment renderer template (file) to be used in achievements and likes
 improve notifications (link to referred resource)
-
-sys: [docker, snort, nagios], elastic search
-- Achievements: stackoverflow zeigt die die rep upgrades an wie soundcloud die notifications 
-
-discuss/moderate/monitor/notifications/browse
-pageable for all lists
 
 - Live stats: 93 users viewing
 - Details of Thread with Stats e.g. http://www.mixcloud.com/stats/
@@ -84,18 +52,6 @@ pageable for all lists
     - def metrics
 - All links with <domain>/out to get stats
 
-- Audit logs
-- Comment
-    - Mod can pin/sticky a comment to be first in list
-    - @name messages
-    - #hashtags in comment
-    - quotations
-    - allow embeds, images
-- Clean: currently typing websockets
-- Async, maybe event driven via akka
-    @Scheduled
-    - Thread stats like commentCount/likes/dislikes
-    - Reputation
 - Anomaly detection for
     - users: account hijacking
     - comment flooding
