@@ -1,11 +1,13 @@
 'use strict';
 
-kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$location', '$anchorScroll', '$rootScope', 'Thread', 'Comment', 'Report',
-    function ($scope, $routeParams, $location, $anchorScroll, $rootScope, Thread, Comment, Report) {
+kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$location', '$anchorScroll', '$rootScope', 'Thread', 'Comment', 'Report', 'Discussion', 'Websocket',
+    function ($scope, $routeParams, $location, $anchorScroll, $rootScope, Thread, Comment, Report, Discussion, Websocket) {
 
         var threadId = $routeParams.threadId;
+        // todo impl scrolling to commentId
         var commentId = $routeParams.commentId;
 
+        $scope.pages = [];
         $scope.$threadId = threadId;
         $scope.$viewMode = false;
         $scope.draft = {};
@@ -17,22 +19,27 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         $scope.$hasReports = false;
         $scope.$isLastPage = true;
 
-        $scope.pages = [];
-
         var tree = {};
-
-        var $this = this;
-
-        $this.groupedByIdMaster = {};
-
         var currentPage = 0;
+
+        var onFetchedPage = function (result) {
+            $scope.pages.push(result.page);
+            $scope.$isLastPage = result.isLastPage;
+
+            console.log('event:fetched-page -> ...');
+            $rootScope.$broadcast('event:fetched-page');
+        };
+
+        Discussion.fetchPage(threadId, 0, tree, onFetchedPage);
+
+        // -------------------------------------------------------------------------------------------------------------
 
         $scope.loadMore = function () {
             console.log("load more");
 
             currentPage = currentPage + 1;
 
-            __fetchPage(currentPage);
+            Discussion.fetchPage(threadId, currentPage, tree, onFetchedPage);
 
             $scope.scrollTo('page-' + currentPage);
         };
@@ -45,41 +52,6 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
             //reset to old to keep any additional routing logic from kicking in
             $location.hash(old);
         };
-
-        var __fetchPage = function (pageId) {
-
-            var start = new Date().getTime();
-
-            Thread.discussion({id: threadId, page: pageId}, function (pageData) {
-
-                $scope.$isLastPage = pageData.lastPage;
-
-                var end = new Date().getTime();
-                console.log('Fetch time: ' + (end - start));
-
-                start = new Date().getTime();
-
-                var comments = __postFetchComments(pageData.content, pageId);
-
-                var roots = __sort(__mergeWithTree(tree, comments));
-
-                __shape(roots, {totalElementCount: pageData.totalElements});
-
-                var page = {
-                    id: pageId,
-                    comments: roots
-                };
-                $scope.pages.push(page);
-
-                end = new Date().getTime();
-                console.log('Execution time: ' + (end - start));
-
-                console.log('event:fetched-page -> ...');
-                $rootScope.$broadcast('event:fetched-page');
-            });
-        };
-
-        __fetchPage(currentPage);
 
         $scope.updateThread = function () {
 
@@ -111,151 +83,6 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 });
         };
 
-        var __sort = function (comments) {
-            return _.sortBy(comments, function (comment) {
-                return -1 * comment.$score
-            })
-        };
-
-        var __postFetchComments = function (comments, currentPage) {
-
-            return _.forEach(comments, function (comment, index) {
-                comment.replies = {
-                    $all: [],
-                    verbose: [],
-                    dropped: []
-                };
-
-                comment.$index = currentPage * 200 + index;
-                comment.$commentCount = 1;
-
-                if (comment.hidden) {
-                    comment.text = 'Content hidden';
-                    comment.dislikes = 0;
-                    comment.likes = 0;
-                }
-
-                if (comment.status == 'DELETED') {
-                    comment.displayName = 'Deleted';
-                    comment.text = 'Content deleted';
-                    comment.dislikes = 0;
-                    comment.likes = 0;
-                }
-
-                if(_.isUndefined(comment.likes)) {
-                    comment.likes = 0;
-                }
-                if(_.isUndefined(comment.dislikes)) {
-                    comment.dislikes = 0;
-                }
-
-                comment.$pending = comment.status == 'PENDING';
-
-                // todo minimize negative-only comments, hell-banned subthreads
-
-                comment.$hiddenreplies = comment.dislikes > 3 && comment.dislikes > comment.likes;
-                comment.$score = comment.influence / comment.createdDate;
-
-                // author chose to hide his name
-                if (_.isEmpty(comment.displayName) || _.isUndefined(comment.displayName)) {
-                    comment.displayName = 'Anonymous';
-                }
-
-                var total = comment.likes + comment.dislikes;
-                comment.$likes = comment.likes / total * 100;
-                comment.$dislikes = comment.dislikes / total * 100;
-
-            });
-        };
-
-        var __shape = function (comments, attributes) {
-            console.log('shape');
-            __shapeRc(comments, 1, attributes);
-        };
-
-        var __shapeRc = function (comments, level, attributes) {
-
-            _.forEach(comments, function (comment) {
-
-                /*
-                 3 rule sets
-                 .) huge discussions > 200 comments attributes.totalElementCount
-                 - only level 0 comments
-                 - level 1: show best 2, rest is hidden
-                 - drop bad comments
-
-                 .) normal discussions
-                 - hide index > 4
-                 - level 0 are not hiddenreplies
-
-                 .) general rules
-                 - minimize bad comments
-                 - show full comment if user is the author
-                 - show path to authors comment at least onelined
-
-                 */
-
-                comment.$repliesCount = 0;
-                var replies = comment.replies.$all;
-                var verbose = comment.replies.verbose;
-                var dropped = comment.replies.dropped;
-
-                __shapeRc(replies, level +1);
-
-                _.forEach(replies, function(reply, index) {
-
-                    // get reply count
-                    comment.$repliesCount += 1; // reply itself
-                    comment.$repliesCount += reply.$repliesCount; // its replies
-
-                    var isHidden = index >= 1 && reply.$repliesCount == 0 && reply.$oneline;
-
-                    // todo && older than n views && not owner of comment
-                    if( isHidden ) {
-                        console.log('dropping', reply.id);
-                        dropped.push(reply.id);
-                    } else {
-                        verbose.push(reply);
-                    }
-                });
-
-                // todo can still be controversial
-                comment.$oneline = (comment.likes > 1 || comment.dislikes > 1) && (comment.likes - comment.dislikes) < -1;
-
-                comment.replies.verbose = __sort(comment.replies.verbose);
-
-                //delete comment.replies.$all;
-
-            });
-        };
-
-        var __mergeWithTree = function (tree, comments) {
-
-            var roots = [];
-
-            _.forEach(comments, function (comment) {
-
-                tree[comment.id] = comment;
-
-                if (comment.level == 0 || _.isUndefined(comment.parentId)) {
-                    roots.push(comment);
-
-                } else {
-
-                    var parent = tree[comment.parentId];
-                    if (_.isUndefined(parent)) {
-                        console.log('cannot find parent of', comment.parentId);
-                    } else {
-                        var replies = parent.replies;
-
-                        replies.$all.push(comment);
-                    }
-                }
-            });
-
-            return roots;
-        };
-
         $scope.report = function (comment) {
             comment.report = false;
 
@@ -273,40 +100,16 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
         // --
 
-        $scope.threadEventSocket = atmosphere;
-        $scope.threadEventSubSocket;
-        $scope.threadEventTransport = 'websocket';
-
-        $scope.threadEventRequest = {
-            url: 'websocket/live/channel',
-            contentType: "application/json",
-            transport: $scope.threadEventTransport,
-            trackMessageLength: true,
-            reconnectInterval: 5000,
-            enableXDR: true,
-            timeout: 60000
-        };
-
-        $scope.threadEventRequest.onOpen = function (response) {
-            $scope.threadEventTransport = response.transport;
-            $scope.threadEventRequest.uuid = response.request.uuid;
-        };
-
-        $scope.threadEventRequest.onMessage = function (response) {
-            var message = atmosphere.util.parseJSON(response.responseBody);
-
+        var socket = Websocket.subscribe(function (message) {
             console.log('event', message);
-
             if (message.threadId == threadId) {
 
             }
-        };
-
-        $scope.threadEventSubSocket = $scope.threadEventSocket.subscribe($scope.threadEventRequest);
+        });
 
         $scope.$on("$destroy", function () {
             console.log('unsubscribe');
-            $scope.threadEventSocket.unsubscribe();
+            Websocket.unsubscribe(socket);
         });
 
     }]);
