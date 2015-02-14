@@ -8,7 +8,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
 
     var helper = {
 
-        __pushAll: function (sink, pages) {
+        pushAll: function (sink, pages) {
             _.forEach(pages, function (_comments) {
                 _.forEach(_comments, function (comment) {
                     sink.push(comment);
@@ -16,14 +16,14 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             })
         },
 
-        __flat: function (sink, deepComments) {
+        flat: function (sink, deepComments) {
             _.forEach(deepComments, function (comment) {
                 sink.push(comment);
-                helper.__flat(sink, comment.replies.verbose);
+                helper.flat(sink, comment.replies.verbose);
             });
         },
 
-        __rootsCount: function (fromIndex, untilIndex) {
+        rootsCount: function (fromIndex, untilIndex) {
             var rootCount = 0;
             _.forEach(comments, function (comment, index) {
                 if (fromIndex <= index && comment.level == 0) {
@@ -36,7 +36,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
     };
 
     var internal = {
-        __viewport: function () {
+        viewport: function () {
 
             var scrollTop = $(document).scrollTop();
 
@@ -68,7 +68,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             }
         },
 
-        __extern: function (comments) {
+        extern: function (comments) {
 
             return {
                 width: $this.$element.width() * 1.2,
@@ -76,7 +76,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             }
         },
 
-        __influence: function (comments) {
+        influence: function (comments) {
 
             var minInfluence = _.min(comments, function (c) {
                 return c.influence;
@@ -97,7 +97,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             }
         },
 
-        __intern: function (influence, comments) {
+        intern: function (influence, comments) {
 
             // lowest level is 0
             var maxLevel = _.max(comments, function (c) {
@@ -107,7 +107,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             var domainWidth = (maxLevel * OutlineConfig.level_xOffset + OutlineConfig.bar_width + influence.max * 0.8 * OutlineConfig.bar_influenceBoost);
             console.log('domain-width', domainWidth);
 
-            var domainHeight = comments.length * (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) + helper.__rootsCount(0, comments.length) * OutlineConfig.yOffsetForRoots;
+            var domainHeight = comments.length * (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) + helper.rootsCount(0, comments.length) * OutlineConfig.yOffsetForRoots;
             console.log('domain-height', domainHeight);
 
             return {
@@ -116,7 +116,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             }
         },
 
-        __scale: function (intern, extern) {
+        scale: function (intern, extern) {
 
             return {
                 x: d3.scale.linear()
@@ -129,14 +129,14 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             }
         },
 
-        __draw: function (comments) {
+        draw: function (comments) {
 
             console.log('drawing');
 
-            var influence = internal.__influence(comments);
-            var extern = internal.__extern(comments);
-            var intern = internal.__intern(influence, comments);
-            var scale = internal.__scale(intern, extern);
+            var influence = internal.influence(comments);
+            var extern = internal.extern(comments);
+            var intern = internal.intern(influence, comments);
+            var scale = internal.scale(intern, extern);
 
             // todo fix
             $this.yScale = scale.y;
@@ -177,7 +177,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
                     return 'Click to scroll - ' + d.id;
                 })
                 .on('click', function (d, i) {
-                    console.log('go to', d.id);
+                    console.log('goto', d.id);
                     // todo check if comment is there, otherwise try to load it
                     $doc.animate({
                         scrollTop: $('#' + d.id).offset().top
@@ -185,7 +185,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
                 });
         },
 
-        __paginate: function (comments) {
+        paginate: function (comments) {
             var paginated = {};
             var grouped = _.groupBy(comments, function (comment, index) {
                 return parseInt(index / OutlineConfig.commentsOnPage);
@@ -198,7 +198,6 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
         }
 
     };
-
 
     return {
         assign: function ($element) {
@@ -218,11 +217,11 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
 
             console.log('prepare drawing');
 
-            var paginated = internal.__paginate(comments);
+            var paginated = internal.paginate(comments);
             _.forEach(pages, function (page) {
 
                 paginated[page.id] = [];
-                helper.__flat(paginated[page.id], page.comments);
+                helper.flat(paginated[page.id], page.comments);
                 paginated[page.id] = _.flatten(paginated[page.id]);
 
             });
@@ -230,16 +229,16 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             // updated pages to flat comments
             comments = [];
 
-            helper.__pushAll(comments, paginated);
+            helper.pushAll(comments, paginated);
 
-            internal.__draw(comments);
+            internal.draw(comments);
 
             onSuccess(comments);
         },
 
         scroll: function (comments) {
 
-            var viewport = internal.__viewport();
+            var viewport = internal.viewport();
 
             var firstCommentId = viewport.first;
             var lastCommentId = viewport.last;
@@ -253,8 +252,8 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
                 return comment.id == lastCommentId;
             });
 
-            var _top = -((OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) * indexOfFirst + OutlineConfig.yOffsetForRoots * helper.__rootsCount(0, indexOfFirst));
-            var _height = (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) * (indexOfLast - indexOfFirst) + OutlineConfig.yOffsetForRoots * (helper.__rootsCount(indexOfFirst, indexOfLast));
+            var _top = -((OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) * indexOfFirst + OutlineConfig.yOffsetForRoots * helper.rootsCount(0, indexOfFirst));
+            var _height = (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) * (indexOfLast - indexOfFirst) + OutlineConfig.yOffsetForRoots * (helper.rootsCount(indexOfFirst, indexOfLast));
 
             var $viewportIndicator = $('#outline-viewport-indicator');
             var $outline = $this.$element.parent();
