@@ -2,7 +2,7 @@
  * Created by markus on 16.12.14.
  */
 angular.module('kalipoApp')
-    .directive('collection', function ($compile, $templateCache, $http, Vote, Comment) {
+    .directive('collection', function ($compile, $templateCache, $http, $rootScope, Vote, Comment) {
         return {
             restrict: 'E',
             replace: true,
@@ -104,7 +104,9 @@ angular.module('kalipoApp')
                 };
 
                 $scope.toggle = function (commentId) {
+                    console.log('event:discussion-changed -> ...');
                     $('#comment-' + commentId).toggleClass('hiddenreplies');
+                    $rootScope.$broadcast('event:discussion-changed');
                 };
 
                 $scope.like = function (commentId) {

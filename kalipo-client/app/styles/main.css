@@ -246,7 +246,7 @@ a:hover {
 
 .hiddenreplies .name {}
 .hiddenreplies .points {}
-.hiddenreplies .date {display: none;}
+.hiddenreplies .date {}
 .hiddenreplies .icon-implode {display: none;}
 .hiddenreplies .icon-expand {display: inline-block;}
 .hiddenreplies .label-pending {}

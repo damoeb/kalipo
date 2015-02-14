@@ -55,10 +55,10 @@ angular.module('kalipoApp')
 
                     var scrollTop = $(this).scrollTop();
 
-                    if (scrollTop == lastScrollTop) {
-                        //console.log('skip scroll');
-                        return;
-                    }
+                    //if (scrollTop == lastScrollTop) {
+                    //    //console.log('skip scroll');
+                    //    return;
+                    //}
 
                     lastScrollTop = scrollTop;
 
@@ -68,7 +68,7 @@ angular.module('kalipoApp')
                     var $firstOnViewport = $($all[0]);
                     _.forEach($all, function (comment) {
                         var $comment = $(comment);
-                        if ($comment.offset().top > scrollTop) {
+                        if ($comment.offset().top + $comment.height() > scrollTop) {
                             $firstOnViewport = $comment;
                             return false;
                         }
@@ -95,7 +95,7 @@ angular.module('kalipoApp')
                         return comment.id == lastCommentId;
                     });
 
-                    var __rootsUntilIndex = function (fromIndex, untilIndex) {
+                    var __rootsCount = function (fromIndex, untilIndex) {
                         var rootCount = 0;
                         _.forEach(comments, function (comment, index) {
                             if (fromIndex<=index && comment.level == 0) {
@@ -106,8 +106,8 @@ angular.module('kalipoApp')
                         return rootCount;
                     };
 
-                    var _top = -((conf.bar_height + conf.bar_marginBottom) * indexOfFirst + conf.yOffsetForRoots * __rootsUntilIndex(0, indexOfFirst));
-                    var _height = (conf.bar_height + conf.bar_marginBottom) * (indexOfLast - indexOfFirst) + conf.yOffsetForRoots * (__rootsUntilIndex(indexOfFirst, indexOfLast));
+                    var _top = -((conf.bar_height + conf.bar_marginBottom) * indexOfFirst + conf.yOffsetForRoots * __rootsCount(0, indexOfFirst));
+                    var _height = (conf.bar_height + conf.bar_marginBottom) * (indexOfLast - indexOfFirst) + conf.yOffsetForRoots * (__rootsCount(indexOfFirst, indexOfLast));
 
                     var $outline = $element.parent();
                     if ($element.parent().offset().top > scrollTop || scrollTop < 200) { // || $element.parent().height() > scrollTop) {
@@ -125,9 +125,14 @@ angular.module('kalipoApp')
 
                         $outline.animate({top: $this.yScale(_top)}, '300', 'swing');
 
-                        $viewport.show().animate({height: _height}, '200', 'swing');
+                        $viewport.show().animate({height: $this.yScale(_height)}, '200', 'swing');
                     }
                 };
+
+                $rootScope.$on('event:discussion-changed', function() {
+                    console.log('-> event:discussion-changed');
+                    __scroll();
+                });
 
                 var __init = function () {
                     var outHeight = $this.comments.length * (conf.bar_height + conf.bar_marginBottom);
