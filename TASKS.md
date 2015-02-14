@@ -1,3 +1,6 @@
+raw rendered usergen texts in html e.g. showReplyModal
+
+repliescount is mixed in hidden and dropped
 comment data is messy and contains duplicate ids
 infinite scroll
 support images in comments
@@ -15,12 +18,6 @@ oneline
 
 verbose
 - comment with replies
-
-kommentar schreiben -> eingabe ersetzen durch laden symbol
-goto comment: service methode mit load comments from commendId
-
-neue zeile
-FIX user.displayName
 
 comment relevance: {
     duration: {

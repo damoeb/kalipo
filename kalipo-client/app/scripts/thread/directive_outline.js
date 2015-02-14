@@ -142,7 +142,7 @@ angular.module('kalipoApp')
 
                     console.log('drawing');
 
-                    var outWidth = $element.width() - 30;
+                    var outWidth = $element.width() * 1.2;
                     var outHeight = $this.comments.length * (conf.bar_height + conf.bar_marginBottom);
 
                     var minInfluence = _.min($this.comments, function (c) {

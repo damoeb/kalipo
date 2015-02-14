@@ -60,9 +60,6 @@ angular.module('kalipoApp')
                             __render(comment, $thread);
                         });
 
-                        //var rendered = _.template(t_collection, {variable: 'data'})({collection: $scope.collection});
-
-                        //$element.append($thread);
                         $element.append($compile($thread.contents())($scope));
 
                     });

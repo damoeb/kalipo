@@ -25,11 +25,16 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
         $this.groupedByIdMaster = {};
 
-        var currentPage = -1;
+        var currentPage = 0;
 
         $scope.loadMore = function () {
             console.log("load more");
-            __fetchComments();
+
+            currentPage = currentPage + 1;
+
+            __fetchPage(currentPage);
+
+            $scope.scrollTo('page-' + currentPage);
         };
 
         $scope.scrollTo = function (id) {
@@ -41,13 +46,11 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
             $location.hash(old);
         };
 
-        var __fetchComments = function () {
-
-            currentPage = currentPage + 1;
+        var __fetchPage = function (pageId) {
 
             var start = new Date().getTime();
 
-            Thread.discussion({id: threadId, page: currentPage}, function (pageData) {
+            Thread.discussion({id: threadId, page: pageId}, function (pageData) {
 
                 $scope.$isLastPage = pageData.lastPage;
 
@@ -56,13 +59,14 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
                 start = new Date().getTime();
 
-                var comments = __postFetchComments(pageData.content, currentPage);
+                var comments = __postFetchComments(pageData.content, pageId);
 
                 var roots = __sort(__mergeWithTree(tree, comments));
-                __shape(roots);
+
+                __shape(roots, {totalElementCount: pageData.totalElements});
 
                 var page = {
-                    id: currentPage,
+                    id: pageId,
                     comments: roots
                 };
                 $scope.pages.push(page);
@@ -71,16 +75,11 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 console.log('Execution time: ' + (end - start));
 
                 console.log('event:fetched-page -> ...');
-                $rootScope.$broadcast('event:fetched-page', page);
-
-                //console.log('scroll to ', comments[0].id);
-                //$scope.scrollTo(comments[0].id);
-                $scope.scrollTo('page-' + currentPage);
-                //$location.hash(currentPage);
+                $rootScope.$broadcast('event:fetched-page');
             });
         };
 
-        __fetchComments();
+        __fetchPage(currentPage);
 
         $scope.updateThread = function () {
 
@@ -169,28 +168,30 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
             });
         };
 
-        var __shape = function (comments) {
+        var __shape = function (comments, attributes) {
             console.log('shape');
-            __shapeRc(comments, 1);
+            __shapeRc(comments, 1, attributes);
         };
 
-        var __shapeRc = function (comments, level) {
+        var __shapeRc = function (comments, level, attributes) {
 
             _.forEach(comments, function (comment) {
 
                 /*
                  3 rule sets
-                 .) huge discussions
+                 .) huge discussions > 200 comments attributes.totalElementCount
                  - only level 0 comments
-                 - dropped level 0 comments
+                 - level 1: show best 2, rest is hidden
+                 - drop bad comments
 
                  .) normal discussions
-                 - dropped index > 4
+                 - hide index > 4
                  - level 0 are not hiddenreplies
 
                  .) general rules
                  - minimize bad comments
                  - show full comment if user is the author
+                 - show path to authors comment at least onelined
 
                  */
 
@@ -213,7 +214,6 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                     if( isHidden ) {
                         console.log('dropping', reply.id);
                         dropped.push(reply.id);
-
                     } else {
                         verbose.push(reply);
                     }
