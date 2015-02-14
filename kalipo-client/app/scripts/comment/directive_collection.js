@@ -101,7 +101,7 @@ angular.module('kalipoApp')
                     $('#comment-' + commentId).removeClass('oneline');
                 };
 
-                $scope.toggle = function (commentId) {
+                $scope.toggleReplies = function (commentId) {
                     console.log('event:discussion-changed -> ...');
                     $('#comment-' + commentId).toggleClass('hiddenreplies');
                     $rootScope.$broadcast('event:discussion-changed');
