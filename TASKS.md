@@ -6,7 +6,7 @@ gatling/jmeter for load tests
 
 score: include freshness for roots if younger than 3 days
 
-furthermore
+dropped
 - score <= 0 comments, older than n views
 - replies.position() > 5
 

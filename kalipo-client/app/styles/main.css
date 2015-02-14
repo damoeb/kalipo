@@ -254,7 +254,7 @@ a:hover {
 .hiddenreplies .menu {}
 .hiddenreplies .show-full-comment {}
 .hiddenreplies .replies {display: none;}
-.hiddenreplies .furthermore {display: none;}
+.hiddenreplies .dropped {display: none;}
 .hiddenreplies .replies-count {display: inline-block;}
 
 .abused-report {

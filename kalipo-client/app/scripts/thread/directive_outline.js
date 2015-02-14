@@ -46,7 +46,6 @@ angular.module('kalipoApp')
                     }).length;
                 };
 
-                var lastScrollTop = 0;
                 var $this = this;
 
                 var $viewport = $('#outline-viewport');
@@ -54,13 +53,6 @@ angular.module('kalipoApp')
                 var __scroll = function () {
 
                     var scrollTop = $(this).scrollTop();
-
-                    //if (scrollTop == lastScrollTop) {
-                    //    //console.log('skip scroll');
-                    //    return;
-                    //}
-
-                    lastScrollTop = scrollTop;
 
                     // find first comment on viewport
                     var $all = $('.comment');

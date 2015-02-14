@@ -25,7 +25,7 @@ angular.module('kalipoApp')
 
                         var compiled_comment = _.template(tmpl_comment);
                         var compiled_menu = _.template(tmpl_menu);
-                        var compiled_more = _.template('<div class="furthermore" style="border-left: <%= level * 10 %>px solid #ececec;"><a href="javascript:void(0)" ng-click="getMissingComments(\'<%= ids %>\')">View <strong><%= count %></strong> <% if(count==1) { %>reply<% } else { %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span></div>');
+                        var compiled_dropped = _.template('<div class="dropped" style="border-left: <%= level * 10 %>px solid #ececec;"><a href="javascript:void(0)" ng-click="getDroppedComments(\'<%= ids %>\')">View <strong><%= count %></strong> <% if(count==1) { %>reply<% } else { %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span></div>');
 
                         var $thread = $('<div></div>');
 
@@ -45,12 +45,12 @@ angular.module('kalipoApp')
                                 });
                             }
 
-                            if (comment.replies.furthermore.length > 0) {
+                            if (comment.replies.dropped.length > 0) {
                                 // todo fix ids
-                                $comment.append(compiled_more({
+                                $comment.append(compiled_dropped({
                                     count: comment.$repliesCount,
                                     level: comment.level,
-                                    ids: comment.replies.furthermore.join(',')
+                                    ids: comment.replies.dropped.join(',')
                                 }));
                             }
 
@@ -68,15 +68,13 @@ angular.module('kalipoApp')
                     });
                 });
 
-
-                $scope.getMissingComments = function (commentIds) {
-                    console.log('fetch missing comments of', commentIds)
+                $scope.getDroppedComments = function (commentIds) {
+                    console.log('fetch dropped comments of', commentIds)
                 };
 
                 $scope.showReplyModal = function (commentId, displayName, threadId, quote) {
                     $('#createCommentModal').modal();
                     $scope.displayName = displayName;
-
                     $scope.draft.threadId = threadId;
                     $scope.draft.body = '>' + quote.replace(/\n/g, '>\n');
                     $scope.draft.parentId = commentId;

@@ -124,7 +124,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 comment.replies = {
                     $all: [],
                     verbose: [],
-                    furthermore: []
+                    dropped: []
                 };
 
                 comment.$index = currentPage * 200 + index;
@@ -182,10 +182,10 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                  3 rule sets
                  .) huge discussions
                  - only level 0 comments
-                 - furthermore level 0 comments
+                 - dropped level 0 comments
 
                  .) normal discussions
-                 - furthermore index > 4
+                 - dropped index > 4
                  - level 0 are not hiddenreplies
 
                  .) general rules
@@ -197,7 +197,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 comment.$repliesCount = 0;
                 var replies = comment.replies.$all;
                 var verbose = comment.replies.verbose;
-                var furthermore = comment.replies.furthermore;
+                var dropped = comment.replies.dropped;
 
                 __shapeRc(replies, level +1);
 
@@ -212,7 +212,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                     // todo && older than n views && not owner of comment
                     if( isHidden ) {
                         console.log('dropping', reply.id);
-                        furthermore.push(reply.id);
+                        dropped.push(reply.id);
 
                     } else {
                         verbose.push(reply);
