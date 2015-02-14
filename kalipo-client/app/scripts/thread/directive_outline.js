@@ -2,7 +2,7 @@
  * Created by markus on 16.12.14.
  */
 angular.module('kalipoApp')
-    .directive('threadOutline', function ($compile, $routeParams, $rootScope, Thread) {
+    .directive('threadOutline', function ($compile, $routeParams, $rootScope, Thread, OutlineConfig) {
         return {
             restrict: 'E',
             scope: {
@@ -15,42 +15,30 @@ angular.module('kalipoApp')
                 var threadId = $routeParams.threadId;
                 console.log('threadId', threadId);
 
-                var interpolateColor = d3.scale.linear()
-                    .domain([0,1])
-                    .interpolate(d3.interpolateRgb)
-                    .range(['#cccccc', '#0000ff']); // lightgray - blue
-
-                //var interpolateHighlightColor = d3.scale.linear()
-                //    .domain([0, 1])
-                //    .interpolate(d3.interpolateRgb)
-                //    .range(['#ffd800', '#ff0000']); // orange - red
-
-//                var interpolateRootColor = d3.scale.linear()
-//                    .domain([0, 1])
-//                    .interpolate(d3.interpolateRgb)
-//                    .range(['#d3d3d3', '#000000']); // lightgray - black
-
-                var conf = {
-                    bar_height: 7,
-                    bar_marginBottom: 3,
-                    yOffsetForRoots: 8, // if a level=0 comment occurs
-                    commentsOnPage: 200,
-                    level_xOffset: 5,
-                    bar_width: 15,
-                    bar_influenceBoost: 5
-                };
-
-                var __lvl0CommentCount = function (comments) {
-                    return _.filter(comments, function (c) {
-                        return c.level == 0;
-                    }).length;
-                };
 
                 var $this = this;
 
-                var $viewport = $('#outline-viewport');
+                var $viewportIndicator = $('#outline-viewport-indicator');
 
-                var __scroll = function () {
+                var helper = {
+                    __pushAll: function (sink, pages) {
+                        _.forEach(pages, function (_comments, page) {
+                            _.forEach(_comments, function (comment) {
+                                sink.push(comment);
+                            })
+                        })
+                    },
+
+                    __flat: function (sink, deepComments) {
+                        _.forEach(deepComments, function (comment) {
+                            sink.push(comment);
+                            helper.__flat(sink, comment.replies.verbose);
+                        });
+                    }
+
+                };
+
+                var __viewport = function () {
 
                     var scrollTop = $(this).scrollTop();
 
@@ -75,8 +63,30 @@ angular.module('kalipoApp')
                         }
                     });
 
-                    var firstCommentId = $firstOnViewport.attr('ng-comment-id');
-                    var lastCommentId = $lastOnViewport.attr('ng-comment-id');
+                    return {
+                        first: $firstOnViewport.attr('ng-comment-id'),
+                        last: $lastOnViewport.attr('ng-comment-id'),
+                        scrollTop: scrollTop
+                    }
+                };
+
+                var __rootsCount = function (fromIndex, untilIndex) {
+                    var rootCount = 0;
+                    _.forEach(comments, function (comment, index) {
+                        if (fromIndex <= index && comment.level == 0) {
+                            rootCount++;
+                        }
+                        return index < untilIndex;
+                    });
+                    return rootCount;
+                };
+
+                var __scroll = function () {
+
+                    var viewport = __viewport();
+
+                    var firstCommentId = viewport.first;
+                    var lastCommentId = viewport.last;
 
                     console.log('viewport from', firstCommentId, 'last', lastCommentId);
 
@@ -87,24 +97,13 @@ angular.module('kalipoApp')
                         return comment.id == lastCommentId;
                     });
 
-                    var __rootsCount = function (fromIndex, untilIndex) {
-                        var rootCount = 0;
-                        _.forEach(comments, function (comment, index) {
-                            if (fromIndex<=index && comment.level == 0) {
-                                rootCount++;
-                            }
-                            return index < untilIndex;
-                        });
-                        return rootCount;
-                    };
-
-                    var _top = -((conf.bar_height + conf.bar_marginBottom) * indexOfFirst + conf.yOffsetForRoots * __rootsCount(0, indexOfFirst));
-                    var _height = (conf.bar_height + conf.bar_marginBottom) * (indexOfLast - indexOfFirst) + conf.yOffsetForRoots * (__rootsCount(indexOfFirst, indexOfLast));
+                    var _top = -((OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) * indexOfFirst + OutlineConfig.yOffsetForRoots * __rootsCount(0, indexOfFirst));
+                    var _height = (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) * (indexOfLast - indexOfFirst) + OutlineConfig.yOffsetForRoots * (__rootsCount(indexOfFirst, indexOfLast));
 
                     var $outline = $element.parent();
-                    if ($element.parent().offset().top > scrollTop || scrollTop < 200) { // || $element.parent().height() > scrollTop) {
+                    if ($element.parent().offset().top > viewport.scrollTop || viewport.scrollTop < 200) { // || $element.parent().height() > scrollTop) {
                         $outline.css({'position': 'relative', 'top': 0});
-                        $viewport.hide();
+                        $viewportIndicator.hide();
 
                     } else {
 
@@ -117,7 +116,7 @@ angular.module('kalipoApp')
 
                         $outline.animate({top: $this.yScale(_top)}, '300', 'swing');
 
-                        $viewport.show().animate({height: $this.yScale(_height)}, '200', 'swing');
+                        $viewportIndicator.show().animate({height: $this.yScale(_height)}, '200', 'swing');
                     }
                 };
 
@@ -126,24 +125,17 @@ angular.module('kalipoApp')
                     __scroll();
                 });
 
-                var __init = function () {
-                    var outHeight = $this.comments.length * (conf.bar_height + conf.bar_marginBottom);
-                    var domainHeight = $this.comments.length * (conf.bar_height + conf.bar_marginBottom) + __lvl0CommentCount($this.comments) * conf.yOffsetForRoots;
-                    console.log('domain-height', domainHeight);
-
-                    $this.yScale = d3.scale.linear()
-                        .domain([0, domainHeight])
-                        .range([0, outHeight]);
-                };
-
                 var $doc = $('html, body');
 
-                var __draw = function () {
+                var __extern = function () {
 
-                    console.log('drawing');
+                    return {
+                        width: $element.width() * 1.2,
+                        height: $this.comments.length * (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom)
+                    }
+                };
 
-                    var outWidth = $element.width() * 1.2;
-                    var outHeight = $this.comments.length * (conf.bar_height + conf.bar_marginBottom);
+                var __influence = function () {
 
                     var minInfluence = _.min($this.comments, function (c) {
                         return c.influence;
@@ -153,27 +145,66 @@ angular.module('kalipoApp')
                         return c.influence;
                     }).influence;
 
+                    var iRange = Math.abs(minInfluence) + Math.abs(maxInfluence);
+
+                    console.log('minInfluence', minInfluence, 'maxInfluence', maxInfluence, 'iRange', iRange);
+
+                    return {
+                        max: maxInfluence,
+                        min: minInfluence,
+                        range: iRange
+                    }
+                };
+
+                var __intern = function (influence) {
+
                     // lowest level is 0
                     var maxLevel = _.max($this.comments, function (c) {
                         return c.level;
                     }).level;
 
-                    var domainWidth = (maxLevel * conf.level_xOffset + conf.bar_width + maxInfluence * 0.8 * conf.bar_influenceBoost);
+                    var domainWidth = (maxLevel * OutlineConfig.level_xOffset + OutlineConfig.bar_width + influence.max * 0.8 * OutlineConfig.bar_influenceBoost);
                     console.log('domain-width', domainWidth);
 
-                    var xScale = d3.scale.linear()
-                        .domain([0, domainWidth])
-                        .range([0, outWidth]);
+                    var domainHeight = $this.comments.length * (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) + __rootsCount(0, $this.comments.length) * OutlineConfig.yOffsetForRoots;
+                    console.log('domain-height', domainHeight);
 
-                    var iRange = Math.abs(minInfluence) + Math.abs(maxInfluence);
+                    return {
+                        width: domainWidth,
+                        height: domainHeight
+                    }
+                };
 
-                    console.log('minInfluence', minInfluence, 'maxInfluence', maxInfluence, 'iRange', iRange);
+                var __scale = function (intern, extern) {
+
+                    return {
+                        x: d3.scale.linear()
+                            .domain([0, intern.width])
+                            .range([0, extern.width]),
+
+                        y: d3.scale.linear()
+                            .domain([0, intern.height])
+                            .range([0, extern.height])
+                    }
+                };
+
+                var __draw = function () {
+
+                    console.log('drawing');
+
+                    var influence = __influence();
+                    var extern = __extern();
+                    var intern = __intern(influence);
+                    var scale = __scale(intern, extern);
+
+                    // todo fix
+                    $this.yScale = scale.y;
 
                     d3.select('#klp-outline').select('g').remove();
 
                     var g = d3.select('#klp-outline')
-                        .attr('width', outWidth)
-                        .attr('height', outHeight)
+                        .attr('width', extern.width)
+                        .attr('height', extern.height)
                         .append('g');
 
                     var yOffsetTotal = 0;
@@ -183,23 +214,23 @@ angular.module('kalipoApp')
                         .enter()
                         .append('rect')
                         .attr('x', function (d, i) {
-                            return xScale(conf.level_xOffset * d.level);
+                            return scale.x(OutlineConfig.level_xOffset * d.level);
                         })
                         .attr('y', function (d, i) {
                             if (d.level == 0) {
-                                yOffsetTotal += conf.yOffsetForRoots;
+                                yOffsetTotal += OutlineConfig.yOffsetForRoots;
                             }
-                            return $this.yScale(i * (conf.bar_height + conf.bar_marginBottom) + yOffsetTotal);
+                            return scale.y(i * (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) + yOffsetTotal);
                         })
                         .attr('width', function (d, i) {
                             // influence can be <0
-                            return xScale(conf.bar_width + Math.max(0, d.influence) * conf.bar_influenceBoost);
+                            return scale.x(OutlineConfig.bar_width + Math.max(0, d.influence) * OutlineConfig.bar_influenceBoost);
                         })
                         .attr('height', function (d, i) {
-                            return $this.yScale(conf.bar_height);
+                            return scale.y(OutlineConfig.bar_height);
                         })
                         .attr('fill', function (d, i) {
-                            return interpolateColor(Math.abs(d.influence) / iRange);
+                            return OutlineConfig.colorInterpolator(Math.abs(d.influence) / influence.range);
                         })
                         .attr('title', function (d, i) {
                             return 'Click to scroll - ' + d.id;
@@ -240,7 +271,7 @@ angular.module('kalipoApp')
 
                     var paginated = {};
                     var grouped = _.groupBy($this.comments, function(comment, index) {
-                        return parseInt(index / conf.commentsOnPage);
+                        return parseInt(index / OutlineConfig.commentsOnPage);
                     });
                     _.forEach(grouped, function(_comments, page) {
                         paginated[page] = _.flatten(_comments);
@@ -251,16 +282,15 @@ angular.module('kalipoApp')
                         _.forEach($scope.pages, function(page){
 
                             paginated[page.id] = [];
-                            __flat(paginated[page.id], page.comments);
+                            helper.__flat(paginated[page.id], page.comments);
                             paginated[page.id] = _.flatten(paginated[page.id]);
 
                             // refill comments
                             $this.comments = [];
 
-                            __pushAll($this.comments, paginated);
+                            helper.__pushAll($this.comments, paginated);
                         });
 
-                        __init();
                         __draw();
                     };
 
@@ -272,21 +302,6 @@ angular.module('kalipoApp')
                         console.log('-> event:fetched-page', $scope.pages);
                         __postFetchedPage();
                     });
-
-                    var __pushAll = function(sink, pages) {
-                        _.forEach(pages, function(_comments, page) {
-                            _.forEach(_comments, function(comment) {
-                                sink.push(comment);
-                            })
-                        })
-                    };
-
-                    var __flat = function(sink, deepComments) {
-                        _.forEach(deepComments, function(comment) {
-                            sink.push(comment);
-                            __flat(sink, comment.replies.verbose);
-                        });
-                    };
 
                 });
             }
