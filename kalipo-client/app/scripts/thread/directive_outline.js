@@ -2,7 +2,7 @@
  * Created by markus on 16.12.14.
  */
 angular.module('kalipoApp')
-    .directive('threadOutline', function ($compile, $routeParams, $rootScope, Thread, OutlineConfig) {
+    .directive('threadOutline', function ($compile, $routeParams, $rootScope, Thread, Outline, OutlineConfig) {
         return {
             restrict: 'E',
             scope: {
@@ -14,7 +14,6 @@ angular.module('kalipoApp')
 
                 var threadId = $routeParams.threadId;
                 console.log('threadId', threadId);
-
 
                 var $this = this;
 
@@ -34,8 +33,45 @@ angular.module('kalipoApp')
                             sink.push(comment);
                             helper.__flat(sink, comment.replies.verbose);
                         });
-                    }
+                    },
 
+                    __rootsCount: function (fromIndex, untilIndex) {
+                        var rootCount = 0;
+                        _.forEach(comments, function (comment, index) {
+                            if (fromIndex <= index && comment.level == 0) {
+                                rootCount++;
+                            }
+                            return index < untilIndex;
+                        });
+                        return rootCount;
+                    },
+
+
+                };
+
+                var onScrollEnd = function (callback) {
+                    $(document).ready(function () {
+
+                        var $this = $(this);
+
+                        // attach scroll end listener
+                        var scrollTimeout;
+
+                        $this.scroll(function () {
+                            if (scrollTimeout) {
+                                clearTimeout(scrollTimeout);
+                            }
+                            scrollTimeout = setTimeout(function () {
+                                callback();
+                            }, 50);
+                        });
+
+                        // remove scroll listener
+                        $scope.$on('$destroy', function () {
+                            $this.off('scroll');
+                        });
+
+                    });
                 };
 
                 var __viewport = function () {
@@ -70,18 +106,7 @@ angular.module('kalipoApp')
                     }
                 };
 
-                var __rootsCount = function (fromIndex, untilIndex) {
-                    var rootCount = 0;
-                    _.forEach(comments, function (comment, index) {
-                        if (fromIndex <= index && comment.level == 0) {
-                            rootCount++;
-                        }
-                        return index < untilIndex;
-                    });
-                    return rootCount;
-                };
-
-                var __scroll = function () {
+                var __scroll = function (comments) {
 
                     var viewport = __viewport();
 
@@ -90,15 +115,15 @@ angular.module('kalipoApp')
 
                     console.log('viewport from', firstCommentId, 'last', lastCommentId);
 
-                    var indexOfFirst = _.findIndex($this.comments, function (comment) {
+                    var indexOfFirst = _.findIndex(comments, function (comment) {
                         return comment.id == firstCommentId;
                     });
-                    var indexOfLast = _.findIndex($this.comments, function (comment) {
+                    var indexOfLast = _.findIndex(comments, function (comment) {
                         return comment.id == lastCommentId;
                     });
 
-                    var _top = -((OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) * indexOfFirst + OutlineConfig.yOffsetForRoots * __rootsCount(0, indexOfFirst));
-                    var _height = (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) * (indexOfLast - indexOfFirst) + OutlineConfig.yOffsetForRoots * (__rootsCount(indexOfFirst, indexOfLast));
+                    var _top = -((OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) * indexOfFirst + OutlineConfig.yOffsetForRoots * helper.__rootsCount(0, indexOfFirst));
+                    var _height = (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) * (indexOfLast - indexOfFirst) + OutlineConfig.yOffsetForRoots * (helper.__rootsCount(indexOfFirst, indexOfLast));
 
                     var $outline = $element.parent();
                     if ($element.parent().offset().top > viewport.scrollTop || viewport.scrollTop < 200) { // || $element.parent().height() > scrollTop) {
@@ -120,28 +145,21 @@ angular.module('kalipoApp')
                     }
                 };
 
-                $rootScope.$on('event:discussion-changed', function() {
-                    console.log('-> event:discussion-changed');
-                    __scroll();
-                });
-
-                var $doc = $('html, body');
-
-                var __extern = function () {
+                var __extern = function (comments) {
 
                     return {
                         width: $element.width() * 1.2,
-                        height: $this.comments.length * (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom)
+                        height: comments.length * (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom)
                     }
                 };
 
-                var __influence = function () {
+                var __influence = function (comments) {
 
-                    var minInfluence = _.min($this.comments, function (c) {
+                    var minInfluence = _.min(comments, function (c) {
                         return c.influence;
                     }).influence;
 
-                    var maxInfluence = _.max($this.comments, function (c) {
+                    var maxInfluence = _.max(comments, function (c) {
                         return c.influence;
                     }).influence;
 
@@ -156,17 +174,17 @@ angular.module('kalipoApp')
                     }
                 };
 
-                var __intern = function (influence) {
+                var __intern = function (influence, comments) {
 
                     // lowest level is 0
-                    var maxLevel = _.max($this.comments, function (c) {
+                    var maxLevel = _.max(comments, function (c) {
                         return c.level;
                     }).level;
 
                     var domainWidth = (maxLevel * OutlineConfig.level_xOffset + OutlineConfig.bar_width + influence.max * 0.8 * OutlineConfig.bar_influenceBoost);
                     console.log('domain-width', domainWidth);
 
-                    var domainHeight = $this.comments.length * (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) + __rootsCount(0, $this.comments.length) * OutlineConfig.yOffsetForRoots;
+                    var domainHeight = comments.length * (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) + helper.__rootsCount(0, comments.length) * OutlineConfig.yOffsetForRoots;
                     console.log('domain-height', domainHeight);
 
                     return {
@@ -188,13 +206,15 @@ angular.module('kalipoApp')
                     }
                 };
 
-                var __draw = function () {
+                var $doc = $('html, body');
+
+                var __draw = function (comments) {
 
                     console.log('drawing');
 
-                    var influence = __influence();
-                    var extern = __extern();
-                    var intern = __intern(influence);
+                    var influence = __influence(comments);
+                    var extern = __extern(comments);
+                    var intern = __intern(influence, comments);
                     var scale = __scale(intern, extern);
 
                     // todo fix
@@ -210,7 +230,7 @@ angular.module('kalipoApp')
                     var yOffsetTotal = 0;
 
                     g.selectAll('rect')
-                        .data($this.comments)
+                        .data(comments)
                         .enter()
                         .append('rect')
                         .attr('x', function (d, i) {
@@ -244,66 +264,80 @@ angular.module('kalipoApp')
                         });
                 };
 
-                Thread.outline({id: threadId}, function (comments) {
-
-                    $this.comments = comments;
-
-                    $(document).ready(function () {
-
-                        var $this = $(this);
-
-                        // attach scroll end listener
-                        $this.scroll(function () {
-                            if ($this.data('scrollTimeout')) {
-                                clearTimeout($this.data('scrollTimeout'));
-                            }
-                            $this.data('scrollTimeout', setTimeout(function () {
-                                __scroll()
-                            }, 50));
-                        });
-
-                        // remove scroll listener
-                        $scope.$on('$destroy', function () {
-                            $this.off('scroll');
-                        });
-
-                    });
-
+                var __paginate = function (comments) {
                     var paginated = {};
-                    var grouped = _.groupBy($this.comments, function(comment, index) {
+                    var grouped = _.groupBy(comments, function (comment, index) {
                         return parseInt(index / OutlineConfig.commentsOnPage);
                     });
-                    _.forEach(grouped, function(_comments, page) {
+                    _.forEach(grouped, function (_comments, page) {
                         paginated[page] = _.flatten(_comments);
                     });
 
-                    var __postFetchedPage = function () {
-                        console.log('prepare drawing');
-                        _.forEach($scope.pages, function(page){
+                    return paginated;
+                };
 
-                            paginated[page.id] = [];
-                            helper.__flat(paginated[page.id], page.comments);
-                            paginated[page.id] = _.flatten(paginated[page.id]);
+                var __prepareAndDraw = function (comments) {
 
-                            // refill comments
-                            $this.comments = [];
+                    console.log('prepare drawing');
 
-                            helper.__pushAll($this.comments, paginated);
-                        });
+                    var paginated = __paginate(comments);
+                    _.forEach($scope.pages, function (page) {
 
-                        __draw();
-                    };
+                        paginated[page.id] = [];
+                        helper.__flat(paginated[page.id], page.comments);
+                        paginated[page.id] = _.flatten(paginated[page.id]);
 
-                    var timeoutId = setTimeout(__postFetchedPage, 1000);
-
-                    $rootScope.$on('event:fetched-page', function() {
-
-                        clearTimeout(timeoutId);
-                        console.log('-> event:fetched-page', $scope.pages);
-                        __postFetchedPage();
                     });
 
+                    // updated pages to flat comments
+                    comments = [];
+
+                    helper.__pushAll(comments, paginated);
+
+                    $this.comments = comments;
+
+                    __draw(comments);
+                };
+
+                $rootScope.$on('event:discussion-changed', function () {
+                    console.log('-> event:discussion-changed');
+                    __scroll($this.comments);
                 });
+
+                var done_firstPage = false;
+                var done_outline = false;
+
+                $rootScope.$on('event:fetched-page', function () {
+
+                    console.log('-> event:fetched-page');
+                    done_firstPage = true;
+
+                    if (done_outline) {
+                        __prepareAndDraw($this.comments);
+                    }
+                });
+
+                onScrollEnd(function () {
+                    __scroll($this.comments)
+                });
+
+                var fetchOutline = function (threadId) {
+
+                    Thread.outline({id: threadId}, function (comments) {
+
+                        $this.comments = comments;
+
+                        done_outline = true;
+
+                        if (done_firstPage) {
+                            __prepareAndDraw(comments);
+                        }
+
+                    });
+                };
+
+                fetchOutline(threadId);
+
             }
         }
     });
