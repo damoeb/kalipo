@@ -13,11 +13,7 @@ kalipoApp.factory('Discussion', function (Thread) {
         postFetch: function (comments, currentPage) {
 
             return _.forEach(comments, function (comment, index) {
-                comment.replies = {
-                    $all: [],
-                    verbose: [],
-                    dropped: []
-                };
+                comment.replies = [];
 
                 comment.$index = currentPage * 200 + index;
                 comment.$commentCount = 1;
@@ -46,7 +42,7 @@ kalipoApp.factory('Discussion', function (Thread) {
 
                 // todo minimize negative-only comments, hell-banned subthreads
 
-                comment.$hiddenreplies = comment.dislikes > 3 && comment.dislikes > comment.likes;
+                //comment.$hiddenreplies = comment.dislikes > 3 && comment.dislikes > comment.likes;
                 comment.$score = comment.influence / comment.createdDate;
 
                 // author chose to hide his name
@@ -86,38 +82,46 @@ kalipoApp.factory('Discussion', function (Thread) {
                  - show full comment if user is the author
                  - show path to authors comment at least onelined
 
+                 -----
+
+                 vollstandig
+                 einzeilig
+                 Antworten anzeigen
+
+                 comment has replies
+                 reply.$obligatory = yes|no
+                 reply.$onelined = yes|no
+
+                 a reply can be optional -> show 4 comments
+
                  */
 
                 comment.$repliesCount = 0;
-                var replies = comment.replies.$all;
-                var verbose = comment.replies.verbose;
-                var dropped = comment.replies.dropped;
+                comment.$optionalCount = 0;
+                comment.$obligatory = '-';
+                console.log('reset', comment.id);
 
-                internal.shapeRc(replies, level + 1);
+                // todo can still be controversial
+                comment.$oneline = (comment.likes > 1 || comment.dislikes > 1) && (comment.likes - comment.dislikes) < -1;
 
-                _.forEach(replies, function (reply, index) {
+                internal.shapeRc(comment.replies, level + 1);
+
+                comment.replies = internal.sort(comment.replies);
+
+                _.forEach(comment.replies, function (reply, index) {
 
                     // get reply count
                     comment.$repliesCount += 1; // reply itself
                     comment.$repliesCount += reply.$repliesCount; // its replies
 
-                    var isHidden = index >= 1 && reply.$repliesCount == 0 && reply.$oneline;
-
-                    // todo && older than n views && not owner of comment
-                    if (isHidden) {
-                        console.log('dropping', reply.id);
-                        dropped.push(reply.id);
-                    } else {
-                        verbose.push(reply);
+                    reply.$obligatory = index < 1;
+                    if(!reply.$obligatory) {
+                        console.log('optional', comment.id)
+                        comment.$optionalCount ++;
                     }
                 });
 
-                // todo can still be controversial
-                comment.$oneline = (comment.likes > 1 || comment.dislikes > 1) && (comment.likes - comment.dislikes) < -1;
-
-                comment.replies.verbose = internal.sort(comment.replies.verbose);
-
-                //delete comment.replies.$all;
+                comment.replies = internal.sort(comment.replies);
 
             });
         },
@@ -141,7 +145,7 @@ kalipoApp.factory('Discussion', function (Thread) {
                     } else {
                         var replies = parent.replies;
 
-                        replies.$all.push(comment);
+                        replies.push(comment);
                     }
                 }
             });

@@ -25,7 +25,7 @@ angular.module('kalipoApp')
 
                         var compiled_comment = _.template(tmpl_comment);
                         var compiled_menu = _.template(tmpl_menu);
-                        var compiled_dropped = _.template('<div class="dropped" style="border-left: <%= level * 10 %>px solid #ececec;"><a href="javascript:void(0)" ng-click="getDroppedComments(\'<%= ids %>\')">View <strong><%= count %></strong> <% if(count==1) { %>reply<% } else { %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span></div>');
+                        var compiled_optionals = _.template('<div class="toggle-optionals" style="border-left: <%= (level+1) * 10 %>px solid #ececec;"><a href="javascript:void(0)" ng-click="toggleOptionals(\'<%= id %>\')">View <strong><%= count %></strong> more <% if(count==1) { %>reply<% } else { %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span></div>');
 
                         var $thread = $('<div></div>');
 
@@ -37,23 +37,30 @@ angular.module('kalipoApp')
                                 fnRenderMenu: compiled_menu
                             })).appendTo($sink);
 
-                            if (_.isArray(comment.replies.verbose)) {
-                                var $replies = $('<div></div>', {class: 'replies'}).appendTo($comment);
+                            var $obligatory_replies = $('<div></div>', {class: 'replies'}).appendTo($comment);
 
-                                _.forEach(comment.replies.verbose, function (reply) {
-                                    __render(reply, $replies);
+                            // obligatory replies
+                            _.forEach(comment.replies, function (reply) {
+                                if(reply.$obligatory) {
+                                    __render(reply, $obligatory_replies);
+                                }
+                            });
+
+                            if(comment.$optionalCount > 0) {
+                                var $optional_replies = $('<div></div>', {class: 'replies optionals'}).appendTo($comment);
+                                $optional_replies.append(compiled_optionals({
+                                    count: comment.$optionalCount,
+                                    level: comment.level,
+                                    id: comment.id
+                                }));
+
+                                // obligatory replies
+                                _.forEach(comment.replies, function (reply) {
+                                    if(!reply.$obligatory) {
+                                        __render(reply, $optional_replies);
+                                    }
                                 });
                             }
-
-                            if (comment.replies.dropped.length > 0) {
-                                // todo fix ids
-                                $comment.append(compiled_dropped({
-                                    count: comment.$repliesCount,
-                                    level: comment.level,
-                                    ids: comment.replies.dropped.join(',')
-                                }));
-                            }
-
                         };
 
                         _.forEach($scope.collection, function (comment) {
@@ -65,8 +72,12 @@ angular.module('kalipoApp')
                     });
                 });
 
-                $scope.getDroppedComments = function (commentIds) {
-                    console.log('fetch dropped comments of', commentIds)
+                $scope.toggleOptionals = function (commentId) {
+
+                    // todo implement
+                    //$('#comment-' + commentId + ' .replies.optionals').toggleClass('hidden');
+                    //$rootScope.$broadcast('event:discussion-changed');
+
                 };
 
                 $scope.showReplyModal = function (commentId, displayName, threadId, quote) {

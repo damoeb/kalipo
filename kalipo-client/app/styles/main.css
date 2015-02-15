@@ -225,7 +225,7 @@ a:hover {
 .comment .menu {font-size: smaller}
 .comment .menu A {margin-right:8px;}
 .comment .show-full-comment {display: none;}
-.comment .replies-count {display: none; margin-top:10px;}
+.comment .toggle-replies-link {display: none; margin-top:10px;}
 
 .oneline>.comment .icon {display: none;}
 .oneline>.comment .name {display: none;}
@@ -254,8 +254,8 @@ a:hover {
 .hiddenreplies .menu {}
 .hiddenreplies .show-full-comment {}
 .hiddenreplies .replies {display: none;}
-.hiddenreplies .dropped {display: none;}
-.hiddenreplies .replies-count {display: inline-block;}
+.hiddenreplies .toggle-optionals {display: none;}
+.hiddenreplies .toggle-replies-link {display: inline-block;}
 
 .abused-report {
     /*border-radius: 4px;*/

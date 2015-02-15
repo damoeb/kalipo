@@ -11,5 +11,9 @@ kalipoApp.constant('OutlineConfig', {
     colorInterpolator: d3.scale.linear()
         .domain([0, 1])
         .interpolate(d3.interpolateRgb)
-        .range(['#cccccc', '#0000ff']) // lightgray - blue
+        .range(['#cccccc', '#0000ff']), // lightgray - blue
+    colorInterpolatorHidden: d3.scale.linear()
+        .domain([0, 1])
+        .interpolate(d3.interpolateRgb)
+        .range(['#cccccc', '#989898']) // lightgray - blue
 });

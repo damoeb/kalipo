@@ -19,7 +19,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
         flat: function (sink, deepComments) {
             _.forEach(deepComments, function (comment) {
                 sink.push(comment);
-                helper.flat(sink, comment.replies.verbose);
+                helper.flat(sink, comment.replies);
             });
         },
 
@@ -138,7 +138,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             var intern = internal.intern(influence, comments);
             var scale = internal.scale(intern, extern);
 
-            // todo fix
+            // todo fix e
             $this.yScale = scale.y;
 
             d3.select('#klp-outline').select('g').remove();
@@ -171,7 +171,11 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
                     return scale.y(OutlineConfig.bar_height);
                 })
                 .attr('fill', function (d, i) {
-                    return OutlineConfig.colorInterpolator(Math.abs(d.influence) / influence.range);
+                    if(_.isUndefined(d.$obligatory) || d.$obligatory) {
+                        return OutlineConfig.colorInterpolator(Math.abs(d.influence) / influence.range);
+                    } else {
+                        return OutlineConfig.colorInterpolatorHidden(Math.abs(d.influence) / influence.range);
+                    }
                 })
                 .attr('title', function (d, i) {
                     return 'Click to scroll - ' + d.id;
@@ -200,6 +204,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
     };
 
     return {
+        // todo rm this
         assign: function ($element) {
             $this.$element = $element;
         },
