@@ -140,10 +140,10 @@ a:hover {
     color: blue;
 }
 
-.comment-wrapper {
-}
+.comment-wrapper {  }
+.comment-wrapper.level-0 { margin-top:15px }
 .comment {
-    padding: 5px 5px 5px 10px;
+    padding: 10px 5px 5px 10px;
 }
 
 .comment-bar-likes {
@@ -226,6 +226,8 @@ a:hover {
 .comment .menu A {margin-right:8px;}
 .comment .show-full-comment {display: none;}
 .comment .toggle-replies-link {display: none; margin-top:10px;}
+.comment-wrapper .toggle-optionals {padding-bottom:10px; padding-left:10px; }
+.comment-wrapper .toggle-optionals-of { font-size: smaller; color:gray; margin-left: 10px }
 
 .oneline>.comment .icon {display: none;}
 .oneline>.comment .name {display: none;}
