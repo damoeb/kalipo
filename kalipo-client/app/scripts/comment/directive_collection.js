@@ -25,7 +25,7 @@ angular.module('kalipoApp')
 
                         var compiled_comment = _.template(tmpl_comment);
                         var compiled_menu = _.template(tmpl_menu);
-                        var compiled_optionals = _.template('<div class="toggle-optionals" style="border-left: <%= (level+1) * 10 %>px solid #ececec;"><a href="javascript:void(0)" ng-click="toggleOptionals(\'<%= id %>\')">View <strong><%= count %></strong> more <% if(count==1) { %>reply<% } else { %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span></div>');
+                        var compiled_optionals = _.template('<div class="toggle-optionals" style="border-left: <%= comment.level * 10 %>px solid #ececec;"><a href="javascript:void(0)" ng-click="toggleOptionals(\'<%= comment.id %>\')"><strong><%= comment.$optionalCount %></strong> <% if(comment.$optionalCount==1) { %>reply<% } else { %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span> <span class="toggle-optionals-of"> <span class="glyphicon glyphicon-share-alt"></span> <%= comment.displayName %></span></div>');
 
                         var $thread = $('<div></div>');
 
@@ -41,18 +41,20 @@ angular.module('kalipoApp')
 
                             // obligatory replies
                             _.forEach(comment.replies, function (reply) {
+                                //if(reply.$obligatory || !comment.$obligatory) {
                                 if(reply.$obligatory) {
                                     __render(reply, $obligatory_replies);
                                 }
                             });
 
                             if(comment.$optionalCount > 0) {
-                                var $optional_replies = $('<div></div>', {class: 'replies optionals'}).appendTo($comment);
-                                $optional_replies.append(compiled_optionals({
-                                    count: comment.$optionalCount,
-                                    level: comment.level,
-                                    id: comment.id
+                                //if(comment.$optionalCount > 0 && comment.$obligatory) {
+
+                                $comment.append(compiled_optionals({
+                                    comment: comment
                                 }));
+
+                                var $optional_replies = $('<div></div>', {class: 'replies optionals hidden'}).appendTo($comment);
 
                                 // obligatory replies
                                 _.forEach(comment.replies, function (reply) {
@@ -74,9 +76,8 @@ angular.module('kalipoApp')
 
                 $scope.toggleOptionals = function (commentId) {
 
-                    // todo implement
-                    //$('#comment-' + commentId + ' .replies.optionals').toggleClass('hidden');
-                    //$rootScope.$broadcast('event:discussion-changed');
+                    $('#comment-' + commentId + ' > .replies.optionals').toggleClass('hidden');
+                    $rootScope.$broadcast('event:discussion-changed');
 
                 };
 

@@ -118,7 +118,7 @@ kalipoApp.factory('Discussion', function (Thread) {
                     comment.$repliesCount += 1; // reply itself
                     comment.$repliesCount += reply.$repliesCount; // its replies
 
-                    reply.$obligatory = index < 1;
+                    reply.$obligatory = level + 1 <= 2 && index < 3;
                     if(!reply.$obligatory) {
                         console.log('optional', comment.id);
                         comment.$optionalCount ++;

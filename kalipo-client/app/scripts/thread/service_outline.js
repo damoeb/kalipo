@@ -41,7 +41,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             var scrollTop = $(document).scrollTop();
 
             // find first comment on viewport
-            var $all = $('.comment');
+            var $all = $('.comment:visible');
 
             var $firstOnViewport = $($all[0]);
             _.forEach($all, function (comment) {
@@ -54,9 +54,11 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
 
             var _windowHeight = $(window).height();
             var $lastOnViewport = $($all[1]);
+            console.log('top limit', scrollTop + _windowHeight);
             _.forEach($all, function (comment) {
                 var $comment = $(comment);
-                if ($comment.offset().top + $comment.height() < scrollTop + _windowHeight) {
+                if ($comment.offset().top < scrollTop + _windowHeight) {
+                    console.log('top', $comment.attr('ng-comment-id'), $comment.offset().top);
                     $lastOnViewport = $comment;
                 }
             });
@@ -171,7 +173,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
                     return scale.y(OutlineConfig.bar_height);
                 })
                 .attr('fill', function (d, i) {
-                    if(_.isUndefined(d.$obligatory) || d.$obligatory) {
+                    if (_.isUndefined(d.$obligatory) || d.$obligatory || d.$visible) {
                         return OutlineConfig.colorInterpolator(Math.abs(d.influence) / influence.range);
                     } else {
                         return OutlineConfig.colorInterpolatorHidden(Math.abs(d.influence) / influence.range);
