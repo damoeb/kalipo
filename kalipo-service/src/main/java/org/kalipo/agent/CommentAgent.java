@@ -20,7 +20,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.DoubleFunction;
 
 @Service
@@ -199,9 +202,8 @@ public class CommentAgent {
 //                    Comment θ = comment.getParentId()==null ? null : thisComments.get(comment.getParentId()); //theta - outgoing influence
                     Double i_out = 0d; //w_out.apply(NumUtils.nullToZero(θ == null ? null : θ.getInfluence()));
                     int i_inCount = i.isEmpty() ? 0 : 1 + i.size();
-                    comment.setAuthorDiversity(getAuthorDiversity(comment, i));
 
-                    Double i_in = comment.getAuthorDiversity() * w_in.apply(i_inCount + influence_incoming(i, influenceMap));
+                    Double i_in = w_in.apply(i_inCount + influence_incoming(i, influenceMap));
                     double transitiveInfluence = i_in - i_out;
 
                     // todo include comment.getQuality()
@@ -229,30 +231,6 @@ public class CommentAgent {
         } catch (Exception e) {
             log.error("Influence estimation failed.", e);
         }
-    }
-
-    private double getAuthorDiversity(Comment comment, Set<Comment> replies) {
-        // todo does not work without knowing all sub-authors
-//        if (replies.isEmpty()) {
-            return 1d;
-//        }
-//
-//        Set<String> uniqueAuthor = new HashSet<>(replies.size());
-//        uniqueAuthor.add(comment.getDisplayName());
-//
-//        double inheritedDiversity = 0d;
-//
-//        for (Comment c : replies) {
-//            uniqueAuthor.add(c.getDisplayName());
-//            inheritedDiversity += c.getAuthorDiversity();
-//        }
-//
-//        if (inheritedDiversity == 0) { // should never be 0
-//            inheritedDiversity = replies.size();
-//        }
-//
-//        double size = (double) replies.size() +1;
-//        return inheritedDiversity / size * uniqueAuthor.size() / (size +1);
     }
 
     private Double influence_incoming(Set<Comment> incoming, Map<String, Double> influenceMap) {

@@ -14,14 +14,14 @@ kalipoApp.factory('Discussion', function (Thread) {
 
             return _.forEach(comments, function (comment, index) {
                 comment.replies = [];
-
-                comment.$index = currentPage * 200 + index;
-                comment.$commentCount = 1;
+                comment.authors = [];
+                var authorId = comment.displayName;
 
                 if (comment.hidden) {
                     comment.text = 'Content hidden';
                     comment.dislikes = 0;
                     comment.likes = 0;
+                    authorId = comment.id;
                 }
 
                 if (comment.status == 'DELETED') {
@@ -29,6 +29,7 @@ kalipoApp.factory('Discussion', function (Thread) {
                     comment.text = 'Content deleted';
                     comment.dislikes = 0;
                     comment.likes = 0;
+                    authorId = comment.id;
                 }
 
                 if (_.isUndefined(comment.likes)) {
@@ -48,7 +49,10 @@ kalipoApp.factory('Discussion', function (Thread) {
                 // author chose to hide his name
                 if (_.isEmpty(comment.displayName) || _.isUndefined(comment.displayName)) {
                     comment.displayName = 'Anonymous';
+                    authorId = comment.id;
                 }
+
+                comment.authors.push(authorId);
 
                 var total = comment.likes + comment.dislikes;
                 comment.$likes = comment.likes / total * 100;
@@ -96,12 +100,12 @@ kalipoApp.factory('Discussion', function (Thread) {
 
                  */
 
+                var $authors = [];
+
                 comment.$repliesCount = 0;
                 comment.$optionalCount = 0;
-                comment.$obligatory = '-';
-                console.log('reset', comment.id);
-
-                // todo can still be controversial
+                comment.$obligatory = level == 0;
+                // todo can still be controversial -> use author diversity
                 comment.$oneline = (comment.likes > 1 || comment.dislikes > 1) && (comment.likes - comment.dislikes) < -1;
 
                 internal.shapeRc(comment.replies, level + 1);
@@ -116,10 +120,22 @@ kalipoApp.factory('Discussion', function (Thread) {
 
                     reply.$obligatory = index < 1;
                     if(!reply.$obligatory) {
-                        console.log('optional', comment.id)
+                        console.log('optional', comment.id);
                         comment.$optionalCount ++;
                     }
+
+                    _.forEach(reply.$authors, function (author) {
+                        $authors.push(author);
+                    });
                 });
+
+                // todo calc author diversity
+                $authors.push(comment.displayName);
+                comment.$authors = _.uniq($authors);
+
+                if (_.indexOf(comment.$authors, 'your username')) {
+                    comment.$obligatory = true;
+                }
 
                 comment.replies = internal.sort(comment.replies);
 
@@ -144,7 +160,6 @@ kalipoApp.factory('Discussion', function (Thread) {
                         console.log('cannot find parent of', comment.parentId);
                     } else {
                         var replies = parent.replies;
-
                         replies.push(comment);
                     }
                 }

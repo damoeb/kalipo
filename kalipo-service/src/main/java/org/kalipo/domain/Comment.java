@@ -75,6 +75,7 @@ public class Comment implements Anonymizable<Comment> {
 
     private Integer dislikes;
 
+    // reported comments may be hidden
     private Boolean hidden;
 
     /**
@@ -89,8 +90,6 @@ public class Comment implements Anonymizable<Comment> {
     private Status status;
 
     private String reviewerId;
-
-    private double authorDiversity = 1d;
 
     private String reviewMsg;
 
@@ -274,14 +273,6 @@ public class Comment implements Anonymizable<Comment> {
 
     public void setLastModifiedDate(DateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public double getAuthorDiversity() {
-        return authorDiversity;
-    }
-
-    public void setAuthorDiversity(double authorDiversity) {
-        this.authorDiversity = authorDiversity;
     }
 
     public String getReviewMsg() {
