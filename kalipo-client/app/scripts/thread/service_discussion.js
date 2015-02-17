@@ -101,6 +101,7 @@ kalipoApp.factory('Discussion', function (Thread) {
                  */
 
                 var $authors = [];
+                var hasObligatoryReplies = false;
 
                 comment.$repliesCount = 0;
                 comment.$optionalCount = 0;
@@ -122,19 +123,28 @@ kalipoApp.factory('Discussion', function (Thread) {
                     if(!reply.$obligatory) {
                         console.log('optional', comment.id);
                         comment.$optionalCount ++;
+                    } else {
+                        hasObligatoryReplies = true;
                     }
 
-                    _.forEach(reply.$authors, function (author) {
-                        $authors.push(author);
-                    });
+//                    _.forEach(reply.$authors, function (author) {
+//                        $authors.push(author);
+//                    });
                 });
 
                 // todo calc author diversity
+                // todo authors not needed: if child is obligatory, self is optional -> self is obligatory+oneline
                 $authors.push(comment.displayName);
                 comment.$authors = _.uniq($authors);
 
-                if (_.indexOf(comment.$authors, 'your username')) {
+                if (_.indexOf(comment.$authors, 'Modjo')) {
+                    console.log('authors comment', comment.id);
                     comment.$obligatory = true;
+                }
+
+                if(hasObligatoryReplies && !comment.$obligatory) {
+                    comment.$obligatory = true;
+                    comment.$oneline = true;
                 }
 
                 comment.replies = internal.sort(comment.replies);

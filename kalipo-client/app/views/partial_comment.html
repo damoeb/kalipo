@@ -3,7 +3,7 @@
     <div
         class="comment"
         ng-comment-id="<%= comment.id %>"
-        style="border-left: <%= comment.level * 10 %>px solid #ececec;">
+        style="margin-left: <%= comment.level * 15 %>px; <% if(comment.level>0) { %>border-left: 1px solid #ececec;<% } %>">
         <a id="<%= comment.id %>"></a>
 
         <div class="row">
@@ -17,11 +17,11 @@
                        class="icon">
                         <span class="icon-implode glyphicon glyphicon-unchecked"></span><span class="icon-expand glyphicon glyphicon-collapse-down"></span></a>
 
-                    <strong class="name"><%= comment.displayName %></strong>
+                    <span class="name"><%= comment.displayName %></span>
 
+                    <%= comment.$authors %>
                     <!--<%= comment.id %>-->
                     <!--<%= comment.$obligatory %>-->
-                    <!--<p><%= comment.$authors %></p>-->
 
                     <span class="date">
                         <%= moment(comment.createdDate).fromNow() %>

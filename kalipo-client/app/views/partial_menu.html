@@ -13,9 +13,6 @@
 
     <a ng-if="comment.parentId != null" href="#/thread/<%= comment.threadId %>?anchor=<%= comment.parentId %>">
         Parent</a>
-    <a href="#/thread/<%= comment.threadId %>?anchor=<%= comment.id %>" title="Permalink">
-        <span class="glyphicon glyphicon-link"></span>
-    </a>
 
     <div class="flag pull-right">
         <a href="javascript:void(0)"
