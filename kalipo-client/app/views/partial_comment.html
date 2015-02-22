@@ -15,9 +15,13 @@
 
                     <a href="javascript:void(0)" ng-click="toggleReplies('<%- comment.id %>')" title="Toggle Replies"
                        class="icon">
-                        <!--<span class="icon-implode glyphicon glyphicon-unchecked"></span><span class="icon-expand glyphicon glyphicon-collapse-down"></span>-->
+                        <% if(comment.$repliesCount > 0) { %>
+                        <span class="icon-implode glyphicon glyphicon-unchecked"></span><span
+                        class="icon-expand glyphicon glyphicon-collapse-down"></span>
+                        <% } %>
+                    </a>
 
-                        <span class="name"><%- comment.displayName %></span></a>
+                    <span class="name"><%- comment.displayName %></span>
 
 
                     <!--<%- comment.$authors %>-->
