@@ -1,10 +1,10 @@
-<div id="comment-<%= comment.id %>"
-     class="comment-wrapper level-<%= comment.level %> <% if(comment.$pending) { %><%='pending' %><% } %> <% if(comment.$oneline) { %><%='oneline'  %><% } %>">
+<div id="comment-<%- comment.id %>"
+     class="comment-wrapper level-<%- comment.level %> <% if(comment.$pending) { %><%-'pending' %><% } %> <% if(comment.$oneline) { %><%-'oneline'  %><% } %>">
     <div
         class="comment"
-        ng-comment-id="<%= comment.id %>"
-        style="margin-left: <%= comment.level * 15 %>px; <% if(comment.level>0) { %>border-left: 1px solid #ececec;<% } %>">
-        <a id="<%= comment.id %>"></a>
+        ng-comment-id="<%- comment.id %>"
+        style="margin-left: <%- comment.level * 15 %>px; <% if(comment.level>0) { %>border-left: 1px solid #ececec;<% } %>">
+        <a id="<%- comment.id %>"></a>
 
         <div class="row">
 
@@ -13,22 +13,23 @@
 
                 <div style="overflow: hidden">
 
-                    <a href="javascript:void(0)" ng-click="toggleReplies('<%= comment.id %>')" title="Toggle Replies"
+                    <a href="javascript:void(0)" ng-click="toggleReplies('<%- comment.id %>')" title="Toggle Replies"
                        class="icon">
-                        <span class="icon-implode glyphicon glyphicon-unchecked"></span><span class="icon-expand glyphicon glyphicon-collapse-down"></span></a>
+                        <!--<span class="icon-implode glyphicon glyphicon-unchecked"></span><span class="icon-expand glyphicon glyphicon-collapse-down"></span>-->
 
-                    <span class="name"><%= comment.displayName %></span>
+                        <span class="name"><%- comment.displayName %></span></a>
 
-                    <%= comment.$authors %>
-                    <!--<%= comment.id %>-->
-                    <!--<%= comment.$obligatory %>-->
+
+                    <!--<%- comment.$authors %>-->
+                    <!--<%- comment.id %>-->
+                    <!--<%- comment.$obligatory %>-->
 
                     <span class="date">
-                        <%= moment(comment.createdDate).fromNow() %>
+                        <%- moment(comment.createdDate).fromNow() %>
                     </span>
                     <span class="label label-warning label-pending">PENDING APPROVAL</span>
                     <!--<span class="replies-count">-->
-                        <!--with <%= comment.$repliesCount %> replies-->
+                    <!--with <%- comment.$repliesCount %> replies-->
                     <!--</span>-->
 
                     <div class="dropdown pull-right" ng-if="isadmin">
@@ -37,28 +38,28 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><a href="javascript:void(0)" tabindex="-1" role="menuitem"
-                                                       ng-click="markSpamComment('<%= comment.id %>')">Mark as
+                                                       ng-click="markSpamComment('<%- comment.id %>')">Mark as
                                 Spam</a></li>
                             <li role="presentation"><a href="javascript:void(0)" tabindex="-1"
-                                                       ng-click="deleteComment('<%= comment.id %>')"
+                                                       ng-click="deleteComment('<%- comment.id %>')"
                                                        role="menuitem">Delete</a>
                             </li>
                             <li role="presentation"><a href="javascript:void(0)" tabindex="-1" role="menuitem"
-                                                       ng-click="blacklistUserAfterComment('<%= comment.authorId %>', '<%= comment.id %>')">Delete
+                                                       ng-click="blacklistUserAfterComment('<%- comment.authorId %>', '<%- comment.id %>')">Delete
                                 Comment and blacklist
                                 User</a></li>
                         </ul>
                     </div>
 
                     <div class="show-full-comment" style="float:right">
-                        <a title="Show full comment" ng-click="verbose('<%= comment.id %>')"
+                        <a title="Show full comment" ng-click="verbose('<%- comment.id %>')"
                            href="javascript:void(0)">
                             <span class="glyphicon glyphicon-chevron-right"></span>
                         </a>
                     </div>
 
                     <div class="body-wrapper">
-                        <div class="body"><%= comment.body %></div>
+                        <div class="body"><%- comment.body %></div>
                     </div>
 
                 </div>
@@ -66,8 +67,9 @@
                 <%= fnRenderMenu({comment: comment}) %>
 
                 <% if(comment.$repliesCount > 0) { %>
-                <div class="toggle-replies-link"><a href="javascript:void(0)" ng-click="toggleReplies('<%= comment.id %>')">View
-                    <strong><%= comment.$repliesCount %></strong> <% if(comment.$repliesCount==1) { %>reply<% } else {
+                <div class="toggle-replies-link"><a href="javascript:void(0)"
+                                                    ng-click="toggleReplies('<%- comment.id %>')">View
+                    <strong><%- comment.$repliesCount %></strong> <% if(comment.$repliesCount==1) { %>reply<% } else {
                     %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span></div>
                 <% } %>
 
@@ -75,7 +77,7 @@
 
         </div>
 
-        <div id="mod-<%= comment.id %>">
+        <div id="mod-<%- comment.id %>">
             <!-- to put report or reply form -->
         </div>
 

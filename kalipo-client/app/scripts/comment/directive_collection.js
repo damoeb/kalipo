@@ -25,7 +25,7 @@ angular.module('kalipoApp')
 
                         var compiled_comment = _.template(tmpl_comment);
                         var compiled_menu = _.template(tmpl_menu);
-                        var compiled_optionals = _.template('<div class="toggle-optionals" style="margin-left: <%= comment.level * 15 %>px; border-left: 1px dashed #ececec;"><a href="javascript:void(0)" ng-click="toggleOptionals(\'<%= comment.id %>\')"><strong><%= comment.$optionalCount %></strong> <% if(comment.$optionalCount==1) { %>reply<% } else { %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span> <span class="toggle-optionals-of"> <span class="glyphicon glyphicon-share-alt"></span> <%= comment.displayName %></span></div>');
+                        var compiled_optionals = _.template('<div class="toggle-optionals" style="margin-left: <%- comment.level * 15 %>px; border-left: 1px dashed #ececec;"><a href="javascript:void(0)" ng-click="toggleOptionals(\'<%- comment.id %>\')"><strong><%- comment.$optionalCount %></strong> <% if(comment.$optionalCount==1) { %>reply<% } else { %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span></div>');
 
                         var $thread = $('<div></div>');
 

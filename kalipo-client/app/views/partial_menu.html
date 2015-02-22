@@ -1,22 +1,22 @@
 <div class="menu">
     <a href="javascript:void(0)"
-       ng-click="showReplyModal('<%= comment.id %>', '<%= comment.displayName %>', '<%= comment.threadId %>', '<%= comment.body %>')">Reply</a>
-    <a class="voteUp <% if (comment.likes>0) { %><%= 'always' %><% } %>"
-       href="javascript:void(0)" ng-click="like('<%= comment.id %>')">
-        <%= comment.likes %>
+       ng-click="showReplyModal('<%- comment.id %>', '<%- comment.displayName %>', '<%- comment.threadId %>', '<%- comment.body %>')">Reply</a>
+    <a class="voteUp <% if (comment.likes>0) { %><%- 'always' %><% } %>"
+       href="javascript:void(0)" ng-click="like('<%- comment.id %>')">
+        <%- comment.likes %>
         <span class="glyphicon glyphicon-thumbs-up"></span></a>
 
     <a class="voteDown"
-       href="javascript:void(0)" ng-click="dislike('<%= comment.id %>')">
-        <%= comment.dislikes %>
+       href="javascript:void(0)" ng-click="dislike('<%- comment.id %>')">
+        <%- comment.dislikes %>
         <span class="glyphicon glyphicon-thumbs-down"></span></a>
 
-    <a ng-if="comment.parentId != null" href="#/thread/<%= comment.threadId %>?anchor=<%= comment.parentId %>">
+    <a ng-if="comment.parentId != null" href="#/thread/<%- comment.threadId %>?anchor=<%- comment.parentId %>">
         Parent</a>
 
     <div class="flag pull-right">
         <a href="javascript:void(0)"
-           ng-click="toggleReportForm('<%= comment.id %>')"
+           ng-click="toggleReportForm('<%- comment.id %>')"
            title="Report this comment">
             <span class="glyphicon glyphicon-flag"></span>
         </a>
