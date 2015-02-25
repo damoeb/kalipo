@@ -10,7 +10,7 @@ kalipoApp.factory('Discussion', function (Thread) {
             })
         },
 
-        postFetch: function (comments, currentPage) {
+        postFetch: function (comments, pageId) {
 
             return _.forEach(comments, function (comment, index) {
                 comment.replies = [];
@@ -61,55 +61,26 @@ kalipoApp.factory('Discussion', function (Thread) {
             });
         },
 
-        shape: function (comments, attributes) {
+        shape: function (comments, rules) {
             console.log('shape');
-            internal.shapeRc(comments, 1, attributes);
+            internal.shapeRc(comments, 1, rules);
         },
 
-        shapeRc: function (comments, level, attributes) {
+        shapeRc: function (comments, level, rules) {
 
-            _.forEach(comments, function (comment) {
-
-                /*
-                 3 rule sets
-                 .) huge discussions > 200 comments attributes.totalElementCount
-                 - only level 0 comments
-                 - level 1: show best 2, rest is hidden
-                 - drop bad comments
-
-                 .) normal discussions
-                 - hide index > 4
-                 - level 0 are not hiddenreplies
-
-                 .) general rules
-                 - minimize bad comments
-                 - show full comment if user is the author
-                 - show path to authors comment at least onelined
-
-                 -----
-
-                 vollstandig
-                 einzeilig
-                 Antworten anzeigen
-
-                 comment has replies
-                 reply.$obligatory = yes|no
-                 reply.$onelined = yes|no
-
-                 a reply can be optional -> show 4 comments
-
-                 */
+            _.forEach(comments, function (comment, index) {
 
                 var $authors = [];
-                var hasObligatoryReplies = false;
+                $authors.push(comment.displayName);
+
+                comment.$hasObligatoryReplies = false;
 
                 comment.$repliesCount = 0;
                 comment.$optionalCount = 0;
-                comment.$obligatory = level == 0;
-                // todo can still be controversial -> use author diversity
-                comment.$oneline = (comment.likes > 1 || comment.dislikes > 1) && (comment.likes - comment.dislikes) < -1;
 
-                internal.shapeRc(comment.replies, level + 1);
+                rules.apply(comment, level, index);
+
+                internal.shapeRc(comment.replies, level + 1, rules);
 
                 comment.replies = internal.sort(comment.replies);
 
@@ -119,33 +90,28 @@ kalipoApp.factory('Discussion', function (Thread) {
                     comment.$repliesCount += 1; // reply itself
                     comment.$repliesCount += reply.$repliesCount; // its replies
 
-                    reply.$obligatory = level + 1 <= 2 && index < 3;
                     if(!reply.$obligatory) {
                         console.log('optional', comment.id);
                         comment.$optionalCount ++;
                     } else {
-                        hasObligatoryReplies = true;
+                        comment.$hasObligatoryReplies = true;
                     }
-
-//                    _.forEach(reply.$authors, function (author) {
-//                        $authors.push(author);
-//                    });
                 });
+
 
                 // todo calc author diversity
                 // todo authors not needed: if child is obligatory, self is optional -> self is obligatory+oneline
-                $authors.push(comment.displayName);
-                comment.$authors = _.uniq($authors);
-
-                if (_.indexOf(comment.$authors, 'Modjo')) {
-                    console.log('authors comment', comment.id);
-                    comment.$obligatory = true;
-                }
-
-                if(hasObligatoryReplies && !comment.$obligatory) {
-                    comment.$obligatory = true;
-                    comment.$oneline = true;
-                }
+                //comment.$authors = _.uniq($authors);
+                //
+                //if (_.indexOf(comment.$authors, 'Modjo')) {
+                //    console.log('authors comment', comment.id);
+                //    comment.$obligatory = true;
+                //}
+                //
+                //if(comment.$hasObligatoryReplies && !comment.$obligatory) {
+                //    comment.$obligatory = true;
+                //    comment.$oneline = true;
+                //}
 
                 comment.replies = internal.sort(comment.replies);
 
@@ -195,7 +161,66 @@ kalipoApp.factory('Discussion', function (Thread) {
 
                 var roots = internal.sort(internal.merge(tree, comments));
 
-                internal.shape(roots, {totalElementCount: pageData.totalElements});
+                var totalElementCount = pageData.totalElements;
+
+                var rules = {
+                    /*
+                     3 rule sets
+                     .) huge discussions > 200 comments attributes.totalElementCount
+                     - only level 0 comments
+                     - level 1: show best 2, rest is hidden
+                     - drop bad comments
+
+                     .) normal discussions
+                     - hide index > 4
+                     - level 0 are not hiddenreplies
+
+                     .) general rules
+                     - minimize bad comments
+                     - show full comment if user is the author
+                     - show path to authors comment at least onelined
+
+                     -----
+
+                     vollstandig
+                     einzeilig
+                     Antworten anzeigen
+
+                     comment has replies
+                     reply.$obligatory = yes|no
+                     reply.$onelined = yes|no
+
+                     a reply can be optional -> show 4 comments
+
+                     */
+                    _isObligatory: function (comment, level, index) {
+                        console.log('level', level, 'index', index);
+                        if (level == 0) {
+                            return true;
+                        }
+                        if (level == 1) {
+                            return index < 5;
+                        }
+                        //return false;
+                        if (level > 3) {
+                            return false;
+                        }
+                        return totalElementCount < 600;
+                    },
+
+                    _isOneLine: function (comment, level) {
+                        var controversial = comment.likes > 2 && comment.dislikes > 2;
+                        var downVoted = (comment.likes - comment.dislikes) < 2;
+                        return downVoted && !controversial;
+                    },
+
+                    apply: function (comment, level, index) {
+                        comment.$oneline = this._isOneLine(comment, level, index);
+                        comment.$obligatory = this._isObligatory(comment, level, index);
+                    }
+                };
+
+                internal.shape(roots, rules);
 
                 var page = {
                     id: pageId,

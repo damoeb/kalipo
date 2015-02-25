@@ -25,7 +25,7 @@ angular.module('kalipoApp')
 
                         var compiled_comment = _.template(tmpl_comment);
                         var compiled_menu = _.template(tmpl_menu);
-                        var compiled_optionals = _.template('<div class="toggle-optionals" style="margin-left: <%- comment.level * 15 %>px; border-left: 1px dashed #ececec;"><a href="javascript:void(0)" ng-click="toggleOptionals(\'<%- comment.id %>\')"><strong><%- comment.$optionalCount %></strong> <% if(comment.$optionalCount==1) { %>reply<% } else { %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span></div>');
+                        var compiled_optionals = _.template('<div class="toggle-optionals" style="margin-left: <%- comment.level * 15 %>px; <% if(comment.level>1) { %>border-left: 1px dashed #ececec;<% } %>"><a href="javascript:void(0)" ng-click="toggleOptionals(\'<%- comment.id %>\')"><strong><% if(comment.$hasObligatoryReplies) {%> <%- comment.$optionalCount %><% } else { %><%- comment.$repliesCount %><% } %></strong> <% if(comment.$optionalCount==1) { %>reply<% } else { %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span></div>');
 
                         var $thread = $('<div></div>');
 
@@ -37,29 +37,28 @@ angular.module('kalipoApp')
                                 fnRenderMenu: compiled_menu
                             })).appendTo($sink);
 
-                            var $obligatory_replies = $('<div></div>', {class: 'replies'}).appendTo($comment);
+                            var $replies = $('<div></div>', {class: 'replies'}).appendTo($comment);
 
                             // obligatory replies
                             _.forEach(comment.replies, function (reply) {
-                                //if(reply.$obligatory || !comment.$obligatory) {
-                                if(reply.$obligatory) {
-                                    __render(reply, $obligatory_replies);
+                                if (reply.$obligatory || !comment.$obligatory) {
+                                    //if(reply.$obligatory) {
+                                    __render(reply, $replies);
                                 }
                             });
 
-                            if(comment.$optionalCount > 0) {
-                                //if(comment.$optionalCount > 0 && comment.$obligatory) {
+                            if (comment.$optionalCount > 0 && comment.$obligatory) {
 
                                 $comment.append(compiled_optionals({
                                     comment: comment
                                 }));
 
-                                var $optional_replies = $('<div></div>', {class: 'replies optionals hidden'}).appendTo($comment);
+                                var $hidden_replies = $('<div></div>', {class: 'replies optionals hidden'}).appendTo($comment);
 
                                 // obligatory replies
                                 _.forEach(comment.replies, function (reply) {
                                     if(!reply.$obligatory) {
-                                        __render(reply, $optional_replies);
+                                        __render(reply, $hidden_replies);
                                     }
                                 });
                             }
