@@ -25,7 +25,7 @@ angular.module('kalipoApp')
 
                         var comp_comment = _.template(tmpl_comment);
                         var comp_menu = _.template(tmpl_menu);
-                        var comp_toggle_concealed = _.template('<div class="toggle-optionals" style="margin-left: <%- comment.level * 15 %>px; <% if(comment.level>1) { %>border-left: 1px dashed #ececec;<% } %>"><a href="javascript:void(0)" ng-click="toggleOptionals(\'<%- comment.id %>\')"><strong><% if(comment.$hasObligatoryReplies) {%> <%- comment.$concealedRepliesCount %><% } else { %><%- comment.$repliesCount %><% } %></strong> <% if(comment.$concealedRepliesCount==1) { %>reply<% } else { %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span></div>');
+                        var comp_toggle_concealed = _.template('<div class="toggle-optionals" style="margin-left: <%- comment.level * 15 %>px; <% if(comment.level>1) { %>border-left: 1px dashed #ececec;<% } %>"><a href="javascript:void(0)" ng-click="toggleOptionals(\'<%- comment.id %>\')"><strong><% if(comment.$hasObligatoryReplies) {%> <%- comment.$concealedRepliesCount %><% } else { %><%- comment.$repliesCount %><% } %></strong> <% if(comment.$hasObligatoryReplies && comment.$concealedRepliesCount==1 || comment.$repliesCount==1) { %>reply<% } else { %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span></div>');
 
                         var $thread = $('<div></div>');
 
@@ -41,7 +41,7 @@ angular.module('kalipoApp')
 
                             // obligatory replies
                             _.forEach(comment.replies, function (reply) {
-                                if (reply.$obligatory || !concealed) {
+                                if (reply.$obligatory || concealed) {
                                     __render(reply, $replies, concealed);
                                 }
                             });
@@ -64,7 +64,7 @@ angular.module('kalipoApp')
                         };
 
                         _.forEach($scope.collection, function (comment) {
-                            __render(comment, $thread, consealed);
+                            __render(comment, $thread, false);
                         });
 
                         $element.append($compile($thread.contents())($scope));
