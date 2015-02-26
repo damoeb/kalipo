@@ -5,7 +5,7 @@ kalipo
 What is it?
 -----------
 
-Kalipo is a realtime mobile-first? commenting web application with a strong focus on transparency. (Screenshot http://i58.tinypic.com/5efh4o.jpg)
+Kalipo is a realtime mobile-first commenting web application with a strong focus on transparency. It uses [d3js](http://d3js.org/) vizualizations to help users to navigate through a discussion and find the relevant parts. Its an asocial network and no social network.
 
 Features
 --------
@@ -17,7 +17,6 @@ e.g. assume http://www.anyurl.com/2000008228049 is hooked by thread 1, then a us
 - Livecycle: track your comment livecycle all the time
 - Notifications: many transient actions trigger notifications to keep you informed
 - Moderation: mods can choose from a range of actions (similar to the IRC: k-List, g-List or z-Line) to keep discussion sane and vital
-- Ugly duckling: threads that do not attrack a number of commentors within a certain time limit after creation will be suffer deletion
 - Sanity: Apply best practices for well known threats like sock puppets, trolls, spamming (see https://github.com/damoeb/kalipo/wiki/Frauds)
 
 The Latest Version
