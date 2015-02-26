@@ -5,7 +5,7 @@ kalipo
 What is it?
 -----------
 
-Kalipo is a realtime mobile-first commenting web application with a strong focus on transparency. It uses [d3js](http://d3js.org/) vizualizations to help users to navigate through a discussion and find the relevant parts. Its an asocial network and no social network.
+Kalipo is a realtime mobile-first commenting web application with a strong focus on transparency. It uses [d3js](http://d3js.org/) vizualizations to help users to navigate through a discussion and find the relevant parts and websockets to stay to be up to date. Its not a classic social network, since user can not network. Its the statement that matter, not the person who said it!
 
 Features
 --------
