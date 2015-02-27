@@ -80,10 +80,10 @@ public class ThreadResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the threads")
-    public List<Thread> getAll() throws ExecutionException, InterruptedException {
+    public Page<Thread> getAll(@QueryParam("page") Integer page) throws ExecutionException, InterruptedException {
         log.debug("REST request to get all Threads");
 
-        return threadService.getAll().get();
+        return threadService.getAllWithPages(ParamFixer.fixPage(page)).get();
     }
 
     /**

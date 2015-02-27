@@ -9,31 +9,32 @@
 
 
     <div>
-        <div ng-repeat="thread in threads">
-            <div class="row comment">
-                <div class="col-sm-12 col-xs-12">
+        <div ng-repeat="(day, threads) in byDays" style="margin-bottom: 20px;">
 
-                    <h4 class="voteUp always">
-                        {{::thread.likes}}
-                        <span class="glyphicon glyphicon-thumbs-up"></span>
-                    </h4>
+            <strong>{{day}}</strong>
 
-                    <div class="pull-right" style="color:gray">{{::thread.createdDate | fromNow}}</div>
+            <div ng-repeat="thread in threads">
+                <div class="row comment">
+                    <div class="col-sm-12 col-xs-12">
 
-                    <a href="#/thread/{{::thread.id}}">
-                        <h4 class="list-group-item-heading">{{::thread.title}}</h4>
-                    </a>
+                        <!--<h4 class="voteUp always">-->
+                            <!--{{thread.likes}}-->
+                            <!--<span class="glyphicon glyphicon-thumbs-up"></span>-->
+                        <!--</h4>-->
 
-                    <!--<a href="#/thread/{{::thread.id}}" style="font-size: small">-->
-                        <!--{{::thread.link}}-->
-                    <!--</a>-->
+                        <!--<div class="pull-right" style="color:gray">{{::thread.createdDate | fromNow}}</div>-->
 
-                    <p>
-                        {{::thread.body}} - <a href="#/thread/{{::thread.id}}">{{::thread.commentCount}} comments</a>
-                    </p>
+                        <a href="#/thread/{{::thread.id}}">{{::thread.title}}</a>
+
+                        <p>
+                            {{::thread.body}} -- <a href="#/thread/{{::thread.id}}"><span ng-if="thread.commentCount > 0">{{::thread.commentCount}} comments</span><span ng-if="thread.commentCount == 0">No comments yet</span></a>
+                        </p>
+
+                    </div>
 
                 </div>
             </div>
+
         </div>
     </div>
 </div>

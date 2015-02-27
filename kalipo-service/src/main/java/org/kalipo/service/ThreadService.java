@@ -134,8 +134,12 @@ public class ThreadService {
     }
 
     @Async
-    public Future<List<Thread>> getAll() {
-        return new AsyncResult<List<Thread>>(threadRepository.findAll());
+    public Future<Page<Thread>> getAllWithPages(Integer page) {
+        Sort sort = new Sort(
+                new Sort.Order(Sort.Direction.ASC, "createdDate")
+        );
+        PageRequest pageable = new PageRequest(page, 20, sort);
+        return new AsyncResult<Page<Thread>>(threadRepository.findAll(pageable));
     }
 
     @Async
