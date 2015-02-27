@@ -13,12 +13,11 @@
 
                 <div style="overflow: hidden">
 
-                    <a href="javascript:void(0)" ng-click="toggleReplies('<%- comment.id %>')" title="Toggle Replies"
+                    <a href="javascript:void(0)" ng-click="toggleReplies('<%- comment.id %>')"
                        class="icon">
                         <% if(comment.$repliesCount > 0) { %>
-                        <span class="icon-implode glyphicon glyphicon-unchecked"></span><span
-                        class="icon-expand glyphicon glyphicon-collapse-down"></span>
-                        <% } %></a>
+                        <span class="icon-implode glyphicon glyphicon-collapse-up" title="Collapse"></span>
+                        <span class="icon-expand glyphicon glyphicon-collapse-down" title="Expand"></span><% } %></a>
 
                     <span class="name"><%- comment.displayName %></span>
 
