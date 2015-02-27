@@ -12,6 +12,9 @@ class Comment(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     title = scrapy.Field()
+    thread = scrapy.Field()
+    level = scrapy.Field()
+    parent = scrapy.Field()
     author = scrapy.Field()
     date = scrapy.Field()
     text = scrapy.Field()

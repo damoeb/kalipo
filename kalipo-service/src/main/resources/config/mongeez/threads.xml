@@ -1,5 +1,5 @@
 <mongoChangeLog>
-    <changeSet changeId="ChangeSet-threads" author="jhipster">
+    <changeSet changeId="ChangeSet-threads" author="damoeb">
         <script>
             db.T_THREAD.insert(
             {

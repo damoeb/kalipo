@@ -1,5 +1,5 @@
 <mongoChangeLog>
-    <changeSet changeId="ChangeSet-comments" author="jhipster">
+    <changeSet changeId="ChangeSet-comments" author="damoeb">
         <script>
             db.T_COMMENT.insert({
             "_id" : ObjectId("5484cc19c8301dc174baf001"),
