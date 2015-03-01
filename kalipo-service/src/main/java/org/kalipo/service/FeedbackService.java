@@ -2,7 +2,7 @@ package org.kalipo.service;
 
 import org.apache.commons.lang3.StringUtils;
 import org.kalipo.aop.KalipoExceptionHandler;
-import org.kalipo.aop.Throttled;
+import org.kalipo.aop.RateLimit;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Feedback;
 import org.kalipo.repository.FeedbackRepository;
@@ -36,7 +36,7 @@ public class FeedbackService {
     @Inject
     private Environment env;
 
-    @Throttled
+    @RateLimit
     public Feedback create(Feedback feedback) throws KalipoException {
 
         Asserts.isNull(feedback.getId(), "id");

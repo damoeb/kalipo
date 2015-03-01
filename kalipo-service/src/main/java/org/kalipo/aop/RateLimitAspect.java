@@ -5,27 +5,23 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.kalipo.throttle.MethodThrottleService;
+import org.kalipo.throttle.RateLimitService;
 import org.kalipo.web.rest.KalipoException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 
 /**
- * Aspect for methods that are annotated with @org.kalipo.aop.Throttled
+ * Aspect for methods that are annotated with @org.kalipo.aop.RateLimit
  * <p>
  * Created by damoeb on 17.09.14.
  */
 @Aspect
-public class MethodThrottleAspect {
-
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+public class RateLimitAspect {
 
     @Inject
-    private MethodThrottleService methodThrottleService;
+    private RateLimitService rateLimitService;
 
-    @Pointcut("@annotation(org.kalipo.aop.Throttled)")
+    @Pointcut("@annotation(org.kalipo.aop.RateLimit)")
     public void throttledMethod() {
     }
 
@@ -34,8 +30,7 @@ public class MethodThrottleAspect {
 
         final MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 
-        Throttled annotation = signature.getMethod().getAnnotation(Throttled.class);
-        methodThrottleService.initAndEnter(signature.toLongString(), annotation.limit());
+        rateLimitService.enter(signature.toLongString());
     }
 
     @Before("throttledMethod()")
@@ -43,7 +38,7 @@ public class MethodThrottleAspect {
 
         final MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 
-        methodThrottleService.exit(signature.toLongString());
+        rateLimitService.exit(signature.toLongString());
     }
 
 }

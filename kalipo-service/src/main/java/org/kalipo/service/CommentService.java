@@ -3,7 +3,7 @@ package org.kalipo.service;
 import org.apache.commons.lang3.BooleanUtils;
 import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
-import org.kalipo.aop.Throttled;
+import org.kalipo.aop.RateLimit;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Notice;
@@ -57,7 +57,7 @@ public class CommentService {
     @Inject
     private UserService userService;
 
-    @Throttled
+    @RateLimit
     public Comment create(Comment comment) throws KalipoException {
 
         Asserts.isNotNull(comment, "comment");
@@ -73,7 +73,7 @@ public class CommentService {
     }
 
     @RolesAllowed(Privileges.EDIT_COMMENT)
-    @Throttled
+    @RateLimit
     public Comment update(Comment modified) throws KalipoException {
         Asserts.isNotNull(modified, "comment");
         Asserts.isNotNull(modified.getId(), "id");
@@ -100,7 +100,7 @@ public class CommentService {
     }
 
     @RolesAllowed(Privileges.REVIEW_COMMENT)
-    @Throttled
+    @RateLimit
     public Comment approve(String id) throws KalipoException {
 
         Asserts.isNotNull(id, "id");
@@ -111,7 +111,7 @@ public class CommentService {
     }
 
     @RolesAllowed(Privileges.REVIEW_COMMENT)
-    @Throttled
+    @RateLimit
     public Comment approve(Comment comment) throws KalipoException {
 
         Asserts.isNotNull(comment, "id");
@@ -153,7 +153,7 @@ public class CommentService {
     }
 
     @RolesAllowed(Privileges.REVIEW_COMMENT)
-    @Throttled
+    @RateLimit
     public Comment reject(String id) throws KalipoException {
 
         Asserts.isNotNull(id, "id");
@@ -164,7 +164,7 @@ public class CommentService {
     }
 
     @RolesAllowed(Privileges.REVIEW_COMMENT)
-    @Throttled
+    @RateLimit
     public Comment reject(Comment comment) throws KalipoException {
 
         // todo test, this is new
@@ -212,7 +212,7 @@ public class CommentService {
         return new AsyncResult<Comment>(commentRepository.findOne(id));
     }
 
-    @Throttled
+    @RateLimit
     public void delete(String id) throws KalipoException {
 
         Asserts.isNotNull(id, "id");
@@ -222,7 +222,7 @@ public class CommentService {
         delete(comment);
     }
 
-    @Throttled
+    @RateLimit
     public void delete(Comment comment) throws KalipoException {
 
         final String currentLogin = SecurityUtils.getCurrentLogin();

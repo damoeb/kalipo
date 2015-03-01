@@ -2,7 +2,7 @@ package org.kalipo.service;
 
 import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
-import org.kalipo.aop.Throttled;
+import org.kalipo.aop.RateLimit;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Notice;
@@ -49,7 +49,7 @@ public class VoteService {
     @Inject
     private CommentRepository commentRepository;
 
-    @Throttled
+    @RateLimit
     public Vote create(@Valid Vote vote) throws KalipoException {
 
         Asserts.isNull(vote.getId(), "id");

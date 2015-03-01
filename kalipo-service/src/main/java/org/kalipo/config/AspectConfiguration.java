@@ -1,7 +1,7 @@
 package org.kalipo.config;
 
 import org.kalipo.aop.ExceptionHandlerAspect;
-import org.kalipo.aop.MethodThrottleAspect;
+import org.kalipo.aop.RateLimitAspect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -19,8 +19,8 @@ public class AspectConfiguration {
     }
 
     @Bean
-    public MethodThrottleAspect methodThrottleAspect() {
-        return new MethodThrottleAspect();
+    public RateLimitAspect methodThrottleAspect() {
+        return new RateLimitAspect();
     }
 
 }

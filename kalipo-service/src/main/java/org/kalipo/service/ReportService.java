@@ -1,7 +1,7 @@
 package org.kalipo.service;
 
 import org.kalipo.aop.KalipoExceptionHandler;
-import org.kalipo.aop.Throttled;
+import org.kalipo.aop.RateLimit;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Notice;
@@ -52,7 +52,7 @@ public class ReportService {
     private NoticeService noticeService;
 
     @RolesAllowed(Privileges.CREATE_REPORT)
-    @Throttled
+    @RateLimit
     public Report create(Report report) throws KalipoException {
 
         Asserts.isNull(report.getId(), "id");
@@ -98,13 +98,13 @@ public class ReportService {
     }
 
     @RolesAllowed(Privileges.CLOSE_REPORT)
-    @Throttled
+    @RateLimit
     public void approve(String id) throws KalipoException {
         approveOrReject(getPendingReport(id).setStatus(Report.Status.APPROVED));
     }
 
     @RolesAllowed(Privileges.CLOSE_REPORT)
-    @Throttled
+    @RateLimit
     public void reject(String id) throws KalipoException {
         approveOrReject(getPendingReport(id).setStatus(Report.Status.REJECTED));
     }

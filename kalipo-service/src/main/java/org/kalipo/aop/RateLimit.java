@@ -8,12 +8,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Throttle concurrent access of a method
+ * Limit rate for accessing a method
  * Created by damoeb on 22.09.14.
  */
 @Component
 @Target(value = {ElementType.METHOD})
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface Throttled {
-    int limit() default 1;
+public @interface RateLimit {
 }

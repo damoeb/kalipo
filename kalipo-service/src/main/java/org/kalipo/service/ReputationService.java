@@ -1,7 +1,7 @@
 package org.kalipo.service;
 
 import org.kalipo.aop.KalipoExceptionHandler;
-import org.kalipo.aop.Throttled;
+import org.kalipo.aop.RateLimit;
 import org.kalipo.domain.*;
 import org.kalipo.repository.AchievementRepository;
 import org.kalipo.repository.CommentRepository;
@@ -149,7 +149,7 @@ public class ReputationService {
     }
 
     @RolesAllowed(Privileges.CREATE_PRIVILEGE)
-    @Throttled
+    @RateLimit
     public void update(Reputation reputation) throws KalipoException {
         reputationRepository.save(reputation);
     }

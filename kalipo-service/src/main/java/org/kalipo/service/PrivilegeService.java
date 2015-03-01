@@ -1,7 +1,7 @@
 package org.kalipo.service;
 
 import org.kalipo.aop.KalipoExceptionHandler;
-import org.kalipo.aop.Throttled;
+import org.kalipo.aop.RateLimit;
 import org.kalipo.domain.Privilege;
 import org.kalipo.repository.PrivilegeRepository;
 import org.kalipo.security.Privileges;
@@ -29,7 +29,7 @@ public class PrivilegeService {
     private PrivilegeRepository privilegeRepository;
 
     @RolesAllowed(Privileges.CREATE_PRIVILEGE)
-    @Throttled
+    @RateLimit
     public Privilege create(Privilege privilege) throws KalipoException {
         Asserts.isNotNull(privilege, "privilege");
         log.info(String.format("%s creates privilege %s", SecurityUtils.getCurrentLogin(), privilege));
@@ -37,7 +37,7 @@ public class PrivilegeService {
     }
 
     @RolesAllowed(Privileges.CREATE_PRIVILEGE)
-    @Throttled
+    @RateLimit
     public Privilege update(Privilege privilege) throws KalipoException {
         Asserts.isNotNull(privilege, "privilege");
         Asserts.isNotNull(privilege.getId(), "id");

@@ -3,7 +3,7 @@ package org.kalipo.service;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
-import org.kalipo.aop.Throttled;
+import org.kalipo.aop.RateLimit;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Privilege;
@@ -61,7 +61,7 @@ public class ThreadService {
     private UserService userService;
 
     @RolesAllowed(Privileges.CREATE_THREAD)
-    @Throttled
+    @RateLimit
     public Thread create(Thread thread) throws KalipoException {
 
         Asserts.isNotNull(thread, "thread");
@@ -88,7 +88,7 @@ public class ThreadService {
     }
 
     @RolesAllowed(Privileges.CREATE_THREAD)
-    @Throttled
+    @RateLimit
     public Thread update(Thread dirty) throws KalipoException {
         Asserts.isNotNull(dirty, "thread");
         Asserts.isNotNull(dirty.getId(), "id");
