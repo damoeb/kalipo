@@ -37,288 +37,343 @@
 <h2 id="g0.2">Features</h2>
 
 <ol>
-    <li>
-        <h4>Comment</h4>
-        <ol>
-            <li>
-               Content
-               <ol>
-                  <li>user Mentions @</li>
-                  <li>Hashtags #</li>
-                  <li>Links</li>
-               </ol>
-            </li>
-        </ol>
-    </li>
-    <li>
-        <h4>Live</h4>
-        <br>
-        <ol>
-            <li>
-                Status
-                <br>
-                93 users viewing
-            </li>
-            <li>
-                Comments
-            </li>
-            <li>
-                Votes
-            </li>
-        </ol>
-    </li>
-    <li>
-        <h4>Discussion</h4>
-    </li>
-    <li>
-        <h4>Reputation</h4>
+<li>
+    <h4>Comment</h4>
+    <ol>
+        <li>
+            Content
+            <ol>
+                <li>user Mentions @</li>
+                <li>Hashtags #</li>
+                <li>Links</li>
+            </ol>
+        </li>
+    </ol>
+</li>
+<li>
+    <h4>Live</h4>
+    <ol>
+        <li>
+            Status
+            <br>
+            93 users viewing
+        </li>
+        <li>
+            Comments
+        </li>
+        <li>
+            Votes
+        </li>
+    </ol>
+</li>
+<li>
+    <h4>Discussion</h4>
+</li>
+<li>
+    <h4>Reputation</h4>
 
-        <ol>
-            <li>rechts oben: reputation increases +2 upvoted wie in einem spiel</li>
-            <li>Rage Thread: no implications on reputation? non-public, invitation only</li>
-        </ol>
-    </li>
-    <li>
-        <h4>Performance</h4>
+    <ol>
+        <li>Calculation</li>
+        <li>
+            Visualization
+            <br>
+            rechts oben: reputation increases +2 upvoted wie in einem spiel
+        </li>
+        <li>Rage Thread: no implications on reputation? non-public, invitation only</li>
+    </ol>
+</li>
+<li>
+    <h4>Performance</h4>
 
-        <ol>
-            <li>
-                Active
+    <ol>
+        <li>
+            Active
 
-                <ol>
-                    <li>
-                        Rate limits
-                        <br>
-                        Limit write calls per time and user. Think of using 3rd party lib like <a href="http://openrepose.org/">repose</a>
-                    </li>
-                    <li>
-                        Quota
-                        <br>
-                        Establish per user quotas for individual actions
-                    </li>
-                </ol>
+            <ol>
+                <li>
+                    Rate limits
+                    <br>
+                    Limit write calls per time and user. Think of using 3rd party lib like <a
+                        href="http://openrepose.org/">repose</a>
+                </li>
+                <li>
+                    Quota
+                    <br>
+                    Establish per user quotas for individual actions
+                </li>
+            </ol>
 
-            </li>
-            <li>
-                Passive
+        </li>
+        <li>
+            Passive
 
-                <ol>
-                    <li>
-                        Caching
-                        <br>
-                        Use @Cacheable with ehcache see http://viralpatel.net/blogs/cache-support-spring-3-1-m1/
-                    </li>
-                </ol>
-            </li>
-        </ol>
+            <ol>
+                <li>
+                    Caching
+                    <br>
+                    Use @Cacheable with ehcache see http://viralpatel.net/blogs/cache-support-spring-3-1-m1/
+                </li>
+            </ol>
+        </li>
+    </ol>
 
-    </li>
-    <li>
-        <h4>Visualization</h4>
+</li>
+<li>
+    <h4>Visualization</h4>
 
-        d3js vizualization to achieve fast navigation though discussion, easy findability of relevant comments.
-        <ol>
-            <li>
-                Challenges
-                <ol>
-                    <li>Huge discussions</li>
-                    <li>Colors</li>
-                    <li>Special comments</li>
-                </ol>
-            </li>
-        </ol>
-    </li>
-    <li>
-        <h4>Notifications</h4>
-        Keep users informed about stuff they are interested in.
-        <ol>
-            <li>
-               Targets
-               <ol>
-                  <li>like a comment -> follow this comment?</li>
-               </ol>
-            </li>
-            <li>aa</li>            
-        </ol>
-    </li>
-    <li>
-        <h4>Monitor/Watch</h4>
+    d3js vizualization to achieve fast navigation though discussion, easy findability of relevant comments.
+    <ol>
+        <li>
+            Challenges
+            <ol>
+                <li>Huge discussions</li>
+                <li>Colors</li>
+                <li>Special comments</li>
+            </ol>
+        </li>
+    </ol>
+</li>
+<li>
+    <h4>Notifications</h4>
+    Keep users informed about stuff they are interested in.
+    <ol>
+        <li>
+            Routes
+            <ol>
+                <li>Mail</li>
+                <li>Persited Notification</li>
+                <li>Non-Persisted Notification</li>
+            </ol>
+        </li>
+        <li>
+            Target Actions
+            <ol>
+                <li>
+                    About Own Actions
+                    <br>
+                    "Comment saved", "Voted", ...
+                </li>
+                <li>
+                    About Others Actions
+                    <br>
+                    <ol>
+                        <li><em>n</em> upvotes/downvotes on comment</li>
+                        <li><em>m</em> replies on comment</li>
+                        <li>status of comment changed (Approved, Rejected)</li>
+                    </ol>
+                </li>
+            </ol>
+        </li>
+        <li>
+            Discussion
+            <ol>
+                <li>like a comment -> follow this comment?</li>
+            </ol>
+        </li>
+    </ol>
+</li>
 
-        user activity to identify problems/frauds
-        <ol>
-            <li>
-                abnormal user
-                <ol>
-                    <li>they comment significantly more than the average</li>
-                    <li>are newly registered</li>
-                    <li>post just links</li>
-                    <li>out of context</li>
-                </ol>
-            </li>
-            <li>
-                popular comments
-            </li>
-            <li>
-                multiple logins per account
-            </li>
-            <li>
-                varying browsers/geo origins per account
-            </li>
-        </ol>
-    </li>
-    <li>
-        <h4>Frauds</h4>
-        
-        More: <a href="https://de.wikipedia.org/wiki/Massenpsychologie#Ansteckungstheorie">Ansteckungstheorie</a>, <a href="https://de.wikipedia.org/wiki/Massenpsychologie#Ann.C3.A4herungstheorie">Annäherungstheorie</a> and <a href="https://en.wikipedia.org/wiki/Crowd_psychology">nymwars</a>
-        <br>
-        
-        <ol>
-            <li>
-                Sockpuppets / Meat puppets
-                <br>
-                One user uses several accounts to gain more weight in discussions.
-                <ul>
-                    <li>
-                        Identification
-                        <br>
-                        There are several features that indicate sock puppertry
-                        <ul>
-                            <li>conspicuous strong network clusters between accounts, with a</li>
-                            <li>similar activity zones during a day</li>
-                            <li>same browser fingerprint</li>
-                            <li>no overlapping/concurrent activity</li>
-                            <li>consecutive logins</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Discussion
-                        <br>
-                        Temporal/Permanet bans. Hellbanning.
-                    </li>
-                    <li>
-                        References
-                        <br>
-                        http://m.heise.de/newsticker/meldung/Sockenpuppen-aus-Oesterreich-Foren-gezielt-manipuliert-2444134.html
-                    </li>
-                </ul>
-            </li>
+<li>
+    <h4>External Tools</h4>
+    <ol>
+        <li>
+            <a name="svm"></a>
+            Support Vector Machine <a href="#svm">¶</a>
 
-            <li>
-                Trolling
-                <br>
-                Trolling is often negative in a helpful discussion and may be frustrating for a reader to deal with.
-                <ul>
-                    <li>
-                        Identification
-                        <br>
-                        The provoking manner of trolls may be visible through a strong denial of the particular comment.
-                    </li>
-                    <li>
-                        Discussion
-                        <br>
-                        Science states that the most effective way to treat trolls is to ignore them., or, give them
-                        their own hidden gardens e.g. Hellbanning.
-                    </li>
-                </ul>
-            </li>
+            <br>
+            <a href="http://www.r-project.org/">R</a> has a good SVM implementation.
+        </li>
+    </ol>
+</li>
 
+<li>
+    <h4>Monitor/Watch</h4>
 
-            <li>
-                Spamming
-                <br>
-                The idea is of spam is to encourage users to consume different content.
-                <ul>
-                    <li>
-                        Identification
-                        <br>
-                        There are several features that indicate sock puppertry
-                        <ul>
-                            <li>many comments of new users</li>
-                            <li>comments with links</li>
-                            <li>many similar/identical comments in a short period</li>
-                            <li>out of context comments</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Discussion
-                        <br>
-                        <ul>
-                            <li>High probability for those comments, to be peer reviewed</li>
-                            <li>comment quota</li>
-                            <li>increase reputation is exhausting</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
+    user activity to identify problems/frauds
+    <ol>
+        <li>
+            abnormal user
+            <ol>
+                <li>they comment significantly more than the average</li>
+                <li>are newly registered</li>
+                <li>post just links</li>
+                <li>out of context</li>
+            </ol>
+        </li>
+        <li>
+            popular comments
+        </li>
+        <li>
+            multiple logins per account
+        </li>
+        <li>
+            varying browsers/geo origins per account
+        </li>
+    </ol>
+</li>
+<li>
+    <h4>Frauds</h4>
+
+    More: <a href="https://de.wikipedia.org/wiki/Massenpsychologie#Ansteckungstheorie">Ansteckungstheorie</a>, <a
+        href="https://de.wikipedia.org/wiki/Massenpsychologie#Ann.C3.A4herungstheorie">Annäherungstheorie</a> and <a
+        href="https://en.wikipedia.org/wiki/Crowd_psychology">nymwars</a>
+    <br>
+
+    <ol>
+        <li>
+            Sockpuppets / Meat puppets
+            <br>
+            One user uses several accounts to gain more weight in discussions.
+            <ul>
+                <li>
+                    Identification
+                    <br>
+                    There are several features that indicate sock puppertry
+                    <ul>
+                        <li>conspicuous strong network clusters between accounts, with a</li>
+                        <li>similar activity zones during a day</li>
+                        <li>same browser fingerprint</li>
+                        <li>no overlapping/concurrent activity</li>
+                        <li>consecutive logins</li>
+                    </ul>
+                </li>
+                <li>
+                    Discussion
+                    <br>
+                    Temporal/Permanet bans. Hellbanning.
+                </li>
+                <li>
+                    References
+                    <br>
+                    http://m.heise.de/newsticker/meldung/Sockenpuppen-aus-Oesterreich-Foren-gezielt-manipuliert-2444134.html
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            Trolling
+            <br>
+            Trolling is often negative in a helpful discussion and may be frustrating for a reader to deal with.
+            <ul>
+                <li>
+                    Identification
+                    <br>
+                    The provoking manner of trolls may be visible through a strong denial of the particular comment.
+                </li>
+                <li>
+                    Discussion
+                    <br>
+                    Science states that the most effective way to treat trolls is to ignore them., or, give them
+                    their own hidden gardens e.g. Hellbanning.
+                </li>
+            </ul>
+        </li>
 
 
-            <li>
-                Hot comment claiming
-                <br>
-                A popular comment is reposted by a different user, probably rewritten
-                <ul>
-                    <li>
-                        Identification
-                        <br>
-                        Candidate comment shows high similarity to an existing one
-                    </li>
-                    <li>
-                        Discussion
-                        <br>
-                        Like in spam, the importance of a comment is derived from its innovation
-                    </li>
-                </ul>
-            </li>
-            
-            <li>
-               Candystorm/Shitstorm
-               <br>
-               <ul>
-                    <li>
-                        Identification
-                        <br>
-                    </li>
-                    <li>
-                        Discussion
-                        <br>
-                    </li>
-                </ul>
-            </li>
-            
-            <li>
-               Online disinhibition
-               <br>
-               In psychology, <a href="https://en.wikipedia.org/wiki/Disinhibition">disinhibition</a> is a lack of restraint manifested in disregard for social conventions, impulsivity, and poor risk assessment
-               <ul>
-                    <li>
-                        Identification
-                        <br>
-                    </li>
-                    <li>
-                        Discussion
-                        <br>
-                    </li>
-                </ul>
-            </li>
-            
-            <li>
-               Bandwagon effect
-               <br>
-               <a href="https://en.wikipedia.org/wiki/Bandwagon_effect">The bandwagon effect</a> is a phenomenon whereby the rate of uptake of beliefs, ideas, fads and trends increases the more that they have already been adopted by others.
-               <ul>
-                    <li>
-                        Identification
-                        <br>
-                    </li>
-                    <li>
-                        Discussion
-                        <br>
-                    </li>
-                </ul>
-            </li>
-            
-        </ol>
-    </li>
+        <li>
+            Spamming
+            <br>
+            The idea is of spam is to encourage users to consume different content.
+            <ul>
+                <li>
+                    Identification
+                    <br>
+                    There are several features that indicate sock puppertry
+                    <ul>
+                        <li>many comments of new users</li>
+                        <li>comments with links</li>
+                        <li>many similar/identical comments in a short period</li>
+                        <li>out of context comments</li>
+                    </ul>
+                </li>
+                <li>
+                    Discussion
+                    <br>
+                    <ul>
+                        <li>High probability for those comments, to be peer reviewed</li>
+                        <li>comment quota</li>
+                        <li>increase reputation is exhausting</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+
+        <li>
+            Hot comment claiming
+            <br>
+            A popular comment is reposted by a different user, probably rewritten
+            <ul>
+                <li>
+                    Identification
+                    <br>
+                    Candidate comment shows high similarity (<a href="#svm">
+                    → SVM</a>) to an existing one
+                </li>
+                <li>
+                    Discussion
+                    <br>
+                    Like in spam, the importance of a comment is derived from its innovation
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            Candystorm/Shitstorm
+            <br>
+            Fix upward and downward reputation changes for up- and down-votes. A shitstorm may result in a huge drop of
+            reputation, hence, users may not dare to post controversial posts. Candystorms can boost users
+            extraordinarily.
+            <ul>
+                <li>
+                    <s>Identification</s>
+                </li>
+                <li>
+                    Discussion
+                    <br>
+                    downward: 10 votes
+                    upward: 30 votes
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            Online disinhibition
+            <br>
+            In psychology, <a href="https://en.wikipedia.org/wiki/Disinhibition">disinhibition</a> is a lack of
+            restraint manifested in disregard for social conventions, impulsivity, and poor risk assessment
+            <ul>
+                <li>
+                    Identification
+                    <br>
+                </li>
+                <li>
+                    Discussion
+                    <br>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            Bandwagon effect
+            <br>
+            <a href="https://en.wikipedia.org/wiki/Bandwagon_effect">The bandwagon effect</a> is a phenomenon whereby
+            the rate of uptake of beliefs, ideas, fads and trends increases the more that they have already been adopted
+            by others.
+            <ul>
+                <li>
+                    Identification
+                    <br>
+                </li>
+                <li>
+                    Discussion
+                    <br>
+                </li>
+            </ul>
+        </li>
+
+    </ol>
+</li>
 </ol>
 </ol>
 </body>
