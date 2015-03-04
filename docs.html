@@ -19,6 +19,10 @@
             background: #fffd33;
         }
 
+        s, strike {
+            color: #999999;
+        }
+
     </style>
 </head>
 <body lang="en-US" dir="ltr" style="background: transparent">
@@ -27,7 +31,7 @@
 
 <h1>Documentation of kalipo</h1>
 
-<h2>Current Tasks</h2>
+<h2>Iterations</h2>
 <ol>
     <li><span class="one">nothing</span></li>
 </ol>
@@ -73,7 +77,26 @@
     <h4>Reputation</h4>
 
     <ol>
-        <li>Calculation</li>
+        <li>
+            Calculation
+
+            <ol>
+                <li>
+                    Gain
+                    <ul>
+                        <li>+2 your comment is liked</li>
+                    </ul>
+                </li>
+                <li>
+                    Loose
+                    <ul>
+                        <li>-2 comment is disliked</li>
+                        <li>-1 you liked/disliked a comment</li>
+                        <li>-10 your comment violated our rules</li>
+                    </ul>
+                </li>
+            </ol>
+        </li>
         <li>
             Visualization
             <br>
@@ -142,7 +165,11 @@
             <ol>
                 <li>Mail</li>
                 <li>Persited Notification</li>
-                <li>Non-Persisted Notification</li>
+                <li>
+                    Non-Persisted Notification
+                    <br>
+                    use <a href="https://wavded.github.io/humane-js/">humane-js</a>
+                </li>
             </ol>
         </li>
         <li>
@@ -181,7 +208,10 @@
             Support Vector Machine <a href="#svm">¶</a>
 
             <br>
-            <a href="http://www.r-project.org/">R</a> has a good SVM implementation.
+            <a href="http://www.r-project.org/">R</a> has a good SVM implementation. See <a
+                href="http://cbio.ensmp.fr/~jvert/svn/tutorials/practical/svmbasic/svmbasic_notes.pdf">this</a> as an
+            introduction. Read <a href="http://wang.ist.psu.edu/course/05/IST597/papers/Vapnik_learn.pdf">An Overview of
+            Statistical Learning Theory</a> first.
         </li>
     </ol>
 </li>
@@ -192,22 +222,32 @@
     user activity to identify problems/frauds
     <ol>
         <li>
-            abnormal user
+            Visual
+            <br>
+            use <a href="https://morrisjs.github.io/morris.js/">morrisjs</a>
+        </li>
+        <li>
+            Identify
             <ol>
-                <li>they comment significantly more than the average</li>
-                <li>are newly registered</li>
-                <li>post just links</li>
-                <li>out of context</li>
+                <li>
+                    abnormal user
+                    <ol>
+                        <li>they comment significantly more than the average</li>
+                        <li>are newly registered</li>
+                        <li>post just links</li>
+                        <li>out of context</li>
+                    </ol>
+                </li>
+                <li>
+                    popular comments
+                </li>
+                <li>
+                    multiple logins per account
+                </li>
+                <li>
+                    varying browsers/geo origins per account
+                </li>
             </ol>
-        </li>
-        <li>
-            popular comments
-        </li>
-        <li>
-            multiple logins per account
-        </li>
-        <li>
-            varying browsers/geo origins per account
         </li>
     </ol>
 </li>
