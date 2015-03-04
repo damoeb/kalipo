@@ -25,6 +25,10 @@ The Latest Version
 ------------------
 There will be a prototype soon.
 
+Screenshot
+----------
+
+![alt tag](https://raw.githubusercontent.com/damoeb/kalipo/master/doc/screenshots/discussion.png)
 
 Documentation
 ------------
