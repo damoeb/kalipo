@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <meta charset="utf-8">
+    <title>kalipo</title>
+    <meta name="viewport" content="width=475">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <style>
+        .show-more {
+            line-height:16px;
+            max-width:660px;
+        }
+
+        .tiny .show-more-content {
+            max-height: 32px;
+            overflow: hidden;
+        }
+        
+        .more {display:none; }
+        .tiny .more { display:block; }
+        .tiny .less { display:none; }
+
+    </style>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    
+    <script>
+
+        var lineHeight = 16; // read from css rule
+        var lineCountCrit = 2; // calc from css rule
+
+        $(function() {
+
+            $('.show-more').each(function(index, el) {
+                var $el = $(el);
+
+                var lineCount = $el.height() / lineHeight;
+                console.log('lineCount', lineCount, 'append?', lineCount > lineCountCrit);
+
+                if(lineCount > lineCountCrit) {
+
+                    var $wrapper = $('<div/>', {class: 'show-more-content', html: $el.html()});
+
+                    $(el).empty().append($wrapper);
+
+                    var n = lineCount - lineCountCrit;
+
+                    var $str_show_more = $('<span/>', {class: 'more', text: 'Show '+n+' more lines'});
+                    var $str_show_less = $('<span/>', {class: 'less', text: 'Hide '+n+' lines'});
+                    var $fn = $('<a/>', {href:'javascript:void(0)'}).append($str_show_more).append($str_show_less);
+
+                    $fn.click(function() {
+                        $el.toggleClass('tiny')
+                    });
+
+                    $el.addClass('tiny');
+                    $el.append($fn);
+                }
+            });
+
+        });
+    </script>
+</head>
+<body>
+
+<div class="show-more">
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+</div>
+
+<div class="show-more">
+    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam eratvem ipsum.
+</div>
+
+
+
+</body>
+</html>
