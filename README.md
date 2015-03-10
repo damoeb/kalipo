@@ -5,7 +5,7 @@ kalipo
 What is it?
 -----------
 
-Kalipo is a realtime mobile-first commenting web application with a strong focus on transparency. It uses [d3js](http://d3js.org/) vizualizations to help users to navigate through a discussion and find the relevant parts and websockets to stay to be up to date. Its not a classic social network, since user can not network. 
+Kalipo is a realtime mobile-first commenting web application with a strong focus on transparency. It uses [d3js](http://d3js.org/) vizualizations to help users to navigate through a discussion and find the relevant parts and websockets to stay up to date. Its not a classic social network, since user can not network. 
 
 > Its the statement that matters, not the person who said it!
 
@@ -28,7 +28,7 @@ There will be a prototype soon.
 
 Documentation
 ------------
-Stick to the code.
+There is a rudimentary [docs file]{docs.html}, which I am still writing on. Otherwise, stick to the code.
 
 
 Installation
@@ -52,8 +52,13 @@ This will start an embedded tomcat on http://localhost:8080 (as defined in kalip
 * *kalipo-Service* the java/spring based backend
 
 
+Configuration
+-------------
+
+Will follow.
+
 Licensing
-------------
+---------
 
 Please see the file called LICENSE.
 

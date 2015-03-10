@@ -1,3 +1,22 @@
+configuration attr
+- discussion depth: NUM {min:2, default:4}
+- max comments: NUM {min:0}
+- max comment length: NUM {min:160, max:2048}
+- keep ips: BOOL {default:false}
+- support markdown: BOOL {default:false}
+- support show-more: BOOL {default:true}
+- max-visible-lines-of-comment: NUM {min:1, default:5}
+- browse: thread order: best score first, last changed first
+- notifications of super-mods via mail too (reports): BOOL {default: true}
+
+Suche!!!
+show-more directive
+
+UI: adapt view using a filter: Auto/Pending/None
+oneline: es kann auf die gesamte zeile geklickt werden, nicht nur das Icon rechts, um es komplett anzuzeigen
+
+highlight mod comments
+
 raw rendered usergen texts in html e.g. showReplyModal
 
 repliescount is mixed in hidden and dropped

@@ -15,8 +15,12 @@
             background: #33ff99;
         }
 
-        .second {
+        .then {
             background: #fffd33;
+        }
+
+        .issue {
+            background: #ff3390;
         }
 
         s, strike {
@@ -26,14 +30,14 @@
     </style>
 </head>
 <body lang="en-US" dir="ltr" style="background: transparent">
-<ol>
 <br>
 
 <h1>Documentation of kalipo</h1>
 
 <h2>Iterations</h2>
 <ol>
-    <li><span class="one">nothing</span></li>
+    <li><span class="one">current</span></li>
+    <li><span class="then">then</span></li>
 </ol>
 <div>
     <br>
@@ -47,15 +51,21 @@
         <li>
             Content
             <ol>
-                <li>user Mentions @</li>
-                <li>Hashtags #</li>
+                <li>user Mentions @
+                    <br>
+                    Triggers Notification to mentioned user. <span class="one">test this</span>
+                </li>
+                <li>Hashtags #
+                    <br>
+                    <span class="one">implement</span> a view to search for hashtags
+                </li>
                 <li>
                     Links
                     <br>
-                    Route links via a stats collecting servlet &lt;klpo&gt;/out?&lt;custom-url&gt;
+                    Route links via a stats collecting <span class="one">servlet</span> &lt;klpo&gt;/out?&lt;custom-url&gt; . As a start logging is sufficient as stats collection.
                 </li>
                 <li>
-                    Embedded
+                    <span class="then">Embedded</span>
                     <ol>
                         <li>Image</li>
                         <li>Mulimedia</li>
@@ -70,7 +80,7 @@
 
     <ol>
         <li>
-            Status
+            <span class="then">Status</span>
             <br>
             93 users viewing
         </li>
@@ -85,7 +95,14 @@
 <li>
     <h4>Discussion</h4>
     Details of Thread with Stats e.g. http://www.mixcloud.com/stats/
-    <a href="http://engineering.linkedin.com/linkedin-ipad-5-techniques-smooth-infinite-scrolling-html5">Unlimited scroll</a>
+    <ol>
+        <li>
+            <span class="implement">Implement</span> unlimited scroll from <a href="http://engineering.linkedin.com/linkedin-ipad-5-techniques-smooth-infinite-scrolling-html5">Unlimited scroll</a>
+        </li>
+        <li>
+            Adapt design Auto, Auto+Show Pending, All Full
+        </li>
+    </ol>
 </li>
 <li>
     <h4>Reputation</h4>
@@ -163,7 +180,8 @@
 <li>
     <h4>Visualization</h4>
 
-    d3js vizualization to achieve fast navigation though discussion, easy findability of relevant comments.
+    d3js visualization to achieve fast navigation though discussion, easy findability of relevant comments.
+    <span class="issue">Bars are too large on small screens</span>
     <ol>
         <li>
             Challenges
@@ -187,7 +205,7 @@
                 <li>
                     Non-Persisted Notification
                     <br>
-                    use <a href="https://wavded.github.io/humane-js/">humane-js</a>
+                    use <a class="one" href="https://wavded.github.io/humane-js/">humane-js</a>
                 </li>
             </ol>
         </li>
@@ -213,7 +231,7 @@
         <li>
             Discussion
             <ol>
-                <li>like a comment -> follow this comment?</li>
+                <li>like a comment -&gt; follow this comment?</li>
             </ol>
         </li>
     </ol>
@@ -433,7 +451,6 @@
 
     </ol>
 </li>
-</ol>
 </ol>
 </body>
 </html>
