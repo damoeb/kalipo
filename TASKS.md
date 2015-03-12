@@ -11,6 +11,7 @@ configuration attr
 
 Suche!!!
 show-more directive
+Small navbar https://stackoverflow.com/questions/18599778/decreasing-height-of-bootstrap-3-0-navbar
 
 UI: adapt view using a filter: Auto/Pending/None
 oneline: es kann auf die gesamte zeile geklickt werden, nicht nur das Icon rechts, um es komplett anzuzeigen

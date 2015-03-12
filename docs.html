@@ -34,7 +34,7 @@
 
 <h1>Documentation of kalipo</h1>
 
-<h2>Iterations</h2>
+<h2>Phase</h2>
 <ol>
     <li><span class="one">current</span></li>
     <li><span class="then">then</span></li>
@@ -73,6 +73,9 @@
                 </li>
             </ol>
         </li>
+        <li>
+        <span class="one">implement</span> "Show-More" directive for long commands (see <a href="doc/show-more.html">prototype</a>)
+        </li>
     </ol>
 </li>
 <li>
@@ -97,10 +100,33 @@
     Details of Thread with Stats e.g. http://www.mixcloud.com/stats/
     <ol>
         <li>
-            <span class="implement">Implement</span> unlimited scroll from <a href="http://engineering.linkedin.com/linkedin-ipad-5-techniques-smooth-infinite-scrolling-html5">Unlimited scroll</a>
+            <span class="one">Implement</span> unlimited scroll from with page unloading using the <a href="http://engineering.linkedin.com/linkedin-ipad-5-techniques-smooth-infinite-scrolling-html5">linkedin approach</a>
+            <ol>
+                <li>Unload in ui (state transition <i>loaded</i> → <i>stalled</i>)</li>
+                <li>(Pre) Load page content (state transition <i>unloaded</i> → <i>loaded</i>)</li>
+            </ol>
+            Watch scroll-top to define page state <i>stalled, unloaded, loaded</i> and <i>loaded+visible</i>
         </li>
         <li>
             Adapt design Auto, Auto+Show Pending, All Full
+        </li>
+        <li>
+            Moderator Dashboard
+            
+            <ol>
+                <li>
+                    Monitor Thread Stats
+                    <br>
+                    Again, use <a href="https://morrisjs.github.io/morris.js/">morrisjs</a> for charts
+                </li>
+                <li>User Stats with Reputation</li>
+                <li><span class="one">Mod Stuff (Show Pending, Reports, ...)</span></li>
+            </ol>
+        </li>
+        <li>
+            Lead comment
+            <br>
+            <span class="then">Allow background image for this top area</span> like soundcloud does. I prefer dark monochrome artistice wallpapers
         </li>
     </ol>
 </li>
@@ -163,14 +189,14 @@
 
             <ol>
                 <li>
-                    Caching
+                    <span class="then">Caching</span>
                     <br>
                     Use @Cacheable with ehcache see http://viralpatel.net/blogs/cache-support-spring-3-1-m1/
                 </li>
             </ol>
         </li>
         <li>
-            Tests
+            Stresstests
 
             <s>gatling</s> <a href="doc/jmeter-testbench.jmx">apache jmeter testbench</a>
         </li>
@@ -205,7 +231,10 @@
                 <li>
                     Non-Persisted Notification
                     <br>
-                    use <a class="one" href="https://wavded.github.io/humane-js/">humane-js</a>
+                    use <s><a href="https://wavded.github.io/humane-js/">humane-js</a></s>
+                    <a class="one" href="https://fabien-d.github.io/alertify.js/">alertify</a> or <a class="one" href="https://blog.gaya.ninja/articles/snotify-easy-notifications-in-jquery/">snotify</a> (better, cause supports stacking)
+                    <br>
+                    Make a angular <i>notification service</i> to wrap the used lib
                 </li>
             </ol>
         </li>
