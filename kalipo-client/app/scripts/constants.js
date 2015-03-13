@@ -31,6 +31,17 @@ kalipoApp.constant('COMMENT_SETTINGS', {
     criticalLineCount: 5
 });
 
+kalipoApp.constant('ACHIEVEMENTS', {
+    LIKED: {text: 'Cash -- You like a comment'},
+    LIKE: {text: 'Someone likes your comment'},
+    DISLIKED: {text: 'Cash -- You dislike a comment'},
+    DISLIKE: {text: 'Someone dislikes your comment'},
+    RM_COMMENT: {text: 'You removed your comment'},
+    REPORTED: {text: 'Cash -- You reported a comment'},
+    REPORT: {text: 'Someone reported youre comment'},
+    ABUSED_REPORT: {text: 'You abused reporting'}
+});
+
 kalipoApp.constant('REPORT_IDS', [
     {
         id: 0, // custom must have id=0, cause this will enable the textarea

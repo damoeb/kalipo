@@ -40,7 +40,7 @@
         <div>
             <span class="label label-success" ng-if="reputations[achievement.type] >= 0">{{::reputations[achievement.type]}}</span>
             <span class="label label-danger" ng-if="reputations[achievement.type] < 0">{{::reputations[achievement.type]}}</span>
-            {{::achievement.type}}
+            <strong>{{::achievement.text}}</strong>
         </div>
 
         <div ng-switch="achievement.$resource.$isComment">

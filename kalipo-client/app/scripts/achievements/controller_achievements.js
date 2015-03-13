@@ -1,7 +1,7 @@
 'use strict';
 
-kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 'Comment', 'Achievement', 'Report', 'Reputation',
-    function ($scope, $rootScope, Vote, Comment, Achievement, Report, Reputation) {
+kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 'Comment', 'Achievement', 'Report', 'Reputation', 'ACHIEVEMENTS',
+    function ($scope, $rootScope, Vote, Comment, Achievement, Report, Reputation, ACHIEVEMENTS) {
 
         $scope.pages = [];
 
@@ -34,17 +34,17 @@ kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 
                 var resources = {};
 
                 var groupedByRef = _.groupBy(achievements, function (achievement) {
+                    achievement.text = ACHIEVEMENTS[achievement.type].text;
                     return achievement.resourceRef;
                 });
 
-                var distinctResources = _.keys(groupedByRef);
+                var distinctAchievements = _.keys(groupedByRef);
 
-                console.log('Fetching ' + distinctResources.length + ' resources');
+                console.log('Fetching ' + distinctAchievements.length + ' resources');
 
                 var __refresh = function () {
                     // attach resource to achievement
                     _.forEach(achievements, function (achievement) {
-
                         achievement.$resource = resources[achievement.resourceRef];
                     });
                 };
@@ -54,9 +54,9 @@ kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 
                     achievements: achievements
                 });
 
-                _.forEach(distinctResources, function(resourceRef){
+                _.forEach(distinctAchievements, function (achievementRef) {
 
-                    var first = groupedByRef[resourceRef][0];
+                    var first = groupedByRef[achievementRef][0];
 
                     switch (first.type) {
                         case 'LIKE':
@@ -65,10 +65,10 @@ kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 
                         case 'DISLIKED':
                         case 'RM_COMMENT':
 
-                            Comment.get({id: resourceRef}, function (comment) {
+                            Comment.get({id: achievementRef}, function (comment) {
                                 console.log('Resolved comment ' + comment.id);
                                 comment.$isComment = true;
-                                resources[resourceRef] = comment;
+                                resources[achievementRef] = comment;
                                 __refresh();
                             });
 
@@ -77,10 +77,10 @@ kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 
                         case 'REPORTED':
                         case 'ABUSED_REPORT':
 
-                            Report.get({id: resourceRef}, function (report) {
+                            Report.get({id: achievementRef}, function (report) {
                                 console.log('Resolved report ' + report.id);
                                 report.$isComment = false;
-                                resources[resourceRef] = report;
+                                resources[achievementRef] = report;
                                 __refresh();
                             });
 
