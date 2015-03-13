@@ -1,0 +1,37 @@
+{
+  "name": "angular-notifyjs",
+  "main": "angular-notifyjs.js",
+  "version": "0.1.0",
+  "homepage": "https://github.com/zzeniou86/angular-notifyjs",
+  "authors": [
+    "Zenon Zeniou <zzeniou86@gmail.com>"
+  ],
+  "description": "notifyjs wrapper for angular",
+  "keywords": [
+    "angular",
+    "notifyjs",
+    "notification"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": ">=1.0.6",
+    "notifyjs": "*"
+  },
+  "_release": "0.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.0",
+    "commit": "71c0fcc2d3bc2ea491a8f8c75b2d605b27706bab"
+  },
+  "_source": "git://github.com/zzeniou86/angular-notifyjs.git",
+  "_target": "~0.1.0",
+  "_originalSource": "angular-notifyjs",
+  "_direct": true
+}

@@ -194,7 +194,7 @@ kalipoApp.factory('Discussion', function (Thread) {
 
                      */
                     _isObligatory: function (comment, level, index) {
-                        console.log('level', level, 'index', index);
+//                        console.log('level', level, 'index', index);
                         if (level == 0) {
                             return true;
                         }
