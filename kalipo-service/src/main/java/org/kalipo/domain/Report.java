@@ -27,8 +27,10 @@ public class Report implements Serializable {
     private String authorId;
 
     @NotNull(message = "{constraint.notnull.reportReason}")
-    @Size(min = 1, max = 512)
-    private String reason;
+    private Integer reasonId;
+
+    @Size(min = 1, max = 148)
+    private String customReason;
 
     private Status status;
 
@@ -70,12 +72,20 @@ public class Report implements Serializable {
         this.authorId = authorId;
     }
 
-    public String getReason() {
-        return reason;
+    public Integer getReasonId() {
+        return reasonId;
     }
 
-    public void setReason(String reason) {
-        this.reason = reason;
+    public void setReasonId(Integer reasonId) {
+        this.reasonId = reasonId;
+    }
+
+    public String getCustomReason() {
+        return customReason;
+    }
+
+    public void setCustomReason(String customReason) {
+        this.customReason = customReason;
     }
 
     public Status getStatus() {

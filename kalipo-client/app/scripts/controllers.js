@@ -8,6 +8,22 @@ kalipoApp.controller('MainController', function ($scope) {
 kalipoApp.controller('AdminController', function ($scope) {
     });
 
+kalipoApp.factory('Notifications', function () {
+
+    return {
+        info: function (message) {
+            console.log('info', message);
+            sNotify.addToQueue(message);
+        },
+
+        error: function (message) {
+            console.log('error', message);
+            sNotify.addToQueue(message);
+        }
+    }
+
+});
+
 kalipoApp.controller('LanguageController', function ($scope, $translate, LanguageService) {
         $scope.changeLanguage = function (languageKey) {
             $translate.use(languageKey);

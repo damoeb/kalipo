@@ -6,8 +6,10 @@ import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import org.kalipo.domain.Report;
 import org.kalipo.service.ReportService;
+import org.kalipo.service.util.ParamFixer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -105,12 +107,12 @@ public class ReportResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all pending reports")
-    public List<Report> getPending(@QueryParam("threadId") String threadId) throws ExecutionException, InterruptedException {
+    public Page<Report> getPending(@QueryParam("threadId") String threadId, @QueryParam("page") Integer page) throws ExecutionException, InterruptedException {
         log.debug("REST request to get all Reports");
 
-        // todo use with threadId
-//        return reportService.getPendingWithPages(threadId).get();
-        return reportService.getAll().get();
+        page = ParamFixer.fixPage(page);
+
+        return reportService.getPendingWithPages(threadId, page).get();
     }
 
     /**

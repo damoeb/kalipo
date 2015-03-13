@@ -27,15 +27,15 @@
 
         <!--{{comment.reports}}-->
         <div ng-repeat="report in comment.rreports">
-            <div ng-include="'report_renderer.html'"></div>
+            <div ng-include="'views/partial_report.html'"></div>
         </div>
 
         <div class="btn-toolbar" style="margin-top: 10px">
-            <button type="button" class="btn btn-success btn-sm" ng-click="approveReports(comment.id)"><span
+            <button type="button" class="btn btn-success btn-sm" ng-click="approveAllReports(comment.id)"><span
                     class="glyphicon glyphicon-ok"></span> Approve
             </button>
-            <button type="button" class="btn btn-default btn-sm" ng-click="rejectReports(comment.id)"><span
-                    class="glyphicon glyphicon-remove"></span> Delete
+            <button type="button" class="btn btn-default btn-sm" ng-click="rejectAllReports(comment.id)"><span
+                class="glyphicon glyphicon-remove"></span> Delete Reports
             </button>
         </div>
 

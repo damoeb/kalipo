@@ -146,7 +146,7 @@ public class ReputationServiceTest {
         newReport.setThreadId(comment.getThreadId());
         newReport.setStatus(Report.Status.APPROVED);
         newReport.setAuthorId(SecurityUtils.getCurrentLogin());
-        newReport.setReason("something");
+        newReport.setReasonId(0);
 
         newReport = reportRepository.save(newReport);
 
@@ -172,7 +172,7 @@ public class ReputationServiceTest {
         newReport.setThreadId(comment.getThreadId());
         newReport.setStatus(Report.Status.REJECTED);
         newReport.setAuthorId(SecurityUtils.getCurrentLogin());
-        newReport.setReason("something");
+        newReport.setReasonId(0);
 
         newReport = reportRepository.save(newReport);
 

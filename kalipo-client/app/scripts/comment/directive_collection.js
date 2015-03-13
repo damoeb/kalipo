@@ -2,7 +2,7 @@
  * Created by markus on 16.12.14.
  */
 angular.module('kalipoApp')
-    .directive('collection', function ($compile, $templateCache, $http, $rootScope, Vote, Comment) {
+    .directive('collection', function ($compile, $templateCache, $http, $rootScope, Vote, Comment, Report, Notifications, REPORT_IDS) {
         return {
             restrict: 'E',
             replace: true,
@@ -14,10 +14,18 @@ angular.module('kalipoApp')
             link: function ($scope, $element, $attrs) {
 
                 $scope.draft = {};
+                $scope.report = {};
 
-                // modal to create comments
-                $http.get('views/partial_reply.html', {cache: true}).success(function (tmpl_reply) {
+                $scope.reportOptions = REPORT_IDS;
+
+                // modals
+                // .. to CREATE a comment
+                $http.get('views/modal_reply.html', {cache: true}).success(function (tmpl_reply) {
                     $element.append($compile(tmpl_reply)($scope));
+                });
+                // .. to REPORT a comment
+                $http.get('views/modal_report.html', {cache: true}).success(function (tmpl_report) {
+                    $element.append($compile(tmpl_report)($scope));
                 });
 
                 $http.get('views/partial_comment.html', {cache: true}).success(function (tmpl_comment) {
@@ -79,17 +87,17 @@ angular.module('kalipoApp')
 
                 };
 
+                // --
+
                 $scope.showReplyModal = function (commentId, displayName, threadId, quote) {
+
+                    console.log('reply modal', commentId);
+
                     $('#createCommentModal').modal();
                     $scope.displayName = displayName;
                     $scope.draft.threadId = threadId;
                     $scope.draft.body = '>' + quote.replace(/\n/g, '>\n');
                     $scope.draft.parentId = commentId;
-                };
-
-                $scope.toggleReportForm = function (commentId) {
-                    console.log('report', commentId);
-                    // todo show popover
                 };
 
                 $scope.submitComment = function () {
@@ -100,9 +108,35 @@ angular.module('kalipoApp')
 
                     Comment.save($scope.draft,
                         function () {
-                            // todo notification
+                            Notifications.info('Comment saved');
                         });
                 };
+
+
+                // --
+
+                $scope.showReportModal = function (commentId, displayName) {
+                    console.log('report modal', commentId);
+
+                    $('#reportCommentModal').modal();
+
+                    $scope.displayName = displayName;
+                    $scope.report.commentId = commentId;
+                };
+
+                $scope.submitReport = function () {
+
+                    console.log('submit report');
+
+                    //$scope.reportModel.commentId = comment.id;
+
+                    Report.save($scope.report,
+                        function () {
+                            Notifications.info('Report saved...');
+                            $scope.report.reason = null;
+                        });
+                };
+
 
                 $scope.verbose = function (commentId) {
                     $('#comment-' + commentId).removeClass('oneline');
@@ -120,8 +154,9 @@ angular.module('kalipoApp')
 
                     var vote = {like: true, commentId: commentId};
 
-                    Vote.save(vote, function (updated) {
-//                noty({text: 'Liked', type: 'success'});
+                    Vote.save(vote, function (id) {
+                        console.log('Liked', id);
+                        Notifications.info('Liked');
                     });
                 };
 
@@ -131,8 +166,9 @@ angular.module('kalipoApp')
 
                     var vote = {like: false, commentId: commentId};
 
-                    Vote.save(vote, function (updated) {
-//                noty({text: 'Disliked', type: 'success'});
+                    Vote.save(vote, function (id) {
+                        console.log('Disliked', id);
+                        Notifications.info('Disliked');
                     });
                 };
 

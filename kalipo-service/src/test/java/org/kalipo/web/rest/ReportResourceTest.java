@@ -82,7 +82,7 @@ public class ReportResourceTest {
         commentService.create(comment);
 
         report = new Report();
-        report.setReason(DEFAULT_SAMPLE_REASON_ATTR);
+        report.setReasonId(0);
         report.setCommentId(comment.getId());
     }
 

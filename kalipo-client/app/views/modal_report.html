@@ -1,0 +1,47 @@
+<!-- Modal -->
+<div class="modal fade" id="reportCommentModal" tabindex="-1" role="dialog" aria-labelledby="reportCommentModal"
+     aria-hidden="true">
+    <form name="form" role="form" novalidate
+          class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+          ng-submit="submitReport()">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Report comment</h4>
+                </div>
+                <div class="modal-body">
+
+                    <p>
+                        Choose one of the options (recommended) or write a custom texts
+                        <!-- -->
+
+                    <div class="radio" ng-repeat="opt in reportOptions">
+                        <label>
+                            <input type="radio" name="report-reason" value="opt.id" ng-model="report.reasonId">
+                            opt.name
+                        </label>
+                    </div>
+
+                    </p>
+
+                    <div class="form-group">
+                        <textarea name="body" ng-model="report.customReason" class="form-control"
+                                  ng-disabled="report.reasonId != 0"
+                                  ng-minlength=5 ng-maxlength=148 rows="5"
+                            ></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">
+                        Send Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -12,8 +12,9 @@
             </p>
         </div>
         <div>
+            <!-- todo remove these links and create a dashboard -->
             <ul class="nav nav-pills pull-right">
-                <li role="presentation" ng-if="mainCtrl.authenticated">
+                <li role="presentation">
                     <a href="#/moderate/{{::$threadId}}/pending">
                         Pending
                         <span class="glyphicon glyphicon-bell" style="color: #E84B56;"
@@ -21,7 +22,7 @@
                         <!--<span style="color: #E84B56; font-weight: bolder">&diams;</span>-->
                     </a>
                 </li>
-                <li role="presentation" ng-if="mainCtrl.authenticated">
+                <li role="presentation">
                     <a href="#/moderate/{{::$threadId}}/reports">
                     Reports
                         <span class="glyphicon glyphicon-bell" style="color: #E84B56;"

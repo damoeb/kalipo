@@ -1,14 +1,25 @@
 'use strict';
 
 
-kalipoApp.controller('ReportController', ['$scope', '$routeParams', '$rootScope', 'Report', 'Comment',
-    function ($scope, $routeParams, $rootScope, Report, Comment) {
+kalipoApp.controller('ReportController', ['$scope', '$routeParams', '$rootScope', 'Report', 'Comment', 'Notifications', 'REPORT_IDS',
+    function ($scope, $routeParams, $rootScope, Report, Comment, Notifications, REPORT_IDS) {
         $scope.reportedComments = [];
+
+        var byCommentId = {};
 
         Report.pendingInThread({thread: $routeParams.threadId}, function (reports) {
             $scope.reports = reports;
 
-            var byCommentId = _.groupBy(reports, function (report) {
+            // todo resolve reportId (also used in )
+
+            byCommentId = _.groupBy(reports, function (report) {
+
+                console.log('report', report);
+
+                report.reason = _.result(_.find(REPORT_IDS, function (item) {
+                    return item.id == report.reasonId;
+                }), 'name');
+
                 return report.commentId;
             });
 
@@ -23,18 +34,25 @@ kalipoApp.controller('ReportController', ['$scope', '$routeParams', '$rootScope'
             });
         });
 
-        $scope.approveReports = function (id) {
-            Report.approve({id: id},
-                function () {
-                    // todo remove
-                });
+        $scope.approveAllReports = function (commentId) {
+
+            _.forEach(byCommentId[commentId], function (report) {
+                console.log('approve report', report.id);
+                Report.approve({id: report.id},
+                    function () {
+                        Notifications.info('Approved report of ' + report.authorId);
+                    });
+            });
         };
 
-        $scope.rejectReports = function (id) {
-            Report.reject({id: id},
-                function () {
-                    // todo remove
-                });
+        $scope.rejectAllReports = function (commentId) {
+            _.forEach(byCommentId[commentId], function (report) {
+                console.log('reject report', report.id);
+                Report.reject({id: report.id},
+                    function () {
+                        Notifications.info('Rejected report of ' + report.authorId);
+                    });
+            });
         };
 
     }]);

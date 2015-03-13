@@ -25,3 +25,18 @@ kalipoApp.constant('LANGUAGES', {
         ru: 'Russian',
         tr: 'Turkish'
     });
+
+kalipoApp.constant('REPORT_IDS', [
+    {
+        id: 0, // custom must have id=0, cause this will enable the textarea
+        name: 'Custom'
+    },
+    {
+        id: 1,
+        name: 'Spam / Advertisment'
+    },
+    {
+        id: 2,
+        name: 'Offensive Language'
+    }
+]);

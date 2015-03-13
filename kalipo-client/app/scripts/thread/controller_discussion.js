@@ -1,7 +1,7 @@
 'use strict';
 
-kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$location', '$anchorScroll', '$rootScope', 'Thread', 'Comment', 'Report', 'Discussion', 'Websocket',
-    function ($scope, $routeParams, $location, $anchorScroll, $rootScope, Thread, Comment, Report, Discussion, Websocket) {
+kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$location', '$anchorScroll', '$rootScope', 'Thread', 'Comment', 'Report', 'Discussion', 'Websocket', 'Notifications',
+    function ($scope, $routeParams, $location, $anchorScroll, $rootScope, Thread, Comment, Report, Discussion, Websocket, Notifications) {
 
         var threadId = $routeParams.threadId;
         // todo impl scrolling to commentId
@@ -86,35 +86,8 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 $scope.thread.uriHooks = _.compact($scope.thread.$uriHooks.replace(re, ' ').split(' '));
             }
             Thread.update($scope.thread, function() {
-                // done
+                Notifications.info('Updated');
             });
-        };
-
-        $scope.submit = function () {
-
-            $scope.draft.threadId = threadId;
-            // todo support anon flag in view
-            $scope.draft.anonymous = false;
-
-            Comment.save($scope.draft,
-                function () {
-                    $scope.clear();
-                });
-        };
-
-        $scope.report = function (comment) {
-            comment.report = false;
-
-            $scope.reportModel.commentId = comment.id;
-
-            Report.save($scope.reportModel,
-                function () {
-                    $scope.report.reason = null;
-                });
-        };
-
-        $scope.clear = function () {
-            $scope.draft = {id: null, text: null};
         };
 
     }]);

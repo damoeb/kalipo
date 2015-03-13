@@ -1,5 +1,6 @@
 package org.kalipo.service;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.RateLimit;
 import org.kalipo.config.ErrorCode;
@@ -15,6 +16,9 @@ import org.kalipo.service.util.NumUtils;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
@@ -116,12 +120,6 @@ public class ReportService {
         return new AsyncResult<>(reportRepository.findAll());
     }
 
-    // todo add RolesAllowed
-    @Async
-    public Future<List<Report>> getPending(String threadId) {
-        return new AsyncResult<>(reportRepository.findByThreadIdAndStatus(threadId, Report.Status.PENDING));
-    }
-
     @Async
     public Future<Report> get(String id) throws KalipoException {
         return new AsyncResult<Report>(reportRepository.findOne(id));
@@ -158,7 +156,7 @@ public class ReportService {
 
         } else {
 
-            if (comment.getHidden()) {
+            if (BooleanUtils.isTrue(comment.getHidden())) {
                 log.info(String.format("%s rejects report %s - comment is visible again", currentLogin, report.getId()));
                 comment.setHidden(false);
                 commentRepository.save(comment);
@@ -181,5 +179,11 @@ public class ReportService {
             throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "Report must be pending");
         }
         return report;
+    }
+
+    @Async
+    public Future<Page<Report>> getPendingWithPages(String threadId, int pageNumber) {
+        PageRequest pageable = new PageRequest(pageNumber, 10, Sort.Direction.ASC, "createdDate");
+        return new AsyncResult<>(reportRepository.findByThreadIdAndStatus(threadId, Report.Status.PENDING, pageable));
     }
 }
