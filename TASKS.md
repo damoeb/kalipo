@@ -12,7 +12,6 @@ configuration attr
 - notifications of super-mods via mail too (reports): BOOL {default: true}
 
 Suche!!!
-show-more directive
 Small navbar https://stackoverflow.com/questions/18599778/decreasing-height-of-bootstrap-3-0-navbar
 Search-bar not in header, but on the right side of each headline?
 

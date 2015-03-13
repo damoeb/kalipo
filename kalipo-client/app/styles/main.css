@@ -218,7 +218,18 @@ a:hover {
     margin-top: 5px;
     margin-bottom: 5px;
     white-space: pre-wrap;
+    line-height: 20px;
 }
+
+.body.tiny .show-more-content {
+    max-height: 100px; /* line-height * COMMENT_SETTINGS.criticalLineCount */
+    overflow: hidden;
+}
+
+.body .more {display:none; }
+.body.tiny .more { display:block; }
+.body.tiny .less { display:none; }
+
 .comment .show-full-comment { margin:5px; }
 .comment .points {color: grey; padding-left: 5px; padding-right: 5px;}
 .comment .date { color: grey; font-size: smaller; }

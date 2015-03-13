@@ -2,7 +2,7 @@
  * Created by markus on 16.12.14.
  */
 angular.module('kalipoApp')
-    .directive('collection', function ($compile, $templateCache, $http, $rootScope, Vote, Comment, Report, Notifications, REPORT_IDS) {
+    .directive('collection', function ($compile, $templateCache, $http, $rootScope, Vote, Comment, Report, Notifications, REPORT_IDS, COMMENT_SETTINGS) {
         return {
             restrict: 'E',
             replace: true,
@@ -27,6 +27,33 @@ angular.module('kalipoApp')
                 $http.get('views/modal_report.html', {cache: true}).success(function (tmpl_report) {
                     $element.append($compile(tmpl_report)($scope));
                 });
+
+
+                var __showMore = function($commentWrapper) {
+                    var $comment = $commentWrapper.find('.body');
+                    var lineCount = $comment.height() / COMMENT_SETTINGS.lineHeight;
+                    console.log('lineCount', lineCount, 'append?', lineCount > COMMENT_SETTINGS.criticalLineCount);
+
+                    if(lineCount > COMMENT_SETTINGS.criticalLineCount) {
+
+                        var $wrapper = $('<div/>', {class: 'show-more-content', html: $comment.html()});
+
+                        $comment.empty().append($wrapper);
+
+                        var n = lineCount - COMMENT_SETTINGS.criticalLineCount;
+
+                        var $str_show_more = $('<span/>', {class: 'more', text: 'Show '+n+' more lines'});
+                        var $str_show_less = $('<span/>', {class: 'less', text: 'Hide '+n+' lines'});
+                        var $fn = $('<a/>', {href:'javascript:void(0)'}).append($str_show_more).append($str_show_less);
+
+                        $fn.click(function() {
+                            $comment.toggleClass('tiny')
+                        });
+
+                        $comment.addClass('tiny');
+                        $comment.append($fn);
+                    }
+                };
 
                 $http.get('views/partial_comment.html', {cache: true}).success(function (tmpl_comment) {
                     $http.get('views/partial_menu.html', {cache: true}).success(function (tmpl_menu) {
@@ -76,6 +103,11 @@ angular.module('kalipoApp')
                         });
 
                         $element.append($compile($thread.contents())($scope));
+
+                        // 'show more' treatement
+                        $element.find('.comment').each(function() {
+                            __showMore($(this));
+                        });
 
                     });
                 });

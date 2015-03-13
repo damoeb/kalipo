@@ -26,6 +26,11 @@ kalipoApp.constant('LANGUAGES', {
         tr: 'Turkish'
     });
 
+kalipoApp.constant('COMMENT_SETTINGS', {
+    lineHeight: 20,
+    criticalLineCount: 5
+});
+
 kalipoApp.constant('REPORT_IDS', [
     {
         id: 0, // custom must have id=0, cause this will enable the textarea
