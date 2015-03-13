@@ -1,3 +1,5 @@
+moderate stuff is obsolete due to dashboard
+
 configuration attr
 - discussion depth: NUM {min:2, default:4}
 - max comments: NUM {min:0}

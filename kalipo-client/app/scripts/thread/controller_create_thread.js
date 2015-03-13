@@ -18,7 +18,7 @@ kalipoApp.controller('CreateThreadController', function ($scope, $location, Thre
 
         Thread.save($scope.thread,
             function (data) {
-                $location.path('/thread/' + data.id + '/share');
+                $location.path('/v/' + data.id + '/share');
             });
     };
 

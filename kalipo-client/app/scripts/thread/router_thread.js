@@ -10,7 +10,7 @@ kalipoApp
                     authorizedRoles: [USER_ROLES.all]
                 }
             })
-            .when('/thread/:threadId', {
+            .when('/v/:threadId', {
                 templateUrl: 'views/discussion.html',
                 controller: 'DiscussionController',
                 access: {

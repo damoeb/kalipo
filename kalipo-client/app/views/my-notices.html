@@ -7,7 +7,7 @@
         <a href="#/d" class="list-group-item">Dashboard</a>
         <a href="#/notifications" class="list-group-item active">Notifications</a>
         <a href="#/threads" class="list-group-item">Threads</a>
-        <a href="#/comments" class="list-group-item">Comments</a>
+        <a href="#/comments" class="list-group-item">Comments I Made</a>
         <a href="#/likes" class="list-group-item">Likes</a>
         <a href="#/achievements" class="list-group-item">Achievements</a>
     </div>
@@ -26,15 +26,15 @@
                 <ul class="list-group">
                     <li class="list-group-item" ng-repeat="notice in notices">
 
-                        <!-- todo if notice.read -> gray line -->
+                        <!-- todo link with resource -->
 
                         <div class="row">
 
-                            <div class="col-md-1">
+                            <div class="col-md-2">
                                 <strong>{{::notice.type}}</strong>
                             </div>
 
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 for
                                 {{::notice.resourceId}}
 

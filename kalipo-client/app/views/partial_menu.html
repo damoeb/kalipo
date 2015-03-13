@@ -11,7 +11,7 @@
         <%- comment.dislikes %>
         <span class="glyphicon glyphicon-thumbs-down"></span></a>
 
-    <a ng-if="comment.parentId != null" href="#/thread/<%- comment.threadId %>?anchor=<%- comment.parentId %>">
+    <a ng-if="comment.parentId != null" href="#/v/<%- comment.threadId %>?anchor=<%- comment.parentId %>">
         Parent</a>
 
     <div class="flag pull-right">
