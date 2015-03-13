@@ -236,7 +236,7 @@ a:hover {
 
 .oneline>.comment .icon {display: none;}
 .oneline>.comment .name {display: none;}
-.oneline>.comment .body-wrapper {white-space: nowrap; overflow: hidden;}
+.oneline>.comment .body {white-space: nowrap; overflow: hidden;}
 .oneline>.comment .points {display: none;}
 .oneline>.comment .date {display: none;}
 .oneline>.comment .label-pending {}
