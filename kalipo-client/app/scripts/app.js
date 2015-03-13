@@ -118,6 +118,12 @@ kalipoApp
                     authorizedRoles: [USER_ROLES.admin]
                 }
             })
+            .when('/d', {
+                templateUrl: 'views/dashboard.html',
+                access: {
+                    authorizedRoles: [USER_ROLES.all]
+                }
+            })
             .otherwise({
                 templateUrl: 'views/browse.html',
                 controller: 'BrowseController',

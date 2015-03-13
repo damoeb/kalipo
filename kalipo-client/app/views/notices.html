@@ -1,44 +1,56 @@
-<div ng-init="fetch()">
+<h3 class="klp-header">
+    <a href="#/d">Dashboard</a> / Notifications
+</h3>
 
-    <div class="clearfix klp-header">
-        <h3 style="display: inline">
-            Notifications
-        </h3>
+<div class="col-lg-3 col-sm-4">
+    <div class="list-group">
+        <a href="#/d" class="list-group-item">Dashboard</a>
+        <a href="#/notifications" class="list-group-item active">Notifications</a>
+        <a href="#/threads" class="list-group-item">Threads</a>
+        <a href="#/comments" class="list-group-item">Comments</a>
+        <a href="#/likes" class="list-group-item">Likes</a>
+        <a href="#/achievements" class="list-group-item">Achievements</a>
     </div>
+</div>
 
-    <div ng-switch on="notices.length == 0">
-        <div ng-switch-default>
-            There are no notifications yet
-        </div>
-        <div ng-switch-when="false">
+<div class="col-lg-9 col-sm-8">
 
-            <ul class="list-group">
-                <li class="list-group-item" ng-repeat="notice in notices">
+    <div ng-init="fetch()">
 
-                    <!-- todo if notice.read -> gray line -->
+        <div ng-switch on="notices.length == 0">
+            <div ng-switch-default>
+                There are no notifications yet
+            </div>
+            <div ng-switch-when="false">
 
-                    <div class="row">
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="notice in notices">
 
-                        <div class="col-md-1">
-                            <strong>{{::notice.type}}</strong>
+                        <!-- todo if notice.read -> gray line -->
+
+                        <div class="row">
+
+                            <div class="col-md-1">
+                                <strong>{{::notice.type}}</strong>
+                            </div>
+
+                            <div class="col-md-9">
+                                for
+                                {{::notice.resourceId}}
+
+                                by
+                                <strong>{{::notice.initiatorId}}</strong>
+                            </div>
+
+                            <div class="col-md-2 text-right">
+                                {{::notice.createdDate | fromNow}}
+                            </div>
+
                         </div>
 
-                        <div class="col-md-9">
-                            for
-                            {{::notice.resourceId}}
-
-                            by
-                            <strong>{{::notice.initiatorId}}</strong>
-                        </div>
-
-                        <div class="col-md-2 text-right">
-                            {{::notice.createdDate | fromNow}}
-                        </div>
-
-                    </div>
-
-                </li>
-            </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
