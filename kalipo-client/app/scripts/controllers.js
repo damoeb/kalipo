@@ -8,17 +8,17 @@ kalipoApp.controller('MainController', function ($scope) {
 kalipoApp.controller('AdminController', function ($scope) {
     });
 
-kalipoApp.factory('Notifications', function (notifyjs) {
+kalipoApp.service('Notifications', function (notifyjs) {
 
     return {
         info: function (message) {
             console.log('info', message);
-            notifyjs(message);
+            notifyjs(message, 'info');
         },
 
         error: function (message) {
             console.log('error', message);
-            notifyjs(message);
+            notifyjs(message, 'error');
         }
     }
 
