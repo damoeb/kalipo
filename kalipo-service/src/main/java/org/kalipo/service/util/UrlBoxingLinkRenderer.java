@@ -1,25 +1,39 @@
 package org.kalipo.service.util;
 
+import org.kalipo.domain.Comment;
 import org.pegdown.LinkRenderer;
 import org.pegdown.ast.AutoLinkNode;
 import org.pegdown.ast.ExpLinkNode;
 import org.pegdown.ast.RefLinkNode;
 import org.pegdown.ast.WikiLinkNode;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by damoeb on 16.03.15.
  */
 public class UrlBoxingLinkRenderer extends LinkRenderer {
 
-    private static String prefix = "somewhere-i-used-to-live"; // todo from properties
+    private final String prefix;
+    private final Set<Comment.Link> links = new HashSet<>();
 
-    public UrlBoxingLinkRenderer() {
+    public UrlBoxingLinkRenderer(String prefix) {
         super();
+
+        this.prefix = prefix;
     }
 
     private Rendering box(Rendering r) {
         r.href = prefix + r.href;
+
+        links.add(new Comment.Link(r.href));
+
         return r;
+    }
+
+    public Set<Comment.Link> getLinks() {
+        return links;
     }
 
     @Override

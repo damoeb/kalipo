@@ -62,8 +62,8 @@
                 <li>
                     Links
                     <br>
-                    Route links via a stats collecting <span class="one">servlet</span> &lt;klpo&gt;/out?&lt;custom-url&gt;
-                    . As a start logging is sufficient as stats collection.
+                    Route links via a stats collecting servlet &lt;klpo&gt;/out?&lt;custom-url&gt;
+                    . As a start logging is sufficient as stats collection. see OutUrlForwarding
                 </li>
                 <li>
                     Markdown
@@ -81,14 +81,14 @@
             </ol>
         </li>
         <li>
-            <span class="one">implement</span> "Show-More" directive for long commands (see <a
+            "Show-More" treatement for long comments (see <a
                 href="doc/show-more.html">prototype</a>)
         </li>
     </ol>
 </li>
 <li>
     <h4>Live</h4>
-
+    Provide websocket-based life updates and stats
     <ol>
         <li>
             <span class="then">Status</span>
@@ -101,6 +101,22 @@
         <li>
             Votes
         </li>
+    </ol>
+</li>
+<li>
+    <h4>
+        <a name="dashboard"></a>
+        Dashboard <a href="#dashboard">¶</a>
+    </h4>
+    Individual view for all activities/ duties, no per thread moderation
+    <ol>
+        <li>
+            Monitor Thread Stats
+            <br>
+            Again, use <a href="https://morrisjs.github.io/morris.js/">morrisjs</a> for charts
+        </li>
+        <li>User Stats with Reputation</li>
+        <li><span class="one">Thread Moderation (Show Pending, Reports, ...)</span></li>
     </ol>
 </li>
 <li>
@@ -121,17 +137,7 @@
             Adapt design Auto, Auto+Show Pending, All Full
         </li>
         <li>
-            Moderator Dashboard
-
-            <ol>
-                <li>
-                    Monitor Thread Stats
-                    <br>
-                    Again, use <a href="https://morrisjs.github.io/morris.js/">morrisjs</a> for charts
-                </li>
-                <li>User Stats with Reputation</li>
-                <li><span class="one">Mod Stuff (Show Pending, Reports, ...)</span></li>
-            </ol>
+            <a href="#dashboard">→ (Moderator) Dashboard</a>
         </li>
         <li>
             Lead comment
@@ -218,7 +224,7 @@
     <h4>Visualization</h4>
 
     d3js visualization to achieve fast navigation though discussion, easy findability of relevant comments.
-    <span class="issue">Bars are too large on small screens</span>
+    <span class="issue">Issues</span> Bars are too large on small screens, css position modifications result in width problems
     <ol>
         <li>
             Challenges
@@ -242,13 +248,13 @@
                 <li>
                     Non-Persisted Notification
                     <br>
-                    use <s><a href="https://wavded.github.io/humane-js/">humane-js</a></s>
-                    <a class="one" href="https://fabien-d.github.io/alertify.js/">alertify</a> (try this) or <s><a
+                    use <a href="http://notifyjs.com/">notifyjs+angular</a> <s>or <a href="https://wavded.github.io/humane-js/">humane-js</a>
+                    <a href="https://fabien-d.github.io/alertify.js/">alertify</a> (try this) or <a
                         href="https://blog.gaya.ninja/articles/snotify-easy-notifications-in-jquery/">snotify</a> (bad,
                     I
                     have to do css stuff)</s>
                     <br>
-                    Make a angular <i>notification service</i> to wrap the used lib
+                    The angjs service  <i>Notifications</i> wraps the lib
                 </li>
             </ol>
         </li>
@@ -292,6 +298,12 @@
                 href="http://cbio.ensmp.fr/~jvert/svn/tutorials/practical/svmbasic/svmbasic_notes.pdf">this</a> as an
             introduction. Read <a href="http://wang.ist.psu.edu/course/05/IST597/papers/Vapnik_learn.pdf">An Overview of
             Statistical Learning Theory</a> first.
+
+            <ol>
+                <li><span class="then">Classify Spam (Global)</span></li>
+                <li>Measure value if innovation <span class="one">per-thread</span> and <span class="then">global</span> </li>
+            </ol>
+
         </li>
     </ol>
 </li>

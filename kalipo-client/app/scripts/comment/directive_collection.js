@@ -28,7 +28,11 @@ angular.module('kalipoApp')
                     $element.append($compile(tmpl_report)($scope));
                 });
 
-
+                /**
+                 * will wrap excessive long comments with a container and a "show-more" toggle link
+                 * @param $commentWrapper
+                 * @private
+                 */
                 var __showMore = function ($commentWrapper) {
                     var $comment = $commentWrapper.find('.body');
                     var lineCount = $comment.height() / COMMENT_SETTINGS.lineHeight;
@@ -104,7 +108,7 @@ angular.module('kalipoApp')
 
                         $element.append($compile($thread.contents())($scope));
 
-                        // 'show more' treatement
+                        // 'show more' treatment
                         $element.find('.comment').each(function () {
                             __showMore($(this));
                         });
@@ -160,15 +164,12 @@ angular.module('kalipoApp')
 
                     console.log('submit report');
 
-                    //$scope.reportModel.commentId = comment.id;
-
                     Report.save($scope.report,
                         function () {
                             Notifications.info('Report saved...');
                             $scope.report.reason = null;
                         });
                 };
-
 
                 $scope.verbose = function (commentId) {
                     $('#comment-' + commentId).removeClass('oneline');

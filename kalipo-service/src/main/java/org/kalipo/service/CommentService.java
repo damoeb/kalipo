@@ -1,6 +1,7 @@
 package org.kalipo.service;
 
 import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.RateLimit;
@@ -17,6 +18,7 @@ import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
 import org.kalipo.service.util.NumUtils;
 import org.kalipo.service.util.UrlBoxingLinkRenderer;
+import org.kalipo.web.filter.AnonUtil;
 import org.kalipo.web.rest.KalipoException;
 import org.pegdown.PegDownProcessor;
 import org.slf4j.Logger;
@@ -383,7 +385,13 @@ public class CommentService {
 
         // todo test this
         PegDownProcessor processor = new PegDownProcessor(500);
-        comment.setBodyHtml(processor.markdownToHtml(comment.getBody(), new UrlBoxingLinkRenderer()));
+
+        // todo from properties
+        final String urlPrefix = String.format("some-prefix/out?commentId=%s&amp;url=", comment.getId());
+        UrlBoxingLinkRenderer linkRenderer = new UrlBoxingLinkRenderer(urlPrefix);
+
+        comment.setBodyHtml(processor.markdownToHtml(comment.getBody(), linkRenderer));
+        comment.setLinks(linkRenderer.getLinks());
     }
 
     private String getFingerprint(Comment parent, Thread thread) {
@@ -409,5 +417,18 @@ public class CommentService {
 
             comment.setSticky(original.getSticky());
         }
+    }
+
+    @Async
+    public void collectForward(String commentId, String url, String remoteAddr) throws KalipoException {
+        Comment comment = commentRepository.findOne(commentId);
+        log.info(String.format("forward %s via %s", AnonUtil.maskIp(remoteAddr), commentId));
+        for(Comment.Link link: comment.getLinks()) {
+            if(StringUtils.equals(url, link.getUrl())) {
+                link.incrImpression();
+                break;
+            }
+        }
+        commentRepository.save(comment);
     }
 }

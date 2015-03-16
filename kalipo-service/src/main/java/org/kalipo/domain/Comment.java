@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 /**
  * A Comment.
@@ -92,6 +93,9 @@ public class Comment implements Anonymizable<Comment> {
     private String reviewerId;
 
     private String reviewMsg;
+
+    @Transient
+    private Set<Link> links;
 
     // Publish post as anonymous
     @Transient
@@ -291,11 +295,40 @@ public class Comment implements Anonymizable<Comment> {
         this.bodyHtml = bodyHtml;
     }
 
+    public Set<Link> getLinks() {
+        return links;
+    }
+
+    public void setLinks(Set<Link> links) {
+        this.links = links;
+    }
+
     /**
      * Created by damoeb on 7/28/14.
      */
     public static enum Status {
         APPROVED, PENDING, SPAM, REJECTED, DELETED
+    }
+
+    public static class Link {
+        private String url;
+        private int impression;
+
+        public Link(String url) {
+            this.url = url;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public int getImpression() {
+            return impression;
+        }
+
+        public void incrImpression() {
+            impression++;
+        }
     }
 
     @Override
