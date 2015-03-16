@@ -1,5 +1,5 @@
 /**
- * Created by markus on 16.12.14.
+ * Created by damoeb on 16.12.14.
  */
 angular.module('kalipoApp')
     .directive('commentCreate', function () {

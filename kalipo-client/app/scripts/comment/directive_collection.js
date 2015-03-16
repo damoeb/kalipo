@@ -1,5 +1,5 @@
 /**
- * Created by markus on 16.12.14.
+ * Created by damoeb on 16.12.14.
  */
 angular.module('kalipoApp')
     .directive('collection', function ($compile, $templateCache, $http, $rootScope, Vote, Comment, Report, Notifications, REPORT_IDS, COMMENT_SETTINGS) {
@@ -29,12 +29,12 @@ angular.module('kalipoApp')
                 });
 
 
-                var __showMore = function($commentWrapper) {
+                var __showMore = function ($commentWrapper) {
                     var $comment = $commentWrapper.find('.body');
                     var lineCount = $comment.height() / COMMENT_SETTINGS.lineHeight;
                     console.log('lineCount', lineCount, 'append?', lineCount > COMMENT_SETTINGS.criticalLineCount);
 
-                    if(lineCount > COMMENT_SETTINGS.criticalLineCount) {
+                    if (lineCount > COMMENT_SETTINGS.criticalLineCount) {
 
                         var $wrapper = $('<div/>', {class: 'show-more-content', html: $comment.html()});
 
@@ -42,11 +42,11 @@ angular.module('kalipoApp')
 
                         var n = lineCount - COMMENT_SETTINGS.criticalLineCount;
 
-                        var $str_show_more = $('<span/>', {class: 'more', text: 'Show '+n+' more lines'});
-                        var $str_show_less = $('<span/>', {class: 'less', text: 'Hide '+n+' lines'});
-                        var $fn = $('<a/>', {href:'javascript:void(0)'}).append($str_show_more).append($str_show_less);
+                        var $str_show_more = $('<span/>', {class: 'more', text: 'Show ' + n + ' more lines'});
+                        var $str_show_less = $('<span/>', {class: 'less', text: 'Hide ' + n + ' lines'});
+                        var $fn = $('<a/>', {href: 'javascript:void(0)'}).append($str_show_more).append($str_show_less);
 
-                        $fn.click(function() {
+                        $fn.click(function () {
                             $comment.toggleClass('tiny')
                         });
 
@@ -64,7 +64,7 @@ angular.module('kalipoApp')
 
                         var $thread = $('<div></div>');
 
-                        var __render = function (comment, $sink, concealed){
+                        var __render = function (comment, $sink, concealed) {
 
                             var $comment = $(comp_comment({
                                 comment: comment,
@@ -91,7 +91,7 @@ angular.module('kalipoApp')
 
                                 // obligatory replies
                                 _.forEach(comment.replies, function (reply) {
-                                    if(!reply.$obligatory) {
+                                    if (!reply.$obligatory) {
                                         __render(reply, $hidden_replies, true);
                                     }
                                 });
@@ -105,7 +105,7 @@ angular.module('kalipoApp')
                         $element.append($compile($thread.contents())($scope));
 
                         // 'show more' treatement
-                        $element.find('.comment').each(function() {
+                        $element.find('.comment').each(function () {
                             __showMore($(this));
                         });
 

@@ -39,7 +39,7 @@ apply plugin: 'war'
 apply plugin: 'idea'
 
 bootRepackage {
-   mainClass = 'org.kalipo.Application'
+    mainClass = 'org.kalipo.Application'
 }
 
 springBoot {
@@ -95,7 +95,6 @@ dependencies {
 
     compile project(':kalipo-service')
 
-    compile group: 'org.markdownj', name: 'markdownj-core', version: '0.4'
     compile group: 'com.codahale.metrics', name: 'metrics-core', version: codahale_metrics_version
     compile group: 'com.codahale.metrics', name: 'metrics-ehcache', version: codahale_metrics_version
     compile group: 'com.codahale.metrics', name: 'metrics-graphite', version: codahale_metrics_version
@@ -111,7 +110,6 @@ dependencies {
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate4', version: jackson_version
     compile group: 'com.ryantenney.metrics', name: 'metrics-spring', version: metrics_spring_version
     compile(group: 'com.zaxxer', name: 'HikariCP', version: HikariCP_version) {
-        exclude(module: 'tools')
     }
     compile group: 'commons-lang', name: 'commons-lang', version: commons_lang_version
     compile group: 'commons-io', name: 'commons-io', version: commons_io_version

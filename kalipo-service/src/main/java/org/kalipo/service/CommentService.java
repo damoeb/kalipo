@@ -16,7 +16,9 @@ import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
 import org.kalipo.service.util.NumUtils;
+import org.kalipo.service.util.UrlBoxingLinkRenderer;
 import org.kalipo.web.rest.KalipoException;
+import org.pegdown.PegDownProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
@@ -378,7 +380,10 @@ public class CommentService {
     }
 
     private void renderBody(Comment comment) {
-        comment.setBodyHtml(comment.getBody());
+
+        // todo test this
+        PegDownProcessor processor = new PegDownProcessor(500);
+        comment.setBodyHtml(processor.markdownToHtml(comment.getBody(), new UrlBoxingLinkRenderer()));
     }
 
     private String getFingerprint(Comment parent, Thread thread) {
@@ -400,7 +405,6 @@ public class CommentService {
             // only mods may change flag
             if (!(isMod || isSuperMod)) {
                 Asserts.nullOrEqual(comment.getSticky(), original.getSticky(), "sticky");
-//                throw new KalipoException(ErrorCode.PERMISSION_DENIED, "You may not alter sticky flag");
             }
 
             comment.setSticky(original.getSticky());

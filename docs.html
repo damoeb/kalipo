@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Documentation of kalipo</title>
-    <meta name="author" content="markus ">
+    <meta name="author" content="damoeb ">
     <style type="text/css">
         p {
             margin-bottom: 0.1in;
@@ -62,7 +62,14 @@
                 <li>
                     Links
                     <br>
-                    Route links via a stats collecting <span class="one">servlet</span> &lt;klpo&gt;/out?&lt;custom-url&gt; . As a start logging is sufficient as stats collection.
+                    Route links via a stats collecting <span class="one">servlet</span> &lt;klpo&gt;/out?&lt;custom-url&gt;
+                    . As a start logging is sufficient as stats collection.
+                </li>
+                <li>
+                    Markdown
+                    <br>
+                    Markdown content is parsed to HTML using <a href="https://github.com/sirthias/pegdown">pegdown</a>
+                    Opt-out with property <em>markdown-supported</em>
                 </li>
                 <li>
                     <span class="then">Embedded</span>
@@ -74,7 +81,8 @@
             </ol>
         </li>
         <li>
-        <span class="one">implement</span> "Show-More" directive for long commands (see <a href="doc/show-more.html">prototype</a>)
+            <span class="one">implement</span> "Show-More" directive for long commands (see <a
+                href="doc/show-more.html">prototype</a>)
         </li>
     </ol>
 </li>
@@ -100,7 +108,9 @@
     Details of Thread with Stats e.g. http://www.mixcloud.com/stats/
     <ol>
         <li>
-            <span class="one">Implement</span> unlimited scroll from with page unloading using the <a href="http://engineering.linkedin.com/linkedin-ipad-5-techniques-smooth-infinite-scrolling-html5">linkedin approach</a>
+            <span class="one">Implement</span> unlimited scroll from with page unloading using the <a
+                href="http://engineering.linkedin.com/linkedin-ipad-5-techniques-smooth-infinite-scrolling-html5">linkedin
+            approach</a>
             <ol>
                 <li>Unload in ui (state transition <i>loaded</i> → <i>stalled</i>)</li>
                 <li>(Pre) Load page content (state transition <i>unloaded</i> → <i>loaded</i>)</li>
@@ -126,7 +136,8 @@
         <li>
             Lead comment
             <br>
-            <span class="then">Allow background image for this top area</span> like soundcloud does. I prefer dark monochrome artistice wallpapers
+            <span class="then">Allow background image for this top area</span> like soundcloud does. I prefer dark
+            monochrome artistice wallpapers
         </li>
     </ol>
 </li>
@@ -233,7 +244,8 @@
                     <br>
                     use <s><a href="https://wavded.github.io/humane-js/">humane-js</a></s>
                     <a class="one" href="https://fabien-d.github.io/alertify.js/">alertify</a> (try this) or <s><a
-                    href="https://blog.gaya.ninja/articles/snotify-easy-notifications-in-jquery/">snotify</a> (bad, I
+                        href="https://blog.gaya.ninja/articles/snotify-easy-notifications-in-jquery/">snotify</a> (bad,
+                    I
                     have to do css stuff)</s>
                     <br>
                     Make a angular <i>notification service</i> to wrap the used lib

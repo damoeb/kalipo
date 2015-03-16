@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
 
+    compile group: 'org.pegdown', name: 'pegdown', version: '1.2.1'
     compile group: 'com.codahale.metrics', name: 'metrics-core', version: codahale_metrics_version
     compile group: 'com.codahale.metrics', name: 'metrics-ehcache', version: codahale_metrics_version
     compile group: 'com.codahale.metrics', name: 'metrics-graphite', version: codahale_metrics_version
