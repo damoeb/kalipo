@@ -18,7 +18,6 @@
     "commit": "4534e2caa621610719dd6375d805581f32a9fd22"
   },
   "_source": "git://github.com/jpillora/notifyjs.git",
-  "_target": "~0.3.2",
-  "_originalSource": "notifyjs",
-  "_direct": true
+  "_target": "*",
+  "_originalSource": "notifyjs"
 }
