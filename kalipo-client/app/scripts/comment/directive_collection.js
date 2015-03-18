@@ -145,6 +145,7 @@ angular.module('kalipoApp')
                     Comment.save($scope.draft,
                         function () {
                             Notifications.info('Comment saved');
+                            $('#createCommentModal').modal('hide');
                         });
                 };
 

@@ -1,7 +1,7 @@
 'use strict';
 
-kalipoApp.controller('ThreadController', ['$scope', '$routeParams', 'Thread',
-    function ($scope, $routeParams, Thread) {
+kalipoApp.controller('ThreadController', ['$scope', '$routeParams', 'Thread', 'Comment', 'Notifications',
+    function ($scope, $routeParams, Thread, Comment, Notifications) {
 
         var threadId = $routeParams.threadId;
 
@@ -19,5 +19,19 @@ kalipoApp.controller('ThreadController', ['$scope', '$routeParams', 'Thread',
 
             $scope.thread = thread;
         });
+
+        $scope.draft = {};
+
+        $scope.submitFirstComment = function () {
+
+            console.log('submit first comment', $scope.draft);
+            // todo support anon flag in view
+            $scope.draft.anonymous = false;
+
+            Comment.save($scope.draft,
+                function () {
+                    Notifications.info('Comment saved');
+                });
+        };
 
     }]);
