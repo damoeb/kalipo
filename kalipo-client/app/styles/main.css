@@ -226,7 +226,15 @@ a:hover {
     overflow: hidden;
 }
 
-.body .more {display:none; }
+.body .more {
+    display: none;
+    font-size: smaller;
+}
+
+.body .less {
+    font-size: smaller;
+}
+
 .body.tiny .more { display:block; }
 .body.tiny .less { display:none; }
 

@@ -49,7 +49,7 @@
 
                     var $str_show_more = $('<span/>', {class: 'more', text: 'Show '+n+' more lines'});
                     var $str_show_less = $('<span/>', {class: 'less', text: 'Hide '+n+' lines'});
-                    var $fn = $('<a/>', {href:'javascript:void(0)'}).append($str_show_more).append($str_show_less);
+                    var $fn = $('<a/>', {href: 'javascript:void(0)', class: 'menu'}).append($str_show_more).append($str_show_less);
 
                     $fn.click(function() {
                         $el.toggleClass('tiny')
