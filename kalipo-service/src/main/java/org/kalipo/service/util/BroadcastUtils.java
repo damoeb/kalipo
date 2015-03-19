@@ -28,6 +28,9 @@ public final class BroadcastUtils {
             Asserts.isNotNull(data, "data");
             Wrapper wrapper = new Wrapper(type.name(), data);
 
+            // todo check if really anonymized
+            // todo there should be a random delay to increase anonymity
+
             BroadcasterFactory.getDefault().lookup(LiveChannelService.URL, true).broadcast(jsonMapper.writeValueAsString(wrapper));
         } catch (JsonProcessingException e) {
             log.warn("Failed broadcasting: " + e.getMessage());

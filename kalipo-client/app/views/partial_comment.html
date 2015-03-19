@@ -33,8 +33,9 @@
                     <!--with <%- comment.$repliesCount %> replies-->
                     <!--</span>-->
 
-                    <div class="dropdown pull-right" ng-if="isadmin">
-                        <a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <% if(!comment.$oneline) { %>
+                    <div class="dropdown pull-right" ng-if="$isMod">
+                        <a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="mod-menu">
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
@@ -50,7 +51,16 @@
                                 Comment and blacklist
                                 User</a></li>
                         </ul>
+
+                        <% if(comment.likes - comment.dislikes > 0) { %>
+                        <span class="vote-stats">
+                            <%- comment.likes - comment.dislikes %>
+                            <span class="glyphicon glyphicon-hand-up"></span>
+                        </span>
+                        <% } %>
+
                     </div>
+                    <% } %>
 
                     <div class="show-full-comment" style="float:right">
                         <a title="Show full comment" ng-click="verbose('<%- comment.id %>')"

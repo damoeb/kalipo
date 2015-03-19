@@ -1,15 +1,18 @@
+todo test markdown
 moderate stuff is obsolete due to dashboard
 
 configuration attr
 - discussion depth: NUM {min:2, default:4}
 - max comments: NUM {min:0}
 - max comment length: NUM {min:160, max:2048}
-- keep ips: BOOL {default:false}
-- support markdown: BOOL {default:false}
-- support show-more: BOOL {default:true}
+- max visible comment lines: NUM {default:10}
+- support visualization: BOOL {default:TRUE}
+- keep ips: BOOL {default:FALSE}
+- support markdown: BOOL {default:FALSE}
+- support show-more: BOOL {default:TRUE}
 - max-visible-lines-of-comment: NUM {min:1, default:5}
 - browse: thread order: best score first, last changed first
-- notifications of super-mods via mail too (reports): BOOL {default: true}
+- notifications of super-mods via mail too (reports): BOOL {default: TRUE}
 
 Suche!!!
 Small navbar https://stackoverflow.com/questions/18599778/decreasing-height-of-bootstrap-3-0-navbar
@@ -18,8 +21,6 @@ UI: adapt view using a filter: Auto/Pending/None
 oneline: es kann auf die gesamte zeile geklickt werden, nicht nur das Icon rechts, um es komplett anzuzeigen
 
 highlight mod comments
-
-repliescount is mixed in hidden and dropped
 
 --
 

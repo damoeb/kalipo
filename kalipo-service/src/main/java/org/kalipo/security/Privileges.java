@@ -11,6 +11,7 @@ public class Privileges {
      * Review all pending comments in this thread
      */
     public static final String CREATE_THREAD = "CREATE_THREAD";
+    // todo the price charged for creating a comment may differ from thread to thread
     public static final String CREATE_COMMENT_SOLO = "CREATE_COMMENT_SOLO";
     public static final String CREATE_COMMENT_REPLY = "CREATE_COMMENT_REPLY";
     public static final String EDIT_COMMENT = "EDIT_COMMENT";

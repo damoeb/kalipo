@@ -10,8 +10,6 @@ $ nmap <IP>
 4. Firewall with iptables, tcpwrappers
 5. tripwire/debsums to sign all sys files
 
-todo
-
 6. chkrootkit to check infection (cron job)
 7. snort or ethereal
 8. use different port for ssh

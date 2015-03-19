@@ -79,6 +79,8 @@ public class Comment implements Anonymizable<Comment> {
     // reported comments may be hidden
     private Boolean hidden;
 
+    private Boolean createdByMod;
+
     /**
      * Stay on top of list in ui
      */
@@ -124,7 +126,16 @@ public class Comment implements Anonymizable<Comment> {
         a.setCreatedDate(null);
         a.setAuthorId(null);
         a.setFingerprint(null);
+        a.setCreatedByMod(null);
         return a;
+    }
+
+    public Boolean getCreatedByMod() {
+        return createdByMod;
+    }
+
+    public void setCreatedByMod(Boolean createdByMod) {
+        this.createdByMod = createdByMod;
     }
 
     public String getThreadId() {

@@ -15,6 +15,7 @@ angular.module('kalipoApp')
 
                 $scope.draft = {};
                 $scope.report = {};
+                $scope.$isMod = true;
 
                 $scope.reportOptions = REPORT_IDS;
 

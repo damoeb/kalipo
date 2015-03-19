@@ -94,6 +94,7 @@ public class CommentAgent {
                         if (isMod || isSuperMod || quality > 0.5) {
                             comment.setStatus(Comment.Status.APPROVED);
 
+                            //
                             BroadcastUtils.broadcast(BroadcastUtils.Type.COMMENT, comment);
 
                             log.info(String.format("%s creates approved comment %s (q:%s)", authorId, comment.getId(), quality));

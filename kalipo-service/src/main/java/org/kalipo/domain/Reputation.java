@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
  * A Reputation defines reputation modifiers for specific Types.
  * A Type can be seen as an action. Reputation is a positive or negative number that is added to the current user reputation
  */
-
+// todo rename to REPUTATION_MODIFIER or so
 @Document(collection = "T_REPUTATION")
 public class Reputation {
 

@@ -130,7 +130,7 @@ public class CommentService {
 
         final String currentLogin = SecurityUtils.getCurrentLogin();
 
-        // todo add status PRE_APPROVE to let CommentAgent do the approval
+        // todo add status PRE_APPROVE to let CommentAgent do the approval, do handle notifications,
 
         // -- Comment Count
 
@@ -329,9 +329,17 @@ public class CommentService {
 
         // --
 
+        final Thread thread = threadRepository.findOne(dirty.getThreadId());
+        Asserts.isNotNull(thread, "threadId");
+        Asserts.isNotReadOnly(thread);
+
+        final boolean isMod = thread.getModIds().contains(currentLogin);
+
         Comment parent = null;
         // reply only to approved comments
         if (isNew) {
+
+            dirty.setCreatedByMod((isSuperMod || isMod) ? true : null);
 
             if (dirty.getParentId() == null) {
                 dirty.setLevel(0);
@@ -358,16 +366,10 @@ public class CommentService {
             }
         }
 
-        final Thread thread = threadRepository.findOne(dirty.getThreadId());
-        Asserts.isNotNull(thread, "threadId");
-        Asserts.isNotReadOnly(thread);
-
         dirty.setAuthorId(currentLogin);
         dirty.setFingerprint(getFingerprint(parent, thread));
 
         renderBody(dirty);
-
-        final boolean isMod = thread.getModIds().contains(currentLogin);
 
         dirty.setStatus(Comment.Status.PENDING);
         log.info(String.format("%s creates pending comment %s ", currentLogin, dirty.toString()));
@@ -400,6 +402,15 @@ public class CommentService {
         return parentFp + String.format("%05d", max - thread.getCommentCount());
     }
 
+    /**
+     * Sticky-field may only be set/changed by mods and supermods
+     * @param comment the new comment
+     * @param original the original comment
+     * @param isNew helper, TRUE iff original is null
+     * @param isMod is current user a mod
+     * @param isSuperMod is current user a supermod
+     * @throws KalipoException
+     */
     private void assignSticky(Comment comment, Comment original, boolean isNew, boolean isMod, boolean isSuperMod) throws KalipoException {
         if (isNew) {
 

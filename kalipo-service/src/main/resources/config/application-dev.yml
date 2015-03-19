@@ -1,5 +1,9 @@
 # for properties see http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#common-application-properties
 
+# ----------------------------------------
+# CORE PROPERTIES
+# ----------------------------------------
+
 server:
     port: 8080
 
