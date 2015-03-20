@@ -72,7 +72,7 @@ public class ReportService {
 
         final boolean exists = reportRepository.findByCommentIdAndAuthorId(comment.getId(), currentLogin) != null;
         if (exists) {
-            throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "Already reported");
+            throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "You already filed a report for this comment");
         }
 
         log.info(String.format("Report of comment %s by %s", comment.getId(), currentLogin));

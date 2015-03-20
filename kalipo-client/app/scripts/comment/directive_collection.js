@@ -9,6 +9,7 @@ angular.module('kalipoApp')
             scope: {
                 collection: '=',
                 page: '='
+                // todo parent scope (thread) should be inherited
             },
             template: '',
             link: function ($scope, $element, $attrs) {
@@ -207,6 +208,20 @@ angular.module('kalipoApp')
                     });
                 };
 
+                $scope.markSpamComment = function(commentId) {
+                    Notifications.info('Spam '+commentId);
+                    // todo impl backend
+                };
+
+                $scope.deleteComment = function(commentId) {
+                    Notifications.info('Delete '+commentId);
+                    // todo impl backend
+                };
+
+                $scope.deleteCommentAndBlacklistUser = function(commentId) {
+                    Notifications.info('Delete + Blacklist '+commentId);
+                    // todo impl backend
+                };
             }
         }
     });

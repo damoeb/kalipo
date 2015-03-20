@@ -196,6 +196,7 @@ a:hover {
 }
 
 .comment .vote-stats {
+    font-size: small;
     color: #767676;
 }
 
@@ -253,8 +254,9 @@ a:hover {
 .body.tiny .less { display:none; }
 
 .comment .show-full-comment { margin:5px; }
-.comment .points {color: grey; padding-left: 5px; padding-right: 5px;}
-.comment .date { color: grey; font-size: smaller; }
+.comment .points { color: grey; padding-left: 5px; padding-right: 5px; }
+.comment .date { color: grey; font-size: smaller; margin-left: 5px; }
+.comment .mod-menu { margin-right: 5px; }
 .comment .label-pending {}
 .icon {display: inline;}
 .icon-implode {}

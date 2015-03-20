@@ -1,6 +1,7 @@
 todo test markdown -> pegdown sucks in java1.8
 
 moderate stuff is obsolete due to dashboard
+user directive?
 
 configuration attr
 - discussion depth: NUM {min:2, default:4}

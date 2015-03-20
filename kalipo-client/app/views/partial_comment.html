@@ -11,7 +11,7 @@
             <!-- content -->
             <div class="col-lg-12 col-xs-12">
 
-                <div style="overflow: hidden">
+                <div>
 
                     <a href="javascript:void(0)" ng-click="toggleReplies('<%- comment.id %>')"
                        class="icon">
@@ -36,26 +36,24 @@
                     <% if(!comment.$oneline) { %>
                     <div class="dropdown pull-right" ng-if="$isMod">
                         <a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="mod-menu">
-                            <span class="caret"></span>
-                        </a>
+                            <span class="caret"></span></a>
+
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><a href="javascript:void(0)" tabindex="-1" role="menuitem"
-                                                       ng-click="markSpamComment('<%- comment.id %>')">Mark as
-                                Spam</a></li>
+                                                       ng-click="markSpamComment('<%- comment.id %>')">Spam</a></li>
                             <li role="presentation"><a href="javascript:void(0)" tabindex="-1"
                                                        ng-click="deleteComment('<%- comment.id %>')"
                                                        role="menuitem">Delete</a>
                             </li>
                             <li role="presentation"><a href="javascript:void(0)" tabindex="-1" role="menuitem"
-                                                       ng-click="blacklistUserAfterComment('<%- comment.authorId %>', '<%- comment.id %>')">Delete
-                                Comment and blacklist
-                                User</a></li>
+                                                       ng-click="deleteCommentAndBlacklistUser('<%- comment.authorId %>', '<%- comment.id %>')">Delete + Blacklist</a>
+                            </li>
                         </ul>
 
                         <% if(comment.likes - comment.dislikes > 0) { %>
                         <span class="vote-stats">
                             <%- comment.likes - comment.dislikes %>
-                            <span class="glyphicon glyphicon-hand-up"></span>
+                            &uarr;
                         </span>
                         <% } %>
 

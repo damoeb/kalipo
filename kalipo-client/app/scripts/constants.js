@@ -45,14 +45,42 @@ kalipoApp.constant('ACHIEVEMENTS', {
 kalipoApp.constant('REPORT_IDS', [
     {
         id: 0, // custom must have id=0, cause this will enable the textarea
-        name: 'Custom'
+        name: 'Other'
     },
     {
         id: 1,
-        name: 'Spam / Advertisment'
+        name: 'Offensive Language'
     },
     {
         id: 2,
-        name: 'Offensive Language'
+        name: 'Personal abuse'
+    },
+    {
+        id: 3,
+        name: 'Off topic'
+    },
+    {
+        id: 4,
+        name: 'Legal issue'
+    },
+    {
+        id: 5,
+        name: 'Trolling'
+    },
+    {
+        id: 6,
+        name: 'Hate speech'
+    },
+    {
+        id: 7,
+        name: 'Offensive/Threatening language'
+    },
+    {
+        id: 8,
+        name: 'Copyright'
+    },
+    {
+        id: 9,
+        name: 'Spam'
     }
 ]);
