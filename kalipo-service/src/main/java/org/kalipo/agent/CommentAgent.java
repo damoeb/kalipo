@@ -1,5 +1,6 @@
 package org.kalipo.agent;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.domain.Comment;
@@ -94,8 +95,9 @@ public class CommentAgent {
                         if (isMod || isSuperMod || quality > 0.5) {
                             comment.setStatus(Comment.Status.APPROVED);
 
-                            //
                             BroadcastUtils.broadcast(BroadcastUtils.Type.COMMENT, comment);
+
+                            onApproval(comment);
 
                             log.info(String.format("%s creates approved comment %s (q:%s)", authorId, comment.getId(), quality));
 
@@ -111,11 +113,7 @@ public class CommentAgent {
                                 comment.setReviewMsg("Excessive special-char usage");
                             } else {
                                 status = Comment.Status.APPROVED;
-                                noticeService.notifyMentionedUsers(comment, authorId);
-
-                                if (comment.getParentId() != null) {
-                                    noticeService.notifyAuthorOfParent(comment, authorId);
-                                }
+                                onApproval(comment);
                             }
 
                             comment.setStatus(status);
@@ -141,6 +139,19 @@ public class CommentAgent {
         }
     }
 
+    private void onApproval(Comment comment) {
+        final String authorId = getAuthorIdRespectingAnonymity(comment);
+        noticeService.notifyMentionedUsers(comment, authorId);
+
+        if (comment.getParentId() != null) {
+            noticeService.notifyAuthorOfParent(comment, authorId);
+        }
+    }
+
+    private String getAuthorIdRespectingAnonymity(Comment comment) {
+        return BooleanUtils.isTrue(comment.getAnonymous()) ? "Anon" : comment.getAuthorId();
+    }
+
     private boolean excessiveSpecialChars(Comment comment) {
         // todo implement: reject comments only written in UPPER CASE or so
         return false;
@@ -152,7 +163,6 @@ public class CommentAgent {
         int len = text.length();
         return len > 20 && ucCount > 15;
     }
-
 
     @Scheduled(fixedDelay = 5000, initialDelay = 5000)
     public void estimateCommentsInfluence() {

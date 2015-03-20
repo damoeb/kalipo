@@ -210,7 +210,7 @@ kalipoApp.factory('Discussion', function (Thread) {
 
                     _isOneLine: function (comment, level) {
                         var controversial = comment.likes > 2 && comment.dislikes > 2;
-                        var downVoted = (comment.likes - comment.dislikes) < 2;
+                        var downVoted = comment.likes > 1 && comment.likes > 1 && (comment.likes - comment.dislikes) < 2;
                         return downVoted && !controversial;
                     },
 

@@ -7,6 +7,7 @@ import org.kalipo.service.NoticeService;
 import org.kalipo.service.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,17 +30,16 @@ public class NoticeResource {
     private NoticeService noticeService;
 
     /**
-     * PUT  /rest/notices/{id} -> Update an existing notice.
+     * POST  /rest/notices/{id} -> Update an existing notice.
      */
-    @RequestMapping(value = "/rest/notices/{id}/seen",
-            method = RequestMethod.PUT,
+    @RequestMapping(value = "/rest/notices/{userId}/seen",
+        method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public void allSeen(@PathVariable String userId) throws KalipoException {
         log.debug("REST request to set Notice of user {} seen", userId);
         Asserts.isNotNull(userId, "id");
 
-        // todo test and impl in ui
         noticeService.setAllSeen(userId);
     }
 
@@ -51,16 +50,16 @@ public class NoticeResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<Notice>> get(@PathVariable String login, @RequestParam(value = "page", required = false) Integer page) {
+    public ResponseEntity<Page<Notice>> get(@PathVariable String login, @RequestParam(value = "page", required = false) Integer page) {
         log.debug("REST request to get Notice : {}", login);
         if (page == null) {
             page = 0;
         }
-        return new ResponseEntity<List<Notice>>(noticeService.findByUser(login, page), HttpStatus.OK);
+        return new ResponseEntity<Page<Notice>>(noticeService.findByUserWithPages(login, page), HttpStatus.OK);
     }
 
     /**
-     * GET  /rest/notices/:id/unseen -> get the "id" notice.
+     * GET  /rest/notices/:login/unseen -> TRUE, iff user "login" has unseen notices
      */
     @RequestMapping(value = "/rest/notices/{login}/unseen",
             method = RequestMethod.GET,

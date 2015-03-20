@@ -22,11 +22,14 @@ kalipoApp.controller('ThreadController', ['$scope', '$routeParams', 'Thread', 'C
 
         $scope.draft = {};
 
+        // todo merge with showReplyModal
         $scope.submitFirstComment = function () {
 
-            console.log('submit first comment', $scope.draft);
             // todo support anon flag in view
             $scope.draft.anonymous = false;
+            $scope.draft.threadId = threadId;
+
+            console.log('submit first comment', $scope.draft);
 
             Comment.save($scope.draft,
                 function () {

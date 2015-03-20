@@ -6,6 +6,7 @@ import org.kalipo.repository.*;
 import org.kalipo.service.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 public class NoticeService {
 
     private static final int PAGE_SIZE = 20;
-    private static final Pattern FIND_USER_REFERENCES = Pattern.compile("@[a-z0-9]+"); //todo fix pattern to not match email addresses
+    private static final Pattern FIND_MENTIONED_USER = Pattern.compile("@([a-z0-9]+)"); //todo fix pattern to not match email addresses
 
     private final Logger log = LoggerFactory.getLogger(NoticeService.class);
 
@@ -44,7 +44,7 @@ public class NoticeService {
     @Inject
     private UserRepositoryCustom userRepositoryCustom;
 
-    public List<Notice> findByUser(final String login, final int pageNumber) {
+    public Page<Notice> findByUserWithPages(final String login, final int pageNumber) {
         PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, "createdDate");
         return noticeRepository.findByRecipientId(login, pageable);
     }
@@ -56,19 +56,17 @@ public class NoticeService {
         try {
             Asserts.isNotNull(comment, "comment");
 
-            if (comment.getStatus() == Comment.Status.APPROVED) {
-                // find mentioned usernames, starting with @ like @myname
-                Matcher matcher = FIND_USER_REFERENCES.matcher(comment.getBody());
-                Set<String> uqLogins = new HashSet<String>();
-                while (matcher.find()) {
-                    String login = matcher.group();
-                    uqLogins.add(login);
-                }
+            // find mentioned usernames, starting with @ like @myname
+            Matcher matcher = FIND_MENTIONED_USER.matcher(comment.getBody());
+            Set<String> uqLogins = new HashSet<String>();
+            while (matcher.find()) {
+                String login = matcher.group(1);
+                uqLogins.add(login);
+            }
 
-                for (String login : uqLogins) {
-                    // notify @login
-                    sendNotice(login, initiatorId, Notice.Type.MENTION, comment.getId());
-                }
+            for (String login : uqLogins) {
+                // notify @login
+                sendNotice(login, initiatorId, Notice.Type.MENTION, comment.getId());
             }
         } catch (Exception e) {
             log.error(String.format("Unable to notify mentioned user. Reason: %s", e.getMessage()));
