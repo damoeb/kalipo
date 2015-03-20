@@ -1,6 +1,7 @@
 package org.kalipo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import org.apache.commons.lang.StringUtils;
 import org.kalipo.domain.Authority;
 import org.kalipo.domain.PersistentToken;
 import org.kalipo.domain.User;
@@ -10,7 +11,6 @@ import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.MailService;
 import org.kalipo.service.UserService;
 import org.kalipo.web.rest.dto.UserDTO;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -125,7 +125,9 @@ public class AccountResource {
                     user.getLastName(),
                     user.getEmail(),
                     user.getLangKey(),
-                    user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toList())),
+                    user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toList()),
+                    user.getReputation()
+                ),
                 HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }

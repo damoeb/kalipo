@@ -1,7 +1,6 @@
 package org.kalipo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import org.json.JSONException;
 import org.kalipo.domain.Notice;
 import org.kalipo.service.NoticeService;
 import org.kalipo.service.util.Asserts;
@@ -14,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * REST controller for managing Notice.
@@ -30,7 +27,7 @@ public class NoticeResource {
     private NoticeService noticeService;
 
     /**
-     * POST  /rest/notices/{id} -> Update an existing notice.
+     * POST  /rest/notices/{login}/seen -> Mark all notices of user 'login' as seen.
      */
     @RequestMapping(value = "/rest/notices/{userId}/seen",
         method = RequestMethod.POST,
@@ -56,19 +53,5 @@ public class NoticeResource {
             page = 0;
         }
         return new ResponseEntity<Page<Notice>>(noticeService.findByUserWithPages(login, page), HttpStatus.OK);
-    }
-
-    /**
-     * GET  /rest/notices/:login/unseen -> TRUE, iff user "login" has unseen notices
-     */
-    @RequestMapping(value = "/rest/notices/{login}/unseen",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public ResponseEntity<Map> hasUnseen(@PathVariable String login) throws JSONException {
-        log.debug("REST request to check if {} has unseen Notice", login);
-        Map<String, Boolean> response = new HashMap<String, Boolean>();
-        response.put("hasUnseen", noticeService.hasUnseen(login));
-        return new ResponseEntity<Map>(response, HttpStatus.OK);
     }
 }

@@ -29,26 +29,38 @@ kalipoApp.controller('NoticeController', function ($rootScope, $scope, $sce, Ses
     $scope.nextPage = function () {
         if ($scope.$page + 1 < $scope.$pageCount) {
             $scope.$page++;
-            $scope.fetch();
+            $scope.fetchAndRender();
         }
     };
 
     $scope.previousPage = function () {
         if ($scope.$page > 0) {
             $scope.$page--;
-            $scope.fetch();
+            $scope.fetchAndRender();
         }
     };
 
-    $scope.fetch = function () {
+    // todo this is similar to achievements, combine it somehow
+
+    $scope.fetchAndRender = function () {
+        __fetch(function(response) {
+            $scope.$pageCount = response.totalPages;
+            $scope.$lastPage = response.lastPage;
+            $scope.$firstPage = response.firstPage;
+            // todo group by resource, enrich with resource(e.g. comment)
+            $scope.notices = __customize(response.content);
+
+            Notice.seenUntilNow({userId: Session.login});
+        });
+    };
+
+    var __fetch = function (onSuccess) {
 
         var __doFetchNotices = function () {
             Notice.query({userId: $rootScope.login, page: $scope.$page}, function (response) {
-                $scope.$pageCount = response.totalPages;
-                $scope.$lastPage = response.lastPage;
-                $scope.$firstPage = response.firstPage;
-                $scope.notices = __customize(response.content);
-                Notice.seenUntilNow({userId: Session.login});
+                if(_.isFunction(onSuccess)) {
+                    onSuccess(response);
+                }
             });
         };
 
@@ -61,9 +73,15 @@ kalipoApp.controller('NoticeController', function ($rootScope, $scope, $sce, Ses
         }
     };
 
-    $scope.hasUnseen = function () {
-        Notice.hasUnseen({userId: Session.login}, function (response) {
-            $scope.hasUnseenNotices = response.hasUnseen;
+    $scope.hasFreshNotices = function () {
+        __fetch(function(response) {
+            var freshCount = 0;
+            _.forEach(response.content, function(n) {
+                if(!n.seen) {
+                    freshCount ++;
+                }
+            });
+            $scope.$freshNoticesCount = freshCount;
         });
     };
 

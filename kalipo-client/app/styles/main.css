@@ -297,6 +297,10 @@ a:hover {
 .hiddenreplies .toggle-optionals {display: none;}
 .hiddenreplies .toggle-replies-link {display: inline-block;}
 
+.fresh-item {
+   background-color: #cccccc;
+}
+
 .abused-report {
     /*border-radius: 4px;*/
     padding: 15px;

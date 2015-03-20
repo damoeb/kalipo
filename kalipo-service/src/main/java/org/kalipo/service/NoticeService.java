@@ -160,7 +160,6 @@ public class NoticeService {
         }
     }
 
-    @Async
     public void setAllSeen(String userId) {
         try {
 
@@ -171,10 +170,6 @@ public class NoticeService {
         } catch (Exception e) {
             log.error(String.format("Unable to set notices of user %s as seen. Reason: %s", userId, e.getMessage()));
         }
-    }
-
-    public Boolean hasUnseen(String login) {
-        return userRepository.countUnseenOfUser(login) > 0;
     }
 
     // --

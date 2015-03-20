@@ -68,17 +68,17 @@
 
             <ul class="nav navbar-nav nav-pills navbar-right">
                 <li ng-switch-when="true">
-                    <a href="#/achievements" title="Achievements">
+                    <a href="#/achievements" title="See Achievements">
                         <!-- todo -->
                         <span class="label label-success">10</span>
                     </a>
                 </li>
-                <li ng-switch-when="true" ng-controller="NoticeController" ng-init="hasUnseen()">
+                <li ng-switch-when="true" ng-controller="NoticeController" ng-init="hasFreshNotices()">
                     <a href="#/notifications" title="Notifications">
                         <span class="glyphicon glyphicon-bell" style="color: #E84B56;"
-                              ng-if="hasUnseenNotices"></span>
+                              ng-if="$freshNoticesCount > 0"></span>
                         <span class="glyphicon glyphicon-bell"
-                              ng-if="!hasUnseenNotices"></span>
+                              ng-if="$freshNoticesCount == 0"></span>
                     </a>
                 </li>
                 <li ng-switch-when="false">

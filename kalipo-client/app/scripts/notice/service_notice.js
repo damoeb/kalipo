@@ -3,7 +3,6 @@
 kalipoApp.factory('Notice', function ($resource) {
     return $resource('app/rest/notices/:userId/:filter', {}, {
         'query': {method: 'GET', params: {userId: '@userId'}},
-        'hasUnseen': {method: 'GET', params: {userId: '@userId', 'filter': 'unseen'}},
-        'seenUntilNow': {method: 'PUT', params: {userId: '@userId', filter: 'seen'}}
+        'seenUntilNow': {method: 'POST', params: {userId: '@userId', filter: 'seen'}}
     });
 });

@@ -16,13 +16,16 @@ public class UserDTO {
 
     private String langKey;
 
+    // todo use a more complex field, providing the changes of last week. Label could be 156 +4
+    private int reputation;
+
     private List<String> roles;
 
     public UserDTO() {
     }
 
     public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
-                   List<String> roles) {
+                   List<String> roles, int reputation) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
@@ -30,6 +33,7 @@ public class UserDTO {
         this.email = email;
         this.langKey = langKey;
         this.roles = roles;
+        this.reputation = reputation;
     }
 
     public String getPassword() {
@@ -54,6 +58,10 @@ public class UserDTO {
 
     public String getLangKey() {
         return langKey;
+    }
+
+    public int getReputation() {
+        return reputation;
     }
 
     public List<String> getRoles() {

@@ -22,6 +22,6 @@ public class UserRepositoryCustom {
         Update update = new Update();
         update.set("seen", true);
 
-        mongoTemplate.updateMulti(query, update, "T_USER");
+        mongoTemplate.updateMulti(query, update, "T_NOTICE");
     }
 }
