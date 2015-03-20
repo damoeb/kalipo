@@ -369,7 +369,7 @@ public class CommentService {
         dirty.setAuthorId(currentLogin);
         dirty.setFingerprint(getFingerprint(parent, thread));
 
-        renderBody(dirty);
+//        todo fix renderBody(dirty);
 
         dirty.setStatus(Comment.Status.PENDING);
         log.info(String.format("%s creates pending comment %s ", currentLogin, dirty.toString()));

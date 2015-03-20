@@ -25,11 +25,14 @@ public class UrlBoxingLinkRenderer extends LinkRenderer {
     }
 
     private Rendering box(Rendering r) {
-        r.href = prefix + r.href;
+        Rendering patched = new Rendering(prefix + r.href, r.text);
+        for(Attribute attr : r.attributes) {
+            r.withAttribute(attr);
+        }
 
         links.add(new Comment.Link(r.href));
 
-        return r;
+        return patched;
     }
 
     public Set<Comment.Link> getLinks() {

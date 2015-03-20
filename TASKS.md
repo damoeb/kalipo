@@ -1,4 +1,5 @@
-todo test markdown
+todo test markdown -> pegdown sucks in java1.8
+
 moderate stuff is obsolete due to dashboard
 
 configuration attr
