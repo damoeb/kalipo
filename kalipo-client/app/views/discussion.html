@@ -2,41 +2,45 @@
 
     <div class="clearfix klp-header">
 
-        <div style="float: left">
+        <div class="col-lg-9 col-md-9 col-xs-9">
+        <!--<div style="float: left">-->
             <h3 style="display: inline">
                 {{ ::thread.title}}
             </h3>
 
-            <p>
-                by {{::thread.displayName}}, {{ thread.createdDate | dateString}} ({{ thread.createdDate | fromNow}})
-            </p>
+            <a href="javascript:void(0)" ng-click="$viewMode = !$viewMode">
+                <span ng-if="!$viewMode" class="glyphicon glyphicon-pencil"></span>
+                <span ng-if="$viewMode">Back to View</span>
+            </a>
+
+            <!--<p>-->
+                <!--by {{::thread.displayName}}, {{ thread.createdDate | dateString}} ({{ thread.createdDate | fromNow}})-->
+            <!--</p>-->
         </div>
-        <div>
-            <!-- todo remove these links and create a dashboard -->
-            <ul class="nav nav-pills pull-right">
+
+        <!--<div>-->
+            <!--&lt;!&ndash; todo remove these links and create a dashboard &ndash;&gt;-->
+            <!--<ul class="nav nav-pills pull-right">-->
+                <!--&lt;!&ndash;<li role="presentation">&ndash;&gt;-->
+                <!--&lt;!&ndash;<a href="#/moderate/{{::$threadId}}/pending">&ndash;&gt;-->
+                <!--&lt;!&ndash;Pending&ndash;&gt;-->
+                <!--&lt;!&ndash;<span class="glyphicon glyphicon-bell" style="color: #E84B56;"&ndash;&gt;-->
+                <!--&lt;!&ndash;ng-if="$pendingCount > 0"></span>&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;<span style="color: #E84B56; font-weight: bolder">&diams;</span>&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li role="presentation">&ndash;&gt;-->
+                <!--&lt;!&ndash;<a href="#/moderate/{{::$threadId}}/reports">&ndash;&gt;-->
+                <!--&lt;!&ndash;Reports&ndash;&gt;-->
+                <!--&lt;!&ndash;<span class="glyphicon glyphicon-bell" style="color: #E84B56;"&ndash;&gt;-->
+                <!--&lt;!&ndash;ng-if="$reportCount > 0"></span>&ndash;&gt;-->
+                <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                <!--&lt;!&ndash;</li>&ndash;&gt;-->
                 <!--<li role="presentation">-->
-                <!--<a href="#/moderate/{{::$threadId}}/pending">-->
-                <!--Pending-->
-                <!--<span class="glyphicon glyphicon-bell" style="color: #E84B56;"-->
-                <!--ng-if="$pendingCount > 0"></span>-->
-                <!--&lt;!&ndash;<span style="color: #E84B56; font-weight: bolder">&diams;</span>&ndash;&gt;-->
-                <!--</a>-->
+
                 <!--</li>-->
-                <!--<li role="presentation">-->
-                <!--<a href="#/moderate/{{::$threadId}}/reports">-->
-                <!--Reports-->
-                <!--<span class="glyphicon glyphicon-bell" style="color: #E84B56;"-->
-                <!--ng-if="$reportCount > 0"></span>-->
-                <!--</a>-->
-                <!--</li>-->
-                <li role="presentation">
-                    <a href="javascript:void(0)" ng-click="$viewMode = !$viewMode">
-                        <span ng-if="!$viewMode">Edit</span>
-                        <span ng-if="$viewMode">View</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+            <!--</ul>-->
+        <!--</div>-->
     </div>
 
     <div ng-if="$viewMode">
@@ -59,14 +63,15 @@
                 comments
             </h4>
 
-            <comment-create></comment-create>
+            <div ng-include="'create_comment.template'"></div>
 
             <div ng-repeat="page in pages">
 
                 Page {{page.id}}: {{page.comments.length}} comments
 
                 <dl style="margin:0;">
-                    <collection collection="page.comments" page="page"></collection>
+                    <!--<collection collection="page.comments" page="page"></collection>-->
+                    <collection></collection>
                 </dl>
 
                 <a id="page-{{page.id +1}}"></a>
@@ -75,9 +80,10 @@
             <a href="javascript:void(0)" ng-click="loadMore()" class="btn btn-primary" ng-hide="$isLastPage"
                style="margin-top:20px; width: 100%;">Load More</a>
 
-            <hr>
+            <!--<hr>-->
 
-            Moderated by <span ng-repeat="modId in thread.modIds">{{::modId}} </span>
+            <div style="text-align: center; font-style: italic; color: #808080">- the end -</div>
+            <!--Moderated by <span ng-repeat="modId in thread.modIds">{{::modId}} </span>-->
         </div>
 
         <div class="col-lg-3 col-md-3 col-xs-3">
@@ -91,3 +97,15 @@
 
     </div>
 </div>
+
+
+
+<script type="text/ng-template" id="create_comment.template">
+    <div style="padding-top: 10px;" class="clearfix col-lg-12 col-xs-12">
+
+        <div class="row">
+            <textarea class="form-control field-comment" placeholder="Have Something To Say?" rows="1" ng-focus="showReplyModal('','')"></textarea>
+        </div>
+
+    </div>
+</script>

@@ -58,8 +58,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     private double trustworthiness;
 
+    // todo this is a global ban
     @JsonIgnore
     private boolean banned;
+
+    // todo history of bans
+//    private Set<Ban> bans = new HashSet<Ban>();
 
     private DateTime bannedUntilDate;
 

@@ -128,7 +128,7 @@ public class ThreadService {
         original.setModIds(dirty.getModIds());
 
         validateKLine(dirty, original);
-        original.setkLine(dirty.getkLine());
+        original.setBans(dirty.getBans());
 
         return save(original);
     }
@@ -170,6 +170,14 @@ public class ThreadService {
         return new AsyncResult<List<Comment>>(outline);
     }
 
+    public Thread banUser(String userId, String threadId) {
+        return null;
+    }
+
+    public Thread unBanUser(String userId, String threadId) {
+        return null;
+    }
+
     // --
 
     @Scheduled(fixedDelay = 20000)
@@ -198,19 +206,19 @@ public class ThreadService {
 
     private void validateKLine(Thread dirty, Thread original) throws KalipoException {
         final String currentLogin = SecurityUtils.getCurrentLogin();
-        final Set<String> orgKLine = original.getkLine();
-        final Set<String> dirtyKLine = dirty.getkLine();
+        final Set<String> orgKLine = original.getBans();
+        final Set<String> dirtyKLine = dirty.getBans();
 
         if (dirtyKLine == null || (orgKLine.size() == dirtyKLine.size() && orgKLine.containsAll(dirtyKLine))) {
-            dirty.setkLine(orgKLine);
+            dirty.setBans(orgKLine);
         } else {
             // validate kLine changes from update
 
-            // original.getkLine() - thread.getkLine()
+            // original.getBans() - thread.getBans()
             Set<String> removed = orgKLine.stream().filter(uid -> dirtyKLine.contains(uid)).collect(Collectors.toSet());
 
-            // thread.getkLine() - original.getkLine();
-            Set<String> added = dirtyKLine.stream().filter(uid -> original.getkLine().contains(uid)).collect(Collectors.toSet());
+            // thread.getBans() - original.getBans();
+            Set<String> added = dirtyKLine.stream().filter(uid -> original.getBans().contains(uid)).collect(Collectors.toSet());
 
             for (String userId : added) {
                 if (!userRepository.exists(userId)) {

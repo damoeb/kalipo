@@ -6,11 +6,11 @@ angular.module('kalipoApp')
         return {
             restrict: 'E',
             replace: true,
-            scope: {
-                collection: '=',
-                page: '='
-                // todo parent scope (thread) should be inherited
-            },
+            //scope: {
+            //    collection: '=',
+            //    page: '='
+            //    // todo parent scope (thread) should be inherited
+            //},
             template: '',
             link: function ($scope, $element, $attrs) {
 
@@ -104,7 +104,7 @@ angular.module('kalipoApp')
                             }
                         };
 
-                        _.forEach($scope.collection, function (comment) {
+                        _.forEach($scope.page.comments, function (comment) {
                             __render(comment, $thread, false);
                         });
 
@@ -124,33 +124,6 @@ angular.module('kalipoApp')
                     $rootScope.$broadcast('event:discussion-changed');
 
                 };
-
-                // --
-
-                $scope.showReplyModal = function (commentId, displayName, threadId, quote) {
-
-                    console.log('reply modal', commentId);
-
-                    $('#createCommentModal').modal();
-                    $scope.displayName = displayName;
-                    $scope.draft.threadId = threadId;
-                    $scope.draft.body = '>' + quote.replace(/\n/g, '>\n');
-                    $scope.draft.parentId = commentId;
-                };
-
-                $scope.submitComment = function () {
-
-                    console.log('submit comment', $scope.draft);
-                    // todo support anon flag in view
-                    $scope.draft.anonymous = false;
-
-                    Comment.save($scope.draft,
-                        function () {
-                            Notifications.info('Comment saved');
-                            $('#createCommentModal').modal('hide');
-                        });
-                };
-
 
                 // --
 
@@ -208,20 +181,6 @@ angular.module('kalipoApp')
                     });
                 };
 
-                $scope.markSpamComment = function(commentId) {
-                    Notifications.info('Spam '+commentId);
-                    // todo impl backend
-                };
-
-                $scope.deleteComment = function(commentId) {
-                    Notifications.info('Delete '+commentId);
-                    // todo impl backend
-                };
-
-                $scope.deleteCommentAndBlacklistUser = function(commentId) {
-                    Notifications.info('Delete + Blacklist '+commentId);
-                    // todo impl backend
-                };
             }
         }
     });

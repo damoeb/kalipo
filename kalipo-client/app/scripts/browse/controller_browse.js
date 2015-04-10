@@ -13,7 +13,7 @@ kalipoApp.controller('BrowseController', function ($scope, Thread, Comment) {
         $scope.currentPage = $scope.currentPage + 1;
 
         Thread.query(function (result) {
-            $scope.$isLastPage = result.isLastPage;
+            $scope.$isLastPage = result.lastPage;
 
             // group by days
             $scope.byDays = _.groupBy(result.content, function(thread) {

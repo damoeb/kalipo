@@ -73,7 +73,7 @@ public class CommentResource {
     }
 
     /**
-     * PUT  /rest/comments/{id}/approve -> Update existing comment.
+     * PUT  /rest/comments/{id}/approve -> Approve existing comment.
      */
     @RequestMapping(value = "/rest/comments/{id}/approve",
             method = RequestMethod.PUT,
@@ -91,7 +91,7 @@ public class CommentResource {
     }
 
     /**
-     * PUT  /rest/comments/{id}/reject -> Update existing comment.
+     * PUT  /rest/comments/{id}/reject -> Reject existing comment.
      */
     @RequestMapping(value = "/rest/comments/{id}/reject",
         method = RequestMethod.PUT,
@@ -116,6 +116,8 @@ public class CommentResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the comments, that can be review")
+    @Deprecated
+    // todo review this method
     public List<Comment> getAllUnderReview(@QueryParam("thread") String threadId, @QueryParam("page") Integer page) throws ExecutionException, InterruptedException {
         log.debug("REST request to get all Comments, that have to be reviewed");
 

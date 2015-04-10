@@ -59,7 +59,7 @@ public class Thread implements Serializable {
      * Bans on username level
      * Similar to IRC K-line see https://en.wikipedia.org/wiki/IRCd#K-line
      */
-    private Set<String> kLine = new HashSet<String>();
+    private Set<String> bans = new HashSet<String>();
 
     /**
      * todo should be done on page level
@@ -194,12 +194,12 @@ public class Thread implements Serializable {
         this.body = body;
     }
 
-    public Set<String> getkLine() {
-        return kLine;
+    public Set<String> getBans() {
+        return bans;
     }
 
-    public void setkLine(Set<String> kLine) {
-        this.kLine = kLine;
+    public void setBans(Set<String> bans) {
+        this.bans = bans;
     }
 
     public String getLink() {

@@ -52,7 +52,7 @@ public class ThreadResource {
     }
 
     /**
-     * PUT  /rest/threads -> Update existing thread.
+     * PUT  /rest/threads/{id} -> Update existing thread.
      */
     @RequestMapping(value = "/threads/{id}",
             method = RequestMethod.PUT,
@@ -150,31 +150,6 @@ public class ThreadResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-//    /**
-//     * GET  /rest/threads/:id/diff -> get comments of the "id" thread.
-//     */
-//    @RequestMapping(value = "/threads/{id}/diff",
-//            method = RequestMethod.GET,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    @Timed
-//    @ApiOperation(value = "Get diff comments of the \"id\" thread.")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 400, message = "Invalid ID supplied"),
-//            @ApiResponse(code = 404, message = "Thread not found")
-//    })
-//    public ResponseEntity<List<Comment>> getDiff(@PathVariable String id) throws KalipoException, ExecutionException, InterruptedException {
-//        log.debug("REST request to get diff of Thread : {}", id);
-//        Asserts.isNotNull(id, "id");
-//
-//        DateTime since = DateTime.now().minusSeconds(30);
-//
-//        return Optional.ofNullable(threadService.getCommentsSince(id, since).get())
-//                .map(thread -> new ResponseEntity<>(
-//                        thread,
-//                        HttpStatus.OK))
-//                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//    }
-
     /**
      * GET  /rest/threads/:id/outline -> get outline of the "id" thread.
      */
@@ -197,4 +172,47 @@ public class ThreadResource {
                     HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    // -- BANS --
+
+    /**
+     * PUT  /rest/threads/{id}/bans/add/{userId} -> Add user {userId} to the field bans in existing thread.
+     */
+    @RequestMapping(value = "/threads/{id}/bans/add/{userId}",
+        method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Ban a user from manipulating a thread")
+    @ApiResponses(value = {
+        @ApiResponse(code = 400, message = "Invalid ID supplied"),
+        @ApiResponse(code = 404, message = "Thread not found")
+    })
+    public Thread ban(@PathVariable String id, @NotNull @PathVariable("userId") String userId) throws KalipoException {
+        log.debug(String.format("REST request to ban user %s in Thread %s", userId, id));
+
+        Asserts.isNotNull(id, "id");
+
+        return threadService.banUser(userId, id);
+    }
+
+    /**
+     * PUT  /rest/threads/{id}/bans/rm/{userId} -> Remove user {userId} to the field bans in existing thread.
+     */
+    @RequestMapping(value = "/threads/{id}/bans/rm/{userId}",
+        method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Un-ban a user from manipulating a thread")
+    @ApiResponses(value = {
+        @ApiResponse(code = 400, message = "Invalid ID supplied"),
+        @ApiResponse(code = 404, message = "Thread not found")
+    })
+    public Thread unban(@PathVariable String id, @NotNull @PathVariable("userId") String userId) throws KalipoException {
+        log.debug(String.format("REST request to ban user %s in Thread %s", userId, id));
+
+        Asserts.isNotNull(id, "id");
+
+        return threadService.unBanUser(userId, id);
+    }
+
 }
