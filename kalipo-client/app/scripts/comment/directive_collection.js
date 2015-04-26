@@ -20,16 +20,6 @@ angular.module('kalipoApp')
 
                 $scope.reportOptions = REPORT_IDS;
 
-                // modals
-                // .. to CREATE a comment
-                $http.get('views/modal_reply.html', {cache: true}).success(function (tmpl_reply) {
-                    $element.append($compile(tmpl_reply)($scope));
-                });
-                // .. to REPORT a comment
-                $http.get('views/modal_report.html', {cache: true}).success(function (tmpl_report) {
-                    $element.append($compile(tmpl_report)($scope));
-                });
-
                 /**
                  * will wrap excessive long comments with a container and a "show-more" toggle link
                  * @param $commentWrapper

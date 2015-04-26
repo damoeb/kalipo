@@ -12,6 +12,7 @@ kalipoApp.factory('Discussion', function (Thread) {
 
         postFetch: function (comments, pageId) {
 
+
             return _.forEach(comments, function (comment, index) {
                 comment.replies = [];
                 comment.authors = [];

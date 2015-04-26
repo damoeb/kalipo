@@ -1,11 +1,12 @@
 'use strict';
 
-kalipoApp.controller('ThreadController', ['$scope', '$routeParams', 'Thread', 'Comment', 'Notifications',
-    function ($scope, $routeParams, Thread, Comment, Notifications) {
+kalipoApp.controller('ThreadController', ['$scope', '$routeParams', 'Thread', 'Comment', 'Notifications', '$http', '$compile',
+    function ($scope, $routeParams, Thread, Comment, Notifications, $http, $compile) {
 
         var threadId = $routeParams.threadId;
 
         $scope.$threadId = threadId;
+        $scope.draft = {};
 
         Thread.get({id: threadId}, function (thread) {
 //            thread.uglyDucklingSurvivalEndDate = null;
@@ -20,21 +21,22 @@ kalipoApp.controller('ThreadController', ['$scope', '$routeParams', 'Thread', 'C
             $scope.thread = thread;
         });
 
-        $scope.draft = {};
-
         // --
 
         $scope.showReplyModal = function (commentId, quote) {
 
             console.log('reply modal', commentId);
+            console.log('draft', $scope.draft);
 
             $('#createCommentModal').modal();
             $scope.draft.threadId = threadId;
-            if(_.isUndefined(quote) || quote.length==0) {
-                $scope.draft.body = '';
-            } else {
-                $scope.draft.b3ody = '>' + quote.replace(/\n/g, '>\n');
-            }
+
+            // todo reenable quotes
+            //if(_.isUndefined(quote) || quote.length==0) {
+            //    $scope.draft.body = '';
+            //} else {
+            //    $scope.draft.body = '>' + quote.replace(/\n/g, '>\n');
+            //}
             $scope.draft.parentId = commentId;
         };
 

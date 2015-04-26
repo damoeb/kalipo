@@ -31,7 +31,7 @@ public class Comment implements Anonymizable<Comment> {
     @ModelExistsConstraint(Thread.class)
     private String threadId;
 
-    @ModelExistsConstraint(Comment.class)
+//    @ModelExistsConstraint(Comment.class)
     private String parentId;
 
 //    @JsonIgnore

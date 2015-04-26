@@ -341,7 +341,8 @@ public class CommentService {
 
             dirty.setCreatedByMod((isSuperMod || isMod) ? true : null);
 
-            if (dirty.getParentId() == null) {
+            if (StringUtils.isBlank(dirty.getParentId())) {
+                dirty.setParentId(null);
                 dirty.setLevel(0);
             } else {
                 parent = commentRepository.findOne(dirty.getParentId());
