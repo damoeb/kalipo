@@ -1,114 +1,99 @@
 <div ng-controller="ThreadController">
 
-    <div class="clearfix klp-header">
+    <div class="col-lg-9 col-md-9 col-xs-9">
 
-        <div class="col-lg-9 col-md-9 col-xs-9">
-        <!--<div style="float: left">-->
-            <h3 style="display: inline">
-                {{ ::thread.title}}
-            </h3>
 
-            <a href="javascript:void(0)" ng-click="$viewMode = !$viewMode">
-                <span ng-if="!$viewMode" class="glyphicon glyphicon-pencil"></span>
-                <span ng-if="$viewMode">Back to View</span>
-            </a>
+        <div class="panel panel-default">
 
-            <!--<p>-->
+            <div class="panel-body">
+
+                <!--<div style="float: left">-->
+                <h3 style="display: inline">
+                    {{ ::thread.title}}
+                </h3>
+
+                <a href="javascript:void(0)" ng-click="$viewMode = !$viewMode">
+                    <span ng-if="!$viewMode" class="glyphicon glyphicon-pencil"></span>
+                    <span ng-if="$viewMode">Back to View</span>
+                </a>
+
+                <p>
+                    {{::thread.body}}
+                </p>
+
+                <!--<p>-->
                 <!--by {{::thread.displayName}}, {{ thread.createdDate | dateString}} ({{ thread.createdDate | fromNow}})-->
-            <!--</p>-->
-        </div>
-
-        <!--<div>-->
-            <!--&lt;!&ndash; todo remove these links and create a dashboard &ndash;&gt;-->
-            <!--<ul class="nav nav-pills pull-right">-->
-                <!--&lt;!&ndash;<li role="presentation">&ndash;&gt;-->
-                <!--&lt;!&ndash;<a href="#/moderate/{{::$threadId}}/pending">&ndash;&gt;-->
-                <!--&lt;!&ndash;Pending&ndash;&gt;-->
-                <!--&lt;!&ndash;<span class="glyphicon glyphicon-bell" style="color: #E84B56;"&ndash;&gt;-->
-                <!--&lt;!&ndash;ng-if="$pendingCount > 0"></span>&ndash;&gt;-->
-                <!--&lt;!&ndash;&lt;!&ndash;<span style="color: #E84B56; font-weight: bolder">&diams;</span>&ndash;&gt;&ndash;&gt;-->
-                <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                <!--&lt;!&ndash;<li role="presentation">&ndash;&gt;-->
-                <!--&lt;!&ndash;<a href="#/moderate/{{::$threadId}}/reports">&ndash;&gt;-->
-                <!--&lt;!&ndash;Reports&ndash;&gt;-->
-                <!--&lt;!&ndash;<span class="glyphicon glyphicon-bell" style="color: #E84B56;"&ndash;&gt;-->
-                <!--&lt;!&ndash;ng-if="$reportCount > 0"></span>&ndash;&gt;-->
-                <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                <!--<li role="presentation">-->
-
-                <!--</li>-->
-            <!--</ul>-->
-        <!--</div>-->
-    </div>
-
-    <div ng-if="$viewMode">
-
-        <div ng-include="'views/thread-edit.html'"></div>
-
-    </div>
-
-    <div ng-include="'views/modal_reply.html'"></div>
-    <div ng-include="'views/modal_report.html'"></div>
-
-    <div ng-if="!$viewMode">
-        <div class="col-lg-9 col-md-9 col-xs-9">
-
-            <p>
-                {{::thread.body}}
-            </p>
-
-            <h4 style="margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid #e5e5e5; padding-bottom: 5px;">
-                {{::thread.commentCount}}
-                <a ng-if="!$showPending && $pendingCount >0" href="javascript:void(0)"
-                   ng-click="$showPending = !$showPending" title="Show Pending">+{{::$pendingCount}}</a>
-                comments
-            </h4>
-
-            <div ng-include="'create_comment.template'"></div>
-
-            <div ng-repeat="page in pages">
-
-                Page {{page.id}}: {{page.comments.length}} comments
-
-                <dl style="margin:0;">
-                    <!--<collection collection="page.comments" page="page"></collection>-->
-                    <collection></collection>
-                </dl>
-
-                <a id="page-{{page.id +1}}"></a>
+                <!--</p>-->
             </div>
 
-            <a href="javascript:void(0)" ng-click="loadMore()" class="btn btn-primary" ng-hide="$isLastPage"
-               style="margin-top:20px; width: 100%;">Load More</a>
-
-            <!--<hr>-->
-
-            <div style="text-align: center; font-style: italic; color: #808080">- the end -</div>
-            <!--Moderated by <span ng-repeat="modId in thread.modIds">{{::modId}} </span>-->
         </div>
 
-        <div class="col-lg-3 col-md-3 col-xs-3">
-            <div
-                style="position: fixed; width: 5px; background-color: black; height: 100px; top:0; margin-left: -10px; display: none"
-                id="outline-viewport-indicator" title="the comments you actually see"></div>
-            <div style="overflow-y: auto; overflow-x: hidden; position: relative">
-                <thread-outline pages="pages"></thread-outline>
+        <div ng-include="'views/modal_reply.html'"></div>
+        <div ng-include="'views/modal_report.html'"></div>
+
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+
+                <div ng-if="$viewMode">
+
+                    <div ng-include="'views/thread-edit.html'"></div>
+
+                </div>
+
+                <div ng-if="!$viewMode">
+
+                    <!--<h4 style="margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid #e5e5e5; padding-bottom: 5px;">-->
+                    <!--{{::thread.commentCount}}-->
+                    <!--<a ng-if="!$showPending && $pendingCount >0" href="javascript:void(0)"-->
+                    <!--ng-click="$showPending = !$showPending" title="Show Pending">+{{::$pendingCount}}</a>-->
+                    <!--comments-->
+                    <!--</h4>-->
+
+                    <div ng-include="'create_comment.template'"></div>
+
+                    <div ng-repeat="page in pages">
+
+                        <!--Page {{page.id}}: {{page.comments.length}} comments-->
+
+                        <dl style="margin:0;">
+                            <!--<collection collection="page.comments" page="page"></collection>-->
+                            <collection></collection>
+                        </dl>
+
+                        <a id="page-{{page.id +1}}"></a>
+                    </div>
+
+                    <a href="javascript:void(0)" ng-click="loadMore()" class="btn btn-primary" ng-hide="$isLastPage"
+                       style="margin-top:20px; width: 100%;">Load More</a>
+
+                    <!--<hr>-->
+
+                    <div style="text-align: center; font-style: italic; color: #808080">- the end -</div>
+                    <!--Moderated by <span ng-repeat="modId in thread.modIds">{{::modId}} </span>-->
+                </div>
             </div>
         </div>
-
     </div>
+
+
+    <div class="col-lg-3 col-md-3 col-xs-3">
+        <div
+            style="position: fixed; width: 5px; background-color: black; height: 100px; top:0; margin-left: -10px; display: none"
+            id="outline-viewport-indicator" title="the comments you actually see"></div>
+        <div style="overflow-y: auto; overflow-x: hidden; position: relative">
+            <thread-outline pages="pages"></thread-outline>
+        </div>
+    </div>
+
+
 </div>
 
 
 
 <script type="text/ng-template" id="create_comment.template">
-    <div style="padding-top: 10px;" class="clearfix col-lg-12 col-xs-12">
-
-        <div class="row">
-            <textarea class="form-control field-comment" placeholder="Have Something To Say?" rows="1" ng-focus="showReplyModal('','')"></textarea>
-        </div>
-
+    <div style="padding-top: 10px;" class="clearfix">
+        <textarea class="form-control field-comment" placeholder="Have Something To Say?" rows="1"
+                  ng-focus="showReplyModal('','')"></textarea>
     </div>
 </script>
