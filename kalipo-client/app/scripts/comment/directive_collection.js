@@ -28,7 +28,7 @@ angular.module('kalipoApp')
                 var __showMore = function ($commentWrapper) {
                     var $comment = $commentWrapper.find('.body');
                     var lineCount = $comment.height() / COMMENT_SETTINGS.lineHeight;
-                    console.log('lineCount', lineCount, 'append?', lineCount > COMMENT_SETTINGS.criticalLineCount);
+                    //console.log('lineCount', lineCount, 'append?', lineCount > COMMENT_SETTINGS.criticalLineCount);
 
                     if (lineCount > COMMENT_SETTINGS.criticalLineCount) {
 

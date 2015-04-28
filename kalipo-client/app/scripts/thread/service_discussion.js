@@ -92,7 +92,7 @@ kalipoApp.factory('Discussion', function (Thread) {
                     comment.$repliesCount += reply.$repliesCount; // its replies
 
                     if(!reply.$obligatory) {
-                        console.log('optional', comment.id);
+                        //console.log('optional', comment.id);
                         comment.$concealedRepliesCount ++;
                     } else {
                         comment.$hasObligatoryReplies = true;

@@ -152,7 +152,7 @@ public class ThreadService {
         Sort sort = new Sort(
                 new Sort.Order(Sort.Direction.ASC, "fingerprint")
         );
-        PageRequest pageable = new PageRequest(page, 50, sort);
+        PageRequest pageable = new PageRequest(page, 20, sort);
         return new AsyncResult<Page<Comment>>(commentRepository.findByThreadIdAndStatusIn(id, Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING, Comment.Status.DELETED), pageable));
     }
 

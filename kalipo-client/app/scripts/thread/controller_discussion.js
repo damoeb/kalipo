@@ -32,7 +32,14 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
             $rootScope.$broadcast('event:fetched-page');
         };
 
-        Discussion.fetchPage(threadId, 0, tree, onFetchedPage);
+        Discussion.fetchPage(threadId, 0, tree, function(result) {
+            onFetchedPage(result);
+
+            setTimeout(function() {
+                console.log('event:fetched-first-page -> ...');
+                $rootScope.$broadcast('event:fetched-first-page');
+            }, 2000);
+        });
 
 
         // -- Socket -- ------------------------------------------------------------------------------------------------
@@ -53,13 +60,13 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         // -- Scope Functions -- ---------------------------------------------------------------------------------------
 
         $scope.loadMore = function () {
+
             console.log("load more");
 
             currentPage = currentPage + 1;
 
             Discussion.fetchPage(threadId, currentPage, tree, onFetchedPage);
-
-            $scope.scrollTo('page-' + currentPage);
+            //$scope.scrollTo('page-' + currentPage);
         };
 
         $scope.scrollTo = function (id) {
