@@ -1,3 +1,8 @@
+diskussions-kopf zeigt die neuesten 4 kommentare an, darunter dann die sortierte diskussion - moeglichkeit zur sortierung
+fix visualisierung: balken werden zu breit beim nachladen
+
+--
+
 todo test markdown -> pegdown sucks in java1.8
 
 moderate stuff is obsolete due to dashboard
