@@ -1,5 +1,5 @@
 body {
-    /*background: #e5e5e5;*/
+    background: #f9f9f9;
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;
 }
@@ -140,8 +140,8 @@ a:hover {
     color: blue;
 }
 
-.comment-wrapper {  }
 .comment-wrapper.level-0 { margin-top:15px }
+.comment-wrapper { padding-top: 8px; }
 .comment {
     padding: 10px 5px 5px 10px;
 }
@@ -183,7 +183,7 @@ a:hover {
 }
 .comment:hover .mod-menu {
     visibility: visible;
-    color: black;
+    color: blue;
 }
 
 .comment .flag a {
@@ -425,7 +425,7 @@ nav .nav-pills a:hover {
 }
 
 .klp-header {
-    padding-bottom: 7px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    /*border-bottom: 1px solid #e5e5e5;*/
 }

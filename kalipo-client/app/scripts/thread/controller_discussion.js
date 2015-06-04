@@ -10,7 +10,6 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         $scope.pages = [];
         $scope.$threadId = threadId;
         $scope.$viewMode = false;
-        $scope.draft = {};
         $scope.thread = {};
         $scope.reportModel = {};
         $scope.$showPending = false;
@@ -79,9 +78,9 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
             if (!_.isUndefined($scope.thread.$modIds)) {
                 $scope.thread.modIds = _.compact($scope.thread.$modIds.replace(re, ' ').split(' '));
             }
-            if (!_.isUndefined($scope.thread.$kLine)) {
-                $scope.thread.kLine = _.compact($scope.thread.$kLine.replace(re, ' ').split(' '));
-            }
+            //if (!_.isUndefined($scope.thread.$kLine)) {
+            //    $scope.thread.kLine = _.compact($scope.thread.$kLine.replace(re, ' ').split(' '));
+            //}
             if (!_.isUndefined($scope.thread.$uriHooks)) {
                 $scope.thread.uriHooks = _.compact($scope.thread.$uriHooks.replace(re, ' ').split(' '));
             }
