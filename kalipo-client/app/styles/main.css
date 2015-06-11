@@ -186,6 +186,10 @@ a:hover {
     /*border-bottom: 1px solid #d7d7d7;*/
 }
 
+.comment:after {
+    clear: both;
+}
+
 /*.comment:hover {*/
     /*background: none repeat scroll 0 0 #ffffff;*/
     /*-moz-box-shadow: 0px 0px 2px 0px #ccc;*/
@@ -300,6 +304,21 @@ a:hover {
 
 .oneline>.comment .menu {display: none;}
 .oneline>.comment .show-full-comment {display: inline-block;}
+
+.in-ticker > .comment .name {
+}
+
+.in-ticker > .comment .body {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.in-ticker > .comment .date {
+}
+
+.oneline > .comment .menu {
+    display: none;
+}
 
 .hiddenreplies .name {}
 .hiddenreplies .points {}

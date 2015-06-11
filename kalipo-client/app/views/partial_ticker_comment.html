@@ -1,0 +1,18 @@
+<div class="in-ticker">
+    <div class="comment">
+        <span class="name"><%- comment.displayName %></span>
+        <a class="voteUp <% if (comment.likes>0) { %><%- 'always' %><% } %>"
+           href="javascript:void(0)" ng-click="like('<%- comment.id %>')">
+            <%- comment.likes %>
+            <span class="glyphicon glyphicon-thumbs-up"></span></a>
+
+        <a class="voteDown"
+           href="javascript:void(0)" ng-click="dislike('<%- comment.id %>')">
+            <%- comment.dislikes %>
+            <span class="glyphicon glyphicon-thumbs-down"></span></a>
+
+        <a href="">see discussion</a>
+
+        <div class="body"><%- comment.body %></div>
+    </div>
+</div>

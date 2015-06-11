@@ -45,9 +45,12 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         // -- Socket -- ------------------------------------------------------------------------------------------------
 
         var socket = Websocket.subscribe(function (message) {
-            console.log('event', message);
             if (message.threadId == threadId) {
-
+                console.log('event', message);
+                Comment.get({id: message.event.commentId}, function (comment) {
+                    $rootScope.$broadcast('event:comment', comment);
+                    // todo update tree if possible
+                });
             }
         });
 

@@ -212,6 +212,12 @@ public class CommentService {
     }
 
     @Async
+    public Future<List<Comment>> getLatestInThreadWithPages(String threadId, final int pageNumber) {
+        PageRequest pageable = new PageRequest(pageNumber, 5, Sort.Direction.DESC, "createdDate");
+        return new AsyncResult<>(commentRepository.findByThreadIdAndStatusIn(threadId, Arrays.asList(Comment.Status.APPROVED), pageable).getContent());
+    }
+
+    @Async
     public Future<Comment> get(String id) throws KalipoException {
         return new AsyncResult<Comment>(commentRepository.findOne(id));
     }

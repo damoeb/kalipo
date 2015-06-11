@@ -52,13 +52,16 @@
 
                     <div ng-include="'create_comment.template'"></div>
 
+                    <!-- latest -->
+                    <latest-comments></latest-comments>
+
                     <div when-scrolled="loadMore()">
                         <div ng-repeat="page in pages">
 
                             <!--Page {{page.id}}: {{page.comments.length}} comments-->
 
                             <dl style="margin:0;">
-                                <collection></collection>
+                                <discussion></discussion>
                             </dl>
 
                             <!--<a id="page-{{page.id +1}}"></a>-->
