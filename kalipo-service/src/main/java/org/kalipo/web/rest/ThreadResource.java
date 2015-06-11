@@ -173,6 +173,29 @@ public class ThreadResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    /**
+     * GET  /rest/threads/:id/latest -> get latest comments of the "id" thread.
+     */
+    @RequestMapping(value = "/threads/{id}/latest",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Get latest comments of the \"id\" thread.")
+    @ApiResponses(value = {
+        @ApiResponse(code = 400, message = "Invalid ID supplied"),
+        @ApiResponse(code = 404, message = "Thread not found")
+    })
+    public ResponseEntity<Page<Comment>> getLatest(@PathVariable String id, @QueryParam("page") Integer page) throws KalipoException, ExecutionException, InterruptedException {
+        log.debug("REST request to get latest Comments of Thread : {}", id);
+        Asserts.isNotNull(id, "id");
+
+        return Optional.ofNullable(threadService.getLatestCommentsWithPages(id, ParamFixer.fixPage(page)).get())
+            .map(comments -> new ResponseEntity<>(
+                comments,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
     // -- BANS --
 
     /**

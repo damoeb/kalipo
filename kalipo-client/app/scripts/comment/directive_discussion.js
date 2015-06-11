@@ -2,7 +2,7 @@
  * Created by damoeb on 16.12.14.
  */
 angular.module('kalipoApp')
-    .directive('collection', function ($compile, $templateCache, $http, $rootScope, Vote, Comment, Report, Notifications, REPORT_IDS, COMMENT_SETTINGS) {
+    .directive('discussion', function ($compile, $templateCache, $http, $rootScope, Vote, Comment, Report, Notifications, REPORT_IDS, COMMENT_SETTINGS) {
         return {
             restrict: 'E',
             replace: true,
@@ -28,7 +28,7 @@ angular.module('kalipoApp')
                 var __showMore = function ($commentWrapper) {
                     var $comment = $commentWrapper.find('.body');
                     var lineCount = $comment.height() / COMMENT_SETTINGS.lineHeight;
-                    console.log('lineCount', lineCount, 'append?', lineCount > COMMENT_SETTINGS.criticalLineCount);
+                    //console.log('lineCount', lineCount, 'append?', lineCount > COMMENT_SETTINGS.criticalLineCount);
 
                     if (lineCount > COMMENT_SETTINGS.criticalLineCount) {
 

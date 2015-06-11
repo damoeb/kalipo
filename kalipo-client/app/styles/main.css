@@ -4,6 +4,21 @@ body {
     color: #333;
 }
 
+.glyphicon.spinning {
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin2 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
 .development {
     position: absolute;
     width: 149px;
@@ -171,6 +186,10 @@ a:hover {
     /*border-bottom: 1px solid #d7d7d7;*/
 }
 
+.comment:after {
+    clear: both;
+}
+
 /*.comment:hover {*/
     /*background: none repeat scroll 0 0 #ffffff;*/
     /*-moz-box-shadow: 0px 0px 2px 0px #ccc;*/
@@ -285,6 +304,21 @@ a:hover {
 
 .oneline>.comment .menu {display: none;}
 .oneline>.comment .show-full-comment {display: inline-block;}
+
+.in-ticker > .comment .name {
+}
+
+.in-ticker > .comment .body {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.in-ticker > .comment .date {
+}
+
+.oneline > .comment .menu {
+    display: none;
+}
 
 .hiddenreplies .name {}
 .hiddenreplies .points {}

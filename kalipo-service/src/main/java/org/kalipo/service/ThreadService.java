@@ -150,10 +150,19 @@ public class ThreadService {
     @Async
     public Future<Page<Comment>> getCommentsWithPages(String id, Integer page) throws KalipoException {
         Sort sort = new Sort(
-                new Sort.Order(Sort.Direction.ASC, "fingerprint")
+            new Sort.Order(Sort.Direction.ASC, "fingerprint")
         );
-        PageRequest pageable = new PageRequest(page, 50, sort);
+        PageRequest pageable = new PageRequest(page, 20, sort);
         return new AsyncResult<Page<Comment>>(commentRepository.findByThreadIdAndStatusIn(id, Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING, Comment.Status.DELETED), pageable));
+    }
+
+    @Async
+    public Future<Page<Comment>> getLatestCommentsWithPages(String id, Integer page) throws KalipoException {
+        Sort sort = new Sort(
+            new Sort.Order(Sort.Direction.DESC, "lastModifiedDate")
+        );
+        PageRequest pageable = new PageRequest(page, 3, sort);
+        return new AsyncResult<Page<Comment>>(commentRepository.findByThreadIdAndStatusIn(id, Arrays.asList(Comment.Status.APPROVED), pageable));
     }
 
     public void delete(String id) throws KalipoException {

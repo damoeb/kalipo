@@ -73,7 +73,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
         extern: function (comments) {
 
             return {
-                width: $this.$element.width() * 1.2,
+                width: $this.$element.width(),
                 height: comments.length * (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom)
             }
         },

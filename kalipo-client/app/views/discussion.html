@@ -52,24 +52,32 @@
 
                     <div ng-include="'create_comment.template'"></div>
 
-                    <div ng-repeat="page in pages">
+                    <!-- latest -->
+                    <latest-comments></latest-comments>
 
-                        <!--Page {{page.id}}: {{page.comments.length}} comments-->
+                    <div when-scrolled="loadMore()">
+                        <div ng-repeat="page in pages">
 
-                        <dl style="margin:0;">
-                            <!--<collection collection="page.comments" page="page"></collection>-->
-                            <collection></collection>
-                        </dl>
+                            <!--Page {{page.id}}: {{page.comments.length}} comments-->
 
-                        <a id="page-{{page.id +1}}"></a>
+                            <dl style="margin:0;">
+                                <discussion></discussion>
+                            </dl>
+
+                            <!--<a id="page-{{page.id +1}}"></a>-->
+
+                        </div>
+
+                        <div class="text-center" ng-show="busy">
+                            <i class="glyphicon glyphicon-refresh spinning"></i>
+                        </div>
+
                     </div>
 
-                    <a href="javascript:void(0)" ng-click="loadMore()" class="btn btn-primary" ng-hide="$isLastPage"
-                       style="margin-top:20px; width: 100%;">Load More</a>
+                    <!--<a href="javascript:void(0)" ng-click="loadMore()" class="btn btn-primary" ng-hide="$isLastPage"-->
+                       <!--style="margin-top:20px; width: 100%;">Load More</a>-->
 
-                    <!--<hr>-->
-
-                    <div style="text-align: center; font-style: italic; color: #808080">- the end -</div>
+                    <div style="text-align: center; font-style: italic; color: #808080" ng-show="$isLastPage" title="End of discussion">-30-</div>
                     <!--Moderated by <span ng-repeat="modId in thread.modIds">{{::modId}} </span>-->
                 </div>
             </div>
