@@ -39,7 +39,7 @@ angular.module('kalipoApp')
                     $rootScope.$on('event:comment', function (event, comment) {
                         console.log('new', comment);
                         // drop oldest (first), append new comment
-                        _.drop(latest_comments); // todo drop does not work
+                        latest_comments = _.drop(latest_comments);
                         latest_comments.push(comment);
                         render();
                     });
