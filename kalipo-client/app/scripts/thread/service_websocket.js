@@ -4,6 +4,15 @@ kalipoApp.factory('Websocket', function (Thread) {
 
     return {
 
+        getCommentId: function (message) {
+            switch(message.type.toLowerCase()) {
+                case 'vote':
+                    return message.event.commentId;
+                default :
+                    return message.event.id;
+            }
+        },
+
         unsubscribe: function (socket) {
             socket.unsubscribe();
         },

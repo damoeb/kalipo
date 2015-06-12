@@ -17,6 +17,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         $scope.$reportCount = 0;
         $scope.$hasReports = false;
         $scope.$isLastPage = true;
+        $scope.$missedCommentCount = 0;
 
         var tree = {};
         var currentPage = 0;
@@ -27,28 +28,33 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         var onFetchedPage = function (result) {
             $scope.pages.push(result.page);
             $scope.$isLastPage = result.isLastPage;
+            $scope.$isEmptyDiscussion = result.totalElements==0;
 
             console.log('event:fetched-page -> ...');
             $rootScope.$broadcast('event:fetched-page');
         };
 
-        Discussion.fetchPage(threadId, 0, tree, function(result) {
-            onFetchedPage(result);
+        var firstFetch = function() {
+            Discussion.fetchPage(threadId, 0, tree, function(result) {
+                onFetchedPage(result);
 
-            setTimeout(function() {
-                console.log('event:fetched-first-page -> ...');
-                $rootScope.$broadcast('event:fetched-first-page');
-            }, 2000);
-        });
+                setTimeout(function() {
+                    console.log('event:fetched-first-page -> ...');
+                    $rootScope.$broadcast('event:fetched-first-page');
+                }, 2000);
+            });
+        };
 
+        firstFetch();
 
         // -- Socket -- ------------------------------------------------------------------------------------------------
 
         var socket = Websocket.subscribe(function (message) {
             if (message.threadId == threadId) {
                 console.log('event', message);
-                Comment.get({id: message.event.commentId}, function (comment) {
-                    $rootScope.$broadcast('event:comment', comment);
+                $scope.$missedCommentCount += 1;
+                Comment.get({id: Websocket.getCommentId(message)}, function (comment) {
+                    $rootScope.$broadcast('event:comment', comment, message.type);
                     // todo update tree if possible
                 });
             }
@@ -62,14 +68,26 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
         // -- Scope Functions -- ---------------------------------------------------------------------------------------
 
-        $scope.loadMore = function () {
-
+        var loadMore = function () {
             console.log("load more");
 
             currentPage = currentPage + 1;
 
             Discussion.fetchPage(threadId, currentPage, tree, onFetchedPage);
-            //$scope.scrollTo('page-' + currentPage);
+
+        };
+
+        $scope.reload = function() {
+            currentPage = 0;
+            $scope.$missedCommentCount = 0;
+            $scope.pages = [];
+
+            firstFetch();
+        };
+
+
+        $scope.loadMore = function () {
+            loadMore();
         };
 
         $scope.scrollTo = function (id) {

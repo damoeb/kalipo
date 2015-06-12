@@ -1,5 +1,7 @@
 moeglichkeit zur sortierung
 ignore user feature
+outline sollte schon richtig sortiert sein
+prepareAndDraw in service outline funkt nicht richtig, comments gehen verloren
 
 
 --

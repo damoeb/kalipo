@@ -56,6 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/app/rest/activate")
                 // API getters do not require authentication
                 .regexMatchers(HttpMethod.GET, "/app/rest/threads.*")
+                .regexMatchers(HttpMethod.GET, "/app/rest/comments.*")
                 .regexMatchers(HttpMethod.GET, "/websocket/.*")
         ;
     }

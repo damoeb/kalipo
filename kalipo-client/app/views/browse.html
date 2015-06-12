@@ -1,47 +1,43 @@
+<h3>
+    Browse
+</h3>
+
 <div class="panel panel-default">
     <div class="panel-body">
-        <h3 class="klp-header">
-            Browse
-        </h3>
 
-        <div>
-
-            <div ng-show="threads.length == 0">No threads exist. <a href="#/discuss">Start a discussion</a>.
-            </div>
-
-
-            <div>
-                <div ng-repeat="(day, threads) in byDays" style="margin-bottom: 20px;">
-
-                    <strong>{{day}}</strong>
-
-                    <div ng-repeat="thread in threads">
-                        <div class="row comment">
-                            <div class="col-sm-12 col-xs-12">
-
-                                <!--<h4 class="voteUp always">-->
-                                <!--{{thread.likes}}-->
-                                <!--<span class="glyphicon glyphicon-thumbs-up"></span>-->
-                                <!--</h4>-->
-
-                                <!--<div class="pull-right" style="color:gray">{{::thread.createdDate | fromNow}}</div>-->
-
-                                <a href="#/v/{{::thread.id}}">{{::thread.title}}</a>
-
-                                <p>
-                                    {{::thread.body}} -- <a href="#/v/{{::thread.id}}"><span
-                                    ng-if="thread.commentCount > 0">{{::thread.commentCount}} comments</span><span
-                                    ng-if="thread.commentCount == 0">No comments yet</span></a>
-                                </p>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+        <div ng-show="threads.length == 0">No threads exist. <a href="#/discuss">Start a discussion</a>.
         </div>
 
+        <div>
+            <div ng-repeat="(day, threads) in byDays" style="margin-bottom: 20px;">
+
+                <strong>{{day}}</strong>
+
+                <div ng-repeat="thread in threads">
+                    <div class="row comment">
+                        <div class="col-sm-12 col-xs-12">
+
+                            <!--<h4 class="voteUp always">-->
+                            <!--{{thread.likes}}-->
+                            <!--<span class="glyphicon glyphicon-thumbs-up"></span>-->
+                            <!--</h4>-->
+
+                            <!--<div class="pull-right" style="color:gray">{{::thread.createdDate | fromNow}}</div>-->
+
+                            <a href="#/v/{{::thread.id}}">{{::thread.title}}</a>
+
+                            <p>
+                                {{::thread.body}} -- <a href="#/v/{{::thread.id}}"><span
+                                ng-if="thread.commentCount > 0">{{::thread.commentCount}} comments</span><span
+                                ng-if="thread.commentCount == 0">No comments yet</span></a>
+                            </p>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>

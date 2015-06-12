@@ -7,7 +7,7 @@ kalipoApp
                 templateUrl: 'views/thread-create.html',
                 controller: 'CreateThreadController',
                 access: {
-                    authorizedRoles: [USER_ROLES.all]
+                    authorizedRoles: [USER_ROLES.user]
                 }
             })
             .when('/v/:threadId', {

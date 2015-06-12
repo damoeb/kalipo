@@ -1,7 +1,7 @@
 <div class="in-ticker">
     <div class="comment">
         <!-- todo update all from-now fields, to keep time diff accurate -->
-        <span class="from-now" data-moment="<%- new Date() %>"><%- moment(new Date()).fromNow() %></span>
+        <span class="from-now" data-moment="<%- comment.lastModifiedDate %>"><%- moment(comment.lastModifiedDate).fromNow() %></span>
         <span class="name"><%- comment.displayName %></span>
         <a class="voteUp always"
            href="javascript:void(0)" ng-click="like('<%- comment.id %>')">

@@ -41,7 +41,7 @@ public class Comment implements Anonymizable<Comment> {
     @CreatedDate
     private DateTime createdDate;
 
-    @JsonIgnore
+    // todo agent will affect this field, so do it manually for target actions
     @LastModifiedDate
     private DateTime lastModifiedDate;
 

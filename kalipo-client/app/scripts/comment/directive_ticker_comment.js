@@ -37,10 +37,16 @@ angular.module('kalipoApp')
 
                     // listener for new comments
                     $rootScope.$on('event:comment', function (event, comment) {
-                        console.log('new', comment);
+                        //console.log('new', comment);
                         // drop oldest (first), append new comment
-                        latest_comments = _.drop(latest_comments);
+
+                        // todo push comment, unique by id, sort by lastModifiedDate DESC, limit size to 3
+
                         latest_comments.push(comment);
+                        latest_comments = _.slice(_.sortBy(latest_comments, function(comment) {
+                            return comment.lastModifiedDate;
+                        }), 0, 3);
+
                         render();
                     });
 

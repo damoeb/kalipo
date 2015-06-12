@@ -56,27 +56,31 @@ angular.module('kalipoApp')
                 var done_firstPage = false;
                 var done_outline = false;
 
+                var onAllFetched = function() {
+                    Outline.prepareAndDraw($scope.pages, $this.comments, function (newComments) {
+                        $this.comments = newComments;
+                    });
+                };
+
                 $rootScope.$on('event:fetched-page', function () {
 
                     console.log('-> event:fetched-page');
                     done_firstPage = true;
 
                     if (done_outline) {
-                        Outline.prepareAndDraw($scope.pages, $this.comments, function (newComments) {
-                            $this.comments = newComments;
-                        });
+                        onAllFetched();
                     }
                 });
 
                 Outline.fetchOutline(threadId, function (comments) {
                     $this.comments = comments;
 
+                    console.log('Fetched outline');
+
                     done_outline = true;
 
                     if (done_firstPage) {
-                        Outline.prepareAndDraw($scope.pages, comments, function (newComments) {
-                            $this.comments = newComments;
-                        });
+                        onAllFetched();
                     }
 
                 });
