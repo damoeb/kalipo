@@ -222,18 +222,18 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
 
         prepareAndDraw: function (pages, comments, onSuccess) {
 
-            console.log('prepare drawing', comments.length);
+            //console.log('prepare drawing outline', pages.length, 'pages', pages);
 
             var paginated = internal.paginate(comments);
 
             // todo this does not work properly
-            //_.forEach(pages, function (page) {
-            //
-            //    paginated[page.id] = [];
-            //    helper.flat(paginated[page.id], page.comments);
-            //    paginated[page.id] = _.flatten(paginated[page.id]);
-            //
-            //});
+            _.forEach(pages, function (page) {
+
+                paginated[page.id] = [];
+                helper.flat(paginated[page.id], page.comments);
+                paginated[page.id] = _.flatten(paginated[page.id]);
+                //console.log('page', page.id, paginated[page.id].length)
+            });
 
             // updated pages to flat comments
             comments = [];

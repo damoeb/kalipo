@@ -4,7 +4,7 @@ kalipoApp.constant('OutlineConfig', {
     bar_height: 7,
     bar_marginBottom: 3,
     yOffsetForRoots: 8, // if a level=0 comment occurs
-    commentsOnPage: 200,
+    commentsOnPage: 20,
     level_xOffset: 5,
     bar_width: 15,
     bar_influenceBoost: 5,
