@@ -1,3 +1,8 @@
+- link: http://spiegel.de/wef...gre/ [spiegel.de] urls folgen bis am ziel
+  render body to bodyhtml
+- permalinks for comments, update url when clicking in outline
+
+
 outline, comments from page are falsely flattened. prepareAndDraw in service outline funkt nicht richtig, comments gehen verloren
 
 moeglichkeit zur sortierung
