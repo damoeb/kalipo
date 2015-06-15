@@ -3,9 +3,12 @@
 - permalinks for comments, update url when clicking in outline
 
 
-outline, comments from page are falsely flattened. prepareAndDraw in service outline funkt nicht richtig, comments gehen verloren
+outline sollte schon richtig sortiert sein: als POST die sortierparameter mitgeben
+besser, keine outline mehr laden, sondern einfach 3 pages im voraus
 
-moeglichkeit zur sortierung
+comments eines jeden users anzeigen
+dashboard controller machen immer das gleiche -> vereinheitlichen
+
 ignore user feature
 outline sollte schon richtig sortiert sein
 
