@@ -17,10 +17,8 @@ import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
 import org.kalipo.service.util.NumUtils;
-import org.kalipo.service.util.UrlBoxingLinkRenderer;
 import org.kalipo.web.filter.AnonUtil;
 import org.kalipo.web.rest.KalipoException;
-import org.pegdown.PegDownProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
@@ -34,6 +32,8 @@ import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Future;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @KalipoExceptionHandler
@@ -376,7 +376,7 @@ public class CommentService {
         dirty.setAuthorId(currentLogin);
         dirty.setFingerprint(getFingerprint(parent, thread));
 
-//        todo fix renderBody(dirty);
+        renderBody(dirty);
 
         dirty.setStatus(Comment.Status.PENDING);
         log.info(String.format("%s creates pending comment %s ", currentLogin, dirty.toString()));
@@ -392,15 +392,35 @@ public class CommentService {
 
     private void renderBody(Comment comment) {
 
-        // todo test this
-        PegDownProcessor processor = new PegDownProcessor(500);
+        // support > quotes, links and #hashtags
+        StringBuilder body = new StringBuilder(comment.getBody());
 
-        // todo from properties
-        final String urlPrefix = String.format("some-prefix/out?commentId=%s&amp;url=", comment.getId());
-        UrlBoxingLinkRenderer linkRenderer = new UrlBoxingLinkRenderer(urlPrefix);
+        // todo check privileges and create a tag otherwise leave plain
+        Pattern regexLink = Pattern.compile("\\(?\\bhttp://[-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|]", Pattern.CASE_INSENSITIVE);
+        Matcher m = regexLink.matcher(body);
+        while (m.find()) {
+            // todo resolve url for link shortener with httpclient
+        }
 
-        comment.setBodyHtml(processor.markdownToHtml(comment.getBody(), linkRenderer));
-        comment.setLinks(linkRenderer.getLinks());
+        Pattern regexHashtag = Pattern.compile("#(\\w+)", Pattern.CASE_INSENSITIVE);
+        m = regexLink.matcher(body);
+        while (m.find()) {
+
+        }
+
+
+        // todo make a stream by line
+        Pattern regexComment = Pattern.compile("[ ]*> [^/n/r]+", Pattern.DOTALL);
+
+//        // todo test this
+//        PegDownProcessor processor = new PegDownProcessor(500);
+//
+//        // todo from properties
+//        final String urlPrefix = String.format("some-prefix/out?commentId=%s&amp;url=", comment.getId());
+//        UrlBoxingLinkRenderer linkRenderer = new UrlBoxingLinkRenderer(urlPrefix);
+//
+//        comment.setBodyHtml(processor.markdownToHtml(comment.getBody(), linkRenderer));
+//        comment.setLinks(linkRenderer.getLinks());
     }
 
     private String getFingerprint(Comment parent, Thread thread) {
