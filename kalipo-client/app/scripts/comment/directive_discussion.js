@@ -2,7 +2,7 @@
  * Created by damoeb on 16.12.14.
  */
 angular.module('kalipoApp')
-    .directive('discussion', function ($compile, $templateCache, $http, $rootScope, Vote, Comment, Report, Notifications, REPORT_IDS, COMMENT_SETTINGS) {
+    .directive('discussion', function ($compile, $templateCache, $http, $rootScope, Vote, Comment, Report, Notifications, COMMENT_SETTINGS) {
         return {
             restrict: 'E',
             replace: true,
@@ -15,10 +15,7 @@ angular.module('kalipoApp')
             link: function ($scope, $element, $attrs) {
 
                 $scope.draft = {};
-                $scope.report = {};
                 $scope.$isMod = true;
-
-                $scope.reportOptions = REPORT_IDS;
 
                 /**
                  * will wrap excessive long comments with a container and a "show-more" toggle link
@@ -124,17 +121,6 @@ angular.module('kalipoApp')
 
                     $scope.displayName = displayName;
                     $scope.report.commentId = commentId;
-                };
-
-                $scope.submitReport = function () {
-
-                    console.log('submit report');
-
-                    Report.save($scope.report,
-                        function () {
-                            Notifications.info('Report saved...');
-                            $scope.report.reason = null;
-                        });
                 };
 
                 $scope.verbose = function (commentId) {

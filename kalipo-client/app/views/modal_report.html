@@ -15,27 +15,22 @@
 
                     <p>
 
-                    <!--<div class="radio" ng-repeat="opt in reportOptions">-->
-                        <!--<label>-->
-                            <!--<input type="radio" name="report-reason" value="opt.id" ng-model="report.reasonId">-->
-                            <!--{{opt.name}}-->
-                        <!--</label>-->
-                    <!--</div>-->
-
                     <select
-                        ng-model="report.reasonId"
-                        ng-options="opt.id as opt.name for opt in reportOptions">
+                        ng-model="report.reason"
+                        ng-options="opt.name for opt in reportOptions track by opt.id"
+                        required="required">
                     </select>
-
 
                     </p>
 
                     <div class="form-group">
                         <textarea name="body" ng-model="report.customReason" class="form-control"
+                                  ng-show="report.reason.id =='Other'"
                                   ng-minlength=5 ng-maxlength=148 rows="3" placeholder="Reason (optional)"
                             ></textarea>
                     </div>
-                    <div class="form-group">
+
+                    <div class="form-group" ng-show="!authenticated">
                         <input type="email" name="email" ng-model="report.email" class="form-control" placeholder="Your Email (optional)">
                     </div>
                 </div>

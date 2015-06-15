@@ -1,7 +1,7 @@
 'use strict';
 
-kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$location', '$anchorScroll', '$rootScope', 'Thread', 'Comment', 'Report', 'Discussion', 'Websocket', 'Notifications',
-    function ($scope, $routeParams, $location, $anchorScroll, $rootScope, Thread, Comment, Report, Discussion, Websocket, Notifications) {
+kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$location', '$anchorScroll', '$rootScope', 'Thread', 'Comment', 'Report', 'Discussion', 'Websocket', 'Notifications', 'REPORT_IDS',
+    function ($scope, $routeParams, $location, $anchorScroll, $rootScope, Thread, Comment, Report, Discussion, Websocket, Notifications, REPORT_IDS) {
 
         var threadId = $routeParams.threadId;
         // todo impl scrolling to commentId
@@ -18,6 +18,8 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         $scope.$hasReports = false;
         $scope.$isLastPage = true;
         $scope.$missedCommentCount = 0;
+        $scope.report = {};
+        $scope.reportOptions = REPORT_IDS;
 
         var tree = {};
         var currentPage = 0;
@@ -115,6 +117,19 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
             Thread.update($scope.thread, function() {
                 Notifications.info('Updated');
             });
+        };
+
+        $scope.submitReport = function () {
+
+            console.log('submit report');
+
+            $scope.report.reason = $scope.report.reason.id;
+
+            Report.save($scope.report,
+                function () {
+                    Notifications.info('Report saved...');
+                    $scope.report.reason = null;
+                });
         };
 
     }]);

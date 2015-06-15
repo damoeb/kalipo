@@ -27,7 +27,7 @@ public class Report implements Serializable {
     private String authorId;
 
     @NotNull(message = "{constraint.notnull.reportReason}")
-    private Integer reasonId;
+    private Reason reason;
 
     @Size(min = 1, max = 148)
     private String customReason;
@@ -72,12 +72,12 @@ public class Report implements Serializable {
         this.authorId = authorId;
     }
 
-    public Integer getReasonId() {
-        return reasonId;
+    public Reason getReason() {
+        return reason;
     }
 
-    public void setReasonId(Integer reasonId) {
-        this.reasonId = reasonId;
+    public void setReason(Reason reason) {
+        this.reason = reason;
     }
 
     public String getCustomReason() {
@@ -158,5 +158,18 @@ public class Report implements Serializable {
      */
     public static enum Status {
         PENDING, APPROVED, REJECTED
+    }
+
+    private enum Reason {
+        Other,
+        Offensive_Language,
+        Personal_Abuse,
+        Off_Topic,
+        Legal_Issue,
+        Trolling,
+        Hate_Speech,
+        Offensive_Threatening_Language,
+        Copyright,
+        Spam
     }
 }
