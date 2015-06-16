@@ -140,6 +140,8 @@ dependencies {
     compile group: 'io.github.jhipster.loaded', name: 'agent', version: jhipster_loaded_version
     compile group: 'com.mangofactory', name: 'swagger-springmvc', version: swagger_springmvc_version
     compile group: 'com.h2database', name: 'h2', version: h2_version
+    compile group: 'org.apache.httpcomponents', name:'httpclient', version: httpclient_version
+
     testCompile group: 'com.jayway.awaitility', name: 'awaitility', version: awaility_version
     testCompile group: 'com.jayway.jsonpath', name: 'json-path', version: json_path_version
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: spring_boot_version

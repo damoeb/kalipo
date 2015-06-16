@@ -2,6 +2,16 @@ package org.kalipo.service;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.ExecutionContext;
+import org.apache.http.protocol.HttpContext;
 import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.RateLimit;
@@ -29,8 +39,12 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -318,7 +332,7 @@ public class CommentService {
 
         // -- Quota
         int count = commentRepository.countWithinDateRange(SecurityUtils.getCurrentLogin(), DateTime.now().minusDays(1), DateTime.now());
-        int dailyLimit = 100; // todo senseful quota, centralize conf params
+        int dailyLimit = 100; // todo senseful quota, centralize conf params, depending on user level?
         if (count >= dailyLimit && !isSuperMod) {
             // todo send mail
             throw new KalipoException(ErrorCode.METHOD_REQUEST_LIMIT_REACHED, "daily comment quota is " + dailyLimit);
@@ -376,7 +390,7 @@ public class CommentService {
         dirty.setAuthorId(currentLogin);
         dirty.setFingerprint(getFingerprint(parent, thread));
 
-        renderBody(dirty);
+        dirty.setBodyHtml(renderBody(dirty.getBody()));
 
         dirty.setStatus(Comment.Status.PENDING);
         log.info(String.format("%s creates pending comment %s ", currentLogin, dirty.toString()));
@@ -390,37 +404,110 @@ public class CommentService {
         return dirty;
     }
 
-    private void renderBody(Comment comment) {
+    private String renderBody(String body) {
 
-        // support > quotes, links and #hashtags
-        StringBuilder body = new StringBuilder(comment.getBody());
+        StringBuffer bodyHtml = new StringBuffer(body);
 
-        // todo check privileges and create a tag otherwise leave plain
+        renderQuotes(bodyHtml);
+        renderLinks(bodyHtml);
+        renderHashtags(bodyHtml);
+
+        return bodyHtml.toString();
+    }
+
+    private void renderLinks(StringBuffer buffer) {
         Pattern regexLink = Pattern.compile("\\(?\\bhttp://[-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|]", Pattern.CASE_INSENSITIVE);
-        Matcher m = regexLink.matcher(body);
-        while (m.find()) {
-            // todo resolve url for link shortener with httpclient
+        Matcher matcher = regexLink.matcher(buffer);
+        while (matcher.find()) {
+
+            String replacement;
+            final String url = matcher.group().trim();
+            try {
+                final URI targetUri = followUrl(url);
+
+                if (SecurityUtils.hasPrivilege(Privileges.CREATE_COMMENT_WITH_LINK)) {
+                    replacement = createHref(targetUri);
+                } else {
+                    replacement = String.format("%s [%s]", targetUri.toASCIIString(), targetUri.getHost());
+                }
+
+            } catch (URISyntaxException e) {
+                replacement = url;
+            }
+
+            buffer.replace(matcher.start(), matcher.end(), replacement);
+            matcher.region(matcher.start() + replacement.length(), buffer.length());
         }
+    }
+
+    private URI followUrl(String url) throws URISyntaxException {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        try {
+            HttpGet httpget = new HttpGet(url);
+            HttpContext context = new BasicHttpContext();
+            HttpResponse response = httpClient.execute(httpget, context);
+            if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+                throw new IOException(response.getStatusLine().toString());
+            }
+            HttpUriRequest currentReq = (HttpUriRequest) context.getAttribute(ExecutionContext.HTTP_REQUEST);
+            HttpHost currentHost = (HttpHost)  context.getAttribute(ExecutionContext.HTTP_TARGET_HOST);
+            String currentUrl = (currentReq.getURI().isAbsolute()) ? currentReq.getURI().toString() : (currentHost.toURI() + currentReq.getURI());
+
+            return new URI(currentUrl);
+
+        } catch (Exception e) {
+            log.error(String.format("Failed to follow url %s", url), e);
+
+        } finally {
+            try {
+                httpClient.close();
+            } catch (IOException e1) {
+                // ignore
+            }
+        }
+        return new URI(url);
+    }
+
+    private String createHref(URI targetUri) {
+        String asciiUrl = targetUri.toASCIIString();
+        String label = asciiUrl;
+        if (asciiUrl.length() > 40) {
+            label = asciiUrl.substring(0, 30) + "…" + asciiUrl.substring(asciiUrl.length() - 10, asciiUrl.length());
+        }
+        return String.format("<a href=\"%s\">%s</a> [%s]", asciiUrl, label, targetUri.getHost());
+    }
+
+    private void renderHashtags(StringBuffer buffer) {
 
         Pattern regexHashtag = Pattern.compile("#(\\w+)", Pattern.CASE_INSENSITIVE);
-        m = regexLink.matcher(body);
-        while (m.find()) {
+        Matcher matcher = regexHashtag.matcher(buffer);
 
+        while (matcher.find()) {
+            String replacement = createHashtag(matcher.group(1).trim());
+            buffer.replace(matcher.start(), matcher.end(), replacement);
+            matcher.region(matcher.start() + replacement.length(), buffer.length());
         }
+    }
 
+    private String createHashtag(String hashtag) {
+        return String.format("<a href=\"/#/tag/%1$s\">#%1$s</a>", hashtag);
+    }
 
-        // todo make a stream by line
-        Pattern regexComment = Pattern.compile("[ ]*> [^/n/r]+", Pattern.DOTALL);
+    private void renderQuotes(StringBuffer buffer) {
 
-//        // todo test this
-//        PegDownProcessor processor = new PegDownProcessor(500);
-//
-//        // todo from properties
-//        final String urlPrefix = String.format("some-prefix/out?commentId=%s&amp;url=", comment.getId());
-//        UrlBoxingLinkRenderer linkRenderer = new UrlBoxingLinkRenderer(urlPrefix);
-//
-//        comment.setBodyHtml(processor.markdownToHtml(comment.getBody(), linkRenderer));
-//        comment.setLinks(linkRenderer.getLinks());
+        Pattern regexQuote = Pattern.compile("[\n\r\t ]*[>]+([^\n\r]+)", Pattern.DOTALL);
+
+        Matcher matcher = regexQuote.matcher(buffer);
+
+        while (matcher.find()) {
+            String replacement = createQuote(matcher.group(1).trim());
+            buffer.replace(matcher.start(), matcher.end(), replacement);
+            matcher.region(matcher.start() + replacement.length(), buffer.length());
+        }
+    }
+
+    private String createQuote(String quote) {
+        return String.format(" <div class=\"quote\">%s</div> ", quote);
     }
 
     private String getFingerprint(Comment parent, Thread thread) {
@@ -431,10 +518,11 @@ public class CommentService {
 
     /**
      * Sticky-field may only be set/changed by mods and supermods
-     * @param comment the new comment
-     * @param original the original comment
-     * @param isNew helper, TRUE iff original is null
-     * @param isMod is current user a mod
+     *
+     * @param comment    the new comment
+     * @param original   the original comment
+     * @param isNew      helper, TRUE iff original is null
+     * @param isMod      is current user a mod
      * @param isSuperMod is current user a supermod
      * @throws KalipoException
      */
@@ -461,8 +549,8 @@ public class CommentService {
     public void collectForward(String commentId, String url, String remoteAddr) throws KalipoException {
         Comment comment = commentRepository.findOne(commentId);
         log.info(String.format("forward %s via %s", AnonUtil.maskIp(remoteAddr), commentId));
-        for(Comment.Link link: comment.getLinks()) {
-            if(StringUtils.equals(url, link.getUrl())) {
+        for (Comment.Link link : comment.getLinks()) {
+            if (StringUtils.equals(url, link.getUrl())) {
                 link.incrImpression();
                 break;
             }

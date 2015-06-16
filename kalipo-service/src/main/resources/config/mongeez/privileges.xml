@@ -85,6 +85,13 @@
             "reputation": 0
             });
 
+            db.T_PRIVILEGE.insert(
+            {
+            "_id" : "13",
+            "name": "CREATE_COMMENT_WITH_LINK",
+            "reputation": 0
+            });
+
         </script>
     </changeSet>
 </mongoChangeLog>

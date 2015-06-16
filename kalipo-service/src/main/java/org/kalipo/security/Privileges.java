@@ -29,4 +29,5 @@ public class Privileges {
     public static final String CLOSE_REPORT = "CLOSE_REPORT";
     public static final String HOOK_THREAD_TO_URL = "HOOK_THREAD_TO_URL";
     public static final String BAN_USER = "BAN_USER";
+    public static final String CREATE_COMMENT_WITH_LINK = "CREATE_COMMENT_WITH_LINK";
 }

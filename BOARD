@@ -1,6 +1,7 @@
 - link: http://spiegel.de/wef...gre/ [spiegel.de] urls folgen bis am ziel
   render body to bodyhtml
 - permalinks for comments, update url when clicking in outline
+- oneline must be much smaller like on slashdot
 
 
 outline sollte schon richtig sortiert sein: als POST die sortierparameter mitgeben
