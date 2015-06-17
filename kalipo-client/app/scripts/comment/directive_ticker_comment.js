@@ -6,11 +6,6 @@ angular.module('kalipoApp')
         return {
             restrict: 'E',
             replace: true,
-            scope: {
-                //    collection: '=',
-                //    page: '='
-                //    // todo parent scope (thread) should be inherited
-            },
             template: '',
             link: function ($scope, $element, $attrs) {
 
@@ -37,10 +32,11 @@ angular.module('kalipoApp')
 
                     // listener for new comments
                     $rootScope.$on('event:comment', function (event, comment) {
-                        //console.log('new', comment);
+                        console.log('new ticker-comment', comment);
                         // drop oldest (first), append new comment
 
                         // todo push comment, unique by id, sort by lastModifiedDate DESC, limit size to 3
+                        // todo update comment in view -> see board
 
                         latest_comments.push(comment);
                         latest_comments = _.slice(_.sortBy(latest_comments, function(comment) {

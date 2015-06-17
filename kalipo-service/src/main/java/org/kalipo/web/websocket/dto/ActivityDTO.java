@@ -62,9 +62,8 @@ public class ActivityDTO {
 
         ActivityDTO that = (ActivityDTO) o;
 
-        if (uuid != null ? !uuid.equals(that.uuid) : that.uuid != null) return false;
+        return !(uuid != null ? !uuid.equals(that.uuid) : that.uuid != null);
 
-        return true;
     }
 
     @Override

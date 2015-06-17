@@ -258,7 +258,8 @@ public class UserService {
         }
 
         if (!original.equals(modified)) {
-//        todo compare and if changes log new version, fix equals
+//        todo log new version, fix equals
+            log.info(String.format("User %s changed to", modified.getLogin()), modified);
         }
 
         return userRepository.save(original);

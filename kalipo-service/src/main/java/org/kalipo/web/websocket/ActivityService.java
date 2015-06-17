@@ -31,7 +31,6 @@ public class ActivityService {
     @Disconnect
     public void onDisconnect(AtmosphereResourceEvent event) throws IOException {
         log.debug("Browser {} disconnected", event.getResource().uuid());
-        AtmosphereRequest request = event.getResource().getRequest();
         ActivityDTO activityDTO = new ActivityDTO();
         activityDTO.setUuid(event.getResource().uuid());
         activityDTO.setPage("logout");

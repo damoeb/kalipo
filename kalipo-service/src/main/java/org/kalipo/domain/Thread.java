@@ -261,7 +261,7 @@ public class Thread implements Serializable {
     /**
      * Created by damoeb on 7/28/14.
      */
-    public static enum Status {
+    public enum Status {
         OPEN, CLOSED
     }
 }

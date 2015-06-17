@@ -156,7 +156,7 @@ public class Report implements Serializable {
     /**
      * Created by damoeb on 8/8/14.
      */
-    public static enum Status {
+    public enum Status {
         PENDING, APPROVED, REJECTED
     }
 

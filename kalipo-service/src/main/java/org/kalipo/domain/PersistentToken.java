@@ -42,11 +42,11 @@ public class PersistentToken implements Serializable {
     @Size(min = 0, max = 39)
     private String ipAddress;
 
-    
+
     private String userAgent;
 
     @JsonIgnore
-    
+
     @DBRef
     private User user;
 
@@ -118,11 +118,8 @@ public class PersistentToken implements Serializable {
 
         PersistentToken that = (PersistentToken) o;
 
-        if (!series.equals(that.series)) {
-            return false;
-        }
+        return series.equals(that.series);
 
-        return true;
     }
 
     @Override

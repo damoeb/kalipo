@@ -13,7 +13,7 @@ angular.module('kalipoApp')
             link: function ($scope, $element, $attributes) {
 
                 var threadId = $routeParams.threadId;
-                console.log('threadId', threadId);
+//                console.log('threadId', threadId);
 
                 var $this = this;
 

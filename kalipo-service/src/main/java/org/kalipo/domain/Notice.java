@@ -100,7 +100,7 @@ public class Notice implements Serializable {
         this.message = message;
     }
 
-    public static enum Type {
+    public enum Type {
         LIKE, MENTION, REPLY, DELETION, REPORT, REVIEW, FRAUDULENT_USER, REJECTED, PENDING, APPROVAL
     }
 }

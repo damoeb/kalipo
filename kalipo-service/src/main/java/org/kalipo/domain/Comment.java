@@ -45,8 +45,8 @@ public class Comment implements Anonymizable<Comment> {
     @LastModifiedDate
     private DateTime lastModifiedDate;
 
-    @NotNull(message = "{constraint.notnull.body}")
-    @Size(min = 2, max = LEN_TEXT, message = "{constraint.length.body}")
+//    @NotNull(message = "{constraint.notnull.body}")
+//    @Size(min = 2, max = LEN_TEXT, message = "{constraint.length.body}")
     private String body;
 
     private String bodyHtml;
@@ -317,7 +317,7 @@ public class Comment implements Anonymizable<Comment> {
     /**
      * Created by damoeb on 7/28/14.
      */
-    public static enum Status {
+    public enum Status {
         APPROVED, PENDING, SPAM, REJECTED, DELETED
     }
 

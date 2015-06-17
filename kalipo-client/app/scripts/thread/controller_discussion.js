@@ -16,7 +16,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         $scope.$pendingCount = 0;
         $scope.$reportCount = 0;
         $scope.$hasReports = false;
-        $scope.$isLastPage = true;
+        $scope.$isLastPage = false;
         $scope.$missedCommentCount = 0;
         $scope.report = {};
         $scope.reportOptions = REPORT_IDS;
@@ -32,8 +32,10 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
             $scope.$isLastPage = result.isLastPage;
             $scope.$isEmptyDiscussion = result.totalElements==0;
 
-            console.log('event:fetched-page -> ...');
-            $rootScope.$broadcast('event:fetched-page');
+            if(result.numberOfElements > 0) {
+                console.log('event:fetched-page -> ...');
+                $rootScope.$broadcast('event:fetched-page');
+            }
         };
 
         var firstFetch = function() {
@@ -71,11 +73,13 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         // -- Scope Functions -- ---------------------------------------------------------------------------------------
 
         var loadMore = function () {
-            console.log("load more");
+            if(!$scope.$isLastPage) {
+                console.log("load more");
 
-            currentPage = currentPage + 1;
+                currentPage = currentPage + 1;
 
-            Discussion.fetchPage(threadId, currentPage, tree, onFetchedPage);
+                Discussion.fetchPage(threadId, currentPage, tree, onFetchedPage);
+            }
 
         };
 

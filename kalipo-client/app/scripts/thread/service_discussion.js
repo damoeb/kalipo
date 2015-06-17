@@ -230,7 +230,7 @@ kalipoApp.factory('Discussion', function (Thread) {
                 end = new Date().getTime();
                 console.log('Execution time: ' + (end - start));
 
-                onSuccess({page: page, isLastPage: pageData.lastPage, isFirstPage: pageData.firstPage, totalElements: pageData.totalElements});
+                onSuccess({page: page, isLastPage: pageData.lastPage, isFirstPage: pageData.firstPage, totalElements: pageData.totalElements, numberOfElements: pageData.numberOfElements});
 
             });
         }

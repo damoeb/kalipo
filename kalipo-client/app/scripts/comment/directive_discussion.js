@@ -35,8 +35,8 @@ angular.module('kalipoApp')
 
                         var n = lineCount - COMMENT_SETTINGS.criticalLineCount;
 
-                        var $str_show_more = $('<span/>', {class: 'more', text: 'Show ' + n + ' more lines'});
-                        var $str_show_less = $('<span/>', {class: 'less', text: 'Hide ' + n + ' lines'});
+                        var $str_show_more = $('<span/>', {class: 'more', text: 'Show ' + parseInt(n) + ' more lines'});
+                        var $str_show_less = $('<span/>', {class: 'less', text: 'Hide ' + parseInt(n) + ' lines'});
                         var $fn = $('<a/>', {href: 'javascript:void(0)'}).append($str_show_more).append($str_show_less);
 
                         $fn.click(function () {

@@ -90,7 +90,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
 
             var iRange = Math.abs(minInfluence) + Math.abs(maxInfluence);
 
-            console.log('minInfluence', minInfluence, 'maxInfluence', maxInfluence, 'iRange', iRange);
+//            console.log('minInfluence', minInfluence, 'maxInfluence', maxInfluence, 'iRange', iRange);
 
             return {
                 max: maxInfluence,
@@ -107,10 +107,10 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             }).level;
 
             var domainWidth = (maxLevel * OutlineConfig.level_xOffset + OutlineConfig.bar_width + influence.max * 0.8 * OutlineConfig.bar_influenceBoost);
-            console.log('domain-width', domainWidth);
+//            console.log('domain-width', domainWidth);
 
             var domainHeight = comments.length * (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) + helper.rootsCount(0, comments.length) * OutlineConfig.yOffsetForRoots;
-            console.log('domain-height', domainHeight);
+//            console.log('domain-height', domainHeight);
 
             return {
                 width: domainWidth,
@@ -133,7 +133,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
 
         draw: function (comments) {
 
-            console.log('drawing');
+            console.log('drawing outline');
 
             var influence = internal.influence(comments);
             var extern = internal.extern(comments);
@@ -222,7 +222,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
 
         prepareAndDraw: function (pages, comments, onSuccess) {
 
-            //console.log('prepare drawing outline', pages.length, 'pages', pages);
+            console.log('prepare drawing outline', pages.length, 'pages', pages);
 
             var paginated = internal.paginate(comments);
 

@@ -2,16 +2,6 @@ package org.kalipo.service;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpHost;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.ExecutionContext;
-import org.apache.http.protocol.HttpContext;
 import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.RateLimit;
@@ -39,23 +29,18 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.Future;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 @KalipoExceptionHandler
 public class CommentService {
 
+    private final Logger log = LoggerFactory.getLogger(CommentService.class);
+
     private static final int PAGE_SIZE = 51;
     private static final int MAX_LEVEL = 8;
-    private final Logger log = LoggerFactory.getLogger(CommentService.class);
 
     @Inject
     private CommentRepository commentRepository;
@@ -74,6 +59,9 @@ public class CommentService {
 
     @Inject
     private UserService userService;
+
+    @Inject
+    private MarkupService markupService;
 
     @RateLimit
     public Comment create(Comment comment) throws KalipoException {
@@ -223,12 +211,6 @@ public class CommentService {
     public Future<List<Comment>> getPendingInThreadWithPages(String threadId, final int pageNumber) {
         PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, "createdDate");
         return new AsyncResult<>(commentRepository.findByThreadIdAndStatusIn(threadId, Arrays.asList(Comment.Status.PENDING), pageable).getContent());
-    }
-
-    @Async
-    public Future<List<Comment>> getLatestInThreadWithPages(String threadId, final int pageNumber) {
-        PageRequest pageable = new PageRequest(pageNumber, 5, Sort.Direction.DESC, "createdDate");
-        return new AsyncResult<>(commentRepository.findByThreadIdAndStatusIn(threadId, Arrays.asList(Comment.Status.APPROVED), pageable).getContent());
     }
 
     @Async
@@ -390,7 +372,7 @@ public class CommentService {
         dirty.setAuthorId(currentLogin);
         dirty.setFingerprint(getFingerprint(parent, thread));
 
-        dirty.setBodyHtml(renderBody(dirty.getBody()));
+        dirty.setBodyHtml(markupService.toHtml(dirty.getBody()));
 
         dirty.setStatus(Comment.Status.PENDING);
         log.info(String.format("%s creates pending comment %s ", currentLogin, dirty.toString()));
@@ -402,112 +384,6 @@ public class CommentService {
         dirty = commentRepository.save(dirty);
 
         return dirty;
-    }
-
-    private String renderBody(String body) {
-
-        StringBuffer bodyHtml = new StringBuffer(body);
-
-        renderQuotes(bodyHtml);
-        renderLinks(bodyHtml);
-        renderHashtags(bodyHtml);
-
-        return bodyHtml.toString();
-    }
-
-    private void renderLinks(StringBuffer buffer) {
-        Pattern regexLink = Pattern.compile("\\(?\\bhttp://[-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|]", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = regexLink.matcher(buffer);
-        while (matcher.find()) {
-
-            String replacement;
-            final String url = matcher.group().trim();
-            try {
-                final URI targetUri = followUrl(url);
-
-                if (SecurityUtils.hasPrivilege(Privileges.CREATE_COMMENT_WITH_LINK)) {
-                    replacement = createHref(targetUri);
-                } else {
-                    replacement = String.format("%s [%s]", targetUri.toASCIIString(), targetUri.getHost());
-                }
-
-            } catch (URISyntaxException e) {
-                replacement = url;
-            }
-
-            buffer.replace(matcher.start(), matcher.end(), replacement);
-            matcher.region(matcher.start() + replacement.length(), buffer.length());
-        }
-    }
-
-    private URI followUrl(String url) throws URISyntaxException {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        try {
-            HttpGet httpget = new HttpGet(url);
-            HttpContext context = new BasicHttpContext();
-            HttpResponse response = httpClient.execute(httpget, context);
-            if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-                throw new IOException(response.getStatusLine().toString());
-            }
-            HttpUriRequest currentReq = (HttpUriRequest) context.getAttribute(ExecutionContext.HTTP_REQUEST);
-            HttpHost currentHost = (HttpHost)  context.getAttribute(ExecutionContext.HTTP_TARGET_HOST);
-            String currentUrl = (currentReq.getURI().isAbsolute()) ? currentReq.getURI().toString() : (currentHost.toURI() + currentReq.getURI());
-
-            return new URI(currentUrl);
-
-        } catch (Exception e) {
-            log.error(String.format("Failed to follow url %s", url), e);
-
-        } finally {
-            try {
-                httpClient.close();
-            } catch (IOException e1) {
-                // ignore
-            }
-        }
-        return new URI(url);
-    }
-
-    private String createHref(URI targetUri) {
-        String asciiUrl = targetUri.toASCIIString();
-        String label = asciiUrl;
-        if (asciiUrl.length() > 40) {
-            label = asciiUrl.substring(0, 30) + "…" + asciiUrl.substring(asciiUrl.length() - 10, asciiUrl.length());
-        }
-        return String.format("<a href=\"%s\">%s</a> [%s]", asciiUrl, label, targetUri.getHost());
-    }
-
-    private void renderHashtags(StringBuffer buffer) {
-
-        Pattern regexHashtag = Pattern.compile("#(\\w+)", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = regexHashtag.matcher(buffer);
-
-        while (matcher.find()) {
-            String replacement = createHashtag(matcher.group(1).trim());
-            buffer.replace(matcher.start(), matcher.end(), replacement);
-            matcher.region(matcher.start() + replacement.length(), buffer.length());
-        }
-    }
-
-    private String createHashtag(String hashtag) {
-        return String.format("<a href=\"/#/tag/%1$s\">#%1$s</a>", hashtag);
-    }
-
-    private void renderQuotes(StringBuffer buffer) {
-
-        Pattern regexQuote = Pattern.compile("[\n\r\t ]*[>]+([^\n\r]+)", Pattern.DOTALL);
-
-        Matcher matcher = regexQuote.matcher(buffer);
-
-        while (matcher.find()) {
-            String replacement = createQuote(matcher.group(1).trim());
-            buffer.replace(matcher.start(), matcher.end(), replacement);
-            matcher.region(matcher.start() + replacement.length(), buffer.length());
-        }
-    }
-
-    private String createQuote(String quote) {
-        return String.format(" <div class=\"quote\">%s</div> ", quote);
     }
 
     private String getFingerprint(Comment parent, Thread thread) {
@@ -546,7 +422,7 @@ public class CommentService {
     }
 
     @Async
-    public void collectForward(String commentId, String url, String remoteAddr) throws KalipoException {
+    public void logForward(String commentId, String url, String remoteAddr) throws KalipoException {
         Comment comment = commentRepository.findOne(commentId);
         log.info(String.format("forward %s via %s", AnonUtil.maskIp(remoteAddr), commentId));
         for (Comment.Link link : comment.getLinks()) {

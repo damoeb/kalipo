@@ -29,8 +29,8 @@ public class MarkupService {
     private final Logger log = LoggerFactory.getLogger(MarkupService.class);
 
     private static final Pattern REGEX_HASHTAG = Pattern.compile("#(\\w+)", Pattern.CASE_INSENSITIVE);
-    private static final Pattern REGEX_QUOTE = Pattern.compile("[\n\r\t ]*[>]+([^\n\r]+)", Pattern.DOTALL);
-    private static final Pattern REGEX_LINK = Pattern.compile("\\(?\\bhttp://[-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|]", Pattern.CASE_INSENSITIVE);
+    private static final Pattern REGEX_QUOTE = Pattern.compile("[\n\r\t ]*[>]+([^\n\r]+)[\n\r]?", Pattern.DOTALL);
+    private static final Pattern REGEX_LINK = Pattern.compile("\\(?\\bhttp[s]?://[-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|]", Pattern.CASE_INSENSITIVE);
 
     /**
      * Translates plaintext to HTML. It creates quotes, links and hashtags. URL shortening is resolved if possible, to increase anonymity.
@@ -146,6 +146,6 @@ public class MarkupService {
     }
 
     private String createQuote(String quote) {
-        return String.format(" <div class=\"quote\">%s</div> ", quote);
+        return String.format("<div class=\"quote\">%s</div>", quote);
     }
 }

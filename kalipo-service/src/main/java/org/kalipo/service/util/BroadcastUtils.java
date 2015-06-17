@@ -16,7 +16,7 @@ public final class BroadcastUtils {
 
     private static final Logger log = LoggerFactory.getLogger(BroadcastUtils.class);
 
-    public static enum Type {
+    public enum Type {
         COMMENT, VOTE
     }
 

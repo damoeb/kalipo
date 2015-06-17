@@ -73,7 +73,7 @@ public class Reputation {
     /**
      * Created by damoeb on 7/28/14.
      */
-    public static enum Type {
+    public enum Type {
         LIKE, LIKED, DISLIKED, WELCOME, ABUSED_REPORT, REPORTED, REPORT, RM_COMMENT, DISLIKE
     }
 }

@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
-import org.springframework.context.ApplicationContextException;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,7 +34,7 @@ public class DatabaseConfiguration implements EnvironmentAware {
 
     @Inject
     private Mongo mongo;
-    
+
 
     @Override
     public void setEnvironment(Environment environment) {
@@ -69,6 +68,6 @@ public class DatabaseConfiguration implements EnvironmentAware {
 
         return mongeez;
     }
-    
+
 }
 
