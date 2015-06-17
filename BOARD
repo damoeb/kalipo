@@ -1,26 +1,58 @@
-- link: http://spiegel.de/wef...gre/ [spiegel.de] urls folgen bis am ziel
-  render body to bodyhtml
+general
+  show version+commit in ui http://mrhaki.blogspot.ch/2015/04/gradle-goodness-use-git-commit-id-in.html
+  suche mit elastic search
+  Small navbar https://stackoverflow.com/questions/18599778/decreasing-height-of-bootstrap-3-0-navbar
+  user directive to add custom styles to username, ismod,...
+
+dashboard
+  comments eines jeden users anzeigen
+  listen wie auf stackoverflow, das dashboard
+  controller machen immer das gleiche -> vereinheitlichen
+  moderate stuff shld be removed
+
 - permalinks for comments, update url when clicking in outline
 - oneline must be much smaller like on slashdot
+- thread has a reputation threshold for users to join discussion
+adjust auto approve comment by reputation per thread
 
+  Categories
+    Notifications  : List of notifications, pagination:no, limited to 10, sort by newest first
+    Threads I use  : List of threads, pagination:yes, sort by newest first/upvotes
+    Comments I made: List of comments, pagination:yes, sort by newest first/upvotes
+    Likes          : List of comments, pagination:yes, sort by newest first/upvotes
+    Achievements/
+      Reputation   : List of achievments, pagination:yes, sort by newest first
 
-outline sollte schon richtig sortiert sein: als POST die sortierparameter mitgeben
-besser, keine outline mehr laden, sondern einfach 3 pages im voraus
+discussion
+  ignore user feature
+  head of discussion: best/newest
 
-comments eines jeden users anzeigen
-dashboard controller machen immer das gleiche -> vereinheitlichen
+live
+  insert comment directly after sending it
+  append/update comments from ticker if possible (parent exists)
 
-ignore user feature
-outline sollte schon richtig sortiert sein
+  --
+  tabs
 
+  .active {
+    border-bottom:1px solid red;
+  }
 
+  <div style="margin-top:10px">
+    <ul class="list-inline pull-right">
+      <li class="active"><a href="#">Newest</a></li>
+      <li><a href="#">Best</a></li>
+    </ul>
+  </div>
+
+  --
+
+outline
+  keine outline mehr laden, sondern einfach 3 pages im voraus
+  --sollte schon richtig sortiert sein
+  es kann auf die gesamte zeile geklickt werden, nicht nur das Icon rechts, um es komplett anzuzeigen
 
 --
-
-todo test markdown -> pegdown sucks in java1.8
-
-moderate stuff is obsolete due to dashboard
-user directive?
 
 configuration attr
 - discussion depth: NUM {min:2, default:4}
@@ -29,38 +61,29 @@ configuration attr
 - max visible comment lines: NUM {default:10}
 - support visualization: BOOL {default:TRUE}
 - keep ips: BOOL {default:FALSE}
-- support markdown: BOOL {default:FALSE}
 - support show-more: BOOL {default:TRUE}
 - max-visible-lines-of-comment: NUM {min:1, default:5}
 - browse: thread order: best score first, last changed first
 - notifications of super-mods via mail too (reports): BOOL {default: TRUE}
 
-Suche!!!
-Small navbar https://stackoverflow.com/questions/18599778/decreasing-height-of-bootstrap-3-0-navbar
-
-UI: adapt view using a filter: Auto/Pending/None
-oneline: es kann auf die gesamte zeile geklickt werden, nicht nur das Icon rechts, um es komplett anzuzeigen
-
-highlight mod comments
-
 --
 
 improve notifications (link to referred resource)
 
-- Monitoring for Superuser, Fraud warnings via mail
-    - mods: approvals/deletions/k-listing, (automated) thread deletions
-    - users: live activity, reports, critical activity -> lock
-    - review popular comments/links
-    - system: spam detection, resource consumption
+Monitoring for Superuser, Fraud warnings via mail
+  mods: approvals/deletions/k-listing, (automated) thread deletions
+  users: live activity, reports, critical activity -> lock
+  review popular comments/links
+  system: spam detection, resource consumption
     http://www.poweradmin.com/blog/server-monitoring-best-practices/
 
-    charts
+  charts
     http://cdn.soasta.com/wp/wp-content/uploads/2013/06/SOASTA-mPulse-WhatIf-Analysis1.png
     https://segment.com/blog/announcing-pingdom-real-user-monitoring-integration/images/pingdom-rum-long-tail.png
 
-    - anomaly detection
-    - def metrics
+  anomaly detection
+  def metrics
 
-- Anomaly detection for
-    - users: account hijacking
-    - comment flooding
+Anomaly detection for
+  users: account hijacking
+  comment flooding
