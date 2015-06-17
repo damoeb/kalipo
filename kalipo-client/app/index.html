@@ -74,14 +74,6 @@
                         <span class="label label-success">10</span>
                     </a>
                 </li>
-                <li ng-switch-when="true" ng-controller="NoticeController" ng-init="hasFreshNotices()">
-                    <a href="#/notifications" title="Notifications">
-                        <span class="glyphicon glyphicon-bell" style="color: #E84B56;"
-                              ng-if="$freshNoticesCount > 0"></span>
-                        <span class="glyphicon glyphicon-bell"
-                              ng-if="$freshNoticesCount == 0"></span>
-                    </a>
-                </li>
                 <li ng-switch-when="false">
                     <a href="#/register">
                         <span>

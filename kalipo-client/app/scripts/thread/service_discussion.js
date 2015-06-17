@@ -147,7 +147,7 @@ kalipoApp.factory('Discussion', function (Thread) {
     };
 
     return {
-        fetchPage: function (threadId, pageId, tree, onSuccess) {
+        fetch: function (threadId, pageId, tree, onSuccess) {
 
             var start = new Date().getTime();
 

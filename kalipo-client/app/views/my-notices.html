@@ -1,66 +1,73 @@
-<h3 class="klp-header">
-    <a href="#/d">Dashboard</a> / Notifications
-</h3>
-
-<div class="col-lg-3 col-sm-4">
-    <div class="list-group">
-        <a href="#/d" class="list-group-item">Dashboard</a>
-        <a href="#/notifications" class="list-group-item active">Notifications</a>
-        <a href="#/threads" class="list-group-item">Threads</a>
-        <a href="#/comments" class="list-group-item">Comments I Made</a>
-        <a href="#/likes" class="list-group-item">Likes</a>
-        <a href="#/achievements" class="list-group-item">Achievements</a>
-    </div>
+<div class="col-lg-12">
+    <h3>Dashboard</h3>
 </div>
 
-<div class="col-lg-9 col-sm-8">
+<div class="col-lg-8">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <ul class="nav nav-tabs">
+                <li><a href="#/comments">Comments</a></li>
+                <li><a href="#/threads">Threads</a></li>
+                <li><a href="#/likes">Likes</a></li>
+                <li class="active"><a href="#/notifications">Notifications</a></li>
+                <li><a href="#/achievements">Achievements</a></li>
+            </ul>
 
-    <div ng-init="fetchAndRender()">
-
-        <div ng-switch on="notices.length == 0">
-            <div ng-switch-default>
-                There are no notifications yet
+            <div class="row">
+                <ul class="list-inline pull-right">
+                    <li><a href="javascript:void(0)">Newest</a></li>
+                    <li><a href="javascript:void(0)">Votes</a></li>
+                </ul>
             </div>
-            <div ng-switch-when="false">
 
-                <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="notice in notices" ng-class="notice.seen ? '': 'fresh-item' ">
+            <div>
 
-                        <div class="row">
+                <div ng-switch on="notices.length == 0">
+                    <div ng-switch-default>
+                        no notifications found
+                    </div>
+                    <div ng-switch-when="false">
 
-                            <div ng-if="notice.$customized">
-                                <div ng-bind-html="notice.$custom" class="col-md-10"></div>
-                            </div>
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="notice in notices" ng-class="notice.seen ? '': 'fresh-item' ">
 
-                            <div ng-if="!notice.$customized">
-                                <div class="col-md-2">
-                                    <strong>{{::notice.type}}</strong>
+                                <div class="row">
+
+                                    <div ng-if="notice.$customized">
+                                        <div ng-bind-html="notice.$custom" class="col-md-10"></div>
+                                    </div>
+
+                                    <div ng-if="!notice.$customized">
+                                        <div class="col-md-2">
+                                            <strong>{{::notice.type}}</strong>
+                                        </div>
+
+                                        <div class="col-md-8">
+                                            for
+                                            {{::notice.resourceId}}
+
+                                            by
+                                            <strong>{{::notice.initiatorId}}</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2 text-right">
+                                        {{::notice.createdDate | fromNow}}
+                                    </div>
                                 </div>
 
-                                <div class="col-md-8">
-                                    for
-                                    {{::notice.resourceId}}
+                            </li>
+                        </ul>
 
-                                    by
-                                    <strong>{{::notice.initiatorId}}</strong>
-                                </div>
-                            </div>
+                        <div class="text-center">
+                            <a href="javascript:void(0)" ng-click="previousPage()" ng-disabled="$firstPage">&larr; Previous</a>
+                            {{$page +1}} of {{$pageCount}}
+                            <a href="javascript:void(0)" ng-click="nextPage()" ng-disabled="$lastPage">Next &rarr;</a>
 
-                            <div class="col-md-2 text-right">
-                                {{::notice.createdDate | fromNow}}
-                            </div>
                         </div>
 
-                    </li>
-                </ul>
-
-                <ul class="pagination">
-                    <li><a href="javascript:void(0)" ng-click="previousPage()" ng-disabled="$firstPage">Previous</a>
-                    </li>
-                    <li class="active"><a href="javascript:void(0)">Page {{$page +1}} of {{$pageCount}}</a></li>
-                    <li><a href="javascript:void(0)" ng-click="nextPage()" ng-disabled="$lastPage">Next</a></li>
-                </ul>
-
+                    </div>
+                </div>
             </div>
         </div>
     </div>

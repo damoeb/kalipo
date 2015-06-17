@@ -1,37 +1,47 @@
-<h3 class="klp-header">
-    <a href="#/d">Dashboard</a> / Achievements
-</h3>
+<div class="col-lg-12">
+    <h3>
+        <a href="#/d">Dashboard</a> / Achievements
+    </h3>
+</div>
 
-<div class="col-lg-3 col-sm-4">
-    <div class="list-group">
-        <a href="#/d" class="list-group-item">Dashboard</a>
-        <a href="#/notifications" class="list-group-item">Notifications</a>
-        <a href="#/threads" class="list-group-item">Threads</a>
-        <a href="#/comments" class="list-group-item">Comments I Made</a>
-        <a href="#/likes" class="list-group-item">Likes</a>
-        <a href="#/achievements" class="list-group-item active">Achievements</a>
+<div class="col-lg-4">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <ul class="list-unstyled">
+                <li><a href="#/d">Dashboard</a></li>
+                <li><a href="#/notifications">Notifications</a></li>
+                <li><a href="#/threads">Threads</a></li>
+                <li><a href="#/comments">Comments I Made</a></li>
+                <li><a href="#/likes">Likes</a></li>
+                <li><a href="#/achievements" class="active">Achievements</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 
-<div class="col-lg-9 col-sm-8">
-    <div ng-init="fetchAchievements()">
+<div class="col-lg-8">
+    <div class="panel panel-default">
+        <div class="panel-body">
 
-        <div ng-switch on="achievements.length == 0">
+            <div ng-init="fetchAchievements()">
 
-            <div ng-switch-default>
-                No Achievements
-            </div>
+                <div ng-switch on="achievements.length == 0">
 
-            <div ng-switch-when="false" class="clearfix">
-                <div ng-repeat="page in pages">
-                    <div ng-repeat="achievement in page.achievements">
-                        <div ng-include="'achievement_renderer.template'"></div>
+                    <div ng-switch-default>
+                        No Achievements
+                    </div>
+
+                    <div ng-switch-when="false" class="clearfix">
+                        <div ng-repeat="page in pages">
+                            <div ng-repeat="achievement in page.achievements">
+                                <div ng-include="'achievement_renderer.template'"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
         </div>
-
     </div>
 </div>
 

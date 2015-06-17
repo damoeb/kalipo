@@ -29,20 +29,18 @@ kalipoApp.controller('NoticeController', function ($rootScope, $scope, $sce, Ses
     $scope.nextPage = function () {
         if ($scope.$page + 1 < $scope.$pageCount) {
             $scope.$page++;
-            $scope.fetchAndRender();
+            $scope.fetch();
         }
     };
 
     $scope.previousPage = function () {
         if ($scope.$page > 0) {
             $scope.$page--;
-            $scope.fetchAndRender();
+            $scope.fetch();
         }
     };
 
-    // todo this is similar to achievements, combine it somehow
-
-    $scope.fetchAndRender = function () {
+    $scope.fetch = function () {
         __fetch(function(response) {
             $scope.$pageCount = response.totalPages;
             $scope.$lastPage = response.lastPage;
@@ -64,6 +62,7 @@ kalipoApp.controller('NoticeController', function ($rootScope, $scope, $sce, Ses
             });
         };
 
+        // todo you have to be logged in to see this page
         if (typeof($rootScope.login) == 'undefined') {
             console.log('wait');
             $scope.$on('event:auth-authorized', __doFetchNotices);
@@ -73,16 +72,6 @@ kalipoApp.controller('NoticeController', function ($rootScope, $scope, $sce, Ses
         }
     };
 
-    $scope.hasFreshNotices = function () {
-        __fetch(function(response) {
-            var freshCount = 0;
-            _.forEach(response.content, function(n) {
-                if(!n.seen) {
-                    freshCount ++;
-                }
-            });
-            $scope.$freshNoticesCount = freshCount;
-        });
-    };
 
+    $scope.fetch();
 });

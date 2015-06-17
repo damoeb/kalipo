@@ -39,7 +39,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         };
 
         var firstFetch = function() {
-            Discussion.fetchPage(threadId, 0, tree, function(result) {
+            Discussion.fetch(threadId, 0, tree, function(result) {
                 onFetchedPage(result);
 
                 setTimeout(function() {
@@ -78,7 +78,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
                 currentPage = currentPage + 1;
 
-                Discussion.fetchPage(threadId, currentPage, tree, onFetchedPage);
+                Discussion.fetch(threadId, currentPage, tree, onFetchedPage);
             }
 
         };

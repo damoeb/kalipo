@@ -144,6 +144,7 @@ kalipoApp
             })
             .when('/comments', {
                 templateUrl: 'views/my-comments.html',
+                controller: 'MyCommentsController',
                 access: {
                     authorizedRoles: [USER_ROLES.all]
                 }
