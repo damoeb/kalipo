@@ -41,7 +41,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             var scrollTop = $(document).scrollTop();
 
             // find first comment on viewport
-            var $all = $('.comment:visible');
+            var $all = $('.comment[ng-comment-id]:visible');
 
             var $firstOnViewport = $($all[0]);
             _.forEach($all, function (comment) {
