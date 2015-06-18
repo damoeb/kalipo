@@ -36,29 +36,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Inject
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
+            .userDetailsService(userDetailsService)
+            .passwordEncoder(passwordEncoder());
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/bower_components/**")
-                .antMatchers("/fonts/**")
-                .antMatchers("/images/**")
-                .antMatchers("/scripts/**")
-                .antMatchers("/styles/**")
-                .antMatchers("/views/**")
-                .antMatchers("/i18n/**")
-                .antMatchers("/swagger-ui/**")
-                .antMatchers("/app/rest/register")
-                .antMatchers("/app/rest/feedbacks/**")
-                .antMatchers("/app/rest/activate")
+            .antMatchers("/bower_components/**")
+            .antMatchers("/fonts/**")
+            .antMatchers("/images/**")
+            .antMatchers("/scripts/**")
+            .antMatchers("/styles/**")
+            .antMatchers("/views/**")
+            .antMatchers("/i18n/**")
+            .antMatchers("/swagger-ui/**")
+            .antMatchers("/app/rest/register")
+            .antMatchers("/app/rest/feedbacks/**")
+            .antMatchers("/app/rest/activate")
                 // API getters do not require authentication
-                .regexMatchers(HttpMethod.GET, "/app/rest/threads.*")
-                .regexMatchers(HttpMethod.GET, "/app/rest/comments.*")
+            .regexMatchers(HttpMethod.GET, "/app/rest/threads.*")
+            .regexMatchers(HttpMethod.GET, "/app/rest/comments.*")
             .regexMatchers(HttpMethod.POST, "/app/rest/reports")
-                .regexMatchers(HttpMethod.GET, "/websocket/.*")
+                // websocket
+            .regexMatchers(HttpMethod.GET, "/websocket/.*")
+            .regexMatchers(HttpMethod.POST, "/websocket/.*")
         ;
     }
 
