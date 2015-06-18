@@ -22,10 +22,10 @@ adjust auto approve comment by reputation per thread
     Likes          : List of comments, pagination:yes, sort by newest first/upvotes
     Achievements/
       Reputation   : List of achievments, pagination:yes, sort by newest first
+    Ignored Users
 
 discussion
   ignore user feature
-  head of discussion: best/newest
 
 live
   insert comment directly after sending it
@@ -48,7 +48,7 @@ live
   --
 
 outline
-  keine outline mehr laden, sondern einfach 3 pages im voraus
+  keine outline mehr laden, sondern einfach anhand 3 im voraus geladenen Seiten generieren
   --sollte schon richtig sortiert sein
   es kann auf die gesamte zeile geklickt werden, nicht nur das Icon rechts, um es komplett anzuzeigen
 
