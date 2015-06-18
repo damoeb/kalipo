@@ -18,6 +18,9 @@
         <a href="#/v/<%- comment.threadId %>/<%- comment.id %>">
             Permalink
         </a>
+        <a href="javascript:void(0)" ng-click="ignoreUser('<%- comment.authorId %>')">
+            Ignore user
+        </a>
         <a href="javascript:void(0)"
            ng-click="showReportModal('<%- comment.id %>')"
            title="Report this comment">
