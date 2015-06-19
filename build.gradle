@@ -30,7 +30,7 @@ ext {
 
 group = 'org.kalipo'
 version = "0.1-SNAPSHOT.${git.head().abbreviatedId}"
-description = ''
+description = 'transparent comment platform'
 
 // -- Write Version to File --
 def buildVersion = "build_version"
