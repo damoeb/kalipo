@@ -184,6 +184,9 @@
 <footer class="footer" style="bottom: 0; position: fixed; width: 100%" ng-controller="FeedbackController">
     <div class="container-fluid">
 
+        <div class="build-version">
+            build <span ng-include="'build_version'"></span>
+        </div>
         <!-- Modal -->
         <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModal"
              aria-hidden="true">
@@ -290,14 +293,12 @@
 <script src="scripts/moderate/router_moderate.js"></script>
 <script src="scripts/moderate/controller_pending.js"></script>
 <script src="scripts/moderate/service_comment.js"></script>
-<script src="scripts/likes/router_likes.js"></script>
-<script src="scripts/likes/controller_likes.js"></script>
-<script src="scripts/achievements/router_achievements.js"></script>
+<script src="scripts/profile/controller_likes.js"></script>
 <script src="scripts/achievements/controller_achievements.js"></script>
 <script src="scripts/achievements/service_achievements.js"></script>
-<script src="scripts/notice/router_notice.js"></script>
-<script src="scripts/notice/controller_notice.js"></script>
-<script src="scripts/notice/service_notice.js"></script>
+<script src="scripts/profile/router_profile.js"></script>
+<script src="scripts/profile/controller_notice.js"></script>
+<script src="scripts/profile/service_notice.js"></script>
 <script src="scripts/privilege/router_privilege.js"></script>
 <script src="scripts/privilege/controller_privilege.js"></script>
 <script src="scripts/privilege/service_privilege.js"></script>

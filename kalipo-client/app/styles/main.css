@@ -488,3 +488,9 @@ nav .nav-pills a:hover {
     margin-bottom: 10px;
     /*border-bottom: 1px solid #e5e5e5;*/
 }
+
+.build-version {
+    text-align: center;
+    color: darkgray;
+    font-size: small;
+}

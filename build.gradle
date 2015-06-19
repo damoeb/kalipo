@@ -1,13 +1,8 @@
+import java.nio.file.Files
+
 buildscript {
 
-    println "build war"
-
-//    copy {
-//        from 'src/main/webapp'
-//        into 'build/explodedWar'
-//        include '**/*.html'
-//        include '**/*.jsp'
-//    }
+//    println "build war"
 
     repositories {
         maven { url 'http://repo.spring.io/libs-snapshot' }
@@ -17,26 +12,35 @@ buildscript {
         classpath('org.springframework.boot:spring-boot-gradle-plugin:1.1.6.RELEASE')
         classpath('com.moowork.gradle:gradle-node-plugin:0.4')
         classpath('com.moowork.gradle:gradle-grunt-plugin:0.5')
-
-//        classpath 'com.eriwen:gradle-css-plugin:1.8.0'
-//        classpath 'com.eriwen:gradle-js-plugin:1.9.0'
+        classpath 'org.ajoberstar:grgit:1.1.0'
     }
 }
-
-//task copyMethod << {
-//    copy {
-//        from 'src/main/webapp'
-//        into 'build/explodedWar'
-//        include '**/*.html'
-//        include '**/*.jsp'
-//    }
-//}
 
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'spring-boot'
 apply plugin: 'war'
 apply plugin: 'idea'
+
+ext {
+    // Open the Git repository in the current directory.
+    git = org.ajoberstar.grgit.Grgit.open(file('.'))
+    revision = git.head().abbreviatedId
+}
+
+group = 'org.kalipo'
+version = "0.1-SNAPSHOT.${git.head().abbreviatedId}"
+description = ''
+
+// -- Write Version to File --
+def buildVersion = "build_version"
+def versionFile = new File("${buildVersion}")
+println "writing version $version to " + versionFile.absolutePath
+//versionFile.parentFile.mkdirs()
+versionFile.withWriter { w -> w << "${version}"}
+def versionInAppFile = new File("kalipo-client/app/${buildVersion}")
+versionInAppFile.delete()
+Files.copy(versionFile.toPath(), versionInAppFile.toPath())
 
 bootRepackage {
     mainClass = 'org.kalipo.Application'
@@ -51,11 +55,6 @@ if (profile == 'prod') {
 } else {
     apply from: 'profile_dev.gradle'
 }
-
-group = 'org.kalipo'
-version = '0.1-SNAPSHOT'
-
-description = ''
 
 configurations {
     providedRuntime
@@ -157,8 +156,9 @@ subprojects {
     apply plugin: 'maven'
     apply plugin: 'java'
 
-    group = 'org.kalipo'
-    version = '1.0-SNAPSHOT'
+//    group = "$group"
+//    version = "0.1-SNAPSHOT.${git.head().abbreviatedId}"
+
     sourceCompatibility = 1.8
 
     clean << {

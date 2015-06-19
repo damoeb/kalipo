@@ -1,5 +1,4 @@
 general
-  show version+commit in ui http://mrhaki.blogspot.ch/2015/04/gradle-goodness-use-git-commit-id-in.html
   suche mit elastic search
   Small navbar https://stackoverflow.com/questions/18599778/decreasing-height-of-bootstrap-3-0-navbar
   user directive to add custom styles to username, ismod,...
@@ -8,7 +7,7 @@ dashboard
   comments eines jeden users anzeigen
   listen wie auf stackoverflow, das dashboard
   controller machen immer das gleiche -> vereinheitlichen
-  moderate stuff shld be removed
+  moderate pending/reports has to be there too
 
 - permalinks for comments, update url when clicking in outline
 - oneline must be much smaller like on slashdot
