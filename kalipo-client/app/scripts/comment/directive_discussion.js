@@ -2,7 +2,7 @@
  * Created by damoeb on 16.12.14.
  */
 angular.module('kalipoApp')
-    .directive('discussion', function ($compile, $templateCache, $http, $rootScope, Vote, Comment, Report, Notifications, COMMENT_SETTINGS) {
+    .directive('discussion', function ($compile, $templateCache, $http, $rootScope, Vote, Comment, Report, Notifications, COMMENT_SETTINGS, Discussion) {
         return {
             restrict: 'E',
             replace: true,
@@ -48,60 +48,19 @@ angular.module('kalipoApp')
                     }
                 };
 
-                $http.get('views/partial_comment.html', {cache: true}).success(function (tmpl_comment) {
-                    $http.get('views/partial_menu.html', {cache: true}).success(function (tmpl_menu) {
+                var $thread = $('<div></div>');
 
-                        var comp_comment = _.template(tmpl_comment);
-                        var comp_menu = _.template(tmpl_menu);
-                        var comp_toggle_concealed = _.template('<div class="toggle-optionals" style="margin-left: <%- comment.level * 15 %>px; <% if(comment.level>1) { %>border-left: 1px dashed #ececec;<% } %>"><a href="javascript:void(0)" ng-click="toggleOptionals(\'<%- comment.id %>\')"><strong><% if(comment.$hasObligatoryReplies) {%> <%- comment.$concealedRepliesCount %><% } else { %><%- comment.$repliesCount %><% } %></strong> <% if(comment.$hasObligatoryReplies && comment.$concealedRepliesCount==1 || comment.$repliesCount==1) { %>reply<% } else { %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span></div>');
+                // todo several async processes, now they run sequentiel
+                Discussion.init(function () {
+                    _.forEach($scope.page.comments, function (comment) {
+                        Discussion.renderComment(comment, $thread, false);
+                    });
 
-                        var $thread = $('<div></div>');
+                    $element.append($compile($thread.contents())($scope));
 
-                        var __render = function (comment, $sink, concealed) {
-
-                            var $comment = $(comp_comment({
-                                comment: comment,
-                                page: $scope.page,
-                                fnRenderMenu: comp_menu
-                            })).appendTo($sink);
-
-                            var $replies = $('<div></div>', {class: 'replies'}).appendTo($comment);
-
-                            // obligatory replies
-                            _.forEach(comment.replies, function (reply) {
-                                if (reply.$obligatory || concealed) {
-                                    __render(reply, $replies, concealed);
-                                }
-                            });
-
-                            if (comment.$concealedRepliesCount > 0 && !concealed) {
-
-                                $comment.append(comp_toggle_concealed({
-                                    comment: comment
-                                }));
-
-                                var $hidden_replies = $('<div></div>', {class: 'replies optionals hidden'}).appendTo($comment);
-
-                                // obligatory replies
-                                _.forEach(comment.replies, function (reply) {
-                                    if (!reply.$obligatory) {
-                                        __render(reply, $hidden_replies, true);
-                                    }
-                                });
-                            }
-                        };
-
-                        _.forEach($scope.page.comments, function (comment) {
-                            __render(comment, $thread, false);
-                        });
-
-                        $element.append($compile($thread.contents())($scope));
-
-                        // 'show more' treatment
-                        $element.find('.comment').each(function () {
-                            __showMore($(this));
-                        });
-
+                    // 'show more' treatment
+                    $element.find('.comment').each(function () {
+                        __showMore($(this));
                     });
                 });
 

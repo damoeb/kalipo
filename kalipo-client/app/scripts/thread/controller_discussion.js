@@ -1,7 +1,7 @@
 'use strict';
 
-kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$location', '$anchorScroll', '$rootScope', 'Thread', 'Comment', 'Report', 'Discussion', 'Websocket', 'Notifications', 'REPORT_IDS',
-    function ($scope, $routeParams, $location, $anchorScroll, $rootScope, Thread, Comment, Report, Discussion, Websocket, Notifications, REPORT_IDS) {
+kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$location', '$anchorScroll', '$rootScope', 'Thread', 'Comment', 'Report', 'Discussion', 'Websocket', 'Notifications', 'REPORT_IDS', '$compile',
+    function ($scope, $routeParams, $location, $anchorScroll, $rootScope, Thread, Comment, Report, Discussion, Websocket, Notifications, REPORT_IDS, $compile) {
 
         var threadId = $routeParams.threadId;
         // todo impl scrolling to commentId
@@ -56,10 +56,32 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
         var socket = Websocket.subscribe(function (message) {
             if (message.threadId == threadId) {
                 console.log('event', message);
-                $scope.$missedCommentCount += 1;
                 Comment.get({id: Websocket.getCommentId(message)}, function (comment) {
-                    $rootScope.$broadcast('event:comment', comment, message.type);
-                    // todo update tree if possible
+
+                    var $comment = $('<div/>');
+                    // todo run an init() first
+                    Discussion.renderComment(comment, $comment, false);
+
+                    var $reference = $('#comment-' + comment.id);
+                    //console.log('ref', $reference);
+
+                    if ($reference.length == 0) {
+                        // is root comment
+                        if (_.isUndefined(comment.parentId)) {
+                            $scope.$missedCommentCount += 1;
+                        } else {
+                            var $parent = $('#comment-' + comment.parentId + '> .replies');
+                            //console.log('append to', $parent);
+                            $parent.prepend($compile($comment.contents())($scope));
+                        }
+                    } else {
+                        // replace
+                        var $container = $reference.children('.comment:first-child');
+                        //console.log('replace', $container);
+                        var $replaceBy = $comment.children('.comment-wrapper').children('.comment');
+                        //console.log('replace by', $replaceBy);
+                        $container.empty().append($compile($replaceBy.contents())($scope));
+                    }
                 });
             }
         });

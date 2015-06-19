@@ -1,6 +1,6 @@
 'use strict';
 
-kalipoApp.factory('Discussion', function (Thread) {
+kalipoApp.factory('Discussion', function ($http, Thread) {
 
     var internal = {
 
@@ -143,10 +143,68 @@ kalipoApp.factory('Discussion', function (Thread) {
             });
 
             return roots;
+        },
+        templates: {
+            'toggle_concealed': _.template('<div class="toggle-optionals" style="margin-left: <%- comment.level * 15 %>px; <% if(comment.level>1) { %>border-left: 1px dashed #ececec;<% } %>"><a href="javascript:void(0)" ng-click="toggleOptionals(\'<%- comment.id %>\')"><strong><% if(comment.$hasObligatoryReplies) {%> <%- comment.$concealedRepliesCount %><% } else { %><%- comment.$repliesCount %><% } %></strong> <% if(comment.$hasObligatoryReplies && comment.$concealedRepliesCount==1 || comment.$repliesCount==1) { %>reply<% } else { %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span></div>')
         }
     };
 
     return {
+
+        // todo get rid of this init and load templates properly
+        init: function (onSuccess) {
+            $http.get('views/partial_comment.html', {cache: true}).success(function (tmpl_comment) {
+                internal.templates['comment'] = _.template(tmpl_comment);
+
+                $http.get('views/partial_menu.html', {cache: true}).success(function (tmpl_menu) {
+                    internal.templates['menu'] = _.template(tmpl_menu);
+                    onSuccess();
+                });
+            });
+        },
+
+        renderComment: function (comment, $sink, concealed) {
+
+            var comp_comment = internal.templates['comment'];
+            var comp_menu = internal.templates['menu'];
+            var comp_toggle_concealed = internal.templates['toggle_concealed'];
+
+            var __render = function (comment, $sink, concealed) {
+
+                var $comment = $(comp_comment({
+                    comment: comment,
+                    fnRenderMenu: comp_menu
+                })).appendTo($sink);
+
+                var $replies = $('<div></div>', {class: 'replies'}).appendTo($comment);
+
+                // obligatory replies
+                _.forEach(comment.replies, function (reply) {
+                    if (reply.$obligatory || concealed) {
+                        __render(reply, $replies, concealed);
+                    }
+                });
+
+                if (comment.$concealedRepliesCount > 0 && !concealed) {
+
+                    $comment.append(comp_toggle_concealed({
+                        comment: comment
+                    }));
+
+                    var $hidden_replies = $('<div></div>', {class: 'replies optionals hidden'}).appendTo($comment);
+
+                    // obligatory replies
+                    _.forEach(comment.replies, function (reply) {
+                        if (!reply.$obligatory) {
+                            __render(reply, $hidden_replies, true);
+                        }
+                    });
+                }
+            };
+
+            return __render(comment, $sink, concealed);
+        },
+
         fetch: function (threadId, pageId, tree, onSuccess) {
 
             var start = new Date().getTime();

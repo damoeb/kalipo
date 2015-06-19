@@ -31,12 +31,14 @@ angular.module('kalipoApp')
                     });
 
                     // listener for new comments
-                    $rootScope.$on('event:comment', function (event, comment) {
+                    $rootScope.$on('event:comment', function (comment, event) {
                         console.log('new ticker-comment', comment);
                         // drop oldest (first), append new comment
 
                         // todo push comment, unique by id, sort by lastModifiedDate DESC, limit size to 3
                         // todo update comment in view -> see board
+
+                        console.log('ticker', event, comment);
 
                         latest_comments.push(comment);
                         latest_comments = _.slice(_.sortBy(latest_comments, function(comment) {
