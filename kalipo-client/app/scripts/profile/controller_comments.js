@@ -1,6 +1,6 @@
 'use strict';
 
-kalipoApp.controller('MyCommentsController', ['$scope', '$rootScope', 'Vote', 'Comment',
+kalipoApp.controller('ProfileCommentsController', ['$scope', '$rootScope', 'Vote', 'Comment',
     function ($scope, $rootScope, Comment) {
 
         $scope.comments = [];

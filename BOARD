@@ -3,9 +3,9 @@ general
   Small navbar https://stackoverflow.com/questions/18599778/decreasing-height-of-bootstrap-3-0-navbar
   user directive to add custom styles to username, ismod,...
 
-dashboard
+profile
   comments eines jeden users anzeigen
-  listen wie auf stackoverflow, das dashboard
+  listen wie auf stackoverflow, das profile
   controller machen immer das gleiche -> vereinheitlichen
   moderate pending/reports has to be there too
 

@@ -1,0 +1,45 @@
+<div ng-controller="ProfileLikesController">
+    <ul class="nav nav-tabs">
+        <li><a href="#/profile/notifications">Notifications</a></li>
+        <li><a href="#/profile/threads">Threads</a></li>
+        <li><a href="#/profile/comments">Comments</a></li>
+        <li class="active"><a href="#/profile/likes">Likes</a></li>
+        <li><a href="#/profile/achievements">Achievements</a></li>
+    </ul>
+
+    <div ng-init="fetchVotes()">
+
+        <div ng-switch on="likes.length == 0">
+
+            <div ng-switch-default>
+                No likes found
+            </div>
+
+            <div ng-switch-when="false" class="clearfix">
+                <div ng-repeat="comment in likes | orderBy:$vote.createdDate">
+                    <div ng-include="'comment_renderer.template'"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/ng-template" id="comment_renderer.template">
+    <div style="margin-bottom: 15px">
+
+        <div>
+
+            <span class="glyphicon glyphicon-thumbs-up" ng-if="comment.$vote.like" style="color:green;"></span>
+            <span class="glyphicon glyphicon-thumbs-down" ng-if="!comment.$vote.like" style="color:red;"></span>
+
+            {{::comment.$vote.createdDate|fromNow}}
+
+        </div>
+
+        <comment-slim ng-model="comment"/>
+
+    </div>
+</script>

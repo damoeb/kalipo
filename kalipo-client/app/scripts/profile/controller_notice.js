@@ -1,6 +1,6 @@
 'use strict';
 
-kalipoApp.controller('NoticeController', function ($rootScope, $scope, $sce, Session, Notice) {
+kalipoApp.controller('ProfileNoticeController', function ($rootScope, $scope, $sce, Session, Notice) {
 
     $scope.$page = 0;
     $scope.$pageCount = 0;

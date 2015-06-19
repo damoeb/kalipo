@@ -1,6 +1,6 @@
 'use strict';
 
-kalipoApp.controller('AchievementsController', ['$scope', '$rootScope', 'Vote', 'Comment', 'Achievement', 'Report', 'Reputation', 'ACHIEVEMENTS',
+kalipoApp.controller('ProfileAchievementsController', ['$scope', '$rootScope', 'Vote', 'Comment', 'Achievement', 'Report', 'Reputation', 'ACHIEVEMENTS',
     function ($scope, $rootScope, Vote, Comment, Achievement, Report, Reputation, ACHIEVEMENTS) {
 
         $scope.pages = [];
