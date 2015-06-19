@@ -1,27 +1,27 @@
-<h3 class="klp-header">
-    <a href="#/d">Dashboard</a> / Notifications
-</h3>
-
-<div class="col-lg-3 col-sm-4">
-    <div class="list-group">
-        <a href="#/d" class="list-group-item">Dashboard</a>
-        <a href="#/notifications" class="list-group-item active">Notifications</a>
-        <a href="#/threads" class="list-group-item">Threads</a>
-        <a href="#/comments" class="list-group-item">Comments I Made</a>
-        <a href="#/likes" class="list-group-item">Likes</a>
-        <a href="#/achievements" class="list-group-item">Achievements</a>
-    </div>
-</div>
-
-<div class="col-lg-9 col-sm-8">
+<div ng-controller="ProfileCommentsController">
+    <ul class="nav nav-tabs">
+        <li><a href="#/profile/notifications">Notifications</a></li>
+        <li><a href="#/profile/threads">Threads</a></li>
+        <li class="active"><a href="#/profile/comments">Comments</a></li>
+        <li><a href="#/profile/likes">Likes</a></li>
+        <li><a href="#/profile/achievements">Achievements</a></li>
+    </ul>
 
     <div ng-init="fetchAndRender()">
 
         <div ng-switch on="notices.length == 0">
             <div ng-switch-default>
-                There are no notifications yet
+                no notifications found
             </div>
             <div ng-switch-when="false">
+
+                <ul class="pagination">
+                    <li><a href="javascript:void(0)" ng-click="previousPage()" ng-disabled="$firstPage">Previous</a>
+                    </li>
+                    <li class="active"><a href="javascript:void(0)">Page {{$page +1}} of {{$pageCount}}</a></li>
+                    <li><a href="javascript:void(0)" ng-click="nextPage()" ng-disabled="$lastPage">Next</a></li>
+                </ul>
+
 
                 <ul class="list-group">
                     <li class="list-group-item" ng-repeat="notice in notices" ng-class="notice.seen ? '': 'fresh-item' ">
@@ -54,14 +54,14 @@
                     </li>
                 </ul>
 
-                <ul class="pagination">
-                    <li><a href="javascript:void(0)" ng-click="previousPage()" ng-disabled="$firstPage">Previous</a>
-                    </li>
-                    <li class="active"><a href="javascript:void(0)">Page {{$page +1}} of {{$pageCount}}</a></li>
-                    <li><a href="javascript:void(0)" ng-click="nextPage()" ng-disabled="$lastPage">Next</a></li>
-                </ul>
+                <div class="text-center">
+                    <a href="javascript:void(0)" ng-click="previousPage()" ng-disabled="$firstPage">&larr; Previous</a>
+                    {{$page +1}} of {{$pageCount}}
+                    <a href="javascript:void(0)" ng-click="nextPage()" ng-disabled="$lastPage">Next &rarr;</a>
+                </div>
 
             </div>
         </div>
     </div>
+
 </div>

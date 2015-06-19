@@ -1,6 +1,6 @@
 'use strict';
 
-kalipoApp.controller('LikesController', ['$scope', '$rootScope', 'Vote', 'Comment',
+kalipoApp.controller('ProfileLikesController', ['$scope', '$rootScope', 'Vote', 'Comment',
     function ($scope, $rootScope, Vote, Comment) {
 
         $scope.likes = [];

@@ -118,14 +118,8 @@ kalipoApp
                     authorizedRoles: [USER_ROLES.admin]
                 }
             })
-            .when('/d', {
-                templateUrl: 'views/dashboard.html',
-                access: {
-                    authorizedRoles: [USER_ROLES.all]
-                }
-            })
             .when('/threads', {
-                templateUrl: 'views/threads.html',
+                templateUrl: 'views/profile-tab-threads.html',
                 access: {
                     authorizedRoles: [USER_ROLES.all]
                 }
@@ -142,12 +136,13 @@ kalipoApp
                     authorizedRoles: [USER_ROLES.all]
                 }
             })
-            .when('/comments', {
-                templateUrl: 'views/my-comments.html',
-                access: {
-                    authorizedRoles: [USER_ROLES.all]
-                }
-            })
+            //.when('/comments', {
+            //    templateUrl: 'views/profile-tab-comments.html',
+            //    controller: 'MyCommentsController',
+            //    access: {
+            //        authorizedRoles: [USER_ROLES.all]
+            //    }
+            //})
             .otherwise({
                 templateUrl: 'views/browse.html',
                 controller: 'BrowseController',
