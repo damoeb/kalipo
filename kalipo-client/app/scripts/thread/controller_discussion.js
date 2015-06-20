@@ -1,7 +1,6 @@
 'use strict';
 
-kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$location', '$anchorScroll', '$rootScope', 'Thread', 'Comment', 'Report', 'Discussion', 'Websocket', 'Notifications', 'REPORT_IDS', '$compile',
-    function ($scope, $routeParams, $location, $anchorScroll, $rootScope, Thread, Comment, Report, Discussion, Websocket, Notifications, REPORT_IDS, $compile) {
+kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $location, $anchorScroll, $rootScope, Thread, Comment, Report, Discussion, Websocket, Notifications, REPORT_IDS, $compile, $q) {
 
         var threadId = $routeParams.threadId;
         // todo impl scrolling to commentId
@@ -23,7 +22,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
         var tree = {};
         var currentPage = 0;
-
+    var promise = Discussion.init();
 
         // -- Initialization -- ----------------------------------------------------------------------------------------
 
@@ -43,8 +42,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 onFetchedPage(result);
 
                 setTimeout(function() {
-                    console.log('event:fetched-first-page -> ...');
-                    $rootScope.$broadcast('event:fetched-first-page');
+                    $rootScope.$broadcast('event:init-when-scrolled');
                 }, 2000);
             });
         };
@@ -53,13 +51,14 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
 
         // -- Socket -- ------------------------------------------------------------------------------------------------
 
+    $q.when(promise).then(function () {
+
         var socket = Websocket.subscribe(function (message) {
             if (message.threadId == threadId) {
                 console.log('event', message);
                 Comment.get({id: Websocket.getCommentId(message)}, function (comment) {
 
                     var $comment = $('<div/>');
-                    // todo run an init() first
                     Discussion.renderComment(comment, $comment, false);
 
                     var $reference = $('#comment-' + comment.id);
@@ -74,14 +73,14 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                             //console.log('append to', $parent);
                             $parent.prepend($compile($comment.contents())($scope));
                         }
-                    } else {
+                        } else {
                         // replace
                         var $container = $reference.children('.comment:first-child');
                         //console.log('replace', $container);
                         var $replaceBy = $comment.children('.comment-wrapper').children('.comment');
                         //console.log('replace by', $replaceBy);
                         $container.empty().append($compile($replaceBy.contents())($scope));
-                    }
+                        }
                 });
             }
         });
@@ -90,7 +89,7 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
             console.log('unsubscribe');
             Websocket.unsubscribe(socket);
         });
-
+        });
 
         // -- Scope Functions -- ---------------------------------------------------------------------------------------
 
@@ -158,4 +157,4 @@ kalipoApp.controller('DiscussionController', ['$scope', '$routeParams', '$locati
                 });
         };
 
-    }]);
+});

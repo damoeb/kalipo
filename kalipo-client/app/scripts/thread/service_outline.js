@@ -222,7 +222,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
 
         prepareAndDraw: function (pages, comments, onSuccess) {
 
-            console.log('prepare drawing outline', pages.length, 'pages', pages);
+            console.log('prepare drawing outline', pages.length);
 
             var paginated = internal.paginate(comments);
 

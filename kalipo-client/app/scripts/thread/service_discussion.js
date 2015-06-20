@@ -1,6 +1,6 @@
 'use strict';
 
-kalipoApp.factory('Discussion', function ($http, Thread) {
+kalipoApp.factory('Discussion', function ($http, Thread, $q) {
 
     var internal = {
 
@@ -11,8 +11,6 @@ kalipoApp.factory('Discussion', function ($http, Thread) {
         },
 
         postFetch: function (comments, pageId) {
-
-
             return _.forEach(comments, function (comment, index) {
                 comment.replies = [];
                 comment.authors = [];
@@ -149,18 +147,25 @@ kalipoApp.factory('Discussion', function ($http, Thread) {
         }
     };
 
+    var deferInit;
+
     return {
 
-        // todo get rid of this init and load templates properly
-        init: function (onSuccess) {
-            $http.get('views/partial_comment.html', {cache: true}).success(function (tmpl_comment) {
-                internal.templates['comment'] = _.template(tmpl_comment);
+        init: function () {
 
-                $http.get('views/partial_menu.html', {cache: true}).success(function (tmpl_menu) {
-                    internal.templates['menu'] = _.template(tmpl_menu);
-                    onSuccess();
+            if (_.isUndefined(deferInit)) {
+                deferInit = $q.defer();
+
+                var promiseComment = $http.get('views/partial_comment.html', {cache: true});
+                var promiseMenu = $http.get('views/partial_menu.html', {cache: true});
+
+                $q.all([promiseComment, promiseMenu]).then(function (response) {
+                    internal.templates['comment'] = _.template(response[0].data);
+                    internal.templates['menu'] = _.template(response[1].data);
+                    deferInit.resolve();
                 });
-            });
+            }
+            return deferInit.promise;
         },
 
         renderComment: function (comment, $sink, concealed) {
@@ -202,7 +207,7 @@ kalipoApp.factory('Discussion', function ($http, Thread) {
                 }
             };
 
-            return __render(comment, $sink, concealed);
+            __render(comment, $sink, concealed);
         },
 
         fetch: function (threadId, pageId, tree, onSuccess) {

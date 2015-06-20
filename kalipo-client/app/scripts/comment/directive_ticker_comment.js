@@ -36,7 +36,6 @@ angular.module('kalipoApp')
                         // drop oldest (first), append new comment
 
                         // todo push comment, unique by id, sort by lastModifiedDate DESC, limit size to 3
-                        // todo update comment in view -> see board
 
                         console.log('ticker', event, comment);
 

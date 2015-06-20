@@ -2,20 +2,17 @@
  * Created by damoeb on 16.12.14.
  */
 angular.module('kalipoApp')
-    .directive('discussion', function ($compile, $templateCache, $http, $rootScope, Vote, Comment, Report, Notifications, COMMENT_SETTINGS, Discussion) {
+    .directive('discussion', function ($compile, $templateCache, $http, $rootScope, Vote, Comment, Report, Notifications, COMMENT_SETTINGS, Discussion, $q) {
         return {
             restrict: 'E',
             replace: true,
-            //scope: {
-            //    collection: '=',
-            //    page: '='
-            //    // todo parent scope (thread) should be inherited
-            //},
             template: '',
             link: function ($scope, $element, $attrs) {
 
                 $scope.draft = {};
                 $scope.$isMod = true;
+
+                var promise = Discussion.init();
 
                 /**
                  * will wrap excessive long comments with a container and a "show-more" toggle link
@@ -48,10 +45,9 @@ angular.module('kalipoApp')
                     }
                 };
 
-                var $thread = $('<div></div>');
+                $q.when(promise).then(function () {
+                    var $thread = $('<div></div>');
 
-                // todo several async processes, now they run sequentiel
-                Discussion.init(function () {
                     _.forEach($scope.page.comments, function (comment) {
                         Discussion.renderComment(comment, $thread, false);
                     });
