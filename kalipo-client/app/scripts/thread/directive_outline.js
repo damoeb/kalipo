@@ -50,11 +50,11 @@ angular.module('kalipoApp')
                 $rootScope.$on('refresh-outline-viewport', refreshViewport);
                 onScrollEnd(refreshViewport);
 
-                $rootScope.$on('event:fetched-page', function (pages) {
+                $rootScope.$on('event:fetched-page', function (event, pages) {
 
-                    console.log('-> event:fetched-page');
+                    console.log('-> event:fetched-page', pages);
 
-                    $this.comments = Outline.flattenPages($scope.pages);
+                    $this.comments = Outline.flattenPages(pages);
 
                     var dimensions = {
                         width: $element.width(),

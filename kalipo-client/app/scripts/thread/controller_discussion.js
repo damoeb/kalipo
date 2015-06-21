@@ -32,7 +32,7 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
         $scope.$isEmptyDiscussion = result.totalElements == 0;
 
         if (result.numberOfElements > 0) {
-            console.log('event:fetched-page -> ...');
+            //console.log('event:fetched-page -> ...');
             $rootScope.$broadcast('event:fetched-page', $scope.pages);
         }
     };
@@ -98,7 +98,6 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
 
             Discussion.fetch(threadId, currentPage, tree, onFetchedPage);
         }
-
     };
 
     $scope.reload = function () {
