@@ -15,13 +15,16 @@
         Parent</a>
 
     <div class="flag pull-right">
+        <a href="javascript:void(0)" ng-click="ignoreAuthorOf('<%- comment.id %>')">
+            Ignore
+        </a>
         <a href="#/v/<%- comment.threadId %>/<%- comment.id %>">
             Permalink
         </a>
         <a href="javascript:void(0)"
            ng-click="showReportModal('<%- comment.id %>')"
            title="Report this comment">
-            Report
+            <span class="glyphicon glyphicon-flag"></span>
         </a>
     </div>
 </div>

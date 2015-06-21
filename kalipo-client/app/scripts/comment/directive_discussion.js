@@ -68,6 +68,10 @@ angular.module('kalipoApp')
 
                 // --
 
+                $scope.ignoreAuthorOf = function (commentId, displayName) {
+                    // todo implement
+                };
+
                 $scope.showReportModal = function (commentId, displayName) {
                     console.log('report modal', commentId);
 

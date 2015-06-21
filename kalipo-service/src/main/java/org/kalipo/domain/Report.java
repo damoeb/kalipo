@@ -1,5 +1,6 @@
 package org.kalipo.domain;
 
+import org.hibernate.validator.constraints.Email;
 import org.joda.time.DateTime;
 import org.kalipo.validation.ModelExistsConstraint;
 import org.springframework.data.annotation.CreatedDate;
@@ -31,6 +32,9 @@ public class Report implements Serializable {
 
     @Size(min = 1, max = 148)
     private String customReason;
+
+    @Email
+    private String email;
 
     private Status status;
 
@@ -151,6 +155,14 @@ public class Report implements Serializable {
 
     public void setReviewNote(String reviewNote) {
         this.reviewNote = reviewNote;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**

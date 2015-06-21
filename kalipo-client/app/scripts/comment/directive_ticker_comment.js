@@ -31,7 +31,7 @@ angular.module('kalipoApp')
                     });
 
                     // listener for new comments
-                    $rootScope.$on('event:comment', function (comment, event) {
+                    $rootScope.$on('ticker-comment', function (comment, event) {
                         console.log('new ticker-comment', comment);
                         // drop oldest (first), append new comment
 

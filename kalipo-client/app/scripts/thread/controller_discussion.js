@@ -55,6 +55,8 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
                 console.log('event', message);
                 Comment.get({id: Websocket.getCommentId(message)}, function (comment) {
 
+                    $rootScope.$broadcast('ticker-comment', comment, message.type);
+
                     var $comment = $('<div/>');
                     Discussion.renderComment(comment, $comment, false);
 
@@ -78,6 +80,8 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
                         //console.log('replace by', $replaceBy);
                         $container.empty().append($compile($replaceBy.contents())($scope));
                     }
+
+                    // todo update pages and refresh outline
                 });
             }
         });
