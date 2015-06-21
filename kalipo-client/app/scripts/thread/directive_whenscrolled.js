@@ -12,28 +12,32 @@ angular.module('kalipoApp')
 
             var $document = $(document);
 
-            $rootScope.$on('event:init-when-scrolled', function () {
-                $document.bind('scroll', function() {
-                    var scrollTop = $document.scrollTop();
-                    var top = $element.offset().top;
-                    var height = $element.height();
-                    var loadNextPage = scrollTop + top > height;
+            $rootScope.$on('init-when-scrolled', function () {
 
-                    if($scope.busy) return;
+                setTimeout(function () {
 
-                    //console.log('whenScrolled', scrollTop + top, height, loadNextPage);
+                    $document.bind('scroll', function () {
+                        var scrollTop = $document.scrollTop();
+                        var top = $element.offset().top;
+                        var height = $element.height();
+                        var loadNextPage = scrollTop + top > height;
 
-                    if(loadNextPage) {
-                        $scope.busy = true;
-                        $scope.$apply($attributes.whenScrolled);
+                        if ($scope.busy) return;
 
-                        setTimeout(function() {
-                            $scope.busy = false;
-                            $scope.$apply();
-                        }, 4000);
-                    }
-                });
+                        //console.log('whenScrolled', scrollTop + top, height, loadNextPage);
 
+                        if (loadNextPage) {
+                            $scope.busy = true;
+                            $scope.$apply($attributes.whenScrolled);
+
+                            setTimeout(function () {
+                                $scope.busy = false;
+                                $scope.$apply();
+                            }, 4000);
+                        }
+                    });
+
+                }, 2000);
             });
         }
     }

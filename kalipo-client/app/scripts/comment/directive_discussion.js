@@ -63,8 +63,7 @@ angular.module('kalipoApp')
                 $scope.toggleOptionals = function (commentId) {
 
                     $('#comment-' + commentId + ' > .replies.optionals').toggleClass('hidden');
-                    $rootScope.$broadcast('event:discussion-changed');
-
+                    $rootScope.$broadcast('refresh-outline-viewport');
                 };
 
                 // --
@@ -83,9 +82,9 @@ angular.module('kalipoApp')
                 };
 
                 $scope.toggleReplies = function (commentId) {
-                    console.log('event:discussion-changed -> ...');
+                    console.log('refresh-outline-viewport -> ...');
                     $('#comment-' + commentId).toggleClass('hiddenreplies');
-                    $rootScope.$broadcast('event:discussion-changed');
+                    $rootScope.$broadcast('refresh-outline-viewport');
                 };
 
                 $scope.like = function (commentId) {

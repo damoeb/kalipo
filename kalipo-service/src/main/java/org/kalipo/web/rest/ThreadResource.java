@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.QueryParam;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
@@ -147,29 +146,6 @@ public class ThreadResource {
             .map(comments -> new ResponseEntity<>(
                 comments,
                         HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    /**
-     * GET  /rest/threads/:id/outline -> get outline of the "id" thread.
-     */
-    @RequestMapping(value = "/threads/{id}/outline",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    @ApiOperation(value = "Get outline of the \"id\" thread.")
-    @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Invalid ID supplied"),
-            @ApiResponse(code = 404, message = "Thread not found")
-    })
-    public ResponseEntity<List<Comment>> getOutline(@PathVariable String id) throws KalipoException, ExecutionException, InterruptedException {
-        log.debug("REST request to get outline of Thread : {}", id);
-        Asserts.isNotNull(id, "id");
-
-        return Optional.ofNullable(threadService.getFullOutline(id).get())
-                .map(thread -> new ResponseEntity<>(
-                    thread,
-                    HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 

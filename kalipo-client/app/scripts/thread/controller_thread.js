@@ -1,7 +1,7 @@
 'use strict';
 
-kalipoApp.controller('ThreadController', ['$scope', '$routeParams', 'Thread', 'Comment', 'Notifications', '$http', '$compile',
-    function ($scope, $routeParams, Thread, Comment, Notifications, $http, $compile) {
+kalipoApp.controller('ThreadController',
+    function ($scope, $routeParams, Thread, Comment, Notifications) {
 
         var threadId = $routeParams.threadId;
 
@@ -9,12 +9,6 @@ kalipoApp.controller('ThreadController', ['$scope', '$routeParams', 'Thread', 'C
         $scope.draft = {};
 
         Thread.get({id: threadId}, function (thread) {
-//            thread.uglyDucklingSurvivalEndDate = null;
-
-            //thread.$kLine = thread.kLine.join(', ');
-            thread.$uriHooks = thread.uriHooks.join('\n');
-            thread.$modIds = thread.modIds.join(' ').trim();
-
             $scope.$pendingCount = thread.pendingCount;
             $scope.$reportCount = thread.reportedCount;
 
@@ -55,18 +49,18 @@ kalipoApp.controller('ThreadController', ['$scope', '$routeParams', 'Thread', 'C
 
         // --
 
-        $scope.markSpamComment = function(commentId) {
-            Notifications.info('Spam '+commentId);
+        $scope.markSpamComment = function (commentId) {
+            Notifications.info('Spam ' + commentId);
             // todo impl backend
         };
 
-        $scope.deleteComment = function(commentId) {
-            Notifications.info('Delete '+commentId);
+        $scope.deleteComment = function (commentId) {
+            Notifications.info('Delete ' + commentId);
             // todo impl backend
         };
 
-        $scope.deleteCommentAndBlacklistUser = function(commentId) {
-            Notifications.info('Delete + Blacklist '+commentId);
+        $scope.deleteCommentAndBlacklistUser = function (commentId) {
+            Notifications.info('Delete + Blacklist ' + commentId);
             // todo impl backend
         };
-    }]);
+    });

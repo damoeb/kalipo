@@ -7,7 +7,6 @@ kalipoApp.factory('Thread', function ($resource) {
         'update': { method: 'PUT', params: {id: '@id'}},
         'latest': {method: 'GET', params: {id: '@id', selector: 'latest'}},
         'discussion': {method: 'GET', params: {selector: 'comments', page: 0}},
-        'diff': {method: 'GET', params: {selector: 'diff'}, isArray: true},
-        'outline': {method: 'GET', params: {selector: 'outline'}, isArray: true}
+        'diff': {method: 'GET', params: {selector: 'diff'}, isArray: true}
     });
 });

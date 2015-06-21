@@ -171,14 +171,6 @@ public class ThreadService {
 //       threadRepository.delete(id);
     }
 
-    public Future<List<Comment>> getFullOutline(String threadId) {
-        Sort sort = new Sort(
-                new Sort.Order(Sort.Direction.ASC, "fingerprint")
-        );
-        List<Comment> outline = commentRepository.getInfluenceByThreadId(threadId, sort);
-        return new AsyncResult<List<Comment>>(outline);
-    }
-
     public Thread banUser(String userId, String threadId) {
         return null;
     }

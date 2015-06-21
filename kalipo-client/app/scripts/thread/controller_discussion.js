@@ -2,56 +2,53 @@
 
 kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $location, $anchorScroll, $rootScope, Thread, Comment, Report, Discussion, Websocket, Notifications, REPORT_IDS, $compile, $q) {
 
-        var threadId = $routeParams.threadId;
-        // todo impl scrolling to commentId
-        var commentId = $routeParams.commentId;
+    var threadId = $routeParams.threadId;
+    // todo impl scrolling to commentId
+    var commentId = $routeParams.commentId;
 
-        $scope.pages = [];
-        $scope.$threadId = threadId;
-        $scope.$viewMode = false;
-        $scope.thread = {};
-        $scope.reportModel = {};
-        $scope.$showPending = false;
-        $scope.$pendingCount = 0;
-        $scope.$reportCount = 0;
-        $scope.$hasReports = false;
-        $scope.$isLastPage = false;
-        $scope.$missedCommentCount = 0;
-        $scope.report = {};
-        $scope.reportOptions = REPORT_IDS;
+    $scope.pages = [];
+    $scope.$threadId = threadId;
+    $scope.$viewMode = false;
+    $scope.thread = {};
+    $scope.reportModel = {};
+    $scope.$showPending = false;
+    $scope.$pendingCount = 0;
+    $scope.$reportCount = 0;
+    $scope.$hasReports = false;
+    $scope.$isLastPage = false;
+    $scope.$missedCommentCount = 0;
+    $scope.report = {};
+    $scope.reportOptions = REPORT_IDS;
 
-        var tree = {};
-        var currentPage = 0;
-    var promise = Discussion.init();
+    var tree = {};
+    var currentPage = 0;
+    var promiseTemplates = Discussion.init();
 
-        // -- Initialization -- ----------------------------------------------------------------------------------------
+    // -- Initialization -- ----------------------------------------------------------------------------------------
 
-        var onFetchedPage = function (result) {
-            $scope.pages.push(result.page);
-            $scope.$isLastPage = result.isLastPage;
-            $scope.$isEmptyDiscussion = result.totalElements==0;
+    var onFetchedPage = function (result) {
+        $scope.pages.push(result.page);
+        $scope.$isLastPage = result.isLastPage;
+        $scope.$isEmptyDiscussion = result.totalElements == 0;
 
-            if(result.numberOfElements > 0) {
-                console.log('event:fetched-page -> ...');
-                $rootScope.$broadcast('event:fetched-page');
-            }
-        };
+        if (result.numberOfElements > 0) {
+            console.log('event:fetched-page -> ...');
+            $rootScope.$broadcast('event:fetched-page', $scope.pages);
+        }
+    };
 
-        var firstFetch = function() {
-            Discussion.fetch(threadId, 0, tree, function(result) {
-                onFetchedPage(result);
+    var firstFetch = function () {
+        Discussion.fetch(threadId, 0, tree, function (result) {
+            onFetchedPage(result);
+            $rootScope.$broadcast('init-when-scrolled');
+        });
+    };
 
-                setTimeout(function() {
-                    $rootScope.$broadcast('event:init-when-scrolled');
-                }, 2000);
-            });
-        };
+    firstFetch();
 
-        firstFetch();
+    // -- Socket -- ------------------------------------------------------------------------------------------------
 
-        // -- Socket -- ------------------------------------------------------------------------------------------------
-
-    $q.when(promise).then(function () {
+    $q.when(promiseTemplates).then(function () {
 
         var socket = Websocket.subscribe(function (message) {
             if (message.threadId == threadId) {
@@ -73,14 +70,14 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
                             //console.log('append to', $parent);
                             $parent.prepend($compile($comment.contents())($scope));
                         }
-                        } else {
+                    } else {
                         // replace
                         var $container = $reference.children('.comment:first-child');
                         //console.log('replace', $container);
                         var $replaceBy = $comment.children('.comment-wrapper').children('.comment');
                         //console.log('replace by', $replaceBy);
                         $container.empty().append($compile($replaceBy.contents())($scope));
-                        }
+                    }
                 });
             }
         });
@@ -89,72 +86,72 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
             console.log('unsubscribe');
             Websocket.unsubscribe(socket);
         });
+    });
+
+    // -- Scope Functions -- ---------------------------------------------------------------------------------------
+
+    var loadMore = function () {
+        if (!$scope.$isLastPage) {
+            console.log("load more");
+
+            currentPage = currentPage + 1;
+
+            Discussion.fetch(threadId, currentPage, tree, onFetchedPage);
+        }
+
+    };
+
+    $scope.reload = function () {
+        currentPage = 0;
+        $scope.$missedCommentCount = 0;
+        $scope.pages = [];
+
+        firstFetch();
+    };
+
+
+    $scope.loadMore = function () {
+        loadMore();
+    };
+
+    $scope.scrollTo = function (id) {
+        console.log('scroll to comment', id);
+        var old = $location.hash();
+        $location.hash(id);
+        $anchorScroll();
+        //reset to old to keep any additional routing logic from kicking in
+        $location.hash(old);
+    };
+
+    $scope.updateThread = function () {
+
+        var re = new RegExp('[, \n\t]+', 'g');
+
+        if (!_.isUndefined($scope.thread.$modIds)) {
+            $scope.thread.modIds = _.compact($scope.thread.$modIds.replace(re, ' ').split(' '));
+        }
+        //if (!_.isUndefined($scope.thread.$kLine)) {
+        //    $scope.thread.kLine = _.compact($scope.thread.$kLine.replace(re, ' ').split(' '));
+        //}
+        if (!_.isUndefined($scope.thread.$uriHooks)) {
+            $scope.thread.uriHooks = _.compact($scope.thread.$uriHooks.replace(re, ' ').split(' '));
+        }
+        Thread.update($scope.thread, function () {
+            Notifications.info('Updated');
         });
+    };
 
-        // -- Scope Functions -- ---------------------------------------------------------------------------------------
+    $scope.submitReport = function () {
 
-        var loadMore = function () {
-            if(!$scope.$isLastPage) {
-                console.log("load more");
+        console.log('submit report');
 
-                currentPage = currentPage + 1;
+        $scope.report.reason = $scope.report.reason.id;
 
-                Discussion.fetch(threadId, currentPage, tree, onFetchedPage);
-            }
-
-        };
-
-        $scope.reload = function() {
-            currentPage = 0;
-            $scope.$missedCommentCount = 0;
-            $scope.pages = [];
-
-            firstFetch();
-        };
-
-
-        $scope.loadMore = function () {
-            loadMore();
-        };
-
-        $scope.scrollTo = function (id) {
-            console.log('scroll to comment', id);
-            var old = $location.hash();
-            $location.hash(id);
-            $anchorScroll();
-            //reset to old to keep any additional routing logic from kicking in
-            $location.hash(old);
-        };
-
-        $scope.updateThread = function () {
-
-            var re = new RegExp('[, \n\t]+', 'g');
-
-            if (!_.isUndefined($scope.thread.$modIds)) {
-                $scope.thread.modIds = _.compact($scope.thread.$modIds.replace(re, ' ').split(' '));
-            }
-            //if (!_.isUndefined($scope.thread.$kLine)) {
-            //    $scope.thread.kLine = _.compact($scope.thread.$kLine.replace(re, ' ').split(' '));
-            //}
-            if (!_.isUndefined($scope.thread.$uriHooks)) {
-                $scope.thread.uriHooks = _.compact($scope.thread.$uriHooks.replace(re, ' ').split(' '));
-            }
-            Thread.update($scope.thread, function() {
-                Notifications.info('Updated');
+        Report.save($scope.report,
+            function () {
+                Notifications.info('Report saved...');
+                $scope.report.reason = null;
             });
-        };
-
-        $scope.submitReport = function () {
-
-            console.log('submit report');
-
-            $scope.report.reason = $scope.report.reason.id;
-
-            Report.save($scope.report,
-                function () {
-                    Notifications.info('Report saved...');
-                    $scope.report.reason = null;
-                });
-        };
+    };
 
 });

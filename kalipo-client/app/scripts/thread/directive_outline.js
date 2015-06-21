@@ -2,7 +2,7 @@
  * Created by damoeb on 16.12.14.
  */
 angular.module('kalipoApp')
-    .directive('threadOutline', function ($compile, $routeParams, $rootScope, Thread, Outline) {
+    .directive('threadOutline', function ($compile, $routeParams, $rootScope, Thread, Outline, OutlineConfig) {
         return {
             restrict: 'E',
             scope: {
@@ -12,15 +12,14 @@ angular.module('kalipoApp')
             replace: true,
             link: function ($scope, $element, $attributes) {
 
-                var threadId = $routeParams.threadId;
+                //var threadId = $routeParams.threadId;
 //                console.log('threadId', threadId);
 
                 var $this = this;
-
-                Outline.assign($element);
+                $this.comments = [];
 
                 var onScrollEnd = function (callback) {
-                    $(document).ready(function () {
+                    //$(document).ready(function () {
 
                         var $this = $(this);
 
@@ -41,50 +40,29 @@ angular.module('kalipoApp')
                             $this.off('scroll');
                         });
 
-                    });
+                    //});
                 };
 
-                $rootScope.$on('event:discussion-changed', function () {
-                    console.log('-> event:discussion-changed');
-                    Outline.scroll($this.comments);
-                });
-
-                onScrollEnd(function () {
-                    Outline.scroll($this.comments)
-                });
-
-                var done_firstPage = false;
-                var done_outline = false;
-
-                var onAllFetched = function() {
-                    Outline.prepareAndDraw($scope.pages, $this.comments, function (newComments) {
-                        $this.comments = newComments;
-                    });
+                var refreshViewport = function () {
+                    Outline.refreshViewport($this.comments, $element.parent())
                 };
 
-                $rootScope.$on('event:fetched-page', function () {
+                $rootScope.$on('refresh-outline-viewport', refreshViewport);
+                onScrollEnd(refreshViewport);
+
+                $rootScope.$on('event:fetched-page', function (pages) {
 
                     console.log('-> event:fetched-page');
-                    done_firstPage = true;
 
-                    if (done_outline) {
-                        onAllFetched();
-                    }
+                    $this.comments = Outline.flattenPages($scope.pages);
+
+                    var dimensions = {
+                        width: $element.width(),
+                        height: $this.comments.length * (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom)
+                    };
+
+                    Outline.draw($this.comments, dimensions);
                 });
-
-                Outline.fetchOutline(threadId, function (comments) {
-                    $this.comments = comments;
-
-                    console.log('Fetched outline');
-
-                    done_outline = true;
-
-                    if (done_firstPage) {
-                        onAllFetched();
-                    }
-
-                });
-
             }
         }
     });

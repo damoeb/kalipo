@@ -8,16 +8,18 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
 
     var helper = {
 
-        pushAll: function (sink, pages) {
+        pushAll: function (pages) {
+            var sink = [];
             _.forEach(pages, function (_comments) {
                 _.forEach(_comments, function (comment) {
                     sink.push(comment);
                 })
-            })
+            });
+            return sink;
         },
 
-        flat: function (sink, deepComments) {
-            _.forEach(deepComments, function (comment) {
+        flat: function (sink, nestedComments) {
+            _.forEach(nestedComments, function (comment) {
                 sink.push(comment);
                 helper.flat(sink, comment.replies);
             });
@@ -70,14 +72,6 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             }
         },
 
-        extern: function (comments) {
-
-            return {
-                width: $this.$element.width(),
-                height: comments.length * (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom)
-            }
-        },
-
         influence: function (comments) {
 
             var minInfluence = _.min(comments, function (c) {
@@ -107,10 +101,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             }).level;
 
             var domainWidth = (maxLevel * OutlineConfig.level_xOffset + OutlineConfig.bar_width + influence.max * 0.8 * OutlineConfig.bar_influenceBoost);
-//            console.log('domain-width', domainWidth);
-
             var domainHeight = comments.length * (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) + helper.rootsCount(0, comments.length) * OutlineConfig.yOffsetForRoots;
-//            console.log('domain-height', domainHeight);
 
             return {
                 width: domainWidth,
@@ -129,16 +120,18 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
                     .domain([0, intern.height])
                     .range([0, extern.height])
             }
-        },
+        }
+    };
 
-        draw: function (comments) {
+    return {
+        draw: function (comments, dimensions) {
 
             console.log('drawing outline');
 
             var influence = internal.influence(comments);
-            var extern = internal.extern(comments);
-            var intern = internal.intern(influence, comments);
-            var scale = internal.scale(intern, extern);
+            var externDimensions = dimensions;
+            var internDimensions = internal.intern(influence, comments);
+            var scale = internal.scale(internDimensions, externDimensions);
 
             // todo fix e
             $this.yScale = scale.y;
@@ -146,8 +139,8 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             d3.select('#klp-outline').select('g').remove();
 
             var g = d3.select('#klp-outline')
-                .attr('width', extern.width)
-                .attr('height', extern.height)
+                .attr('width', externDimensions.width)
+                .attr('height', externDimensions.height)
                 .append('g');
 
             var yOffsetTotal = 0;
@@ -191,61 +184,29 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
                 });
         },
 
-        paginate: function (comments) {
-            var paginated = {};
-            var grouped = _.groupBy(comments, function (comment, index) {
-                return parseInt(index / OutlineConfig.commentsOnPage);
-            });
-            _.forEach(grouped, function (_comments, page) {
-                paginated[page] = _.flatten(_comments);
-            });
-
-            return paginated;
-        }
-
-    };
-
-    return {
-        // todo rm this
-        assign: function ($element) {
-            $this.$element = $element;
-        },
-
-        fetchOutline: function (threadId, onSuccess) {
-
-            Thread.outline({id: threadId}, function (comments) {
-
-                onSuccess(comments);
-
-            });
-        },
-
-        prepareAndDraw: function (pages, comments, onSuccess) {
+        flattenPages: function (pages) {
 
             console.log('prepare drawing outline', pages.length);
 
-            var paginated = internal.paginate(comments);
+            var flat_pages = {};
 
             // todo this does not work properly
             _.forEach(pages, function (page) {
 
-                paginated[page.id] = [];
-                helper.flat(paginated[page.id], page.comments);
-                paginated[page.id] = _.flatten(paginated[page.id]);
+                flat_pages[page.id] = [];
+                helper.flat(flat_pages[page.id], page.comments);
+                flat_pages[page.id] = _.flatten(flat_pages[page.id]);
                 //console.log('page', page.id, paginated[page.id].length)
             });
 
-            // updated pages to flat comments
-            comments = [];
-
-            helper.pushAll(comments, paginated);
-
-            internal.draw(comments);
-
-            onSuccess(comments);
+            return helper.pushAll(flat_pages);
         },
 
-        scroll: function (comments) {
+        /**
+         * update outline viewport
+         * @param comments
+         */
+        refreshViewport: function (comments, $outline) {
 
             var viewport = internal.viewport();
 
@@ -265,7 +226,6 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             var _height = (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) * (indexOfLast - indexOfFirst) + OutlineConfig.yOffsetForRoots * (helper.rootsCount(indexOfFirst, indexOfLast));
 
             var $viewportIndicator = $('#outline-viewport-indicator');
-            var $outline = $this.$element.parent();
             if ($outline.offset().top > viewport.scrollTop || viewport.scrollTop < 200) { // || $element.parent().height() > scrollTop) {
                 $outline.css({'position': 'relative', 'top': 0});
                 $viewportIndicator.hide();
@@ -280,7 +240,6 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
                 }
 
                 $outline.animate({top: $this.yScale(_top)}, '300', 'swing');
-
                 $viewportIndicator.show().animate({height: $this.yScale(_height)}, '200', 'swing');
             }
         }
