@@ -337,6 +337,39 @@ a:hover {
    background-color: #cccccc;
 }
 
+.hideMe {
+    -moz-animation: hideAnimation 0s ease-in 15s forwards;
+    /* Firefox */
+    -webkit-animation: hideAnimation 0s ease-in 15s forwards;
+    /* Safari and Chrome */
+    -o-animation: hideAnimation 0s ease-in 15s forwards;
+    /* Opera */
+    animation: hideAnimation 0s ease-in 15s forwards;
+}
+
+@keyframes hideAnimation
+{
+    0% {opacity:1;}
+    100% {opacity:0;}
+}
+
+@-moz-keyframes hideAnimation /* Firefox */
+{
+    0% {opacity:1;}
+    100% {opacity:0;}
+}
+
+@-webkit-keyframes hideAnimation /* Safari and Chrome */
+{
+    0% {opacity:1;}
+    100% {opacity:0;}
+}
+
+@-o-keyframes hideAnimation /* Opera */ {
+    0% {opacity:1;}
+    100% {opacity:0;}
+}
+
 /* -- quotes -- */
 .quote {
     padding: 0.2em 1em;

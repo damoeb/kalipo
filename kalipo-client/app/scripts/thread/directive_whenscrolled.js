@@ -8,8 +8,6 @@ angular.module('kalipoApp')
         //scope: '=',
         link: function($scope, $element, $attributes) {
 
-            $scope.busy = false;
-
             var $document = $(document);
 
             $rootScope.$on('init-when-scrolled', function () {
@@ -24,16 +22,8 @@ angular.module('kalipoApp')
 
                         if ($scope.busy) return;
 
-                        //console.log('whenScrolled', scrollTop + top, height, loadNextPage);
-
                         if (loadNextPage) {
-                            $scope.busy = true;
                             $scope.$apply($attributes.whenScrolled);
-
-                            setTimeout(function () {
-                                $scope.busy = false;
-                                $scope.$apply();
-                            }, 4000);
                         }
                     });
 

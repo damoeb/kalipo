@@ -212,14 +212,7 @@ kalipoApp.factory('Discussion', function ($http, Thread, $q) {
 
         fetch: function (threadId, pageId, tree, onSuccess) {
 
-            var start = new Date().getTime();
-
             Thread.discussion({id: threadId, page: pageId}, function (pageData) {
-
-                var end = new Date().getTime();
-                console.log('Fetch time: ' + (end - start));
-
-                start = new Date().getTime();
 
                 var comments = internal.postFetch(pageData.content, pageId);
 
@@ -290,8 +283,6 @@ kalipoApp.factory('Discussion', function ($http, Thread, $q) {
                     id: pageId,
                     comments: roots
                 };
-                end = new Date().getTime();
-                console.log('Execution time: ' + (end - start));
 
                 onSuccess({page: page, isLastPage: pageData.lastPage, isFirstPage: pageData.firstPage, totalElements: pageData.totalElements, numberOfElements: pageData.numberOfElements});
 

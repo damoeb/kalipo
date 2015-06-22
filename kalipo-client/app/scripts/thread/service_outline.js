@@ -186,17 +186,13 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
 
         flattenPages: function (pages) {
 
-            console.log('prepare drawing outline', pages.length);
-
             var flat_pages = {};
 
-            // todo this does not work properly
             _.forEach(pages, function (page) {
 
                 flat_pages[page.id] = [];
                 helper.flat(flat_pages[page.id], page.comments);
                 flat_pages[page.id] = _.flatten(flat_pages[page.id]);
-                //console.log('page', page.id, paginated[page.id].length)
             });
 
             return helper.pushAll(flat_pages);
@@ -204,7 +200,8 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
 
         /**
          * update outline viewport
-         * @param comments
+         * @param comments list of comments
+         * @param $outline the dom element
          */
         refreshViewport: function (comments, $outline) {
 

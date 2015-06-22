@@ -19,6 +19,7 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
     $scope.$missedCommentCount = 0;
     $scope.report = {};
     $scope.reportOptions = REPORT_IDS;
+    $scope.busy = false;
 
     var tree = {};
     var currentPage = 0;
@@ -30,10 +31,10 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
         $scope.pages.push(result.page);
         $scope.$isLastPage = result.isLastPage;
         $scope.$isEmptyDiscussion = result.totalElements == 0;
+        $scope.busy = false;
 
         if (result.numberOfElements > 0) {
-            //console.log('event:fetched-page -> ...');
-            $rootScope.$broadcast('event:fetched-page', $scope.pages);
+            $rootScope.$broadcast('fetched-page', $scope.pages);
         }
     };
 
@@ -56,6 +57,8 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
                 Comment.get({id: Websocket.getCommentId(message)}, function (comment) {
 
                     $rootScope.$broadcast('ticker-comment', comment, message.type);
+
+                    comment['$new'] = true;
 
                     var $comment = $('<div/>');
                     Discussion.renderComment(comment, $comment, false);
@@ -96,6 +99,7 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
 
     var loadMore = function () {
         if (!$scope.$isLastPage) {
+            $scope.busy = true;
             console.log("load more");
 
             currentPage = currentPage + 1;

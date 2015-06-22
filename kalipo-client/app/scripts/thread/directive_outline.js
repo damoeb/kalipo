@@ -19,28 +19,25 @@ angular.module('kalipoApp')
                 $this.comments = [];
 
                 var onScrollEnd = function (callback) {
-                    //$(document).ready(function () {
 
-                        var $this = $(this);
+                    var $this = $(this);
 
-                        // attach scroll end listener
-                        var scrollTimeout;
+                    // attach scroll end listener
+                    var scrollTimeout;
 
-                        $this.scroll(function () {
-                            if (scrollTimeout) {
-                                clearTimeout(scrollTimeout);
-                            }
-                            scrollTimeout = setTimeout(function () {
-                                callback();
-                            }, 50);
-                        });
+                    $this.scroll(function () {
+                        if (scrollTimeout) {
+                            clearTimeout(scrollTimeout);
+                        }
+                        scrollTimeout = setTimeout(function () {
+                            callback();
+                        }, 50);
+                    });
 
-                        // remove scroll listener
-                        $scope.$on('$destroy', function () {
-                            $this.off('scroll');
-                        });
-
-                    //});
+                    // remove scroll listener
+                    $scope.$on('$destroy', function () {
+                        $this.off('scroll');
+                    });
                 };
 
                 var refreshViewport = function () {
@@ -50,9 +47,7 @@ angular.module('kalipoApp')
                 $rootScope.$on('refresh-outline-viewport', refreshViewport);
                 onScrollEnd(refreshViewport);
 
-                $rootScope.$on('event:fetched-page', function (event, pages) {
-
-                    console.log('-> event:fetched-page', pages);
+                $rootScope.$on('fetched-page', function (event, pages) {
 
                     $this.comments = Outline.flattenPages(pages);
 

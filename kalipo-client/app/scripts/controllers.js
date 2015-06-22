@@ -12,12 +12,10 @@ kalipoApp.service('Notifications', function (notifyjs) {
 
     return {
         info: function (message) {
-            console.log('info', message);
             notifyjs(message, 'info');
         },
 
         error: function (message) {
-            console.log('error', message);
             notifyjs(message, 'error');
         }
     }
