@@ -1,0 +1,43 @@
+<VirtualHost *:443>
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/localcerts/apache.pem
+    SSLCertificateKeyFile /etc/ssl/localcerts/apache.key
+
+    SSLCipherSuite RC4-SHA:AES128-SHA:HIGH:!aNULL:!MD5
+    SSLHonorCipherOrder on
+
+    ProxyRequests Off
+    ProxyPreserveHost On
+
+    <Proxy *>
+      Order deny,allow
+      Allow from all
+    </Proxy>
+
+    # -- KALIPO -- --------------------------------------
+
+    # append trailing /
+    Redirect permanent /kalipo https://176.28.19.89/kalipo/
+
+    # websocket
+    ProxyPass /kalipo/websocket/ ws://localhost:8081/websocket/ retry=0
+
+    # http
+    ProxyPass /kalipo/ http://localhost:8081/
+    ProxyPassReverse /kalipo/ http://localhost:8081/
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+
+    # Possible values include: debug, info, notice, warn, error, crit,
+    # alert, emerg.
+    LogLevel warn
+
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+</VirtualHost>
+
+<VirtualHost *:80>
+    RewriteEngine on
+    ReWriteCond %{SERVER_PORT} !^443$
+    RewriteRule ^/(.*) https://%{HTTP_HOST}/$1 [NC,R,L]
+</VirtualHost>
