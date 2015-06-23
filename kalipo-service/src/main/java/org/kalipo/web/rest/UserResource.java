@@ -4,9 +4,13 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
+import org.apache.commons.lang3.StringUtils;
+import org.kalipo.config.Constants;
 import org.kalipo.domain.User;
 import org.kalipo.security.AuthoritiesConstants;
 import org.kalipo.service.UserService;
+import org.kalipo.service.util.Asserts;
+import org.kalipo.service.util.ParamUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,6 +21,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.QueryParam;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -51,8 +58,6 @@ public class UserResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // todo implemente in ui
-
     /**
      * PUT  /rest/users/:login -> update the "login" user.
      */
@@ -74,6 +79,7 @@ public class UserResource {
 
     /**
      * POST  /rest/users/:login/ban -> ban the "login" user.
+     * todo rename "ban", cause this is already used in thread
      */
     @RequestMapping(value = "/rest/users/{login}/ban",
             method = RequestMethod.POST,
@@ -82,5 +88,160 @@ public class UserResource {
     ResponseEntity<User> ban(@PathVariable String login) throws KalipoException {
         log.debug("REST request to ban User : {}", login);
         return new ResponseEntity<>(userService.ban(login), HttpStatus.OK);
+    }
+
+
+    /**
+     * GET  /rest/users/:login/threads -> get the threads of "login" user.
+     */
+    @RequestMapping(value = "/rest/users/{login}/threads",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Get threads of a user")
+    @ApiResponses(value = {
+        @ApiResponse(code = 400, message = "Invalid ID supplied"),
+        @ApiResponse(code = 404, message = "User not found")
+    })
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<User> getThreadsOfUser(
+        @PathVariable String login,
+        @QueryParam(Constants.PARAM_PAGE) Integer page,
+        @QueryParam(Constants.PARAM_SORT_FIELD) String sortFieldValue,
+        @QueryParam(Constants.PARAM_SORT_ORDER) String sortOrderValue
+    ) throws KalipoException {
+        log.debug("REST request to get threads of User : {}", login);
+        // todo implement
+//        List of threads, pagination:yes, sort by newest first/upvotes, type:[thread]
+        List<String> expectedSortFields = Arrays.asList(Constants.PARAM_CREATED_DATE, "likes");
+        List<String> expectedSortOrder = Arrays.asList("asc", "desc");
+
+//        Arrays.sort(expectedSortFields);
+//        Asserts.isTrue(Arrays.binarySearch(expectedSortFields, sortField) > -1, String.format("%s must be one of %s", Constants.PARAM_SORT_FIELD, expectedSortFields));
+
+        return null;
+    }
+
+    /**
+     * GET  /rest/users/:login/comments -> get the comments of "login" user.
+     */
+    @RequestMapping(value = "/rest/users/{login}/comments",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Get comments of a user")
+    @ApiResponses(value = {
+        @ApiResponse(code = 400, message = "Invalid ID supplied"),
+        @ApiResponse(code = 404, message = "User not found")
+    })
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<User> getCommentsOfUser(
+        @PathVariable String login,
+        @QueryParam(Constants.PARAM_PAGE) Integer page,
+        @QueryParam(Constants.PARAM_SORT_FIELD) String sortField,
+        @QueryParam(Constants.PARAM_SORT_ORDER) String sortOrder
+    ) {
+        log.debug("REST request to get comments of User : {}", login);
+
+        // todo implement
+//        List of comments, pagination:yes, sort by newest first/upvotes, type:[comment]
+        return null;
+    }
+
+    /**
+     * GET  /rest/users/:login/likes -> get the likes of "login" user.
+     */
+    @RequestMapping(value = "/rest/users/{login}/likes",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Get likes of a user")
+    @ApiResponses(value = {
+        @ApiResponse(code = 400, message = "Invalid ID supplied"),
+        @ApiResponse(code = 404, message = "User not found")
+    })
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<User> getLikesOfUser(
+        @PathVariable String login,
+        @QueryParam(Constants.PARAM_PAGE) Integer page,
+        @QueryParam(Constants.PARAM_SORT_FIELD) String sortField,
+        @QueryParam(Constants.PARAM_SORT_ORDER) String sortOrder
+    ) {
+        log.debug("REST request to get comments of User : {}", login);
+        // todo implement
+//        List of comments, pagination:yes, sort by newest first/upvotes, type:[comment]
+        return null;
+    }
+
+    /**
+     * GET  /rest/users/:login/notifications -> get the notifications of "login" user.
+     */
+    @RequestMapping(value = "/rest/users/{login}/notifications",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Get notifications of a user")
+    @ApiResponses(value = {
+        @ApiResponse(code = 400, message = "Invalid ID supplied"),
+        @ApiResponse(code = 404, message = "User not found")
+    })
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<User> getNotificationsOfUser(
+        @PathVariable String login
+    ) {
+        log.debug("REST request to get notifications of User : {}", login);
+        // newest first
+        // todo implement
+//        List of notifications, pagination:no, limited to 10, sort by newest first, type:[thread,comment]
+        return null;
+    }
+
+    /**
+     * GET  /rest/users/:login/achievements -> get the achievements of "login" user.
+     */
+    @RequestMapping(value = "/rest/users/{login}/achievements",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Get achievements of a user")
+    @ApiResponses(value = {
+        @ApiResponse(code = 400, message = "Invalid ID supplied"),
+        @ApiResponse(code = 404, message = "User not found")
+    })
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<User> getAchievementsOfUser(
+        @PathVariable String login,
+        @QueryParam(Constants.PARAM_PAGE) Integer page
+    ) {
+        log.debug("REST request to get achievements of User : {}", login);
+        // newest first
+        // todo implement
+//        List of achievements, pagination:yes, sort by newest first, type:[achievement]
+        return null;
+    }
+
+
+    /**
+     * GET  /rest/users/:login/achievements -> get the achievements of "login" user.
+     */
+    @RequestMapping(value = "/rest/users/{login}/ignored-users",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Get ignored-users of a user")
+    @ApiResponses(value = {
+        @ApiResponse(code = 400, message = "Invalid ID supplied"),
+        @ApiResponse(code = 404, message = "User not found")
+    })
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<User> getIgnoredUsersOfUser(
+        @PathVariable String login,
+        @QueryParam(Constants.PARAM_PAGE) Integer page
+    ) {
+        log.debug("REST request to get ignored-users of User : {}", login);
+        // newest first
+        // todo implement
+//        List of usernames, pagination:yes, sort by name
+        return null;
     }
 }

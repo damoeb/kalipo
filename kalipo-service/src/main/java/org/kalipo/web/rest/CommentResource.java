@@ -5,10 +5,11 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
+import org.kalipo.config.Constants;
 import org.kalipo.domain.Comment;
 import org.kalipo.service.CommentService;
 import org.kalipo.service.util.Asserts;
-import org.kalipo.service.util.ParamFixer;
+import org.kalipo.service.util.ParamUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -109,6 +110,42 @@ public class CommentResource {
     }
 
     /**
+     * PUT  /rest/comments/{id}/spam -> Label existing comment as "Spam".
+     */
+    @RequestMapping(value = "/rest/comments/{id}/spam",
+        method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Label comment as spam")
+    @ApiResponses(value = {
+        @ApiResponse(code = 400, message = "Invalid ID supplied"),
+        @ApiResponse(code = 404, message = "Comment not found")
+    })
+    public Comment spam(@PathVariable String id) throws KalipoException {
+        log.debug("REST request to label Comment as spam: {}", id);
+
+        return commentService.spam(id);
+    }
+
+    /**
+     * PUT  /rest/comments/{id}/delete+ban -> Label existing comment as "Spam".
+     */
+    @RequestMapping(value = "/rest/comments/{id}/delete+ban",
+        method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Delete comment and ban user from thread")
+    @ApiResponses(value = {
+        @ApiResponse(code = 400, message = "Invalid ID supplied"),
+        @ApiResponse(code = 404, message = "Comment not found")
+    })
+    public Comment deleteAndBan(@PathVariable String id) throws KalipoException {
+        log.debug("REST request to delete Comment and ban user: {}", id);
+
+        return commentService.deleteAndBan(id);
+    }
+
+    /**
      * GET  /rest/comments/review -> get all the comments, that have to be reviewed.
      */
     @RequestMapping(value = "/rest/comments/pending",
@@ -118,10 +155,13 @@ public class CommentResource {
     @ApiOperation(value = "Get all the comments, that can be review")
     @Deprecated
     // todo review this method
-    public List<Comment> getAllUnderReview(@QueryParam("thread") String threadId, @QueryParam("page") Integer page) throws ExecutionException, InterruptedException {
+    public List<Comment> getAllUnderReview(
+        @QueryParam("thread") String threadId,
+        @QueryParam(Constants.PARAM_PAGE) Integer page
+    ) throws ExecutionException, InterruptedException {
         log.debug("REST request to get all Comments, that have to be reviewed");
 
-        page = ParamFixer.fixPage(page);
+        page = ParamUtils.fixPage(page);
 
         if (StringUtils.isBlank(threadId)) {
             return commentService.getPendingWithPages(page).get();

@@ -210,7 +210,9 @@ kalipoApp.factory('Discussion', function ($http, Thread, $q) {
             __render(comment, $sink, concealed);
         },
 
-        fetch: function (threadId, pageId, tree, onSuccess) {
+        fetch: function (threadId, pageId, tree) {
+
+            var defer = $q.defer();
 
             Thread.discussion({id: threadId, page: pageId}, function (pageData) {
 
@@ -284,9 +286,11 @@ kalipoApp.factory('Discussion', function ($http, Thread, $q) {
                     comments: roots
                 };
 
-                onSuccess({page: page, isLastPage: pageData.lastPage, isFirstPage: pageData.firstPage, totalElements: pageData.totalElements, numberOfElements: pageData.numberOfElements});
+                defer.resolve({page: page, isLastPage: pageData.lastPage, isFirstPage: pageData.firstPage, totalElements: pageData.totalElements, numberOfElements: pageData.numberOfElements});
 
             });
+
+            return defer.promise;
         }
     };
 });

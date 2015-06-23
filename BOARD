@@ -1,16 +1,12 @@
-Es gibt keinen Thread mehr, sondern nur Kommentare auf die geantwortet werden kann. Uebersichtseite stellt einen anonymisierten Live chat dar, von dem aus Diskussion gestartet werden koennen
-oder nach 4chan prinzip/fb prinzip
-
-Threads haben min Reputation, um zu kommentieren
-
-{Notifications -> Events} umbenennen
-Notifications: Email Benachrichtigungen
+NO- Es gibt keinen Thread mehr, sondern nur Kommentare auf die geantwortet werden kann. Uebersichtseite stellt einen anonymisierten Live chat dar, von dem aus Diskussion gestartet werden koennen
+Thread management nach 4chan prinzip
+Rename Notice to Notification
+Achievement vs Reputation: refactor, this is confusing
 
 Dashboard
-when scrolled must stop showing icon once last page reached
 implement moderation meths in controller_thread Spam,...
 for mods: additional infos in outline and discussion, "this is reported", ..
-page size at least 100, sort pages by influence not date, if possible
+set page size 40, load 3 pages at beginning, sort pages by influence not date, if possible
 
 general
   suche mit elastic search
@@ -24,12 +20,10 @@ profile
   moderate pending/reports has to be there too
 
 - permalinks for comments, update url when clicking in outline
-- oneline must be much smaller like on slashdot
 - thread has a reputation threshold for users to join discussion
-adjust auto approve comment by reputation per thread
 
 Categories
-  Events  : List of events, pagination:no, limited to 10, sort by newest first, type:[thread,comment]
+  Notifications  : List of events, pagination:no, limited to 10, sort by newest first, type:[thread,comment]
   Threads I use  : List of threads, pagination:yes, sort by newest first/upvotes, type:[thread]
   Comments I made: List of comments, pagination:yes, sort by newest first/upvotes, type:[comment]
   Likes          : List of comments, pagination:yes, sort by newest first/upvotes, type:[comment]

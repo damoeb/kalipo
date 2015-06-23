@@ -65,6 +65,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
     // todo history of bans
 //    private Set<Ban> bans = new HashSet<Ban>();
 
+    private Set<String> ignoredUsers = new HashSet<String>();
+
     private DateTime bannedUntilDate;
 
     @NotNull(message = "{constraint.notnull.registrationDate}")
@@ -259,6 +261,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setTrustworthiness(double trustworthiness) {
         this.trustworthiness = trustworthiness;
+    }
+
+    public Set<String> getIgnoredUsers() {
+        return ignoredUsers;
+    }
+
+    public void setIgnoredUsers(Set<String> ignoredUsers) {
+        this.ignoredUsers = ignoredUsers;
     }
 
     @Override

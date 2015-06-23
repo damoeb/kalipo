@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Broadcast events via websockets
+ *
  * Created by damoeb on 10.12.14.
  */
 public final class BroadcastUtils {
@@ -17,7 +19,7 @@ public final class BroadcastUtils {
     private static final Logger log = LoggerFactory.getLogger(BroadcastUtils.class);
 
     public enum Type {
-        COMMENT, VOTE
+        COMMENT, COMMENT_DELETED, VOTE
     }
 
     private static ObjectMapper jsonMapper = new ObjectMapper();
@@ -28,7 +30,6 @@ public final class BroadcastUtils {
             Asserts.isNotNull(data, "data");
             Wrapper wrapper = new Wrapper(type.name(), data);
 
-            // todo check if really anonymized
             // todo there should be a random delay to increase anonymity
 
             BroadcasterFactory.getDefault().lookup(LiveChannelService.URL, true).broadcast(jsonMapper.writeValueAsString(wrapper));

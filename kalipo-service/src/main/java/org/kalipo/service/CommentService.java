@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.RateLimit;
+import org.kalipo.config.Constants;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Notice;
@@ -16,6 +17,7 @@ import org.kalipo.repository.UserRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
+import org.kalipo.service.util.BroadcastUtils;
 import org.kalipo.service.util.NumUtils;
 import org.kalipo.web.filter.AnonUtil;
 import org.kalipo.web.rest.KalipoException;
@@ -61,6 +63,9 @@ public class CommentService {
     private UserService userService;
 
     @Inject
+    private ThreadService threadService;
+
+    @Inject
     private MarkupService markupService;
 
     @RateLimit
@@ -99,7 +104,7 @@ public class CommentService {
         Asserts.nullOrEqual(modified.getDislikes(), original.getDislikes(), "dislikes");
         modified.setDislikes(original.getDislikes());
 
-        Asserts.nullOrEqual(modified.getCreatedDate(), original.getCreatedDate(), "createdDate");
+        Asserts.nullOrEqual(modified.getCreatedDate(), original.getCreatedDate(), Constants.PARAM_CREATED_DATE);
         modified.setCreatedDate(original.getCreatedDate());
 
         return save(modified, original);
@@ -171,6 +176,35 @@ public class CommentService {
 
     @RolesAllowed(Privileges.REVIEW_COMMENT)
     @RateLimit
+    public Comment spam(String id) throws KalipoException {
+
+        Asserts.isNotNull(id, "id");
+        Comment comment = commentRepository.findOne(id);
+        Asserts.isNotNull(comment, "id");
+
+        comment.setStatus(Comment.Status.SPAM);
+        BroadcastUtils.broadcast(BroadcastUtils.Type.COMMENT_DELETED, comment.anonymized());
+
+        return comment;
+    }
+
+    @RolesAllowed(Privileges.REVIEW_COMMENT)
+    @RateLimit
+    public Comment deleteAndBan(String id) throws KalipoException {
+
+        Asserts.isNotNull(id, "id");
+        Comment comment = commentRepository.findOne(id);
+        Asserts.isNotNull(comment, "id");
+
+        delete(comment);
+
+        threadService.banUser(comment.getAuthorId(), comment.getThreadId());
+
+        return comment;
+    }
+
+    @RolesAllowed(Privileges.REVIEW_COMMENT)
+    @RateLimit
     public Comment reject(Comment comment) throws KalipoException {
 
         // todo test, this is new
@@ -203,13 +237,13 @@ public class CommentService {
 
     @Async
     public Future<List<Comment>> getPendingWithPages(final int pageNumber) {
-        PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, "createdDate");
+        PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, Constants.PARAM_CREATED_DATE);
         return new AsyncResult<>(commentRepository.findByStatus(Comment.Status.PENDING, pageable));
     }
 
     @Async
     public Future<List<Comment>> getPendingInThreadWithPages(String threadId, final int pageNumber) {
-        PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, "createdDate");
+        PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, Constants.PARAM_CREATED_DATE);
         return new AsyncResult<>(commentRepository.findByThreadIdAndStatusIn(threadId, Arrays.asList(Comment.Status.PENDING), pageable).getContent());
     }
 
@@ -293,6 +327,8 @@ public class CommentService {
 //            log.info("User {} is banned until ", author.getLogin(), bannedUntilDate);
             noticeService.notifySuperModsOfFraudulentUser(author, currentLogin);
         }
+
+        BroadcastUtils.broadcast(BroadcastUtils.Type.COMMENT_DELETED, comment.anonymized());
 
         userRepository.save(author);
     }

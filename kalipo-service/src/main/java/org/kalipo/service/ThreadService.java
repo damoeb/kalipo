@@ -4,11 +4,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.RateLimit;
+import org.kalipo.config.Constants;
 import org.kalipo.config.ErrorCode;
-import org.kalipo.domain.Comment;
-import org.kalipo.domain.Privilege;
+import org.kalipo.domain.*;
 import org.kalipo.domain.Thread;
-import org.kalipo.domain.User;
 import org.kalipo.repository.*;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
@@ -25,6 +24,7 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.web.util.UrlUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -59,6 +59,9 @@ public class ThreadService {
 
     @Inject
     private UserService userService;
+
+    @Inject
+    private NoticeService noticeService;
 
     @RolesAllowed(Privileges.CREATE_THREAD)
     @RateLimit
@@ -136,7 +139,7 @@ public class ThreadService {
     @Async
     public Future<Page<Thread>> getAllWithPages(Integer page) {
         Sort sort = new Sort(
-                new Sort.Order(Sort.Direction.ASC, "createdDate")
+                new Sort.Order(Sort.Direction.ASC, Constants.PARAM_CREATED_DATE)
         );
         PageRequest pageable = new PageRequest(page, 20, sort);
         return new AsyncResult<Page<Thread>>(threadRepository.findAll(pageable));
@@ -152,7 +155,7 @@ public class ThreadService {
         Sort sort = new Sort(
             new Sort.Order(Sort.Direction.ASC, "fingerprint")
         );
-        PageRequest pageable = new PageRequest(page, 100, sort);
+        PageRequest pageable = new PageRequest(page, 30, sort);
         return new AsyncResult<Page<Comment>>(commentRepository.findByThreadIdAndStatusIn(id, Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING, Comment.Status.DELETED), pageable));
     }
 
@@ -171,12 +174,35 @@ public class ThreadService {
 //       threadRepository.delete(id);
     }
 
-    public Thread banUser(String userId, String threadId) {
-        return null;
+    @RolesAllowed(Privileges.BAN_USER)
+    public void banUser(String userId, String threadId) throws KalipoException {
+        Asserts.isNotNull(userId, "userId");
+        Asserts.isNotNull(threadId, "threadId");
+
+//      todo check permissons is mod of thread
+        Thread thread = threadRepository.findOne(threadId);
+        if(thread.getBans() == null) {
+            thread.setBans(new HashSet<>());
+        }
+        thread.getBans().add(userId);
+        threadRepository.save(thread);
+
+        noticeService.notifyAsync(userId, SecurityUtils.getCurrentLogin(), Notice.Type.BAN, threadId);
     }
 
-    public Thread unBanUser(String userId, String threadId) {
-        return null;
+    @RolesAllowed(Privileges.BAN_USER)
+    public void unBanUser(String userId, String threadId) throws KalipoException {
+        Asserts.isNotNull(userId, "userId");
+        Asserts.isNotNull(threadId, "threadId");
+
+//      todo check permissons is mod of thread
+        Thread thread = threadRepository.findOne(threadId);
+        if(thread.getBans() != null) {
+            thread.getBans().remove(userId);
+        }
+        threadRepository.save(thread);
+
+        noticeService.notifyAsync(userId, SecurityUtils.getCurrentLogin(), Notice.Type.UNBAN, threadId);
     }
 
     // --

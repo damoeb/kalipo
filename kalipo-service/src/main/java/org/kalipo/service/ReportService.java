@@ -3,6 +3,7 @@ package org.kalipo.service;
 import org.apache.commons.lang.BooleanUtils;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.RateLimit;
+import org.kalipo.config.Constants;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Notice;
@@ -183,7 +184,7 @@ public class ReportService {
 
     @Async
     public Future<Page<Report>> getPendingWithPages(String threadId, int pageNumber) {
-        PageRequest pageable = new PageRequest(pageNumber, 10, Sort.Direction.ASC, "createdDate");
+        PageRequest pageable = new PageRequest(pageNumber, 10, Sort.Direction.ASC, Constants.PARAM_CREATED_DATE);
         return new AsyncResult<>(reportRepository.findByThreadIdAndStatus(threadId, Report.Status.PENDING, pageable));
     }
 }

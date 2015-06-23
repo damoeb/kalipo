@@ -39,8 +39,9 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
     };
 
     var firstFetch = function () {
-        Discussion.fetch(threadId, 0, tree, function (result) {
-            onFetchedPage(result);
+        var promiseFetch = Discussion.fetch(threadId, 0, tree);
+        $q.when(promiseFetch).then(function(response) {
+            onFetchedPage(response);
             $rootScope.$broadcast('init-when-scrolled');
         });
     };
@@ -104,7 +105,7 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
 
             currentPage = currentPage + 1;
 
-            Discussion.fetch(threadId, currentPage, tree, onFetchedPage);
+            $q.when(Discussion.fetch(threadId, currentPage, tree)).then(onFetchedPage);
         }
     };
 

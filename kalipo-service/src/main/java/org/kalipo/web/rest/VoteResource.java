@@ -2,9 +2,10 @@ package org.kalipo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.ApiOperation;
+import org.kalipo.config.Constants;
 import org.kalipo.domain.Vote;
 import org.kalipo.service.VoteService;
-import org.kalipo.service.util.ParamFixer;
+import org.kalipo.service.util.ParamUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -53,11 +54,14 @@ public class VoteResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get votes for {user}")
-    public List<Vote> getUsersVotes(@Valid @NotNull @PathVariable String userId, @QueryParam("page") Integer page) throws ExecutionException, InterruptedException {
+    public List<Vote> getUsersVotes(
+        @Valid @NotNull @PathVariable String userId,
+        @QueryParam(Constants.PARAM_PAGE) Integer page
+    ) throws ExecutionException, InterruptedException {
 
         log.debug("REST request to get Votes of user");
 
-        return voteService.getVotes(userId, ParamFixer.fixPage(page)).get();
+        return voteService.getVotesWithPages(userId, ParamUtils.fixPage(page)).get();
     }
 
     /**
