@@ -113,8 +113,15 @@ public class UserResource {
         log.debug("REST request to get threads of User : {}", login);
         // todo implement
 //        List of threads, pagination:yes, sort by newest first/upvotes, type:[thread]
-        List<String> expectedSortFields = Arrays.asList(Constants.PARAM_CREATED_DATE, "likes");
-        List<String> expectedSortOrder = Arrays.asList("asc", "desc");
+
+        String defaultSortField = Constants.PARAM_CREATED_DATE;
+        final List<String> expectedSortFields = Arrays.asList(defaultSortField, "likes");
+        String sortField = Optional.ofNullable(sortFieldValue).filter(expectedSortFields::contains).orElse(defaultSortField);
+
+        String defaultSortOrder = "desc";
+        final List<String> expectedSortOrders = Arrays.asList("asc", defaultSortOrder);
+        String sortOrder = Optional.ofNullable(sortFieldValue).filter(expectedSortOrders::contains).orElse(defaultSortOrder);
+
 
 //        Arrays.sort(expectedSortFields);
 //        Asserts.isTrue(Arrays.binarySearch(expectedSortFields, sortField) > -1, String.format("%s must be one of %s", Constants.PARAM_SORT_FIELD, expectedSortFields));
