@@ -26,6 +26,10 @@
     ProxyPass /kalipo/ http://localhost:8081/
     ProxyPassReverse /kalipo/ http://localhost:8081/
 
+    ErrorDocument 503 "503 - Sorry probably some maintenance is going on"
+    ErrorDocument 404 "404 - Whoops, can't find that page"
+    ErrorDocument 403 "403 - Sorry can't allow you access today"
+
     ErrorLog ${APACHE_LOG_DIR}/error.log
 
     # Possible values include: debug, info, notice, warn, error, crit,
