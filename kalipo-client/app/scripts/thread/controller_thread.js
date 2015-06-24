@@ -51,16 +51,22 @@ kalipoApp.controller('ThreadController',
 
         $scope.markSpamComment = function (commentId) {
             Notifications.info('Spam ' + commentId);
-            // todo impl backend
+            Comment.spam({
+                id: commentId
+            });
         };
 
         $scope.deleteComment = function (commentId) {
             Notifications.info('Delete ' + commentId);
-            // todo impl backend
+            Comment.delete({
+                id: commentId
+            });
         };
 
-        $scope.deleteCommentAndBlacklistUser = function (commentId) {
-            Notifications.info('Delete + Blacklist ' + commentId);
-            // todo impl backend
+        $scope.deleteCommentAndBanUser = function (commentId) {
+            Notifications.info('Delete + Ban ' + commentId);
+            Comment.deleteAndBan({
+                id: commentId
+            });
         };
     });

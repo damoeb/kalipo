@@ -1,9 +1,11 @@
 package org.kalipo.service;
 
+import org.kalipo.config.Constants;
 import org.kalipo.domain.*;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.*;
 import org.kalipo.service.util.Asserts;
+import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -41,12 +43,11 @@ public class NoticeService {
     @Inject
     private UserRepository userRepository;
 
-    @Inject
-    private UserRepositoryCustom userRepositoryCustom;
-
-    public Page<Notice> findByUserWithPages(final String login, final int pageNumber) {
-        PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, "createdDate");
-        return noticeRepository.findByRecipientId(login, pageable);
+    public Page<Notice> findByUserWithPages(final String userId, final int pageNumber) throws KalipoException {
+        Asserts.isNotNull(userId, "userId");
+        Asserts.isCurrentLogin(userId);
+        PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, Constants.PARAM_CREATED_DATE);
+        return noticeRepository.findByRecipientId(userId, pageable);
     }
 
     // -- ASYNCHRONOUS CALLS -------------------------------------------------------------------------------------------
@@ -157,18 +158,6 @@ public class NoticeService {
 
         } catch (Exception e) {
             log.error(String.format("Unable to notify mods (thread %s) of comment %s. Reason: %s", thread, comment, e.getMessage()));
-        }
-    }
-
-    public void setAllSeen(String userId) {
-        try {
-
-            Asserts.isCurrentLogin(userId);
-
-            userRepositoryCustom.setAllNoticesSeen(userId);
-
-        } catch (Exception e) {
-            log.error(String.format("Unable to set notices of user %s as seen. Reason: %s", userId, e.getMessage()));
         }
     }
 

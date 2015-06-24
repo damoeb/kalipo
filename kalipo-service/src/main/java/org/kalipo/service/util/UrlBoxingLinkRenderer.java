@@ -12,7 +12,9 @@ import java.util.Set;
 
 /**
  * Created by damoeb on 16.03.15.
+ * @deprecated is used for markdown
  */
+@Deprecated
 public class UrlBoxingLinkRenderer extends LinkRenderer {
 
     private final String prefix;

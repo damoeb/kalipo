@@ -3,7 +3,7 @@ package org.kalipo.service.util;
 /**
  * Created by damoeb on 05.12.14.
  */
-public final class ParamFixer {
+public final class ParamUtils {
 
     public static Integer fixPage(Integer page) {
         final Integer MAX = 1000;

@@ -21,9 +21,6 @@ public class Reputation {
     @CreatedDate
     private DateTime createdDate;
 
-//    @LastModifiedDate
-//    private DateTime lastModifiedDate;
-
     @NotNull(message = "{constraint.notnull.type}")
     private Type type;
 
@@ -45,14 +42,6 @@ public class Reputation {
     public void setCreatedDate(DateTime createdDate) {
         this.createdDate = createdDate;
     }
-
-//    public DateTime getLastModifiedDate() {
-//        return lastModifiedDate;
-//    }
-//
-//    public void setLastModifiedDate(DateTime lastModifiedDate) {
-//        this.lastModifiedDate = lastModifiedDate;
-//    }
 
     public Type getType() {
         return type;

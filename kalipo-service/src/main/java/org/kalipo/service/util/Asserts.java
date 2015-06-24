@@ -8,6 +8,7 @@ import org.kalipo.security.SecurityUtils;
 import org.kalipo.web.rest.KalipoException;
 
 /**
+ * Assertion support to minimize redundancy
  * Created by damoeb on 26.09.14.
  */
 public final class Asserts {

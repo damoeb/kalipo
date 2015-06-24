@@ -3,6 +3,7 @@ package org.kalipo.service;
 import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.RateLimit;
+import org.kalipo.config.Constants;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Notice;
@@ -105,8 +106,8 @@ public class VoteService {
     }
 
     @Async
-    public Future<List<Vote>> getVotes(String userId, int pageNumber) {
-        PageRequest pageable = new PageRequest(pageNumber, 10, Sort.Direction.DESC, "createdDate");
+    public Future<List<Vote>> getVotesWithPages(String userId, int pageNumber) {
+        PageRequest pageable = new PageRequest(pageNumber, 10, Sort.Direction.DESC, Constants.PARAM_CREATED_DATE);
         // todo this does not work
         return new AsyncResult<>(voteRepository.findByAuthorId(userId, pageable));
     }
