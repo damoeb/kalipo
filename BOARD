@@ -1,6 +1,10 @@
+live
+  remove ticker
+  prepend root comments
+  subscribe once, not for every thread subscribe/unsubscribe
+
 NO- Es gibt keinen Thread mehr, sondern nur Kommentare auf die geantwortet werden kann. Uebersichtseite stellt einen anonymisierten Live chat dar, von dem aus Diskussion gestartet werden koennen
 Thread management nach 4chan prinzip
-Rename Notice to Notification
 Achievement vs Reputation: refactor, this is confusing
 
 Every ban is siteId-wide (no bans on thread level)
@@ -17,12 +21,9 @@ general
 
 profile
   comments eines jeden users anzeigen
-  listen wie auf stackoverflow, das profile
+  Listen wie auf stackoverflow, das profile
   controller machen immer das gleiche -> vereinheitlichen
   moderate pending/reports has to be there too
-
-- permalinks for comments, update url when clicking in outline
-- thread has a reputation threshold for users to join discussion
 
 Categories
   Notifications  : List of notifications, pagination:no, limited to 10, sort by newest first, type:[thread,comment]
@@ -35,12 +36,12 @@ Categories
 
   Controller getList(page, sorter) + enrichment, nextPage, prevPage
 
+
+- permalinks for comments, update url when clicking in outline
+- thread has a reputation threshold for users to join discussion
+
 discussion
   ignore user feature
-
-live
-  append/update comments from ticker if possible (parent exists)
-  mark new comments as new for a while
 
 outline
   einfach 3 seiten im voraus ladenen -> generieren
