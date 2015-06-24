@@ -166,11 +166,11 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
                     return scale.y(OutlineConfig.bar_height);
                 })
                 .attr('fill', function (d, i) {
-                    if (_.isUndefined(d.createdByMod)) {
+                    //if (_.isUndefined(d.createdByMod)) {
+                    //    return OutlineConfig.colorInterpolator(Math.abs(d.influence) / influence.range);
+                    //} else {
                         return OutlineConfig.colorInterpolator(Math.abs(d.influence) / influence.range);
-                    } else {
-                        return OutlineConfig.colorInterpolator(Math.abs(d.influence) / influence.range);
-                    }
+                    //}
                 })
                 .attr('title', function (d, i) {
                     return 'Click to scroll - ' + d.id;

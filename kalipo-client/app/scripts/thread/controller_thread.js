@@ -42,7 +42,7 @@ kalipoApp.controller('ThreadController',
 
             Comment.save($scope.draft,
                 function () {
-                    Notifications.info('Comment saved');
+                    Notifications.info('Saved');
                     $('#createCommentModal').modal('hide');
                 });
         };
