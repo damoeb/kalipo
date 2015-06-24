@@ -1,3 +1,6 @@
 Modules
 .) mod_proxy_wstunnel
 http://www.amoss.me.uk/2013/06/apache-2-2-websocket-proxying-ubuntu-mod_proxy_wstunnel/
+
+.) SSL Certificate
+openssl req -x509 -nodes -sha256 -days 365 -newkey rsa:2048 -keyout <name>.key -out <name>.cert
