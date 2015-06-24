@@ -9,10 +9,10 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * A Notice.
+ * A Notification.
  */
-@Document(collection = "T_NOTICE")
-public class Notice implements Serializable {
+@Document(collection = "T_NOTIFICATION")
+public class Notification implements Serializable {
 
     @Id
     private String id;

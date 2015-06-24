@@ -4,12 +4,12 @@ import org.apache.commons.lang.BooleanUtils;
 import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.domain.Comment;
-import org.kalipo.domain.Notice;
+import org.kalipo.domain.Notification;
 import org.kalipo.domain.Thread;
 import org.kalipo.domain.User;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.ThreadRepository;
-import org.kalipo.service.NoticeService;
+import org.kalipo.service.NotificationService;
 import org.kalipo.service.UserService;
 import org.kalipo.service.util.BroadcastUtils;
 import org.kalipo.service.util.NumUtils;
@@ -43,7 +43,7 @@ public class CommentAgent {
     private UserService userService;
 
     @Inject
-    private NoticeService noticeService;
+    private NotificationService notificationService;
 
     @Scheduled(fixedDelay = 20000)
     public void setStatusAndQuality() {
@@ -90,7 +90,7 @@ public class CommentAgent {
 //
 //                        } else {
 
-                        Notice.Type type = Notice.Type.APPROVAL;
+                        Notification.Type type = Notification.Type.APPROVAL;
 
                         if (isMod || isSuperMod || quality > 0.5) {
                             comment.setStatus(Comment.Status.APPROVED);
@@ -104,11 +104,11 @@ public class CommentAgent {
                         } else if (quality > 0.5) {
                             Comment.Status status;
                             if (excessiveUpperCase(comment)) {
-                                type = Notice.Type.REJECTED;
+                                type = Notification.Type.REJECTED;
                                 status = Comment.Status.REJECTED;
                                 comment.setReviewMsg("Excessive upper-case usage");
                             } else if (excessiveSpecialChars(comment)) {
-                                type = Notice.Type.REJECTED;
+                                type = Notification.Type.REJECTED;
                                 status = Comment.Status.REJECTED;
                                 comment.setReviewMsg("Excessive special-char usage");
                             } else {
@@ -120,14 +120,14 @@ public class CommentAgent {
                             log.info(String.format("%s creates %s comment %s (q:%s)", authorId, status.name().toLowerCase(), comment.getId(), quality));
 
                         } else {
-                            type = Notice.Type.PENDING;
+                            type = Notification.Type.PENDING;
                             comment.setStatus(Comment.Status.PENDING);
                             log.info(String.format("%s creates pending comment %s  (q:%s)", authorId, comment.getId(), quality));
 
-                            noticeService.notifyModsOfThread(thread, comment, authorId);
+                            notificationService.notifyModsOfThread(thread, comment, authorId);
                         }
 
-                        noticeService.notifyAsync(comment.getAuthorId(), "admin", type, comment.getId());
+                        notificationService.notifyAsync(comment.getAuthorId(), "admin", type, comment.getId());
                     }
 
                     commentRepository.save(pendings);
@@ -141,10 +141,10 @@ public class CommentAgent {
 
     private void onApproval(Comment comment) {
         final String authorId = getAuthorIdRespectingAnonymity(comment);
-        noticeService.notifyMentionedUsers(comment, authorId);
+        notificationService.notifyMentionedUsers(comment, authorId);
 
         if (comment.getParentId() != null) {
-            noticeService.notifyAuthorOfParent(comment, authorId);
+            notificationService.notifyAuthorOfParent(comment, authorId);
         }
     }
 

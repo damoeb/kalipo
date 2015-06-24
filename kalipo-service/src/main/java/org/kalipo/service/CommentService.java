@@ -8,7 +8,7 @@ import org.kalipo.aop.RateLimit;
 import org.kalipo.config.Constants;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
-import org.kalipo.domain.Notice;
+import org.kalipo.domain.Notification;
 import org.kalipo.domain.Thread;
 import org.kalipo.domain.User;
 import org.kalipo.repository.CommentRepository;
@@ -57,7 +57,7 @@ public class CommentService {
     private ReputationService reputationService;
 
     @Inject
-    private NoticeService noticeService;
+    private NotificationService notificationService;
 
     @Inject
     private UserService userService;
@@ -157,8 +157,8 @@ public class CommentService {
 
         comment = commentRepository.save(comment);
 
-        noticeService.notifyMentionedUsers(comment, currentLogin);
-        noticeService.notifyAsync(comment.getAuthorId(), currentLogin, Notice.Type.APPROVAL, comment.getId());
+        notificationService.notifyMentionedUsers(comment, currentLogin);
+        notificationService.notifyAsync(comment.getAuthorId(), currentLogin, Notification.Type.APPROVAL, comment.getId());
 
         return comment;
     }
@@ -221,7 +221,7 @@ public class CommentService {
 
         final String currentLogin = SecurityUtils.getCurrentLogin();
 
-        noticeService.notifyAuthorOfParent(comment, currentLogin);
+        notificationService.notifyAuthorOfParent(comment, currentLogin);
 
         // --
 
@@ -292,7 +292,7 @@ public class CommentService {
             // todo distinguish report approval vs pending (=learning) -> notification
             reputationService.onCommentDeletion(comment);
             // todo notification will encourage trolls?
-            noticeService.notifyAsync(comment.getAuthorId(), currentLogin, Notice.Type.DELETION, comment.getId());
+            notificationService.notifyAsync(comment.getAuthorId(), currentLogin, Notification.Type.DELETION, comment.getId());
         } else {
             log.info(String.format("Comment %s deleted by owner %s", comment.getId(), currentLogin));
         }
@@ -325,7 +325,7 @@ public class CommentService {
 //            DateTime bannedUntilDate = DateTime.now().plusDays(30 * author.getBanCount());
 //            author.setBannedUntilDate(bannedUntilDate);
 //            log.info("User {} is banned until ", author.getLogin(), bannedUntilDate);
-            noticeService.notifySuperModsOfFraudulentUser(author, currentLogin);
+            notificationService.notifySuperModsOfFraudulentUser(author, currentLogin);
         }
 
         BroadcastUtils.broadcast(BroadcastUtils.Type.COMMENT_DELETED, comment.anonymized());

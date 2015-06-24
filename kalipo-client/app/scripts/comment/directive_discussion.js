@@ -92,14 +92,12 @@ angular.module('kalipoApp')
                 };
 
                 $scope.like = function (commentId) {
-                    console.log('like', commentId);
                     commentId.likes++;
 
                     var vote = {like: true, commentId: commentId};
 
                     Vote.save(vote, function (id) {
-                        console.log('Liked', id);
-                        Notifications.info('Liked');
+                        Notifications.info('Mmh');
                     });
                 };
 
@@ -110,8 +108,7 @@ angular.module('kalipoApp')
                     var vote = {like: false, commentId: commentId};
 
                     Vote.save(vote, function (id) {
-                        console.log('Disliked', id);
-                        Notifications.info('Disliked');
+                        Notifications.info('Nah');
                     });
                 };
 

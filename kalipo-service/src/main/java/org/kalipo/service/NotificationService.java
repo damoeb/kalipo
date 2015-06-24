@@ -3,7 +3,10 @@ package org.kalipo.service;
 import org.kalipo.config.Constants;
 import org.kalipo.domain.*;
 import org.kalipo.domain.Thread;
-import org.kalipo.repository.*;
+import org.kalipo.repository.CommentRepository;
+import org.kalipo.repository.NotificationRepository;
+import org.kalipo.repository.ThreadRepository;
+import org.kalipo.repository.UserRepository;
 import org.kalipo.service.util.Asserts;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
@@ -24,15 +27,15 @@ import java.util.regex.Pattern;
  * This service is used to write notification messages about likes (LIKE), mentions in a comment (MENTION), replies (REPLY), 3rd party comment deletion (DELETION), reports of comments to mods and supermods (REPORT), REVIEW, APPROVAL
  */
 @Service
-public class NoticeService {
+public class NotificationService {
 
     private static final int PAGE_SIZE = 20;
     private static final Pattern FIND_MENTIONED_USER = Pattern.compile("@([a-z0-9]+)"); //todo fix pattern to not match email addresses
 
-    private final Logger log = LoggerFactory.getLogger(NoticeService.class);
+    private final Logger log = LoggerFactory.getLogger(NotificationService.class);
 
     @Inject
-    private NoticeRepository noticeRepository;
+    private NotificationRepository notificationRepository;
 
     @Inject
     private ThreadRepository threadRepository;
@@ -43,11 +46,11 @@ public class NoticeService {
     @Inject
     private UserRepository userRepository;
 
-    public Page<Notice> findByUserWithPages(final String userId, final int pageNumber) throws KalipoException {
+    public Page<Notification> findByUserWithPages(final String userId, final int pageNumber) throws KalipoException {
         Asserts.isNotNull(userId, "userId");
         Asserts.isCurrentLogin(userId);
         PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, Constants.PARAM_CREATED_DATE);
-        return noticeRepository.findByRecipientId(userId, pageable);
+        return notificationRepository.findByRecipientId(userId, pageable);
     }
 
     // -- ASYNCHRONOUS CALLS -------------------------------------------------------------------------------------------
@@ -67,7 +70,7 @@ public class NoticeService {
 
             for (String login : uqLogins) {
                 // notify @login
-                sendNotice(login, initiatorId, Notice.Type.MENTION, comment.getId());
+                sendNotice(login, initiatorId, Notification.Type.MENTION, comment.getId());
             }
         } catch (Exception e) {
             log.error(String.format("Unable to notify mentioned user. Reason: %s", e.getMessage()));
@@ -83,7 +86,7 @@ public class NoticeService {
             Thread thread = threadRepository.findOne(threadId);
             Asserts.isNotNull(thread, "threadId");
 
-            thread.getModIds().forEach(modId -> sendNotice(modId, initiatorId, Notice.Type.REPORT, report.getCommentId()));
+            thread.getModIds().forEach(modId -> sendNotice(modId, initiatorId, Notification.Type.REPORT, report.getCommentId()));
 
         } catch (Exception e) {
             log.error(String.format("Unable to notify mods of thread %s with report %s. Reason: %s", threadId, report, e.getMessage()));
@@ -98,7 +101,7 @@ public class NoticeService {
             if (comment.getParentId() != null) {
                 Comment parent = commentRepository.findOne(comment.getParentId());
                 if (parent != null) {
-                    sendNotice(parent.getAuthorId(), initiatorId, Notice.Type.REPLY, comment.getId());
+                    sendNotice(parent.getAuthorId(), initiatorId, Notification.Type.REPLY, comment.getId());
                 }
             }
         } catch (Exception e) {
@@ -107,7 +110,7 @@ public class NoticeService {
     }
 
     @Async
-    public void notifyAsync(String recipientId, String initiatorId, Notice.Type type, String commentId, String message) {
+    public void notifyAsync(String recipientId, String initiatorId, Notification.Type type, String commentId, String message) {
         try {
             Asserts.isNotNull(recipientId, "recipientId");
             Asserts.isNotNull(type, "type");
@@ -121,7 +124,7 @@ public class NoticeService {
     }
 
     @Async
-    public void notifyAsync(String recipientId, String initiatorId, Notice.Type type, String commentId) {
+    public void notifyAsync(String recipientId, String initiatorId, Notification.Type type, String commentId) {
         notifyAsync(recipientId, initiatorId, type, commentId, null);
     }
 
@@ -129,7 +132,7 @@ public class NoticeService {
     public void notifySuperModsOfFraudulentComment(Comment comment, String initiatorId) {
         try {
             Asserts.isNotNull(comment, "comment");
-            userRepository.findSuperMods().forEach(user -> sendNotice(user.getLogin(), initiatorId, Notice.Type.REPORT, comment.getId()));
+            userRepository.findSuperMods().forEach(user -> sendNotice(user.getLogin(), initiatorId, Notification.Type.REPORT, comment.getId()));
         } catch (Exception e) {
             log.error(String.format("Unable to notify superMods of fraud-comment %s. Reason: %s", comment, e.getMessage()));
         }
@@ -140,7 +143,7 @@ public class NoticeService {
         try {
 
             Asserts.isNotNull(user, "user");
-            userRepository.findSuperMods().forEach(mod -> sendNotice(mod.getLogin(), initiatorId, Notice.Type.FRAUDULENT_USER, user.getLogin()));
+            userRepository.findSuperMods().forEach(mod -> sendNotice(mod.getLogin(), initiatorId, Notification.Type.FRAUDULENT_USER, user.getLogin()));
 
         } catch (Exception e) {
             log.error(String.format("Unable to notify superMods of fraud-user %s. Reason: %s", user, e.getMessage()));
@@ -154,7 +157,7 @@ public class NoticeService {
             Asserts.isNotNull(thread.getModIds(), "modIds");
             Asserts.isNotNull(comment, "comment");
 
-            thread.getModIds().forEach(modId -> sendNotice(modId, initiatorId, Notice.Type.REVIEW, comment.getId()));
+            thread.getModIds().forEach(modId -> sendNotice(modId, initiatorId, Notification.Type.REVIEW, comment.getId()));
 
         } catch (Exception e) {
             log.error(String.format("Unable to notify mods (thread %s) of comment %s. Reason: %s", thread, comment, e.getMessage()));
@@ -163,21 +166,21 @@ public class NoticeService {
 
     // --
 
-    private void sendNotice(String recipientId, String initiatorId, Notice.Type type, String resourceId, String message) {
+    private void sendNotice(String recipientId, String initiatorId, Notification.Type type, String resourceId, String message) {
 
         log.debug(String.format("-> notify %s of %s on resource %s", recipientId, type.name(), resourceId));
 
-        Notice notice = new Notice();
-        notice.setMessage(message);
-        notice.setRecipientId(recipientId);
-        notice.setInitiatorId(initiatorId);
-        notice.setResourceId(resourceId);
-        notice.setType(type);
+        Notification notification = new Notification();
+        notification.setMessage(message);
+        notification.setRecipientId(recipientId);
+        notification.setInitiatorId(initiatorId);
+        notification.setResourceId(resourceId);
+        notification.setType(type);
 
-        noticeRepository.save(notice);
+        notificationRepository.save(notification);
     }
 
-    private void sendNotice(String recipientId, String initiatorId, Notice.Type type, String resourceId) {
+    private void sendNotice(String recipientId, String initiatorId, Notification.Type type, String resourceId) {
         sendNotice(recipientId, initiatorId, type, resourceId, null);
     }
 }

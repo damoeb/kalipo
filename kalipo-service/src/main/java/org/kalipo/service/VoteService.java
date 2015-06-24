@@ -6,7 +6,7 @@ import org.kalipo.aop.RateLimit;
 import org.kalipo.config.Constants;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
-import org.kalipo.domain.Notice;
+import org.kalipo.domain.Notification;
 import org.kalipo.domain.Vote;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.VoteRepository;
@@ -45,7 +45,7 @@ public class VoteService {
     private UserService userService;
 
     @Inject
-    private NoticeService noticeService;
+    private NotificationService notificationService;
 
     @Inject
     private CommentRepository commentRepository;
@@ -92,7 +92,7 @@ public class VoteService {
         if (vote.isLike()) {
             log.info(String.format("%s likes comment %s", SecurityUtils.getCurrentLogin(), comment.getId()));
             comment.setLikes(NumUtils.nullToZero(comment.getLikes()) + 1);
-            noticeService.notifyAsync(comment.getAuthorId(), currentLogin, Notice.Type.LIKE, comment.getId());
+            notificationService.notifyAsync(comment.getAuthorId(), currentLogin, Notification.Type.LIKE, comment.getId());
         } else {
             log.info(String.format("%s dislikes comment %s", SecurityUtils.getCurrentLogin(), comment.getId()));
             comment.setDislikes(NumUtils.nullToZero(comment.getDislikes()) + 1);

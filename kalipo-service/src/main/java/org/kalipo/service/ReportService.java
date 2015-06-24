@@ -6,7 +6,7 @@ import org.kalipo.aop.RateLimit;
 import org.kalipo.config.Constants;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
-import org.kalipo.domain.Notice;
+import org.kalipo.domain.Notification;
 import org.kalipo.domain.Report;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.ReportRepository;
@@ -54,7 +54,7 @@ public class ReportService {
     private CommentService commentService;
 
     @Inject
-    private NoticeService noticeService;
+    private NotificationService notificationService;
 
     @RolesAllowed(Privileges.CREATE_REPORT)
     @RateLimit
@@ -90,12 +90,12 @@ public class ReportService {
 
         // todo async
         if (reportedCount == 1) {
-            noticeService.notifyModsOfThread(comment.getThreadId(), report, currentLogin);
+            notificationService.notifyModsOfThread(comment.getThreadId(), report, currentLogin);
         }
         if (reportedCount == CRITICAL_REPORT_COUNT) {
             log.info(String.format("Hiding comment %s after %s reports", comment.getId(), CRITICAL_REPORT_COUNT));
             comment.setHidden(true);
-            noticeService.notifySuperModsOfFraudulentComment(comment, currentLogin);
+            notificationService.notifySuperModsOfFraudulentComment(comment, currentLogin);
         }
         commentRepository.save(comment);
 
@@ -165,7 +165,7 @@ public class ReportService {
                 log.info(String.format("%s rejects report %s", currentLogin, report.getId()));
             }
 
-            noticeService.notifyAsync(comment.getAuthorId(), currentLogin, Notice.Type.APPROVAL, comment.getId());
+            notificationService.notifyAsync(comment.getAuthorId(), currentLogin, Notification.Type.APPROVAL, comment.getId());
         }
 
         reputationService.onReportApprovalOrRejection(reportRepository.save(report));

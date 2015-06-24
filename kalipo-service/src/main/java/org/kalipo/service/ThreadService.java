@@ -60,7 +60,7 @@ public class ThreadService {
     private UserService userService;
 
     @Inject
-    private NoticeService noticeService;
+    private NotificationService notificationService;
 
     @RolesAllowed(Privileges.CREATE_THREAD)
     @RateLimit
@@ -186,7 +186,7 @@ public class ThreadService {
         thread.getBans().add(userId);
         threadRepository.save(thread);
 
-        noticeService.notifyAsync(userId, SecurityUtils.getCurrentLogin(), Notice.Type.BAN, threadId);
+        notificationService.notifyAsync(userId, SecurityUtils.getCurrentLogin(), Notification.Type.BAN, threadId);
     }
 
     @RolesAllowed(Privileges.BAN_USER)
@@ -201,7 +201,7 @@ public class ThreadService {
         }
         threadRepository.save(thread);
 
-        noticeService.notifyAsync(userId, SecurityUtils.getCurrentLogin(), Notice.Type.UNBAN, threadId);
+        notificationService.notifyAsync(userId, SecurityUtils.getCurrentLogin(), Notification.Type.UNBAN, threadId);
     }
 
     // --

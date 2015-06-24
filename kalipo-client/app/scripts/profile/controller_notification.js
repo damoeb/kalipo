@@ -47,8 +47,6 @@ kalipoApp.controller('ProfileNoticeController', function ($rootScope, $scope, $s
             $scope.$firstPage = response.firstPage;
             // todo group by resource, enrich with resource(e.g. comment)
             $scope.notices = __customize(response.content);
-
-            Notice.seenUntilNow({userId: Session.login});
         });
     };
 

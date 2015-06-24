@@ -5,19 +5,19 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import org.kalipo.config.Constants;
-import org.kalipo.domain.Notice;
-import org.kalipo.security.AuthoritiesConstants;
-import org.kalipo.service.NoticeService;
-import org.kalipo.service.util.Asserts;
+import org.kalipo.domain.Notification;
+import org.kalipo.service.NotificationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.QueryParam;
 
@@ -26,31 +26,17 @@ import javax.ws.rs.QueryParam;
  */
 @RestController
 @RequestMapping("/app")
-public class NoticeResource {
+public class NotificationResource {
 
-    private final Logger log = LoggerFactory.getLogger(NoticeResource.class);
+    private final Logger log = LoggerFactory.getLogger(NotificationResource.class);
 
     @Inject
-    private NoticeService noticeService;
-
-//    /**
-//     * POST  /rest/notices/{login}/seen -> Mark all notices of user 'login' as seen.
-//     */
-//    @RequestMapping(value = "/rest/notices/{userId}/seen",
-//        method = RequestMethod.POST,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    @Timed
-//    public void allSeen(@PathVariable String userId) throws KalipoException {
-//        log.debug("REST request to set Notice of user {} seen", userId);
-//        Asserts.isNotNull(userId, "id");
-//
-//        noticeService.setAllSeen(userId);
-//    }
+    private NotificationService notificationService;
 
     /**
-     * GET  /rest/notices/:id -> get the "id" notice.
+     * GET  /rest/notifications/:id -> get the "id" notice.
      */
-    @RequestMapping(value = "/rest/notices/{userId}",
+    @RequestMapping(value = "/rest/notifications/{userId}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -59,7 +45,7 @@ public class NoticeResource {
         @ApiResponse(code = 400, message = "Invalid ID supplied"),
         @ApiResponse(code = 404, message = "User not found")
     })
-    public ResponseEntity<Page<Notice>> get(
+    public ResponseEntity<Page<Notification>> get(
         @PathVariable String userId,
         @QueryParam(Constants.PARAM_PAGE) Integer page
     ) throws KalipoException {
@@ -68,6 +54,6 @@ public class NoticeResource {
         if (page == null) {
             page = 0;
         }
-        return new ResponseEntity<Page<Notice>>(noticeService.findByUserWithPages(userId, page), HttpStatus.OK);
+        return new ResponseEntity<Page<Notification>>(notificationService.findByUserWithPages(userId, page), HttpStatus.OK);
     }
 }
