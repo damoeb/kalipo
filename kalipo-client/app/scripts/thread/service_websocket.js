@@ -14,10 +14,12 @@ kalipoApp.factory('Websocket', function (Thread) {
         },
 
         unsubscribe: function (socket) {
+            console.log('unsubscribe socket');
             socket.unsubscribe();
         },
 
         subscribe: function (onMessage) {
+            console.log('subscribe socket');
             var socket = atmosphere;
             var subSocket;
             var transport = 'websocket';

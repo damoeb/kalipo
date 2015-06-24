@@ -57,7 +57,8 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
                 console.log('event', message);
                 Comment.get({id: Websocket.getCommentId(message)}, function (comment) {
 
-                    $rootScope.$broadcast('ticker-comment', comment, message.type);
+                    console.log('ticker-comment', comment);
+                    $rootScope.$broadcast('ticker-comment', comment);
 
                     comment['$new'] = true;
 

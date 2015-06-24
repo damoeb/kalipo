@@ -176,11 +176,13 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
                     return 'Click to scroll - ' + d.id;
                 })
                 .on('click', function (d, i) {
-                    console.log('goto', d.id);
-                    // todo check if comment is there, otherwise try to load it
-                    $doc.animate({
-                        scrollTop: $('#' + d.id).offset().top
-                    }, 500);
+                    console.log('scroll to', d.id);
+                    var $element = $('#' + d.id);
+                    // show element if in hidden branch
+                    if (!$element.is(':visible')) {
+                        $element.parents('.replies.optionals').removeClass('hidden');
+                    }
+                    $doc.scrollTop($element.offset().top);
                 });
         },
 

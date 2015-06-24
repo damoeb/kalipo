@@ -24,7 +24,6 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.web.util.UrlUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -155,7 +154,7 @@ public class ThreadService {
         Sort sort = new Sort(
             new Sort.Order(Sort.Direction.ASC, "fingerprint")
         );
-        PageRequest pageable = new PageRequest(page, 30, sort);
+        PageRequest pageable = new PageRequest(page, 60, sort);
         return new AsyncResult<Page<Comment>>(commentRepository.findByThreadIdAndStatusIn(id, Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING, Comment.Status.DELETED), pageable));
     }
 

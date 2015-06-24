@@ -78,14 +78,10 @@
 
                     </div>
 
-                    <!--<div ng-show="!$isEmptyDiscussion && $isLastPage">-->
-                        <!--<hr>-->
-                        <!--No more comments found-->
-                    <!--</div>-->
+                    <div ng-show="!$isEmptyDiscussion && $isLastPage" class="text-center" style="font-size: large">
+                        &diams;
+                    </div>
 
-
-                    <!--<div style="text-align: center; font-style: italic; color: #808080" ng-show="$isLastPage" title="End of discussion">-30-</div>-->
-                    <!--Moderated by <span ng-repeat="modId in thread.modIds">{{::modId}} </span>-->
                 </div>
             </div>
         </div>
@@ -95,7 +91,7 @@
     <div class="col-lg-5 col-md-3 col-xs-3">
         <div
             style="position: fixed; width: 5px; background-color: black; height: 100px; top:0; margin-left: -10px; display: none"
-            id="outline-viewport-indicator" title="the comments you actually see"></div>
+            id="outline-viewport-indicator" title="your viewport, the comments you see"></div>
         <div style="overflow-y: auto; overflow-x: hidden; position: relative">
             <thread-outline pages="pages"></thread-outline>
         </div>

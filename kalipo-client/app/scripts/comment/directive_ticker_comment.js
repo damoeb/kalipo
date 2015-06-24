@@ -31,7 +31,7 @@ angular.module('kalipoApp')
                     });
 
                     // listener for new comments
-                    $rootScope.$on('ticker-comment', function (comment, event) {
+                    $rootScope.$on('ticker-comment', function (event, comment) {
                         console.log('new ticker-comment', comment);
                         // drop oldest (first), append new comment
 
@@ -40,9 +40,10 @@ angular.module('kalipoApp')
                         console.log('ticker', event, comment);
 
                         latest_comments.push(comment);
-                        latest_comments = _.slice(_.sortBy(latest_comments, function(comment) {
+                        var sorted = _.sortBy(latest_comments, function (comment) {
                             return comment.lastModifiedDate;
-                        }), 0, 3);
+                        });
+                        latest_comments = _.slice(sorted, 0, Math.min(sorted.length, 3));
 
                         render();
                     });
