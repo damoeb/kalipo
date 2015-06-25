@@ -54,7 +54,7 @@ public class CommentService {
     private ThreadRepository threadRepository;
 
     @Inject
-    private ReputationService reputationService;
+    private ReputationModifierService reputationModifierService;
 
     @Inject
     private NotificationService notificationService;
@@ -290,7 +290,7 @@ public class CommentService {
             }
 
             // todo distinguish report approval vs pending (=learning) -> notification
-            reputationService.onCommentDeletion(comment);
+            reputationModifierService.onCommentDeletion(comment);
             // todo notification will encourage trolls?
             notificationService.notifyAsync(comment.getAuthorId(), currentLogin, Notification.Type.DELETION, comment.getId());
         } else {

@@ -172,7 +172,7 @@ public class Report implements Serializable {
         PENDING, APPROVED, REJECTED
     }
 
-    private enum Reason {
+    public enum Reason {
         Other,
         Offensive_Language,
         Personal_Abuse,

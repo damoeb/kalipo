@@ -4,8 +4,8 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
-import org.kalipo.domain.Reputation;
-import org.kalipo.service.ReputationService;
+import org.kalipo.domain.ReputationModifier;
+import org.kalipo.service.ReputationModifierService;
 import org.kalipo.service.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,12 +25,12 @@ import java.util.concurrent.ExecutionException;
  */
 @RestController
 @RequestMapping("/app/rest")
-public class ReputationResource {
+public class ReputationModifierResource {
 
-    private final Logger log = LoggerFactory.getLogger(ReputationResource.class);
+    private final Logger log = LoggerFactory.getLogger(ReputationModifierResource.class);
 
     @Inject
-    private ReputationService reputationService;
+    private ReputationModifierService reputationModifierService;
 
     /**
      * PUT  /rest/reputations -> Update existing reputation.
@@ -44,13 +44,13 @@ public class ReputationResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Reputation not found")
     })
-    public void update(@PathVariable String id, @NotNull @RequestBody Reputation reputation) throws KalipoException {
-        log.debug("REST request to update Reputation : {}", reputation);
+    public void update(@PathVariable String id, @NotNull @RequestBody ReputationModifier reputationModifier) throws KalipoException {
+        log.debug("REST request to update Reputation : {}", reputationModifier);
 
         Asserts.isNotNull(id, "id");
 
-        reputation.setId(id);
-        reputationService.update(reputation);
+        reputationModifier.setId(id);
+        reputationModifierService.update(reputationModifier);
     }
 
     /**
@@ -61,9 +61,9 @@ public class ReputationResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the reputations")
-    public List<Reputation> getAll() throws ExecutionException, InterruptedException {
+    public List<ReputationModifier> getAll() throws ExecutionException, InterruptedException {
         log.debug("REST request to get all Reputations");
-        return reputationService.getAll().get();
+        return reputationModifierService.getAll().get();
     }
 
     /**
@@ -78,11 +78,11 @@ public class ReputationResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Reputation not found")
     })
-    public ResponseEntity<Reputation> get(@PathVariable String id) throws KalipoException, ExecutionException, InterruptedException {
+    public ResponseEntity<ReputationModifier> get(@PathVariable String id) throws KalipoException, ExecutionException, InterruptedException {
         log.debug("REST request to get Reputation : {}", id);
         Asserts.isNotNull(id, "id");
 
-        return Optional.ofNullable(reputationService.get(id).get())
+        return Optional.ofNullable(reputationModifierService.get(id).get())
                 .map(reputation -> new ResponseEntity<>(
                         reputation,
                         HttpStatus.OK))

@@ -26,7 +26,7 @@ public class Achievement {
     private DateTime createdDate;
 
     @NotNull(message = "{constraint.notnull.type}")
-    private Reputation.Type type;
+    private ReputationModifier.Type type;
 
     private String resourceRef;
 
@@ -55,11 +55,11 @@ public class Achievement {
         this.createdDate = createdDate;
     }
 
-    public Reputation.Type getType() {
+    public ReputationModifier.Type getType() {
         return type;
     }
 
-    public Achievement setType(Reputation.Type type) {
+    public Achievement setType(ReputationModifier.Type type) {
         this.type = type;
         return this;
     }

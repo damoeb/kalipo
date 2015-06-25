@@ -39,7 +39,7 @@ public class VoteService {
     private VoteRepository voteRepository;
 
     @Inject
-    private ReputationService reputationService;
+    private ReputationModifierService reputationModifierService;
 
     @Inject
     private UserService userService;
@@ -82,7 +82,7 @@ public class VoteService {
 //            throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "You can't vote on your comment");
 //        }
 
-        reputationService.onCommentVoting(vote);
+        reputationModifierService.onCommentVoting(vote);
 
         vote.setAuthorId(SecurityUtils.getCurrentLogin());
         vote.setThreadId(comment.getThreadId());

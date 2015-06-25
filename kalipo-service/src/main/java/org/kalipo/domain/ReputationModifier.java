@@ -8,12 +8,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotNull;
 
 /**
- * A Reputation defines reputation modifiers for specific Types.
- * A Type can be seen as an action. Reputation is a positive or negative number that is added to the current user reputation
+ * A ReputationModifier for a specific Type.
+ * A Type can be seen as an action. ReputationModifier is a positive or negative number that is added to the current user reputation
  */
-// todo rename to REPUTATION_MODIFIER or so
-@Document(collection = "T_REPUTATION")
-public class Reputation {
+@Document(collection = "T_REPUTATION_MODIFIER")
+public class ReputationModifier {
 
     @Id
     private String id;

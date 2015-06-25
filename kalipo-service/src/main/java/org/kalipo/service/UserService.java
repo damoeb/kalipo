@@ -42,7 +42,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     @Inject
-    private ReputationService reputationService;
+    private ReputationModifierService reputationModifierService;
 
     @Inject
     private UserRepository userRepository;
@@ -89,7 +89,7 @@ public class UserService {
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
 
-        reputationService.onUserCreation(newUser);
+        reputationModifierService.onUserCreation(newUser);
 
         log.debug("Created Information for User: {}", newUser);
         return newUser;

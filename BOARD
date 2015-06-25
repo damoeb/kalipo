@@ -4,7 +4,6 @@ live
 
 NO- Es gibt keinen Thread mehr, sondern nur Kommentare auf die geantwortet werden kann. Uebersichtseite stellt einen anonymisierten Live chat dar, von dem aus Diskussion gestartet werden koennen
 Thread management nach 4chan prinzip
-Achievement vs Reputation: refactor, this is confusing
 
 Every ban is siteId-wide (no bans on thread level)
 

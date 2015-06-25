@@ -48,7 +48,7 @@ public class ReportService {
     private CommentRepository commentRepository;
 
     @Inject
-    private ReputationService reputationService;
+    private ReputationModifierService reputationModifierService;
 
     @Inject
     private CommentService commentService;
@@ -168,7 +168,7 @@ public class ReportService {
             notificationService.notifyAsync(comment.getAuthorId(), currentLogin, Notification.Type.APPROVAL, comment.getId());
         }
 
-        reputationService.onReportApprovalOrRejection(reportRepository.save(report));
+        reputationModifierService.onReportApprovalOrRejection(reportRepository.save(report));
     }
 
     private Report getPendingReport(String id) throws KalipoException {
