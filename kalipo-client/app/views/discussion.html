@@ -53,13 +53,7 @@
                     <div when-scrolled="loadMore()">
                         <div ng-repeat="page in pages">
 
-                            <!--Page {{page.id}}: {{page.comments.length}} comments-->
-
-                            <dl style="margin:0;">
-                                <discussion></discussion>
-                            </dl>
-
-                            <!--<a id="page-{{page.id +1}}"></a>-->
+                            <discussion></discussion>
 
                         </div>
 
@@ -75,6 +69,10 @@
                         </div>
 
                     </div>
+
+                    <button class="btn btn-primary" ng-click="loadMore()" ng-hide="$busy || $isLastPage"
+                            style="width: 100%">Show More
+                    </button>
 
                     <div ng-show="!$isEmptyDiscussion && $isLastPage" class="text-center" style="font-size: large">
                         &diams;
