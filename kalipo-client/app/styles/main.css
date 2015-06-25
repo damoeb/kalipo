@@ -289,7 +289,7 @@ a:hover {
 .comment-wrapper .toggle-optionals-of { font-size: smaller; color:gray; margin-left: 10px }
 
 .oneline>.comment .icon {display: none;}
-.oneline>.comment .name {display: none;}
+.oneline>.comment .name {display: inline; float: left; margin-right: 0.5em; }
 .oneline>.comment .body {white-space: nowrap; overflow: hidden; color: rgb(125, 125, 125);}
 .oneline>.comment .points {display: none;}
 .oneline>.comment .date {display: none;}

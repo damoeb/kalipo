@@ -19,7 +19,7 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
     $scope.$missedCommentCount = 0;
     $scope.report = {};
     $scope.reportOptions = REPORT_IDS;
-    $scope.busy = false;
+    $scope.$busy = false;
 
     var tree = {};
     var currentPage = 0;
@@ -31,7 +31,7 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
         $scope.pages.push(result.page);
         $scope.$isLastPage = result.isLastPage;
         $scope.$isEmptyDiscussion = result.totalElements == 0;
-        $scope.busy = false;
+        $scope.$busy = false;
 
         if (result.numberOfElements > 0) {
             $rootScope.$broadcast('fetched-page', $scope.pages);
@@ -57,9 +57,6 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
                 console.log('event', message);
                 Comment.get({id: Websocket.getCommentId(message)}, function (comment) {
 
-                    console.log('ticker-comment', comment);
-                    $rootScope.$broadcast('ticker-comment', comment);
-
                     comment['$new'] = true;
 
                     var $comment = $('<div/>');
@@ -72,6 +69,10 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
                         // is root comment
                         if (_.isUndefined(comment.parentId)) {
                             $scope.$missedCommentCount += 1;
+
+                            // todo wie twitter: "2 neue Kommentare"
+                            $('discussion').prepend($compile($comment.contents())($scope));
+
                         } else {
                             var $parent = $('#comment-' + comment.parentId + '> .replies');
                             //console.log('append to', $parent);
@@ -101,7 +102,7 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
 
     var loadMore = function () {
         if (!$scope.$isLastPage) {
-            $scope.busy = true;
+            $scope.$busy = true;
             console.log("load more");
 
             currentPage = currentPage + 1;
@@ -109,15 +110,6 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
             $q.when(Discussion.fetch(threadId, currentPage, tree)).then(onFetchedPage);
         }
     };
-
-    $scope.reload = function () {
-        currentPage = 0;
-        $scope.$missedCommentCount = 0;
-        $scope.pages = [];
-
-        firstFetch();
-    };
-
 
     $scope.loadMore = function () {
         loadMore();
@@ -136,12 +128,6 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
 
         var re = new RegExp('[, \n\t]+', 'g');
 
-        if (!_.isUndefined($scope.thread.$modIds)) {
-            $scope.thread.modIds = _.compact($scope.thread.$modIds.replace(re, ' ').split(' '));
-        }
-        //if (!_.isUndefined($scope.thread.$kLine)) {
-        //    $scope.thread.kLine = _.compact($scope.thread.$kLine.replace(re, ' ').split(' '));
-        //}
         if (!_.isUndefined($scope.thread.$uriHooks)) {
             $scope.thread.uriHooks = _.compact($scope.thread.$uriHooks.replace(re, ' ').split(' '));
         }

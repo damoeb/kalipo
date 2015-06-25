@@ -73,23 +73,6 @@
                     </div>
                 </div>
 
-                <div class="row form-group" ng-show="!$advanced">
-                    <div class="col-md-push-3 col-md-9">
-                        <a href="javascript:void(0)" ng-click="$advanced = !$advanced">Show advanced fields</a>
-                    </div>
-                </div>
-
-                <div ng-show="$advanced">
-                    <div class="row form-group">
-                        <div class="col-md-3">Additional Mods</div>
-                        <div class="col-md-9">
-                            <input name="title" class="form-control" ng-model="thread.$modIds"
-                                   placeholder="Other mods beyond you"
-                                   ng-maxlength="64">
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
             <div class="panel-footer">

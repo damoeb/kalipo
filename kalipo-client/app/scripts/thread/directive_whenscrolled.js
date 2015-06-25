@@ -20,7 +20,7 @@ angular.module('kalipoApp')
                         var height = $element.height();
                         var loadNextPage = scrollTop + top > height;
 
-                        if ($scope.busy) return;
+                        if ($scope.$busy) return;
 
                         if (loadNextPage) {
                             $scope.$apply($attributes.whenScrolled);

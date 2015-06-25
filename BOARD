@@ -1,7 +1,6 @@
 live
-  remove ticker
-  prepend root comments
   subscribe once, not for every thread subscribe/unsubscribe
+  cannot call reply multiple times
 
 NO- Es gibt keinen Thread mehr, sondern nur Kommentare auf die geantwortet werden kann. Uebersichtseite stellt einen anonymisierten Live chat dar, von dem aus Diskussion gestartet werden koennen
 Thread management nach 4chan prinzip

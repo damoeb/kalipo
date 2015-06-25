@@ -45,12 +45,10 @@
 
                     <div ng-include="'create_comment.template'"></div>
 
-                    <!-- latest -->
-                    <latest-comments></latest-comments>
-
-                    <div class="alert alert-warning" role="alert" ng-show="$missedCommentCount > 0">
-                        <a ng-click="reload()" href="javascript:void(0)">Hit reload</a>, to see {{$missedCommentCount}} more comment
-                    </div>
+                    <!--<div class="alert alert-warning" role="alert" ng-show="$missedCommentCount > 0">-->
+                    <!-- todo scroll to top -->
+                        <!--<a href="javascript:void(0)">Hit reload</a>, to see {{$missedCommentCount}} more comment-->
+                    <!--</div>-->
 
                     <div when-scrolled="loadMore()">
                         <div ng-repeat="page in pages">
@@ -65,7 +63,7 @@
 
                         </div>
 
-                        <div class="text-center" ng-show="busy">
+                        <div class="text-center" ng-show="$busy">
                             <i class="glyphicon glyphicon-refresh spinning"></i>
                         </div>
 
