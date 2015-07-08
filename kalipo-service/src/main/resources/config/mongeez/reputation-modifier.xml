@@ -1,63 +1,63 @@
 <mongoChangeLog>
     <changeSet changeId="ChangeSet-reputations" author="jhipster">
         <script>
-            db.T_REPUTATION.insert(
+            db.T_REPUTATION_MODIFIER.insert(
             {
             "_id" : "1",
             "type": "WELCOME",
             "reputation": 50
             });
 
-            db.T_REPUTATION.insert(
+            db.T_REPUTATION_MODIFIER.insert(
             {
             "_id" : "2",
             "type": "LIKE",
             "reputation": 2
             });
 
-            db.T_REPUTATION.insert(
+            db.T_REPUTATION_MODIFIER.insert(
             {
             "_id" : "3",
             "type": "LIKED",
             "reputation": -1
             });
 
-            db.T_REPUTATION.insert(
+            db.T_REPUTATION_MODIFIER.insert(
             {
             "_id" : "4",
             "type": "DISLIKE",
             "reputation": -2
             });
 
-            db.T_REPUTATION.insert(
+            db.T_REPUTATION_MODIFIER.insert(
             {
             "_id" : "5",
             "type": "DISLIKED",
             "reputation": -1
             });
 
-            db.T_REPUTATION.insert(
+            db.T_REPUTATION_MODIFIER.insert(
             {
             "_id" : "6",
             "type": "REPORT",
             "reputation": -100
             });
 
-            db.T_REPUTATION.insert(
+            db.T_REPUTATION_MODIFIER.insert(
             {
             "_id" : "7",
             "type": "REPORTED",
             "reputation": 50
             });
 
-            db.T_REPUTATION.insert(
+            db.T_REPUTATION_MODIFIER.insert(
             {
             "_id" : "8",
             "type": "ABUSED_REPORT",
             "reputation": -200
             });
 
-            db.T_REPUTATION.insert(
+            db.T_REPUTATION_MODIFIER.insert(
             {
             "_id" : "9",
             "type": "RM_COMMENT",
