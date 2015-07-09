@@ -1,8 +1,6 @@
 'use strict';
 
-kalipoApp.controller('ProfileController', function ($rootScope, $scope, $routeParams, $q, Comment) {
-    $scope.tab = $routeParams.tabId;
-    console.log('tab', $scope.tab);
+kalipoApp.controller('ProfileController', function ($rootScope, $scope, $q, Comment) {
 
     var promiseLogin = function() {
         var defer = $q.defer();

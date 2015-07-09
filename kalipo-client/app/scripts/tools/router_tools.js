@@ -3,27 +3,27 @@
 kalipoApp.config(function ($routeProvider, $httpProvider, $translateProvider, USER_ROLES) {
     $routeProvider
         .when('/tools', {
-            templateUrl: 'views/metrics.html',
+            templateUrl: 'views/tools-metrics.html',
             access: {
                 authorizedRoles: [USER_ROLES.all]
             }
         })
         .when('/tools/metrics', {
-            templateUrl: 'views/metrics.html',
+            templateUrl: 'views/tools-metrics.html',
             controller: 'MetricsController',
             access: {
                 authorizedRoles: [USER_ROLES.admin]
             }
         })
         .when('/tools/tracker', {
-            templateUrl: 'views/tracker.html',
+            templateUrl: 'views/tools-tracker.html',
             controller: 'TrackerController',
             access: {
                 authorizedRoles: [USER_ROLES.admin]
             }
         })
         .when('/tools/logs', {
-            templateUrl: 'views/logs.html',
+            templateUrl: 'views/tools-logs.html',
             controller: 'LogsController',
             resolve: {
                 resolvedLogs: ['LogsService', function (LogsService) {
@@ -35,8 +35,20 @@ kalipoApp.config(function ($routeProvider, $httpProvider, $translateProvider, US
             }
         })
         .when('/tools/audits', {
-            templateUrl: 'views/audits.html',
+            templateUrl: 'views/tools-audits.html',
             controller: 'AuditsController',
+            access: {
+                authorizedRoles: [USER_ROLES.admin]
+            }
+        })
+        .when('/tools/privileges', {
+            templateUrl: 'views/tools-privileges.html',
+            controller: 'PrivilegeController',
+            resolve: {
+                resolvedPrivilege: ['Privilege', function (Privilege) {
+                    return Privilege.query();
+                }]
+            },
             access: {
                 authorizedRoles: [USER_ROLES.admin]
             }

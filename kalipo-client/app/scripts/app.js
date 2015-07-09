@@ -61,11 +61,7 @@ kalipoApp
                 }
             })
             .when('/logout', {
-                templateUrl: 'views/main.html',
-                controller: 'LogoutController',
-                access: {
-                    authorizedRoles: [USER_ROLES.all]
-                }
+                redirectTo: '/'
             })
             .when('/docs', {
                 templateUrl: 'views/docs.html',
