@@ -1,66 +1,39 @@
 <div ng-controller="ProfileCommentsController">
-    <ul class="nav nav-tabs">
-        <li><a href="#/profile/notifications">Notifications</a></li>
-        <li><a href="#/profile/threads">Threads</a></li>
-        <li class="active"><a href="#/profile/comments">Comments</a></li>
-        <li><a href="#/profile/likes">Likes</a></li>
-        <li><a href="#/profile/achievements">Achievements</a></li>
-    </ul>
 
-    <div ng-init="fetchAndRender()">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <ul class="nav nav-pills">
+                <li><a href="#/profile/notifications">Notifications</a></li>
+                <li class="active"><a href="#/profile/comments">Comments</a></li>
+                <li><a href="#/profile/likes">Likes</a></li>
+                <li><a href="#/profile/achievements">Achievements</a></li>
+            </ul>
+        </div>
+    </div>
 
-        <div ng-switch on="notices.length == 0">
-            <div ng-switch-default>
-                no notifications found
-            </div>
-            <div ng-switch-when="false">
+    <div class="panel panel-default">
+        <div class="panel-body">
 
-                <ul class="pagination">
-                    <li><a href="javascript:void(0)" ng-click="previousPage()" ng-disabled="$firstPage">Previous</a>
-                    </li>
-                    <li class="active"><a href="javascript:void(0)">Page {{$page +1}} of {{$pageCount}}</a></li>
-                    <li><a href="javascript:void(0)" ng-click="nextPage()" ng-disabled="$lastPage">Next</a></li>
-                </ul>
-
-
-                <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="notice in notices" ng-class="notice.seen ? '': 'fresh-item' ">
-
-                        <div class="row">
-
-                            <div ng-if="notice.$customized">
-                                <div ng-bind-html="notice.$custom" class="col-md-10"></div>
-                            </div>
-
-                            <div ng-if="!notice.$customized">
-                                <div class="col-md-2">
-                                    <strong>{{::notice.type}}</strong>
-                                </div>
-
-                                <div class="col-md-8">
-                                    for
-                                    {{::notice.resourceId}}
-
-                                    by
-                                    <strong>{{::notice.initiatorId}}</strong>
-                                </div>
-                            </div>
-
-                            <div class="col-md-2 text-right">
-                                {{::notice.createdDate | fromNow}}
-                            </div>
-                        </div>
-
-                    </li>
-                </ul>
-
-                <div class="text-center">
-                    <a href="javascript:void(0)" ng-click="previousPage()" ng-disabled="$firstPage">&larr; Previous</a>
-                    {{$page +1}} of {{$pageCount}}
-                    <a href="javascript:void(0)" ng-click="nextPage()" ng-disabled="$lastPage">Next &rarr;</a>
+            <div ng-switch="entities.length > 0">
+                <div ng-switch-when="false">
+                    Nothing found
                 </div>
+                <div ng-switch-default>
 
+                    <div ng-repeat="entity in entities">
+                        {{entity.id}}
+                    </div>
+
+                    <div class="text-center">
+                        <a href="javascript:void(0)" ng-click="previousPage()" ng-disabled="$firstPage">&larr;
+                            Previous</a>
+                        {{$page +1}} of {{$pageCount}}
+                        <a href="javascript:void(0)" ng-click="nextPage()" ng-disabled="$lastPage">Next &rarr;</a>
+                    </div>
+
+                </div>
             </div>
+
         </div>
     </div>
 

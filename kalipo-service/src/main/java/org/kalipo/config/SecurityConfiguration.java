@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -40,6 +41,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .passwordEncoder(passwordEncoder());
     }
 
+//    @Override
+//    public void configure(HttpSecurity web) throws Exception {
+////        web.authorizeRequests().regexMatchers(HttpMethod.POST, "/app/rest/reports").permitAll()
+////        ;
+//    }
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
@@ -57,11 +64,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // API getters do not require authentication
             .regexMatchers(HttpMethod.GET, "/app/rest/threads.*")
             .regexMatchers(HttpMethod.GET, "/app/rest/comments.*")
-            .regexMatchers(HttpMethod.POST, "/app/rest/reports")
+            .antMatchers(HttpMethod.POST, "/app/rest/reports")
                 // websocket
             .regexMatchers(HttpMethod.GET, "/websocket/.*")
             .regexMatchers(HttpMethod.POST, "/websocket/.*")
         ;
+
     }
 
 

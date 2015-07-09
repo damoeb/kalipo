@@ -66,7 +66,7 @@ public class VoteService {
 
         // -- Quota
 
-        int count = voteRepository.countWithinDateRange(SecurityUtils.getCurrentLogin(), DateTime.now().minusDays(1), DateTime.now());
+        int count = voteRepository.countWithinDateRange(currentLogin, DateTime.now().minusDays(1), DateTime.now());
         int dailyLimit = 100; // todo senseful quota
         if (count >= dailyLimit && !isSuperMod) {
             throw new KalipoException(ErrorCode.METHOD_REQUEST_LIMIT_REACHED, "daily vote quota is " + dailyLimit);
@@ -82,7 +82,7 @@ public class VoteService {
 //            throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "You can't vote on your comment");
 //        }
 
-        reputationModifierService.onCommentVoting(vote);
+        reputationModifierService.onCommentVoting(vote, currentLogin);
 
         vote.setAuthorId(SecurityUtils.getCurrentLogin());
         vote.setThreadId(comment.getThreadId());

@@ -99,15 +99,16 @@ public class ReputationModifierServiceTest {
     @Test
     public void test_likeComment() throws KalipoException {
 
-        User userBefore = userRepository.findOne(SecurityUtils.getCurrentLogin());
+        String currentLogin = SecurityUtils.getCurrentLogin();
+        User userBefore = userRepository.findOne(currentLogin);
 
         Vote newVote = new Vote();
         newVote.setLike(true);
         newVote.setCommentId(comment.getId());
 
-        reputationModifierService.onCommentVoting(newVote);
+        reputationModifierService.onCommentVoting(newVote, currentLogin);
 
-        User userAfter = userRepository.findOne(SecurityUtils.getCurrentLogin());
+        User userAfter = userRepository.findOne(currentLogin);
 
         int repLiked = reputationModifierRepository.findByType(ReputationModifier.Type.LIKED).getReputation();
         int repLike = reputationModifierRepository.findByType(ReputationModifier.Type.LIKE).getReputation();
@@ -119,15 +120,16 @@ public class ReputationModifierServiceTest {
     @Test
     public void test_dislikeComment() throws KalipoException {
 
-        User userBefore = userRepository.findOne(SecurityUtils.getCurrentLogin());
+        String currentLogin = SecurityUtils.getCurrentLogin();
+        User userBefore = userRepository.findOne(currentLogin);
 
         Vote newVote = new Vote();
         newVote.setLike(false);
         newVote.setCommentId(comment.getId());
 
-        reputationModifierService.onCommentVoting(newVote);
+        reputationModifierService.onCommentVoting(newVote, currentLogin);
 
-        User userAfter = userRepository.findOne(SecurityUtils.getCurrentLogin());
+        User userAfter = userRepository.findOne(currentLogin);
 
         int repDisliked = reputationModifierRepository.findByType(ReputationModifier.Type.DISLIKED).getReputation();
         int repDislike = reputationModifierRepository.findByType(ReputationModifier.Type.DISLIKE).getReputation();

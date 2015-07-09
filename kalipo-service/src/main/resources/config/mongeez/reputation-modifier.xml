@@ -1,5 +1,5 @@
 <mongoChangeLog>
-    <changeSet changeId="ChangeSet-reputations" author="jhipster">
+    <changeSet changeId="ChangeSet-reputations-modifier" author="jhipster">
         <script>
             db.T_REPUTATION_MODIFIER.insert(
             {

@@ -13,4 +13,6 @@ public interface ReportRepository extends MongoRepository<Report, String> {
     Report findByCommentIdAndAuthorId(String commentId, String authorId);
 
     Page<Report> findByThreadIdAndStatus(String threadId, Report.Status status, Pageable pageable);
+
+    Report findByCommentIdAndEmail(String commentId, String email);
 }

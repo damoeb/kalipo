@@ -2,6 +2,8 @@
     <changeSet changeId="ChangeSet-authorities" author="jhipster">
         <script>
             db.T_AUTHORITY.insert({"_id" : "ROLE_ADMIN"});
+            db.T_AUTHORITY.insert({"_id" : "ROLE_SUPER_MOD"});
+            db.T_AUTHORITY.insert({"_id" : "ROLE_MOD"});
             db.T_AUTHORITY.insert({"_id" : "ROLE_USER"});
         </script>
     </changeSet>

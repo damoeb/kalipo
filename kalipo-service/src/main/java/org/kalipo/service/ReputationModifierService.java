@@ -8,7 +8,6 @@ import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.ReputationModifierRepository;
 import org.kalipo.repository.UserRepository;
 import org.kalipo.security.Privileges;
-import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
@@ -46,14 +45,18 @@ public class ReputationModifierService {
      * Create a reputation revision for a vote
      * on dislikes: reputation -1 of voter and -2 of author
      * on like: reputation +10 of author, probably reputation -1 of voter to hinder meat-puppet issue
-     * <p>
+     *
+     * @param vote the vote
+     * @param currentLogin the current login, since async
+     * @throws KalipoException
      */
-    // todo async
-    public void onCommentVoting(Vote vote) throws KalipoException {
+    @Async
+    public void onCommentVoting(Vote vote, String currentLogin) throws KalipoException {
 
         Asserts.isNotNull(vote, "vote");
         Asserts.isNotNull(vote.getCommentId(), "commentId");
-        vote.setAuthorId(SecurityUtils.getCurrentLogin());
+        Asserts.isNotNull(currentLogin, "login");
+        vote.setAuthorId(currentLogin);
 
         final Comment comment = commentRepository.findOne(vote.getCommentId());
         Asserts.isNotNull(comment, "commentId");
@@ -79,7 +82,7 @@ public class ReputationModifierService {
         updateUserReputation(rvForVoter);
     }
 
-    // todo async
+    @Async
     public void onReportApprovalOrRejection(Report report) throws KalipoException {
         Asserts.isNotNull(report, "report");
 
@@ -123,7 +126,7 @@ public class ReputationModifierService {
      *
      * @param user the user
      */
-    // todo async
+    @Async
     public void onUserCreation(@Valid @NotNull User user) {
         Achievement rvForNewUser = createRevision(user.getLogin(), user.getLogin(), ReputationModifier.Type.WELCOME);
         achievementRepository.save(rvForNewUser);
@@ -138,7 +141,7 @@ public class ReputationModifierService {
      * @param comment the comment
      * @throws KalipoException
      */
-    // todo async
+    @Async
     public void onCommentDeletion(@Valid @NotNull Comment comment) throws KalipoException {
         Asserts.isNotNull(comment, "comment");
 

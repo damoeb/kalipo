@@ -9,6 +9,7 @@ import java.lang.annotation.Target;
 
 /**
  * Limit rate for accessing a method
+ * todo limit to what?
  * Created by damoeb on 22.09.14.
  */
 @Component

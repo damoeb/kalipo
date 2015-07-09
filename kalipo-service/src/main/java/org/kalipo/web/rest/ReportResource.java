@@ -14,11 +14,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
@@ -44,10 +48,17 @@ public class ReportResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new report")
-    public Report create(@NotNull @RequestBody Report report) throws KalipoException {
+    public Report create(@NotNull @RequestBody Report report, @Context HttpSession session) throws KalipoException {
         log.debug("REST request to save Report : {}", report);
 
-        return reportService.create(report);
+        report.setIp("127.0.0.1");// todo httpRequest.getRemoteAddr());
+
+        try {
+            return reportService.create(report);
+
+        } catch (AuthenticationCredentialsNotFoundException e) {
+            return reportService.createAnonymous(report);
+        }
     }
 
     /**

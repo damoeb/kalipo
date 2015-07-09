@@ -23,7 +23,6 @@ public class Report implements Serializable {
     @Id
     private String id;
 
-    @NotNull(message = "{constraint.notnull.authorId}")
     @Field("author_id")
     private String authorId;
 
@@ -48,6 +47,8 @@ public class Report implements Serializable {
     @NotNull(message = "{constraint.notnull.threadId}")
     @Field("thread_id")
     private String threadId;
+
+    private String ip;
 
     @CreatedDate
     private DateTime createdDate;
@@ -163,6 +164,14 @@ public class Report implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
     /**

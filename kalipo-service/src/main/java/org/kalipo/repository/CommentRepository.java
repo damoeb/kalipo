@@ -20,6 +20,8 @@ public interface CommentRepository extends MongoRepository<Comment, String> {
     @Query(value = "{'threadId': ?0, 'status': { $in: ?1} }", fields = "{ 'id':1, 'parentId':1, 'threadId':1, 'createdDate':1, 'bodyHtml':1, 'displayName':1, 'level':1, 'influence':1, 'likes':1, 'dislikes':1, 'status':1, 'authorDiversity':1 , 'lastModifiedDate':1 }")
     Page<Comment> findByThreadIdAndStatusIn(String id, List<Comment.Status> status, Pageable pageable);
 
+    Page<Comment> findByDisplayName(String userIdPageable, Pageable pageable);
+
     @Query(value = "{'authorId': ?0, 'status': 'APPROVED'}", count = true)
     Long getApprovedCommentCountOfUser(String userId);
 
@@ -47,10 +49,6 @@ public interface CommentRepository extends MongoRepository<Comment, String> {
 
     Set<Comment> findByParentId(String id);
 
-    @Query(value = "{'threadId': ?0}", fields = "{ 'id' : 1, 'influence' : 1, 'parentId' : 1, 'status' : 1, 'fingerprint' : 1, 'level' : 1}")
-    List<Comment> getInfluenceByThreadId(String threadId, Sort sort);
-
-    //    @Query(value = "{'threadId': ?0, 'status': 'PENDING'}")
     List<Comment> findByStatusAndThreadId(Comment.Status pending, String id);
 
 }

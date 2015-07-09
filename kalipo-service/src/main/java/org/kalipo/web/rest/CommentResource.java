@@ -12,6 +12,7 @@ import org.kalipo.service.util.Asserts;
 import org.kalipo.service.util.ParamUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.QueryParam;
 import java.util.List;
 import java.util.Optional;
@@ -193,6 +195,26 @@ public class CommentResource {
                         comment,
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /**
+     * GET  /rest/comments -> get the filtered comments.
+     */
+    @RequestMapping(value = "/rest/comments",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @ApiOperation(value = "Get the filtered comments.")
+    @ApiResponses(value = {
+        @ApiResponse(code = 400, message = "Invalid ID supplied"),
+        @ApiResponse(code = 404, message = "Comment not found")
+    })
+    public Page<Comment> filtered(@QueryParam("userId") String userId, @QueryParam("page") @DefaultValue("0") int page) throws KalipoException, ExecutionException, InterruptedException {
+        log.debug("REST request to get filtered Comment : {}", userId);
+
+        Asserts.isNotEmpty(userId, "userId");
+
+        return commentService.byAuthorWithPages(userId, page).get();
     }
 
     /**

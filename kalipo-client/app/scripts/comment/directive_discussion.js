@@ -92,6 +92,7 @@ angular.module('kalipoApp')
                 };
 
                 $scope.like = function (commentId) {
+                    console.log('like');
                     commentId.likes++;
 
                     var vote = {like: true, commentId: commentId};

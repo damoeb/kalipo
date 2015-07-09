@@ -28,7 +28,6 @@ profile
 
 Categories
   Notifications  : List of notifications, pagination:no, limited to 10, sort by newest first, type:[thread,comment]
-  Threads I use  : List of threads, pagination:yes, sort by newest first/upvotes, type:[thread]
   Comments I made: List of comments, pagination:yes, sort by newest first/upvotes, type:[comment]
   Likes          : List of comments, pagination:yes, sort by newest first/upvotes, type:[comment]
   Achievements/

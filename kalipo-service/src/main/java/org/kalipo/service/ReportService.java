@@ -1,6 +1,7 @@
 package org.kalipo.service;
 
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.RateLimit;
 import org.kalipo.config.Constants;
@@ -10,6 +11,7 @@ import org.kalipo.domain.Notification;
 import org.kalipo.domain.Report;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.ReportRepository;
+import org.kalipo.security.AuthoritiesConstants;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
@@ -56,29 +58,62 @@ public class ReportService {
     @Inject
     private NotificationService notificationService;
 
-    @RolesAllowed(Privileges.CREATE_REPORT)
+    //    @RolesAllowed(AuthoritiesConstants.ANONYMOUS)
     @RateLimit
     public Report create(Report report) throws KalipoException {
 
-        Asserts.isNull(report.getId(), "id");
-        Asserts.isNotNull(report.getCommentId(), "commentId");
+        validate(report);
 
-        report.setStatus(Report.Status.PENDING);
+        final String author = SecurityUtils.getCurrentLogin();
+
+        report.setAuthorId(author);
 
         Comment comment = commentRepository.findOne(report.getCommentId());
 
-        Asserts.isNotNull(comment, "commentId");
+        boolean isDuplicate = reportRepository.findByCommentIdAndAuthorId(comment.getId(), author) != null;
 
-        final String currentLogin = SecurityUtils.getCurrentLogin();
+        return _create(report, comment, author, isDuplicate);
+    }
 
-        final boolean exists = reportRepository.findByCommentIdAndAuthorId(comment.getId(), currentLogin) != null;
-        if (exists) {
+    private void validate(Report report) throws KalipoException {
+        Asserts.isNotNull(report, "report");
+        Asserts.isNull(report.getId(), "id");
+        Asserts.isNotNull(report.getCommentId(), "commentId");
+    }
+
+    @RateLimit
+    public Report createAnonymous(Report report) throws KalipoException {
+
+        validate(report);
+
+        String email = report.getEmail();
+        Asserts.isNotNull(report.getEmail(), "email");
+        Asserts.isNotNull(report.getIp(), "ip");
+
+        report.setEmail(email);
+
+        Comment comment = commentRepository.findOne(report.getCommentId());
+        boolean isDuplicate = StringUtils.isNotBlank(email) && reportRepository.findByCommentIdAndEmail(comment.getId(), email) != null;
+
+        return _create(report, comment, email, isDuplicate);
+    }
+
+    private Report _create(Report report, Comment comment, String author, boolean isDuplicate) throws KalipoException {
+
+        report.setStatus(Report.Status.PENDING);
+
+        if (isDuplicate) {
             throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "You already filed a report for this comment");
         }
 
-        log.info(String.format("Report of comment %s by %s", comment.getId(), currentLogin));
+        if (Report.Reason.Other == report.getReason()) {
+            Asserts.isNotNull(report.getCustomReason(), "customReason");
+        }
 
-        report.setAuthorId(currentLogin);
+        // todo if anon report, approve via email?
+
+        log.info(String.format("Report of comment %s by %s", comment.getId(), author));
+
         report.setStatus(Report.Status.PENDING);
         report.setThreadId(comment.getThreadId());
 
@@ -90,12 +125,12 @@ public class ReportService {
 
         // todo async
         if (reportedCount == 1) {
-            notificationService.notifyModsOfThread(comment.getThreadId(), report, currentLogin);
+            notificationService.notifyModsOfThread(comment.getThreadId(), report, author);
         }
         if (reportedCount == CRITICAL_REPORT_COUNT) {
             log.info(String.format("Hiding comment %s after %s reports", comment.getId(), CRITICAL_REPORT_COUNT));
             comment.setHidden(true);
-            notificationService.notifySuperModsOfFraudulentComment(comment, currentLogin);
+            notificationService.notifySuperModsOfFraudulentComment(comment, author);
         }
         commentRepository.save(comment);
 

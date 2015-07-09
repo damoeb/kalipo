@@ -1,28 +1,36 @@
 <div ng-controller="ProfileLikesController">
-    <ul class="nav nav-tabs">
-        <li><a href="#/profile/notifications">Notifications</a></li>
-        <li><a href="#/profile/threads">Threads</a></li>
-        <li><a href="#/profile/comments">Comments</a></li>
-        <li class="active"><a href="#/profile/likes">Likes</a></li>
-        <li><a href="#/profile/achievements">Achievements</a></li>
-    </ul>
 
-    <div ng-init="fetchVotes()">
-
-        <div ng-switch on="likes.length == 0">
-
-            <div ng-switch-default>
-                No likes found
-            </div>
-
-            <div ng-switch-when="false" class="clearfix">
-                <div ng-repeat="comment in likes | orderBy:$vote.createdDate">
-                    <div ng-include="'comment_renderer.template'"></div>
-                </div>
-            </div>
-
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <ul class="nav nav-pills" role="tablist">
+                <li><a href="#/profile/notifications">Notifications</a></li>
+                <li><a href="#/profile/comments">Comments</a></li>
+                <li class="active"><a href="#/profile/likes">Likes</a></li>
+                <li><a href="#/profile/achievements">Achievements</a></li>
+            </ul>
         </div>
+    </div>
 
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div ng-init="fetchVotes()">
+
+                <div ng-switch on="likes.length == 0">
+
+                    <div ng-switch-default>
+                        No likes found
+                    </div>
+
+                    <div ng-switch-when="false" class="clearfix">
+                        <div ng-repeat="comment in likes | orderBy:$vote.createdDate">
+                            <div ng-include="'comment_renderer.template'"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
     </div>
 
 </div>

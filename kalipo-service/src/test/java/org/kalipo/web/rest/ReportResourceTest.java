@@ -81,7 +81,7 @@ public class ReportResourceTest {
         commentService.create(comment);
 
         report = new Report();
-        report.setReasonId(0);
+        report.setReason(Report.Reason.Copyright);
         report.setCommentId(comment.getId());
     }
 

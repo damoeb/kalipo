@@ -1,27 +1,37 @@
 <div ng-controller="ProfileAchievementsController">
-    <ul class="nav nav-tabs">
-        <li><a href="#/profile/notifications">Notifications</a></li>
-        <li><a href="#/profile/threads">Threads</a></li>
-        <li><a href="#/profile/comments">Comments</a></li>
-        <li><a href="#/profile/likes">Likes</a></li>
-        <li class="active"><a href="#/profile/achievements">Achievements</a></li>
-    </ul>
 
-    <div ng-init="fetchAchievements()">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <ul class="nav nav-pills">
+                <li><a href="#/profile/notifications">Notifications</a></li>
+                <li><a href="#/profile/comments">Comments</a></li>
+                <li><a href="#/profile/likes">Likes</a></li>
+                <li class="active"><a href="#/profile/achievements">Achievements</a></li>
+            </ul>
+        </div>
+    </div>
 
-        <div ng-switch on="achievements.length == 0">
+    <div class="panel panel-default">
+        <div class="panel-body">
 
-            <div ng-switch-default>
-                No Achievements
-            </div>
+            <div ng-init="fetchAchievements()">
 
-            <div ng-switch-when="false" class="clearfix">
-                <div ng-repeat="page in pages">
-                    <div ng-repeat="achievement in page.achievements">
-                        <div ng-include="'achievement_renderer.template'"></div>
+                <div ng-switch on="achievements.length == 0">
+
+                    <div ng-switch-default>
+                        No Achievements
+                    </div>
+
+                    <div ng-switch-when="false" class="clearfix">
+                        <div ng-repeat="page in pages">
+                            <div ng-repeat="achievement in page.achievements">
+                                <div ng-include="'achievement_renderer.template'"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

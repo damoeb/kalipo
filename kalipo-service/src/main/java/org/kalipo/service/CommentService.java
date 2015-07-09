@@ -23,6 +23,7 @@ import org.kalipo.web.filter.AnonUtil;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
@@ -41,7 +42,7 @@ public class CommentService {
 
     private final Logger log = LoggerFactory.getLogger(CommentService.class);
 
-    private static final int PAGE_SIZE = 51;
+    private static final int PAGE_SIZE = 15;
     private static final int MAX_LEVEL = 8;
 
     @Inject
@@ -245,6 +246,12 @@ public class CommentService {
     public Future<List<Comment>> getPendingInThreadWithPages(String threadId, final int pageNumber) {
         PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, Constants.PARAM_CREATED_DATE);
         return new AsyncResult<>(commentRepository.findByThreadIdAndStatusIn(threadId, Arrays.asList(Comment.Status.PENDING), pageable).getContent());
+    }
+
+    @Async
+    public Future<Page<Comment>> byAuthorWithPages(String userId, final int pageNumber) {
+        PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, Constants.PARAM_CREATED_DATE);
+        return new AsyncResult<Page<Comment>>(commentRepository.findByDisplayName(userId, pageable));
     }
 
     @Async
