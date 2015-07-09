@@ -3,16 +3,23 @@
 kalipoApp
     .config(function ($routeProvider, $httpProvider, $translateProvider, USER_ROLES) {
         $routeProvider
-            .when('/moderate/:threadId', {
-                templateUrl: 'views/moderate.html',
-                controller: 'ModerateController',
+            .when('/moderate', {
+                templateUrl: 'views/moderate-pending.html',
+                controller: 'PendingController',
                 access: {
                     authorizedRoles: [USER_ROLES.all]
                 }
             })
-            .when('/moderate/:threadId/:tab', {
-                templateUrl: 'views/moderate.html',
-                controller: 'ModerateController',
+            .when('/moderate/pending', {
+                templateUrl: 'views/moderate-pending.html',
+                controller: 'PendingController',
+                access: {
+                    authorizedRoles: [USER_ROLES.all]
+                }
+            })
+            .when('/moderate/reports', {
+                templateUrl: 'views/moderate-reports.html',
+                controller: 'PendingController',
                 access: {
                     authorizedRoles: [USER_ROLES.all]
                 }
