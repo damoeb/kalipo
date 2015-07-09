@@ -41,9 +41,10 @@ Categories
 - thread has a reputation threshold for users to join discussion
 
 discussion
-  ignore user feature
+  impl ignore user feature: Does not work, if anonymous (hide link)
 
 outline
+  einfacheres klicken
   einfach 3 seiten im voraus ladenen -> generieren
   es kann auf die gesamte zeile geklickt werden, nicht nur das Icon rechts, um es komplett anzuzeigen
   eigenes comment in gruen
