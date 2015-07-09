@@ -60,51 +60,6 @@ kalipoApp
                     authorizedRoles: [USER_ROLES.all]
                 }
             })
-            .when('/sessions', {
-                templateUrl: 'views/sessions.html',
-                controller: 'SessionsController',
-                resolve: {
-                    resolvedSessions: ['Sessions', function (Sessions) {
-                        return Sessions.get();
-                    }]
-                },
-                access: {
-                    authorizedRoles: [USER_ROLES.all]
-                }
-            })
-            .when('/tracker', {
-                templateUrl: 'views/tracker.html',
-                controller: 'TrackerController',
-                access: {
-                    authorizedRoles: [USER_ROLES.admin]
-                }
-            })
-            .when('/metrics', {
-                templateUrl: 'views/metrics.html',
-                controller: 'MetricsController',
-                access: {
-                    authorizedRoles: [USER_ROLES.admin]
-                }
-            })
-            .when('/logs', {
-                templateUrl: 'views/logs.html',
-                controller: 'LogsController',
-                resolve: {
-                    resolvedLogs: ['LogsService', function (LogsService) {
-                        return LogsService.findAll();
-                    }]
-                },
-                access: {
-                    authorizedRoles: [USER_ROLES.admin]
-                }
-            })
-            .when('/audits', {
-                templateUrl: 'views/audits.html',
-                controller: 'AuditsController',
-                access: {
-                    authorizedRoles: [USER_ROLES.admin]
-                }
-            })
             .when('/logout', {
                 templateUrl: 'views/main.html',
                 controller: 'LogoutController',
@@ -136,13 +91,6 @@ kalipoApp
                     authorizedRoles: [USER_ROLES.all]
                 }
             })
-            //.when('/comments', {
-            //    templateUrl: 'views/profile-tab-comments.html',
-            //    controller: 'MyCommentsController',
-            //    access: {
-            //        authorizedRoles: [USER_ROLES.all]
-            //    }
-            //})
             .otherwise({
                 templateUrl: 'views/browse.html',
                 controller: 'BrowseController',

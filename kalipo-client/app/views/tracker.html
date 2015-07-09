@@ -1,10 +1,22 @@
-<div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <ul class="nav nav-pills">
+            <li><a href="#/tools/metrics">Metrics</a></li>
+            <li class="active"><a href="#/tools/tracker">Tracker</a></li>
+            <li><a href="#/tools/logs">Logs</a></li>
+            <li><a href="#/tools/audits">Audits</a></li>
+        </ul>
+    </div>
+</div>
 
-    <h2 translate="tracker.title">Real-time user activities</h2>
+<div class="panel panel-default">
+    <div class="panel-body">
 
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
+        <h2 translate="tracker.title">Real-time user activities</h2>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
                 <tr>
                     <th translate="tracker.table.userlogin">User</th>
                     <th translate="tracker.table.ipaddress">IP Address</th>
@@ -12,15 +24,17 @@
                     <th translate="tracker.table.time">Time</th>
                     <th></th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <tr ng-repeat="activity in activities">
                     <td>{{activity.userLogin}}</td>
                     <td>{{activity.ipAddress}}</td>
                     <td>{{activity.page}}</td>
                     <td>{{activity.time}}</td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </div>
