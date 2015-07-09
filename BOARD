@@ -1,6 +1,6 @@
 REST Exceptions are crap
 Install nagios, or icinga
-Als èbersicht "browse" ein sequoia chart
+Als Uebersicht "browse" ein sequoia chart
 
 live
   subscribe once, not for every thread subscribe/unsubscribe
@@ -24,7 +24,6 @@ profile
   comments eines jeden users anzeigen
   Listen wie auf stackoverflow, das profile
   controller machen immer das gleiche -> vereinheitlichen
-  moderate pending/reports has to be there too
 
 Categories
   Notifications  : List of notifications, pagination:no, limited to 10, sort by newest first, type:[thread,comment]

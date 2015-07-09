@@ -1,13 +1,13 @@
-<div ng-init="reset(); fetchComments()">
+<div ng-init="reset(); fetchIgnoredUsers()">
 
     <div class="panel panel-default">
         <div class="panel-heading">
             <ul class="nav nav-pills">
-                <li class="active"><a href="#/profile/comments">Comments</a></li>
+                <li><a href="#/profile/comments">Comments</a></li>
                 <li><a href="#/profile/likes">Likes</a></li>
                 <li><a href="#/profile/notifications">Notifications</a></li>
                 <li><a href="#/profile/achievements">Achievements</a></li>
-                <li><a href="#/profile/ignored-users">Ignored Users</a></li>
+                <li class="active"><a href="#/profile/ignored-users">Ignored Users</a></li>
             </ul>
         </div>
     </div>
@@ -22,7 +22,7 @@
                 <div ng-switch-default>
 
                     <div ng-repeat="entity in entities">
-                        <comment-slim ng-model="entity"/>
+                        {{entity.id}}
                     </div>
 
                     <div class="text-center">

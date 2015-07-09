@@ -47,4 +47,10 @@ kalipoApp.controller('ProfileController', function ($rootScope, $scope, $q, Comm
             })
         });
     };
+
+    $scope.fetchIgnoredUsers = function () {
+        $q.when(promiseLogin).then(function() {
+            // todo implement
+        });
+    };
 });

@@ -37,5 +37,12 @@ kalipoApp.config(function ($routeProvider, $httpProvider, $translateProvider, US
                 authorizedRoles: [USER_ROLES.all]
             }
         })
+        .when('/profile/ignored-users', {
+            templateUrl: 'views/profile-ignored-users.html',
+            controller: 'ProfileController',
+            access: {
+                authorizedRoles: [USER_ROLES.all]
+            }
+        })
         ;
 });
