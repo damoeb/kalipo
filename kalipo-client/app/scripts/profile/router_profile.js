@@ -3,35 +3,35 @@
 kalipoApp.config(function ($routeProvider, $httpProvider, $translateProvider, USER_ROLES) {
     $routeProvider
         .when('/profile', {
-            templateUrl: 'views/profile-tab-comments.html',
+            templateUrl: 'views/profile-comments.html',
             controller: 'ProfileController',
             access: {
                 authorizedRoles: [USER_ROLES.all]
             }
         })
         .when('/profile/comments', {
-            templateUrl: 'views/profile-tab-comments.html',
+            templateUrl: 'views/profile-comments.html',
             controller: 'ProfileController',
             access: {
                 authorizedRoles: [USER_ROLES.all]
             }
         })
         .when('/profile/notifications', {
-            templateUrl: 'views/profile-tab-notices.html',
+            templateUrl: 'views/profile-notices.html',
             controller: 'ProfileNoticeController',
             access: {
                 authorizedRoles: [USER_ROLES.all]
             }
         })
         .when('/profile/likes', {
-            templateUrl: 'views/profile-tab-likes.html',
+            templateUrl: 'views/profile-likes.html',
             controller: 'ProfileLikesController',
             access: {
                 authorizedRoles: [USER_ROLES.all]
             }
         })
         .when('/profile/achievements', {
-            templateUrl: 'views/profile-tab-achievements.html',
+            templateUrl: 'views/profile-achievements.html',
             controller: 'ProfileController',
             access: {
                 authorizedRoles: [USER_ROLES.all]
