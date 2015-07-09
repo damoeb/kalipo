@@ -250,8 +250,9 @@ public class CommentService {
 
     @Async
     public Future<Page<Comment>> byAuthorWithPages(String userId, final int pageNumber) {
+        // todo allow only owner or admin/mods
         PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, Constants.PARAM_CREATED_DATE);
-        return new AsyncResult<Page<Comment>>(commentRepository.findByDisplayName(userId, pageable));
+        return new AsyncResult<Page<Comment>>(commentRepository.findByAuthorId(userId, pageable));
     }
 
     @Async
