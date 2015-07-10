@@ -69,18 +69,6 @@ kalipoApp
                     authorizedRoles: [USER_ROLES.admin]
                 }
             })
-            .when('/threads/pending', {
-                templateUrl: 'views/threads-pending.html',
-                access: {
-                    authorizedRoles: [USER_ROLES.all]
-                }
-            })
-            .when('/threads/reported', {
-                templateUrl: 'views/threads-reported.html',
-                access: {
-                    authorizedRoles: [USER_ROLES.all]
-                }
-            })
             .otherwise({
                 templateUrl: 'views/browse.html',
                 controller: 'BrowseController',

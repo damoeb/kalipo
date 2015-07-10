@@ -4,7 +4,7 @@ kalipoApp
     .config(function ($routeProvider, $httpProvider, $translateProvider, USER_ROLES) {
         $routeProvider
             .when('/discuss', {
-                templateUrl: 'views/thread-create.html',
+                templateUrl: 'views/create-discussion.html',
                 controller: 'CreateThreadController',
                 access: {
                     authorizedRoles: [USER_ROLES.user]

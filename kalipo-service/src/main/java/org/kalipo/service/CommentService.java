@@ -237,25 +237,6 @@ public class CommentService {
     }
 
     @Async
-    public Future<List<Comment>> getPendingWithPages(final int pageNumber) {
-        PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, Constants.PARAM_CREATED_DATE);
-        return new AsyncResult<>(commentRepository.findByStatus(Comment.Status.PENDING, pageable));
-    }
-
-    @Async
-    public Future<List<Comment>> getPendingInThreadWithPages(String threadId, final int pageNumber) {
-        PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, Constants.PARAM_CREATED_DATE);
-        return new AsyncResult<>(commentRepository.findByThreadIdAndStatusIn(threadId, Arrays.asList(Comment.Status.PENDING), pageable).getContent());
-    }
-
-    @Async
-    public Future<Page<Comment>> byAuthorWithPages(String userId, final int pageNumber) {
-        // todo allow only owner or admin/mods
-        PageRequest pageable = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, Constants.PARAM_CREATED_DATE);
-        return new AsyncResult<Page<Comment>>(commentRepository.findByAuthorId(userId, pageable));
-    }
-
-    @Async
     public Future<Comment> get(String id) throws KalipoException {
         return new AsyncResult<Comment>(commentRepository.findOne(id));
     }
@@ -476,5 +457,27 @@ public class CommentService {
             }
         }
         commentRepository.save(comment);
+    }
+
+    public Page<Comment> filtered(String userId, Comment.Status status, Boolean reported, int page) {
+
+        PageRequest pageable = new PageRequest(page, PAGE_SIZE, Sort.Direction.DESC, Constants.PARAM_CREATED_DATE);
+
+        // todo implement a dynamic filter method
+        // todo allow only owner or admin/mods
+
+        if (StringUtils.isNotEmpty(userId)) {
+            return commentRepository.findByAuthorId(userId, pageable);
+        }
+
+        if (status != null) {
+            return commentRepository.findByStatus(status, pageable);
+        }
+
+        if (reported != null) {
+            return commentRepository.findByReported(reported, pageable);
+        }
+
+        return null;
     }
 }

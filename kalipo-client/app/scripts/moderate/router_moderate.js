@@ -5,21 +5,21 @@ kalipoApp
         $routeProvider
             .when('/moderate', {
                 templateUrl: 'views/moderate-pending.html',
-                controller: 'PendingController',
+                controller: 'ModerateController',
                 access: {
                     authorizedRoles: [USER_ROLES.all]
                 }
             })
             .when('/moderate/pending', {
                 templateUrl: 'views/moderate-pending.html',
-                controller: 'PendingController',
+                controller: 'ModerateController',
                 access: {
                     authorizedRoles: [USER_ROLES.all]
                 }
             })
             .when('/moderate/reports', {
                 templateUrl: 'views/moderate-reports.html',
-                controller: 'PendingController',
+                controller: 'ModerateController',
                 access: {
                     authorizedRoles: [USER_ROLES.all]
                 }

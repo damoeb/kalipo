@@ -1,6 +1,10 @@
 REST Exceptions are crap
+Install logstash
 Install nagios, or icinga
 Als Uebersicht "browse" ein sequoia chart
+
+Build site concept: mod moderates specific site, supermod can moderate all sites
+Every ban is siteId-wide (no bans on thread level)
 
 live
   subscribe once, not for every thread subscribe/unsubscribe
@@ -9,10 +13,8 @@ live
 NO- Es gibt keinen Thread mehr, sondern nur Kommentare auf die geantwortet werden kann. Uebersichtseite stellt einen anonymisierten Live chat dar, von dem aus Diskussion gestartet werden koennen
 Thread management nach 4chan prinzip
 
-Every ban is siteId-wide (no bans on thread level)
 
 profile
-implement moderation meths in controller_thread Spam,...
 for mods: additional infos in outline and discussion, "this is reported", ..
 set page size 40, load 3 pages at beginning, sort pages by influence not date, if possible
 
@@ -32,9 +34,6 @@ Categories
   Achievements/
     Reputation   : List of achievments, pagination:yes, sort by newest first, type:[achievement]
   Ignored Users : List of usernames, pagination:yes, sort by name
-
-  Controller getList(page, sorter) + enrichment, nextPage, prevPage
-
 
 - permalinks for comments, update url when clicking in outline
 - thread has a reputation threshold for users to join discussion

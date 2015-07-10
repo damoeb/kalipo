@@ -43,7 +43,7 @@ public interface CommentRepository extends MongoRepository<Comment, String> {
     @Query(value = "{'threadId': ?0, 'reportedCount' : {$gt: 0}}", count = true)
     int countReportedInThread(String threadId);
 
-    List<Comment> findByStatus(Comment.Status status, Pageable pageable);
+    Page<Comment> findByStatus(Comment.Status status, Pageable pageable);
 
     List<Comment> findByThreadId(String threadId, Sort sort);
 
@@ -51,4 +51,5 @@ public interface CommentRepository extends MongoRepository<Comment, String> {
 
     List<Comment> findByStatusAndThreadId(Comment.Status pending, String id);
 
+    Page<Comment> findByReported(Boolean reported, Pageable pageable);
 }

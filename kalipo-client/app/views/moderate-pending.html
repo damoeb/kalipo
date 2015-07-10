@@ -7,23 +7,34 @@
     </div>
 </div>
 
-<div class="panel panel-default">
+<div class="panel panel-default" ng-init="reset(); queryPending();">
     <div class="panel-body">
-        <div ng-switch on="pending.length == 0" ng-show="$tab =='pending'">
 
-            <div ng-switch-default>
-                No pending reviews.
+        <div ng-switch="entities.length > 0">
+            <div ng-switch-when="false">
+                Nothing found
             </div>
-            <div ng-switch-when="false" class="clearfix">
-                <div ng-repeat="comment in pending">
+            <div ng-switch-default>
 
+                <div ng-repeat="comment in entities">
                     <div ng-include="'pending_renderer.template'"></div>
-
                 </div>
+
+                <div class="text-center">
+                    <a href="javascript:void(0)" ng-click="previousPage('queryPending')"
+                       ng-disabled="$firstPage">&larr;
+                        Previous</a>
+                    {{$page +1}} of {{$pageCount}}
+                    <a href="javascript:void(0)" ng-click="nextPage('queryPending')"
+                       ng-disabled="$lastPage">Next &rarr;</a>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
+
+<!-- templates -->
 
 <script type="text/ng-template" id="pending_renderer.template">
     <div>

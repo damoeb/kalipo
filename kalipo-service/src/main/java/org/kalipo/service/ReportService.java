@@ -122,6 +122,7 @@ public class ReportService {
         // todo reject reports on already manually approved comments
         Integer reportedCount = NumUtils.nullToZero(comment.getReportedCount()) + 1;
         comment.setReportedCount(reportedCount);
+        comment.setReported(true);
 
         // todo async
         if (reportedCount == 1) {

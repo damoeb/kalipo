@@ -148,33 +148,6 @@ public class CommentResource {
     }
 
     /**
-     * GET  /rest/comments/review -> get all the comments, that have to be reviewed.
-     */
-    @RequestMapping(value = "/rest/comments/pending",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    @ApiOperation(value = "Get all the comments, that can be review")
-    @Deprecated
-    // todo review this method
-    public List<Comment> getAllUnderReview(
-        @QueryParam("thread") String threadId,
-        @QueryParam(Constants.PARAM_PAGE) Integer page
-    ) throws ExecutionException, InterruptedException {
-        log.debug("REST request to get all Comments, that have to be reviewed");
-
-        page = ParamUtils.fixPage(page);
-
-        if (StringUtils.isBlank(threadId)) {
-            return commentService.getPendingWithPages(page).get();
-
-        } else {
-
-            return commentService.getPendingInThreadWithPages(threadId, page).get();
-        }
-    }
-
-    /**
      * GET  /rest/comments/:id -> get the "id" comment.
      */
     @RequestMapping(value = "/rest/comments/{id}",
@@ -209,12 +182,15 @@ public class CommentResource {
         @ApiResponse(code = 400, message = "Invalid ID supplied"),
         @ApiResponse(code = 404, message = "Comment not found")
     })
-    public Page<Comment> filtered(@QueryParam("userId") String userId, @QueryParam("page") @DefaultValue("0") int page) throws KalipoException, ExecutionException, InterruptedException {
+    public ResponseEntity<Page<Comment>> filtered(@QueryParam("userId") String userId, @QueryParam("status") Comment.Status status, @QueryParam("reported") Boolean reported, @QueryParam("page") @DefaultValue("0") int page) throws KalipoException, ExecutionException, InterruptedException {
         log.debug("REST request to get filtered Comment : {}", userId);
 
-        Asserts.isNotEmpty(userId, "userId");
+        return Optional.ofNullable(commentService.filtered(userId, status, reported, page))
+            .map(comments -> new ResponseEntity<>(
+                comments,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
-        return commentService.byAuthorWithPages(userId, page).get();
     }
 
     /**

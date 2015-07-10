@@ -89,6 +89,8 @@ public class Comment implements Anonymizable<Comment> {
 
     private Integer reportedCount;
 
+    private Boolean reported;
+
     @NotNull(message = "{constraint.notnull.status}")
     private Status status;
 
@@ -312,6 +314,14 @@ public class Comment implements Anonymizable<Comment> {
 
     public void setLinks(Set<Link> links) {
         this.links = links;
+    }
+
+    public Boolean getReported() {
+        return reported;
+    }
+
+    public void setReported(Boolean reported) {
+        this.reported = reported;
     }
 
     /**

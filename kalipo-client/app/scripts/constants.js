@@ -31,6 +31,10 @@ kalipoApp.constant('COMMENT_SETTINGS', {
     criticalLineCount: 5
 });
 
+kalipoApp.constant('COMMENT_STATUS', {
+    APPROVED:'APPROVED', PENDING:'PENDING', SPAM:'SPAM', REJECTED:'REJECTED', DELETED:'DELETED'
+});
+
 kalipoApp.constant('ACHIEVEMENTS', {
     LIKED: {text: 'Cash -- You like a comment'},
     LIKE: {text: 'Someone likes your comment'},
