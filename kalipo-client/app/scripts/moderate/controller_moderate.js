@@ -1,6 +1,6 @@
 'use strict';
 
-kalipoApp.controller('ModerateController', function ($scope, $routeParams, $rootScope, Thread, Comment, Report, COMMENT_STATUS, REPORT_STATUS, $q) {
+kalipoApp.controller('ModerateController', function ($scope, $routeParams, $rootScope, Thread, Comment, Report, COMMENT_STATUS, REPORT_STATUS, $q, Notifications) {
 
     var promiseLogin = function() {
         var defer = $q.defer();
