@@ -1,6 +1,6 @@
 'use strict';
 
-kalipoApp.controller('ModerateController', function ($scope, $routeParams, $rootScope, Thread, Comment, COMMENT_STATUS, $q) {
+kalipoApp.controller('ModerateController', function ($scope, $routeParams, $rootScope, Thread, Comment, Report, COMMENT_STATUS, REPORT_STATUS, $q) {
 
     var promiseLogin = function() {
         var defer = $q.defer();
@@ -52,7 +52,13 @@ kalipoApp.controller('ModerateController', function ($scope, $routeParams, $root
 
     $scope.queryReports = function () {
         $q.when(promiseLogin).then(function() {
-            Comment.query({reported: true, page: $scope.$page}, handleResponse);
+            Report.query({status: REPORT_STATUS.PENDING, page: $scope.$page}, function(response) {
+                 $scope.$pageCount = response.totalPages;
+                 $scope.$lastPage = response.lastPage;
+                 $scope.$firstPage = response.firstPage;
+                 $scope.entities = response.content;
+                 // todo enrich with comments
+            });
         });
     };
 
@@ -69,5 +75,22 @@ kalipoApp.controller('ModerateController', function ($scope, $routeParams, $root
                 // todo remove comment
             });
     };
+
+    $scope.approveReport = function (report) {
+        console.log('approve report', report.id);
+        Report.approve({id: report.id},
+            function () {
+                Notifications.info('Approved report of ' + report.authorId);
+            });
+    };
+
+    $scope.rejectReport = function (report) {
+        console.log('reject report', report.id);
+        Report.reject({id: report.id},
+            function () {
+                Notifications.info('Rejected report of ' + report.authorId);
+            });
+    };
+
 
 });

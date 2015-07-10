@@ -21,6 +21,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import java.util.List;
@@ -98,36 +99,17 @@ public class ReportResource {
     }
 
     /**
-     * GET  /rest/reports -> get all the reports.
+     * GET  /rest/reports -> get all filtered reports.
      */
     @RequestMapping(value = "/rest/reports",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @ApiOperation(value = "Get all the reports")
-    public List<Report> getAll() throws ExecutionException, InterruptedException {
-        log.debug("REST request to get all Reports");
+    @ApiOperation(value = "Get filtered the reports")
+    public Page<Report> filtered(@QueryParam("status") Report.Status status, @QueryParam("page") @DefaultValue("0") int page) throws ExecutionException, InterruptedException {
+        log.debug("REST request to get filtered Reports");
 
-        return reportService.getAll().get();
-    }
-
-    /**
-     * GET  /rest/reports/pending -> get all pending the reports.
-     */
-    @RequestMapping(value = "/rest/reports/pending",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    @ApiOperation(value = "Get all pending reports")
-    public Page<Report> getPending(
-        @QueryParam("threadId") String threadId,
-        @QueryParam(Constants.PARAM_PAGE) Integer page
-    ) throws ExecutionException, InterruptedException {
-        log.debug("REST request to get all Reports");
-
-        page = ParamUtils.fixPage(page);
-
-        return reportService.getPendingWithPages(threadId, page).get();
+        return reportService.filtered(status, page).get();
     }
 
     /**

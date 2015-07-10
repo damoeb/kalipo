@@ -42,7 +42,6 @@ public class CommentService {
 
     private final Logger log = LoggerFactory.getLogger(CommentService.class);
 
-    private static final int PAGE_SIZE = 15;
     private static final int MAX_LEVEL = 8;
 
     @Inject
@@ -461,7 +460,7 @@ public class CommentService {
 
     public Page<Comment> filtered(String userId, Comment.Status status, Boolean reported, int page) {
 
-        PageRequest pageable = new PageRequest(page, PAGE_SIZE, Sort.Direction.DESC, Constants.PARAM_CREATED_DATE);
+        PageRequest pageable = new PageRequest(page, Constants.PAGE_SIZE, Sort.Direction.DESC, Constants.PARAM_CREATED_DATE);
 
         // todo implement a dynamic filter method
         // todo allow only owner or admin/mods

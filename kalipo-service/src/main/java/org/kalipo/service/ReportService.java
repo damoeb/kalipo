@@ -122,7 +122,6 @@ public class ReportService {
         // todo reject reports on already manually approved comments
         Integer reportedCount = NumUtils.nullToZero(comment.getReportedCount()) + 1;
         comment.setReportedCount(reportedCount);
-        comment.setReported(true);
 
         // todo async
         if (reportedCount == 1) {
@@ -150,11 +149,11 @@ public class ReportService {
         approveOrReject(getPendingReport(id).setStatus(Report.Status.REJECTED));
     }
 
-    // todo can be removed?
     // todo add RolesAllowed
     @Async
-    public Future<List<Report>> getAll() {
-        return new AsyncResult<>(reportRepository.findAll());
+    public Future<Page<Report>> filtered(Report.Status status, int page) {
+        PageRequest pageable = new PageRequest(page, Constants.PAGE_SIZE, Sort.Direction.DESC, Constants.PARAM_CREATED_DATE);
+        return new AsyncResult<>(reportRepository.findByStatus(status, pageable));
     }
 
     @Async
@@ -216,11 +215,5 @@ public class ReportService {
             throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "Report must be pending");
         }
         return report;
-    }
-
-    @Async
-    public Future<Page<Report>> getPendingWithPages(String threadId, int pageNumber) {
-        PageRequest pageable = new PageRequest(pageNumber, 10, Sort.Direction.ASC, Constants.PARAM_CREATED_DATE);
-        return new AsyncResult<>(reportRepository.findByThreadIdAndStatus(threadId, Report.Status.PENDING, pageable));
     }
 }

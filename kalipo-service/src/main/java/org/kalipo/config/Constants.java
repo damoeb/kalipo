@@ -17,6 +17,6 @@ public final class Constants {
     public static final String SPRING_PROFILE_PRODUCTION = "prod";
     public static final String SYSTEM_ACCOUNT = "system";
 
-
+    public static final int PAGE_SIZE = 10;
 
 }

@@ -35,6 +35,10 @@ kalipoApp.constant('COMMENT_STATUS', {
     APPROVED:'APPROVED', PENDING:'PENDING', SPAM:'SPAM', REJECTED:'REJECTED', DELETED:'DELETED'
 });
 
+kalipoApp.constant('REPORT_STATUS', {
+    APPROVED:'APPROVED', PENDING:'PENDING', REJECTED:'REJECTED'
+});
+
 kalipoApp.constant('ACHIEVEMENTS', {
     LIKED: {text: 'Cash -- You like a comment'},
     LIKE: {text: 'Someone likes your comment'},
