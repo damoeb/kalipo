@@ -157,6 +157,7 @@ public class NotificationService {
             Asserts.isNotNull(thread.getModIds(), "modIds");
             Asserts.isNotNull(comment, "comment");
 
+            // todo sendMail
             thread.getModIds().forEach(modId -> sendNotice(modId, initiatorId, Notification.Type.REVIEW, comment.getId()));
 
         } catch (Exception e) {

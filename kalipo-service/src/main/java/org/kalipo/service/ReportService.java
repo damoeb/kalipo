@@ -11,7 +11,6 @@ import org.kalipo.domain.Notification;
 import org.kalipo.domain.Report;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.ReportRepository;
-import org.kalipo.security.AuthoritiesConstants;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
@@ -28,7 +27,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
-import java.util.List;
 import java.util.concurrent.Future;
 
 /**

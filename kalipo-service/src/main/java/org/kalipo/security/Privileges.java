@@ -24,7 +24,7 @@ public class Privileges {
     public static final String VOTE_UP = "VOTE_UP";
     public static final String VOTE_DOWN = "VOTE_DOWN";
 
-    public static final String CREATE_PRIVILEGE = "CREATE_PRIVILEGE";
+    public static final String UPDATE_PRIVILEGE = "UPDATE_PRIVILEGE";
     public static final String CREATE_REPORT = "CREATE_REPORT";
     public static final String CLOSE_REPORT = "CLOSE_REPORT";
     public static final String HOOK_THREAD_TO_URL = "HOOK_THREAD_TO_URL";

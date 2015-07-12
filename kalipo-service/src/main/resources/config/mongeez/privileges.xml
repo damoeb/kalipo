@@ -53,7 +53,7 @@
             db.T_PRIVILEGE.insert(
             {
             "_id" : "8",
-            "name": "CREATE_PRIVILEGE",
+            "name": "UPDATE_PRIVILEGE",
             "reputation": 0
             });
 

@@ -318,7 +318,7 @@ public class Comment implements Anonymizable<Comment> {
      * Created by damoeb on 7/28/14.
      */
     public enum Status {
-        APPROVED, PENDING, SPAM, REJECTED, DELETED
+        NONE, APPROVED, PENDING, SPAM, REJECTED, DELETED
     }
 
     public static class Link {

@@ -383,8 +383,8 @@ public class CommentService {
 
         dirty.setBodyHtml(markupService.toHtml(dirty.getBody()));
 
-        dirty.setStatus(Comment.Status.PENDING);
-        log.info(String.format("%s creates pending comment %s ", currentLogin, dirty.toString()));
+        dirty.setStatus(Comment.Status.NONE);
+        log.info(String.format("%s creates comment %s ", currentLogin, dirty.toString()));
 
         assignSticky(dirty, original, isNew, isMod, isSuperMod);
 

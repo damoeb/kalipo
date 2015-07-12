@@ -150,7 +150,7 @@ public class ReputationModifierService {
         updateUserReputation(achievementForUser);
     }
 
-    @RolesAllowed(Privileges.CREATE_PRIVILEGE)
+    @RolesAllowed(Privileges.UPDATE_PRIVILEGE)
     @RateLimit
     public void update(ReputationModifier reputationModifier) throws KalipoException {
         reputationModifierRepository.save(reputationModifier);

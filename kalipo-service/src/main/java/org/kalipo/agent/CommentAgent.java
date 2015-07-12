@@ -57,9 +57,9 @@ public class CommentAgent {
 
                 // todo create SVM with all approved comments
 
-                List<Comment> pendings = commentRepository.findByStatusAndThreadId(Comment.Status.PENDING, thread.getId());
+                List<Comment> listWithNoneStatus = commentRepository.findByStatusAndThreadId(Comment.Status.NONE, thread.getId());
 
-                if (!pendings.isEmpty()) {
+                if (!listWithNoneStatus.isEmpty()) {
 
                     /*
                      todo difference between quality and influence?
@@ -69,7 +69,7 @@ public class CommentAgent {
 //                    todo use SVM of R to classify spam
 //                    List<Comment> approved = commentRepository.findByStatusAndThreadId(Comment.Status.APPROVED, thread.getId());
 
-                    for (Comment comment : pendings) {
+                    for (Comment comment : listWithNoneStatus) {
 
                         final String authorId = comment.getAuthorId();
                         final boolean isSuperMod = userService.isSuperMod(authorId);
@@ -114,6 +114,7 @@ public class CommentAgent {
                                 status = Comment.Status.REJECTED;
                                 comment.setReviewMsg("Excessive special-char usage");
                                 log.info(String.format("Auto-rejected comment %s, due to excessive special chars usage", comment.getId()));
+
                             } else {
                                 status = Comment.Status.APPROVED;
                                 onApproval(comment);
@@ -124,16 +125,15 @@ public class CommentAgent {
 
                             notificationService.notifyAsync(comment.getAuthorId(), "admin", type, comment.getId());
 
-//                        } else {
-//                            type = Notification.Type.PENDING;
-//                            comment.setStatus(Comment.Status.PENDING);
-//                            log.info(String.format("%s creates pending comment %s  (q:%s)", authorId, comment.getId(), quality));
-//
-//                            notificationService.notifyModsOfThread(thread, comment, authorId);
+                        } else {
+                            comment.setStatus(Comment.Status.PENDING);
+                            log.info(String.format("Pending comment %s (q:%s)", comment.getId(), quality));
+
+                            notificationService.notifyModsOfThread(thread, comment, authorId);
                         }
                     }
 
-                    commentRepository.save(pendings);
+                    commentRepository.save(listWithNoneStatus);
                 }
             }
 

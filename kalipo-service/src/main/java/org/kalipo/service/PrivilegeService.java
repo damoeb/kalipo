@@ -10,6 +10,7 @@ import org.kalipo.service.util.Asserts;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
@@ -28,35 +29,28 @@ public class PrivilegeService {
     @Inject
     private PrivilegeRepository privilegeRepository;
 
-    @RolesAllowed(Privileges.CREATE_PRIVILEGE)
-    @RateLimit
-    public Privilege create(Privilege privilege) throws KalipoException {
-        Asserts.isNotNull(privilege, "privilege");
-        log.info(String.format("%s creates privilege %s", SecurityUtils.getCurrentLogin(), privilege));
-        return privilegeRepository.save(privilege);
-    }
-
-    @RolesAllowed(Privileges.CREATE_PRIVILEGE)
+    @RolesAllowed(Privileges.UPDATE_PRIVILEGE)
     @RateLimit
     public Privilege update(Privilege privilege) throws KalipoException {
         Asserts.isNotNull(privilege, "privilege");
         Asserts.isNotNull(privilege.getId(), "id");
-        log.info(String.format("%s updates privilege %s to %s", SecurityUtils.getCurrentLogin(), privilege.getId(), privilege));
-        return privilegeRepository.save(privilege);
+        Asserts.isNotNull(privilege.getReputation(), "reputation");
+        Privilege original = privilegeRepository.findOne(privilege.getId());
+        Asserts.isNotNull(original, "id");
+        Asserts.nullOrEqual(privilege.getName(), original.getName(), "name");
+        log.info(String.format("User '%s' changes privilege %s to %s (before: %s)", SecurityUtils.getCurrentLogin(), original.getId(), privilege.getReputation(), original.getReputation()));
+        original.setReputation(privilege.getReputation());
+        return privilegeRepository.save(original);
     }
 
     @Async
     public Future<List<Privilege>> getAll() {
-        return new AsyncResult<>(privilegeRepository.findAll());
+        Sort sort = new Sort(Sort.Direction.ASC, "name");
+        return new AsyncResult<>(privilegeRepository.findAll(sort));
     }
 
     @Async
     public Future<Privilege> get(String id) throws KalipoException {
         return new AsyncResult<>(privilegeRepository.findOne(id));
     }
-
-    public void delete(String id) throws KalipoException {
-        privilegeRepository.delete(id);
-    }
-
 }

@@ -33,24 +33,10 @@ public class PrivilegeResource {
     private PrivilegeService privilegeService;
 
     /**
-     * POST  /rest/privileges -> Create a new privilege.
+     * POST  /rest/privileges -> Update existing privilege.
      */
     @RequestMapping(value = "/privileges",
             method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation(value = "Create a new privilege")
-    public Privilege create(@NotNull @RequestBody Privilege privilege) throws KalipoException {
-        log.debug("REST request to save Privilege : {}", privilege);
-        return privilegeService.create(privilege);
-    }
-
-    /**
-     * PUT  /rest/privileges -> Update existing privilege.
-     */
-    @RequestMapping(value = "/privileges/{id}",
-            method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Update existing privilege")
@@ -58,12 +44,8 @@ public class PrivilegeResource {
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Privilege not found")
     })
-    public Privilege update(@PathVariable String id, @NotNull @RequestBody Privilege privilege) throws KalipoException {
+    public Privilege update(@RequestBody Privilege privilege) throws KalipoException {
         log.debug("REST request to update Privilege : {}", privilege);
-
-        Asserts.isNotNull(id, "id");
-
-        privilege.setId(id);
         return privilegeService.update(privilege);
     }
 
@@ -103,19 +85,4 @@ public class PrivilegeResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /**
-     * DELETE  /rest/privileges/:id -> delete the "id" privilege.
-     */
-    @RequestMapping(value = "/privileges/{id}",
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Delete the \"id\" privilege")
-    public void delete(@PathVariable String id) throws KalipoException {
-        log.debug("REST request to delete Privilege : {}", id);
-        Asserts.isNotNull(id, "id");
-
-        privilegeService.delete(id);
-    }
 }

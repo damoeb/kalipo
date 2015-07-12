@@ -71,7 +71,7 @@ public class PrivilegeResourceTest {
 
         this.restPrivilegeMockMvc = MockMvcBuilders.standaloneSetup(privilegeResource).build();
 
-        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.CREATE_PRIVILEGE));
+        TestUtil.mockSecurityContext("admin", Arrays.asList(Privileges.UPDATE_PRIVILEGE));
 
         privilege = new Privilege();
         privilege.setName(DEFAULT_SAMPLE_NAME_ATTR);
