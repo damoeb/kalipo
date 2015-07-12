@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 /**
+ * Scheduled jobs for Thread entity
  * Created by damoeb on 13.07.15.
  */
 @Service

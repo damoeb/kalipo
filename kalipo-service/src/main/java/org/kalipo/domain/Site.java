@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A Site.
+ * A Site representing an independent thread-space
  */
 
 @Document(collection = "T_SITE")
@@ -25,7 +25,6 @@ public class Site implements Serializable {
     private String name;
 
     private Set<String> moderatorIds = new HashSet<>();
-    private Set<Ban> bans = new HashSet<Ban>();
 
     public String getId() {
         return id;
@@ -49,13 +48,5 @@ public class Site implements Serializable {
 
     public void setModeratorIds(Set<String> moderatorIds) {
         this.moderatorIds = moderatorIds;
-    }
-
-    public Set<Ban> getBans() {
-        return bans;
-    }
-
-    public void setBans(Set<Ban> bans) {
-        this.bans = bans;
     }
 }

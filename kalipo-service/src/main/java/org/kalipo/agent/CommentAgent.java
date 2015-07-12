@@ -26,6 +26,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.DoubleFunction;
 
+/**
+ * Scheduled jobs for Comment entity
+ */
 @Service
 @KalipoExceptionHandler
 public class CommentAgent {

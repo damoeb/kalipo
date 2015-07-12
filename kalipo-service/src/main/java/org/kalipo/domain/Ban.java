@@ -9,9 +9,8 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * A Ban.
+ * A Ban of a user.
  */
-
 @Document(collection = "T_BAN")
 public class Ban implements Serializable {
 
@@ -23,6 +22,9 @@ public class Ban implements Serializable {
      */
     @NotNull
     private String userId;
+
+    @NotNull
+    private String siteId;
 
     @CreatedDate
     private DateTime createdDate;
@@ -59,5 +61,13 @@ public class Ban implements Serializable {
 
     public void setValidUntil(DateTime validUntil) {
         this.validUntil = validUntil;
+    }
+
+    public String getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(String siteId) {
+        this.siteId = siteId;
     }
 }

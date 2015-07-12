@@ -6,7 +6,8 @@ import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.RateLimit;
 import org.kalipo.config.Constants;
 import org.kalipo.config.ErrorCode;
-import org.kalipo.domain.*;
+import org.kalipo.domain.Comment;
+import org.kalipo.domain.Site;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.*;
 import org.kalipo.security.Privileges;
@@ -47,6 +48,9 @@ public class ThreadService {
 
     @Inject
     private SiteRepository siteRepository;
+
+    @Inject
+    private BanRepository banRepository;
 
     @Inject
     private VoteRepository voteRepository;
@@ -177,29 +181,6 @@ public class ThreadService {
         // todo check permissons
 
 //       threadRepository.delete(id);
-    }
-
-    @RolesAllowed(Privileges.BAN_USER)
-    public void banUser(String userId, String threadId) throws KalipoException {
-        Asserts.isNotNull(userId, "userId");
-        Asserts.isNotNull(threadId, "threadId");
-
-        Thread thread = threadRepository.findOne(threadId);
-        Site site = siteRepository.findOne(thread.getSiteId());
-//      todo check permissons is mod of thread
-//      cannot ban a mod userId
-
-        Ban ban = new Ban();
-        ban.setUserId(userId);
-        DateTime until = DateTime.now().plusDays(3);
-        ban.setValidUntil(until);
-
-        site.getBans().add(ban);
-
-        siteRepository.save(site);
-        log.info("User '%s' bans '%s' on site %s until %s", SecurityUtils.getCurrentLogin(), userId, site.getId(), until);
-
-        notificationService.notifyAsync(userId, SecurityUtils.getCurrentLogin(), Notification.Type.BAN, threadId);
     }
 
     // --

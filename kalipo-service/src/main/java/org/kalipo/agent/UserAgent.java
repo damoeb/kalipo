@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.util.List;
 
+/**
+ * Scheduled jobs for User entity
+ */
 @Service
 @KalipoExceptionHandler
 public class UserAgent {

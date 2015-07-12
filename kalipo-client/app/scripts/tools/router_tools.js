@@ -3,10 +3,7 @@
 kalipoApp.config(function ($routeProvider, $httpProvider, $translateProvider, USER_ROLES) {
     $routeProvider
         .when('/tools', {
-            templateUrl: 'views/tools-metrics.html',
-            access: {
-                authorizedRoles: [USER_ROLES.all]
-            }
+            redirectTo: '/tools/metrics'
         })
         .when('/tools/metrics', {
             templateUrl: 'views/tools-metrics.html',
@@ -37,6 +34,13 @@ kalipoApp.config(function ($routeProvider, $httpProvider, $translateProvider, US
         .when('/tools/audits', {
             templateUrl: 'views/tools-audits.html',
             controller: 'AuditsController',
+            access: {
+                authorizedRoles: [USER_ROLES.admin]
+            }
+        })
+        .when('/tools/sites', {
+            templateUrl: 'views/tools-sites.html',
+            controller: 'SitesController',
             access: {
                 authorizedRoles: [USER_ROLES.admin]
             }

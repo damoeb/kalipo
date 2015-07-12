@@ -30,7 +30,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -64,6 +63,9 @@ public class CommentService {
 
     @Inject
     private UserService userService;
+
+    @Inject
+    private BanService banService;
 
     @Inject
     private ThreadService threadService;
@@ -201,7 +203,7 @@ public class CommentService {
 
         delete(comment);
 
-        threadService.banUser(comment.getAuthorId(), comment.getThreadId());
+        banService.banUser(comment.getAuthorId(), comment.getThreadId());
 
         return comment;
     }

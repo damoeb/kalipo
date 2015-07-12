@@ -290,6 +290,10 @@ kalipoApp.controller('LogsController', function ($scope, resolvedLogs, LogsServi
         }
     });
 
+kalipoApp.controller('SitesController', function ($scope) {
+
+});
+
 kalipoApp.controller('AuditsController', function ($scope, $translate, $filter, AuditsService) {
         $scope.onChangeDate = function() {
             AuditsService.findByDates($scope.fromDate, $scope.toDate).then(function(data){

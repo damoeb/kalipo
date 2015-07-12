@@ -50,6 +50,12 @@ kalipoApp.controller('ModerateController', function ($scope, $routeParams, $root
         });
     };
 
+    $scope.queryBans = function () {
+        $q.when(promiseLogin).then(function() {
+            // todo implement
+        });
+    };
+
     $scope.queryReports = function () {
         $q.when(promiseLogin).then(function() {
             Report.query({status: REPORT_STATUS.PENDING, page: $scope.$page}, handleResponse);

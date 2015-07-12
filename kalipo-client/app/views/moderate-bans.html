@@ -1,0 +1,36 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <ul class="nav nav-pills">
+            <li><a href="#/moderate/pending">Pending</a></li>
+            <li><a href="#/moderate/reports">Reports</a></li>
+            <li class="active"><a href="#/moderate/bans">Bans</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="panel panel-default" ng-init="reset(); queryBans();">
+    <div class="panel-body">
+
+        <div ng-switch="entities.length > 0">
+            <div ng-switch-when="false">
+                Nothing found
+            </div>
+            <div ng-switch-default>
+
+                <div ng-repeat="ban in entities">
+                    {{ban.id}}
+                </div>
+
+                <div class="text-center">
+                    <a href="javascript:void(0)" ng-click="previousPage('queryPending')"
+                       ng-disabled="$firstPage">&larr;
+                        Previous</a>
+                    {{$page +1}} of {{$pageCount}}
+                    <a href="javascript:void(0)" ng-click="nextPage('queryPending')"
+                       ng-disabled="$lastPage">Next &rarr;</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
