@@ -10,8 +10,6 @@ kalipoApp.controller('ThreadController',
 
         Thread.get({id: threadId}, function (thread) {
             $scope.$pendingCount = thread.pendingCount;
-            $scope.$reportCount = thread.reportedCount;
-
             $scope.thread = thread;
         });
 

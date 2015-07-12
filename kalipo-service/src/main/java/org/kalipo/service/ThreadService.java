@@ -22,7 +22,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.web.util.UrlUtils;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +30,6 @@ import javax.inject.Inject;
 import java.net.MalformedURLException;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Future;
 
@@ -202,30 +200,6 @@ public class ThreadService {
         log.info("User '%s' bans '%s' on site %s until %s", SecurityUtils.getCurrentLogin(), userId, site.getId(), until);
 
         notificationService.notifyAsync(userId, SecurityUtils.getCurrentLogin(), Notification.Type.BAN, threadId);
-    }
-
-    // --
-
-    @Scheduled(fixedDelay = 20000)
-    public void updateThreadStats() {
-
-        Sort sort = new Sort(Sort.Direction.ASC, "lastModifiedDate");
-        PageRequest request = new PageRequest(0, 10, sort);
-
-        List<Thread> threads = threadRepository.findByStatusAndReadOnly(Thread.Status.OPEN, false, request);
-        for (Thread thread : threads) {
-            log.debug("Updating stats of thread {}", thread.getId());
-
-            thread.setLikes(voteRepository.countLikesOfThread(thread.getId()));
-            thread.setCommentCount(commentRepository.countApprovedInThread(thread.getId()));
-            thread.setPendingCount(commentRepository.countPendingInThread(thread.getId()));
-            thread.setReportedCount(commentRepository.countReportedInThread(thread.getId()));
-            thread.setLastModifiedDate(DateTime.now());
-
-//                commentCount, likes, authors
-
-            threadRepository.save(thread);
-        }
     }
 
     // --

@@ -42,7 +42,6 @@ public class Thread implements Serializable {
 
     private Integer commentCount = 0;
     private Integer pendingCount = 0;
-    private Integer reportedCount = 0;
 
     @JsonIgnore
     @NotNull(message = "{constraint.notnull.initiatorId}")
@@ -241,14 +240,6 @@ public class Thread implements Serializable {
 
     public void setPendingCount(Integer pendingCount) {
         this.pendingCount = pendingCount;
-    }
-
-    public Integer getReportedCount() {
-        return reportedCount;
-    }
-
-    public void setReportedCount(Integer reportedCount) {
-        this.reportedCount = reportedCount;
     }
 
     public String getBodyHtml() {

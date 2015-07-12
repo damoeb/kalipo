@@ -13,7 +13,6 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
     $scope.reportModel = {};
     $scope.$showPending = false;
     $scope.$pendingCount = 0;
-    $scope.$reportCount = 0;
     $scope.$hasReports = false;
     $scope.$isLastPage = false;
     $scope.$missedCommentCount = 0;
