@@ -12,6 +12,8 @@ kalipoApp.controller('ProfileLikesController', ['$scope', '$rootScope', 'Vote', 
 
             Vote.byAuthor({'id': $rootScope.login, 'page': $scope.$page}, function (votes) {
 
+                // todo use comment-lazy directive
+
                 console.log('Got ' + votes.length + ' votes on page ' + $scope.$page);
                 _.forEach(votes, function (vote) {
                     Comment.get({id: vote.commentId}, function (comment) {

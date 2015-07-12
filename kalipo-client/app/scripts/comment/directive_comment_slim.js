@@ -1,6 +1,8 @@
 /**
  * Created by damoeb on 16.12.14.
  */
+
+//todo include menu with likes (by argument)
 angular.module('kalipoApp')
     .directive('commentSlim', function () {
         return {

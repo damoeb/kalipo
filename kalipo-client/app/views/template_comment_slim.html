@@ -6,4 +6,18 @@
     <a href="#/v/{{::comment.threadId }}/{{::comment.id }}">to discussion</a>
 
     <div style="white-space: pre-line">{{::comment.bodyHtml}}</div>
+
+    <div class="menu">
+        <a class="voteUp"
+           href="javascript:void(0)">
+            {{comment.likes}}
+            <span class="glyphicon glyphicon-thumbs-up"></span></a>
+
+        <a class="voteDown"
+           href="javascript:void(0)">
+            {{ comment.dislikes }}
+            <span class="glyphicon glyphicon-thumbs-down"></span></a>
+
+    </div>
+
 </div>

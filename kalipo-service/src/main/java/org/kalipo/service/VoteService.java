@@ -90,11 +90,11 @@ public class VoteService {
 //        todo replace by scheduled job, with delay to prevent bandwaggon effect
 
         if (vote.isLike()) {
-            log.info(String.format("%s likes comment %s", SecurityUtils.getCurrentLogin(), comment.getId()));
+            log.info(String.format("User '%s' likes comment %s", SecurityUtils.getCurrentLogin(), comment.getId()));
             comment.setLikes(NumUtils.nullToZero(comment.getLikes()) + 1);
             notificationService.notifyAsync(comment.getAuthorId(), currentLogin, Notification.Type.LIKE, comment.getId());
         } else {
-            log.info(String.format("%s dislikes comment %s", SecurityUtils.getCurrentLogin(), comment.getId()));
+            log.info(String.format("User '%s' dislikes comment %s", SecurityUtils.getCurrentLogin(), comment.getId()));
             comment.setDislikes(NumUtils.nullToZero(comment.getDislikes()) + 1);
             // don't notify about dislikes, it's bad for the motivation and feeds a troll
         }

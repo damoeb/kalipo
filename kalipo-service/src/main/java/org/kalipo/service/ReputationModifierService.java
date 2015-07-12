@@ -65,21 +65,21 @@ public class ReputationModifierService {
         final String authorId = comment.getAuthorId();
         final String voterId = vote.getAuthorId();
 
-        Achievement rvForAuthor, rvForVoter;
+        Achievement achievementForAuthor, achievementForVoter;
 
         if (vote.isLike()) {
-            rvForAuthor = createRevision(authorId, resourceRef, ReputationModifier.Type.LIKE);
-            rvForVoter = createRevision(voterId, resourceRef, ReputationModifier.Type.LIKED);
+            achievementForAuthor = createAchievement(authorId, resourceRef, ReputationModifier.Type.LIKE);
+            achievementForVoter = createAchievement(voterId, resourceRef, ReputationModifier.Type.LIKED);
         } else {
-            rvForAuthor = createRevision(authorId, resourceRef, ReputationModifier.Type.DISLIKE);
-            rvForVoter = createRevision(voterId, resourceRef, ReputationModifier.Type.DISLIKED);
+            achievementForAuthor = createAchievement(authorId, resourceRef, ReputationModifier.Type.DISLIKE);
+            achievementForVoter = createAchievement(voterId, resourceRef, ReputationModifier.Type.DISLIKED);
         }
 
-        achievementRepository.save(rvForAuthor);
-        achievementRepository.save(rvForVoter);
+        achievementRepository.save(achievementForAuthor);
+        achievementRepository.save(achievementForVoter);
 
-        updateUserReputation(rvForAuthor);
-        updateUserReputation(rvForVoter);
+        updateUserReputation(achievementForAuthor);
+        updateUserReputation(achievementForVoter);
     }
 
     @Async
@@ -99,10 +99,10 @@ public class ReputationModifierService {
             /**
              * report is ok, comment is rightly flagged
              */
-            Achievement rvForAuthor = createRevision(authorId, resourceRef, ReputationModifier.Type.REPORT);
+            Achievement rvForAuthor = createAchievement(authorId, resourceRef, ReputationModifier.Type.REPORT);
             achievementRepository.save(rvForAuthor);
 
-            Achievement rvForReporter = createRevision(reporterId, resourceRef, ReputationModifier.Type.REPORTED);
+            Achievement rvForReporter = createAchievement(reporterId, resourceRef, ReputationModifier.Type.REPORTED);
             achievementRepository.save(rvForReporter);
 
             updateUserReputation(rvForAuthor);
@@ -110,13 +110,13 @@ public class ReputationModifierService {
 
         } else {
             /**
-             * report is invalid
+             * report is rejected
              */
             if (report.isAbused()) {
-                Achievement rvForReporter = createRevision(reporterId, resourceRef, ReputationModifier.Type.ABUSED_REPORT);
-                achievementRepository.save(rvForReporter);
+                Achievement achievementForReporter = createAchievement(reporterId, resourceRef, ReputationModifier.Type.ABUSED_REPORT);
+                achievementRepository.save(achievementForReporter);
 
-                updateUserReputation(rvForReporter);
+                updateUserReputation(achievementForReporter);
             }
         }
     }
@@ -128,11 +128,10 @@ public class ReputationModifierService {
      */
     @Async
     public void onUserCreation(@Valid @NotNull User user) {
-        Achievement rvForNewUser = createRevision(user.getLogin(), user.getLogin(), ReputationModifier.Type.WELCOME);
-        achievementRepository.save(rvForNewUser);
+        Achievement achievementForNewUser = createAchievement(user.getLogin(), user.getLogin(), ReputationModifier.Type.WELCOME);
+        achievementRepository.save(achievementForNewUser);
 
-        updateUserReputation(rvForNewUser);
-
+        updateUserReputation(achievementForNewUser);
     }
 
     /**
@@ -145,10 +144,10 @@ public class ReputationModifierService {
     public void onCommentDeletion(@Valid @NotNull Comment comment) throws KalipoException {
         Asserts.isNotNull(comment, "comment");
 
-        Achievement rvForUser = createRevision(comment.getAuthorId(), comment.getId(), ReputationModifier.Type.RM_COMMENT);
-        achievementRepository.save(rvForUser);
+        Achievement achievementForUser = createAchievement(comment.getAuthorId(), comment.getId(), ReputationModifier.Type.RM_COMMENT);
+        achievementRepository.save(achievementForUser);
 
-        updateUserReputation(rvForUser);
+        updateUserReputation(achievementForUser);
     }
 
     @RolesAllowed(Privileges.CREATE_PRIVILEGE)
@@ -170,22 +169,26 @@ public class ReputationModifierService {
 
     // --
 
-    private void updateUserReputation(Achievement revision) {
-        User u = userRepository.findOne(revision.getUserId());
-        ReputationModifier definition = reputationModifierRepository.findByType(revision.getType());
+    private void updateUserReputation(Achievement achievement) {
+        User u = userRepository.findOne(achievement.getUserId());
+        ReputationModifier modifier = reputationModifierRepository.findByType(achievement.getType());
 
-        log.info(String.format("%s gets %s reputation after %s", revision.getUserId(), definition.getReputation(), revision.getType()));
+        u.setReputation(u.getReputation() + modifier.getReputation());
+        if (modifier.getReputation() < 0) {
+            log.info(String.format("User '%s' reputation decreases to %s on %s", achievement.getUserId(), u.getReputation(), achievement.getType()));
+        } else {
+            log.info(String.format("User '%s' reputation increases to %s on %s", achievement.getUserId(), u.getReputation(), achievement.getType()));
+        }
 
-        u.setReputation(u.getReputation() + definition.getReputation());
         userRepository.save(u);
     }
 
-    private Achievement createRevision(String authorId, String resourceRef, ReputationModifier.Type type) {
-        Achievement rv = new Achievement();
-        rv.setUserId(authorId);
-        rv.setResourceRef(resourceRef);
-        rv.setType(type);
-        return rv;
+    private Achievement createAchievement(String authorId, String resourceRef, ReputationModifier.Type type) {
+        Achievement achievement = new Achievement();
+        achievement.setUserId(authorId);
+        achievement.setResourceRef(resourceRef);
+        achievement.setType(type);
+        return achievement;
     }
 
 }
