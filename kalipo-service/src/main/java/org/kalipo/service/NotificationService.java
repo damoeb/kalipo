@@ -3,10 +3,7 @@ package org.kalipo.service;
 import org.kalipo.config.Constants;
 import org.kalipo.domain.*;
 import org.kalipo.domain.Thread;
-import org.kalipo.repository.CommentRepository;
-import org.kalipo.repository.NotificationRepository;
-import org.kalipo.repository.ThreadRepository;
-import org.kalipo.repository.UserRepository;
+import org.kalipo.repository.*;
 import org.kalipo.service.util.Asserts;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
@@ -39,6 +36,9 @@ public class NotificationService {
 
     @Inject
     private ThreadRepository threadRepository;
+
+    @Inject
+    private SiteRepository siteRepository;
 
     @Inject
     private CommentRepository commentRepository;
@@ -74,22 +74,6 @@ public class NotificationService {
             }
         } catch (Exception e) {
             log.error(String.format("Unable to notify mentioned user. Reason: %s", e.getMessage()));
-        }
-    }
-
-    @Async
-    public void notifyModsOfThread(String threadId, Report report, String initiatorId) {
-        try {
-            Asserts.isNotNull(threadId, "threadId");
-            Asserts.isNotNull(report, "report");
-
-            Thread thread = threadRepository.findOne(threadId);
-            Asserts.isNotNull(thread, "threadId");
-
-            thread.getModIds().forEach(modId -> sendNotice(modId, initiatorId, Notification.Type.REPORT, report.getCommentId()));
-
-        } catch (Exception e) {
-            log.error(String.format("Unable to notify mods of thread %s with report %s. Reason: %s", threadId, report, e.getMessage()));
         }
     }
 
@@ -151,14 +135,32 @@ public class NotificationService {
     }
 
     @Async
-    public void notifyModsOfThread(Thread thread, Comment comment, String initiatorId) {
+    public void notifyModsOfReport(String threadId, Report report, String initiatorId) {
+        try {
+            Asserts.isNotNull(threadId, "threadId");
+            Asserts.isNotNull(report, "report");
+
+            Thread thread = threadRepository.findOne(threadId);
+            Asserts.isNotNull(thread, "threadId");
+
+            Site site = siteRepository.findOne(thread.getSiteId());
+            // todo send mail
+            site.getModeratorIds().forEach(modId -> sendNotice(modId, initiatorId, Notification.Type.REPORT, report.getCommentId()));
+
+        } catch (Exception e) {
+            log.error(String.format("Unable to notify mods of thread %s with report %s. Reason: %s", threadId, report, e.getMessage()));
+        }
+    }
+
+    @Async
+    public void notifyModsOfPendingComment(Thread thread, Comment comment, String initiatorId) {
         try {
             Asserts.isNotNull(thread, "thread");
-            Asserts.isNotNull(thread.getModIds(), "modIds");
             Asserts.isNotNull(comment, "comment");
 
-            // todo sendMail
-            thread.getModIds().forEach(modId -> sendNotice(modId, initiatorId, Notification.Type.REVIEW, comment.getId()));
+            Site site = siteRepository.findOne(thread.getSiteId());
+            // todo send mail
+            site.getModeratorIds().forEach(modId -> sendNotice(modId, initiatorId, Notification.Type.REVIEW, comment.getId()));
 
         } catch (Exception e) {
             log.error(String.format("Unable to notify mods (thread %s) of comment %s. Reason: %s", thread, comment, e.getMessage()));

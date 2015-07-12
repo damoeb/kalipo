@@ -1,0 +1,13 @@
+<mongoChangeLog>
+    <changeSet changeId="ChangeSet-sites" author="damoeb">
+        <script>
+            db.T_SITE.insert(
+            {
+            "_id" : "1",
+            "name": "kalipo",
+            "moderatorIds": [ "admin" ]
+            });
+
+        </script>
+    </changeSet>
+</mongoChangeLog>

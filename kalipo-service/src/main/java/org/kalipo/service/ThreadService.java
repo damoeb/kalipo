@@ -16,6 +16,7 @@ import org.kalipo.service.util.URLNormalizer;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -42,7 +43,13 @@ public class ThreadService {
     private final Logger log = LoggerFactory.getLogger(ThreadService.class);
 
     @Inject
+    private Environment env;
+
+    @Inject
     private ThreadRepository threadRepository;
+
+    @Inject
+    private SiteRepository siteRepository;
 
     @Inject
     private VoteRepository voteRepository;
@@ -75,16 +82,25 @@ public class ThreadService {
         thread.setDislikes(0);
         thread.setDisplayName(SecurityUtils.getCurrentLogin());
 
+        // siteId
+        if(StringUtils.isBlank(thread.getSiteId())) {
+            Site site = siteRepository.findByName(env.getProperty("siteName"));
+            Asserts.isNotNull(site, "site");
+
+            thread.setSiteId(site.getId());
+        } else {
+            Asserts.isTrue(siteRepository.exists(thread.getSiteId()), "siteId");
+        }
+
         // todo implement + get 48h from properties
         thread.setUglyDucklingSurvivalEndDate(DateTime.now().plusHours(48));
 
         final String currentLogin = SecurityUtils.getCurrentLogin();
-        thread.getModIds().add(currentLogin);
         thread.setInitiatorId(currentLogin);
 
         thread = save(thread);
 
-        log.info(String.format("%s created thread %s", currentLogin, thread.getId()));
+        log.info(String.format("User '%s' created thread %s on site %s", currentLogin, thread.getId(), thread.getSiteId()));
 
         return thread;
     }
@@ -98,22 +114,19 @@ public class ThreadService {
         Thread original = threadRepository.findOne(dirty.getId());
         Asserts.isNotNull(original, "thread");
 
-        Set<String> originalModIds = original.getModIds();
+        Site site = siteRepository.findOne(original.getSiteId());
+        Set<String> moderators = site.getModeratorIds();
 
         // Permissions
         final String currentLogin = SecurityUtils.getCurrentLogin();
-        boolean isMod = originalModIds.contains(currentLogin);
+        boolean isMod = moderators.contains(currentLogin);
         if (!isMod && !userService.isSuperMod(currentLogin)) {
             throw new KalipoException(ErrorCode.PERMISSION_DENIED, "You must be mod or supermod");
         }
 
-        // mod rule: add any user with MODERATE_THREAD, remove only self, iff not empty
-        if (dirty.getModIds() != null && dirty.getModIds().isEmpty()) {
-            throw new KalipoException(ErrorCode.INVALID_PARAMETER, "Set of mods cannot be empty");
-        }
-
         // read only values
 
+        Asserts.nullOrEqual(dirty.getSiteId(), original.getSiteId(), "siteId");
         Asserts.nullOrEqual(dirty.getCommentCount(), original.getCommentCount(), "commentCount");
         Asserts.nullOrEqual(dirty.getLikes(), original.getLikes(), "likes");
         Asserts.nullOrEqual(dirty.getDislikes(), original.getDislikes(), "dislikes");
@@ -125,9 +138,6 @@ public class ThreadService {
         original.setUriHooks(dirty.getUriHooks());
         original.setReadOnly(dirty.getReadOnly());
         original.setTitle(dirty.getTitle());
-
-        validateModIds(dirty, original);
-        original.setModIds(dirty.getModIds());
 
         validateKLine(dirty, original);
         original.setBans(dirty.getBans());
@@ -261,61 +271,6 @@ public class ThreadService {
             }
         }
 
-    }
-
-    private void validateModIds(Thread dirty, Thread original) throws KalipoException {
-        final String currentLogin = SecurityUtils.getCurrentLogin();
-        final Set<String> orgModIds = original.getModIds();
-        final Set<String> dirtyModIds = dirty.getModIds();
-
-        if (dirtyModIds == null || (orgModIds.size() == dirtyModIds.size() && orgModIds.containsAll(dirtyModIds))) {
-            dirty.setModIds(orgModIds);
-
-        } else {
-            // validate modIds changes from update
-
-            // original.getModIds() - thread.getModIds()
-            Set<String> removed = orgModIds.stream().filter(uid -> dirtyModIds.contains(uid)).collect(Collectors.toSet());
-
-            // thread.getModIds() - original.getModIds();
-            Set<String> added = dirtyModIds.stream().filter(uid -> original.getModIds().contains(uid)).collect(Collectors.toSet());
-
-            Privilege priv = privilegeRepository.findByName(Privileges.CREATE_THREAD);
-
-            for (String userId : added) {
-                // Asserts.hasPrivilege(Privileges.CREATE_THREAD);
-                User user = userRepository.findOne(userId);
-                if (user == null) {
-                    throw new KalipoException(ErrorCode.INVALID_PARAMETER, String.format("User %s does not exist", userId));
-                }
-                if (user.getReputation() < priv.getReputation()) {
-                    throw new KalipoException(ErrorCode.PERMISSION_DENIED, String.format("User %s requires %s reputation to become mod", userId, priv.getReputation()));
-                }
-
-                log.info(String.format("%s adds %s to moderators of thread %s", currentLogin, userId, dirty.getId()));
-            }
-
-            // Asserts.hasPrivilege(Privileges.SUPER_MODERATOR);
-            if (!removed.isEmpty()) {
-                User user = userRepository.findOne(currentLogin);
-                for (String userId : removed) {
-
-                    // 1. currentUser removes himself
-                    // 2. superMod removes anyone
-                    if (!user.isSuperMod() && !StringUtils.equals(userId, currentLogin)) {
-                        throw new KalipoException(ErrorCode.PERMISSION_DENIED, "You have to be superMod or the user himself");
-                    }
-
-                    // threadInitiator cannot remove himself from mod-list
-                    final boolean isThreadInitiator = StringUtils.equals(original.getInitiatorId(), currentLogin);
-                    if (StringUtils.equals(userId, currentLogin) && isThreadInitiator) {
-                        throw new KalipoException(ErrorCode.PERMISSION_DENIED, "SuperMod privileges required. You cannot remove yourself, since you are initiator");
-                    }
-
-                    log.info(String.format("%s removes %s from moderators of thread %s", currentLogin, userId, dirty.getId()));
-                }
-            }
-        }
     }
 
     private Thread save(Thread thread) throws KalipoException {

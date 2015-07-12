@@ -3,11 +3,10 @@ package org.kalipo.agent;
 import org.apache.commons.lang.BooleanUtils;
 import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
-import org.kalipo.domain.Comment;
-import org.kalipo.domain.Notification;
+import org.kalipo.domain.*;
 import org.kalipo.domain.Thread;
-import org.kalipo.domain.User;
 import org.kalipo.repository.CommentRepository;
+import org.kalipo.repository.SiteRepository;
 import org.kalipo.repository.ThreadRepository;
 import org.kalipo.service.NotificationService;
 import org.kalipo.service.UserService;
@@ -37,6 +36,9 @@ public class CommentAgent {
     private CommentRepository commentRepository;
 
     @Inject
+    private SiteRepository siteRepository;
+
+    @Inject
     private ThreadRepository threadRepository;
 
     @Inject
@@ -59,6 +61,8 @@ public class CommentAgent {
 
                 List<Comment> listWithNoneStatus = commentRepository.findByStatusAndThreadId(Comment.Status.NONE, thread.getId());
 
+                Site site = siteRepository.findOne(thread.getSiteId());
+
                 if (!listWithNoneStatus.isEmpty()) {
 
                     /*
@@ -73,7 +77,8 @@ public class CommentAgent {
 
                         final String authorId = comment.getAuthorId();
                         final boolean isSuperMod = userService.isSuperMod(authorId);
-                        final boolean isMod = thread.getModIds().contains(authorId);
+
+                        final boolean isMod = site.getModeratorIds().contains(authorId);
 
                         User author = userService.findOne(authorId);
 
@@ -129,7 +134,7 @@ public class CommentAgent {
                             comment.setStatus(Comment.Status.PENDING);
                             log.info(String.format("Pending comment %s (q:%s)", comment.getId(), quality));
 
-                            notificationService.notifyModsOfThread(thread, comment, authorId);
+                            notificationService.notifyModsOfPendingComment(thread, comment, authorId);
                         }
                     }
 

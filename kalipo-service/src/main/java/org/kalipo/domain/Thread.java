@@ -51,10 +51,6 @@ public class Thread implements Serializable {
     @NotNull
     private String displayName;
 
-    @NotNull(message = "{constraint.notnull.modIds}")
-    private Set<String> modIds = new HashSet<String>();
-
-
     /**
      * Bans on username level
      * Similar to IRC K-line see https://en.wikipedia.org/wiki/IRCd#K-line
@@ -98,12 +94,23 @@ public class Thread implements Serializable {
 
     private String link;
 
+    @NotNull
+    private String siteId;
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(String siteId) {
+        this.siteId = siteId;
     }
 
     public Set<String> getUriHooks() {
@@ -144,14 +151,6 @@ public class Thread implements Serializable {
 
     public void setCommentCount(Integer commentCount) {
         this.commentCount = commentCount;
-    }
-
-    public Set<String> getModIds() {
-        return modIds;
-    }
-
-    public void setModIds(Set<String> modIds) {
-        this.modIds = modIds;
     }
 
     public Integer getLikes() {

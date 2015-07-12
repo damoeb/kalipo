@@ -1363,7 +1363,7 @@
             "level" : 0,
             "fingerprint" : "99886",
             "displayName" : "pure post still",
-            "status" : "PENDING",
+            "status" : "APPROVED",
             "createdDate": new Date(),
             "lastModifiedDate": new Date()            });
             db.T_COMMENT.insert({
@@ -1424,7 +1424,7 @@
             "fingerprint" : "9988499881",
             "displayName" : "*westwind*",
             "dislikes" : 1,
-            "status" : "PENDING",
+            "status" : "APPROVED",
             "createdDate": new Date(),
             "lastModifiedDate": new Date()            });
             db.T_COMMENT.insert({
@@ -1437,7 +1437,7 @@
             "fingerprint" : "9988499880",
             "displayName" : "Ender Wiggin",
             "likes" : 1,
-            "status" : "PENDING",
+            "status" : "APPROVED",
             "createdDate": new Date(),
             "lastModifiedDate": new Date()            });
             db.T_COMMENT.insert({
@@ -2564,7 +2564,7 @@
             "fingerprint" : "9979099788",
             "displayName" : "7d8e2d0c-23d9-47ab-a458-0babfced752d",
             "likes" : 2,
-            "status" : "PENDING",
+            "status" : "APPROVED",
             "createdDate": new Date(),
             "lastModifiedDate": new Date()            });
             db.T_COMMENT.insert({
@@ -2577,7 +2577,7 @@
             "fingerprint" : "997909978899787",
             "displayName" : "Mr.Niceguy",
             "likes" : 2,
-            "status" : "PENDING",
+            "status" : "APPROVED",
             "createdDate": new Date(),
             "lastModifiedDate": new Date()            });
             db.T_COMMENT.insert({
@@ -2690,7 +2690,7 @@
             "fingerprint" : "9978299778",
             "displayName" : "Mr.Niceguy",
             "dislikes" : 2,
-            "status" : "PENDING",
+            "status" : "APPROVED",
             "createdDate": new Date(),
             "lastModifiedDate": new Date()            });
             db.T_COMMENT.insert({
@@ -2703,7 +2703,7 @@
             "fingerprint" : "997829977899777",
             "displayName" : "minus für anglizismen",
             "likes" : 2,
-            "status" : "PENDING",
+            "status" : "APPROVED",
             "createdDate": new Date(),
             "lastModifiedDate": new Date()            });
             db.T_COMMENT.insert({

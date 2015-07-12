@@ -5,4 +5,5 @@
     <file path="reputation-modifier.xml"/>
     <file path="threads.xml"/>
     <file path="comments.xml"/>
+    <file path="sites.xml"/>
 </changeFiles>

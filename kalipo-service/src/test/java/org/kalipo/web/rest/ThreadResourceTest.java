@@ -121,7 +121,6 @@ public class ThreadResourceTest {
         // Update Thread
         thread.setTitle(UPD_SAMPLE_TITLE_ATTR);
         thread.setReadOnly(UPD_SAMPLE_READONLY_ATTR);
-        thread.getModIds().add("admin");
 
         restThreadMockMvc.perform(put("/app/rest/threads/{id}", threadId)
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)

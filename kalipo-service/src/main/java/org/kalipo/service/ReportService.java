@@ -123,7 +123,7 @@ public class ReportService {
 
         // todo async
         if (reportedCount == 1) {
-            notificationService.notifyModsOfThread(comment.getThreadId(), report, author);
+            notificationService.notifyModsOfReport(comment.getThreadId(), report, author);
         }
         if (reportedCount == CRITICAL_REPORT_COUNT) {
             log.info(String.format("Hiding comment %s after %s reports", comment.getId(), CRITICAL_REPORT_COUNT));

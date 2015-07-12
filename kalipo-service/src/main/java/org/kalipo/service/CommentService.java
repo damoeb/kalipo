@@ -1,6 +1,5 @@
 package org.kalipo.service;
 
-import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -10,9 +9,10 @@ import org.kalipo.config.Constants;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
 import org.kalipo.domain.Notification;
+import org.kalipo.domain.Site;
 import org.kalipo.domain.Thread;
-import org.kalipo.domain.User;
 import org.kalipo.repository.CommentRepository;
+import org.kalipo.repository.SiteRepository;
 import org.kalipo.repository.ThreadRepository;
 import org.kalipo.repository.UserRepository;
 import org.kalipo.security.Privileges;
@@ -30,11 +30,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.Future;
 
 @Service
@@ -53,6 +52,9 @@ public class CommentService {
 
     @Inject
     private ThreadRepository threadRepository;
+
+    @Inject
+    private SiteRepository siteRepository;
 
     @Inject
     private ReputationModifierService reputationModifierService;
@@ -259,15 +261,17 @@ public class CommentService {
         Asserts.isNotNull(comment, "id");
 
         boolean isAuthor = comment.getAuthorId().equals(currentLogin);
-        boolean isThreadMod = isThreadMod(comment.getThreadId(), currentLogin);
+        Thread thread = threadRepository.findOne(comment.getThreadId());
+        Asserts.isNotNull(thread, "threadId");
+        boolean isSiteMod = isSiteMod(thread, currentLogin);
         boolean isSuperMod = userService.isSuperMod(currentLogin);
 
-        if (!isAuthor && !isThreadMod && !isSuperMod) {
+        if (!isAuthor && !isSiteMod && !isSuperMod) {
             throw new KalipoException(ErrorCode.PERMISSION_DENIED);
         }
 
         // punish author if third party is required to delete
-        if (isSuperMod || isThreadMod) {
+        if (isSuperMod || isSiteMod) {
             if (comment.getStatus() == Comment.Status.PENDING) {
                 log.info(String.format("Mod '%s' rejects comment %s", currentLogin, comment.getId()));
             } else {
@@ -309,8 +313,9 @@ public class CommentService {
 
     // --
 
-    private boolean isThreadMod(String threadId, String currentLogin) {
-        return threadRepository.findOne(threadId).getModIds().contains(currentLogin);
+    private boolean isSiteMod(Thread thread, String currentLogin) {
+        Site site = siteRepository.findOne(thread.getSiteId());
+        return site.getModeratorIds().contains(currentLogin);
     }
 
     private Comment save(Comment dirty, Comment original) throws KalipoException {
@@ -344,7 +349,7 @@ public class CommentService {
         Asserts.isNotNull(thread, "threadId");
         Asserts.isNotReadOnly(thread);
 
-        final boolean isMod = thread.getModIds().contains(currentLogin);
+        final boolean isMod = isSiteMod(thread, currentLogin);
 
         Comment parent = null;
         // reply only to approved comments
@@ -384,7 +389,7 @@ public class CommentService {
         dirty.setBodyHtml(markupService.toHtml(dirty.getBody()));
 
         dirty.setStatus(Comment.Status.NONE);
-        log.info(String.format("%s creates comment %s ", currentLogin, dirty.toString()));
+        log.info(String.format("User '%s' creates comment %s", currentLogin, dirty.toString()));
 
         assignSticky(dirty, original, isNew, isMod, isSuperMod);
 
