@@ -80,7 +80,7 @@ kalipoApp.constant('REPORT_IDS', [
         name: 'Hate speech'
     },
     {
-        id: 'Offensive_Threatening_language',
+        id: 'Offensive_Threatening_Language',
         name: 'Offensive/Threatening language'
     },
     {

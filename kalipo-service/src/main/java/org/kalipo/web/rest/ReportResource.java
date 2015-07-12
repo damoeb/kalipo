@@ -49,10 +49,10 @@ public class ReportResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new report")
-    public Report create(@NotNull @RequestBody Report report, @Context HttpSession session) throws KalipoException {
+    public Report create(@NotNull @RequestBody Report report, @Context HttpServletRequest httpServletRequest) throws KalipoException {
         log.debug("REST request to save Report : {}", report);
 
-        report.setIp("127.0.0.1");// todo httpRequest.getRemoteAddr());
+        report.setIp(httpServletRequest.getRemoteAddr());
 
         try {
             return reportService.create(report);

@@ -44,15 +44,22 @@
             <comment-lazy ng-comment-id="report.commentId"/>
         </div>
 
-        <div ng-include="'views/partial_report.html'"></div>
+        <div ng-include="'views/template_report.html'"></div>
 
-        <div class="btn-toolbar" style="margin-top: 10px">
+        <div class="btn-toolbar" style="margin-top: 10px" ng-hide="report.$finalized">
             <button type="button" class="btn btn-success btn-sm" ng-click="approveReport(report)"><span
                     class="glyphicon glyphicon-ok"></span> Approve
             </button>
             <button type="button" class="btn btn-default btn-sm" ng-click="rejectReport(report)"><span
                 class="glyphicon glyphicon-remove"></span> Delete Report
             </button>
+        </div>
+
+        <div ng-show="report.$finalized">
+            <hr>
+            <div class="alert alert-warning">
+                {{report.$reason}}
+            </div>
         </div>
 
     </div>

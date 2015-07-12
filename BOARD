@@ -2,6 +2,7 @@ REST Exceptions are crap
 Install logstash
 Install nagios, or icinga
 Als Uebersicht "browse" ein sequoia chart
+deleted comment -> rm menu
 
 Build site concept: mod moderates specific site, supermod can moderate all sites
 Every ban is siteId-wide (no bans on thread level)

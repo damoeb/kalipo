@@ -20,7 +20,6 @@ kalipoApp.controller('ThreadController',
         $scope.showReplyModal = function (commentId, quote) {
 
             console.log('reply modal', commentId);
-            console.log('draft', $scope.draft);
 
             $('#createCommentModal').modal();
             $scope.draft.threadId = threadId;
@@ -36,7 +35,7 @@ kalipoApp.controller('ThreadController',
 
         $scope.submitComment = function () {
 
-            console.log('submit comment', $scope.draft);
+//            console.log('submitting comment');
             // todo support anon flag in view
             $scope.draft.anonymous = false;
 

@@ -23,6 +23,7 @@ public class Report implements Serializable {
     @Id
     private String id;
 
+    @NotNull
     @Field("author_id")
     private String authorId;
 
@@ -56,7 +57,6 @@ public class Report implements Serializable {
     @LastModifiedDate
     private DateTime lastModifiedDate;
 
-    @ModelExistsConstraint(User.class)
     private String reviewerId;
 
     private String reviewNote;

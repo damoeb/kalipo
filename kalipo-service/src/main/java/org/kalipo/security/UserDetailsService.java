@@ -59,8 +59,6 @@ public class UserDetailsService implements org.springframework.security.core.use
             grantedAuthorities.add(new SimpleGrantedAuthority(privilege.getName()));
         }
 
-        log.info(String.format("User %s has %s grants", login, StringUtils.join(privileges.stream().map(Privilege::getName).collect(Collectors.toList()), ", ")));
-
         return new org.springframework.security.core.userdetails.User(lowercaseLogin, userFromDatabase.getPassword(),
                 grantedAuthorities);
     }

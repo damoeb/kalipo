@@ -145,7 +145,7 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
         Report.save($scope.report,
             function () {
                 $('#reportCommentModal').modal('hide');
-                Notifications.info('Report saved...');
+                Notifications.info('Report submitted');
                 $scope.report.reason = null;
             });
     };

@@ -100,22 +100,22 @@ public class ReportService {
 
     private Report _create(Report report, Comment comment, String author, boolean isDuplicate) throws KalipoException {
 
-        report.setStatus(Report.Status.PENDING);
-
         if (isDuplicate) {
             throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "You already filed a report for this comment");
         }
 
         if (Report.Reason.Other == report.getReason()) {
             Asserts.isNotNull(report.getCustomReason(), "customReason");
+            log.info(String.format("User '%s' reports comment %s saying %s", author, comment.getId(), report.getCustomReason()));
+        } else {
+            log.info(String.format("User '%s' reports comment %s saying %s", author, comment.getId(), report.getReason()));
         }
 
         // todo if anon report, approve via email?
 
-        log.info(String.format("Report of comment %s by %s", comment.getId(), author));
-
         report.setStatus(Report.Status.PENDING);
         report.setThreadId(comment.getThreadId());
+        report.setCommentId(comment.getId());
 
         report = reportRepository.save(report);
 
@@ -185,6 +185,8 @@ public class ReportService {
         report.setReviewerId(currentLogin);
 
         Comment comment = commentRepository.findOne(report.getCommentId());
+
+        Asserts.isNotNull(comment, "comment");
 
         if (report.getStatus() == Report.Status.APPROVED) {
             log.info(String.format("%s approves report %s and triggers delete-comment", currentLogin, report.getId()));

@@ -28,6 +28,9 @@ public interface CommentRepository extends MongoRepository<Comment, String> {
     @Query(value = "{'authorId': ?0, 'status': 'REJECTED'}", count = true)
     Long getRejectedCommentCountOfUser(String login);
 
+    @Query(value = "{'authorId': ?0, 'status': 'DELETED'}", count = true)
+    Long getDeletedCommentCountOfUser(String login);
+
     @Query(value = "{'parentId': ?0}", count = true)
     Long countReplies(String commentId);
 
@@ -50,6 +53,4 @@ public interface CommentRepository extends MongoRepository<Comment, String> {
     Set<Comment> findByParentId(String id);
 
     List<Comment> findByStatusAndThreadId(Comment.Status pending, String id);
-
-    Page<Comment> findByReported(Boolean reported, Pageable pageable);
 }

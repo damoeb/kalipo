@@ -182,10 +182,10 @@ public class CommentResource {
         @ApiResponse(code = 400, message = "Invalid ID supplied"),
         @ApiResponse(code = 404, message = "Comment not found")
     })
-    public ResponseEntity<Page<Comment>> filtered(@QueryParam("userId") String userId, @QueryParam("status") Comment.Status status, @QueryParam("reported") Boolean reported, @QueryParam("page") @DefaultValue("0") int page) throws KalipoException, ExecutionException, InterruptedException {
+    public ResponseEntity<Page<Comment>> filtered(@QueryParam("userId") String userId, @QueryParam("status") Comment.Status status, @QueryParam("page") @DefaultValue("0") int page) throws KalipoException, ExecutionException, InterruptedException {
         log.debug("REST request to get filtered Comment : {}", userId);
 
-        return Optional.ofNullable(commentService.filtered(userId, status, reported, page))
+        return Optional.ofNullable(commentService.filtered(userId, status, page))
             .map(comments -> new ResponseEntity<>(
                 comments,
                 HttpStatus.OK))

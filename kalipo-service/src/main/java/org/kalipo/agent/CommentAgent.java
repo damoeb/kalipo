@@ -92,14 +92,14 @@ public class CommentAgent {
 
                         Notification.Type type = Notification.Type.APPROVAL;
 
-                        if (isMod || isSuperMod || quality > 0.5) {
+                        if (isMod || isSuperMod) {
                             comment.setStatus(Comment.Status.APPROVED);
 
                             BroadcastUtils.broadcast(BroadcastUtils.Type.COMMENT, comment);
 
                             onApproval(comment);
 
-                            log.info(String.format("%s creates approved comment %s (q:%s)", authorId, comment.getId(), quality));
+                            log.info(String.format("Auto-approved comment %s cause author is mod", comment.getId()));
 
                         } else if (quality > 0.5) {
                             Comment.Status status;
@@ -107,27 +107,30 @@ public class CommentAgent {
                                 type = Notification.Type.REJECTED;
                                 status = Comment.Status.REJECTED;
                                 comment.setReviewMsg("Excessive upper-case usage");
+                                log.info(String.format("Auto-rejected comment %s, due to excessive uppercase usage", comment.getId()));
+
                             } else if (excessiveSpecialChars(comment)) {
                                 type = Notification.Type.REJECTED;
                                 status = Comment.Status.REJECTED;
                                 comment.setReviewMsg("Excessive special-char usage");
+                                log.info(String.format("Auto-rejected comment %s, due to excessive special chars usage", comment.getId()));
                             } else {
                                 status = Comment.Status.APPROVED;
                                 onApproval(comment);
+                                log.info(String.format("Auto-approved comment %s, due to good quality %s", comment.getId(), quality));
                             }
 
                             comment.setStatus(status);
-                            log.info(String.format("%s creates %s comment %s (q:%s)", authorId, status.name().toLowerCase(), comment.getId(), quality));
 
-                        } else {
-                            type = Notification.Type.PENDING;
-                            comment.setStatus(Comment.Status.PENDING);
-                            log.info(String.format("%s creates pending comment %s  (q:%s)", authorId, comment.getId(), quality));
+                            notificationService.notifyAsync(comment.getAuthorId(), "admin", type, comment.getId());
 
-                            notificationService.notifyModsOfThread(thread, comment, authorId);
+//                        } else {
+//                            type = Notification.Type.PENDING;
+//                            comment.setStatus(Comment.Status.PENDING);
+//                            log.info(String.format("%s creates pending comment %s  (q:%s)", authorId, comment.getId(), quality));
+//
+//                            notificationService.notifyModsOfThread(thread, comment, authorId);
                         }
-
-                        notificationService.notifyAsync(comment.getAuthorId(), "admin", type, comment.getId());
                     }
 
                     commentRepository.save(pendings);
@@ -235,7 +238,7 @@ public class CommentAgent {
                 }
 
                 if (changed > 0) {
-                    log.info(String.format("influence changed in %s comments in thread %s", changed, thread.getId()));
+                    log.debug(String.format("influence changed in %s comments in thread %s", changed, thread.getId()));
                     commentRepository.save(comments);
                 }
             }

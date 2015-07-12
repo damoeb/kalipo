@@ -1,5 +1,6 @@
 package org.kalipo.service;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -257,10 +258,6 @@ public class CommentService {
 
         Asserts.isNotNull(comment, "id");
 
-        if (comment.getStatus() != Comment.Status.PENDING && comment.getStatus() != Comment.Status.APPROVED) {
-            throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "must be pending to be approved");
-        }
-
         boolean isAuthor = comment.getAuthorId().equals(currentLogin);
         boolean isThreadMod = isThreadMod(comment.getThreadId(), currentLogin);
         boolean isSuperMod = userService.isSuperMod(currentLogin);
@@ -272,9 +269,9 @@ public class CommentService {
         // punish author if third party is required to delete
         if (isSuperMod || isThreadMod) {
             if (comment.getStatus() == Comment.Status.PENDING) {
-                log.info(String.format("Comment %s rejected by mod %s", comment.getId(), currentLogin));
+                log.info(String.format("Mod '%s' rejects comment %s", currentLogin, comment.getId()));
             } else {
-                log.info(String.format("Comment %s deleted by mod %s", comment.getId(), currentLogin));
+                log.info(String.format("Mod '%s' deletes %s", currentLogin, comment.getId()));
             }
 
             // todo distinguish report approval vs pending (=learning) -> notification
@@ -282,7 +279,7 @@ public class CommentService {
             // todo notification will encourage trolls?
             notificationService.notifyAsync(comment.getAuthorId(), currentLogin, Notification.Type.DELETION, comment.getId());
         } else {
-            log.info(String.format("Comment %s deleted by owner %s", comment.getId(), currentLogin));
+            log.info(String.format("Comment owner '%s' deletes comment %s", currentLogin, comment.getId()));
         }
 
         Long replies = commentRepository.countReplies(comment.getId());
@@ -292,9 +289,13 @@ public class CommentService {
         if (replies > 0) {
             // empty comment
             log.info(String.format("Comment %s is blanked out due to %s replies", comment.getId(), replies));
-            comment.setStatus(Comment.Status.DELETED); // todo read deleted comments to during load
-            comment.setAuthorId("");
+            comment.setStatus(Comment.Status.DELETED);
+            comment.setDisplayName("");
             comment.setBody("");
+            comment.setBodyHtml("");
+            comment.setLikes(0);
+            comment.setDislikes(0);
+            comment.setInfluence(0d);
             commentRepository.save(comment);
 
         } else {
@@ -302,23 +303,7 @@ public class CommentService {
             commentRepository.delete(comment);
         }
 
-        // todo unsure if we need a ban system
-        User author = userRepository.findOne(comment.getAuthorId());
-        author.setStrikes(author.getStrikes() + 1);
-
-        if (author.getStrikes() > 2) {
-//            author.setStrikes(0);
-//            author.setBanned(true);
-//            author.setBanCount(author.getBanCount() + 1);
-//            DateTime bannedUntilDate = DateTime.now().plusDays(30 * author.getBanCount());
-//            author.setBannedUntilDate(bannedUntilDate);
-//            log.info("User {} is banned until ", author.getLogin(), bannedUntilDate);
-            notificationService.notifySuperModsOfFraudulentUser(author, currentLogin);
-        }
-
         BroadcastUtils.broadcast(BroadcastUtils.Type.COMMENT_DELETED, comment.anonymized());
-
-        userRepository.save(author);
     }
 
 
@@ -458,7 +443,7 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    public Page<Comment> filtered(String userId, Comment.Status status, Boolean reported, int page) {
+    public Page<Comment> filtered(String userId, Comment.Status status, int page) {
 
         PageRequest pageable = new PageRequest(page, Constants.PAGE_SIZE, Sort.Direction.DESC, Constants.PARAM_CREATED_DATE);
 
@@ -471,10 +456,6 @@ public class CommentService {
 
         if (status != null) {
             return commentRepository.findByStatus(status, pageable);
-        }
-
-        if (reported != null) {
-            return commentRepository.findByReported(reported, pageable);
         }
 
         return null;

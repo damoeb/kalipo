@@ -37,7 +37,7 @@ kalipoApp.controller('ProfileController', function ($rootScope, $scope, $q, Comm
         }
     };
 
-    $scope.fetchComments = function () {
+    $scope.queryComments = function () {
         $q.when(promiseLogin).then(function() {
             Comment.get({'userId': $rootScope.login, 'page': $scope.$page}, function (response) {
                 $scope.$pageCount = response.totalPages;
@@ -48,7 +48,7 @@ kalipoApp.controller('ProfileController', function ($rootScope, $scope, $q, Comm
         });
     };
 
-    $scope.fetchIgnoredUsers = function () {
+    $scope.queryIgnoredUsers = function () {
         $q.when(promiseLogin).then(function() {
             // todo implement
             console.warn('implement');

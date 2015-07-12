@@ -28,7 +28,7 @@
 -->
 
     <logger name="javax.activation" level="WARN"/>
-    <logger name="org.kalipo" level="DEBUG"/>
+    <logger name="org.kalipo" level="INFO"/>
     <logger name="org.kalipo.aop.logging" level="INFO"/>
     <logger name="ch.qos.logback" level="WARN"/>
     <logger name="com.codahale.metrics" level="WARN"/>

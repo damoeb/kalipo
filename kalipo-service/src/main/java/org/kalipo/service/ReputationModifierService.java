@@ -174,7 +174,7 @@ public class ReputationModifierService {
         User u = userRepository.findOne(revision.getUserId());
         ReputationModifier definition = reputationModifierRepository.findByType(revision.getType());
 
-        log.info(String.format("%s gets %s reputation after %s (rev %s)", revision.getUserId(), definition.getReputation(), revision.getType(), revision.getId()));
+        log.info(String.format("%s gets %s reputation after %s", revision.getUserId(), definition.getReputation(), revision.getType()));
 
         u.setReputation(u.getReputation() + definition.getReputation());
         userRepository.save(u);

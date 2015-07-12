@@ -62,7 +62,6 @@ public class OAuth2ServerConfiguration {
                 .authorizeRequests()
                 .antMatchers("/views/**").permitAll()
                 .antMatchers("/app/rest/authenticate").permitAll()
-                .antMatchers(HttpMethod.POST, "/app/rest/reports").permitAll()
                 .antMatchers("/app/rest/register").permitAll()
                 .antMatchers("/app/rest/logs/**").hasAnyAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/app/**").authenticated()

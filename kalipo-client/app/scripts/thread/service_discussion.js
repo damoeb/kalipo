@@ -156,8 +156,8 @@ kalipoApp.factory('Discussion', function ($http, Thread, $q) {
             if (_.isUndefined(deferInit)) {
                 deferInit = $q.defer();
 
-                var promiseComment = $http.get('views/partial_comment.html', {cache: true});
-                var promiseMenu = $http.get('views/partial_menu.html', {cache: true});
+                var promiseComment = $http.get('views/template_comment.html', {cache: true});
+                var promiseMenu = $http.get('views/template_menu.html', {cache: true});
 
                 $q.all([promiseComment, promiseMenu]).then(function (response) {
                     internal.templates['comment'] = _.template(response[0].data);

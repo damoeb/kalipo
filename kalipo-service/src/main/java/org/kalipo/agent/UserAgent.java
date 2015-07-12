@@ -34,14 +34,15 @@ public class UserAgent {
             for (User user : users) {
 
                 double rejectedCount = commentRepository.getRejectedCommentCountOfUser(user.getLogin());
+                double deletedCount = commentRepository.getDeletedCommentCountOfUser(user.getLogin());
                 double approvedCount = commentRepository.getApprovedCommentCountOfUser(user.getLogin());
-                // todo include reputation?
+                // todo include reputation
 
                 int boostRejected = 2;
-                double trustworthiness = log(approvedCount) / Math.max(1, boostRejected * log(rejectedCount));
+                double trustworthiness = log(approvedCount) / Math.max(1, boostRejected * log(rejectedCount + deletedCount));
 
                 if(user.getTrustworthiness() != trustworthiness) {
-                    log.debug(String.format("%s with %s approved, %s rejected => %s trustworthiness", user.getLogin(), approvedCount, rejectedCount, trustworthiness));
+                    log.info(String.format("User %s with (approved:%s, rejected:%s, deleted:%s) -> %s trustworthiness", user.getLogin(), approvedCount, rejectedCount, deletedCount, trustworthiness));
                     user.setTrustworthiness(trustworthiness);
                 }
             }

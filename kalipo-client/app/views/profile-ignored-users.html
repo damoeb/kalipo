@@ -1,4 +1,4 @@
-<div ng-init="reset(); fetchIgnoredUsers()">
+<div ng-init="reset(); queryIgnoredUsers()">
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -26,11 +26,11 @@
                     </div>
 
                     <div class="text-center">
-                        <a href="javascript:void(0)" ng-click="previousPage('fetchComments')"
+                        <a href="javascript:void(0)" ng-click="previousPage('queryIgnoredUsers')"
                            ng-disabled="$firstPage">&larr;
                             Previous</a>
                         {{$page +1}} of {{$pageCount}}
-                        <a href="javascript:void(0)" ng-click="nextPage('fetchComments')"
+                        <a href="javascript:void(0)" ng-click="nextPage('queryIgnoredUsers')"
                            ng-disabled="$lastPage">Next &rarr;</a>
                     </div>
 

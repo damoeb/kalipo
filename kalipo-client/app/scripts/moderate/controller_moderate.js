@@ -52,44 +52,30 @@ kalipoApp.controller('ModerateController', function ($scope, $routeParams, $root
 
     $scope.queryReports = function () {
         $q.when(promiseLogin).then(function() {
-            Report.query({status: REPORT_STATUS.PENDING, page: $scope.$page}, function(response) {
-                 $scope.$pageCount = response.totalPages;
-                 $scope.$lastPage = response.lastPage;
-                 $scope.$firstPage = response.firstPage;
-                 $scope.entities = response.content;
-                 // todo enrich with comments
-            });
+            Report.query({status: REPORT_STATUS.PENDING, page: $scope.$page}, handleResponse);
         });
     };
 
-    $scope.approveComment = function (id) {
-        Comment.approve({id: id},
-            function () {
-                // todo remove comment
-            });
+    var finalize = function(entity, message) {
+        entity.$finalized = true;
+        entity.$reason = message;
+        Notifications.info(message);
+    }
+
+    $scope.approveComment = function (comment) {
+        Comment.approve({id: comment.id}, function () { finalize(comment, 'Approved'); });
     };
 
-    $scope.rejectComment = function (id) {
-        Comment.reject({id: id},
-            function () {
-                // todo remove comment
-            });
+    $scope.rejectComment = function (comment) {
+        Comment.reject({id: comment.id}, function () { finalize(comment, 'Rejected'); });
     };
 
     $scope.approveReport = function (report) {
-        console.log('approve report', report.id);
-        Report.approve({id: report.id},
-            function () {
-                Notifications.info('Approved report of ' + report.authorId);
-            });
+        Report.approve({id: report.id}, function () { finalize(report, 'Approved'); });
     };
 
     $scope.rejectReport = function (report) {
-        console.log('reject report', report.id);
-        Report.reject({id: report.id},
-            function () {
-                Notifications.info('Rejected report of ' + report.authorId);
-            });
+        Report.reject({id: report.id}, function () { finalize(report, 'Rejected'); });
     };
 
 

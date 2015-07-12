@@ -47,14 +47,20 @@
             <div style="white-space: pre-line">{{::comment.body}}</div>
         </div>
 
-        <div class="btn-toolbar" style="margin-top: 10px">
-            <button type="button" class="btn btn-success btn-sm" ng-click="approveComment(comment.id)"><span
+        <div class="btn-toolbar" style="margin-top: 10px" ng-hide="comment.$finalized">
+            <button type="button" class="btn btn-success btn-sm" ng-click="approveComment(comment)"><span
                 class="glyphicon glyphicon-ok"></span> Approve
             </button>
-            <button type="button" class="btn btn-default btn-sm" ng-click="rejectComment(comment.id)"><span
+            <button type="button" class="btn btn-default btn-sm" ng-click="rejectComment(comment)"><span
                 class="glyphicon glyphicon-remove"></span> Delete
             </button>
             <!--<button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-exclamation-sign"></span> Spam</button>-->
+        </div>
+
+        <div ng-show="comment.$finalized">
+            <div class="alert alert-warning">
+                {{comment.$reason}}
+            </div>
         </div>
 
     </div>
