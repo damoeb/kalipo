@@ -193,10 +193,12 @@ public class Thread implements Serializable {
         this.body = body;
     }
 
+    @Deprecated
     public Set<String> getBans() {
         return bans;
     }
 
+    @Deprecated
     public void setBans(Set<String> bans) {
         this.bans = bans;
     }

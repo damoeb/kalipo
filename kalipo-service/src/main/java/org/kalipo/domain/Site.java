@@ -25,6 +25,7 @@ public class Site implements Serializable {
     private String name;
 
     private Set<String> moderatorIds = new HashSet<>();
+    private Set<Ban> bans = new HashSet<Ban>();
 
     public String getId() {
         return id;
@@ -48,5 +49,13 @@ public class Site implements Serializable {
 
     public void setModeratorIds(Set<String> moderatorIds) {
         this.moderatorIds = moderatorIds;
+    }
+
+    public Set<Ban> getBans() {
+        return bans;
+    }
+
+    public void setBans(Set<Ban> bans) {
+        this.bans = bans;
     }
 }

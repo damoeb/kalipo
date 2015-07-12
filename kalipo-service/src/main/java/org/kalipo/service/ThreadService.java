@@ -34,7 +34,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Future;
-import java.util.stream.Collectors;
 
 @Service
 @KalipoExceptionHandler
@@ -139,8 +138,7 @@ public class ThreadService {
         original.setReadOnly(dirty.getReadOnly());
         original.setTitle(dirty.getTitle());
 
-        validateKLine(dirty, original);
-        original.setBans(dirty.getBans());
+//        validateKLine(dirty, original);
 
         return save(original);
     }
@@ -188,30 +186,22 @@ public class ThreadService {
         Asserts.isNotNull(userId, "userId");
         Asserts.isNotNull(threadId, "threadId");
 
-//      todo check permissons is mod of thread
         Thread thread = threadRepository.findOne(threadId);
-        if(thread.getBans() == null) {
-            thread.setBans(new HashSet<>());
-        }
-        thread.getBans().add(userId);
-        threadRepository.save(thread);
+        Site site = siteRepository.findOne(thread.getSiteId());
+//      todo check permissons is mod of thread
+//      cannot ban a mod userId
+
+        Ban ban = new Ban();
+        ban.setUserId(userId);
+        DateTime until = DateTime.now().plusDays(3);
+        ban.setValidUntil(until);
+
+        site.getBans().add(ban);
+
+        siteRepository.save(site);
+        log.info("User '%s' bans '%s' on site %s until %s", SecurityUtils.getCurrentLogin(), userId, site.getId(), until);
 
         notificationService.notifyAsync(userId, SecurityUtils.getCurrentLogin(), Notification.Type.BAN, threadId);
-    }
-
-    @RolesAllowed(Privileges.BAN_USER)
-    public void unBanUser(String userId, String threadId) throws KalipoException {
-        Asserts.isNotNull(userId, "userId");
-        Asserts.isNotNull(threadId, "threadId");
-
-//      todo check permissons is mod of thread
-        Thread thread = threadRepository.findOne(threadId);
-        if(thread.getBans() != null) {
-            thread.getBans().remove(userId);
-        }
-        threadRepository.save(thread);
-
-        notificationService.notifyAsync(userId, SecurityUtils.getCurrentLogin(), Notification.Type.UNBAN, threadId);
     }
 
     // --
@@ -240,38 +230,38 @@ public class ThreadService {
 
     // --
 
-    private void validateKLine(Thread dirty, Thread original) throws KalipoException {
-        final String currentLogin = SecurityUtils.getCurrentLogin();
-        final Set<String> orgKLine = original.getBans();
-        final Set<String> dirtyKLine = dirty.getBans();
-
-        if (dirtyKLine == null || (orgKLine.size() == dirtyKLine.size() && orgKLine.containsAll(dirtyKLine))) {
-            dirty.setBans(orgKLine);
-        } else {
-            // validate kLine changes from update
-
-            // original.getBans() - thread.getBans()
-            Set<String> removed = orgKLine.stream().filter(uid -> dirtyKLine.contains(uid)).collect(Collectors.toSet());
-
-            // thread.getBans() - original.getBans();
-            Set<String> added = dirtyKLine.stream().filter(uid -> original.getBans().contains(uid)).collect(Collectors.toSet());
-
-            for (String userId : added) {
-                if (!userRepository.exists(userId)) {
-                    throw new KalipoException(ErrorCode.INVALID_PARAMETER, String.format("User %s does not exist", userId));
-                }
-
-                log.info(String.format("%s puts %s on k-Line of thread %s", currentLogin, userId, dirty.getId()));
-            }
-
-            if (removed != null) {
-                for (String userId : removed) {
-                    log.info(String.format("%s removes %s from k-Line of thread %s", currentLogin, userId, dirty.getId()));
-                }
-            }
-        }
-
-    }
+    // todo move to site
+//    private void validateKLine(Thread dirty, Thread original) throws KalipoException {
+//        final String currentLogin = SecurityUtils.getCurrentLogin();
+//        final Set<String> orgKLine = original.getBans();
+//        final Set<String> dirtyKLine = dirty.getBans();
+//
+//        if (dirtyKLine == null || (orgKLine.size() == dirtyKLine.size() && orgKLine.containsAll(dirtyKLine))) {
+//            dirty.setBans(orgKLine);
+//        } else {
+//            // validate kLine changes from update
+//
+//            // original.getBans() - thread.getBans()
+//            Set<String> removed = orgKLine.stream().filter(uid -> dirtyKLine.contains(uid)).collect(Collectors.toSet());
+//
+//            // thread.getBans() - original.getBans();
+//            Set<String> added = dirtyKLine.stream().filter(uid -> original.getBans().contains(uid)).collect(Collectors.toSet());
+//
+//            for (String userId : added) {
+//                if (!userRepository.exists(userId)) {
+//                    throw new KalipoException(ErrorCode.INVALID_PARAMETER, String.format("User %s does not exist", userId));
+//                }
+//
+//                log.info(String.format("%s puts %s on k-Line of thread %s", currentLogin, userId, dirty.getId()));
+//            }
+//
+//            if (removed != null) {
+//                for (String userId : removed) {
+//                    log.info(String.format("%s removes %s from k-Line of thread %s", currentLogin, userId, dirty.getId()));
+//                }
+//            }
+//        }
+//    }
 
     private Thread save(Thread thread) throws KalipoException {
 
