@@ -32,8 +32,8 @@
                     <span class="label label-warning label-pending">PENDING APPROVAL</span>
 
                     <% if(!comment.$oneline) { %>
-                    <!-- todo and isMod -->
-                    <div class="dropdown pull-right" ng-if="$isMod">
+                    <!-- todo && !isModerator -->
+                    <div class="dropdown pull-right">
                         <a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="mod-menu">
                             <span class="caret"></span></a>
 

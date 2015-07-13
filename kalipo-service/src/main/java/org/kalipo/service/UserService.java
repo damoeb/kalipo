@@ -5,9 +5,11 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Authority;
+import org.kalipo.domain.Comment;
 import org.kalipo.domain.PersistentToken;
 import org.kalipo.domain.User;
 import org.kalipo.repository.AuthorityRepository;
+import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.PersistentTokenRepository;
 import org.kalipo.repository.UserRepository;
 import org.kalipo.security.Privileges;
@@ -46,6 +48,9 @@ public class UserService {
 
     @Inject
     private UserRepository userRepository;
+
+    @Inject
+    private CommentRepository commentRepository;
 
     @Inject
     private PersistentTokenRepository persistentTokenRepository;
@@ -183,6 +188,24 @@ public class UserService {
     public boolean isSuperMod(String userId) {
         User one = userRepository.findOne(userId);
         return isAdmin(userId) || (one != null && one.isSuperMod());
+    }
+
+    public Boolean ignoreAuthorOfComment(String commentId) throws KalipoException {
+        Asserts.isNotNull(commentId, "commentId");
+        Comment comment = commentRepository.findOne(commentId);
+        Asserts.isNotNull(comment, "comment does not exist");
+
+        User user = userRepository.findOne(SecurityUtils.getCurrentLogin());
+
+        if (Boolean.TRUE == comment.getAnonymous()) {
+            throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "Comment author posted anonymous");
+        }
+        if (!user.getIgnoredUsers().contains(comment.getAuthorId())) {
+            user.getIgnoredUsers().add(comment.getAuthorId());
+            log.info("User '%s' ignores '%s'", SecurityUtils.getCurrentLogin(), comment.getAuthorId());
+        }
+
+        return true;
     }
 
     public User updateUser(User modified) throws KalipoException {

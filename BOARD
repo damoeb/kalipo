@@ -1,11 +1,12 @@
 REST Exceptions are crap
+excepion handling: kalipoexception -> runtime exception
+
 Install logstash
 Install nagios, or icinga
 Als Uebersicht "browse" ein sequoia chart
-deleted comment -> rm menu
+browse: visualisierung der hashtags, threads, gewichtung nach geo (in your area)
 
-Build site concept: mod moderates specific site, supermod can moderate all sites
-If banned, no login is possible
+deleted comment -> rm menu
 
 discussion: show comment count + pending
 
@@ -13,21 +14,14 @@ live
   subscribe once, not for every thread subscribe/unsubscribe
   cannot call reply multiple times
 
-NO- Es gibt keinen Thread mehr, sondern nur Kommentare auf die geantwortet werden kann. Uebersichtseite stellt einen anonymisierten Live chat dar, von dem aus Diskussion gestartet werden koennen
 Thread management nach 4chan prinzip
-
-
-profile
-for mods: additional infos in outline and discussion, "this is reported", ..
-set page size 40, load 3 pages at beginning, sort pages by influence not date, if possible
 
 general
   suche mit elastic search
   user directive to add custom styles to username, ismod,...
 
 profile
-  comments eines jeden users anzeigen
-  Listen wie auf stackoverflow, das profile
+  NO- comments eines jeden users anzeigen
   controller machen immer das gleiche -> vereinheitlichen
 
 Categories
@@ -38,11 +32,6 @@ Categories
     Reputation   : List of achievments, pagination:yes, sort by newest first, type:[achievement]
   Ignored Users : List of usernames, pagination:yes, sort by name
 
-- permalinks for comments, update url when clicking in outline
-- thread has a reputation threshold for users to join discussion
-
-discussion
-  impl ignore user feature: Does not work, if anonymous (hide link)
 
 outline
   einfacheres klicken
@@ -56,6 +45,7 @@ configuration attr
 - discussion depth: NUM {min:2, default:4}
 - max comments: NUM {min:0}
 - max comment length: NUM {min:160, max:2048}
+- permalinks for comments, update url when clicking in outline
 - max visible comment lines: NUM {default:10}
 - support visualization: BOOL {default:TRUE}
 - keep ips: BOOL {default:FALSE}
@@ -85,3 +75,6 @@ Monitoring for Superuser, Fraud warnings via mail
 Anomaly detection for
   users: account hijacking
   comment flooding
+
+NO- Es gibt keinen Thread mehr, sondern nur Kommentare auf die geantwortet werden kann. Uebersichtseite stellt einen anonymisierten Live chat dar, von dem aus Diskussion gestartet werden koennen
+DONE- thread has a reputation threshold for users to join discussion

@@ -33,6 +33,12 @@ kalipoApp.factory('Account', function ($resource) {
     });
 });
 
+kalipoApp.factory('IgnoreService', function ($resource) {
+    return $resource('app/rest/account/:method/:commentId', {}, {
+        'ignoreAuthor': { method: 'PUT', params: {method: 'ignore-author', commentId:'@commentId'}},
+    });
+});
+
 kalipoApp.factory('Password', function ($resource) {
     return $resource('app/rest/account/change_password', {}, {
     });

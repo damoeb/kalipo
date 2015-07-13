@@ -1,6 +1,7 @@
 package org.kalipo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.lang.StringUtils;
 import org.kalipo.domain.Authority;
 import org.kalipo.domain.PersistentToken;
@@ -26,6 +27,8 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.*;
@@ -112,8 +115,8 @@ public class AccountResource {
      * GET  /rest/account -> get the current user.
      */
     @RequestMapping(value = "/rest/account",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<UserDTO> getAccount() {
         return Optional.ofNullable(userService.getUserWithAuthorities())
@@ -128,6 +131,20 @@ public class AccountResource {
                     user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toList()),
                     user.getReputation()
                 ),
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+
+    /**
+     * POST  /rest/account/ignore-author-of/:commentId -> ignore a user.
+     */
+    @RequestMapping(value = "/rest/account/ignore-author/:commentId",
+        method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Boolean> ignoreAuthor(@PathParam("commentId") String commentId) throws KalipoException {
+        return Optional.ofNullable(userService.ignoreAuthorOfComment(commentId))
+            .map(response -> new ResponseEntity<Boolean>(response,
                 HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }

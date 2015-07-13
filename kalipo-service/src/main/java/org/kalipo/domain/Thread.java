@@ -79,6 +79,12 @@ public class Thread implements Serializable {
     private Integer dislikes = 0;
 
     /**
+     * minimal user-reputation requirerd to participate the discussion
+     * todo
+     */
+    private Integer reputationChallenge = 0;
+
+    /**
      * Disable comments
      */
     @Field("read_only")
@@ -248,6 +254,14 @@ public class Thread implements Serializable {
 
     public void setBodyHtml(String bodyHtml) {
         this.bodyHtml = bodyHtml;
+    }
+
+    public Integer getReputationChallenge() {
+        return reputationChallenge;
+    }
+
+    public void setReputationChallenge(Integer reputationChallenge) {
+        this.reputationChallenge = reputationChallenge;
     }
 
     /**

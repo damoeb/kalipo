@@ -22,7 +22,6 @@ kalipoApp.controller('ThreadController',
             $('#createCommentModal').modal();
             $scope.draft.threadId = threadId;
 
-            // todo reenable quotes
             //if(_.isUndefined(quote) || quote.length==0) {
             //    $scope.draft.body = '';
             //} else {

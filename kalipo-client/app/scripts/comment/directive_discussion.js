@@ -2,7 +2,7 @@
  * Created by damoeb on 16.12.14.
  */
 angular.module('kalipoApp')
-    .directive('discussion', function ($compile, $templateCache, $http, $rootScope, Vote, Comment, Report, Notifications, COMMENT_SETTINGS, Discussion, $q) {
+    .directive('discussion', function ($compile, $templateCache, $http, $rootScope, Vote, Comment, Report, Notifications, COMMENT_SETTINGS, Discussion, $q, Account) {
         return {
             restrict: 'E',
             replace: true,
@@ -68,8 +68,9 @@ angular.module('kalipoApp')
 
                 // --
 
-                $scope.ignoreAuthorOf = function (commentId, displayName) {
-                    // todo implement
+                $scope.ignoreAuthorOf = function (commentId) {
+                    console.log('ignoreAuthorOf', commentId);
+                    Account.ignoreAuthor({commentId: commentId});
                 };
 
                 $scope.showReportModal = function (commentId, displayName) {

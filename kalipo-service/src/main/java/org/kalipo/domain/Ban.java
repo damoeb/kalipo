@@ -29,6 +29,7 @@ public class Ban implements Serializable {
     @CreatedDate
     private DateTime createdDate;
 
+    @NotNull
     private DateTime validUntil;
 
     public String getId() {
