@@ -45,17 +45,19 @@ public class ThreadAgent {
         for (Thread thread : threads) {
             log.debug("Updating stats of thread {}", thread.getId());
 
-            Integer likes = voteRepository.countLikesOfThread(thread.getId());
+            Integer likes = voteRepository.countLikesInThread(thread.getId());
             thread.setLikes(likes);
-            thread.setCommentCount(commentRepository.countApprovedInThread(thread.getId()));
+            int commentCount = commentRepository.countApprovedInThread(thread.getId());
+            thread.setCommentCount(commentCount);
             thread.setPendingCount(commentRepository.countPendingInThread(thread.getId()));
             thread.setLastModifiedDate(DateTime.now());
 
 //          todo unique authors, views
 
-            long passedSeconds = (DateTime.now().getMillis() - thread.getCreatedDate().getMillis()) / 1000000;
+            double passedMinutes = (DateTime.now().toDate().getTime() - thread.getCreatedDate().toDate().getTime()) / 60000;
 
-            thread.setScore(likes == 0 || passedSeconds == 0 ? 0 : likes / passedSeconds);
+            double score = likes + commentCount == 0 || passedMinutes == 0 ? 0 : (likes + commentCount) / passedMinutes;
+            thread.setScore(score);
 
             threadRepository.save(thread);
         }
