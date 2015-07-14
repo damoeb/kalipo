@@ -28,12 +28,27 @@ kalipoApp.constant('LANGUAGES', {
 
 kalipoApp.constant('COMMENT_SETTINGS', {
     lineHeight: 20,
-    criticalLineCount: 5
+    criticalLineCount: 15
 });
 
 kalipoApp.constant('COMMENT_STATUS', {
     APPROVED:'APPROVED', PENDING:'PENDING', SPAM:'SPAM', REJECTED:'REJECTED', DELETED:'DELETED'
 });
+
+kalipoApp.constant('THREAD_STATUS', [
+    {
+        id: 'OPEN',
+        name: 'OPEN'
+    },
+    {
+        id: 'LOCKED',
+        name: 'LOCKED'
+    },
+    {
+        id: 'CLOSED',
+        name: 'CLOSED'
+    }
+]);
 
 kalipoApp.constant('REPORT_STATUS', {
     APPROVED:'APPROVED', PENDING:'PENDING', REJECTED:'REJECTED'

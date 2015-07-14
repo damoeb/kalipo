@@ -349,7 +349,7 @@ public class CommentService {
 
         final Thread thread = threadRepository.findOne(dirty.getThreadId());
         Asserts.isNotNull(thread, "threadId");
-        Asserts.isNotReadOnly(thread);
+        Asserts.isNotLocked(thread);
 
         final boolean isMod = isSiteMod(thread, currentLogin);
 

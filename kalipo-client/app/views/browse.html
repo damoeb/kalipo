@@ -21,10 +21,10 @@
                         <div class="row comment">
                             <div class="col-sm-12 col-xs-12">
 
-                                <a href="#/v/{{::thread.id}}">{{::thread.title}}</a>
+                                <a href="#/comments/{{::thread.id}}">{{::thread.title}}</a>
 
                                 <p>
-                                    {{::thread.body}} -- <a href="#/v/{{::thread.id}}"><span
+                                    {{::thread.body}} -- <a href="#/comments/{{::thread.id}}"><span
                                     ng-if="thread.commentCount > 0">{{::thread.commentCount}} comments</span><span
                                     ng-if="thread.commentCount == 0">No comments yet</span></a>
                                 </p>

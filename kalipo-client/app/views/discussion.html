@@ -11,19 +11,19 @@
                 <h3 style="display: inline;">
                     {{ ::thread.title}}
                 </h3>
+                <p>
+                    by {{::thread.displayName}}, {{ thread.createdDate | dateString}} ({{ thread.createdDate | fromNow}})
+                </p>
 
-                <a href="javascript:void(0)" ng-click="$viewMode = !$viewMode">
-                    <span ng-if="!$viewMode" class="glyphicon glyphicon-pencil"></span>
-                    <span ng-if="$viewMode">Back to View</span>
-                </a>
+                <!--<a href="javascript:void(0)" ng-click="$viewMode = !$viewMode">-->
+                    <!--<span ng-if="!$viewMode" class="glyphicon glyphicon-pencil"></span>-->
+                    <!--<span ng-if="$viewMode">Back to View</span>-->
+                <!--</a>-->
 
                 <p>
                     {{::thread.body}}
                 </p>
 
-                <!--<p>-->
-                <!--by {{::thread.displayName}}, {{ thread.createdDate | dateString}} ({{ thread.createdDate | fromNow}})-->
-                <!--</p>-->
             </div>
 
         </div>
@@ -35,44 +35,34 @@
 
             <div class="panel-body">
 
-                <div ng-if="$viewMode">
+                <div ng-include="'create_comment.template'"></div>
 
-                    <div ng-include="'views/thread-edit.html'"></div>
+                <div when-scrolled="loadMore()">
+                    <div ng-repeat="page in pages">
+
+                        <discussion></discussion>
+
+                    </div>
+
+                    <div class="text-center" ng-show="$busy">
+                        <i class="glyphicon glyphicon-refresh spinning"></i>
+                    </div>
 
                 </div>
 
-                <div ng-if="!$viewMode">
-
-                    <div ng-include="'create_comment.template'"></div>
-
-                    <div when-scrolled="loadMore()">
-                        <div ng-repeat="page in pages">
-
-                            <discussion></discussion>
-
-                        </div>
-
-                        <div class="text-center" ng-show="$busy">
-                            <i class="glyphicon glyphicon-refresh spinning"></i>
-                        </div>
-
+                <div ng-show="$isEmptyDiscussion">
+                    <div class="alert alert-success" role="alert">
+                        You may start on a green lawn!
                     </div>
 
-                    <div ng-show="$isEmptyDiscussion">
-                        <div class="alert alert-success" role="alert">
-                            You may start on a green lawn!
-                        </div>
+                </div>
 
-                    </div>
+                <button class="btn btn-primary" ng-click="loadMore()" ng-hide="$busy || $isLastPage"
+                        style="width: 100%">Show More
+                </button>
 
-                    <button class="btn btn-primary" ng-click="loadMore()" ng-hide="$busy || $isLastPage"
-                            style="width: 100%">Show More
-                    </button>
-
-                    <div ng-show="!$isEmptyDiscussion && $isLastPage" class="text-center" style="font-size: large">
-                        &diams;
-                    </div>
-
+                <div ng-show="!$isEmptyDiscussion && $isLastPage" class="text-center" style="font-size: large">
+                    &diams;
                 </div>
             </div>
         </div>

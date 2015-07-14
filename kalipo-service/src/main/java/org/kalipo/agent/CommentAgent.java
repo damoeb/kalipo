@@ -192,9 +192,9 @@ public class CommentAgent {
             final DoubleFunction<Double> w_likes = likes -> log(likes) * 1.7;
 
             Sort sortByDate = new Sort(Sort.Direction.ASC, "lastModifiedDate");
-            PageRequest request = new PageRequest(0, 10, sortByDate);
+            PageRequest pageable = new PageRequest(0, 10, sortByDate);
 
-            List<Thread> threads = threadRepository.findByStatusAndReadOnly(Thread.Status.OPEN, false, request);
+            List<Thread> threads = threadRepository.findByStatus(Thread.Status.OPEN, pageable);
             for (Thread thread : threads) {
 
                 thread.setLastModifiedDate(DateTime.now());

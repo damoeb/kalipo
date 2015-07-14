@@ -1,7 +1,9 @@
 package org.kalipo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.joda.time.DateTime;
+import org.kalipo.config.Constants;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -19,6 +21,7 @@ import java.util.Set;
  */
 
 @Document(collection = "T_THREAD")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Thread implements Serializable {
 
     @Id
@@ -78,20 +81,16 @@ public class Thread implements Serializable {
      */
     private double score;
 
-    /**
-     * Disable comments
-     */
-    @Field("read_only")
-    private Boolean readOnly = false;
-
     @JsonIgnore
     private Status status;
 
-    @NotNull
+    @NotNull(message = "{constraint.notnull.body}")
+    @Size(min = 2, max = Constants.LIM_MAX_LEN_TEXT, message = "{constraint.length.body}")
     private String body;
 
     private String bodyHtml;
 
+    @Size(max = Constants.LIM_MAX_LEN_URL, message = "{constraint.length.link}")
     private String link;
 
     @NotNull
@@ -177,14 +176,6 @@ public class Thread implements Serializable {
         this.dislikes = dislikes;
     }
 
-    public Boolean getReadOnly() {
-        return readOnly;
-    }
-
-    public void setReadOnly(Boolean readOnly) {
-        this.readOnly = readOnly;
-    }
-
     public Status getStatus() {
         return status;
     }
@@ -253,6 +244,6 @@ public class Thread implements Serializable {
      * Created by damoeb on 7/28/14.
      */
     public enum Status {
-        OPEN, CLOSED
+        OPEN, LOCKED, CLOSED
     }
 }

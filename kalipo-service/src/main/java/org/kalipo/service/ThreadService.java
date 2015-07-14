@@ -133,10 +133,12 @@ public class ThreadService {
         // update fields
 
         original.setUriHooks(dirty.getUriHooks());
-        original.setReadOnly(dirty.getReadOnly());
-        original.setTitle(dirty.getTitle());
 
-//        validateKLine(dirty, original);
+        if(dirty.getStatus() != null && dirty.getStatus() != original.getStatus()) {
+            log.info(String.format("User '%s' changes status of thread %s to %s (before %s)", currentLogin, original.getId(), dirty.getStatus(), original.getStatus()));
+            original.setStatus(dirty.getStatus());
+        }
+        original.setTitle(dirty.getTitle());
 
         return save(original);
     }

@@ -1,6 +1,7 @@
 Edit thread
 browse
 mail notification mit direkt links (once)
+highlight mod comment (attr createdByMod)
 
 REST Exceptions are crap
 excepion handling: kalipoexception -> runtime exception
@@ -25,8 +26,8 @@ general
   user directive to add custom styles to username, ismod,...
 
 profile
-  NO- comments eines jeden users anzeigen
   controller machen immer das gleiche -> vereinheitlichen
+  uebersicht mit namen, reputation
 
 Categories
   Notifications  : List of notifications, pagination:no, limited to 10, sort by newest first, type:[thread,comment]

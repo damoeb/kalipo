@@ -12,7 +12,7 @@
         <span class="glyphicon glyphicon-thumbs-down"></span></a>
 
     <% if(comment.parentId != null) { %>
-    <a href="#/v/<%- comment.threadId %>?anchor=<%- comment.parentId %>">
+    <a href="#/comments/<%- comment.threadId %>?anchor=<%- comment.parentId %>">
         Parent</a>
     <% } %>
 
@@ -20,7 +20,7 @@
         <a href="javascript:void(0)" ng-click="ignoreAuthorOf('<%- comment.id %>')">
             Ignore
         </a>
-        <a href="#/v/<%- comment.threadId %>/<%- comment.id %>">
+        <a href="#/comments/<%- comment.threadId %>/<%- comment.id %>">
             Permalink
         </a>
         <a href="javascript:void(0)"

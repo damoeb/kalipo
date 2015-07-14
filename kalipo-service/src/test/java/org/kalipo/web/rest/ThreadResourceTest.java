@@ -54,7 +54,6 @@ public class ThreadResourceTest {
     private static final Boolean DEFAULT_SAMPLE_READONLY_ATTR = false;
 
     private static final String UPD_SAMPLE_TITLE_ATTR = "sampleTitleAttributeUpt";
-    private static final Boolean UPD_SAMPLE_READONLY_ATTR = true;
     public static final List<String> DEFAULT_PRIVILEGES = Arrays.asList(Privileges.CREATE_THREAD, Privileges.CREATE_COMMENT_SOLO, Privileges.REVIEW_COMMENT);
 
     @Rule
@@ -120,7 +119,6 @@ public class ThreadResourceTest {
 
         // Update Thread
         thread.setTitle(UPD_SAMPLE_TITLE_ATTR);
-        thread.setReadOnly(UPD_SAMPLE_READONLY_ATTR);
 
         restThreadMockMvc.perform(put("/app/rest/threads/{id}", threadId)
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -132,8 +130,7 @@ public class ThreadResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(threadId))
-                .andExpect(jsonPath("$.title").value(UPD_SAMPLE_TITLE_ATTR))
-                .andExpect(jsonPath("$.readOnly").value(UPD_SAMPLE_READONLY_ATTR));
+                .andExpect(jsonPath("$.title").value(UPD_SAMPLE_TITLE_ATTR));
 
         // Delete Thread
         restThreadMockMvc.perform(delete("/app/rest/threads/{id}", threadId)
@@ -183,7 +180,6 @@ public class ThreadResourceTest {
         Thread thread = new Thread();
         thread.setTitle(DEFAULT_SAMPLE_TITLE_ATTR);
         thread.setBody(DEFAULT_SAMPLE_TEXT_ATTR);
-        thread.setReadOnly(DEFAULT_SAMPLE_READONLY_ATTR);
         return thread;
     }
 }

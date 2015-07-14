@@ -15,7 +15,5 @@ public interface ThreadRepository extends MongoRepository<Thread, String> {
     @Query(value = "{ uriHooks: { $in: [ ?0 ]}}")
     Thread findByUriHook(String sample);
 
-    List<Thread> findByStatusAndReadOnly(Thread.Status status, boolean readOnly, PageRequest sort);
-
     List<Thread> findByStatus(Thread.Status open, PageRequest request);
 }

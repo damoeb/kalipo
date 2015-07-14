@@ -1,0 +1,141 @@
+<div ng-controller="ThreadController">
+
+    <div class="col-lg-7 col-md-9 col-xs-9">
+
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+
+                <h3 style="display: inline;">
+                    {{ ::thread.title}}
+                </h3>
+                <p>
+                    by {{::thread.displayName}}, {{ thread.createdDate | dateString}}
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <form name="form" role="form" novalidate ng-submit="updateThread()">
+
+                    <div class="row form-group">
+                        <div class="col-md-3">Title*</div>
+                        <div class="col-md-9">
+                            <input name="title" class="form-control" ng-model="thread.title"
+                                   placeholder="6-10 words is the magic headline range!" required ng-minlength="10"
+                                   ng-maxlength="64">
+
+                            <div class="error-container"
+                                 ng-show="form.title.$dirty && form.title.$invalid">
+                                <small ng-show="form.title.$error.required">
+                                    Title is required.
+                                </small>
+                                <small ng-show="form.title.$error.minlength">
+                                    Title is required to be at least 10 characters
+                                </small>
+                                <small ng-show="form.title.$error.maxlength">
+                                    Title cannot be longer than 64 characters
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-3">Link</div>
+                        <div class="col-md-9">
+                            <input name="title" class="form-control" ng-model="thread.link"
+                                   placeholder="http://" required ng-minlength="10"
+                                   ng-maxlength="400">
+
+                            <div class="error-container"
+                                 ng-show="form.body.$dirty && form.body.$invalid">
+                                <small ng-show="form.body.$error.maxlength">
+                                    Text cannot be longer than 200 characters
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-3">Reputation Challenge</div>
+                        <div class="col-md-9">
+                            <input name="title" class="form-control" ng-model="thread.reputationChallenge"
+                                   placeholder="0" required ng-minlength="0"
+                                   ng-maxlength="4">
+                            <!-- todo query how many users achieve it -->
+
+                            <div class="error-container"
+                                 ng-show="form.body.$dirty && form.body.$invalid">
+                                This challenge is too high, nobody will achieve it.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-3">Status</div>
+                        <div class="col-md-9">
+
+                            <select
+                                ng-options="status.name for status in threadStatusList track by status.id"
+                                ng-model="thread.status">
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-3">Teaser</div>
+                        <div class="col-md-9">
+
+                            <textarea name="body" class="form-control" placeholder="For the lead comment, brevity is the key."
+                                      ng-model="thread.body"
+                                      ng-minlength=2 ng-maxlength=4096 required style="height: 170px"></textarea>
+
+                            <div class="error-container"
+                                 ng-show="form.body.$dirty && form.body.$invalid">
+                                <small ng-show="form.body.$error.required">
+                                    Text is required.
+                                </small>
+                                <small ng-show="form.body.$error.minlength">
+                                    Text is required to be at least 2 characters
+                                </small>
+                                <small ng-show="form.body.$error.maxlength">
+                                    Text cannot be longer than 4096 characters
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-push-3 col-md-9">
+                            <button type="submit" class="btn btn-primary">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- DANGER-->
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <div class="panel-title">Danger Zone</div>
+            </div>
+            <div class="panel-body">
+                <h4>Delete Discussion</h4>
+
+                <p>
+                    Unrecoverable deletion of disucussion with all comments
+                    <a class="btn btn-danger pull-right" href="javascript:void(0)" ng-click="delete(thread)">Delete this discussion</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

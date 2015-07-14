@@ -3,6 +3,7 @@ package org.kalipo.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.joda.time.DateTime;
+import org.kalipo.config.Constants;
 import org.kalipo.validation.ModelExistsConstraint;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.annotation.CreatedDate;
@@ -22,8 +23,6 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Comment implements Anonymizable<Comment> {
 
-    public static final int LEN_TEXT = 2048; // todo centralize constant
-
     @Id
     private String id;
 
@@ -31,12 +30,7 @@ public class Comment implements Anonymizable<Comment> {
     @ModelExistsConstraint(Thread.class)
     private String threadId;
 
-//    @ModelExistsConstraint(Comment.class)
     private String parentId;
-
-//    @JsonIgnore
-//    @NotNull(message = "{constraint.notnull.reputation}")
-//    private Integer reputation = 0;
 
     @CreatedDate
     private DateTime createdDate;
@@ -45,8 +39,8 @@ public class Comment implements Anonymizable<Comment> {
     @LastModifiedDate
     private DateTime lastModifiedDate;
 
-//    @NotNull(message = "{constraint.notnull.body}")
-//    @Size(min = 2, max = LEN_TEXT, message = "{constraint.length.body}")
+    @NotNull(message = "{constraint.notnull.body}")
+    @Size(min = 2, max = Constants.LIM_MAX_LEN_TEXT, message = "{constraint.length.body}")
     private String body;
 
     private String bodyHtml;
@@ -55,6 +49,7 @@ public class Comment implements Anonymizable<Comment> {
     @NotNull(message = "{constraint.notnull.authorId}")
     private String authorId;
 
+    @Size(max = Constants.LIM_MAX_LEN_DISPLAYNAME, message = "{constraint.length.displayname}")
     private String displayName;
 
     // A related hash to order all comments close to their parents
@@ -94,6 +89,7 @@ public class Comment implements Anonymizable<Comment> {
 
     private String reviewerId;
 
+    @Size(max = 200)
     private String reviewMsg;
 
     @Transient
@@ -126,7 +122,6 @@ public class Comment implements Anonymizable<Comment> {
         a.setCreatedDate(null);
         a.setAuthorId(null);
         a.setFingerprint(null);
-        a.setCreatedByMod(null);
         return a;
     }
 

@@ -143,7 +143,6 @@ public class CommentResourceTest {
         Thread thread = ThreadResourceTest.newThread();
         thread = threadService.create(thread);
 
-        thread.setReadOnly(true);
         threadService.update(thread);
 
         comment = newComment();

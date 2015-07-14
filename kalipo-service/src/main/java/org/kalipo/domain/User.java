@@ -3,6 +3,7 @@ package org.kalipo.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 import org.joda.time.DateTime;
+import org.kalipo.config.Constants;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -39,7 +40,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private String lastName;
 
     @Email
-    @Size(min = 0, max = 100)
+    @Size(min = 0, max = 50)
     private String email;
 
     private boolean activated = false;
@@ -81,6 +82,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     private boolean superMod;
 
+    @Size(max = Constants.LIM_MAX_LEN_DISPLAYNAME, message = "{constraint.length.displayname}")
     private String displayName;
 
     // prevent brute force login attacks

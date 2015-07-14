@@ -8,7 +8,6 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
 
     $scope.pages = [];
     $scope.$threadId = threadId;
-    $scope.$viewMode = false;
     $scope.thread = {};
     $scope.reportModel = {};
     $scope.$showPending = false;
@@ -125,11 +124,6 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
 
     $scope.updateThread = function () {
 
-        var re = new RegExp('[, \n\t]+', 'g');
-
-        if (!_.isUndefined($scope.thread.$uriHooks)) {
-            $scope.thread.uriHooks = _.compact($scope.thread.$uriHooks.replace(re, ' ').split(' '));
-        }
         Thread.update($scope.thread, function () {
             Notifications.info('Updated');
         });

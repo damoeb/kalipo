@@ -256,7 +256,7 @@ a:hover {
 }
 
 .body.tiny .show-more-content {
-    max-height: 100px; /* line-height * COMMENT_SETTINGS.criticalLineCount */
+    max-height: 300px; /* line-height * COMMENT_SETTINGS.criticalLineCount */
     overflow: hidden;
 }
 

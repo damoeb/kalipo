@@ -1,11 +1,12 @@
 'use strict';
 
 kalipoApp.controller('ThreadController',
-    function ($scope, $routeParams, Thread, Comment, Notifications) {
+    function ($scope, $routeParams, Thread, Comment, Notifications, THREAD_STATUS) {
 
         var threadId = $routeParams.threadId;
 
         $scope.$threadId = threadId;
+        $scope.threadStatusList = THREAD_STATUS;
         $scope.draft = {};
 
         Thread.get({id: threadId}, function (thread) {
@@ -40,6 +41,7 @@ kalipoApp.controller('ThreadController',
                 function () {
                     Notifications.info('Saved');
                     $('#createCommentModal').modal('hide');
+                    $scope.draft = {};
                 });
         };
 
@@ -56,6 +58,13 @@ kalipoApp.controller('ThreadController',
             Notifications.info('Delete ' + commentId);
             Comment.delete({
                 id: commentId
+            });
+        };
+
+        $scope.deleteThread = function (thread) {
+            Notifications.info('Delete thread ' + thread.id);
+            Thread.delete({
+                id: thread.id
             });
         };
 

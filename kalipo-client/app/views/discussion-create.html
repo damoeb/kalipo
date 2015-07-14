@@ -36,11 +36,42 @@
                 </div>
 
                 <div class="row form-group">
+                    <div class="col-md-3">Link</div>
+                    <div class="col-md-9">
+                        <input name="title" class="form-control" ng-model="thread.link"
+                               placeholder="http://" required ng-minlength="10"
+                               ng-maxlength="200">
+
+                        <div class="error-container"
+                             ng-show="form.body.$dirty && form.body.$invalid">
+                            <small ng-show="form.body.$error.maxlength">
+                                Text cannot be longer than 200 characters
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-3">Reputation Challenge</div>
+                    <div class="col-md-9">
+                        <input name="title" class="form-control" ng-model="thread.reputationChallenge"
+                               placeholder="0" required ng-minlength="0"
+                               ng-maxlength="4">
+                        <!-- todo query how many users achieve it -->
+
+                        <div class="error-container"
+                             ng-show="form.body.$dirty && form.body.$invalid">
+                            This challenge is too high, nobody will achieve it.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row form-group">
                     <div class="col-md-3">Teaser*</div>
                     <div class="col-md-9">
                         <textarea name="body" class="form-control" placeholder="For the lead comment, brevity is the key."
                                   ng-model="thread.body"
-                                  ng-minlength=2 ng-maxlength=2048 required style="height: 170px"></textarea>
+                                  ng-minlength=2 ng-maxlength=4096 required style="height: 170px"></textarea>
 
                         <div class="error-container"
                              ng-show="form.body.$dirty && form.body.$invalid">
@@ -51,28 +82,11 @@
                                 Text is required to be at least 2 characters
                             </small>
                             <small ng-show="form.body.$error.maxlength">
-                                Text cannot be longer than 2048 characters
+                                Text cannot be longer than 4096 characters
                             </small>
                         </div>
                     </div>
                 </div>
-
-                <div class="row form-group">
-                    <div class="col-md-3">Web Hooks</div>
-                    <div class="col-md-9">
-                        <textarea name="text" class="form-control" placeholder="Space separated urls"
-                                  ng-model="thread.$uriHooks"
-                                  ng-minlength=2 ng-maxlength=2048></textarea>
-
-                        <div class="error-container"
-                             ng-show="form.body.$dirty && form.body.$invalid">
-                            <small ng-show="form.body.$error.maxlength">
-                                Text cannot be longer than 2048 characters
-                            </small>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
             <div class="panel-footer">

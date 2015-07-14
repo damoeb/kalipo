@@ -37,9 +37,9 @@ public final class Asserts {
         }
     }
 
-    public static void isNotReadOnly(Thread thread) throws KalipoException {
-        if (thread.getReadOnly()) {
-            throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "thread is readonly");
+    public static void isNotLocked(Thread thread) throws KalipoException {
+        if (Thread.Status.LOCKED == thread.getStatus()) {
+            throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "thread is locked");
         }
     }
 

@@ -39,19 +39,23 @@ public class ThreadAgent {
     public void updateThreadStats() {
 
         Sort sort = new Sort(Sort.Direction.ASC, "lastModifiedDate");
-        PageRequest request = new PageRequest(0, 10, sort);
+        PageRequest pageable = new PageRequest(0, 10, sort);
 
-        List<Thread> threads = threadRepository.findByStatusAndReadOnly(Thread.Status.OPEN, false, request);
+        List<Thread> threads = threadRepository.findByStatus(Thread.Status.OPEN, pageable);
         for (Thread thread : threads) {
             log.debug("Updating stats of thread {}", thread.getId());
 
-            thread.setLikes(voteRepository.countLikesOfThread(thread.getId()));
+            Integer likes = voteRepository.countLikesOfThread(thread.getId());
+            thread.setLikes(likes);
             thread.setCommentCount(commentRepository.countApprovedInThread(thread.getId()));
             thread.setPendingCount(commentRepository.countPendingInThread(thread.getId()));
             thread.setLastModifiedDate(DateTime.now());
 
-            // todo calc score
-//          todo likes, unique authors, views
+//          todo unique authors, views
+
+            long passedSeconds = (DateTime.now().getMillis() - thread.getCreatedDate().getMillis()) / 1000000;
+
+            thread.setScore(likes == 0 || passedSeconds == 0 ? 0 : likes / passedSeconds);
 
             threadRepository.save(thread);
         }
