@@ -51,22 +51,11 @@ public class Thread implements Serializable {
     private String displayName;
 
     /**
-     * Bans on username level
-     * Similar to IRC K-line see https://en.wikipedia.org/wiki/IRCd#K-line
-     */
-    private Set<String> bans = new HashSet<String>();
-
-    /**
      * todo should be done on page level
      * Bans on IP range level
      * Similar to IRC Z-line see https://en.wikipedia.org/wiki/IRCd#Z-line
      */
 //    private Set<String> zLine = new HashSet<String>();
-
-    /**
-     * Threads must reach 5 or more authors within 48h to avoid deletion (this can be seen as a garbage collection)
-     */
-    private DateTime uglyDucklingSurvivalEndDate;
 
     /**
      * Sum of all comment likes in discussion
@@ -85,11 +74,17 @@ public class Thread implements Serializable {
     private Integer reputationChallenge = 0;
 
     /**
+     * score represents the current hotness
+     */
+    private double score;
+
+    /**
      * Disable comments
      */
     @Field("read_only")
     private Boolean readOnly = false;
 
+    @JsonIgnore
     private Status status;
 
     @NotNull
@@ -108,6 +103,14 @@ public class Thread implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
     }
 
     public String getSiteId() {
@@ -198,16 +201,6 @@ public class Thread implements Serializable {
         this.body = body;
     }
 
-    @Deprecated
-    public Set<String> getBans() {
-        return bans;
-    }
-
-    @Deprecated
-    public void setBans(Set<String> bans) {
-        this.bans = bans;
-    }
-
     public String getLink() {
         return link;
     }
@@ -222,14 +215,6 @@ public class Thread implements Serializable {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
-    }
-
-    public DateTime getUglyDucklingSurvivalEndDate() {
-        return uglyDucklingSurvivalEndDate;
-    }
-
-    public void setUglyDucklingSurvivalEndDate(DateTime uglyDucklingSurvivalEndDate) {
-        this.uglyDucklingSurvivalEndDate = uglyDucklingSurvivalEndDate;
     }
 
     public String getInitiatorId() {

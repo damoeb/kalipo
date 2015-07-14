@@ -50,6 +50,7 @@ public class ThreadAgent {
             thread.setPendingCount(commentRepository.countPendingInThread(thread.getId()));
             thread.setLastModifiedDate(DateTime.now());
 
+            // todo calc score
 //          todo likes, unique authors, views
 
             threadRepository.save(thread);

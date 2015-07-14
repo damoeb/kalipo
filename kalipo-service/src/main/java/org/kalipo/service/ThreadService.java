@@ -93,9 +93,6 @@ public class ThreadService {
             Asserts.isTrue(siteRepository.exists(thread.getSiteId()), "siteId");
         }
 
-        // todo implement + get 48h from properties
-        thread.setUglyDucklingSurvivalEndDate(DateTime.now().plusHours(48));
-
         final String currentLogin = SecurityUtils.getCurrentLogin();
         thread.setInitiatorId(currentLogin);
 
@@ -132,7 +129,6 @@ public class ThreadService {
         Asserts.nullOrEqual(dirty.getLikes(), original.getLikes(), "likes");
         Asserts.nullOrEqual(dirty.getDislikes(), original.getDislikes(), "dislikes");
         Asserts.nullOrEqual(dirty.getInitiatorId(), original.getInitiatorId(), "initiatorId");
-        Asserts.nullOrEqual(dirty.getUglyDucklingSurvivalEndDate(), original.getUglyDucklingSurvivalEndDate(), "uglyDucklingSurvivalEndDate");
 
         // update fields
 
