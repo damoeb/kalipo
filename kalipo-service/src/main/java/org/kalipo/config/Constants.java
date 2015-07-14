@@ -11,7 +11,7 @@ public final class Constants {
     public static final String PARAM_SORT_ORDER = "sortOrder";
     public static final int LIM_MAX_LEN_TEXT = 4092;
     public static final int LIM_MAX_LEN_URL = 400;
-    public static final int LIM_MAX_LEN_DISPLAYNAME = 30;
+    public static final int LIM_MAX_LEN_DISPLAYNAME = 50;
 
     private Constants() {
     }

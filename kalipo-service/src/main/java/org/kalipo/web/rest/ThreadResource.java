@@ -19,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.validation.constraints.NotNull;
 import javax.ws.rs.QueryParam;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
@@ -45,31 +44,14 @@ public class ThreadResource {
     @Timed
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create a new thread")
-    public Thread create(@NotNull @RequestBody Thread thread) throws KalipoException {
+    public Thread create(@RequestBody Thread thread) throws KalipoException {
         log.debug("REST request to save Thread : {}", thread);
 
-        return threadService.create(thread);
-    }
-
-    /**
-     * PUT  /rest/threads/{id} -> Update existing thread.
-     */
-    @RequestMapping(value = "/threads/{id}",
-        method = RequestMethod.PUT,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    @ApiOperation(value = "Update existing thread")
-    @ApiResponses(value = {
-        @ApiResponse(code = 400, message = "Invalid ID supplied"),
-        @ApiResponse(code = 404, message = "Thread not found")
-    })
-    public Thread update(@PathVariable String id, @NotNull @RequestBody Thread thread) throws KalipoException {
-        log.debug("REST request to update Thread : {}", thread);
-
-        Asserts.isNotNull(id, "id");
-
-        thread.setId(id);
-        return threadService.update(thread);
+        if (thread.getId() == null) {
+            return threadService.create(thread);
+        } else {
+            return threadService.update(thread);
+        }
     }
 
     /**
@@ -144,8 +126,6 @@ public class ThreadResource {
 
         log.debug("REST request to get Comments of Thread : {}", id);
         Asserts.isNotNull(id, "id");
-
-        // todo methode fuer comments from {id}
 
         return Optional.ofNullable(threadService.getCommentsWithPages(id, ParamUtils.fixPage(page)).get())
             .map(comments -> new ResponseEntity<>(

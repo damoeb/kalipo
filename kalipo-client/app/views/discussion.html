@@ -7,22 +7,28 @@
 
             <div class="panel-body">
 
-                <!--<div style="float: left">-->
-                <h3 style="display: inline;">
-                    {{ ::thread.title}}
-                </h3>
+                <div ng-if="thread.link">
+                    <h4 style="display: inline;">
+                        <a href="{{ ::thread.link}}">{{ ::thread.title}}</a>
+                    </h4>
+                    [{{ ::thread.domain}}]
+                </div>
+                <div ng-if="!thread.link">
+                    <h4>
+                        {{ ::thread.title}}
+                    </h4>
+                </div>
+
                 <p>
-                    by {{::thread.displayName}}, {{ thread.createdDate | dateString}} ({{ thread.createdDate | fromNow}})
+                    submitted {{ thread.createdDate | fromNow}} by {{::thread.displayName}}
+                    <span ng-if="authenticated">
+                        [<a href="#/comments/{{$threadId}}/edit">Edit</a>]
+                    </span>
                 </p>
 
-                <!--<a href="javascript:void(0)" ng-click="$viewMode = !$viewMode">-->
-                    <!--<span ng-if="!$viewMode" class="glyphicon glyphicon-pencil"></span>-->
-                    <!--<span ng-if="$viewMode">Back to View</span>-->
-                <!--</a>-->
-
-                <p>
-                    {{::thread.body}}
-                </p>
+                <div ng-if="thread.bodyHtml">
+                    {{::thread.bodyHtml}}
+                </div>
 
             </div>
 
@@ -31,8 +37,14 @@
         <div ng-include="'views/modal_reply.html'"></div>
         <div ng-include="'views/modal_report.html'"></div>
 
-        <div class="panel panel-default">
+        <div class="alert alert-danger" ng-if="thread.status == 'LOCKED'">
+            This discussion is <strong>temporarily locked</strong>. Currently, you cannot post new comments.
+        </div>
+        <div class="alert alert-danger" ng-if="thread.status == 'CLOSED'">
+            This discussion is <strong>closed</strong>.
+        </div>
 
+        <div class="panel panel-default">
             <div class="panel-body">
 
                 <div ng-include="'create_comment.template'"></div>

@@ -81,7 +81,7 @@ public class MarkupService {
      * @return
      * @throws URISyntaxException
      */
-    private URI resolveRedirects(String url) throws URISyntaxException {
+    public URI resolveRedirects(String url) throws URISyntaxException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
             HttpGet request = new HttpGet(url);

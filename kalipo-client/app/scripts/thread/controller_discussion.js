@@ -122,9 +122,9 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
         $location.hash(old);
     };
 
-    $scope.updateThread = function () {
+    $scope.updateThread = function (thread) {
 
-        Thread.update($scope.thread, function () {
+        Thread.save(thread, function () {
             Notifications.info('Updated');
         });
     };

@@ -8,7 +8,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -81,7 +80,6 @@ public class Thread implements Serializable {
      */
     private double score;
 
-    @JsonIgnore
     private Status status;
 
     @NotNull(message = "{constraint.notnull.body}")
@@ -92,6 +90,8 @@ public class Thread implements Serializable {
 
     @Size(max = Constants.LIM_MAX_LEN_URL, message = "{constraint.length.link}")
     private String link;
+
+    private String domain;
 
     @NotNull
     private String siteId;
@@ -238,6 +238,14 @@ public class Thread implements Serializable {
 
     public void setReputationChallenge(Integer reputationChallenge) {
         this.reputationChallenge = reputationChallenge;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
     /**

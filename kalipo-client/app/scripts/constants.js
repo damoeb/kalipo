@@ -35,19 +35,7 @@ kalipoApp.constant('COMMENT_STATUS', {
     APPROVED:'APPROVED', PENDING:'PENDING', SPAM:'SPAM', REJECTED:'REJECTED', DELETED:'DELETED'
 });
 
-kalipoApp.constant('THREAD_STATUS', [
-    {
-        id: 'OPEN',
-        name: 'OPEN'
-    },
-    {
-        id: 'LOCKED',
-        name: 'LOCKED'
-    },
-    {
-        id: 'CLOSED',
-        name: 'CLOSED'
-    }
+kalipoApp.constant('THREAD_STATUS', ['OPEN','LOCKED','CLOSED'
 ]);
 
 kalipoApp.constant('REPORT_STATUS', {

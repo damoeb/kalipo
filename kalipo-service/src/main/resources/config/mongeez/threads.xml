@@ -5,6 +5,7 @@
             {
             "_id" : ObjectId("5484cc19c832000009108573"),
             "link" : "http://derstandard.at/2000009108573",
+            "domain" : "derstandard.at",
             "title" : "WAC und Rapid stolpern übereinander",
             "createdDate" : new Date(),
             "commentCount" : 1,
@@ -13,11 +14,10 @@
             "viewing" : 0,
             "initiatorId" : "admin",
             "displayName" : "Fitzefatze",
-            "authors" : [],
             "body" : "Rapid kann in Wolfsberg einfach nicht gewinnen. Die Hütteldorfer trennten sich am Sonntag zum Abschluss der 18. Runde sowie der Hinrunde der Fußball-Bundesliga vom WAC 1:1 (0:0). Die Kärntner sind damit schon sieben Runden sieglos, liegen aber nach wie vor auf Rang zwei.",
+            "bodyHtml" : "Rapid kann in Wolfsberg einfach nicht gewinnen. Die Hütteldorfer trennten sich am Sonntag zum Abschluss der 18. Runde sowie der Hinrunde der Fußball-Bundesliga vom WAC 1:1 (0:0). Die Kärntner sind damit schon sieben Runden sieglos, liegen aber nach wie vor auf Rang zwei.",
             "likes" : 0,
             "dislikes" : 0,
-            "read_only" : false,
             "status" : "OPEN"
             }
             );

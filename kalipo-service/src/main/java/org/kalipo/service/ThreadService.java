@@ -1,7 +1,6 @@
 package org.kalipo.service;
 
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.RateLimit;
 import org.kalipo.config.Constants;
@@ -29,6 +28,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -69,6 +70,9 @@ public class ThreadService {
 
     @Inject
     private NotificationService notificationService;
+
+    @Inject
+    private MarkupService markupService;
 
     @RolesAllowed(Privileges.CREATE_THREAD)
     @RateLimit
@@ -219,6 +223,17 @@ public class ThreadService {
     private Thread save(Thread thread) throws KalipoException {
 
         renderBody(thread);
+
+        if (StringUtils.isNotBlank(thread.getLink())) {
+            try {
+                URI uri = markupService.resolveRedirects(thread.getLink());
+                thread.setLink(uri.toASCIIString());
+                thread.setDomain(uri.getHost());
+
+            } catch (URISyntaxException e) {
+                throw new KalipoException(ErrorCode.INVALID_PARAMETER, "link is invalid");
+            }
+        }
 
         // url hooks validation
         if (thread.getUriHooks() != null && !thread.getUriHooks().isEmpty()) {
