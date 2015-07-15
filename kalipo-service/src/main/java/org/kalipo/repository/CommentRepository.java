@@ -51,6 +51,4 @@ public interface CommentRepository extends MongoRepository<Comment, String> {
     List<Comment> findByThreadId(String threadId, Sort sort);
 
     Set<Comment> findByParentId(String id);
-
-    List<Comment> findByStatusAndThreadId(Comment.Status pending, String id);
 }

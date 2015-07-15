@@ -3,8 +3,10 @@ package org.kalipo.agent;
 import org.apache.commons.lang.BooleanUtils;
 import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
-import org.kalipo.domain.*;
+import org.kalipo.domain.Comment;
+import org.kalipo.domain.Site;
 import org.kalipo.domain.Thread;
+import org.kalipo.domain.User;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.SiteRepository;
 import org.kalipo.repository.ThreadRepository;
@@ -14,6 +16,7 @@ import org.kalipo.service.util.BroadcastUtils;
 import org.kalipo.service.util.NumUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -50,47 +53,44 @@ public class CommentAgent {
     @Inject
     private NotificationService notificationService;
 
-    @Scheduled(fixedDelay = 20000)
+    @Scheduled(fixedDelay = 2000)
     public void setStatusAndQuality() {
 
         try {
-            final PageRequest request = new PageRequest(0, 10);
+            final PageRequest pageable = new PageRequest(0, 50);
 
-            List<Thread> threads = threadRepository.findByStatus(Thread.Status.OPEN, request);
+            // todo create SVM with all approved comments
 
-            for (Thread thread : threads) {
+            Page<Comment> listWithNoneStatus = commentRepository.findByStatus(Comment.Status.NONE, pageable);
 
-                // todo create SVM with all approved comments
+            if (listWithNoneStatus.hasContent()) {
 
-                List<Comment> listWithNoneStatus = commentRepository.findByStatusAndThreadId(Comment.Status.NONE, thread.getId());
-
-                Site site = siteRepository.findOne(thread.getSiteId());
-
-                if (!listWithNoneStatus.isEmpty()) {
-
-                    /*
-                     todo difference between quality and influence?
-                     quality: quality of comment refrlecting author and
-                    */
+                /*
+                 todo difference between quality and influence?
+                 quality: quality of comment refrlecting author and
+                */
 
 //                    todo use SVM of R to classify spam
 //                    List<Comment> approved = commentRepository.findByStatusAndThreadId(Comment.Status.APPROVED, thread.getId());
 
-                    for (Comment comment : listWithNoneStatus) {
+                for (Comment comment : listWithNoneStatus) {
 
-                        final String authorId = comment.getAuthorId();
-                        final boolean isSuperMod = userService.isSuperMod(authorId);
+                    Thread thread = threadRepository.findOne(comment.getThreadId());
+                    Site site = siteRepository.findOne(thread.getSiteId());
 
-                        final boolean isMod = site.getModeratorIds().contains(authorId);
+                    final String authorId = comment.getAuthorId();
+                    final boolean isSuperMod = userService.isSuperMod(authorId);
 
-                        User author = userService.findOne(authorId);
+                    final boolean isMod = site.getModeratorIds().contains(authorId);
 
-                        double innovative = 1d; // todo compare to other approved comments in this thread using SVM
+                    User author = userService.findOne(authorId);
+
+                    double innovative = 1d; // todo compare to other approved comments in this thread using SVM
 //                        double spam = 0d;
-                        double quality = author.getTrustworthiness();
+                    double quality = author.getTrustworthiness();
 
-                        // todo map quality in [0..1]
-                        comment.setQuality(quality);
+                    // todo map quality in [0..1]
+                    comment.setQuality(quality);
 
 //                        if (spam > 0.8d) {
 ////                            comment.setStatus(Comment.Status.SPAM);
@@ -98,47 +98,46 @@ public class CommentAgent {
 //
 //                        } else {
 
-                        if (isMod || isSuperMod) {
-                            comment.setStatus(Comment.Status.APPROVED);
+                    if (isMod || isSuperMod) {
+                        comment.setStatus(Comment.Status.APPROVED);
 
-                            BroadcastUtils.broadcast(BroadcastUtils.Type.COMMENT, comment);
+                        BroadcastUtils.broadcast(BroadcastUtils.Type.COMMENT, comment);
 
-                            onApproval(comment);
+                        onApproval(comment);
 
-                            log.info(String.format("Auto-approved comment %s cause author is mod", comment.getId()));
+                        log.info(String.format("Auto-approved comment %s cause author is mod", comment.getId()));
 
-                        } else if (quality > 0.5) {
-                            Comment.Status status;
-                            if (excessiveUpperCase(comment)) {
-                                status = Comment.Status.REJECTED;
-                                comment.setReviewMsg("Excessive upper-case usage");
-                                log.info(String.format("Auto-rejected comment %s, due to excessive uppercase usage", comment.getId()));
-                                notificationService.announceCommentRejected(comment);
+                    } else if (quality > 0.5) {
+                        Comment.Status status;
+                        if (excessiveUpperCase(comment)) {
+                            status = Comment.Status.REJECTED;
+                            comment.setReviewMsg("Excessive upper-case usage");
+                            log.info(String.format("Auto-rejected comment %s, due to excessive uppercase usage", comment.getId()));
+                            notificationService.announceCommentRejected(comment);
 
-                            } else if (excessiveSpecialChars(comment)) {
-                                status = Comment.Status.REJECTED;
-                                comment.setReviewMsg("Excessive special-char usage");
-                                log.info(String.format("Auto-rejected comment %s, due to excessive special chars usage", comment.getId()));
-                                notificationService.announceCommentRejected(comment);
-
-                            } else {
-                                status = Comment.Status.APPROVED;
-                                onApproval(comment);
-                                log.info(String.format("Auto-approved comment %s, due to good quality %s", comment.getId(), quality));
-                            }
-
-                            comment.setStatus(status);
+                        } else if (excessiveSpecialChars(comment)) {
+                            status = Comment.Status.REJECTED;
+                            comment.setReviewMsg("Excessive special-char usage");
+                            log.info(String.format("Auto-rejected comment %s, due to excessive special chars usage", comment.getId()));
+                            notificationService.announceCommentRejected(comment);
 
                         } else {
-                            comment.setStatus(Comment.Status.PENDING);
-                            log.info(String.format("Pending comment %s (q:%s)", comment.getId(), quality));
-
-                            notificationService.announcePendingComment(thread, comment);
+                            status = Comment.Status.APPROVED;
+                            onApproval(comment);
+                            log.info(String.format("Auto-approved comment %s, due to good quality %s", comment.getId(), quality));
                         }
-                    }
 
-                    commentRepository.save(listWithNoneStatus);
+                        comment.setStatus(status);
+
+                    } else {
+                        comment.setStatus(Comment.Status.PENDING);
+                        log.info(String.format("Pending comment %s (q:%s)", comment.getId(), quality));
+
+                        notificationService.announcePendingComment(thread, comment);
+                    }
                 }
+
+                commentRepository.save(listWithNoneStatus);
             }
 
         } catch (Exception e) {
