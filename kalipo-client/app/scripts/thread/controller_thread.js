@@ -16,7 +16,7 @@ kalipoApp.controller('ThreadController',
 
         // --
 
-        $scope.showReplyModal = function (commentId, quote) {
+        $scope.showReplyModal = function (commentId) {
 
             console.log('reply modal', commentId);
 

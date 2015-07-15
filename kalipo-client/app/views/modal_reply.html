@@ -21,14 +21,24 @@
                                   ng-minlength=2 ng-maxlength=1024 rows="10"
                                   required></textarea>
                     </div>
-                    <div>
-                     <!--todo create a dropdown to choose identities -->
-                        Comment as
-                        <select ng-model="draft.anonymous">
-                            <option value="true">Anonymous</option>
-                            <option value="false">{{displayName}}</option>
-                        </select>
-                    </div>
+
+                    <!--<div>-->
+                    <!--<input-->
+                    <!--id="as-anonymous"-->
+                    <!--type="checkbox"-->
+                    <!--ng-model="draft.anonymous"-->
+                    <!--name="anonymous"-->
+                    <!--ng-true-value="true"-->
+                    <!--ng-false-value="false"-->
+                    <!-- > -->
+                    <!--<label for="as-anonymous">Post as anonymous</label>-->
+
+                    <!--Comment as-->
+                    <!--<select ng-model="draft.anonymous">-->
+                    <!--<option value="true">Anonymous</option>-->
+                    <!--<option value="false">{{displayName}}</option>-->
+                    <!--</select>-->
+                    <!--</div>-->
 
                 </div>
                 <div class="modal-footer">

@@ -54,14 +54,14 @@
                 <div class="row form-group">
                     <div class="col-md-3">Reputation Challenge</div>
                     <div class="col-md-9">
-                        <input name="title" class="form-control" ng-model="thread.reputationChallenge"
+                        <input name="reputationChallenge" class="form-control" ng-model="thread.reputationChallenge"
                                placeholder="0" required ng-minlength="0"
                                ng-maxlength="4">
                         <!-- todo query how many users achieve it -->
 
                         <div class="error-container"
-                             ng-show="form.body.$dirty && form.body.$invalid">
-                            This challenge is too high, nobody will achieve it.
+                             ng-show="form.reputationChallenge.$dirty && form.reputationChallenge.$invalid">
+                            <small>This challenge is too high, nobody will achieve it.</small>
                         </div>
                     </div>
                 </div>
