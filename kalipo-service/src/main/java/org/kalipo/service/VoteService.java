@@ -92,7 +92,7 @@ public class VoteService {
         if (vote.isLike()) {
             log.info(String.format("User '%s' likes comment %s", SecurityUtils.getCurrentLogin(), comment.getId()));
             comment.setLikes(NumUtils.nullToZero(comment.getLikes()) + 1);
-            notificationService.notifyAsync(comment.getAuthorId(), currentLogin, Notification.Type.LIKE, comment.getId());
+            notificationService.announceCommentLiked(comment);
         } else {
             log.info(String.format("User '%s' dislikes comment %s", SecurityUtils.getCurrentLogin(), comment.getId()));
             comment.setDislikes(NumUtils.nullToZero(comment.getDislikes()) + 1);

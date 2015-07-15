@@ -1,11 +1,13 @@
 package org.kalipo.domain;
 
 import org.joda.time.DateTime;
+import org.kalipo.config.Constants;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -21,6 +23,7 @@ public class Ban implements Serializable {
      *
      */
     @NotNull
+    @Size(min = 0, max = Constants.LIM_MAX_LEN_USERID)
     private String userId;
 
     @NotNull

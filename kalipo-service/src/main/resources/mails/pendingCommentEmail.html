@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{email.activation.title}">Pending Comment</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<p>
+    <a th:href="@{|${baseUrl}/#/activate?key=${user.activationKey}|}"
+       th:text="|${user.login}|">Approve</a>
+    or
+    <a th:href="@{|${baseUrl}/#/activate?key=${user.activationKey}|}"
+       th:text="|${user.login}|">Reject</a>
+</p>
+</body>
+</html>

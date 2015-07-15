@@ -13,10 +13,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.IContext;
+import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import javax.inject.Inject;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,6 +46,12 @@ public class NotificationService {
 
     @Inject
     private UserRepository userRepository;
+
+    @Inject
+    private MailService mailService;
+
+    @Inject
+    private SpringTemplateEngine templateEngine;
 
     public Page<Notification> findByUserWithPages(final String userId, final int pageNumber) throws KalipoException {
         Asserts.isNotNull(userId, "userId");
@@ -94,13 +101,13 @@ public class NotificationService {
     }
 
     @Async
-    public void notifyAsync(String recipientId, String initiatorId, Notification.Type type, String commentId, String message) {
+    public void notifyAsync(String recipientId, String initiatorId, Notification.Type type, String commentId) {
         try {
             Asserts.isNotNull(recipientId, "recipientId");
             Asserts.isNotNull(type, "type");
             Asserts.isNotNull(commentId, "commentId");
 
-            sendNotice(recipientId, initiatorId, type, commentId, message);
+            sendNotice(recipientId, initiatorId, type, commentId, null);
 
         } catch (Exception e) {
             log.error(String.format("Unable to notify %s with %s of %s. Reason: %s", recipientId, type, commentId, e.getMessage()));
@@ -108,34 +115,16 @@ public class NotificationService {
     }
 
     @Async
-    public void notifyAsync(String recipientId, String initiatorId, Notification.Type type, String commentId) {
-        notifyAsync(recipientId, initiatorId, type, commentId, null);
-    }
-
-    @Async
     public void notifySuperModsOfFraudulentComment(Comment comment, String initiatorId) {
         try {
-            Asserts.isNotNull(comment, "comment");
-            userRepository.findSuperMods().forEach(user -> sendNotice(user.getLogin(), initiatorId, Notification.Type.REPORT, comment.getId()));
+            // todo impl
         } catch (Exception e) {
             log.error(String.format("Unable to notify superMods of fraud-comment %s. Reason: %s", comment, e.getMessage()));
         }
     }
 
     @Async
-    public void notifySuperModsOfFraudulentUser(User user, String initiatorId) {
-        try {
-
-            Asserts.isNotNull(user, "user");
-            userRepository.findSuperMods().forEach(mod -> sendNotice(mod.getLogin(), initiatorId, Notification.Type.FRAUDULENT_USER, user.getLogin()));
-
-        } catch (Exception e) {
-            log.error(String.format("Unable to notify superMods of fraud-user %s. Reason: %s", user, e.getMessage()));
-        }
-    }
-
-    @Async
-    public void notifyModsOfReport(String threadId, Report report, String initiatorId) {
+    public void announcePendingReport(String threadId, Report report) {
         try {
             Asserts.isNotNull(threadId, "threadId");
             Asserts.isNotNull(report, "report");
@@ -144,8 +133,15 @@ public class NotificationService {
             Asserts.isNotNull(thread, "threadId");
 
             Site site = siteRepository.findOne(thread.getSiteId());
-            // todo send mail
-            site.getModeratorIds().forEach(modId -> sendNotice(modId, initiatorId, Notification.Type.REPORT, report.getCommentId()));
+
+            Locale locale = Locale.ENGLISH;
+            String content = createPendingReportEmailFromTemplate(report, locale);
+            String subject = String.format("Pending Report in '%s'", thread.getTitle());
+
+            for(String modId : site.getModeratorIds()) {
+                User mod = userRepository.findOne(modId);
+                mailService.sendEmail(mod.getEmail(), subject, content, false, true);
+            }
 
         } catch (Exception e) {
             log.error(String.format("Unable to notify mods of thread %s with report %s. Reason: %s", threadId, report, e.getMessage()));
@@ -153,18 +149,55 @@ public class NotificationService {
     }
 
     @Async
-    public void notifyModsOfPendingComment(Thread thread, Comment comment, String initiatorId) {
+    public void announcePendingComment(Thread thread, Comment comment) {
         try {
             Asserts.isNotNull(thread, "thread");
             Asserts.isNotNull(comment, "comment");
 
             Site site = siteRepository.findOne(thread.getSiteId());
-            // todo send mail
-            site.getModeratorIds().forEach(modId -> sendNotice(modId, initiatorId, Notification.Type.REVIEW, comment.getId()));
+            Locale locale = Locale.ENGLISH;
+
+            String content = createPendingCommentEmailFromTemplate(comment, locale);
+            String subject = String.format("Pending Comment in '%s'", thread.getTitle());
+
+            for(String modId : site.getModeratorIds()) {
+                User mod = userRepository.findOne(modId);
+                mailService.sendEmail(mod.getEmail(), subject, content, false, true);
+            }
 
         } catch (Exception e) {
             log.error(String.format("Unable to notify mods (thread %s) of comment %s. Reason: %s", thread, comment, e.getMessage()));
         }
+    }
+
+    @Async
+    public void announceCommentRejected(Comment comment) {
+
+    }
+
+    @Async
+    public void announceBan(String userId, String initiatorId) {
+
+    }
+
+    @Async
+    public void announceCommentDeleted(Comment comment) {
+
+    }
+
+    @Async
+    public void announceReportRejected(Report report) {
+
+    }
+
+    @Async
+    public void announceReportApproved(Report report) {
+
+    }
+
+    @Async
+    public void announceCommentLiked(Comment comment) {
+
     }
 
     // --
@@ -185,5 +218,19 @@ public class NotificationService {
 
     private void sendNotice(String recipientId, String initiatorId, Notification.Type type, String resourceId) {
         sendNotice(recipientId, initiatorId, type, resourceId, null);
+    }
+
+    private String createPendingReportEmailFromTemplate(final Report user, Locale locale) {
+        Map<String, Object> variables = new HashMap<>();
+//        variables.put("user", user);
+        IContext context = new org.thymeleaf.context.Context(locale, variables);
+        return templateEngine.process("pendingReportEmail", context);
+    }
+
+    private String createPendingCommentEmailFromTemplate(final Comment comment, Locale locale) {
+        Map<String, Object> variables = new HashMap<>();
+//        variables.put("user", user);
+        IContext context = new org.thymeleaf.context.Context(locale, variables);
+        return templateEngine.process("pendingCommentEmail", context);
     }
 }

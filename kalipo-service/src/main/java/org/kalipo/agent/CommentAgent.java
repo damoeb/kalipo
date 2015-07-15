@@ -98,8 +98,6 @@ public class CommentAgent {
 //
 //                        } else {
 
-                        Notification.Type type = Notification.Type.APPROVAL;
-
                         if (isMod || isSuperMod) {
                             comment.setStatus(Comment.Status.APPROVED);
 
@@ -112,16 +110,16 @@ public class CommentAgent {
                         } else if (quality > 0.5) {
                             Comment.Status status;
                             if (excessiveUpperCase(comment)) {
-                                type = Notification.Type.REJECTED;
                                 status = Comment.Status.REJECTED;
                                 comment.setReviewMsg("Excessive upper-case usage");
                                 log.info(String.format("Auto-rejected comment %s, due to excessive uppercase usage", comment.getId()));
+                                notificationService.announceCommentRejected(comment);
 
                             } else if (excessiveSpecialChars(comment)) {
-                                type = Notification.Type.REJECTED;
                                 status = Comment.Status.REJECTED;
                                 comment.setReviewMsg("Excessive special-char usage");
                                 log.info(String.format("Auto-rejected comment %s, due to excessive special chars usage", comment.getId()));
+                                notificationService.announceCommentRejected(comment);
 
                             } else {
                                 status = Comment.Status.APPROVED;
@@ -131,13 +129,11 @@ public class CommentAgent {
 
                             comment.setStatus(status);
 
-                            notificationService.notifyAsync(comment.getAuthorId(), "admin", type, comment.getId());
-
                         } else {
                             comment.setStatus(Comment.Status.PENDING);
                             log.info(String.format("Pending comment %s (q:%s)", comment.getId(), quality));
 
-                            notificationService.notifyModsOfPendingComment(thread, comment, authorId);
+                            notificationService.announcePendingComment(thread, comment);
                         }
                     }
 

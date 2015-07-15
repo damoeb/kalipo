@@ -37,7 +37,7 @@ authentication:
 swagger:
     title: kalipo API
     description: kalipo applications and beyond!
-    termsOfServiceUrl: http://jhipster.github.io/
+    termsOfServiceUrl:
     contact:
     license: Apache 2.0
     licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.html

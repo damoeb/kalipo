@@ -1,5 +1,5 @@
 <mongoChangeLog>
-    <changeSet changeId="ChangeSet-authorities" author="jhipster">
+    <changeSet changeId="ChangeSet-authorities" author="damoeb">
         <script>
             db.T_AUTHORITY.insert({"_id" : "ROLE_ADMIN"});
             db.T_AUTHORITY.insert({"_id" : "ROLE_SUPER_MOD"});

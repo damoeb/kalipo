@@ -8,6 +8,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.client.RedirectLocations;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+import org.kalipo.domain.Markup;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.slf4j.Logger;
@@ -38,19 +39,20 @@ public class MarkupService {
      * @param plainText
      * @return the HTML markup
      */
-    public String toHtml(String plainText) {
+    public Markup toHtml(String plainText) {
 
-        StringBuffer htmlBuffer = new StringBuffer(plainText);
+        Markup markup = new Markup(plainText);
 
-        renderQuotes(htmlBuffer);
-        renderLinks(htmlBuffer);
-        renderHashtags(htmlBuffer);
+        renderQuotes(markup);
+        renderLinks(markup);
+        renderHashtags(markup);
 
-        return htmlBuffer.toString();
+        return markup;
     }
 
-    private void renderLinks(StringBuffer htmlBuffer) {
+    private void renderLinks(Markup markup) {
 
+        StringBuffer htmlBuffer = markup.buffer();
         Matcher matcher = REGEX_LINK.matcher(htmlBuffer);
         while (matcher.find()) {
 
@@ -58,6 +60,8 @@ public class MarkupService {
             final String url = matcher.group().trim();
             try {
                 final URI targetUri = resolveRedirects(url);
+
+                markup.uris().add(targetUri);
 
                 if (SecurityUtils.hasPrivilege(Privileges.CREATE_COMMENT_WITH_LINK)) {
                     replacement = createHref(targetUri);
@@ -119,29 +123,31 @@ public class MarkupService {
         return String.format("<a href=\"%s\">%s</a> [%s]", asciiUrl, label, targetUri.getHost());
     }
 
-    private void renderHashtags(StringBuffer htmlBuffer) {
+    private void renderHashtags(Markup markup) {
 
-        Matcher matcher = REGEX_HASHTAG.matcher(htmlBuffer);
+        Matcher matcher = REGEX_HASHTAG.matcher(markup.buffer());
 
         while (matcher.find()) {
-            String replacement = createHashtag(matcher.group(1).trim());
-            htmlBuffer.replace(matcher.start(), matcher.end(), replacement);
-            matcher.region(matcher.start() + replacement.length(), htmlBuffer.length());
+            String label = matcher.group(1).trim();
+            markup.hashtags().add(label);
+            String replacement = createHashtagLink(label);
+            markup.buffer().replace(matcher.start(), matcher.end(), replacement);
+            matcher.region(matcher.start() + replacement.length(), markup.buffer().length());
         }
     }
 
-    private String createHashtag(String hashtag) {
+    private String createHashtagLink(String hashtag) {
         return String.format("<a href=\"/#/tag/%1$s\">#%1$s</a>", hashtag);
     }
 
-    private void renderQuotes(StringBuffer htmlBuffer) {
+    private void renderQuotes(Markup markup) {
 
-        Matcher matcher = REGEX_QUOTE.matcher(htmlBuffer);
+        Matcher matcher = REGEX_QUOTE.matcher(markup.buffer());
 
         while (matcher.find()) {
             String replacement = createQuote(matcher.group(1).trim());
-            htmlBuffer.replace(matcher.start(), matcher.end(), replacement);
-            matcher.region(matcher.start() + replacement.length(), htmlBuffer.length());
+            markup.buffer().replace(matcher.start(), matcher.end(), replacement);
+            matcher.region(matcher.start() + replacement.length(), markup.buffer().length());
         }
     }
 

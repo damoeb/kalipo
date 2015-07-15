@@ -7,9 +7,7 @@ import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.RateLimit;
 import org.kalipo.config.Constants;
 import org.kalipo.config.ErrorCode;
-import org.kalipo.domain.Comment;
-import org.kalipo.domain.Notification;
-import org.kalipo.domain.Site;
+import org.kalipo.domain.*;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.SiteRepository;
@@ -163,7 +161,6 @@ public class CommentService {
         comment = commentRepository.save(comment);
 
         notificationService.notifyMentionedUsers(comment, currentLogin);
-        notificationService.notifyAsync(comment.getAuthorId(), currentLogin, Notification.Type.APPROVAL, comment.getId());
 
         return comment;
     }
@@ -283,7 +280,7 @@ public class CommentService {
             // todo distinguish report approval vs pending (=learning) -> notification
             reputationModifierService.onCommentDeletion(comment);
             // todo notification will encourage trolls?
-            notificationService.notifyAsync(comment.getAuthorId(), currentLogin, Notification.Type.DELETION, comment.getId());
+            notificationService.announceCommentDeleted(comment);
         } else {
             log.info(String.format("Comment owner '%s' deletes comment %s", currentLogin, comment.getId()));
         }
@@ -388,7 +385,11 @@ public class CommentService {
         dirty.setAuthorId(currentLogin);
         dirty.setFingerprint(getFingerprint(parent, thread));
 
-        dirty.setBodyHtml(markupService.toHtml(dirty.getBody()));
+        Markup markup = markupService.toHtml(dirty.getBody());
+        dirty.setBodyHtml(markup.buffer().toString());
+
+//        todo record hashtag usage
+//        markup.hashtags().forEach();
 
         dirty.setStatus(Comment.Status.NONE);
         log.info(String.format("User '%s' creates comment %s", currentLogin, dirty.toString()));

@@ -121,9 +121,8 @@ public class ReportService {
         Integer reportedCount = NumUtils.nullToZero(comment.getReportedCount()) + 1;
         comment.setReportedCount(reportedCount);
 
-        // todo async
         if (reportedCount == 1) {
-            notificationService.notifyModsOfReport(comment.getThreadId(), report, author);
+            notificationService.announcePendingReport(comment.getThreadId(), report);
         }
         if (reportedCount == CRITICAL_REPORT_COUNT) {
             log.info(String.format("Hiding comment %s after %s reports", comment.getId(), CRITICAL_REPORT_COUNT));
@@ -138,13 +137,13 @@ public class ReportService {
     @RolesAllowed(Privileges.CLOSE_REPORT)
     @RateLimit
     public void approve(String id) throws KalipoException {
-        approveOrReject(getPendingReport(id).setStatus(Report.Status.APPROVED));
+        approveOrRejectReport(getPendingReport(id).setStatus(Report.Status.APPROVED));
     }
 
     @RolesAllowed(Privileges.CLOSE_REPORT)
     @RateLimit
     public void reject(String id) throws KalipoException {
-        approveOrReject(getPendingReport(id).setStatus(Report.Status.REJECTED));
+        approveOrRejectReport(getPendingReport(id).setStatus(Report.Status.REJECTED));
     }
 
     // todo add RolesAllowed
@@ -176,7 +175,7 @@ public class ReportService {
     // --
 
     // todo delete replaces reject
-    private void approveOrReject(Report report) throws KalipoException {
+    private void approveOrRejectReport(Report report) throws KalipoException {
 
         final String currentLogin = SecurityUtils.getCurrentLogin();
 
@@ -189,6 +188,7 @@ public class ReportService {
         if (report.getStatus() == Report.Status.APPROVED) {
             log.info(String.format("%s approves report %s and triggers delete-comment", currentLogin, report.getId()));
             commentService.delete(comment);
+            notificationService.announceReportApproved(report);
 
         } else {
 
@@ -200,7 +200,7 @@ public class ReportService {
                 log.info(String.format("%s rejects report %s", currentLogin, report.getId()));
             }
 
-            notificationService.notifyAsync(comment.getAuthorId(), currentLogin, Notification.Type.APPROVAL, comment.getId());
+            notificationService.announceReportRejected(report);
         }
 
         reputationModifierService.onReportApprovalOrRejection(reportRepository.save(report));

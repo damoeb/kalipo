@@ -12,6 +12,7 @@ public final class Constants {
     public static final int LIM_MAX_LEN_TEXT = 4092;
     public static final int LIM_MAX_LEN_URL = 400;
     public static final int LIM_MAX_LEN_DISPLAYNAME = 50;
+    public static final int LIM_MAX_LEN_USERID = 20;
 
     private Constants() {
     }

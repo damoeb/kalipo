@@ -12,20 +12,23 @@
                     <h4 class="modal-title" id="myModalLabel">New Comment</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="help" role="help">
-                        Use <a href="javascript:void(0)">#hashtags</a> or <div class="quote"> &gt; quotes.</div>
-                    </div>
-
+                    <!--<div class="help" role="help">-->
+                        <!--Use <a href="javascript:void(0)">#hashtags</a> or <div class="quote"> &gt; quotes.</div>-->
+                    <!--</div>-->
 
                     <div class="form-group">
                         <textarea name="body" ng-model="draft.body" class="form-control"
                                   ng-minlength=2 ng-maxlength=1024 rows="10"
                                   required></textarea>
                     </div>
-                    <!--<div>-->
-                    <!-- todo create a dropdown to choose identities -->
-                    <!-- Comment as <strong>{{login}}</strong>-->
-                    <!--</div>-->
+                    <div>
+                     <!--todo create a dropdown to choose identities -->
+                        Comment as
+                        <select ng-model="draft.anonymous">
+                            <option value="true">Anonymous</option>
+                            <option value="false">{{displayName}}</option>
+                        </select>
+                    </div>
 
                 </div>
                 <div class="modal-footer">

@@ -4,6 +4,8 @@ import java.util.List;
 
 public class UserDTO {
 
+    private String displayName;
+
     private String login;
 
     private String password;
@@ -25,7 +27,7 @@ public class UserDTO {
     }
 
     public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
-                   List<String> roles, int reputation) {
+                   List<String> roles, int reputation, String displayName) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
@@ -34,6 +36,7 @@ public class UserDTO {
         this.langKey = langKey;
         this.roles = roles;
         this.reputation = reputation;
+        this.displayName = displayName;
     }
 
     public String getPassword() {
@@ -68,6 +71,10 @@ public class UserDTO {
         return roles;
     }
 
+    public String getDisplayName() {
+        return displayName;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("UserDTO{");
@@ -77,6 +84,7 @@ public class UserDTO {
         }
         sb.append(", firstName='").append(firstName).append('\'');
         sb.append(", lastName='").append(lastName).append('\'');
+        sb.append(", displayName='").append(displayName).append('\'');
         sb.append(", email='").append(email).append('\'');
         sb.append(", langKey='").append(langKey).append('\'');
         sb.append(", roles=").append(roles);

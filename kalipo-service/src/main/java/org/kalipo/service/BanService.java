@@ -56,9 +56,10 @@ public class BanService {
         banRepository.save(ban);
 
         String userId = ban.getUserId();
-        log.info("User '%s' bans '%s' on site %s until %s", SecurityUtils.getCurrentLogin(), userId, ban.getSiteId(), ban.getValidUntil());
+        String currentLogin = SecurityUtils.getCurrentLogin();
 
-        notificationService.notifyAsync(userId, SecurityUtils.getCurrentLogin(), Notification.Type.BAN, null);
+        log.info("User '%s' bans '%s' on site %s until %s", currentLogin, userId, ban.getSiteId(), ban.getValidUntil());
+        notificationService.announceBan(userId, currentLogin);
 
         return banRepository.save(ban);
     }

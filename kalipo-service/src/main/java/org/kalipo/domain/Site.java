@@ -24,6 +24,13 @@ public class Site implements Serializable {
     @Size(min = 1, max = 50)
     private String name;
 
+    /**
+     * todo implement
+     * Bans on IP range level
+     * Similar to IRC Z-line see https://en.wikipedia.org/wiki/IRCd#Z-line
+     */
+//    private Set<String> ipBans = new HashSet<String>();
+
     private Set<String> moderatorIds = new HashSet<>();
 
     public String getId() {
@@ -49,4 +56,5 @@ public class Site implements Serializable {
     public void setModeratorIds(Set<String> moderatorIds) {
         this.moderatorIds = moderatorIds;
     }
+
 }

@@ -101,6 +101,6 @@ public class Notification implements Serializable {
     }
 
     public enum Type {
-        LIKE, MENTION, REPLY, DELETION, REPORT, REVIEW, FRAUDULENT_USER, REJECTED, PENDING, BAN, UNBAN, APPROVAL
+        LIKE, MENTION, REPLY, DELETION, REJECTED, APPROVAL
     }
 }

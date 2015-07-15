@@ -23,7 +23,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     // todo login for admin only from localhost
     @NotNull
-    @Size(min = 0, max = 20)
+    @Size(min = 0, max = Constants.LIM_MAX_LEN_USERID)
     @Id
     private String login;
 

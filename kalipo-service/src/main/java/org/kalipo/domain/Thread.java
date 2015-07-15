@@ -53,13 +53,6 @@ public class Thread implements Serializable {
     private String displayName;
 
     /**
-     * todo should be done on page level
-     * Bans on IP range level
-     * Similar to IRC Z-line see https://en.wikipedia.org/wiki/IRCd#Z-line
-     */
-//    private Set<String> zLine = new HashSet<String>();
-
-    /**
      * Sum of all comment likes in discussion
      */
     private Integer likes = 0;
@@ -70,10 +63,15 @@ public class Thread implements Serializable {
     private Integer dislikes = 0;
 
     /**
-     * minimal user-reputation requirerd to participate the discussion
-     * todo
+     * minimal user-reputation required to participate the discussion
+     * todo impl
      */
     private Integer reputationChallenge = 0;
+
+    /**
+     * hide thread from listings/search
+     */
+    private Boolean hidden;
 
     /**
      * score represents the current hotness
@@ -246,6 +244,14 @@ public class Thread implements Serializable {
 
     public void setDomain(String domain) {
         this.domain = domain;
+    }
+
+    public Boolean getHidden() {
+        return hidden;
+    }
+
+    public void setHidden(Boolean hidden) {
+        this.hidden = hidden;
     }
 
     /**
