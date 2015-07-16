@@ -255,6 +255,10 @@ a:hover {
     line-height: 20px;
 }
 
+.hide-pending .comment-wrapper.pending {
+    display:none
+}
+
 .body.tiny .show-more-content {
     max-height: 300px; /* line-height * COMMENT_SETTINGS.criticalLineCount */
     overflow: hidden;

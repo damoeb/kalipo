@@ -58,61 +58,6 @@ angular.module('kalipoApp')
                         __showMore($(this));
                     });
                 });
-
-                $scope.toggleOptionals = function (commentId) {
-
-                    $('#comment-' + commentId + ' > .replies.optionals').toggleClass('hidden');
-                    $rootScope.$broadcast('refresh-outline-viewport');
-                };
-
-                // --
-
-                $scope.ignoreAuthorOf = function (commentId) {
-                    console.log('ignoreAuthorOf', commentId);
-                    Account.ignoreAuthor({commentId: commentId});
-                };
-
-                $scope.showReportModal = function (commentId, displayName) {
-                    console.log('report modal', commentId);
-
-                    $('#reportCommentModal').modal();
-
-                    $scope.displayName = displayName;
-                    $scope.report.commentId = commentId;
-                };
-
-                $scope.verbose = function (commentId) {
-                    $('#comment-' + commentId).removeClass('oneline');
-                };
-
-                $scope.toggleReplies = function (commentId) {
-                    console.log('refresh-outline-viewport -> ...');
-                    $('#comment-' + commentId).toggleClass('hiddenreplies');
-                    $rootScope.$broadcast('refresh-outline-viewport');
-                };
-
-                $scope.like = function (commentId) {
-                    console.log('like');
-                    commentId.likes++;
-
-                    var vote = {like: true, commentId: commentId};
-
-                    Vote.save(vote, function (id) {
-                        Notifications.info('Mmh');
-                    });
-                };
-
-                $scope.dislike = function (commentId) {
-                    console.log('dislike', commentId);
-                    commentId.dislikes++;
-
-                    var vote = {like: false, commentId: commentId};
-
-                    Vote.save(vote, function (id) {
-                        Notifications.info('Nah');
-                    });
-                };
-
             }
         }
     });

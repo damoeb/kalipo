@@ -1,6 +1,6 @@
 'use strict';
 
-kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $location, $anchorScroll, $rootScope, Thread, Comment, Report, Discussion, Websocket, Notifications, REPORT_IDS, $compile, $q) {
+kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $location, $anchorScroll, $rootScope, Thread, Comment, Report, Discussion, Websocket, Notifications, REPORT_IDS, $compile, $q, THREAD_STATUS, Vote) {
 
     var threadId = $routeParams.threadId;
     // todo impl scrolling to commentId
@@ -8,22 +8,26 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
 
     $scope.pages = [];
     $scope.$threadId = threadId;
-    $scope.thread = {};
     $scope.reportModel = {};
     $scope.$showPending = false;
     $scope.$pendingCount = 0;
     $scope.$hasReports = false;
     $scope.$isLastPage = false;
-    $scope.$missedCommentCount = 0;
     $scope.report = {};
     $scope.reportOptions = REPORT_IDS;
     $scope.$busy = false;
+    $scope.threadStatusList = THREAD_STATUS;
+    $scope.draft = {
+        threadId: threadId
+    };
 
     var tree = {};
     var currentPage = 0;
     var promiseTemplates = Discussion.init();
 
     // -- Initialization -- ----------------------------------------------------------------------------------------
+
+    $scope.thread = Thread.get({id: threadId});
 
     var onFetchedPage = function (result) {
         $scope.pages.push(result.page);
@@ -50,7 +54,7 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
 
     $q.when(promiseTemplates).then(function () {
 
-        var socket = Websocket.subscribe(function (message) {
+        var socket = Websocket.subscribe(threadId, function (message) {
             if (message.threadId == threadId) {
                 console.log('event', message);
                 Comment.get({id: Websocket.getCommentId(message)}, function (comment) {
@@ -66,9 +70,6 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
                     if ($reference.length == 0) {
                         // is root comment
                         if (_.isUndefined(comment.parentId)) {
-                            $scope.$missedCommentCount += 1;
-
-                            // todo wie twitter: "2 neue Kommentare"
                             $('discussion').prepend($compile($comment.contents())($scope));
 
                         } else {
@@ -143,4 +144,103 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
             });
     };
 
+    $scope.showReplyModal = function (commentId) {
+
+        $('#createCommentModal').modal();
+        $scope.draft.threadId = threadId;
+        $scope.draft.parentId = commentId;
+    };
+
+    $scope.submitComment = function () {
+
+        // todo support anon flag in view
+        $scope.draft.anonymous = false;
+
+        Comment.save($scope.draft,
+            function () {
+                Notifications.info('Saved');
+                $('#createCommentModal').modal('hide');
+                $scope.draft = {};
+            });
+    };
+
+    // --
+
+    $scope.markSpamComment = function (commentId) {
+        Notifications.info('Spam ' + commentId);
+        Comment.spam({
+            id: commentId
+        });
+    };
+
+    $scope.deleteComment = function (commentId) {
+        Notifications.info('Delete ' + commentId);
+        Comment.delete({
+            id: commentId
+        });
+    };
+
+    $scope.deleteThread = function (thread) {
+        Notifications.info('Delete thread ' + thread.id);
+        Thread.delete({
+            id: thread.id
+        });
+    };
+
+    $scope.deleteCommentAndBanUser = function (commentId) {
+        Notifications.info('Delete + Ban ' + commentId);
+        Comment.deleteAndBan({
+            id: commentId
+        });
+    };
+
+    $scope.like = function (commentId) {
+        commentId.likes++;
+
+        var vote = {like: true, commentId: commentId};
+
+        Vote.save(vote, function (id) {
+            Notifications.info('Mmh');
+        });
+    };
+
+    $scope.dislike = function (commentId) {
+        commentId.dislikes++;
+
+        var vote = {like: false, commentId: commentId};
+
+        Vote.save(vote, function (id) {
+            Notifications.info('Nah');
+        });
+    };
+
+    $scope.toggleOptionals = function (commentId) {
+
+        $('#comment-' + commentId + ' > .replies.optionals').toggleClass('hidden');
+        $rootScope.$broadcast('refresh-outline-viewport');
+    };
+
+    $scope.ignoreAuthorOf = function (commentId) {
+        console.log('ignoreAuthorOf', commentId);
+        Account.ignoreAuthor({commentId: commentId});
+    };
+
+    $scope.showReportModal = function (commentId, displayName) {
+        console.log('report modal', commentId);
+
+        $('#reportCommentModal').modal();
+
+        $scope.displayName = displayName;
+        $scope.report.commentId = commentId;
+    };
+
+    $scope.verbose = function (commentId) {
+        $('#comment-' + commentId).removeClass('oneline');
+    };
+
+    $scope.toggleReplies = function (commentId) {
+        console.log('refresh-outline-viewport -> ...');
+        $('#comment-' + commentId).toggleClass('hiddenreplies');
+        $rootScope.$broadcast('refresh-outline-viewport');
+    };
 });

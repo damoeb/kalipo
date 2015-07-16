@@ -1,7 +1,6 @@
-<div ng-controller="ThreadController">
+<div>
 
     <div class="col-lg-7 col-md-9 col-xs-9">
-
 
         <div class="panel panel-default">
 
@@ -44,7 +43,19 @@
             This discussion is <strong>closed</strong>.
         </div>
 
-        <div class="panel panel-default">
+        <div ng-switch="thread.pendingCount==0 || $showPending">
+            <h4 ng-switch-when="true">{{::thread.commentCount + thread.pendingCount}} comments</h4>
+            <h4 ng-switch-when="false">{{::thread.commentCount}} comments
+                (
+                <a href="javascript:void(0)" ng-click="$showPending = !$showPending"><span ng-show="$showPending">Hide</span>
+                    <span ng-show="!$showPending">Show</span>
+                    {{::thread.pendingCount}} unapproved</a>
+                )
+            </h4>
+        </div>
+
+        <!-- todo ng-class does not work -->
+        <div class="panel panel-default" ng-class="$showPending ? 'hide-pending' : ''">
             <div class="panel-body">
 
                 <div ng-include="'create_comment.template'"></div>
@@ -90,14 +101,22 @@
         </div>
     </div>
 
-
 </div>
-
-
 
 <script type="text/ng-template" id="create_comment.template">
     <div style="padding-top: 10px;" class="clearfix">
-        <textarea class="form-control field-comment" placeholder="Have Something To Say?" rows="1"
-                  ng-focus="showReplyModal('','')"></textarea>
+        <fieldset>
+            <textarea class="form-control field-comment" placeholder="Have Something To Say?" rows="1" ng-model="draft.body" ng-focus="fullReplyArea = true"></textarea>
+        </fieldset>
+
+        <fieldset style="padding-top:10px" ng-show="fullReplyArea">
+            <button class="btn btn-default btn-sm" ng-click="showReplyModal('','')">
+                <span class="glyphicon glyphicon-fullscreen"></span>
+            </button>
+            <button class="btn btn-primary btn-sm pull-right" ng-click="submitComment()">
+                Save
+                <span aria-hidden="true" class="glyphicon glyphicon-option-horizontal"></span>
+            </button>
+        </fieldset>
     </div>
 </script>

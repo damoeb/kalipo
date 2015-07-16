@@ -380,6 +380,14 @@ public class CommentService {
                     throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "Invalid status of parent. It is not approved yet");
                 }
             }
+
+            if(Boolean.TRUE == dirty.getPinned() && !(isMod || isSuperMod)) {
+                throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "You must be mod to pin a comment");
+            }
+        } else {
+            if(BooleanUtils.or(dirty.getPinned(), original.getPinned())) {
+                throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "You must be mod to change the pin-field of a comment");
+            }
         }
 
         dirty.setAuthorId(currentLogin);

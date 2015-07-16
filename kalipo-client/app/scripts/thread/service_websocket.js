@@ -18,8 +18,9 @@ kalipoApp.factory('Websocket', function (Thread) {
             socket.unsubscribe();
         },
 
-        subscribe: function (onMessage) {
-            console.log('subscribe socket');
+        subscribe: function (threadId, onMessage) {
+            console.log('subscribe to', threadId);
+            // todo subscribe for thread
             var socket = atmosphere;
             var subSocket;
             var transport = 'websocket';
