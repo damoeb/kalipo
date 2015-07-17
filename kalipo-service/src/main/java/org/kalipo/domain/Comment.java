@@ -74,6 +74,8 @@ public class Comment implements Anonymizable<Comment> {
     // reported comments may be hidden
     private Boolean hidden;
 
+    private Boolean pinned;
+
     private Boolean createdByMod;
 
     /**
@@ -307,6 +309,14 @@ public class Comment implements Anonymizable<Comment> {
 
     public void setLinks(Set<Link> links) {
         this.links = links;
+    }
+
+    public Boolean getPinned() {
+        return pinned;
+    }
+
+    public void setPinned(Boolean pinned) {
+        this.pinned = pinned;
     }
 
     /**
