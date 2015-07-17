@@ -3,6 +3,7 @@ package org.kalipo.agent;
 import org.apache.commons.lang.BooleanUtils;
 import org.atmosphere.config.service.DeliverTo;
 import org.atmosphere.config.service.Message;
+import org.atmosphere.cpr.AtmosphereFramework;
 import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.domain.Comment;
@@ -54,6 +55,9 @@ public class CommentAgent {
 
     @Inject
     private NotificationService notificationService;
+
+    @Inject
+    private AtmosphereFramework atmosphereFramework;
 
     @Scheduled(fixedDelay = 2000)
     public void setStatusAndQuality() {

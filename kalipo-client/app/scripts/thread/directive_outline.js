@@ -12,9 +12,6 @@ angular.module('kalipoApp')
             replace: true,
             link: function ($scope, $element, $attributes) {
 
-                //var threadId = $routeParams.threadId;
-//                console.log('threadId', threadId);
-
                 var $this = this;
                 $this.comments = [];
 
@@ -52,7 +49,7 @@ angular.module('kalipoApp')
                     $this.comments = Outline.flattenPages(pages);
 
                     var dimensions = {
-                        width: $element.width(),
+                        width: $element.parent().width(),
                         height: $this.comments.length * (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom)
                     };
 
