@@ -26,7 +26,7 @@ kalipoApp.factory('Websocket', function (Thread) {
             var transport = 'websocket';
 
             var request = {
-                url: 'websocket/live/channel',
+                url: 'websocket/live/' + threadId,
                 contentType: "application/json",
                 transport: transport,
                 trackMessageLength: true,

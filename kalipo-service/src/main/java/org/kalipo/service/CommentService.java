@@ -7,7 +7,9 @@ import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.RateLimit;
 import org.kalipo.config.Constants;
 import org.kalipo.config.ErrorCode;
-import org.kalipo.domain.*;
+import org.kalipo.domain.Comment;
+import org.kalipo.domain.Markup;
+import org.kalipo.domain.Site;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.SiteRepository;
@@ -16,7 +18,6 @@ import org.kalipo.repository.UserRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
-import org.kalipo.service.util.BroadcastUtils;
 import org.kalipo.service.util.NumUtils;
 import org.kalipo.web.filter.AnonUtil;
 import org.kalipo.web.rest.KalipoException;
@@ -185,7 +186,7 @@ public class CommentService {
         Asserts.isNotNull(comment, "id");
 
         comment.setStatus(Comment.Status.SPAM);
-        BroadcastUtils.broadcast(BroadcastUtils.Type.COMMENT_DELETED, comment.anonymized());
+//        BroadcastUtils.broadcast(BroadcastUtils.Type.COMMENT_DELETED, comment.anonymized());
 
         return comment;
     }
@@ -306,7 +307,7 @@ public class CommentService {
             commentRepository.delete(comment);
         }
 
-        BroadcastUtils.broadcast(BroadcastUtils.Type.COMMENT_DELETED, comment.anonymized());
+//        BroadcastUtils.broadcast(BroadcastUtils.Type.COMMENT_DELETED, comment.anonymized());
     }
 
 
@@ -381,11 +382,11 @@ public class CommentService {
                 }
             }
 
-            if(Boolean.TRUE == dirty.getPinned() && !(isMod || isSuperMod)) {
+            if (Boolean.TRUE == dirty.getPinned() && !(isMod || isSuperMod)) {
                 throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "You must be mod to pin a comment");
             }
         } else {
-            if(BooleanUtils.or(dirty.getPinned(), original.getPinned())) {
+            if (dirty.getPinned() != original.getPinned() && !(isMod || isSuperMod)) {
                 throw new KalipoException(ErrorCode.CONSTRAINT_VIOLATED, "You must be mod to change the pin-field of a comment");
             }
         }

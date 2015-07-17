@@ -1,11 +1,8 @@
 package org.kalipo.service.util;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.atmosphere.cpr.BroadcasterFactory;
 import org.kalipo.domain.Anonymizable;
 import org.kalipo.web.rest.KalipoException;
-import org.kalipo.web.websocket.LiveChannelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +21,7 @@ public final class BroadcastUtils {
 
     private static ObjectMapper jsonMapper = new ObjectMapper();
 
-    public static void broadcast(Type type, Anonymizable data) throws KalipoException {
+    public static void broadcast(String threadId, Type type, Anonymizable data) throws KalipoException {
         try {
             Asserts.isNotNull(type, "type");
             Asserts.isNotNull(data, "data");
@@ -32,8 +29,8 @@ public final class BroadcastUtils {
 
             // todo there should be a random delay to increase anonymity
 
-            BroadcasterFactory.getDefault().lookup(LiveChannelService.URL, true).broadcast(jsonMapper.writeValueAsString(wrapper));
-        } catch (JsonProcessingException e) {
+//            BroadcasterFactory.lookup(LiveChannelService.URL, true).broadcast(jsonMapper.writeValueAsString(wrapper));
+        } catch (Exception e) {
             log.warn("Failed broadcasting: " + e.getMessage());
         }
     }

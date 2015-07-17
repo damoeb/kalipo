@@ -4,8 +4,10 @@ import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.servlet.InstrumentedFilter;
 import com.codahale.metrics.servlets.MetricsServlet;
 import org.atmosphere.cache.UUIDBroadcasterCache;
-import org.atmosphere.cpr.AtmosphereFramework;
-import org.atmosphere.cpr.AtmosphereServlet;
+import org.atmosphere.client.TrackMessageSizeInterceptor;
+import org.atmosphere.cpr.*;
+import org.atmosphere.spring.bean.AtmosphereSpringContext;
+import org.atmosphere.util.VoidAnnotationProcessor;
 import org.kalipo.web.filter.CachingHttpHeadersFilter;
 import org.kalipo.web.filter.StaticResourcesProductionFilter;
 import org.kalipo.web.filter.UrlHookServletFilter;
@@ -14,13 +16,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.embedded.ServletContextInitializer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.util.ReflectionUtils;
 
 import javax.inject.Inject;
 import javax.servlet.*;
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -46,7 +47,11 @@ public class WebConfigurer implements ServletContextInitializer {
         log.info("Web application configuration, using profiles: {}", Arrays.toString(env.getActiveProfiles()));
         EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
         initMetrics(servletContext, disps);
-        initAtmosphereServlet(servletContext);
+        try {
+            initAtmosphereServlet(servletContext);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
             initCachingHttpHeadersFilter(servletContext, disps);
             initStaticResourcesProductionFilter(servletContext, disps);
@@ -152,15 +157,25 @@ public class WebConfigurer implements ServletContextInitializer {
 
     /**
      * Initializes Atmosphere.
+     * https://github.com/Atmosphere/atmosphere/wiki/Configuring-Atmosphere-as-a-Spring-Bean
      */
-    private void initAtmosphereServlet(ServletContext servletContext) {
+    private void initAtmosphereServlet(ServletContext servletContext) throws ServletException, IllegalAccessException, InstantiationException {
         log.debug("Registering Atmosphere Servlet");
+
+        final String servletName = "atmosphereServlet";
+
         AtmosphereServlet servlet = new AtmosphereServlet();
-        Field frameworkField = ReflectionUtils.findField(AtmosphereServlet.class, "framework");
-        ReflectionUtils.makeAccessible(frameworkField);
-        ReflectionUtils.setField(frameworkField, servlet, new NoAnalyticsAtmosphereFramework());
-        ServletRegistration.Dynamic atmosphereServlet =
-                servletContext.addServlet("atmosphereServlet", servlet);
+
+        // todo custom framework does not scan handler
+//        Field initializerField = ReflectionUtils.findField(AtmosphereServlet.class, "initializer");
+//        ReflectionUtils.makeAccessible(initializerField);
+//        AtmosphereFrameworkInitializer initializer = (AtmosphereFrameworkInitializer) initializerField.get(servlet);
+//
+//        Field frameworkField = ReflectionUtils.findField(AtmosphereFrameworkInitializer.class, "framework");
+//        ReflectionUtils.makeAccessible(frameworkField);
+//        ReflectionUtils.setField(frameworkField, initializer, atmosphereFramework());
+
+        ServletRegistration.Dynamic atmosphereServlet = servletContext.addServlet(servletName, servlet);
 
         atmosphereServlet.setInitParameter("org.atmosphere.cpr.packages", "org.kalipo.web.websocket");
         atmosphereServlet.setInitParameter("org.atmosphere.cpr.broadcasterCacheClass", UUIDBroadcasterCache.class.getName());
@@ -173,6 +188,93 @@ public class WebConfigurer implements ServletContextInitializer {
         atmosphereServlet.setLoadOnStartup(3);
         atmosphereServlet.setAsyncSupported(true);
     }
+
+    @Bean
+    public AtmosphereFramework atmosphereFramework() throws ServletException, InstantiationException, IllegalAccessException {
+        AtmosphereFramework atmosphereFramework = new NoAnalyticsAtmosphereFramework();
+        // atmosphereFramework.setBroadcasterCacheClassName(UUIDBroadcasterCache.class.getName());
+        atmosphereFramework.init(atmosphereSpringContext(), false);
+        atmosphereFramework.removeAllInitParams();
+//        List<AtmosphereInterceptor> interceptors = new ArrayList<>();
+//        for (Class<? extends AtmosphereInterceptor> a : atmosphereFramework.defaultInterceptors()) {
+//            interceptors.add(a.newInstance());
+//        }
+//        interceptors.addAll(interceptors());
+//        atmosphereFramework.addAtmosphereHandler("/webservice/*", atmosphereChatHandler(), interceptors);
+
+//        ReflectorServletProcessor r = new ReflectorServletProcessor();
+//        r.setServletClassName("com.sun.jersey.spi.spring.container.servlet.SpringServlet");
+//
+//        atmosphereFramework.addAtmosphereHandler("/websocket/*", r);
+
+
+        return atmosphereFramework;
+    }
+
+//    @Bean
+//    public AtmosphereChatHandler atmosphereChatHandler() {
+//        return new AtmosphereChatHandler();
+//    }
+
+//    private List<AtmosphereInterceptor> interceptors() {
+//        List<AtmosphereInterceptor> atmosphereInterceptors = new ArrayList<>();
+//        // atmosphereInterceptors.add(new TrackMessageSizeInterceptor());
+//        return atmosphereInterceptors;
+//    }
+//
+//    @Bean
+//    public BroadcasterFactory broadcasterFactory() throws ServletException, InstantiationException, IllegalAccessException {
+//        return atmosphereFramework().getAtmosphereConfig().getBroadcasterFactory();
+//    }
+
+    @Bean
+    public AtmosphereSpringContext atmosphereSpringContext() {
+        AtmosphereSpringContext atmosphereSpringContext = new AtmosphereSpringContext();
+        Map<String, String> map = new HashMap<>();
+        map.put("org.atmosphere.cpr.broadcasterClass", org.atmosphere.cpr.DefaultBroadcaster.class.getName());
+        map.put(AtmosphereInterceptor.class.getName(), TrackMessageSizeInterceptor.class.getName());
+        map.put(AnnotationProcessor.class.getName(), VoidAnnotationProcessor.class.getName());
+        map.put("org.atmosphere.cpr.broadcasterLifeCyclePolicy", BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.IDLE_DESTROY.toString());
+        atmosphereSpringContext.setConfig(map);
+        return atmosphereSpringContext;
+    }
+
+//    public class AtmosphereServletConfig implements ServletConfig {
+//
+//        private final String servletName;
+//        private final ServletContext servletContext;
+//        private final Map<String,String> params = new HashMap<String,String>();
+//
+//        public AtmosphereServletConfig(String servletName, ServletContext servletContext) {
+//            this.servletName = servletName;
+//            this.servletContext = servletContext;
+////            params.put("org.atmosphere.cpr.packages", "org.kalipo.web.websocket");
+////            params.put("org.atmosphere.cpr.broadcasterCacheClass", UUIDBroadcasterCache.class.getName());
+////            params.put("org.atmosphere.cpr.broadcaster.shareableThreadPool", "true");
+////            params.put("org.atmosphere.cpr.broadcaster.maxProcessingThreads", "10");
+////            params.put("org.atmosphere.cpr.broadcaster.maxAsyncWriteThreads", "10");
+//        }
+//
+//        @Override
+//        public String getServletName() {
+//            return servletName;
+//        }
+//
+//        @Override
+//        public ServletContext getServletContext() {
+//            return servletContext;
+//        }
+//
+//        @Override
+//        public String getInitParameter(String name) {
+//            return params.get(name);
+//        }
+//
+//        @Override
+//        public Enumeration<String> getInitParameterNames() {
+//            return new Vector<String>(params.keySet()).elements();
+//        }
+//    }
 
     /**
      * Atmosphere sends tracking data to Google Analytics, which is a potential security issue.
@@ -190,5 +292,7 @@ public class WebConfigurer implements ServletContextInitializer {
         protected void analytics() {
             // noop
         }
+
+
     }
 }

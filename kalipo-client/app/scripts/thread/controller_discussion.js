@@ -55,8 +55,9 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
     $q.when(promiseTemplates).then(function () {
 
         var socket = Websocket.subscribe(threadId, function (message) {
+            console.log('event', message);
+
             if (message.threadId == threadId) {
-                console.log('event', message);
                 Comment.get({id: Websocket.getCommentId(message)}, function (comment) {
 
                     comment['$new'] = true;
@@ -85,8 +86,6 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
                         //console.log('replace by', $replaceBy);
                         $container.empty().append($compile($replaceBy.contents())($scope));
                     }
-
-                    // todo update pages and refresh outline
                 });
             }
         });

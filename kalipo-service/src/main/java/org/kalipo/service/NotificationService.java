@@ -144,7 +144,7 @@ public class NotificationService {
             }
 
         } catch (Exception e) {
-            log.error(String.format("Unable to notify mods of thread %s with report %s. Reason: %s", threadId, report, e.getMessage()));
+            log.error(String.format("Unable to notify mods in thread %s with report %s. Reason: %s", threadId, report, e.getMessage()));
         }
     }
 
@@ -166,7 +166,7 @@ public class NotificationService {
             }
 
         } catch (Exception e) {
-            log.error(String.format("Unable to notify mods (thread %s) of comment %s. Reason: %s", thread, comment, e.getMessage()));
+            log.error(String.format("Unable to notify mods (site %s) of comment %s. Reason: %s", thread.getSiteId(), comment, e.getMessage()));
         }
     }
 

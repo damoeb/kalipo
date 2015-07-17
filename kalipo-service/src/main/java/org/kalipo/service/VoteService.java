@@ -6,7 +6,6 @@ import org.kalipo.aop.RateLimit;
 import org.kalipo.config.Constants;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
-import org.kalipo.domain.Notification;
 import org.kalipo.domain.Vote;
 import org.kalipo.repository.CommentRepository;
 import org.kalipo.repository.VoteRepository;
@@ -100,7 +99,7 @@ public class VoteService {
         }
         commentRepository.save(comment);
 
-        BroadcastUtils.broadcast(BroadcastUtils.Type.VOTE, vote.anonymized());
+        BroadcastUtils.broadcast(comment.getThreadId(), BroadcastUtils.Type.VOTE, vote.anonymized());
 
         return voteRepository.save(vote);
     }

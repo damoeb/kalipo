@@ -1,6 +1,8 @@
 package org.kalipo.agent;
 
 import org.apache.commons.lang.BooleanUtils;
+import org.atmosphere.config.service.DeliverTo;
+import org.atmosphere.config.service.Message;
 import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.domain.Comment;
@@ -101,8 +103,7 @@ public class CommentAgent {
                     if (isMod || isSuperMod) {
                         comment.setStatus(Comment.Status.APPROVED);
 
-                        BroadcastUtils.broadcast(BroadcastUtils.Type.COMMENT, comment);
-
+                        broadcast(comment.getThreadId(), BroadcastUtils.Type.COMMENT, comment);
                         onApproval(comment);
 
                         log.info(String.format("Auto-approved comment %s cause author is mod", comment.getId()));
@@ -143,6 +144,12 @@ public class CommentAgent {
         } catch (Exception e) {
             log.error("Influence estimation failed.", e);
         }
+    }
+
+    @Message
+    @DeliverTo(DeliverTo.DELIVER_TO.RESOURCE) // default is broadcaster
+    private void broadcast(String threadId, BroadcastUtils.Type type, Comment comment) {
+
     }
 
     private void onApproval(Comment comment) {

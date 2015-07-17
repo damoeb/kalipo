@@ -116,6 +116,7 @@ dependencies {
     compile group: 'joda-time', name: 'joda-time', version: joda_time_version
     compile group: 'org.apache.geronimo.javamail', name: 'geronimo-javamail_1.4_mail', version: geronimo_javamail_1_4_mail_version
     compile group: 'org.atmosphere', name: 'atmosphere-spring', version: atmosphere_spring_version
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: javax_servlet_version
     compile group: 'org.hibernate', name: 'hibernate-validator', version: hibernate_validator_version
     compile group: 'org.springframework.boot', name: 'spring-boot-actuator', version: spring_boot_version
     compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: spring_boot_version
