@@ -1,8 +1,6 @@
 landing page see http://hubski.com/
 mail notification mit direkt links (once)
-highlight mod comment (attr createdByMod)
 cleanup message bundles
-create thymeleaf email templates
 
 Create thread
     as Livestream(only mods make lvl0 comments, different sorting)

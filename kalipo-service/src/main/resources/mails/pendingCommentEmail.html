@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="#{email.activation.title}">Pending Comment</title>
+    <title>Pending Comment</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 
+Hi <span th:text="${displayName}"></span>,
+there is a pending comment (<span th:text="${comment.id}"></span>) by <span th:text="${comment.displayName}"></span>
+saying
+<p th:text="${comment.bodyHtml}"></p>
+
 <p>
-    <a th:href="@{|${baseUrl}/#/activate?key=${user.activationKey}|}"
-       th:text="|${user.login}|">Approve</a>
+    <a th:href="@{|${baseUrl}/#/comment/approve?nonce=${nonce.phrase}|}">Approve</a>
     or
-    <a th:href="@{|${baseUrl}/#/activate?key=${user.activationKey}|}"
-       th:text="|${user.login}|">Reject</a>
+    <a th:href="@{|${baseUrl}/#/comment/reject?nonce=${nonce.phrase}|}">Reject</a>
 </p>
 </body>
 </html>

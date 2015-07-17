@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="#{email.activation.title}">Pending Report</title>
+    <title>Pending Report</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 
+Hi <span th:text="${displayName}"></span>,
+there is a pending report by <span th:text="${comment.displayName}"></span> complaining
+<p th:text="${reason}">
+</p>
+about comment <span th:text="${comment.id}"></span>
+
+<p th:text="${comment.bodyHtml}">
+</p>
+
 <p>
-    <a th:href="@{|${baseUrl}/#/activate?key=${user.activationKey}|}"
-       th:text="|${user.login}|">Approve</a>
+    <a th:href="@{|${baseUrl}/#/comment/approve?nonce=${nonce.phrase}|}">Delete Report</a>
     or
-    <a th:href="@{|${baseUrl}/#/activate?key=${user.activationKey}|}"
-       th:text="|${user.login}|">Reject</a>
+    <a th:href="@{|${baseUrl}/#/comment/reject?nonce=${nonce.phrase}|}">Delete Comment</a>
 </p>
 </body>
 </html>

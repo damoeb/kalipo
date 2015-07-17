@@ -30,6 +30,9 @@
                     <% } %>
 
                     <span class="label label-warning label-pending">PENDING APPROVAL</span>
+                    <% if(comment.createdByMod){ %>
+                    <span class="label label-default">mod</span>
+                    <% } %>
 
                     <% if(!comment.$oneline) { %>
                     <!-- todo && !isModerator -->

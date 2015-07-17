@@ -8,6 +8,7 @@ import org.kalipo.service.util.Asserts;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -51,7 +52,13 @@ public class NotificationService {
     private MailService mailService;
 
     @Inject
+    private NonceService nonceService;
+
+    @Inject
     private SpringTemplateEngine templateEngine;
+
+    @Inject
+    private Environment environment;
 
     public Page<Notification> findByUserWithPages(final String userId, final int pageNumber) throws KalipoException {
         Asserts.isNotNull(userId, "userId");
@@ -135,11 +142,13 @@ public class NotificationService {
             Site site = siteRepository.findOne(thread.getSiteId());
 
             Locale locale = Locale.ENGLISH;
-            String content = createPendingReportEmailFromTemplate(report, locale);
             String subject = String.format("Pending Report in '%s'", thread.getTitle());
+
+            Comment comment = commentRepository.findOne(report.getCommentId());
 
             for(String modId : site.getModeratorIds()) {
                 User mod = userRepository.findOne(modId);
+                String content = createPendingReportEmailFromTemplate(mod, report, comment, locale);
                 mailService.sendEmail(mod.getEmail(), subject, content, false, true);
             }
 
@@ -157,11 +166,11 @@ public class NotificationService {
             Site site = siteRepository.findOne(thread.getSiteId());
             Locale locale = Locale.ENGLISH;
 
-            String content = createPendingCommentEmailFromTemplate(comment, locale);
             String subject = String.format("Pending Comment in '%s'", thread.getTitle());
 
             for(String modId : site.getModeratorIds()) {
                 User mod = userRepository.findOne(modId);
+                String content = createPendingCommentEmailFromTemplate(mod, comment, locale);
                 mailService.sendEmail(mod.getEmail(), subject, content, false, true);
             }
 
@@ -220,16 +229,24 @@ public class NotificationService {
         sendNotice(recipientId, initiatorId, type, resourceId, null);
     }
 
-    private String createPendingReportEmailFromTemplate(final Report user, Locale locale) {
+    protected String createPendingReportEmailFromTemplate(User user, final Report report, Comment comment, Locale locale) {
         Map<String, Object> variables = new HashMap<>();
-//        variables.put("user", user);
+        variables.put("displayName", user.getDisplayName());
+        variables.put("baseUrl", environment.getProperty("baseUrl"));
+        variables.put("report", report);
+        variables.put("reason", String.format("%s %s", report.getReason(), report.getCustomReason()));
+        variables.put("nonce", nonceService.createNonce());
+        variables.put("comment", comment);
         IContext context = new org.thymeleaf.context.Context(locale, variables);
         return templateEngine.process("pendingReportEmail", context);
     }
 
-    private String createPendingCommentEmailFromTemplate(final Comment comment, Locale locale) {
+    protected String createPendingCommentEmailFromTemplate(User user, final Comment comment, Locale locale) {
         Map<String, Object> variables = new HashMap<>();
-//        variables.put("user", user);
+        variables.put("displayName", user.getDisplayName());
+        variables.put("baseUrl", environment.getProperty("baseUrl"));
+        variables.put("nonce", nonceService.createNonce());
+        variables.put("comment", comment);
         IContext context = new org.thymeleaf.context.Context(locale, variables);
         return templateEngine.process("pendingCommentEmail", context);
     }

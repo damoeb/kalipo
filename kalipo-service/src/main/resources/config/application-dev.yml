@@ -5,6 +5,7 @@
 # ----------------------------------------
 
 siteName: kalipo
+baseUrl: http://localhost:8080
 
 server:
     port: 8080

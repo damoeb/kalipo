@@ -1,4 +1,5 @@
 siteName: kalipo
+baseUrl: https://dev.migor.org
 
 server:
     port: 8080
