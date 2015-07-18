@@ -1,20 +1,27 @@
 package org.kalipo.web.websocket;
 
-import org.atmosphere.config.service.Disconnect;
-import org.atmosphere.config.service.Heartbeat;
-import org.atmosphere.config.service.ManagedService;
-import org.atmosphere.config.service.Ready;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.atmosphere.config.service.*;
 import org.atmosphere.cpr.AtmosphereResource;
 import org.atmosphere.cpr.AtmosphereResourceEvent;
+import org.atmosphere.cpr.Broadcaster;
 import org.atmosphere.cpr.BroadcasterFactory;
+import org.atmosphere.interceptor.AtmosphereResourceStateRecovery;
+import org.atmosphere.interceptor.HeartbeatInterceptor;
+import org.kalipo.service.WebSocketService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import javax.ws.rs.PathParam;
+import java.util.concurrent.ConcurrentHashMap;
 
 @ManagedService(
-    path = "/websocket/live/{thread: [a-zA-Z_0-9]+}"
+    path = "/websocket/live/{thread: [a-zA-Z_0-9]+}",
+    interceptors = {
+        HeartbeatInterceptor.class,
+        AtmosphereResourceStateRecovery.class,
+    }
 )
 public class LiveChannelService {
 
@@ -22,38 +29,14 @@ public class LiveChannelService {
 
     private final Logger log = LoggerFactory.getLogger(LiveChannelService.class);
 
-//    private final ConcurrentHashMap<String, String> users = new ConcurrentHashMap<String, String>();
+    private final ConcurrentHashMap<String, Integer> usersInThread = new ConcurrentHashMap<>();
 
     @PathParam("thread")
     private String threadId;
 
-//    @Inject
-//    private BroadcasterFactory factory;
-//
-//    @Inject
-//    private CommentService commentService;
-//
-//    @Inject
-//    private AtmosphereResourceFactory resourceFactory;
-//
-//    @Inject
-//    private MetaBroadcaster metaBroadcaster;
-
-
     // For demonstrating injection.
     @Inject
-    private BroadcasterFactory factory;
-
-    // For demonstrating javax.inject.Named
-//    @Inject
-//    @Named("/chat")
-//    private Broadcaster broadcaster;
-
-//    @Inject
-//    private AtmosphereResource r;
-
-//    @Inject
-//    private AtmosphereResourceEvent event;
+    private BroadcasterFactory broadcasterFactory;
 
     @Heartbeat
     public void onHeartbeat(final AtmosphereResourceEvent event) {
@@ -65,9 +48,14 @@ public class LiveChannelService {
      */
     @Ready
     public void onReady(AtmosphereResource r) {
-        log.info("Browser {} connected", r.uuid());
-        log.info("BroadcasterFactory used {}", factory.getClass().getName());
-        log.info("Broadcaster injected {}", r.getBroadcaster().getID());
+        log.debug("Browser {} connected", r.uuid());
+        log.debug("BroadcasterFactory used {}", broadcasterFactory.getClass().getName());
+        log.debug("Broadcaster injected {}", r.getBroadcaster().getID());
+        if (!usersInThread.containsKey(threadId)) {
+            usersInThread.put(threadId, 0);
+        }
+        usersInThread.put(threadId, usersInThread.get(threadId) + 1);
+        broadcastStats(r.getBroadcaster());
     }
 
     /**
@@ -76,9 +64,24 @@ public class LiveChannelService {
     @Disconnect
     public void onDisconnect(AtmosphereResourceEvent event) {
         if (event.isCancelled()) {
-            log.info("Browser {} unexpectedly disconnected", event.getResource().uuid());
+            log.debug("Browser {} unexpectedly disconnected", event.getResource().uuid());
         } else if (event.isClosedByClient()) {
-            log.info("Browser {} closed the connection", event.getResource().uuid());
+            log.debug("Browser {} closed the connection", event.getResource().uuid());
+        }
+        if (usersInThread.containsKey(threadId)) {
+            usersInThread.put(threadId, Math.max(0, usersInThread.get(threadId) - 1));
+            broadcastStats(event.broadcaster());
+        }
+    }
+
+    private static ObjectMapper jsonMapper = new ObjectMapper();
+
+    private void broadcastStats(Broadcaster broadcaster) {
+        try {
+            WebSocketService.Wrapper wrapper = new WebSocketService.Wrapper(WebSocketService.Type.STATS.name(), usersInThread.get(threadId));
+            broadcaster.broadcast(jsonMapper.writeValueAsString(wrapper));
+        } catch (JsonProcessingException e) {
+            // nothing
         }
     }
 

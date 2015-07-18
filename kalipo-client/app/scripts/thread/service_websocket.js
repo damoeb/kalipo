@@ -7,20 +7,20 @@ kalipoApp.factory('Websocket', function (Thread) {
         getCommentId: function (message) {
             switch(message.type.toLowerCase()) {
                 case 'vote':
-                    return message.event.commentId;
+                    return message.data.commentId;
                 default :
-                    return message.event.id;
+                    return message.data.id;
             }
         },
 
         unsubscribe: function (socket) {
-            console.log('unsubscribe socket');
+            console.log('unsubscribe');
             socket.unsubscribe();
         },
 
         subscribe: function (threadId, onMessage) {
             console.log('subscribe to', threadId);
-            // todo subscribe for thread
+
             var socket = atmosphere;
             var subSocket;
             var transport = 'websocket';

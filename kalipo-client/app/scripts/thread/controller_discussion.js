@@ -20,6 +20,7 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
     $scope.draft = {
         threadId: threadId
     };
+    $scope.visitorCount = 0;
 
     var tree = {};
     var currentPage = 0;
@@ -55,9 +56,12 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
     $q.when(promiseTemplates).then(function () {
 
         var socket = Websocket.subscribe(threadId, function (message) {
-            console.log('event', message);
+//            console.log('event', message);
 
-            if (message.threadId == threadId) {
+            if(message.type == 'STATS') {
+                $scope.visitorCount = message.data;
+                $scope.$apply();
+            } else {
                 Comment.get({id: Websocket.getCommentId(message)}, function (comment) {
 
                     comment['$new'] = true;

@@ -22,7 +22,7 @@ public class WebSocketService {
     private static final Logger log = LoggerFactory.getLogger(WebSocketService.class);
 
     public enum Type {
-        COMMENT, COMMENT_DELETED, VOTE
+        COMMENT, COMMENT_DELETED, VOTE, STATS
     }
 
     @Inject
@@ -36,9 +36,7 @@ public class WebSocketService {
             Asserts.isNotNull(data, "data");
             Wrapper wrapper = new Wrapper(type.name(), data);
 
-//            BroadcasterFactory.lookup(LiveChannelService.URL, true).broadcast(jsonMapper.writeValueAsString(wrapper));
             String url = "/websocket/live/" + threadId;
-//            String url = LiveChannelService.URL;
             atmosphereFramework.getBroadcasterFactory().lookup(url, true).broadcast(jsonMapper.writeValueAsString(wrapper));
 
         } catch (Exception e) {
@@ -47,26 +45,20 @@ public class WebSocketService {
     }
 
     public static class Wrapper {
-        private final String threadId;
         private final String type;
-        private final Anonymizable event;
+        private final Object data;
 
-        public Wrapper(String type, Anonymizable event) {
+        public Wrapper(String type, Object data) {
             this.type = type;
-            this.event = event;
-            this.threadId = event.getThreadId();
-        }
-
-        public String getThreadId() {
-            return threadId;
+            this.data = data;
         }
 
         public String getType() {
             return type;
         }
 
-        public Anonymizable getEvent() {
-            return event;
+        public Object getData() {
+            return data;
         }
     }
 

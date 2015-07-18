@@ -44,14 +44,17 @@
         </div>
 
         <div ng-switch="thread.pendingCount==0 || $showPending">
-            <h4 ng-switch-when="true">{{::thread.commentCount + thread.pendingCount}} comments</h4>
-            <h4 ng-switch-when="false">{{::thread.commentCount}} comments
-                (
-                <a href="javascript:void(0)" ng-click="$showPending = !$showPending"><span
-                    ng-show="$showPending">Hide</span>
-                    <span ng-show="!$showPending">Show</span>
-                    {{::thread.pendingCount}} unapproved</a>
-                )
+            <h4>
+                <span ng-switch-when="true">{{::thread.commentCount + thread.pendingCount}} comments,</span>
+                <span ng-switch-when="false">{{::thread.commentCount}} comments
+                    (
+                    <a href="javascript:void(0)" ng-click="$showPending = !$showPending"><span
+                        ng-show="$showPending">Hide</span>
+                        <span ng-show="!$showPending">Show</span>
+                        {{::thread.pendingCount}} unapproved</a>
+                    ),
+                </span>
+                {{visitorCount}} users online
             </h4>
         </div>
 
