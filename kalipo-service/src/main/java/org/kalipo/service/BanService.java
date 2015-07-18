@@ -5,7 +5,6 @@ import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.aop.RateLimit;
 import org.kalipo.config.Constants;
 import org.kalipo.domain.Ban;
-import org.kalipo.domain.Notification;
 import org.kalipo.domain.Site;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.BanRepository;
@@ -29,6 +28,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.concurrent.Future;
 
+@SuppressWarnings("unused")
 @Service
 @KalipoExceptionHandler
 public class BanService {

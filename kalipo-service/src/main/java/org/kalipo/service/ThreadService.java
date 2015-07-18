@@ -31,10 +31,12 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Future;
 
+@SuppressWarnings("unused")
 @Service
 @KalipoExceptionHandler
 public class ThreadService {
@@ -153,12 +155,12 @@ public class ThreadService {
                 new Sort.Order(Sort.Direction.ASC, Constants.PARAM_CREATED_DATE)
         );
         PageRequest pageable = new PageRequest(page, 20, sort);
-        return new AsyncResult<Page<Thread>>(threadRepository.findAll(pageable));
+        return new AsyncResult<>(threadRepository.findAll(pageable));
     }
 
     @Async
     public Future<Thread> get(String id) throws KalipoException {
-        return new AsyncResult<Thread>(threadRepository.findOne(id));
+        return new AsyncResult<>(threadRepository.findOne(id));
     }
 
     @Async
@@ -167,7 +169,7 @@ public class ThreadService {
             new Sort.Order(Sort.Direction.ASC, "fingerprint")
         );
         PageRequest pageable = new PageRequest(page, 60, sort);
-        return new AsyncResult<Page<Comment>>(commentRepository.findByThreadIdAndStatusIn(id, Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING, Comment.Status.DELETED), pageable));
+        return new AsyncResult<>(commentRepository.findByThreadIdAndStatusIn(id, Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING, Comment.Status.DELETED), pageable));
     }
 
     @Async
@@ -176,7 +178,7 @@ public class ThreadService {
             new Sort.Order(Sort.Direction.DESC, "lastModifiedDate")
         );
         PageRequest pageable = new PageRequest(page, 3, sort);
-        return new AsyncResult<Page<Comment>>(commentRepository.findByThreadIdAndStatusIn(id, Arrays.asList(Comment.Status.APPROVED), pageable));
+        return new AsyncResult<>(commentRepository.findByThreadIdAndStatusIn(id, Collections.singletonList(Comment.Status.APPROVED), pageable));
     }
 
     public void delete(String id) throws KalipoException {
@@ -239,7 +241,7 @@ public class ThreadService {
         if (thread.getUriHooks() != null && !thread.getUriHooks().isEmpty()) {
             Asserts.hasPrivilege(Privileges.HOOK_THREAD_TO_URL);
 
-            Set<String> normedUriHooks = new HashSet<String>();
+            Set<String> normedUriHooks = new HashSet<>();
 
             for (String uri : thread.getUriHooks()) {
                 if (!UrlUtils.isAbsoluteUrl(uri)) {

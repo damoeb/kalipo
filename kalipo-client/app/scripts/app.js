@@ -182,37 +182,37 @@ kalipoApp
             $rootScope.websocketRequest.sendMessage();
         });
     })
-    .run(function ($rootScope, $route) {
-        // This uses the Atmoshpere framework to do a Websocket connection with the server, in order to send
-        // user activities each time a route changes.
-        // The user activities can then be monitored by an administrator, see the views/tracker.html Angular view.
-
-        $rootScope.liveSocket = atmosphere;
-        $rootScope.liveSubSocket;
-        $rootScope.liveTransport = 'websocket';
-
-        $rootScope.liveRequest = { url: 'websocket/live',
-            contentType: "application/json",
-            transport: $rootScope.liveTransport,
-            trackMessageLength: true,
-            reconnectInterval: 5000,
-            enableXDR: true,
-            timeout: 60000 };
-
-        $rootScope.liveRequest.sendMessage = function (isTyping, threadId) {
-            if ($rootScope.liveSubSocket.request.isOpen) {
-                if ($rootScope.login) {
-                    $rootScope.liveSubSocket.push(atmosphere.util.stringifyJSON({
-                            userLogin: $rootScope.login,
-                            threadId: threadId,
-                            typing: isTyping
-                        }
-                    ));
-                }
-            }
-        };
-
-        $rootScope.liveSubSocket = $rootScope.liveSocket.subscribe($rootScope.liveRequest);
-
-    })
+//    .run(function ($rootScope, $route) {
+//        // This uses the Atmoshpere framework to do a Websocket connection with the server, in order to send
+//        // user activities each time a route changes.
+//        // The user activities can then be monitored by an administrator, see the views/tracker.html Angular view.
+//
+//        $rootScope.liveSocket = atmosphere;
+//        $rootScope.liveSubSocket;
+//        $rootScope.liveTransport = 'websocket';
+//
+//        $rootScope.liveRequest = { url: 'websocket/live',
+//            contentType: "application/json",
+//            transport: $rootScope.liveTransport,
+//            trackMessageLength: true,
+//            reconnectInterval: 5000,
+//            enableXDR: true,
+//            timeout: 60000 };
+//
+//        $rootScope.liveRequest.sendMessage = function (isTyping, threadId) {
+//            if ($rootScope.liveSubSocket.request.isOpen) {
+//                if ($rootScope.login) {
+//                    $rootScope.liveSubSocket.push(atmosphere.util.stringifyJSON({
+//                            userLogin: $rootScope.login,
+//                            threadId: threadId,
+//                            typing: isTyping
+//                        }
+//                    ));
+//                }
+//            }
+//        };
+//
+//        $rootScope.liveSubSocket = $rootScope.liveSocket.subscribe($rootScope.liveRequest);
+//
+//    })
 ;

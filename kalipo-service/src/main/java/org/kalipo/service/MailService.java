@@ -22,6 +22,7 @@ import java.util.Locale;
  * We use the @Async annotation to send e-mails asynchronously.
  * </p>
  */
+@SuppressWarnings("unused")
 @Service
 public class MailService {
 

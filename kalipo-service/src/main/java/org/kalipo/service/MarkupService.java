@@ -1,6 +1,5 @@
 package org.kalipo.service;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -36,7 +35,7 @@ public class MarkupService {
     /**
      * Translates plaintext to HTML. It creates quotes, links and hashtags. URL shortening is resolved if possible, to increase anonymity.
      *
-     * @param plainText
+     * @param plainText the plain text
      * @return the HTML markup
      */
     public Markup toHtml(String plainText) {
@@ -81,8 +80,8 @@ public class MarkupService {
     /**
      * Follows all redirects and uses the final location as url
      *
-     * @param url
-     * @return
+     * @param url the url
+     * @return the final url, after all redirects
      * @throws URISyntaxException
      */
     public URI resolveRedirects(String url) throws URISyntaxException {
@@ -91,7 +90,7 @@ public class MarkupService {
             HttpGet request = new HttpGet(url);
             HttpContext context = new BasicHttpContext();
 
-            HttpResponse result = httpClient.execute(request, context);
+            httpClient.execute(request, context);
             URI finalUrl = request.getURI();
             RedirectLocations locations = (RedirectLocations) context.getAttribute(HttpClientContext.REDIRECT_LOCATIONS);
             if (locations != null) {

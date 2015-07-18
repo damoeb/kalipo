@@ -14,7 +14,8 @@ import javax.inject.Inject;
 import javax.ws.rs.PathParam;
 
 @ManagedService(
-    path = "/websocket/live/{thread: [a-zA-Z_0-9]+}")
+    path = "/websocket/live/{thread: [a-zA-Z_0-9]+}"
+)
 public class LiveChannelService {
 
     public static final String URL = "/websocket/live/";

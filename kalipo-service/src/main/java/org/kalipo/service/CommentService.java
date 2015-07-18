@@ -34,6 +34,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import java.util.concurrent.Future;
 
+@SuppressWarnings("unused")
 @Service
 @KalipoExceptionHandler
 public class CommentService {
@@ -71,6 +72,9 @@ public class CommentService {
 
     @Inject
     private MarkupService markupService;
+
+    @Inject
+    private WebSocketService webSocketService;
 
     @RateLimit
     public Comment create(Comment comment) throws KalipoException {
@@ -186,7 +190,7 @@ public class CommentService {
         Asserts.isNotNull(comment, "id");
 
         comment.setStatus(Comment.Status.SPAM);
-//        BroadcastUtils.broadcast(BroadcastUtils.Type.COMMENT_DELETED, comment.anonymized());
+        webSocketService.broadcast(comment.getThreadId(), WebSocketService.Type.COMMENT_DELETED, comment.anonymized());
 
         return comment;
     }
@@ -240,7 +244,7 @@ public class CommentService {
 
     @Async
     public Future<Comment> get(String id) throws KalipoException {
-        return new AsyncResult<Comment>(commentRepository.findOne(id));
+        return new AsyncResult<>(commentRepository.findOne(id));
     }
 
     @RateLimit
@@ -307,7 +311,7 @@ public class CommentService {
             commentRepository.delete(comment);
         }
 
-//        BroadcastUtils.broadcast(BroadcastUtils.Type.COMMENT_DELETED, comment.anonymized());
+        webSocketService.broadcast(comment.getThreadId(), WebSocketService.Type.COMMENT_DELETED, comment.anonymized());
     }
 
 

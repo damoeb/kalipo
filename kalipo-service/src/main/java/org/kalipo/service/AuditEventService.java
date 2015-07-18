@@ -1,9 +1,9 @@
 package org.kalipo.service;
 
+import org.joda.time.LocalDateTime;
 import org.kalipo.config.audit.AuditEventConverter;
 import org.kalipo.domain.PersistentAuditEvent;
 import org.kalipo.repository.PersistenceAuditEventRepository;
-import org.joda.time.LocalDateTime;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +17,7 @@ import java.util.List;
  * This is the default implementation to support SpringBoot Actuator AuditEventRepository
  * </p>
  */
+@SuppressWarnings("unused")
 @Service
 public class AuditEventService {
 

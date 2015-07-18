@@ -12,7 +12,6 @@ import org.kalipo.repository.VoteRepository;
 import org.kalipo.security.Privileges;
 import org.kalipo.security.SecurityUtils;
 import org.kalipo.service.util.Asserts;
-import org.kalipo.service.util.BroadcastUtils;
 import org.kalipo.service.util.NumUtils;
 import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
@@ -48,6 +47,9 @@ public class VoteService {
 
     @Inject
     private CommentRepository commentRepository;
+
+    @Inject
+    private WebSocketService webSocketService;
 
     @RateLimit
     public Vote create(@Valid Vote vote) throws KalipoException {
@@ -99,7 +101,7 @@ public class VoteService {
         }
         commentRepository.save(comment);
 
-        BroadcastUtils.broadcast(comment.getThreadId(), BroadcastUtils.Type.VOTE, vote.anonymized());
+        webSocketService.broadcast(comment.getThreadId(), WebSocketService.Type.VOTE, vote.anonymized());
 
         return voteRepository.save(vote);
     }

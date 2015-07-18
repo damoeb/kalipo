@@ -8,7 +8,7 @@
             <div class="panel-body">
 
                 <div>
-                    Hi, glad you're taking the lead. Note that you will become moderator for this discussion. As a mod you have the duty of steering the discussion i an appropiate direction an to keep out vandals. Good luck!
+                    Hi, glad you're taking the lead.
                 </div>
 
                 <hr>
@@ -51,7 +51,7 @@
                     </div>
                 </div>
 
-                <div class="row form-group">
+                <div class="row form-group" title="Only users with a higher reputation than specified will be able to participate">
                     <div class="col-md-3">Reputation Challenge</div>
                     <div class="col-md-9">
                         <input name="reputationChallenge" class="form-control" ng-model="thread.reputationChallenge"
@@ -63,6 +63,14 @@
                              ng-show="form.reputationChallenge.$dirty && form.reputationChallenge.$invalid">
                             <small>This challenge is too high, nobody will achieve it.</small>
                         </div>
+                    </div>
+                </div>
+
+                <div class="row form-group" title="Discussion won't be listed anywhere. You can change this afterwards too.">
+                    <div class="col-md-3">Hidden</div>
+                    <div class="col-md-9">
+                        <input name="hiddenDiscussion" class="form-control" ng-model="thread.hidden"
+                               placeholder="0" required type="checkbox">
                     </div>
                 </div>
 

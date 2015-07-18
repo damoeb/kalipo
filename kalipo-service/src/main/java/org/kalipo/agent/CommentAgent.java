@@ -1,9 +1,6 @@
 package org.kalipo.agent;
 
 import org.apache.commons.lang.BooleanUtils;
-import org.atmosphere.config.service.DeliverTo;
-import org.atmosphere.config.service.Message;
-import org.atmosphere.cpr.AtmosphereFramework;
 import org.joda.time.DateTime;
 import org.kalipo.aop.KalipoExceptionHandler;
 import org.kalipo.domain.Comment;
@@ -15,7 +12,7 @@ import org.kalipo.repository.SiteRepository;
 import org.kalipo.repository.ThreadRepository;
 import org.kalipo.service.NotificationService;
 import org.kalipo.service.UserService;
-import org.kalipo.service.util.BroadcastUtils;
+import org.kalipo.service.WebSocketService;
 import org.kalipo.service.util.NumUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +32,7 @@ import java.util.function.DoubleFunction;
 /**
  * Scheduled jobs for Comment entity
  */
+@SuppressWarnings("unused")
 @Service
 @KalipoExceptionHandler
 public class CommentAgent {
@@ -57,7 +55,7 @@ public class CommentAgent {
     private NotificationService notificationService;
 
     @Inject
-    private AtmosphereFramework atmosphereFramework;
+    private WebSocketService webSocketService;
 
     @Scheduled(fixedDelay = 2000)
     public void setStatusAndQuality() {
@@ -107,7 +105,7 @@ public class CommentAgent {
                     if (isMod || isSuperMod) {
                         comment.setStatus(Comment.Status.APPROVED);
 
-                        broadcast(comment.getThreadId(), BroadcastUtils.Type.COMMENT, comment);
+                        webSocketService.broadcast(comment.getThreadId(), WebSocketService.Type.COMMENT, comment);
                         onApproval(comment);
 
                         log.info(String.format("Auto-approved comment %s cause author is mod", comment.getId()));
@@ -130,6 +128,7 @@ public class CommentAgent {
                             status = Comment.Status.APPROVED;
                             onApproval(comment);
                             log.info(String.format("Auto-approved comment %s, due to good quality %s", comment.getId(), quality));
+                            webSocketService.broadcast(comment.getThreadId(), WebSocketService.Type.COMMENT, comment);
                         }
 
                         comment.setStatus(status);
@@ -139,6 +138,7 @@ public class CommentAgent {
                         log.info(String.format("Pending comment %s (q:%s)", comment.getId(), quality));
 
                         notificationService.announcePendingComment(thread, comment);
+                        webSocketService.broadcast(comment.getThreadId(), WebSocketService.Type.COMMENT, comment);
                     }
                 }
 
@@ -148,12 +148,6 @@ public class CommentAgent {
         } catch (Exception e) {
             log.error("Influence estimation failed.", e);
         }
-    }
-
-    @Message
-    @DeliverTo(DeliverTo.DELIVER_TO.RESOURCE) // default is broadcaster
-    private void broadcast(String threadId, BroadcastUtils.Type type, Comment comment) {
-
     }
 
     private void onApproval(Comment comment) {

@@ -16,8 +16,10 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.util.concurrent.Future;
 
+@SuppressWarnings("unused")
 @Service
 @KalipoExceptionHandler
+// todo unused?
 public class AchievementService {
 
     private final Logger log = LoggerFactory.getLogger(AchievementService.class);

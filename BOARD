@@ -1,9 +1,9 @@
 landing page see http://hubski.com/
-mail notification mit direkt links (once)
+mail notification mit direkt links (nonce)
 cleanup message bundles
 
 Create thread
-    as Livestream(only mods make lvl0 comments, different sorting)
+    as Livestream (only mods make lvl0 comments, different sorting)
     hidden ones
     approve approve all
     share location navigator.geolocation.getCurrentPosition(success, error);
@@ -11,14 +11,14 @@ Create thread
 REST Exceptions are crap
 excepion handling: kalipoexception -> runtime exception
 
-Install logstash
-Install nagios, or icinga
 Als Uebersicht "browse" ein sequoia chart
 browse: visualisierung der hashtags, threads, gewichtung nach geo (in your area)
 
 deleted comment -> rm menu
 
-NOT YET-Thread management nach 4chan prinzip
+NOT YET -- Thread management nach 4chan prinzip
+NOT YET -- Install logstash
+NOT YET -- Install nagios, or icinga
 
 general
   suche mit elastic search
