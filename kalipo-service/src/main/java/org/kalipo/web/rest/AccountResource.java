@@ -1,7 +1,6 @@
 package org.kalipo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.lang.StringUtils;
 import org.kalipo.domain.Authority;
 import org.kalipo.domain.PersistentToken;

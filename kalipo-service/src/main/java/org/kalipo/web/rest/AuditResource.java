@@ -1,9 +1,9 @@
 package org.kalipo.web.rest;
 
+import org.joda.time.LocalDateTime;
 import org.kalipo.security.AuthoritiesConstants;
 import org.kalipo.service.AuditEventService;
 import org.kalipo.web.propertyeditors.LocaleDateTimeEditor;
-import org.joda.time.LocalDateTime;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.WebDataBinder;

@@ -1,8 +1,8 @@
 package org.kalipo.repository;
 
+import org.joda.time.LocalDate;
 import org.kalipo.domain.PersistentToken;
 import org.kalipo.domain.User;
-import org.joda.time.LocalDate;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

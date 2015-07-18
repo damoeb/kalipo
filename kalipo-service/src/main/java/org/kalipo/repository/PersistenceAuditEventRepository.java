@@ -1,7 +1,7 @@
 package org.kalipo.repository;
 
-import org.kalipo.domain.PersistentAuditEvent;
 import org.joda.time.LocalDateTime;
+import org.kalipo.domain.PersistentAuditEvent;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
@@ -15,7 +15,7 @@ import java.util.List;
     List<PersistentAuditEvent> findByPrincipal(String principal);
 
     List<PersistentAuditEvent> findByPrincipalAndAuditEventDateGreaterThan(String principal, LocalDateTime after);
-    
+
     @Query("{auditEventDate: {$gt: ?0, $lte: ?1}}")
     List<PersistentAuditEvent> findByDates(LocalDateTime fromDate, LocalDateTime toDate);
 }

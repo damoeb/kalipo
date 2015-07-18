@@ -1,10 +1,10 @@
 package org.kalipo.security;
 
+import org.joda.time.LocalDate;
 import org.kalipo.domain.PersistentToken;
 import org.kalipo.domain.User;
 import org.kalipo.repository.PersistentTokenRepository;
 import org.kalipo.repository.UserRepository;
-import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;

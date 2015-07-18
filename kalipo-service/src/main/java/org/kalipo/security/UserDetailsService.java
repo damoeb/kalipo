@@ -1,7 +1,5 @@
 package org.kalipo.security;
 
-import org.apache.commons.lang3.StringUtils;
-import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Authority;
 import org.kalipo.domain.Ban;
 import org.kalipo.domain.Privilege;
@@ -9,7 +7,6 @@ import org.kalipo.domain.User;
 import org.kalipo.repository.BanRepository;
 import org.kalipo.repository.PrivilegeRepository;
 import org.kalipo.repository.UserRepository;
-import org.kalipo.web.rest.KalipoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,7 +21,6 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Authenticate a user from the database.

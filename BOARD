@@ -2,8 +2,10 @@ landing page see http://hubski.com/
 mail notification mit direkt links (nonce)
 cleanup message bundles
 
+live: how many users are in this thread?
+
 Create thread
-    as Livestream (only mods make lvl0 comments, different sorting)
+    type:[LIVESTREAM, NORMAL] as Livestream (only mods make lvl0 comments, different sorting)
     hidden ones
     approve approve all
     share location navigator.geolocation.getCurrentPosition(success, error);

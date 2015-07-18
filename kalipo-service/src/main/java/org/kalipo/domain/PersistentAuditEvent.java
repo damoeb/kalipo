@@ -5,6 +5,7 @@ import org.joda.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,13 +26,13 @@ public class PersistentAuditEvent  {
     @NotNull
     private String principal;
 
-    
+
     private LocalDateTime auditEventDate;
-    
+
     @Field("event_type")
     private String auditEventType;
 
-    
+
     private Map<String, String> data = new HashMap<>();
 
     public long getId() {
