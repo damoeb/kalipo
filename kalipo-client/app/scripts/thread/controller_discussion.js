@@ -1,6 +1,6 @@
 'use strict';
 
-kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $location, $anchorScroll, AuthenticationSharedService, $rootScope, Thread, Comment, Report, Discussion, Websocket, Notifications, REPORT_IDS, $compile, $q, THREAD_STATUS, Vote, DISCUSSION_TYPES) {
+kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParams, $location, $anchorScroll, AuthenticationSharedService, $rootScope, Thread, Comment, Report, Discussion, Websocket, Notifications, REPORT_IDS, $compile, $q, THREAD_STATUS, Vote, DISCUSSION_TYPES) {
 
     var threadId = $routeParams.threadId;
     // todo impl scrolling to commentId
@@ -119,6 +119,10 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
     });
 
     // -- Non-Auth Scope Functions -- ----------------------------------------------------------------------------------
+    $scope.renderHtml = function (htmlCode) {
+        return $sce.trustAsHtml(htmlCode);
+    };
+
 
     var loadMore = function () {
         if (!$scope.$isLastPage) {

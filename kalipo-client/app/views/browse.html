@@ -31,6 +31,12 @@
                                     ng-if="thread.commentCount == 0">No comments yet</span></a>
                                 </p>
 
+                                <div>
+                                    <span ng-repeat="tag in thread.tags">
+                                        <a href="#/tag/{{tag}}">#{{tag}}</a>
+                                    </span>
+                                </div>
+
                             </div>
 
                         </div>

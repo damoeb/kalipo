@@ -80,6 +80,8 @@ public class Thread implements Serializable {
 
     private Status status;
 
+    private Set<String> tags;
+
     @NotNull(message = "{constraint.notnull.body}")
     @Size(min = 2, max = Constants.LIM_MAX_LEN_TEXT, message = "{constraint.length.body}")
     private String body;
@@ -252,6 +254,14 @@ public class Thread implements Serializable {
 
     public void setHidden(Boolean hidden) {
         this.hidden = hidden;
+    }
+
+    public Set<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
     }
 
     /**

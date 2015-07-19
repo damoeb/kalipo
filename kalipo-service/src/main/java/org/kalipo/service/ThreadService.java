@@ -6,6 +6,7 @@ import org.kalipo.aop.RateLimit;
 import org.kalipo.config.Constants;
 import org.kalipo.config.ErrorCode;
 import org.kalipo.domain.Comment;
+import org.kalipo.domain.Markup;
 import org.kalipo.domain.Site;
 import org.kalipo.domain.Thread;
 import org.kalipo.repository.*;
@@ -135,6 +136,7 @@ public class ThreadService {
         Asserts.nullOrEqual(dirty.getLikes(), original.getLikes(), "likes");
         Asserts.nullOrEqual(dirty.getDislikes(), original.getDislikes(), "dislikes");
         Asserts.nullOrEqual(dirty.getInitiatorId(), original.getInitiatorId(), "initiatorId");
+        Asserts.nullOrEqual(dirty.getTags(), original.getTags(), "tags");
 
         // update fields
 
@@ -145,6 +147,7 @@ public class ThreadService {
             original.setStatus(dirty.getStatus());
         }
         original.setTitle(dirty.getTitle());
+        original.setBody(dirty.getBody());
 
         return save(original);
     }
@@ -275,7 +278,8 @@ public class ThreadService {
     }
 
     private void renderBody(Thread thread) {
-        // todo implement
-        thread.setBodyHtml(thread.getBody());
+        Markup markup = markupService.toHtml(thread.getBody());
+        thread.setBodyHtml(markup.buffer().toString());
+        thread.setTags(markup.hashtags());
     }
 }
