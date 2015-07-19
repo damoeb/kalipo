@@ -13,6 +13,8 @@ Create thread
 REST Exceptions are crap
 excepion handling: kalipoexception -> runtime exception
 
+event:auth-authorized does not work, use event:auth-loginConfirmed
+
 Als Uebersicht "browse" ein sequoia chart
 browse: visualisierung der hashtags, threads, gewichtung nach geo (in your area)
 

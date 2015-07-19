@@ -42,6 +42,11 @@ kalipoApp.constant('REPORT_STATUS', {
     APPROVED:'APPROVED', PENDING:'PENDING', REJECTED:'REJECTED'
 });
 
+kalipoApp.constant('DISCUSSION_TYPES', [
+    {id:'NORMAL', name:'Normal'},
+    {id:'LIVE', name:'Live Stream'}
+]);
+
 kalipoApp.constant('ACHIEVEMENTS', {
     LIKED: {text: 'Cash -- You like a comment'},
     LIKE: {text: 'Someone likes your comment'},

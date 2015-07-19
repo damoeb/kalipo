@@ -18,11 +18,12 @@
 
                     <strong>{{day}}</strong>
 
+
                     <div ng-repeat="thread in threads">
                         <div class="row comment">
                             <div class="col-sm-12 col-xs-12">
 
-                                <a href="#/comments/{{::thread.id}}">{{::thread.title}}</a>
+                                <a href="#/comments/{{::thread.id}}">{{::thread.title}}</a> by {{::thread.displayName}}
 
                                 <p>
                                     {{::thread.body}} -- <a href="#/comments/{{::thread.id}}"><span

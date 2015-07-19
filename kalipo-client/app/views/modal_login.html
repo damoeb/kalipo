@@ -1,0 +1,41 @@
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal"
+     aria-hidden="true" ng-controller="LoginController">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">Login to proceed</div>
+            <div class="modal-body">
+
+                <div class="alert alert-danger" ng-show="authenticationError"
+                     translate="login.messages.error.authentication">
+                    <strong>Authentication failed!</strong> Please check your credentials and try again.
+                </div>
+
+                <form class="form" role="form">
+                    <div class="form-group">
+                        <label for="username" translate="global.form.username">Username</label>
+                        <input type="text" class="form-control" id="username"
+                               placeholder="{{'global.form.username.placeholder' | translate}}" ng-model="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" translate="login.form.password">Password</label>
+                        <input type="password" class="form-control" id="password"
+                               placeholder="{{'login.form.password.placeholder' | translate}}"
+                               ng-model="password">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" ng-click="login()">
+                        Continue
+                    </button>
+
+                    <p>
+                        <a href="javascript:void(0)">Forgot password?</a>
+                    </p>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -67,7 +67,7 @@
                 'responseError': function (rejection) {
                     console.error('response-error', rejection);
                     if (rejection && rejection.status == 401) {
-                        Notifications.error('Please login');
+//                        Notifications.error('Please login');
                     }
                     return $q.reject(rejection);
                 }

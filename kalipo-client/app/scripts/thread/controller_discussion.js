@@ -1,11 +1,12 @@
 'use strict';
 
-kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $location, $anchorScroll, $rootScope, Thread, Comment, Report, Discussion, Websocket, Notifications, REPORT_IDS, $compile, $q, THREAD_STATUS, Vote) {
+kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $location, $anchorScroll, AuthenticationSharedService, $rootScope, Thread, Comment, Report, Discussion, Websocket, Notifications, REPORT_IDS, $compile, $q, THREAD_STATUS, Vote, DISCUSSION_TYPES) {
 
     var threadId = $routeParams.threadId;
     // todo impl scrolling to commentId
     var commentId = $routeParams.commentId;
 
+    $scope.discussionTypes = DISCUSSION_TYPES;
     $scope.pages = [];
     $scope.$threadId = threadId;
     $scope.reportModel = {};
@@ -25,6 +26,23 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
     var tree = {};
     var currentPage = 0;
     var promiseTemplates = Discussion.init();
+    var promiseAuth = function() {
+        var deferred = $q.defer();
+
+        if($rootScope.authenticated) {
+            console.log('already authenticated');
+            deferred.resolve();
+        } else {
+            $rootScope.$on('event:auth-loginConfirmed', function() {
+                $('#loginModal').modal('hide');
+                deferred.resolve();
+            });
+
+            var modal = $('#loginModal').modal();
+        }
+
+        return deferred.promise;
+    };
 
     // -- Initialization -- ----------------------------------------------------------------------------------------
 
@@ -100,7 +118,7 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
         });
     });
 
-    // -- Scope Functions -- ---------------------------------------------------------------------------------------
+    // -- Non-Auth Scope Functions -- ----------------------------------------------------------------------------------
 
     var loadMore = function () {
         if (!$scope.$isLastPage) {
@@ -126,13 +144,6 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
         $location.hash(old);
     };
 
-    $scope.updateThread = function (thread) {
-
-        Thread.save(thread, function () {
-            Notifications.info('Updated');
-        });
-    };
-
     $scope.submitReport = function () {
 
         console.log('submit report');
@@ -154,78 +165,10 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
         $scope.draft.parentId = commentId;
     };
 
-    $scope.submitComment = function () {
-
-        // todo support anon flag in view
-        $scope.draft.anonymous = false;
-
-        Comment.save($scope.draft,
-            function () {
-                Notifications.info('Saved');
-                $('#createCommentModal').modal('hide');
-                $scope.draft = {};
-            });
-    };
-
-    // --
-
-    $scope.markSpamComment = function (commentId) {
-        Notifications.info('Spam ' + commentId);
-        Comment.spam({
-            id: commentId
-        });
-    };
-
-    $scope.deleteComment = function (commentId) {
-        Notifications.info('Delete ' + commentId);
-        Comment.delete({
-            id: commentId
-        });
-    };
-
-    $scope.deleteThread = function (thread) {
-        Notifications.info('Delete thread ' + thread.id);
-        Thread.delete({
-            id: thread.id
-        });
-    };
-
-    $scope.deleteCommentAndBanUser = function (commentId) {
-        Notifications.info('Delete + Ban ' + commentId);
-        Comment.deleteAndBan({
-            id: commentId
-        });
-    };
-
-    $scope.like = function (commentId) {
-        commentId.likes++;
-
-        var vote = {like: true, commentId: commentId};
-
-        Vote.save(vote, function (id) {
-            Notifications.info('Mmh');
-        });
-    };
-
-    $scope.dislike = function (commentId) {
-        commentId.dislikes++;
-
-        var vote = {like: false, commentId: commentId};
-
-        Vote.save(vote, function (id) {
-            Notifications.info('Nah');
-        });
-    };
-
     $scope.toggleOptionals = function (commentId) {
 
         $('#comment-' + commentId + ' > .replies.optionals').toggleClass('hidden');
         $rootScope.$broadcast('refresh-outline-viewport');
-    };
-
-    $scope.ignoreAuthorOf = function (commentId) {
-        console.log('ignoreAuthorOf', commentId);
-        Account.ignoreAuthor({commentId: commentId});
     };
 
     $scope.showReportModal = function (commentId, displayName) {
@@ -245,5 +188,95 @@ kalipoApp.controller('DiscussionController', function ($scope, $routeParams, $lo
         console.log('refresh-outline-viewport -> ...');
         $('#comment-' + commentId).toggleClass('hiddenreplies');
         $rootScope.$broadcast('refresh-outline-viewport');
+    };
+
+
+    // -- Auth Scope Functions -- --------------------------------------------------------------------------------------
+
+    $scope.updateThread = function (thread) {
+        promiseAuth().then(function() {
+            Thread.save(thread, function () {
+                Notifications.info('Updated');
+            });
+        });
+    };
+
+    $scope.submitComment = function () {
+
+        promiseAuth().then(function() {
+
+            // todo support anon flag in view
+            $scope.draft.anonymous = false;
+
+            Comment.save($scope.draft,
+                function () {
+                    Notifications.info('Saved');
+                    $('#createCommentModal').modal('hide');
+                    $scope.draft = {};
+                });
+        });
+    };
+
+    $scope.markSpamComment = function (commentId) {
+        promiseAuth().then(function() {
+            Notifications.info('Spam ' + commentId);
+            Comment.spam({
+                id: commentId
+            });
+        });
+    };
+
+    $scope.deleteComment = function (commentId) {
+        promiseAuth().then(function() {
+            Notifications.info('Delete ' + commentId);
+            Comment.delete({
+                id: commentId
+            });
+        });
+    };
+
+    $scope.deleteThread = function (thread) {
+        promiseAuth().then(function() {
+            Notifications.info('Delete thread ' + thread.id);
+            Thread.delete({
+                id: thread.id
+            });
+        });
+    };
+
+    $scope.deleteCommentAndBanUser = function (commentId) {
+        promiseAuth().then(function() {
+            Notifications.info('Delete + Ban ' + commentId);
+            Comment.deleteAndBan({
+                id: commentId
+            });
+        });
+    };
+
+    $scope.like = function (commentId) {
+        promiseAuth().then(function() {
+            var vote = {like: true, commentId: commentId};
+
+            Vote.save(vote, function (id) {
+                Notifications.info('Mmh');
+            });
+        });
+    };
+
+    $scope.dislike = function (commentId) {
+        promiseAuth().then(function() {
+            var vote = {like: false, commentId: commentId};
+
+            Vote.save(vote, function (id) {
+                Notifications.info('Nah');
+            });
+        });
+    };
+
+    $scope.ignoreAuthorOf = function (commentId) {
+        promiseAuth().then(function() {
+            console.log('ignoreAuthorOf', commentId);
+            Account.ignoreAuthor({commentId: commentId});
+        });
     };
 });

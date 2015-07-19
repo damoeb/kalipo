@@ -33,6 +33,7 @@
 
         </div>
 
+        <div ng-include="'views/modal_login.html'"></div>
         <div ng-include="'views/modal_reply.html'"></div>
         <div ng-include="'views/modal_report.html'"></div>
 
@@ -114,7 +115,7 @@
         </fieldset>
 
         <fieldset style="padding-top:10px" ng-show="fullReplyArea">
-            <button class="btn btn-default btn-sm" ng-click="showReplyModal('','')">
+            <button class="btn btn-default btn-sm" ng-click="showReplyModal('','')" title="Fullscreen">
                 <span class="glyphicon glyphicon-fullscreen"></span>
             </button>
             <button class="btn btn-primary btn-sm pull-right" ng-click="submitComment()">
