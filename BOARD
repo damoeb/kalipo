@@ -1,8 +1,21 @@
+perma links fuer kommentare, url updated sich beim scrollen
+outline ist scrollbar
+
+1. load many (100?) comments
+2. create (complete?) outline & render 50 comments
+3. on outline-comment-click: load 20 comments {from: commentId}
+   show
+
+       /\/\/\/\/\
+   load more comments (triggers load comments in range from outline {from,to})
+       /\/\/\/\/\
+
+4. on scroll-outline, discussion will scroll until vanished
+
 landing page see http://hubski.com/
 mail notification mit direkt links (nonce)
 cleanup message bundles
-
-live: how many users are in this thread?
+achievements funzt noch nicht
 
 Create thread
     type:[LIVESTREAM, NORMAL] as Livestream (only mods make lvl0 comments, different sorting)
