@@ -98,7 +98,6 @@ kalipoApp.factory('Discussion', function ($http, Thread, $q) {
                 });
 
 
-                // todo calc author diversity
                 // todo authors not needed: if child is obligatory, self is optional -> self is obligatory+oneline
                 //comment.$authors = _.uniq($authors);
                 //

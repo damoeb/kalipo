@@ -133,7 +133,6 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             var internDimensions = internal.intern(influence, comments);
             var scale = internal.scale(internDimensions, externDimensions);
 
-            // todo fix e
             $this.yScale = scale.y;
 
             d3.select('#klp-outline').select('g').remove();

@@ -68,7 +68,7 @@ public class VoteService {
         // -- Quota
 
         int count = voteRepository.countWithinDateRange(currentLogin, DateTime.now().minusDays(1), DateTime.now());
-        int dailyLimit = 100; // todo senseful quota
+        int dailyLimit = 40; // todo senseful quota
         if (count >= dailyLimit && !isSuperMod) {
             throw new KalipoException(ErrorCode.METHOD_REQUEST_LIMIT_REACHED, "daily vote quota is " + dailyLimit);
         }

@@ -60,7 +60,6 @@ kalipoApp.controller('ProfileNoticeController', function ($rootScope, $scope, $s
             });
         };
 
-        // todo you have to be logged in to see this page
         if (typeof($rootScope.login) == 'undefined') {
             console.log('wait');
             $scope.$on('event:auth-authorized', __doFetchNotices);

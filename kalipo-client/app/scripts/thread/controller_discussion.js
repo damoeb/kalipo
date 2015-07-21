@@ -209,7 +209,6 @@ kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParam
 
         promiseAuth().then(function() {
 
-            // todo support anon flag in view
             $scope.draft.anonymous = false;
 
             Comment.save($scope.draft,
