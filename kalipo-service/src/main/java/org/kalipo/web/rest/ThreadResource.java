@@ -9,7 +9,6 @@ import org.kalipo.domain.Comment;
 import org.kalipo.domain.Thread;
 import org.kalipo.service.ThreadService;
 import org.kalipo.service.util.Asserts;
-import org.kalipo.service.util.ParamUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -19,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.ws.rs.QueryParam;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
@@ -62,10 +60,12 @@ public class ThreadResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiOperation(value = "Get all the threads")
-    public Page<Thread> getAll(@QueryParam(Constants.PARAM_PAGE) Integer page) throws ExecutionException, InterruptedException {
+    public Page<Thread> getAll(
+        @RequestParam(value = Constants.PARAM_PAGE, required = false, defaultValue = "0") Integer page
+    ) throws ExecutionException, InterruptedException {
         log.debug("REST request to get all Threads");
 
-        return threadService.getAllWithPages(ParamUtils.fixPage(page)).get();
+        return threadService.getAllWithPages(page).get();
     }
 
     /**
@@ -121,13 +121,13 @@ public class ThreadResource {
     })
     public ResponseEntity<Page<Comment>> getComments(
         @PathVariable String id,
-        @QueryParam(Constants.PARAM_PAGE) Integer page
+        @RequestParam(value = Constants.PARAM_PAGE, required = false, defaultValue = "0") Integer page
     ) throws KalipoException, ExecutionException, InterruptedException {
 
         log.debug("REST request to get Comments of Thread : {}", id);
         Asserts.isNotNull(id, "id");
 
-        return Optional.ofNullable(threadService.getCommentsWithPages(id, ParamUtils.fixPage(page)).get())
+        return Optional.ofNullable(threadService.getCommentsWithPages(id, page).get())
             .map(comments -> new ResponseEntity<>(
                 comments,
                 HttpStatus.OK))
@@ -148,13 +148,13 @@ public class ThreadResource {
     })
     public ResponseEntity<Page<Comment>> getLatest(
         @PathVariable String id,
-        @QueryParam(Constants.PARAM_PAGE) Integer page
+        @RequestParam(value = Constants.PARAM_PAGE, required = false, defaultValue = "0") Integer page
     ) throws KalipoException, ExecutionException, InterruptedException {
 
         log.debug("REST request to get latest Comments of Thread : {}", id);
         Asserts.isNotNull(id, "id");
 
-        return Optional.ofNullable(threadService.getLatestCommentsWithPages(id, ParamUtils.fixPage(page)).get())
+        return Optional.ofNullable(threadService.getLatestCommentsWithPages(id, page).get())
             .map(comments -> new ResponseEntity<>(
                 comments,
                 HttpStatus.OK))

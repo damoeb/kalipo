@@ -47,7 +47,7 @@ angular.module('kalipoApp')
                 $q.when(promise).then(function () {
                     var $thread = $('<div></div>');
 
-                    _.forEach($scope.page.comments, function (comment) {
+                    _.forEach($scope.fragment, function (comment) {
                         Discussion.renderComment(comment, $thread, false);
                     });
 

@@ -44,9 +44,9 @@ angular.module('kalipoApp')
                 $rootScope.$on('refresh-outline-viewport', refreshViewport);
                 onScrollEnd(refreshViewport);
 
-                $rootScope.$on('fetched-page', function (event, pages) {
+                $rootScope.$on('event:render-outline', function (event, tree) {
 
-                    $this.comments = Outline.flattenPages(pages);
+                    $this.comments = Outline.flattenTree(tree);
 
                     var dimensions = {
                         width: $element.parent().width(),

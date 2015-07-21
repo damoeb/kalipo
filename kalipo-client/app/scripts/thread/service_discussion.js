@@ -1,6 +1,13 @@
 'use strict';
 
-kalipoApp.factory('Discussion', function ($http, Thread, $q) {
+kalipoApp.factory('Discussion', function ($http, Thread, $q, DISCUSSION_SHAPE_RULES) {
+
+    var data = {
+        threadId: null,
+        roots: [],
+        map: {},
+        totalElementCount: null
+    };
 
     var internal = {
 
@@ -10,7 +17,8 @@ kalipoApp.factory('Discussion', function ($http, Thread, $q) {
             })
         },
 
-        postFetch: function (comments, pageId) {
+        benchmark: function (comments) {
+
             return _.forEach(comments, function (comment, index) {
                 comment.replies = [];
                 comment.authors = [];
@@ -43,15 +51,15 @@ kalipoApp.factory('Discussion', function ($http, Thread, $q) {
                 // todo minimize negative-only comments, hell-banned subthreads
 
                 //comment.$hiddenreplies = comment.dislikes > 3 && comment.dislikes > comment.likes;
-                comment.$score = comment.influence / comment.createdDate;
-
+//                comment.$score = comment.influence / comment.createdDate;
+//
                 // author chose to hide his name
                 if (_.isEmpty(comment.displayName) || _.isUndefined(comment.displayName)) {
                     comment.displayName = 'Anonymous';
-                    authorId = comment.id;
+//                    authorId = comment.id;
                 }
-
-                comment.authors.push(authorId);
+//
+//                comment.authors.push(authorId);
 
                 var total = comment.likes + comment.dislikes;
                 comment.$likes = comment.likes / total * 100;
@@ -77,7 +85,7 @@ kalipoApp.factory('Discussion', function ($http, Thread, $q) {
                 comment.$repliesCount = 0;
                 comment.$concealedRepliesCount = 0;
 
-                rules.apply(comment, level, index);
+                rules.apply(comment, level, index, data);
 
                 internal.shapeRc(comment.replies, level + 1, rules);
 
@@ -117,20 +125,21 @@ kalipoApp.factory('Discussion', function ($http, Thread, $q) {
             });
         },
 
-        merge: function (tree, comments) {
+        merge: function (comments) {
 
             var roots = [];
 
+            // create nested comments
             _.forEach(comments, function (comment) {
 
-                tree[comment.id] = comment;
+                data.map[comment.id] = comment;
 
                 if (comment.level == 0 || _.isUndefined(comment.parentId)) {
                     roots.push(comment);
 
                 } else {
 
-                    var parent = tree[comment.parentId];
+                    var parent = data.map[comment.parentId];
                     if (_.isUndefined(parent)) {
                         console.log('cannot find parent of', comment.parentId);
                     } else {
@@ -140,18 +149,48 @@ kalipoApp.factory('Discussion', function ($http, Thread, $q) {
                 }
             });
 
+            // todo sort should be applied to entire tree not fragment only
+            internal.sort(roots);
+
+            // merge with tree
+            _.each(roots, function(root) {
+                data.roots.push(root);
+            })
+
             return roots;
         },
+
         templates: {
             'toggle_concealed': _.template('<div class="toggle-optionals" style="margin-left: <%- comment.level * 15 %>px; <% if(comment.level>1) { %>border-left: 1px dashed #ececec;<% } %>"><a href="javascript:void(0)" ng-click="toggleOptionals(\'<%- comment.id %>\')"><strong><% if(comment.$hasObligatoryReplies) {%> <%- comment.$concealedRepliesCount %><% } else { %><%- comment.$repliesCount %><% } %></strong> <% if(comment.$hasObligatoryReplies && comment.$concealedRepliesCount==1 || comment.$repliesCount==1) { %>reply<% } else { %>replies<% } %></a> <span class="glyphicon glyphicon-chevron-down"></span></div>')
-        }
+        },
+
+        findPageWithComment: function (commentId, response) {
+            var deferred = $q.defer();
+
+            if(!_.isUndefined(commentId) && _.isUndefined(data.map[commentId])) {
+                console.log('fetch loop for', commentId)
+                deferred.resolve([response]);
+
+                // todo load all pages until found
+//                Thread.discussion({id: data.threadId, from: commentId}, function (response) {
+//                    // todo merge into data
+//                    deferred.resolve([response]);
+//                });
+
+            } else {
+                console.log('no comment requested');
+                deferred.resolve([response]);
+            }
+
+            return deferred.promise;
+        },
     };
 
     var deferInit;
 
     return {
 
-        init: function () {
+        init: function (threadId) {
 
             if (_.isUndefined(deferInit)) {
                 deferInit = $q.defer();
@@ -164,6 +203,10 @@ kalipoApp.factory('Discussion', function ($http, Thread, $q) {
                     internal.templates['menu'] = _.template(response[1].data);
                     deferInit.resolve();
                 });
+
+                data.threadId = threadId;
+                data.roots = [];
+                data.map = {};
             }
             return deferInit.promise;
         },
@@ -210,85 +253,51 @@ kalipoApp.factory('Discussion', function ($http, Thread, $q) {
             __render(comment, $sink, concealed);
         },
 
-        fetch: function (threadId, pageId, tree) {
+        firstFetch: function (commentId) {
 
             var defer = $q.defer();
 
-            Thread.discussion({id: threadId, page: pageId}, function (pageData) {
+            var fetchHead = Thread.discussion({id: data.threadId});
 
-                var comments = internal.postFetch(pageData.content, pageId);
+            // todo shit
+            $q.when(fetchHead)
+//            .then(function(response) {
+//                return internal.findPageWithComment(commentId, response)
+//            })
+            .then(function (responses) {
 
-                var roots = internal.sort(internal.merge(tree, comments));
+                console.log('responses', responses);
 
-                var totalElementCount = pageData.totalElements;
+                _.each(responses, function(response) {
 
-                var rules = {
-                    /*
-                     3 rule sets
-                     .) huge discussions > 200 comments attributes.totalElementCount
-                     - only level 0 comments
-                     - level 1: show best 2, rest is hidden
-                     - drop bad comments
+                    var comments = response.content;
+                    internal.benchmark(comments);
+                    data.totalElementCount = response.totalElements;
 
-                     .) normal discussions
-                     - hide index > 4
-                     - level 0 are not hiddenreplies
+                    console.log('response', response);
+                    console.log('comments', comments);
 
-                     .) general rules
-                     - minimize bad comments
-                     - show full comment if user is the author
-                     - show path to authors comment at least onelined
+                    var roots = internal.merge(comments);
 
-                     -----
+                    internal.shape(roots, DISCUSSION_SHAPE_RULES);
 
-                     vollstandig
-                     einzeilig
-                     Antworten anzeigen
-
-                     comment has replies
-                     reply.$obligatory = yes|no
-                     reply.$onelined = yes|no
-
-                     a reply can be optional -> show 4 comments
-
-                     */
-                    _isObligatory: function (comment, level, index) {
-//                        console.log('level', level, 'index', index);
-                        if (level == 0) {
-                            return true;
+                    var fragment = {
+                        comments: roots,
+                        from: null,
+                        to: null,
+                        meta: {
+                            isLastPage: response.lastPage,
+                            isFirstPage: response.firstPage,
+                            numberOfElements: response.numberOfElements,
+                            totalElements: response.totalElements
                         }
-                        if (level == 1) {
-                            return index < 5;
-                        }
-                        //return false;
-                        if (level > 3) {
-                            return false;
-                        }
-                        return totalElementCount < 600;
-                    },
+                    };
 
-                    _isOneLine: function (comment, level) {
-                        var controversial = comment.likes > 2 && comment.dislikes > 2;
-                        var downVoted = comment.likes > 1 && comment.likes > 1 && (comment.likes - comment.dislikes) < 2;
-                        return downVoted && !controversial;
-                    },
+                    console.log('fragment', fragment);
 
-                    apply: function (comment, level, index) {
-                        comment.$oneline = this._isOneLine(comment, level, index);
-                        comment.$obligatory = this._isObligatory(comment, level, index);
-                    }
-                };
-
-                internal.shape(roots, rules);
-
-                var page = {
-                    id: pageId,
-                    comments: roots
-                };
-
-                defer.resolve({page: page, isLastPage: pageData.lastPage, isFirstPage: pageData.firstPage, totalElements: pageData.totalElements, numberOfElements: pageData.numberOfElements});
-
-            });
+                    defer.resolve({fragment:fragment, roots:data.roots});
+                })
+            })
 
             return defer.promise;
         }

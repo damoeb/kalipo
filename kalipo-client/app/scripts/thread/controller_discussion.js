@@ -3,11 +3,10 @@
 kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParams, $location, $anchorScroll, AuthenticationSharedService, $rootScope, Thread, Comment, Report, Discussion, Websocket, Notifications, REPORT_IDS, $compile, $q, THREAD_STATUS, Vote, DISCUSSION_TYPES) {
 
     var threadId = $routeParams.threadId;
-    // todo impl scrolling to commentId
     var commentId = $routeParams.commentId;
 
     $scope.discussionTypes = DISCUSSION_TYPES;
-    $scope.pages = [];
+    $scope.fragments = [];
     $scope.$threadId = threadId;
     $scope.reportModel = {};
     $scope.$showPending = false;
@@ -23,9 +22,9 @@ kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParam
     };
     $scope.visitorCount = 0;
 
-    var tree = {};
     var currentPage = 0;
-    var promiseTemplates = Discussion.init();
+
+    var promiseTemplates = Discussion.init(threadId);
     var promiseAuth = function() {
         var deferred = $q.defer();
 
@@ -48,26 +47,33 @@ kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParam
 
     $scope.thread = Thread.get({id: threadId});
 
-    var onFetchedPage = function (result) {
-        $scope.pages.push(result.page);
-        $scope.$isLastPage = result.isLastPage;
-        $scope.$isEmptyDiscussion = result.totalElements == 0;
+    var onFetchedFragment = function (response) {
+        var fragment = response.fragment;
+
+//      todo find place to insert fragment
+        $scope.fragments.push(fragment.comments);
+
+        $scope.$isLastPage = fragment.meta.isLastPage;
+        $scope.$isEmptyDiscussion = fragment.meta.totalElements == 0;
         $scope.$busy = false;
 
-        if (result.numberOfElements > 0) {
-            $rootScope.$broadcast('fetched-page', $scope.pages);
+        if (fragment.meta.numberOfElements > 0) {
+            $rootScope.$broadcast('event:render-outline', response.roots);
         }
     };
 
-    var firstFetch = function () {
-        var promiseFetch = Discussion.fetch(threadId, 0, tree);
+    var firstFetch = function (fromCommentId) {
+        var promiseFetch = Discussion.firstFetch(fromCommentId);
         $q.when(promiseFetch).then(function(response) {
-            onFetchedPage(response);
+            onFetchedFragment(response);
             $rootScope.$broadcast('init-when-scrolled');
+            if(!_.isUndefined(fromCommentId)) {
+                // todo scroll to fromCommentId
+            }
         });
     };
 
-    firstFetch();
+    firstFetch(commentId);
 
     // -- Socket -- ------------------------------------------------------------------------------------------------
 
@@ -131,7 +137,7 @@ kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParam
 
             currentPage = currentPage + 1;
 
-            $q.when(Discussion.fetch(threadId, currentPage, tree)).then(onFetchedPage);
+            $q.when(Discussion.fetch(currentPage)).then(onFetchedPage);
         }
     };
 
@@ -139,14 +145,14 @@ kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParam
         loadMore();
     };
 
-    $scope.scrollTo = function (id) {
-        console.log('scroll to comment', id);
-        var old = $location.hash();
-        $location.hash(id);
-        $anchorScroll();
-        //reset to old to keep any additional routing logic from kicking in
-        $location.hash(old);
-    };
+//    $scope.scrollTo = function (id) {
+//        console.log('scroll to comment', id);
+//        var old = $location.hash();
+//        $location.hash(id);
+//        $anchorScroll();
+//        //reset to old to keep any additional routing logic from kicking in
+//        $location.hash(old);
+//    };
 
     $scope.submitReport = function () {
 

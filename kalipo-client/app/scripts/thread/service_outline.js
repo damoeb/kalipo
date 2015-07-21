@@ -8,16 +8,6 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
 
     var helper = {
 
-        pushAll: function (pages) {
-            var sink = [];
-            _.forEach(pages, function (_comments) {
-                _.forEach(_comments, function (comment) {
-                    sink.push(comment);
-                })
-            });
-            return sink;
-        },
-
         flat: function (sink, nestedComments) {
             _.forEach(nestedComments, function (comment) {
                 sink.push(comment);
@@ -182,18 +172,13 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
                 });
         },
 
-        flattenPages: function (pages) {
+        flattenTree: function (tree) {
 
-            var flat_pages = {};
+            var flattened = [];
+            helper.flat(flattened, tree);
+            flattened = _.flatten(flattened);
 
-            _.forEach(pages, function (page) {
-
-                flat_pages[page.id] = [];
-                helper.flat(flat_pages[page.id], page.comments);
-                flat_pages[page.id] = _.flatten(flat_pages[page.id]);
-            });
-
-            return helper.pushAll(flat_pages);
+            return flattened;
         },
 
         /**

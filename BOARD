@@ -1,8 +1,15 @@
-landing page see http://hubski.com/
+discussion: fragments instead of pages, outline fails atm, preload a larger (scrollable) outline, der baum sollte wissen
+ob ein "gap" zwischen den fragmenten existiert. Wenn ja eine Art
+
+       /\/\/\/\/\/\
+  click for more comments (bzw eine schere ---§X---)
+       /\/\/\/\/\/\
+
+anzeigen. browse erstmal wie ein blog. Naming: Statt site eigene Bereiche definieren wie Space
+create a DiscussionKeeper that holds all known data, that is distributed to outline an discussion
+
 mail notification mit direkt links (nonce)
 cleanup message bundles
-
-live: how many users are in this thread?
 
 Create thread
     type:[LIVESTREAM, NORMAL] as Livestream (only mods make lvl0 comments, different sorting)
