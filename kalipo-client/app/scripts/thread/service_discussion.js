@@ -61,7 +61,6 @@ kalipoApp.factory('Discussion', function ($http, Thread, $q) {
         },
 
         shape: function (comments, rules) {
-            console.log('shape');
             internal.shapeRc(comments, 1, rules);
         },
 

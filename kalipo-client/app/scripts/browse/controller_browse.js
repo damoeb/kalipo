@@ -8,9 +8,9 @@ kalipoApp.controller('BrowseController', function ($scope, Thread, Comment) {
     // -- Scope Functions -- ---------------------------------------------------------------------------------------
 
     $scope.loadMore = function () {
-        console.log("load more");
 
         $scope.currentPage = $scope.currentPage + 1;
+        console.log('next page', $scope.currentPage);
 
         Thread.query(function (result) {
             $scope.$isLastPage = result.lastPage;

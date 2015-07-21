@@ -59,6 +59,11 @@ kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParam
         }
     };
 
+    $(window).resize(function() {
+        console.log('redraw');
+        $rootScope.$broadcast('fetched-page', $scope.pages);
+    });
+
     var firstFetch = function () {
         var promiseFetch = Discussion.fetch(threadId, 0, tree);
         $q.when(promiseFetch).then(function(response) {
@@ -127,9 +132,9 @@ kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParam
     var loadMore = function () {
         if (!$scope.$isLastPage) {
             $scope.$busy = true;
-            console.log("load more");
 
             currentPage = currentPage + 1;
+            console.log('next page', currentPage);
 
             $q.when(Discussion.fetch(threadId, currentPage, tree)).then(onFetchedPage);
         }

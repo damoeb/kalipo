@@ -99,8 +99,10 @@
         <div
             style="position: fixed; width: 5px; background-color: black; height: 100px; top:0; margin-left: -10px; display: none"
             id="outline-viewport-indicator" title="your viewport, the comments you see"></div>
-        <div style="overflow-y: auto; overflow-x: hidden; position: relative">
-            <thread-outline pages="pages"></thread-outline>
+        <div id="outline-scroll-wrapper" style="overflow-y: auto; overflow-x: hidden;">
+            <div id="outline-scrollable">
+                <div ng-outline pages="pages"></div>
+            </div>
         </div>
     </div>
 

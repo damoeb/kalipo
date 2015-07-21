@@ -2,9 +2,9 @@
  * Created by damoeb on 16.12.14.
  */
 angular.module('kalipoApp')
-    .directive('threadOutline', function ($compile, $routeParams, $rootScope, Thread, Outline, OutlineConfig) {
+    .directive('ngOutline', function ($compile, $routeParams, $rootScope, Thread, Outline, OutlineConfig) {
         return {
-            restrict: 'E',
+            restrict: 'A',
             scope: {
                 pages: '='
             },
@@ -43,6 +43,8 @@ angular.module('kalipoApp')
 
                 $rootScope.$on('refresh-outline-viewport', refreshViewport);
                 onScrollEnd(refreshViewport);
+
+                refreshViewport();
 
                 $rootScope.$on('fetched-page', function (event, pages) {
 

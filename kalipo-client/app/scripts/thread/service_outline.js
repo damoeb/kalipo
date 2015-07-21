@@ -139,7 +139,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
 
             var g = d3.select('#klp-outline')
                 .attr('width', externDimensions.width)
-                .attr('height', externDimensions.height)
+                .attr('height', externDimensions.height + $(window).height())
                 .append('g');
 
             var yOffsetTotal = 0;
@@ -204,10 +204,10 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
 
             var viewport = internal.viewport();
 
+            var $outlineScrollWrapper = $outline.parent();
+
             var firstCommentId = viewport.first;
             var lastCommentId = viewport.last;
-
-//            console.log('viewport from', firstCommentId, 'last', lastCommentId);
 
             var indexOfFirst = _.findIndex(comments, function (comment) {
                 return comment.id == firstCommentId;
@@ -220,20 +220,25 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             var _height = (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) * (indexOfLast - indexOfFirst) + OutlineConfig.yOffsetForRoots * (helper.rootsCount(indexOfFirst, indexOfLast));
 
             var $viewportIndicator = $('#outline-viewport-indicator');
-            if ($outline.offset().top > viewport.scrollTop || viewport.scrollTop < 200) { // || $element.parent().height() > scrollTop) {
-                $outline.css({'position': 'relative', 'top': 0});
+            if ($outline.offset().top > viewport.scrollTop || viewport.scrollTop < 200) {
+//                console.log('outline relative');
+                $outlineScrollWrapper.css({
+                    'position': 'relative',
+                    'top': 0
+                    });
+
                 $viewportIndicator.hide();
 
             } else {
 
-                if ($outline.css('position') == 'relative') {
-                    $outline.css({
+                if ($outlineScrollWrapper.css('position') == 'relative') {
+//                    console.log('outline fixed');
+                    $outlineScrollWrapper.css({
                         'position': 'fixed',
-                        'top': -50
-                    });
+                        'maxHeight':'100%'
+                        });
                 }
-
-                $outline.animate({top: $this.yScale(_top)}, '300', 'swing');
+                $outlineScrollWrapper.animate({scrollTop: Math.abs($this.yScale(_top))}, '300', 'swing');
                 $viewportIndicator.show().animate({height: $this.yScale(_height)}, '200', 'swing');
             }
         }
