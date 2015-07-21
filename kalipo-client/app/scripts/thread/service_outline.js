@@ -241,6 +241,15 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
                 $outlineScrollWrapper.animate({scrollTop: Math.abs($this.yScale(_top))}, '300', 'swing');
                 $viewportIndicator.show().animate({height: $this.yScale(_height)}, '200', 'swing');
             }
+
+            $outlineScrollWrapper.unbind('scroll').scroll(function () {
+                var $that = $(this);
+                var offset = Math.round(Math.abs($this.yScale(_top)) - $that.scrollTop());
+                $viewportIndicator.show().css({top: offset});
+            });
+
+
+
         }
     }
 });

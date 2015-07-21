@@ -51,7 +51,7 @@ angular.module('kalipoApp')
                     $this.comments = Outline.flattenPages(pages);
 
                     var dimensions = {
-                        width: $element.parent().width(),
+                        width: $element.parent().parent().width(),
                         height: $this.comments.length * (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom)
                     };
 

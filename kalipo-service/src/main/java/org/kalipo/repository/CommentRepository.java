@@ -17,7 +17,7 @@ import java.util.Set;
 public interface CommentRepository extends MongoRepository<Comment, String> {
 
     // todo remove threadId, body from results
-    @Query(value = "{'threadId': ?0, 'status': { $in: ?1} }", fields = "{ 'id':1, 'parentId':1, 'threadId':1, 'createdDate':1, 'bodyHtml':1, 'displayName':1, 'level':1, 'influence':1, 'likes':1, 'dislikes':1, 'status':1, 'authorDiversity':1, 'lastModifiedDate':1, 'createdByMod':1 }")
+    @Query(value = "{'threadId': ?0, 'status': { $in: ?1} }", fields = "{ 'id':1, 'parentId':1, 'threadId':1, 'createdDate':1, 'bodyHtml':1, 'displayName':1, 'level':1, 'influence':1, 'likes':1, 'dislikes':1, 'status':1, 'lastModifiedDate':1, 'createdByMod':1 }")
     Page<Comment> findByThreadIdAndStatusIn(String id, List<Comment.Status> status, Pageable pageable);
 
     Page<Comment> findByAuthorId(String userId, Pageable pageable);

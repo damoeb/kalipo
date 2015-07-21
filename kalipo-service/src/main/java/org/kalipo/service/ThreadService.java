@@ -31,10 +31,7 @@ import javax.inject.Inject;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.Future;
 
 @SuppressWarnings("unused")
@@ -167,12 +164,13 @@ public class ThreadService {
     }
 
     @Async
-    public Future<Page<Comment>> getCommentsWithPages(String id, Integer page) throws KalipoException {
+    public Future<Page<Comment>> getCommentsWithPages(String threadId, Integer page) throws KalipoException {
         Sort sort = new Sort(
             new Sort.Order(Sort.Direction.ASC, "fingerprint")
         );
         PageRequest pageable = new PageRequest(page, 60, sort);
-        return new AsyncResult<>(commentRepository.findByThreadIdAndStatusIn(id, Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING, Comment.Status.DELETED), pageable));
+        List<Comment.Status> statuses = Arrays.asList(Comment.Status.APPROVED, Comment.Status.PENDING, Comment.Status.DELETED);
+        return new AsyncResult<>(commentRepository.findByThreadIdAndStatusIn(threadId, statuses, pageable));
     }
 
     @Async
@@ -180,7 +178,7 @@ public class ThreadService {
         Sort sort = new Sort(
             new Sort.Order(Sort.Direction.DESC, "lastModifiedDate")
         );
-        PageRequest pageable = new PageRequest(page, 3, sort);
+        PageRequest pageable = new PageRequest(page, 60, sort);
         return new AsyncResult<>(commentRepository.findByThreadIdAndStatusIn(id, Collections.singletonList(Comment.Status.APPROVED), pageable));
     }
 

@@ -1,5 +1,6 @@
 perma links fuer kommentare, url updated sich beim scrollen
-outline ist scrollbar
+load next page when outline is reaching end
+unbind jquery listeners
 
 1. load many (100?) comments
 2. create (complete?) outline & render 50 comments
@@ -7,12 +8,14 @@ outline ist scrollbar
    show
 
        /\/\/\/\/\
-   load more comments (triggers load comments in range from outline {from,to})
-       /\/\/\/\/\
+  load page 2 (bzw eine schere ---§X---)
+       /\/\/\/\/\/\
+
+anzeigen. browse erstmal wie ein blog. Naming: Statt site eigene Bereiche definieren wie Space
+create a DiscussionKeeper that holds all known data, that is distributed to outline an discussion
 
 4. on scroll-outline, discussion will scroll until vanished
 
-landing page see http://hubski.com/
 mail notification mit direkt links (nonce)
 cleanup message bundles
 achievements funzt noch nicht

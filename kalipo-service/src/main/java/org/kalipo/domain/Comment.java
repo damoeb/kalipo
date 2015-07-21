@@ -52,7 +52,7 @@ public class Comment implements Anonymizable<Comment> {
     @Size(max = Constants.LIM_MAX_LEN_DISPLAYNAME, message = "{constraint.length.displayname}")
     private String displayName;
 
-    // A related hash to order all comments close to their parents
+    // A related-hash to order all comments close to their parents
     @JsonIgnore
     private String fingerprint;
 
