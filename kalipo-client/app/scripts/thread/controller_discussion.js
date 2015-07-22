@@ -1,10 +1,11 @@
 'use strict';
 
-kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParams, $location, $anchorScroll, AuthenticationSharedService, $rootScope, Thread, Comment, Report, Discussion, Websocket, Notifications, REPORT_IDS, $compile, $q, THREAD_STATUS, Vote, DISCUSSION_TYPES) {
+kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParams, $location, $anchorScroll, AuthenticationSharedService, $rootScope, Thread, Comment, Report, Discussion, Websocket, Notifications, REPORT_IDS, $compile, $q, THREAD_STATUS, Vote, DISCUSSION_TYPES, $route) {
 
     var threadId = $routeParams.threadId;
     // todo impl scrolling to commentId
-    var commentId = $routeParams.commentId;
+    var commentId = $location.hash();
+    console.log('requesting commentId', commentId);
 
     $scope.discussionTypes = DISCUSSION_TYPES;
     $scope.pages = [];
@@ -59,6 +60,17 @@ kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParam
         }
     };
 
+    // prevent routing of comment hashes
+    var lastRoute = $route.current;
+    var lastPath = $location.path();
+    $scope.$on('$locationChangeSuccess', function(event) {
+        // Want to prevent re-loading when going from same thread
+        if (lastPath && $location.path() == lastPath) {
+            $route.current = lastRoute;
+        }
+    });
+
+    // outline uses window size
     $(window).unbind('resize').resize(function() {
         console.log('redraw');
         $rootScope.$broadcast('redraw-outline', $scope.pages);
@@ -68,6 +80,13 @@ kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParam
         var promiseFetch = Discussion.fetch(threadId, 0, tree);
         $q.when(promiseFetch).then(function(response) {
             onFetchedPage(response);
+
+            if(commentId) {
+                $(document).ready(function() {
+                    Discussion.scrollTo(commentId);
+                });
+            }
+
             $rootScope.$broadcast('initialize-when-scrolled-listener');
         });
     };
@@ -142,15 +161,6 @@ kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParam
 
     $scope.loadMore = function () {
         loadMore();
-    };
-
-    $scope.scrollTo = function (id) {
-        console.log('scroll to comment', id);
-        var old = $location.hash();
-        $location.hash(id);
-        $anchorScroll();
-        //reset to old to keep any additional routing logic from kicking in
-        $location.hash(old);
     };
 
     $scope.submitReport = function () {

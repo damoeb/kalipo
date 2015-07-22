@@ -208,6 +208,17 @@ kalipoApp.factory('Discussion', function ($http, Thread, $q) {
             __render(comment, $sink, concealed);
         },
 
+        scrollTo: function (commentId) {
+            var $element = $('#' + commentId);
+            if($element.length > 0) {
+                // show element if in hidden branch
+                if (!$element.is(':visible')) {
+                    $element.parents('.replies.optionals').removeClass('hidden');
+                }
+                $('html, body').scrollTop($element.offset().top);
+            }
+        },
+
         fetch: function (threadId, pageId, tree) {
 
             var defer = $q.defer();
