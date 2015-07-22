@@ -19,24 +19,26 @@
                     <strong>{{day}}</strong>
 
 
-                    <div ng-repeat="thread in threads">
+                    <div ng-repeat="thread in threads" style="margin-bottom:15px">
                         <div class="row comment">
                             <div class="col-sm-12 col-xs-12">
 
-                                <a href="#/comments/{{::thread.id}}">{{::thread.title}}</a> by {{::thread.displayName}}
+                                <a href="#/comments/{{::thread.id}}" style="font-size: larger">{{::thread.title}}</a>
 
-                                <p>
-                                    {{::thread.body}} -- <a href="#/comments/{{::thread.id}}"><span
-                                    ng-if="thread.commentCount > 0">{{::thread.commentCount}} comments</span><span
-                                    ng-if="thread.commentCount == 0">No comments yet</span></a>
-                                </p>
+                                <span style="color:gray">submitted {{ thread.createdDate | fromNow}} by {{::thread.displayName}}</span>
 
                                 <div>
-                                    <span ng-repeat="tag in thread.tags">
-                                        <a href="#/tag/{{tag}}">#{{tag}}</a>
-                                    </span>
+                                    {{::thread.body}}
                                 </div>
 
+                                <a href="#/comments/{{::thread.id}}">
+                                    <span ng-if="thread.commentCount > 0">{{::thread.commentCount}} comments</span>
+                                    <span ng-if="thread.commentCount == 0">No comments yet</span>
+                                </a>
+
+                                <span style="margin-left:10px">
+                                    <a style="margin-left:5px" ng-repeat="tag in thread.tags" href="#/tag/{{tag}}">#{{tag}}</a>
+                                </span>
                             </div>
 
                         </div>

@@ -222,6 +222,8 @@ kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParam
 
     $scope.submitComment = function () {
 
+        $('#createCommentModal').modal('hide');
+
         promiseAuth().then(function() {
 
             $scope.draft.anonymous = false;
@@ -229,7 +231,6 @@ kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParam
             Comment.save($scope.draft,
                 function () {
                     Notifications.info('Saved');
-                    $('#createCommentModal').modal('hide');
                     $scope.draft = {};
                 });
         });
