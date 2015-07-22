@@ -1,5 +1,6 @@
 perma links fuer kommentare, url updated sich beim scrollen
 load next page when outline is reaching end
+outline not fixed: scroll down -> reload
 
 1. load sufficient comments to fill window with outline
 2. render 50 comments
