@@ -22,7 +22,7 @@ angular.module('kalipoApp')
                     // attach scroll end listener
                     var scrollTimeout;
 
-                    $this.scroll(function () {
+                    $this.unbind('scroll').scroll(function () {
                         if (scrollTimeout) {
                             clearTimeout(scrollTimeout);
                         }
@@ -41,17 +41,23 @@ angular.module('kalipoApp')
                     Outline.refreshViewport($this.comments, $element.parent())
                 };
 
-                $rootScope.$on('refresh-outline-viewport', refreshViewport);
+                $rootScope.$on('outline-viewport-changed', refreshViewport);
                 onScrollEnd(refreshViewport);
 
                 refreshViewport();
 
-                $rootScope.$on('fetched-page', function (event, pages) {
+                $rootScope.$on('redraw-outline', function (event, pages) {
 
                     $this.comments = Outline.flattenPages(pages);
+                    var width = $element.parent().parent().width();
+
+                    $('#outline-viewport-indicator').css({
+                        'width': width
+                    });
+                    refreshViewport();
 
                     var dimensions = {
-                        width: $element.parent().parent().width(),
+                        width: width,
                         height: $this.comments.length * (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom)
                     };
 

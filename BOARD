@@ -1,20 +1,16 @@
 perma links fuer kommentare, url updated sich beim scrollen
 load next page when outline is reaching end
-unbind jquery listeners
 
-1. load many (100?) comments
-2. create (complete?) outline & render 50 comments
-3. on outline-comment-click: load 20 comments {from: commentId}
-   show
+1. load sufficient comments to fill window with outline
+2. render 50 comments
+3. show
 
        /\/\/\/\/\
   load page 2 (bzw eine schere ---§X---)
        /\/\/\/\/\/\
 
-anzeigen. browse erstmal wie ein blog. Naming: Statt site eigene Bereiche definieren wie Space
+for gaps. browse erstmal wie ein blog. Naming: Statt site eigene Bereiche definieren wie Space
 create a DiscussionKeeper that holds all known data, that is distributed to outline an discussion
-
-4. on scroll-outline, discussion will scroll until vanished
 
 mail notification mit direkt links (nonce)
 cleanup message bundles
@@ -59,9 +55,9 @@ Categories
 
 outline
   einfacheres klicken
-  einfach 3 seiten im voraus ladenen -> generieren
-  es kann auf die gesamte zeile geklickt werden, nicht nur das Icon rechts, um es komplett anzuzeigen
   eigenes comment in gruen
+
+oneline: es kann auf die gesamte zeile geklickt werden, nicht nur das Icon rechts, um es komplett anzuzeigen
 
 --
 

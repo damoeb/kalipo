@@ -12,15 +12,12 @@ class HeiseSpider(CrawlSpider):
     name = "heise"
     allowed_domains = ["www.heise.de"]
     start_urls = [
-	#"http://www.heise.de/tp/forum",
-	"http://www.heise.de/tp/foren/S-Sahra-Wagenknecht-Schaeuble-luegt-zu-Griechenland/forum-292734/list/"
+            "http://www.heise.de/forum/Telepolis/Kommentare/Ohne-Vorratsdatenspeicherung-sterben-vermisste-Kinder-und-Suizidale/forum-242979/"
     ]
 
     rules = (
         #Rule(LinkExtractor(allow=('/tp/foren/[^/]+/forum-[0-9]+/list'))),
-        Rule(LinkExtractor(allow=('/tp/hasehaseforen/[^/]+/forum-292734/list'))),
-	Rule(LinkExtractor(allow=('read/showthread-1')), callback='parse_item'),
-        Rule(LinkExtractor(allow=('read')), callback='parse_item')
+	Rule(LinkExtractor(allow=('/posting-[0-9]+/show')), callback='parse_item')
     )
 
     def clean_str(self, val):

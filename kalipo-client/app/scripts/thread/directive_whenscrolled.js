@@ -10,8 +10,9 @@ angular.module('kalipoApp')
 
             var $document = $(document);
 
-            $rootScope.$on('init-when-scrolled', function () {
+            $rootScope.$on('initialize-when-scrolled-listener', function () {
 
+                // delay is needed to avoid triggering on not-yet-loaded page
                 setTimeout(function () {
 
                     $document.bind('scroll', function () {

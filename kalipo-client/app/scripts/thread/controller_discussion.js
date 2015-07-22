@@ -55,20 +55,20 @@ kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParam
         $scope.$busy = false;
 
         if (result.numberOfElements > 0) {
-            $rootScope.$broadcast('fetched-page', $scope.pages);
+            $rootScope.$broadcast('redraw-outline', $scope.pages);
         }
     };
 
-    $(window).resize(function() {
+    $(window).unbind('resize').resize(function() {
         console.log('redraw');
-        $rootScope.$broadcast('fetched-page', $scope.pages);
+        $rootScope.$broadcast('redraw-outline', $scope.pages);
     });
 
     var firstFetch = function () {
         var promiseFetch = Discussion.fetch(threadId, 0, tree);
         $q.when(promiseFetch).then(function(response) {
             onFetchedPage(response);
-            $rootScope.$broadcast('init-when-scrolled');
+            $rootScope.$broadcast('initialize-when-scrolled-listener');
         });
     };
 
@@ -177,7 +177,7 @@ kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParam
     $scope.toggleOptionals = function (commentId) {
 
         $('#comment-' + commentId + ' > .replies.optionals').toggleClass('hidden');
-        $rootScope.$broadcast('refresh-outline-viewport');
+        $rootScope.$broadcast('outline-viewport-changed');
     };
 
     $scope.showReportModal = function (commentId, displayName) {
@@ -194,9 +194,9 @@ kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParam
     };
 
     $scope.toggleReplies = function (commentId) {
-        console.log('refresh-outline-viewport -> ...');
+        console.log('outline-viewport-changed -> ...');
         $('#comment-' + commentId).toggleClass('hiddenreplies');
-        $rootScope.$broadcast('refresh-outline-viewport');
+        $rootScope.$broadcast('outline-viewport-changed');
     };
 
 
