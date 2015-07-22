@@ -223,15 +223,16 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
             var _top = -((OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) * indexOfFirst + OutlineConfig.yOffsetForRoots * helper.rootsCount(0, indexOfFirst));
             var _height = (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom) * (indexOfLast - indexOfFirst) + OutlineConfig.yOffsetForRoots * (helper.rootsCount(indexOfFirst, indexOfLast));
 
-            var indicatorTop = Math.round(Math.abs($this.yScale(_top)) - $outlineScrollWrapper.scrollTop());
-            var indicatorHeight = $this.yScale(_height);
-
             var $viewportIndicator = $('#outline-viewport-indicator');
             if ($outline.offset().top > viewport.scrollTop || viewport.scrollTop < 200) {
+//                console.log('relative');
                 $outlineScrollWrapper.css({
                     'position': 'relative',
                     'top': 0
                     });
+
+                var indicatorTop = Math.round(Math.abs($this.yScale(_top)) - $outlineScrollWrapper.scrollTop());
+                var indicatorHeight = $this.yScale(_height);
 
                 $viewportIndicator.show().css({
                     'height': indicatorHeight,
@@ -240,35 +241,39 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig) {
 
             } else {
 
-                if ($outlineScrollWrapper.css('position') == 'relative') {
-                    $outlineScrollWrapper.css({
-                        'position': 'fixed',
-                        'maxHeight':'100%'
-                        });
-                }
+//                console.log('fixed');
+                $outlineScrollWrapper.css({
+                    'position': 'fixed',
+                    'maxHeight':'100%',
+                    'top': 0
+                    });
+
+                var indicatorTop = Math.round(Math.abs($this.yScale(_top)) - $outlineScrollWrapper.scrollTop());
+                var indicatorHeight = $this.yScale(_height);
 
                 var windowHeight = $(window).height();
 
-                var fixOutlineScrollTop = indicatorTop < 0 || indicatorTop + indicatorHeight > windowHeight;
+                var isIndicatorOutOfViewport = indicatorTop < 0 || indicatorTop + indicatorHeight > windowHeight;
 
-                if(fixOutlineScrollTop) {
-                    $outlineScrollWrapper.animate({scrollTop: Math.abs($this.yScale(_top)) - (windowHeight/2 - indicatorHeight/2)}, '300', 'swing');
+                if(isIndicatorOutOfViewport) {
+                    // indicator out of viewport
+                    $outlineScrollWrapper.stop().animate({scrollTop: Math.abs($this.yScale(_top)) - (windowHeight/2 - indicatorHeight/2)}, '100', 'swing');
                 } else {
-                    $viewportIndicator.show().animate({
+                    // document scrolled
+                    $viewportIndicator.show().stop().animate({
                         'height': indicatorHeight,
                         'top': indicatorTop
-                        }, '200', 'swing');
+                        }, '100', 'swing');
                 }
             }
 
+            // outline scrolled
             $outlineScrollWrapper.unbind('scroll').scroll(function () {
-                var $that = $(this);
-                var offset = Math.round(Math.abs($this.yScale(_top)) - $that.scrollTop());
+                var offset = Math.round(Math.abs($this.yScale(_top)) - $(this).scrollTop());
                 $viewportIndicator.show().css({
                     top: offset
                 });
             });
-
         }
     }
 });
