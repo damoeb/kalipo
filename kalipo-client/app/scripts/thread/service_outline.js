@@ -174,10 +174,17 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig, Discussion) {
                     Discussion.scrollTo(d.id);
                 })
                 .on('mouseover', function (d, i) {
-                    $('#' + d.id).parent().addClass('hovered-in-outline');
+                    var $parent = $('#' + d.id).parent();
+                    console.log('$parent', $parent);
+                    if($parent.is(':visible')) {
+                        $parent.addClass('hovered-in-outline');
+                    } else {
+                        console.log('toggle', $parent.parents('.optionals.hidden').prev().addClass('hovered-in-outline'));
+                    }
                 })
                 .on('mouseout', function (d, i) {
                     $('#' + d.id).parent().removeClass('hovered-in-outline');
+                    $('.toggle-optionals').removeClass('hovered-in-outline');
                 })
                 ;
         },
