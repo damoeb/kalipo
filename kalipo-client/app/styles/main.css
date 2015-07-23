@@ -168,7 +168,6 @@ a:hover {
 .outline-comment:hover {
     fill: #fc336e!important; /* cyan */
 }
-.comment:hover,
 .hovered-in-outline {
     border-right: 4px solid #fc336e;
     border-radius: 2px;
