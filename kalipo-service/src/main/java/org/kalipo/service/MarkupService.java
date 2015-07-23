@@ -136,7 +136,7 @@ public class MarkupService {
     }
 
     private String createHashtagLink(String hashtag) {
-        return String.format("<a href=\"/#/tag/%1$s\">#%1$s</a>", hashtag);
+        return String.format("<a href=\"/#search/?query=%1$s\">#%1$s</a>", hashtag);
     }
 
     private void renderQuotes(Markup markup) {

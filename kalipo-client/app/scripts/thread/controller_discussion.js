@@ -76,14 +76,6 @@ kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParam
         $rootScope.$broadcast('redraw-outline', $scope.pages);
     });
 
-    $('.comment').on('mouseover' function() {
-        var cid = $(this).attr('ng-comment-id');
-//        $('.comment-in-outline-' + cid).addClass('')
-    }).on('mouseover' function() {
-        var cid = $(this).attr('ng-comment-id');
-//        $('.comment-in-outline-' + cid).removeClass('')
-    });
-
     var firstFetch = function () {
         var promiseFetch = Discussion.fetch(threadId, 0, tree);
         $q.when(promiseFetch).then(function(response) {
@@ -94,8 +86,6 @@ kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParam
                     Discussion.scrollTo(commentId);
                 });
             }
-
-            $rootScope.$broadcast('initialize-when-scrolled-listener');
         });
     };
 

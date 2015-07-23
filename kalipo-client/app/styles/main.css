@@ -159,6 +159,19 @@ a:hover {
 .comment-wrapper { }
 .comment {
     padding: 5px;
+    border-right: 4px solid white;
+}
+
+.outline-comment {
+    cursor: pointer;
+}
+.outline-comment:hover {
+    fill: #fc336e!important; /* cyan */
+}
+.comment:hover,
+.hovered-in-outline {
+    border-right: 4px solid #fc336e;
+    border-radius: 2px;
 }
 
 .comment-bar-likes {
@@ -292,6 +305,7 @@ a:hover {
 .comment-wrapper .toggle-optionals {padding-bottom:10px; padding-left:10px; }
 .comment-wrapper .toggle-optionals-of { font-size: smaller; color:gray; margin-left: 10px }
 
+.oneline>.comment {cursor: pointer;}
 .oneline>.comment .icon {display: none;}
 .oneline>.comment .name {display: inline; float: left; margin-right: 0.5em; }
 .oneline>.comment .body {white-space: nowrap; overflow: hidden; color: rgb(125, 125, 125);}
@@ -408,9 +422,6 @@ a:hover {
     color: #8a832b;
 }
 
-#klp-outline rect {
-    cursor: pointer;
-}
 .report {
     /*border-radius: 4px;*/
     padding: 15px;
