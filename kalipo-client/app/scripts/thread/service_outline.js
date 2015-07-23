@@ -146,6 +146,9 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig, Discussion) {
                 .data(comments)
                 .enter()
                 .append('rect')
+                .attr('class', function(d, i) {
+                    return 'comment-in-outline-' + d.id;
+                })
                 .attr('x', function (d, i) {
                     return scale.x(OutlineConfig.level_xOffset * d.level);
                 })

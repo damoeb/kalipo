@@ -1,6 +1,10 @@
-perma links fuer kommentare, url updated sich beim scrollen
+url updated sich beim scrollen mit aktuellen perma links
 load next page when outline is reaching end
 outline not fixed: scroll down -> reload
+BUG neue seite laden laesst overflow manchmal verschwinden
+Feeds for thread/tag
+highlight comment in outline vice versa
+aksimet integration
 
 1. load sufficient comments to fill window with outline
 2. render 50 comments
@@ -25,8 +29,6 @@ Create thread
 
 REST Exceptions are crap
 excepion handling: kalipoexception -> runtime exception
-
-event:auth-authorized does not work, use event:auth-loginConfirmed
 
 Als Uebersicht "browse" ein sequoia chart
 browse: visualisierung der hashtags, threads, gewichtung nach geo (in your area)
@@ -53,10 +55,6 @@ Categories
     Reputation   : List of achievments, pagination:yes, sort by newest first, type:[achievement]
   Ignored Users : List of usernames, pagination:yes, sort by name
 
-
-outline
-  einfacheres klicken
-  eigenes comment in gruen
 
 oneline: es kann auf die gesamte zeile geklickt werden, nicht nur das Icon rechts, um es komplett anzuzeigen
 

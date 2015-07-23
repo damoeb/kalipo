@@ -3,7 +3,7 @@
     <a href="javascript:void(0)"><strong>{{::comment.displayName}}</strong></a>
     <span style="color: grey; font-size: smaller" title="{{comment.createdDate | dateString }}">{{::comment.createdDate | fromNow }}</span>
     &rarr;
-    <a href="#/comments/{{::comment.threadId }}/{{::comment.id }}">to discussion</a>
+    <a href="#/comments/{{::comment.threadId }}#{{::comment.id }}">to discussion</a>
 
     <div style="white-space: pre-line">{{::comment.bodyHtml}}</div>
 

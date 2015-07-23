@@ -172,7 +172,7 @@ kalipoApp.factory('AuthenticationSharedService', function ($rootScope, $http, au
                         $rootScope.displayName = data.displayName;
                         $rootScope.authenticated = true;
 
-                        $rootScope.$broadcast('event:auth-authorized');
+                        $rootScope.$broadcast('event:auth-loginConfirmed');
                     });
                 }
                 $rootScope.authenticated = !!Session.login;

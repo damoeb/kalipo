@@ -35,7 +35,7 @@ kalipoApp.controller('ProfileLikesController', ['$scope', '$rootScope', 'Vote', 
 
             if (typeof($rootScope.login) == 'undefined') {
                 console.log('wait');
-                $scope.$on('event:auth-authorized', doFetchVotes)
+                $scope.$on('event:auth-loginConfirmed', doFetchVotes)
             } else {
                 console.log($rootScope.login);
                 doFetchVotes();

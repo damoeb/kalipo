@@ -6,7 +6,7 @@ kalipoApp.controller('ModerateController', function ($scope, $routeParams, $root
         var defer = $q.defer();
         if (_.isUndefined($rootScope.login)) {
             console.log('wait');
-            $scope.$on('event:auth-authorized', function() {
+            $scope.$on('event:auth-loginConfirmed', function() {
                 defer.resolve();
             });
         } else {

@@ -99,8 +99,8 @@ kalipoApp.controller('ProfileAchievementsController', ['$scope', '$rootScope', '
 
             if (typeof($rootScope.login) == 'undefined') {
                 console.log('wait');
-                $scope.$on('event:auth-authorized', __doFetchAchievements);
-                $scope.$on('event:auth-authorized', __doFetchReputations);
+                $scope.$on('event:auth-loginConfirmed', __doFetchAchievements);
+                $scope.$on('event:auth-loginConfirmed', __doFetchReputations);
             } else {
                 console.log($rootScope.login);
                 __doFetchAchievements();

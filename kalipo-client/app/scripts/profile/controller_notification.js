@@ -62,7 +62,7 @@ kalipoApp.controller('ProfileNoticeController', function ($rootScope, $scope, $s
 
         if (typeof($rootScope.login) == 'undefined') {
             console.log('wait');
-            $scope.$on('event:auth-authorized', __doFetchNotices);
+            $scope.$on('event:auth-loginConfirmed', __doFetchNotices);
         } else {
             console.log($rootScope.login);
             __doFetchNotices();
