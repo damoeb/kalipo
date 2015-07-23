@@ -86,8 +86,6 @@ kalipoApp.controller('DiscussionController', function ($scope, $sce, $routeParam
                     Discussion.scrollTo(commentId);
                 });
             }
-
-            $rootScope.$broadcast('initialize-when-scrolled-listener');
         });
     };
 

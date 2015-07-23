@@ -11,4 +11,5 @@ kalipoApp.constant('OutlineConfig', {
         .domain([0, 1])
         .interpolate(d3.interpolateRgb)
         .range(['#cccccc', '#0000ff']) // lightgray - blue
+    // '#24e529' // green
 });

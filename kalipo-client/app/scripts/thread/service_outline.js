@@ -124,7 +124,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig, Discussion) {
     return {
         draw: function (comments, dimensions) {
 
-            console.log('drawing outline');
+            console.log('drawing outline', dimensions);
 
             var influence = internal.influence(comments);
             var externDimensions = dimensions;
@@ -146,6 +146,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig, Discussion) {
                 .data(comments)
                 .enter()
                 .append('rect')
+                .attr('class', 'outline-comment')
                 .attr('x', function (d, i) {
                     return scale.x(OutlineConfig.level_xOffset * d.level);
                 })
@@ -163,6 +164,7 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig, Discussion) {
                     return scale.y(OutlineConfig.bar_height);
                 })
                 .attr('fill', function (d, i) {
+//                    if(d.createdByMod) {
                     return OutlineConfig.colorInterpolator((Math.abs(influence.min) + d.influence) / influence.range);
                 })
                 .attr('title', function (d, i) {
@@ -170,7 +172,14 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig, Discussion) {
                 })
                 .on('click', function (d, i) {
                     Discussion.scrollTo(d.id);
-                });
+                })
+                .on('mouseover', function (d, i) {
+                    $('#' + d.id).parent().addClass('hovered-in-outline');
+                })
+                .on('mouseout', function (d, i) {
+                    $('#' + d.id).parent().removeClass('hovered-in-outline');
+                })
+                ;
         },
 
         flattenPages: function (pages) {

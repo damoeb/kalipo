@@ -1,6 +1,6 @@
 'use strict';
 
-kalipoApp.factory('Discussion', function ($http, Thread, $q) {
+kalipoApp.factory('Discussion', function ($http, Thread, $q, DISCUSSION_SHAPE_RULES) {
 
     var internal = {
 
@@ -60,11 +60,11 @@ kalipoApp.factory('Discussion', function ($http, Thread, $q) {
             });
         },
 
-        shape: function (comments, rules) {
-            internal.shapeRc(comments, 1, rules);
+        shape: function (comments, rules, properties) {
+            internal.shapeRc(comments, 1, rules, properties);
         },
 
-        shapeRc: function (comments, level, rules) {
+        shapeRc: function (comments, level, rules, properties) {
 
             _.forEach(comments, function (comment, index) {
 
@@ -76,9 +76,9 @@ kalipoApp.factory('Discussion', function ($http, Thread, $q) {
                 comment.$repliesCount = 0;
                 comment.$concealedRepliesCount = 0;
 
-                rules.apply(comment, level, index);
+                rules.apply(comment, level, index, properties);
 
-                internal.shapeRc(comment.replies, level + 1, rules);
+                internal.shapeRc(comment.replies, level + 1, rules, properties);
 
                 comment.replies = internal.sort(comment.replies);
 
@@ -231,64 +231,9 @@ kalipoApp.factory('Discussion', function ($http, Thread, $q) {
 
                 var totalElementCount = pageData.totalElements;
 
-                var rules = {
-                    /*
-                     3 rule sets
-                     .) huge discussions > 200 comments attributes.totalElementCount
-                     - only level 0 comments
-                     - level 1: show best 2, rest is hidden
-                     - drop bad comments
-
-                     .) normal discussions
-                     - hide index > 4
-                     - level 0 are not hiddenreplies
-
-                     .) general rules
-                     - minimize bad comments
-                     - show full comment if user is the author
-                     - show path to authors comment at least onelined
-
-                     -----
-
-                     vollstandig
-                     einzeilig
-                     Antworten anzeigen
-
-                     comment has replies
-                     reply.$obligatory = yes|no
-                     reply.$onelined = yes|no
-
-                     a reply can be optional -> show 4 comments
-
-                     */
-                    _isObligatory: function (comment, level, index) {
-//                        console.log('level', level, 'index', index);
-                        if (level == 0) {
-                            return true;
-                        }
-                        if (level == 1) {
-                            return index < 5;
-                        }
-                        //return false;
-                        if (level > 3) {
-                            return false;
-                        }
-                        return totalElementCount < 600;
-                    },
-
-                    _isOneLine: function (comment, level) {
-                        var controversial = comment.likes > 2 && comment.dislikes > 2;
-                        var downVoted = comment.likes > 1 && comment.likes > 1 && (comment.likes - comment.dislikes) < 2;
-                        return downVoted && !controversial;
-                    },
-
-                    apply: function (comment, level, index) {
-                        comment.$oneline = this._isOneLine(comment, level, index);
-                        comment.$obligatory = this._isObligatory(comment, level, index);
-                    }
-                };
-
-                internal.shape(roots, rules);
+                internal.shape(roots, DISCUSSION_SHAPE_RULES, {
+                    totalElementCount: pageData.totalElements
+                });
 
                 var page = {
                     id: pageId,
