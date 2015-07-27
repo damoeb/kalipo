@@ -11,6 +11,7 @@ import scrapy
 class Comment(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
+    id = scrapy.Field()
     title = scrapy.Field()
     thread = scrapy.Field()
     level = scrapy.Field()

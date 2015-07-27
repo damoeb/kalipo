@@ -40,7 +40,7 @@ public class Comment implements Anonymizable<Comment> {
     private DateTime lastModifiedDate;
 
     @NotNull(message = "{constraint.notnull.body}")
-    @Size(min = 2, max = Constants.LIM_MAX_LEN_TEXT, message = "{constraint.length.body}")
+    @Size(min = 2, max = Constants.LIM_MAX_LEN_BODY, message = "{constraint.length.body}")
     private String body;
 
     private String bodyHtml;

@@ -4,6 +4,7 @@
     <file path="privileges.xml"/>
     <file path="reputation-modifier.xml"/>
     <file path="threads.xml"/>
-    <file path="comments.xml"/>
+    <file path="comments-ds.xml"/>
+    <file path="comments-tp.xml"/>
     <file path="sites.xml"/>
 </changeFiles>
