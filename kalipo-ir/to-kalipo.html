@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+<body>
+<div id="fixed"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20150503/json2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.js"></script>
+<script src="http://code.jquery.com/jquery-git2.min.js"></script>
+<script type="application/javascript">
+
+    $.getJSON('data.json', function(comments) {
+
+        var map = {};
+
+        comments = _.filter(comments, function(comment) {
+            return comment.parent !== 'unknown'
+        });
+
+        _.each(comments, function(comment) {
+            map[comment.id] = {
+                "_id" : 'ObjectId(' + "5484cc19c8301dc174baf001".substring(0,24 - comment.id.length) + comment.id  + ')',
+                "threadId" : "5484cc19c832000009108574",
+                "body" : comment.text,
+                "bodyHtml" : comment.text,
+                "authorId" : "admin",
+                "parentId" : comment.parent,
+                "level" : comment.level,
+                "fingerprint" : comment.fingerprint,
+                "displayName" : comment.author,
+                "likes" : Math.abs(comment.pos),
+                "dislikes" : Math.abs(comment.neg),
+                "status" : "APPROVED",
+                "createdDate": 'new Date()',
+                "lastModifiedDate": 'new Date()'
+            }
+        });
+
+        _.each(comments, function(comment) {
+            if(comment.parent && _.isUndefined(map[comment.parent])) {
+                console.log('no parent', comment.parent, 'of', comment.id);
+            }
+        });
+
+        $('#fixed').html(JSON.stringify(_.values(map)));
+
+    });
+
+
+</script>
+</body>
+</html>

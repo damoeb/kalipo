@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+<body>
+<div id="fixed"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20150503/json2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.js"></script>
+<script src="http://code.jquery.com/jquery-git2.min.js"></script>
+<script type="application/javascript">
+
+    var paddingZeros = function(id) {
+        var padding = '';
+        for(var i=0; i< 5 - (''+id).length; i++) {
+            padding += 0;
+        }
+        return padding + id;
+
+    }
+
+    var fixId = function(url) {
+        if(url && url.startsWith('/tp/')) {
+            return url.match(/msg-[0-9]+/).join('')
+        }
+        return url
+    }
+
+    $.get('hierarchy.txt', function(t) {
+        var lines = t.split('\n');
+        var parents = {};
+        var votes = {};
+        var levels = {};
+        var _tree = {};
+        var _prevId = null;
+        _.each(lines, function(line) {
+            var trim = line.trim();
+            <!--console.log('line', trim)-->
+            if(trim.length==0) {
+                console.log('skip')
+            } else {
+                if(parseInt(trim) == trim) {
+                    console.log('num');
+                    votes[prevId] = trim;
+                    <!--console.log(prevId, parseInt(trim))-->
+                } else {
+
+                    var id = fixId(trim);
+                    var level = (line.split(' ').length -1) / 4;
+                    var parent = _tree[level -1];
+
+                    _tree[level] = id;
+                    parents[id] = parent;
+                    levels[id] = level;
+                    prevId = id;
+                }
+            }
+        });
+
+        $.getJSON('data.json', function(comments) {
+
+            var fixed = [];
+            var map = {};
+
+            _.each(comments, function(comment) {
+                comment.parent = fixId(comment.parent)
+                map[comment.id] = comment;
+                if(!comment.id) {
+                    console.log('invalid', comment)
+                }
+                if(parents[comment.id]) {
+                    comment.parent = parents[comment.id]
+                } else {
+                    console.warn(comment.id, 'has no parent')
+                }
+                if(votes[comment.id]) {
+                    comment[votes[comment.id]>0 ? 'pos' : 'neg'] = votes[comment.id]
+                    comment[votes[comment.id]<=0 ? 'pos' : 'neg'] = 0
+                } else {
+                    console.warn(comment.id, 'has no votes')
+                }
+                if(levels[comment.id]) {
+                    comment.level = levels[comment.id]
+                } else {
+                    console.warn(comment.id, 'has no level')
+                }
+                if(!comment.author || comment.author.length == 0) {
+                    comment.author = 'Anon'
+                }
+
+                fixed.push(comment);
+            });
+
+            fixed = _.sortBy(fixed, function(comment) {
+                return comment.level;
+            });
+
+            _.each(fixed, function(comment, index) {
+                var pf = map[comment.parent] ? map[comment.parent].fingerprint : '';
+                comment.fingerprint = pf + (paddingZeros(index));
+            });
+
+            $('#fixed').html(JSON.stringify(fixed));
+
+        });
+    });
+
+
+</script>
+</body>
+</html>
