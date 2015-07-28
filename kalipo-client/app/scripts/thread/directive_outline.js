@@ -56,8 +56,12 @@ angular.module('kalipoApp')
                     });
                     refreshViewport();
 
+                    // todo sometimes width is 0
+                    if(width == 0) {
+                        console.error('width is 0', $element.parent().parent())
+                    }
                     var dimensions = {
-                        width: width,
+                        width: Math.max(width, 200),
                         height: $this.comments.length * (OutlineConfig.bar_height + OutlineConfig.bar_marginBottom)
                     };
 

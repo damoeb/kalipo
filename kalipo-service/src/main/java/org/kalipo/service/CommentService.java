@@ -418,8 +418,7 @@ public class CommentService {
 
     private String getFingerprint(Comment parent, Thread thread) {
         final String parentFp = parent == null ? "" : parent.getFingerprint();
-        final int max = 99999;
-        return parentFp + String.format("%05d", max - thread.getCommentCount());
+        return parentFp + String.format("%05d", thread.getCommentCount());
     }
 
     /**

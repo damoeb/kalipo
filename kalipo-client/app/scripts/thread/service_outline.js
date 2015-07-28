@@ -175,11 +175,10 @@ kalipoApp.factory('Outline', function (Thread, OutlineConfig, Discussion) {
                 })
                 .on('mouseover', function (d, i) {
                     var $parent = $('#' + d.id).parent();
-                    console.log('$parent', $parent);
                     if($parent.is(':visible')) {
                         $parent.addClass('hovered-in-outline');
-                    } else {
-                        console.log('toggle', $parent.parents('.optionals.hidden').prev().addClass('hovered-in-outline'));
+//                    } else {
+//                        console.log('toggle', $parent.parents('.optionals.hidden').prev().addClass('hovered-in-outline'));
                     }
                 })
                 .on('mouseout', function (d, i) {
