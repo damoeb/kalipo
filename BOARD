@@ -5,7 +5,6 @@ https://dev.twitter.com/web/sign-in/implementing
 markdown support + images/embeds
 login with username or email
 
-
 url updated sich beim scrollen mit aktuellen perma links
 load next page when outline is reaching end
 outline not fixed: scroll down -> reload
@@ -52,7 +51,6 @@ Categories
   Achievements/
     Reputation   : List of achievments, pagination:yes, sort by newest first, type:[achievement]
   Ignored Users : List of usernames, pagination:yes, sort by name
-
 
 
 --
