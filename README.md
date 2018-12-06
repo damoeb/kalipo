@@ -1,7 +1,7 @@
 kalipo
 ==========================
 
-[Live Demo] of the Frontend (https://migor.org/reddit/#/discussion/top?url=https:%2F%2Fwww.reddit.com%2Fr%2Fworldnews%2Fcomments%2F3rlu3g%2Ffull_text_of_the_tpp_has_just_been_released)
+[Live Demo](https://migor.org/reddit/#/discussion/top?url=https:%2F%2Fwww.reddit.com%2Fr%2Fworldnews%2Fcomments%2F3rlu3g%2Ffull_text_of_the_tpp_has_just_been_released)  of the Frontend.
 
 What is it?
 -----------
