@@ -1,6 +1,7 @@
 kalipo
 ==========================
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/damoeb/kalipo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+[Live Demo] of the Frontend (https://migor.org/reddit/#/discussion/top?url=https:%2F%2Fwww.reddit.com%2Fr%2Fworldnews%2Fcomments%2F3rlu3g%2Ffull_text_of_the_tpp_has_just_been_released)
 
 What is it?
 -----------
@@ -25,7 +26,7 @@ e.g. assume *www.example.com/2000008228049* is hooked by thread 1, then a user o
 
 The Latest Version
 ------------------
-There is a [running prototype](https://176.28.19.89/kalipo/). Be gentle!
+There is a [running frontend prototype](https://migor.org/reddit/#/discussion/top?url=https:%2F%2Fwww.reddit.com%2Fr%2Fworldnews%2Fcomments%2F3rlu3g%2Ffull_text_of_the_tpp_has_just_been_released). Be gentle!
 
 Screenshot
 ----------
